@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="jumbotron">
+  <div class="row">
+      <div class="text-center">
+        {% load static %}
+        <img src='{% static "img/logo.png" %}'>
+        <p class="lead">Test a SecureDrop Landing Page</p>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-md-6 col-md-offset-3 text-center">
+        <form method="post" action="{% url 'scan_landing_page' %}">
+          {% csrf_token %}
+          {{ form.url }}
+          {% if form.errors %}
+              <div class="form-group has-error">
+                  <span class="help-block">{{ form.errors }}</span>
+              </div>
+          {% endif %}
+          <br>
+          <input class="btn btn-lg btn-primary" type="submit" value="Check!" />
+        </form>
+      </div>
+  </div>
+</div>
+{% endblock %}

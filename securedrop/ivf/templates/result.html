@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="jumbotron">
+  <div class="row">
+      <div class="text-center">
+        {% load static %}
+        <img src='{% static "img/logo.png" %}'>
+        <p class="lead">Results for <a href="{{ url }}">{{ url }}</a>.</p>
+        <p><a class="btn btn-default" href="{% url 'ivf.views.home_page' %}" role="button">Scan another &raquo;</a></p>
+      </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <h3>HTTPS</h3>
+      {% if results.https == True %}
+        <p class="text-success"><span class="glyphicon glyphicon-ok"></span> Landing page supports HTTPS</p>
+      {% else %}
+        <p class="text-danger"><span class="glyphicon glyphicon-remove"></span> Landing page does not supports HTTPS.
+          HTTPS is critical for security on the landinge page.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <h3>Metadata</h3>
+      {% if results.scraping.safe_onion_address == True %}
+        <p class="text-success"><span class="glyphicon glyphicon-ok"></span> Onion link is not linked.</p>
+      {% else %}
+        <p class="text-danger"><span class="glyphicon glyphicon-remove"></span> Onion link should not be a clickable link. If clicked, some browsers will send a DNS request that will not be routed through tor, producing metadata that can identify a source. </p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      {% if results.subdomain == False %}
+        <p class="text-success"><span class="glyphicon glyphicon-ok"></span> Landing page is not hosted on a subdomain.</p>
+      {% else %}
+        <p class="text-danger"><span class="glyphicon glyphicon-remove"></span> Landing page should not be hosted on a subdomain. Using a subdomain can reveal to a passive observer that the client is looking at the securedrop page on your website.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <h3>Local Storage</h3>
+      {% if results.scraping.no_cookies == True %}
+        <p class="text-success"><span class="glyphicon glyphicon-ok"></span> Landing page does not use cookies.</p>
+      {% else %}
+        <p class="text-danger"><span class="glyphicon glyphicon-remove"></span> The landing page should not use cookies. </p>
+      {% endif %}
+    </div>
+  </div>
+
+  <p class="lead">{{ results }}</p>
+</div>
+
+
+{% endblock %}
