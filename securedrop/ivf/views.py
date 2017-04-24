@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 
 from ivf.forms import LandingPageForm
-from ivf.utils import get_results
+from ivf.utils import LandingPage
 
 
 def home_page(request):
@@ -13,7 +13,9 @@ def scan_landing_page(request):
     url = request.POST['url']
     form = LandingPageForm({'url': url})
     if request.method == 'POST' and form.is_valid():
-        results = get_results(url)
-        return render(request, 'result.html', {'results': results, 'url': url})
+        page = LandingPage(url)
+        results, grade = page.get_results()
+        return render(request, 'result.html', {'results': results, 'url': url,
+                                               'grade': grade})
     else:
         return redirect('ivf.views.home_page')

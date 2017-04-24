@@ -3,5 +3,20 @@
 }
 
 span.glyphicon-link {
-    font-size: 1.5em;
+    font-size: 2em;
+}
+
+.good-grade {
+    font-size: 5em;
+    color: green;
+}
+
+.warning-grade {
+    font-size: 5em;
+    color: orange;
+}
+
+.fail-grade {
+    font-size: 5em;
+    color: red;
 }

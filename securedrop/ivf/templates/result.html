@@ -7,32 +7,99 @@
       <div class="text-center">
         {% load static %}
         <img src='{% static "img/logo.png" %}'>
-        <p class="lead">Results for <a href="{{ url }}">{{ url }}</a>.</p>
+        <h2>Results for:<h2>
+        <p>
+          <a href="{{ url }}">{{ url }}</a>
+        </p>
         <p><a class="btn btn-default" href="{% url 'ivf.views.home_page' %}" role="button">Scan another &raquo;</a></p>
       </div>
   </div>
 </div>
 
+
 <div class="container">
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <h3>HTTPS</h3>
-      {% if results.https == True %}
-        <p class="text-success"><span class="glyphicon glyphicon-ok"></span> Landing page supports HTTPS</p>
-      {% else %}
-        <p class="text-danger"><span class="glyphicon glyphicon-remove"></span> Landing page does not supports HTTPS.
-          HTTPS is critical for security on the landinge page.</p>
+    {% if grade == 'A' %}
+    <p class="good-grade text-center">{{ grade }}</p>
+    {% elif grade == 'F' %}
+    <p class="fail-grade text-center">{{ grade }}</p>
+    {% else %}
+    <p class="warning-grade text-center">{{ grade }}</p>
+    {% endif %}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <h3>Basic</h3>
+      {% if results.scraping.200_ok == True %}
+        <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Successfully requested landing page.</p>
+      {% elif results.scraping.200_ok == False %}
+        <p class="text-danger lead"><span class="glyphicon glyphicon-remove"></span> Could not get to landing page.</p>
       {% endif %}
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
+      {% if results.scraping.no_redirect == True %}
+        <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Landing page does not redirect.</p>
+      {% elif results.scraping.no_redirect == False %}
+        <p class="text-danger lead"><span class="glyphicon glyphicon-remove"></span> Landing page should not redirect.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      {% if results.scraping.expected_encoding == True %}
+        <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Expected encoding found on landing page.</p>
+      {% elif results.scraping.expected_encoding == False %}
+        <p class="text-danger lead"><span class="glyphicon glyphicon-remove"></span> Unexpected encoding found on landing page.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      {% if results.https %}
+      <h3>HTTPS</h3>
+      {% endif %}
+      {% if results.https == True %}
+        <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Landing page supports HTTPS.</p>
+      {% elif results.https == False %}
+        <p class="text-danger lead"><span class="glyphicon glyphicon-remove"></span> Landing page does not supports HTTPS.
+          HTTPS is critical for security on the landinge page.
+          <a class="btn" href="https://securethe.news/why/">Why?</a>
+          <a class="btn" href="https://securethe.news/how/">How can I set up HTTPS?</a>
+        </p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      {% if results.scraping.no_server_info %}
+      <h3>Webserver Security</h3>
+      {% endif %}
+      {% if results.scraping.no_server_info == True %}
+        <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Server software not found in headers.</p>
+      {% elif results.scraping.no_server_info == False %}
+        <p class="text-danger lead"><span class="glyphicon glyphicon-remove"></span> Server software should not appear in headers. </p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      {% if results.scraping.safe_onion_address %}
       <h3>Metadata</h3>
+      {% endif %}
       {% if results.scraping.safe_onion_address == True %}
-        <p class="text-success"><span class="glyphicon glyphicon-ok"></span> Onion link is not linked.</p>
-      {% else %}
-        <p class="text-danger"><span class="glyphicon glyphicon-remove"></span> Onion link should not be a clickable link. If clicked, some browsers will send a DNS request that will not be routed through tor, producing metadata that can identify a source. </p>
+        <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> No clickable onion addresses were found.</p>
+      {% elif results.scraping.safe_onion_address == False %}
+        <p class="text-danger lead"><span class="glyphicon glyphicon-remove"></span> Onion address should not be a clickable link. If clicked, some browsers will send a DNS request that will not be routed through tor, producing metadata that can identify a source. </p>
       {% endif %}
     </div>
   </div>
@@ -40,25 +107,51 @@
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
       {% if results.subdomain == False %}
-        <p class="text-success"><span class="glyphicon glyphicon-ok"></span> Landing page is not hosted on a subdomain.</p>
+        <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Landing page is not hosted on a subdomain.</p>
       {% else %}
-        <p class="text-danger"><span class="glyphicon glyphicon-remove"></span> Landing page should not be hosted on a subdomain. Using a subdomain can reveal to a passive observer that the client is looking at the securedrop page on your website.</p>
+        <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> Landing page should not be hosted on a subdomain. Using a subdomain can reveal to a passive observer that the client is looking at the securedrop page on your website.</p>
       {% endif %}
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <h3>Local Storage</h3>
-      {% if results.scraping.no_cookies == True %}
-        <p class="text-success"><span class="glyphicon glyphicon-ok"></span> Landing page does not use cookies.</p>
-      {% else %}
-        <p class="text-danger"><span class="glyphicon glyphicon-remove"></span> The landing page should not use cookies. </p>
+      {% if results.scraping.no_cdn %}
+      <h3>3rd Parties</h3>
+      {% endif %}
+      {% if results.scraping.no_cdn == True %}
+        <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Use of CDNs not found.</p>
+      {% elif results.scraping.no_cdn == False %}
+        <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> CDNs are a 3rd party that function by man-in-the-middling traffic. Do not use a CDN on the landing page. </p>
       {% endif %}
     </div>
   </div>
 
-  <p class="lead">{{ results }}</p>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      {% if results.scraping.no_analytics == True %}
+        <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Use of Google Analytics not found.</p>
+      {% elif results.scraping.no_analytics == False %}
+        <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> Google Analytics provides information that can be stored and disclosed by 3rd parties. Do not use analytics on the landing page. </p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      {% if results.scraping.no_cookies %}
+      <h3>Local Storage</h3>
+      {% endif %}
+      <h3></h3>
+      {% if results.scraping.no_cookies == True %}
+        <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Landing page does not use cookies.</p>
+      {% elif results.scraping.no_cookies == False %}
+        <p class="text-danger lead"><span class="glyphicon glyphicon-remove"></span> The landing page should not use cookies. </p>
+      {% endif %}
+    </div>
+  </div>
+
 </div>
 
 
