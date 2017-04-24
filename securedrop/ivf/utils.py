@@ -76,7 +76,7 @@ def validate_subdomain(url):
 
 def validate_not_using_cdn(page):
     """Right now this is just checking for Cloudflare"""
-    if 'CF-Cache-Status' in page.headers:
+    if 'CF-Cache-Status' in page.headers or 'CF-RAY' in page.headers:
         return False
     else:
         return True
