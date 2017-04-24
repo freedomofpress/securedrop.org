@@ -46,11 +46,11 @@ def compute_grade(results):
         results['scraping']['no_cookies'] == False or
         results['scraping']['no_redirect'] == False or
         results['scraping']['200_ok'] == False or
-        results['scraping']['no_analytics'] == False or
-        results['scraping']['no_server_info'] == False):
+        results['scraping']['no_analytics'] == False):
         return 'F'
     elif (results['subdomain'] == True or
-          results['scraping']['no_cdn'] == False):
+          results['scraping']['no_cdn'] == False or
+          results['scraping']['no_server_info'] == False):
         return 'D'
     elif results['scraping']['expected_encoding'] == False:
         return 'C'

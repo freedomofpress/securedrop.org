@@ -63,7 +63,7 @@
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      {% if results.https %}
+      {% if results.https != None %}
       <h3>HTTPS</h3>
       {% endif %}
       {% if results.https == True %}
@@ -80,20 +80,20 @@
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      {% if results.scraping.no_server_info %}
+      {% if results.scraping.no_server_info != None %}
       <h3>Webserver Security</h3>
       {% endif %}
       {% if results.scraping.no_server_info == True %}
         <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Server software not found in headers.</p>
       {% elif results.scraping.no_server_info == False %}
-        <p class="text-danger lead"><span class="glyphicon glyphicon-remove"></span> Server software should not appear in headers. </p>
+        <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> Server software should not appear in headers. </p>
       {% endif %}
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      {% if results.scraping.safe_onion_address %}
+      {% if results.scraping.safe_onion_address != None %}
       <h3>Metadata</h3>
       {% endif %}
       {% if results.scraping.safe_onion_address == True %}
@@ -116,7 +116,7 @@
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      {% if results.scraping.no_cdn %}
+      {% if results.scraping.no_cdn != None %}
       <h3>3rd Parties</h3>
       {% endif %}
       {% if results.scraping.no_cdn == True %}
