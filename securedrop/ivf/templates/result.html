@@ -81,12 +81,42 @@
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
       {% if results.scraping.no_server_info != None %}
-      <h3>Webserver Security</h3>
+      <h3>Server Security</h3>
       {% endif %}
       {% if results.scraping.no_server_info == True %}
         <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Server software not found in headers.</p>
       {% elif results.scraping.no_server_info == False %}
         <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> Server software should not appear in headers. </p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      {% if results.scraping.no_server_version == True %}
+        <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span>  No version info found in headers.</p>
+      {% elif results.scraping.no_server_version == False %}
+        <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> Software version should not appear in headers. </p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      {% if results.scraping.csp_origin_only == True %}
+        <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">Content Security Policy (CSP)</a> loads only from the origin domain.</p>
+      {% elif results.scraping.csp_origin_only == False %}
+        <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">Content Security Policy (CSP)</a> should load only from self. CSP mitigates cross-site scripting and packet sniffing attacks. </p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      {% if results.scraping.mime_sniffing_blocked == True %}
+        <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options">MIME sniffing</a> is blocked.</p>
+      {% elif results.scraping.mime_sniffing_blocked == False %}
+        <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options">MIME sniffing</a> is possible. </p>
       {% endif %}
     </div>
   </div>

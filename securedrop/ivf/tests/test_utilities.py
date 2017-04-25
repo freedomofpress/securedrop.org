@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+from unittest import mock
 
 from django.test import TestCase
 
@@ -27,3 +28,23 @@ class VerificationUtilityTest(TestCase):
 
     def test_url_does_have_subdomain(self):
         self.assertTrue(utils.validate_subdomain('https://securedrop.example.com'))
+
+    def test_server_header_software_present(self):
+        page = mock.Mock()
+        page.headers = {'Server': 'nginx'}
+        self.assertFalse(utils.validate_server_software(page))
+
+    def test_server_header_software_not_present(self):
+        page = mock.Mock()
+        page.headers = {'Server': ''}
+        self.assertTrue(utils.validate_server_software(page))
+
+    def test_server_header_version_not_present(self):
+        page = mock.Mock()
+        page.headers = {'Server': ''}
+        self.assertTrue(utils.validate_server_version(page))
+
+    def test_server_header_version_not_present(self):
+        page = mock.Mock()
+        page.headers = {'Server': '6.6.6'}
+        self.assertFalse(utils.validate_server_version(page))
