@@ -24,7 +24,6 @@ class LandingPage(object):
         except:
             return {'no_cookies': None,
                     'safe_onion_address': None,
-                    'cache_headers': None,
                     'no_cdn': None,
                     'no_redirect': None,
                     'expected_encoding': None,
@@ -33,10 +32,16 @@ class LandingPage(object):
                     'no_server_version': None,
                     'csp_origin_only': None,
                     'mime_sniffing_blocked': None,
+                    'noopen_download': None,
+                    'xss_protection': None,
+                    'clickjacking_protection': None,
+                    'good_cross_domain_policy': None,
+                    'http_1_0_caching_disabled': None,
+                    'expires_set': None,
+                    'cache_control_set': None,
                     '200_ok': False}
         return {'no_cookies': validate_no_cookies(page),
                 'safe_onion_address': validate_onion_address_not_in_href(soup),
-                'cache_headers': validate_cache_headers(page),
                 'no_cdn': validate_not_using_cdn(page),
                 'no_redirect': validate_no_redirects(page),
                 'expected_encoding': validate_encoding(page),
@@ -45,6 +50,13 @@ class LandingPage(object):
                 'no_server_version': validate_server_version(page),
                 'csp_origin_only': validate_csp(page),
                 'mime_sniffing_blocked': validate_no_sniff(page),
+                'noopen_download': validate_download_options(page),
+                'xss_protection': validate_xss_protection(page),
+                'clickjacking_protection': validate_clickjacking_protection(page),
+                'good_cross_domain_policy': validate_cross_domain_policy(page),
+                'http_1_0_caching_disabled': validate_pragma(page),
+                'expires_set': validate_expires(page),
+                'cache_control_set': validate_cache_control_set(page),
                 '200_ok': validate_200_ok(page)}
 
 
@@ -53,16 +65,23 @@ def compute_grade(results):
         results['scraping']['no_cookies'] == False or
         results['scraping']['no_redirect'] == False or
         results['scraping']['200_ok'] == False or
-        results['scraping']['no_analytics'] == False):
+        results['scraping']['no_analytics'] == False or
+        results['scraping']['cache_control_set'] == False):
         return 'F'
     elif (results['subdomain'] == True or
           results['scraping']['no_cdn'] == False or
           results['scraping']['no_server_info'] == False or
           results['scraping']['no_server_version'] == False or
           results['scraping']['csp_origin_only'] == False or
-          results['scraping']['mime_sniffing_blocked'] == False):
+          results['scraping']['mime_sniffing_blocked'] == False or
+          results['scraping']['xss_protection'] == False or
+          results['scraping']['clickjacking_protection'] == False or
+          results['scraping']['good_cross_domain_policy'] == False or
+          results['scraping']['http_1_0_caching_disabled'] == False or
+          results['scraping']['expires_set'] == False):
         return 'D'
-    elif results['scraping']['expected_encoding'] == False:
+    elif (results['scraping']['expected_encoding'] == False or
+          results['scraping']['noopen_download'] == False):
         return 'C'
     else:
         return 'A'
@@ -78,7 +97,7 @@ def validate_https(url):
 
 def validate_subdomain(url):
     """Is the landing page on a subdomain"""
-    if len(url.split('.')) > 2:
+    if len(url.split('.')) > 2 and url.split('.')[0] != 'www':
         return True
     else:
         return False
@@ -101,6 +120,15 @@ def validate_not_using_analytics(page):
         return False
     else:
         return True
+
+
+def validate_security_header(page, header, expected_value):
+    if header not in page.headers:
+        return False
+    elif page.headers[header] == expected_value:
+        return True
+    else:
+        return False
 
 
 def validate_no_redirects(page):
@@ -150,22 +178,58 @@ def validate_server_version(page):
 
 
 def validate_csp(page):
-    if page.headers["Content-Security-Policy"] == "default-src 'self'":
-        return True
-    else:
-        return False
+    return validate_security_header(page,
+                             "Content-Security-Policy",
+                             "default-src 'self'")
+
+
+def validate_xss_protection(page):
+    return validate_security_header(page,
+                             "X-XSS-Protection",
+                             "1; mode=block")
 
 
 def validate_no_sniff(page):
-    if page.headers["X-Content-Type-Options"] == "nosniff":
+    return validate_security_header(page,
+                             "X-Content-Type-Options",
+                             "nosniff")
+
+
+def validate_download_options(page):
+    return validate_security_header(page,
+                             "X-Download-Options",
+                             "noopen")
+
+
+def validate_clickjacking_protection(page):
+    return validate_security_header(page,
+                             "X-Frame-Options",
+                             "DENY")
+
+
+def validate_cross_domain_policy(page):
+    return validate_security_header(page,
+                             "X-Permitted-Cross-Domain-Policies",
+                             "master-only")
+
+
+def validate_pragma(page):
+    return validate_security_header(page, "Pragma", "no-cache")
+
+
+def validate_expires(page):
+    return validate_security_header(page, "Expires", "-1")
+
+
+def validate_cache_control_set(page):
+    if 'Cache-Control' in page.headers:
         return True
     else:
         return False
 
 
-def validate_cache_headers(url):
-
-    return {''}
+def validate_cache_must_revalidate(page):
+    return validate_security_header(page, "Cache-Control", "must-revalidate")
 
 
 def validate_no_cookies(page):

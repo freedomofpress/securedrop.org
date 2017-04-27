@@ -16,7 +16,6 @@
   </div>
 </div>
 
-
 <div class="container">
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
@@ -30,16 +29,30 @@
     </div>
   </div>
 
+  {% macro generate_result_(result, pass_text, failure_text,
+                            failure_level='danger', title='') -%}
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <h3>Basic</h3>
+      {% if title: %}
+      <h3>{{ title }}</h3>
+      {% endif %}
+
       {% if results.scraping.200_ok == True %}
         <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Successfully requested landing page.</p>
       {% elif results.scraping.200_ok == False %}
+
         <p class="text-danger lead"><span class="glyphicon glyphicon-remove"></span> Could not get to landing page.</p>
       {% endif %}
     </div>
   </div>
+      <input type="{{ type }}" name="{{ name }}" value="{{
+          value|e }}" size="{{ size }}">
+  {%- endmacro %}
+
+  <p>{{ input('username') }}</p>
+<p>{{ input(results.scraping.200_ok, "Successfully requested landing page",
+    "Could not get to landing page." title='Basic', ) }}</p>
+
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
@@ -120,6 +133,110 @@
       {% endif %}
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      {% if results.scraping.noopen_download == True %}
+        <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Users cannot accidentally <a href="https://msdn.microsoft.com/en-us/library/jj542450(v=vs.85).aspx">open a download</a>.</p>
+      {% elif results.scraping.noopen_download == False %}
+        <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> Users can accidentally <a href="https://msdn.microsoft.com/en-us/library/jj542450(v=vs.85).aspx">open a download</a>. </p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      {% if results.scraping.xss_protection == True %}
+        <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection">XSS filtering</a> is enabled.</p>
+      {% elif results.scraping.xss_protection == False %}
+        <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection">XSS attacks</a> are not prevented.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      {% if results.scraping.clickjacking_protection == True %}
+        <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Ensures that the server forbids embedding this page within an iframe, to <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options">prevent clickjacking attacks</a>. Otherwise another site could embed the Landing Page and mess with it.</p>
+      {% elif results.scraping.clickjacking_protection == False %}
+        <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> The server does not forbid embedding this page within an iframe, to <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options">prevent clickjacking attacks</a>. Another site could embed the Landing Page and mess with it.
+          <button class="btn btn-sm btn-primary" data-toggle="collapse" data-target="#xframe-set"><span class="glyphicon glyphicon-wrench"></span> Fix</button>
+          <div id="xframe-set" class="collapse">
+            <p>Add the following to your security headers:
+            <pre>X-Frame-Options DENY</pre>
+          </div>
+        </p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      {% if results.scraping.good_cross_domain_policy == True %}
+        <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Cross Domain Policy set correctly.</p>
+      {% elif results.scraping.good_cross_domain_policy == False %}
+        <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> Cross Domain Policy not set correctly.
+          <button class="btn btn-sm btn-primary" data-toggle="collapse" data-target="#cross-domain-policy-set"><span class="glyphicon glyphicon-wrench"></span> Fix</button>
+          <div id="cross-domain-policy-set" class="collapse">
+            <p>Add the following to your security headers:
+            <pre>X-Permitted-Cross-Domain-Policies master-only</pre>
+          </div>
+        </p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      {% if results.scraping.http_1_0_caching_disabled != None %}
+      <h3>Caching</h3>
+      {% endif %}
+      {% if results.scraping.http_1_0_caching_disabled == True %}
+        <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Caching is disabled (HTTP/1.0).</p>
+      {% elif results.scraping.http_1_0_caching_disabled == False %}
+        <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> Caching is not disabled (HTTP/1.0). </p>
+        <button class="btn btn-sm btn-primary" data-toggle="collapse" data-target="#pragma-set"><span class="glyphicon glyphicon-wrench"></span> Fix</button>
+        <div id="pragma-set" class="collapse">
+          <p>Add the following to your security headers:
+          <pre>Pragma no-cache</pre>
+        </div>
+      </p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      {% if results.scraping.cache_control_set == True %}
+        <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Caching</a> is disabled (HTTP/1.1). </p>
+      {% elif results.scraping.cache_control_set == False %}
+        <p class="text-danger lead"><span class="glyphicon glyphicon-remove"></span> <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Caching</a> is not disabled (HTTP/1.1).
+          <button class="btn btn-sm btn-primary" data-toggle="collapse" data-target="#cache-control-set"><span class="glyphicon glyphicon-wrench"></span> Fix</button>
+          <div id="cache-control-set" class="collapse">
+            <p>Add the following to your security headers:
+            <pre>Cache-Control "max-age=0, no-cache, no-store, must-revalidate"</pre>
+          </div>
+        </p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      {% if results.scraping.expires_set == True %}
+        <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> The page is <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expires">marked as expired</a>, so no cache will be used.</p>
+      {% elif results.scraping.expires_set == False %}
+        <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> The page is not <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expires">marked as expired</a>. Cache may be used.
+          <button class="btn btn-sm btn-primary" data-toggle="collapse" data-target="#expires-set"><span class="glyphicon glyphicon-wrench"></span> Fix</button>
+          <div id="expires-set" class="collapse">
+            <p>Add the following to your security headers:
+            <pre>Expires -1</pre>
+          </div>
+        </p>
+      {% endif %}
+    </div>
+  </div>
+
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
