@@ -39,6 +39,11 @@ class LandingPage(object):
                     'http_1_0_caching_disabled': None,
                     'expires_set': None,
                     'cache_control_set': None,
+                    'cache_control_revalidate_set': None,
+                    'cache_control_nocache_set': None,
+                    'cache_control_notransform_set': None,
+                    'cache_control_nostore_set': None,
+                    'cache_control_private_set': None,
                     '200_ok': False}
         return {'no_cookies': validate_no_cookies(page),
                 'safe_onion_address': validate_onion_address_not_in_href(soup),
@@ -57,6 +62,11 @@ class LandingPage(object):
                 'http_1_0_caching_disabled': validate_pragma(page),
                 'expires_set': validate_expires(page),
                 'cache_control_set': validate_cache_control_set(page),
+                'cache_control_revalidate_set': validate_cache_must_revalidate(page),
+                'cache_control_nocache_set': validate_nocache(page),
+                'cache_control_notransform_set': validate_notransform(page),
+                'cache_control_nostore_set': validate_nostore(page),
+                'cache_control_private_set': validate_private(page),
                 '200_ok': validate_200_ok(page)}
 
 
@@ -65,13 +75,16 @@ def compute_grade(results):
         results['scraping']['no_cookies'] == False or
         results['scraping']['no_redirect'] == False or
         results['scraping']['200_ok'] == False or
-        results['scraping']['no_analytics'] == False or
-        results['scraping']['cache_control_set'] == False):
+        results['scraping']['no_analytics'] == False):
         return 'F'
     elif (results['subdomain'] == True or
           results['scraping']['no_cdn'] == False or
           results['scraping']['no_server_info'] == False or
-          results['scraping']['no_server_version'] == False or
+          results['scraping']['no_server_version'] == False):
+        return 'D'
+    elif (results['scraping']['expected_encoding'] == False or
+          results['scraping']['noopen_download'] == False or
+          results['scraping']['cache_control_set'] == False or
           results['scraping']['csp_origin_only'] == False or
           results['scraping']['mime_sniffing_blocked'] == False or
           results['scraping']['xss_protection'] == False or
@@ -79,10 +92,13 @@ def compute_grade(results):
           results['scraping']['good_cross_domain_policy'] == False or
           results['scraping']['http_1_0_caching_disabled'] == False or
           results['scraping']['expires_set'] == False):
-        return 'D'
-    elif (results['scraping']['expected_encoding'] == False or
-          results['scraping']['noopen_download'] == False):
         return 'C'
+    elif (results['scraping']['cache_control_revalidate_set'] == False or
+          results['scraping']['cache_control_nocache_set'] == False or
+          results['scraping']['cache_control_notransform_set'] == False or
+          results['scraping']['cache_control_nostore_set'] == False or
+          results['scraping']['cache_control_private_set'] == False):
+        return 'B'
     else:
         return 'A'
 
@@ -230,6 +246,22 @@ def validate_cache_control_set(page):
 
 def validate_cache_must_revalidate(page):
     return validate_security_header(page, "Cache-Control", "must-revalidate")
+
+
+def validate_nocache(page):
+    return validate_security_header(page, "Cache-Control", "no-cache")
+
+
+def validate_nostore(page):
+    return validate_security_header(page, "Cache-Control", "no-store")
+
+
+def validate_notransform(page):
+    return validate_security_header(page, "Cache-Control", "no-transform")
+
+
+def validate_private(page):
+    return validate_security_header(page, "Cache-Control", "private")
 
 
 def validate_no_cookies(page):
