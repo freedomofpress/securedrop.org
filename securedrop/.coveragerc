@@ -1,0 +1,8 @@
+[run]
+branch = True
+source = 
+   securedrop/
+   ivf/
+omit = 
+   tests/
+   ivf/tests/*
