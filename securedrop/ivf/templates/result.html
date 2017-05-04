@@ -124,10 +124,10 @@
         <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options">MIME sniffing</a> is blocked.</p>
       {% elif results.scraping.mime_sniffing_blocked == False %}
         <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options">MIME sniffing</a> is possible.
-          <a class="btn btn-sm btn-default" data-toggle="collapse" data-target="#noopen-set">
+          <a class="btn btn-sm btn-default" data-toggle="collapse" data-target="#mimesniff-set">
             <span class="glyphicon glyphicon-wrench"></span> Fix
           </a>
-          <div id="noopen-set" class="collapse">
+          <div id="mimesniff-set" class="collapse">
             <p>Add the following to your security headers:</p>
             <pre>X-Content-Type-Options nosniff</pre>
           </div>
