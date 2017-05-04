@@ -21,3 +21,11 @@ Then you can run the development server:
 ```
 python3 manage.py runserver
 ```
+
+Run tests with:
+
+```
+python3 manage.py test
+```
+
+## Deployment Instructions
