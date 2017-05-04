@@ -23,10 +23,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'bfeh3bp#&$zm(rnklc(!ko*8i%#m@ljs4=k5uod+ws!4#bwj5_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['securedrop.party']
 
+STATIC_ROOT = os.path.join(BASE_DIR, '../../static')
 
 # Application definition
 
