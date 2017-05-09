@@ -29,6 +29,9 @@ class VerificationUtilityTest(TestCase):
     def test_url_does_have_subdomain(self):
         self.assertTrue(utils.validate_subdomain('https://securedrop.example.com'))
 
+    def test_www_url_does_not_have_subdomain(self):
+        self.assertFalse(utils.validate_subdomain('https://www.example.com/securedrop'))
+
     def test_server_header_software_present(self):
         page = mock.Mock()
         page.headers = {'Server': 'nginx'}
