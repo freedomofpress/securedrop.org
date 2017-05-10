@@ -113,7 +113,7 @@ def validate_https(url):
 
 def validate_subdomain(url):
     """Is the landing page on a subdomain"""
-    if len(url.split('.')) > 2 and url.split('.')[0] != 'www':
+    if len(url.split('.')) > 2 and url.split('.')[0] != 'https://www':
         return True
     else:
         return False

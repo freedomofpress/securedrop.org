@@ -315,7 +315,7 @@
       {% if results.scraping.no_analytics == True %}
         <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Use of Google Analytics not found.</p>
       {% elif results.scraping.no_analytics == False %}
-        <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> Google Analytics provides information that can be stored and disclosed by 3rd parties. Do not use analytics on the landing page. </p>
+        <p class="text-danger lead"><span class="glyphicon glyphicon-remove"></span> Google Analytics provides information that can be stored and disclosed by 3rd parties. Do not use analytics on the landing page. </p>
       {% endif %}
     </div>
   </div>
