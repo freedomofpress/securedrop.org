@@ -1,11 +1,9 @@
 # SecureDrop Landing Page Checker
 
-This is a Django app enabling organizations to submit their landing page and get instant feedback on its security before submitting to Freedom of the Press Foundation.
+This is a Django app that:
 
-## User Story
-
-1. User submits landing page to form
-2. User receives instant feedback: if there are issues then they are pointed to resources such that they can correct their mistakes.
+* Enables organizations to submit their landing page and get instant feedback on its security before submitting to Freedom of the Press Foundation
+* Scans each site daily in the SecureDrop directory to grade them (credit to the Secure The News project for the scanning code)
 
 ## Developer Instructions
 
