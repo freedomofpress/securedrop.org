@@ -16,10 +16,10 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
-from ivf import urls as ivf_urls
+from directory import urls as directory_urls
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^ivf/', include(ivf_urls)),
-    url(r'^$', 'ivf.views.home_page', name='home'),
+    url(r'^directory/', include(directory_urls)),
+    url(r'^$', 'directory.views.home_page', name='home'),
 ]

@@ -1,8 +1,8 @@
 from django.test import TestCase
 from django.utils.html import escape
 
-from ivf.forms import LandingPageForm
-from ivf.views import home_page
+from directory.forms import LandingPageForm
+from directory.views import home_page
 
 
 class HomePageTest(TestCase):

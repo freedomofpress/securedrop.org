@@ -3,7 +3,7 @@ from unittest import mock
 
 from django.test import TestCase
 
-from ivf import utils
+from directory import utils
 
 
 class VerificationUtilityTest(TestCase):

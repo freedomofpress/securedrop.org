@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 
-from ivf.forms import LandingPageForm
-from ivf.utils import LandingPage
+from directory.forms import LandingPageForm
+from directory.utils import LandingPage
 
 
 def home_page(request):
@@ -18,4 +18,4 @@ def scan_landing_page(request):
         return render(request, 'result.html', {'results': results, 'url': url,
                                                'grade': grade})
     else:
-        return redirect('ivf.views.home_page')
+        return redirect('directory.views.home_page')

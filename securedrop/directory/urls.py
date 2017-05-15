@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 
-from ivf import views
+from directory import views
 
 urlpatterns = [
     url(r'^result/', views.scan_landing_page, name='scan_landing_page'),
