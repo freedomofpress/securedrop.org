@@ -1,3 +1,9 @@
 from django.contrib import admin
 
-# Register your models here.
+from directory.models import Securedrop
+
+
+admin.site.site_header = 'SecureDrop'
+admin.site.index_title = ''
+
+admin.site.register(Securedrop)
