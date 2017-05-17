@@ -39,11 +39,11 @@ To run the deploy script, you'll need to be in the `deployment` directory. Then:
 ### Deploy to staging
 
 ```
-fab -u ecassan deploy:host==staging.securedrop.party
+fab -u ecassan deploy:host=staging.securedrop.party
 ```
 
 ### Deploy to prod
 
 ```
-fab -u ecassan deploy:host==securedrop.party
+fab -u ecassan deploy:host=securedrop.party
 ```
