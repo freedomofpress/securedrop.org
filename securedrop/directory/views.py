@@ -1,12 +1,19 @@
 from django.shortcuts import redirect, render
+from django.views.generic.list import ListView
 
 from directory.forms import LandingPageForm
+from directory.models import Securedrop
 from directory.utils import LandingPage
 
 
-def home_page(request):
+class SecuredropListView(ListView):
+    model = Securedrop
+    template_name = 'home.html'
+
+
+def landing_page_test(request):
     form = LandingPageForm()
-    return render(request, 'home.html', {'form': form})
+    return render(request, 'landing_page_test.html', {'form': form})
 
 
 def scan_landing_page(request):
@@ -18,4 +25,4 @@ def scan_landing_page(request):
         return render(request, 'result.html', {'results': results, 'url': url,
                                                'grade': grade})
     else:
-        return redirect('directory.views.home_page')
+        return redirect('landing_page_test')
