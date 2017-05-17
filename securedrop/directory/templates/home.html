@@ -1,29 +1,50 @@
 {% extends 'base.html' %}
 
-
 {% block content %}
+
 <div class="jumbotron">
   <div class="row">
       <div class="text-center">
         {% load static %}
         <img src='{% static "img/logo.png" %}'>
-        <h2>Test a SecureDrop Landing Page</h2>
-      </div>
-  </div>
-  <div class="row">
-      <div class="col-md-6 col-md-offset-3 text-center">
-        <form method="post" action="{% url 'scan_landing_page' %}">
-          {% csrf_token %}
-          {{ form.url }}
-          {% if form.errors %}
-              <div class="form-group has-error">
-                  <span class="help-block">{{ form.errors }}</span>
-              </div>
-          {% endif %}
-          <br>
-          <input class="btn btn-lg btn-primary" type="submit" value="Check!" />
-        </form>
+        <h2>SecureDrop Directory</h2>
       </div>
   </div>
 </div>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th><h4>Organization</h4></th>
+          <th><h4>Landing Page</h4></th>
+          <th><h4>Tor Hidden Service Address</h4></th>
+          <th><h4>Security Grade</h4></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for securedrop in object_list %}
+        <tr>
+          <td>{{ securedrop.organization }}</td>
+          <td>
+            <a href="{{ securedrop.landing_page_domain }}">{{ securedrop.landing_page_domain }}</a>
+          </td>
+          <td>{{ securedrop.onion_address }}</td>
+          <td>?</td>
+        </tr>
+        {% empty %}
+          <tr><td>No SecureDrop instances added yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3 text-center">
+        <a href="{% url 'landing_page_test' %}" class="btn btn-lg btn-primary"/>Grade Your SecureDrop Landing Page</a>
+    </div>
+</div>
+
 {% endblock %}
