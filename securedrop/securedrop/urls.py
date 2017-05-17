@@ -17,9 +17,11 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 from directory import urls as directory_urls
+from directory import views as directory_views
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^directory/', include(directory_urls)),
-    url(r'^$', 'directory.views.home_page', name='home'),
+    url(r'^test/', directory_views.landing_page_test, name='landing_page_test'),
+    url(r'^$', directory_views.SecuredropListView.as_view(), name='securedrop_directory'),
 ]
