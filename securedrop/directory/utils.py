@@ -85,7 +85,7 @@ def bulk_scan(securedrops):
             prior_result = securedrop.results.latest()
         except Result.DoesNotExist:
             current_result.save()
-            return
+            continue
 
         if prior_result == current_result:
             # Then let's not waste a row in the database
