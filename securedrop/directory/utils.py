@@ -1,114 +1,122 @@
 from bs4 import BeautifulSoup
+from collections import Iterable
 import json
-import re
 import requests
+import re
+import subprocess
+
+from directory.models import Securedrop, Result
 
 
-class LandingPage(object):
-    def __init__(self, url):
-        self.url = url
-
-    def get_results(self):
-        scraping_results = self.request_and_scrape_page()
-        https_results = ''
-        results = {'https': validate_https(self.url),
-                   'subdomain': validate_subdomain(self.url),
-                   'scraping': scraping_results}
-        grade = compute_grade(results)
-        return results, grade
-
-    def request_and_scrape_page(self):
-        try:
-            page = requests.get(self.url)
-            soup = BeautifulSoup(page.content, "lxml")
-        except:
-            return {'no_cookies': None,
-                    'safe_onion_address': None,
-                    'no_cdn': None,
-                    'no_redirect': None,
-                    'expected_encoding': None,
-                    'no_analytics': None,
-                    'no_server_info': None,
-                    'no_server_version': None,
-                    'csp_origin_only': None,
-                    'mime_sniffing_blocked': None,
-                    'noopen_download': None,
-                    'xss_protection': None,
-                    'clickjacking_protection': None,
-                    'good_cross_domain_policy': None,
-                    'http_1_0_caching_disabled': None,
-                    'expires_set': None,
-                    'cache_control_set': None,
-                    'cache_control_revalidate_set': None,
-                    'cache_control_nocache_set': None,
-                    'cache_control_notransform_set': None,
-                    'cache_control_nostore_set': None,
-                    'cache_control_private_set': None,
-                    '200_ok': False}
-        return {'no_cookies': validate_no_cookies(page),
-                'safe_onion_address': validate_onion_address_not_in_href(soup),
-                'no_cdn': validate_not_using_cdn(page),
-                'no_redirect': validate_no_redirects(page),
-                'expected_encoding': validate_encoding(page),
-                'no_analytics': validate_not_using_analytics(page),
-                'no_server_info': validate_server_software(page),
-                'no_server_version': validate_server_version(page),
-                'csp_origin_only': validate_csp(page),
-                'mime_sniffing_blocked': validate_no_sniff(page),
-                'noopen_download': validate_download_options(page),
-                'xss_protection': validate_xss_protection(page),
-                'clickjacking_protection': validate_clickjacking_protection(page),
-                'good_cross_domain_policy': validate_cross_domain_policy(page),
-                'http_1_0_caching_disabled': validate_pragma(page),
-                'expires_set': validate_expires(page),
-                'cache_control_set': validate_cache_control_set(page),
-                'cache_control_revalidate_set': validate_cache_must_revalidate(page),
-                'cache_control_nocache_set': validate_nocache(page),
-                'cache_control_notransform_set': validate_notransform(page),
-                'cache_control_nostore_set': validate_nostore(page),
-                'cache_control_private_set': validate_private(page),
-                '200_ok': validate_200_ok(page)}
-
-
-def compute_grade(results):
-    if (results['https'] == False or
-        results['scraping']['no_cookies'] == False or
-        results['scraping']['no_redirect'] == False or
-        results['scraping']['200_ok'] == False or
-        results['scraping']['no_analytics'] == False):
-        return 'F'
-    elif (results['subdomain'] == True or
-          results['scraping']['no_cdn'] == False or
-          results['scraping']['no_server_info'] == False or
-          results['scraping']['no_server_version'] == False):
-        return 'D'
-    elif (results['scraping']['expected_encoding'] == False or
-          results['scraping']['noopen_download'] == False or
-          results['scraping']['cache_control_set'] == False or
-          results['scraping']['csp_origin_only'] == False or
-          results['scraping']['mime_sniffing_blocked'] == False or
-          results['scraping']['xss_protection'] == False or
-          results['scraping']['clickjacking_protection'] == False or
-          results['scraping']['good_cross_domain_policy'] == False or
-          results['scraping']['http_1_0_caching_disabled'] == False or
-          results['scraping']['expires_set'] == False):
-        return 'C'
-    elif (results['scraping']['cache_control_revalidate_set'] == False or
-          results['scraping']['cache_control_nocache_set'] == False or
-          results['scraping']['cache_control_notransform_set'] == False or
-          results['scraping']['cache_control_nostore_set'] == False or
-          results['scraping']['cache_control_private_set'] == False):
-        return 'B'
+def clean_url(url):
+    if len(url.split('//')) > 1:
+        return url.split('//')[1]
     else:
-        return 'A'
+        return url
 
 
-def validate_https(url):
-    """Is the string 'https' in the URL?"""
-    if 'https' not in url:
-        return False
-    elif 'https' in url:
-        return True
+def scan(securedrop):
+    """Scan a single site"""
+
+    pshtt_results = pshtt(clean_url(securedrop.landing_page_domain))
+
+    try:
+        page, soup = request_and_scrape_page(securedrop.landing_page_domain)
+    except requests.exceptions.RequestException:
+        # Connection timed out, an invalid HTTP response was returned, or
+        # a network problem occurred.
+        # Catch the base class exception for these cases.
+        return Result(
+            securedrop=securedrop,
+            live=pshtt_results['Live'],
+            http_status_200_ok=False,
+        )
+
+    if not pshtt_results['Live']:
+        # Then let's just return that the site is down and call it a day
+        return Result(
+            securedrop=securedrop,
+            live=pshtt_results['Live'],
+            http_status_200_ok=False,
+        )
+    else:
+        return Result(
+            securedrop=securedrop,
+            live=pshtt_results['Live'],
+            http_status_200_ok=validate_200_ok(page),
+            hsts=pshtt_results['HSTS'],
+            hsts_max_age=pshtt_results['HSTS Max Age'],
+            hsts_entire_domain=pshtt_results['HSTS Entire Domain'],
+            hsts_preloaded=pshtt_results['HSTS Preloaded'],
+            subdomain=validate_subdomain(securedrop.landing_page_domain),
+            no_cookies=validate_no_cookies(page),
+            safe_onion_address=validate_onion_address_not_in_href(soup),
+            no_cdn=validate_not_using_cdn(page),
+            http_no_redirect=validate_no_redirects(page),
+            expected_encoding=validate_encoding(page),
+            no_analytics=validate_not_using_analytics(page),
+            no_server_info=validate_server_software(page),
+            no_server_version=validate_server_version(page),
+            csp_origin_only=validate_csp(page),
+            mime_sniffing_blocked=validate_no_sniff(page),
+            noopen_download=validate_download_options(page),
+            xss_protection=validate_xss_protection(page),
+            clickjacking_protection=validate_clickjacking_protection(page),
+            good_cross_domain_policy=validate_cross_domain_policy(page),
+            http_1_0_caching_disabled=validate_pragma(page),
+            expires_set=validate_expires(page),
+            cache_control_set=validate_cache_control_set(page),
+            cache_control_revalidate_set=validate_cache_must_revalidate(page),
+            cache_control_nocache_set=validate_nocache(page),
+            cache_control_notransform_set=validate_notransform(page),
+            cache_control_nostore_set=validate_nostore(page),
+            cache_control_private_set=validate_private(page),
+        )
+
+
+def bulk_scan(securedrops):
+    for securedrop in securedrops:
+        current_result = scan(securedrop)
+
+        # First get most recent scan before saving, and see if this is a new
+        # scan.
+        prior_result = securedrop.results.latest
+        #If it is only then do we save.
+        # if scan is different result then add it
+        # else update result_last_seen
+
+        current_result.save()
+
+
+def pshtt(domain):
+    # Function from Secure The News https://securethe.news
+    pshtt_cmd = ['pshtt', '--json', '--timeout', '5', domain]
+
+    p = subprocess.Popen(
+        pshtt_cmd,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        universal_newlines=True)
+    stdout, stderr = p.communicate()
+
+    try:
+        pshtt_results = json.loads(stdout)[0]
+    except ValueError:
+        pshtt_results = {}
+        pshtt_results['Live'] = False
+
+    return pshtt_results
+
+
+def request_and_scrape_page(domain):
+    try:
+        page = requests.get(domain)
+        soup = BeautifulSoup(page.content, "lxml")
+    except requests.exceptions.MissingSchema:
+        page = requests.get('https://{}'.format(domain))
+        soup = BeautifulSoup(page.content, "lxml")
+
+    return page, soup
 
 
 def validate_subdomain(url):
