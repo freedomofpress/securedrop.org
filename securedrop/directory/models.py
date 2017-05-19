@@ -25,7 +25,7 @@ class Securedrop(models.Model):
         self.slug = slugify(self.organization)
 
     def __str__(self):
-        return 'SecureDrop: {}'.format(self.organization)
+        return '{}'.format(self.organization)
 
 
 class Result(models.Model):
@@ -83,9 +83,22 @@ class Result(models.Model):
     class Meta:
         get_latest_by = 'result_last_seen'
 
+    def __eq__(self, other):
+        # Override Django's pk attribute equality
+        # We will use the equality method to compare the scan results only
+
+        excluded_keys = ['_state', '_securedrop_cache', 'result_last_seen',
+                         'id', 'grade']
+
+        self_values_to_compare = [(k,v) for k, v in self.__dict__.items()
+                                  if k not in excluded_keys]
+        other_values_to_compare = [(k,v) for k, v in other.__dict__.items()
+                                   if k not in excluded_keys]
+
+        return self_values_to_compare == other_values_to_compare
+
     def __str__(self):
-        return 'Result for {} , last seen {:%Y-%m-%d %H:%M}'.format(
-            self.securedrop.organization, self.result_last_seen)
+        return 'Scan result for {}'.format(self.securedrop.organization)
 
     def compute_grade(self):
         if self.live == False:

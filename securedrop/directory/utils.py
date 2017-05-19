@@ -5,6 +5,8 @@ import requests
 import re
 import subprocess
 
+from django.utils import timezone
+
 from directory.models import Securedrop, Result
 
 
@@ -78,14 +80,16 @@ def bulk_scan(securedrops):
     for securedrop in securedrops:
         current_result = scan(securedrop)
 
-        # First get most recent scan before saving, and see if this is a new
-        # scan.
-        prior_result = securedrop.results.latest
-        #If it is only then do we save.
-        # if scan is different result then add it
-        # else update result_last_seen
+        # Before we save, let's get the most recent scan before saving
+        prior_result = securedrop.results.latest()
 
-        current_result.save()
+        if prior_result == current_result:
+            # Then let's not waste a row in the database
+            prior_result.result_last_seen = timezone.now()
+            prior_result.save()
+        elif prior_result != current_result:
+            # Then let's add this new scan result to the database
+            current_result.save()
 
 
 def pshtt(domain):
