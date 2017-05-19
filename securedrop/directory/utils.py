@@ -20,7 +20,7 @@ def clean_url(url):
 def scan(securedrop):
     """Scan a single site"""
 
-    pshtt_results = pshtt(clean_url(securedrop.landing_page_domain))
+    pshtt_results = pshtt(securedrop.landing_page_domain)
 
     try:
         page, soup = request_and_scrape_page(securedrop.landing_page_domain)
@@ -92,8 +92,10 @@ def bulk_scan(securedrops):
             current_result.save()
 
 
-def pshtt(domain):
-    # Function from Secure The News https://securethe.news
+def pshtt(url):
+    # Function adapted from Secure The News https://securethe.news
+    domain = clean_url(url).split('/')[0]
+
     pshtt_cmd = ['pshtt', '--json', '--timeout', '5', domain]
 
     p = subprocess.Popen(
