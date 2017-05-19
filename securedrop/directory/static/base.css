@@ -21,6 +21,21 @@ span.glyphicon-link {
     color: red;
 }
 
+.index-good-grade {
+    font-weight: bold;
+    color: green;
+}
+
+.index-warning-grade {
+    font-weight: bold;
+    color: orange;
+}
+
+.index-fail-grade {
+    font-weight: bold;
+    color: red;
+}
+
 a {
    color:inherit;
    border-bottom: 2px dashed;
@@ -34,4 +49,11 @@ a:hover {
 a:active {
    color:inherit;
    text-decoration: none;
+}
+
+.table {
+    border-radius: 5px;
+    width: 50%;
+    margin: 0px auto;
+    float: none;
 }

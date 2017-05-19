@@ -13,33 +13,43 @@
 </div>
 
 <div class="row">
-  <div class="col-md-6 col-md-offset-3">
     <table class="table table-striped">
       <thead>
         <tr>
           <th><h4>Organization</h4></th>
-          <th><h4>Landing Page</h4></th>
-          <th><h4>Tor Hidden Service Address</h4></th>
           <th><h4>Security Grade</h4></th>
+          <th><h4>Landing Page</h4></th>
+          <th><h4>Tor Onion Address</h4></th>
         </tr>
       </thead>
       <tbody>
         {% for securedrop in object_list %}
         <tr>
-          <td>{{ securedrop.organization }}</td>
+          <td><a href="{{ securedrop.slug }}">{{ securedrop.organization }}</a></td>
+
+          {% if securedrop.results.latest.grade == 'A' %}
+          <td class="index-good-grade">
+          {% elif securedrop.results.latest.grade == 'F' %}
+          <td class="index-fail-grade">
+          {% else %}
+          <td class="index-warning-grade">
+          {% endif %}
+            {{ securedrop.results.latest.grade }}
+          </td>
+
           <td>
             <a href="{{ securedrop.landing_page_domain }}">{{ securedrop.landing_page_domain }}</a>
           </td>
-          <td>{{ securedrop.onion_address }}</td>
-          <td>?</td>
+          <td><code>{{ securedrop.onion_address }}</code></td>
         </tr>
         {% empty %}
           <tr><td>No SecureDrop instances added yet.</td></tr>
         {% endfor %}
       </tbody>
     </table>
-  </div>
 </div>
+
+<br>
 
 <div class="row">
     <div class="col-md-6 col-md-offset-3 text-center">
