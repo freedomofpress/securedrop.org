@@ -3,7 +3,7 @@
 This is a Django app that:
 
 * Enables organizations to submit their landing page and get instant feedback on its security before submitting to Freedom of the Press Foundation
-* Scans each site daily in the SecureDrop directory to grade them (credit to the Secure The News project for the scanning code)
+* Scans each site daily in the SecureDrop directory to grade them (credit to Garrett Robinson and the Secure The News project for code adapted from that project for scanning the HTTPS configuration of landing pages)
 
 ## Developer Instructions
 
@@ -15,13 +15,13 @@ pip3 install -r requirements.txt
 python3 manage.py migrate
 ```
 
-Then load the SecureDrop instances:
+Load the SecureDrop instances (or manually enter them on the admin interface):
 
 ```
 python3 manage.py loaddata securedrops.json
 ```
 
-Then you can run the development server:
+Run the development server:
 
 ```
 python3 manage.py runserver
