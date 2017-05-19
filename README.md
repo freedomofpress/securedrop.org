@@ -10,8 +10,15 @@ This is a Django app that:
 For initial setup, you'll need to install dependencies and apply database migrations:
 
 ```
+pip install pshtt
 pip3 install -r requirements.txt
 python3 manage.py migrate
+```
+
+Then load the SecureDrop instances:
+
+```
+python3 manage.py loaddata securedrops.json
 ```
 
 Then you can run the development server:
@@ -25,6 +32,23 @@ Run tests with:
 ```
 python3 manage.py test
 ```
+
+Update test data:
+
+```
+python3 manage.py dumpdata directory.securedrop > securedrops.json
+```
+
+## Scanning landing pages
+
+Individual pages:
+
+```python3 manage.py scan https://theintercept.org/leak```
+
+Scan the entire SecureDrop directory:
+
+```python3 manage.py scan```
+
 
 ## Deployment Instructions
 
