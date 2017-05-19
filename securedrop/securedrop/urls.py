@@ -24,4 +24,5 @@ urlpatterns = [
     url(r'^directory/', include(directory_urls)),
     url(r'^test/', directory_views.landing_page_test, name='landing_page_test'),
     url(r'^$', directory_views.SecuredropListView.as_view(), name='securedrop_directory'),
+    url(r'^(?P<slug>[-\w]+)/$', directory_views.SecuredropDetailView.as_view(), name='securedrop-detail'),
 ]
