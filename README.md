@@ -1,22 +1,27 @@
 # SecureDrop Landing Page Checker
 
-This is a Django app enabling organizations to submit their landing page and get instant feedback on its security before submitting to Freedom of the Press Foundation.
+This is a Django app that:
 
-## User Story
-
-1. User submits landing page to form
-2. User receives instant feedback: if there are issues then they are pointed to resources such that they can correct their mistakes.
+* Enables organizations to submit their landing page and get instant feedback on its security before submitting to Freedom of the Press Foundation
+* Scans each site daily in the SecureDrop directory to grade them (credit to Garrett Robinson and the [Secure The News](https://securethe.news) project for code for scanning the HTTPS configuration of landing pages)
 
 ## Developer Instructions
 
 For initial setup, you'll need to install dependencies and apply database migrations:
 
 ```
+pip install pshtt
 pip3 install -r requirements.txt
 python3 manage.py migrate
 ```
 
-Then you can run the development server:
+Load the SecureDrop instances (alternatively manually enter them on the admin interface):
+
+```
+python3 manage.py loaddata securedrops.json
+```
+
+Run the development server:
 
 ```
 python3 manage.py runserver
@@ -27,6 +32,27 @@ Run tests with:
 ```
 python3 manage.py test
 ```
+
+If you like, you can update test data:
+
+```
+python3 manage.py dumpdata directory.securedrop > securedrops.json
+```
+
+## Scanning landing pages
+
+Update result for an individual landing page:
+
+```
+python3 manage.py scan https://theintercept.org/leak
+```
+
+Scan the entire SecureDrop directory:
+
+```
+python3 manage.py scan
+```
+
 
 ## Deployment Instructions
 
@@ -41,11 +67,11 @@ To run the deploy script, you'll need to be in the `deployment` directory. Then:
 ### Deploy to staging
 
 ```
-fab -u ecassan deploy:host==staging.securedrop.party
+fab -u ecassan deploy:host=staging.securedrop.party
 ```
 
 ### Deploy to prod
 
 ```
-fab -u ecassan deploy:host==securedrop.party
+fab -u ecassan deploy:host=securedrop.party
 ```

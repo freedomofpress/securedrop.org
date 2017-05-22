@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 
-from ivf import views
+from directory import views as directory_views
 
 urlpatterns = [
-    url(r'^result/', views.scan_landing_page, name='scan_landing_page'),
+    url(r'^result/', directory_views.scan_landing_page, name='scan_landing_page'),
+    url(r'^$', directory_views.SecuredropListView.as_view(), name='securedrop_directory'),
 ]

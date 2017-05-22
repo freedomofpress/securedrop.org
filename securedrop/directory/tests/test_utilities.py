@@ -1,18 +1,18 @@
 from bs4 import BeautifulSoup
+import os
 from unittest import mock
 
 from django.test import TestCase
+import vcr
 
-from ivf import utils
+from directory import utils
+from directory.models import Securedrop, Result
+
+
+VCR_DIR = os.path.join(os.path.dirname(__file__), 'scans_vcr')
 
 
 class VerificationUtilityTest(TestCase):
-    def test_https_is_in_url(self):
-        self.assertTrue(utils.validate_https('https://example.com'))
-
-    def test_https_is_not_in_url(self):
-        self.assertFalse(utils.validate_https('example.com'))
-
     def test_onion_link_is_in_href(self):
         test_html = "<a href='notavalidaddress.onion'>SecureDrop</a>"
         soup = BeautifulSoup(test_html, "lxml")
@@ -212,8 +212,43 @@ class VerificationUtilityTest(TestCase):
         page.headers = {'Cache-Control': 'public'}
         self.assertFalse(utils.validate_private(page))
 
-    @mock.patch('requests.get')
-    def test_results_return_if_failed_to_get_page(self, get):
-        page = utils.LandingPage('https://example.org')
-        results = page.request_and_scrape_page()
-        self.assertEqual(results['no_cdn'], None)
+    @vcr.use_cassette(os.path.join(VCR_DIR, 'scrape-securedrop-dot-org.yaml'))
+    def test_clean_url_successfully_strips_off_protocol_identifier(self):
+        url = 'https://securedrop.org'
+        self.assertEqual(utils.clean_url(url), 'securedrop.org')
+
+    @vcr.use_cassette(os.path.join(VCR_DIR, 'scrape-securedrop-dot-org.yaml'))
+    def test_request_gets_page_if_protocol_identifier_present(self):
+        url = 'https://securedrop.org'
+        page, soup = utils.request_and_scrape_page(url)
+        self.assertIn('SecureDrop Directory', str(page.content))
+
+    @vcr.use_cassette(os.path.join(VCR_DIR, 'scrape-securedrop-dot-org.yaml'))
+    def test_request_gets_page_if_protocol_identifier_not_present(self):
+        url = 'securedrop.org'
+        page, soup = utils.request_and_scrape_page(url)
+        self.assertIn('SecureDrop Directory', str(page.content))
+
+    @vcr.use_cassette(os.path.join(VCR_DIR, 'pshtt-result-securedrop-dot-org.yaml'))
+    def test_pshtt_command_outputs_formatted_json(self):
+        url = 'securedrop.org'
+        pshtt_results = utils.pshtt(url)
+        self.assertTrue(pshtt_results['HSTS'])
+
+
+class ScanTest(TestCase):
+    @vcr.use_cassette(os.path.join(VCR_DIR, 'full-scan-site-not-live.yaml'))
+    def test_scan_returns_result_if_site_not_live(self):
+        securedrop = Securedrop(organization='Freedom of the Press Foundation',
+                                landing_page_domain='notarealsite.party',
+                                onion_address='notreal.onion')
+        result = utils.scan(securedrop)
+        self.assertFalse(result.live)
+
+    @vcr.use_cassette(os.path.join(VCR_DIR, 'full-scan-site-live.yaml'))
+    def test_scan_returns_result_if_site_live(self):
+        securedrop = Securedrop(organization='Freedom of the Press Foundation',
+                                landing_page_domain='securedrop.org',
+                                onion_address='notreal.onion')
+        result = utils.scan(securedrop)
+        self.assertTrue(result.live)

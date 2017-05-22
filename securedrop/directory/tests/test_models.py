@@ -1,0 +1,104 @@
+from django.db.utils import IntegrityError
+from django.core.exceptions import ValidationError
+from django.test import TestCase
+
+from directory.models import Securedrop, Result
+
+
+class SecuredropTest(TestCase):
+    def test_securedrop_can_save_expected_urls(self):
+        securedrop = Securedrop(organization='Freedom of the Press Foundation',
+                                landing_page_domain='freedom.press',
+                                onion_address='notreal.onion')
+        securedrop.save()
+        self.assertIn(securedrop, Securedrop.objects.all())
+
+    def test_securedrop_cannot_save_empty_urls(self):
+        securedrop = Securedrop()
+        with self.assertRaises(ValidationError):
+            securedrop.save()
+            securedrop.full_clean()
+
+    def test_duplicate_securedrops_are_invalid(self):
+        securedrop1 = Securedrop(organization='Freedom of the Press Foundation',
+                                 landing_page_domain='freedom.press',
+                                 onion_address='notreal.onion')
+        securedrop1.save()
+        securedrop2 = Securedrop(organization='Freedom of the Press Foundation',
+                                 landing_page_domain='freedom.press',
+                                 onion_address='notreal.onion')
+        with self.assertRaises(IntegrityError):
+            securedrop2.save()
+
+    def test_securedrop_string_representation(self):
+        securedrop1 = Securedrop(organization='Freedom of the Press Foundation',
+                                 landing_page_domain='freedom.press',
+                                 onion_address='notreal.onion')
+        self.assertIn('SecureDrop', securedrop1.__str__())
+
+
+class ResultTest(TestCase):
+    def setUp(self):
+        self.securedrop = Securedrop.objects.create(
+            organization='Freedom of the Press Foundation',
+            landing_page_domain='freedom.press',
+            onion_address='notreal.onion'
+            )
+
+    def test_grade_computed_on_save(self):
+        result = Result(live=True, hsts=True, securedrop=self.securedrop)
+        self.assertEqual(result.grade, '?')
+        result.save()
+        self.assertEqual(result.grade, 'A')
+
+    def test_an_instance_using_cookies_gets_an_F(self):
+        result = Result(live=True, no_cookies=False, securedrop=self.securedrop)
+        result.save()
+        self.assertEqual(result.grade, 'F')
+
+    def test_an_instance_using_a_cdn_gets_a_D(self):
+        result = Result(live=True, no_cdn=False, securedrop=self.securedrop)
+        result.save()
+        self.assertEqual(result.grade, 'D')
+
+    def test_an_instance_using_a_subdomain_gets_a_D(self):
+        result = Result(live=True, subdomain=True, securedrop=self.securedrop)
+        result.save()
+        self.assertEqual(result.grade, 'D')
+
+    def test_an_instance_showing_server_software_in_headers_gets_a_D(self):
+        result = Result(live=True, no_server_info=False,
+                        securedrop=self.securedrop)
+        result.save()
+        self.assertEqual(result.grade, 'D')
+
+    def test_an_instance_showing_server_version_in_headers_gets_a_D(self):
+        result = Result(live=True, no_server_version=False,
+                        securedrop=self.securedrop)
+        result.save()
+        self.assertEqual(result.grade, 'D')
+
+    def test_an_instance_with_expires_not_set_gets_a_C(self):
+        result = Result(live=True, expires_set=False,
+                        securedrop=self.securedrop)
+        result.save()
+        self.assertEqual(result.grade, 'C')
+
+    def test_an_instance_with_cache_control_nostore_not_set_gets_a_B(self):
+        result = Result(live=True, cache_control_nostore_set=False,
+                        securedrop=self.securedrop)
+        result.save()
+        self.assertEqual(result.grade, 'B')
+
+    def test_a_down_instance_gets_a_null_grade(self):
+        result = Result(live=False, securedrop=self.securedrop)
+        result.save()
+        self.assertEqual(result.grade, '?')
+
+    def test_securedrop_can_get_most_recent_scan(self):
+        result1 = Result(live=True, hsts=True, securedrop=self.securedrop)
+        result1.save()
+        result2 = Result(live=True, hsts=False, securedrop=self.securedrop)
+        result2.save()
+        most_recent = self.securedrop.results.latest()
+        self.assertEqual(most_recent.grade, 'F')

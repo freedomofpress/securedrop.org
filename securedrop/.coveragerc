@@ -1,8 +1,8 @@
 [run]
 branch = True
-source = 
+source =
    securedrop/
-   ivf/
-omit = 
+   directory/
+omit =
    tests/
-   ivf/tests/*
+   directory/tests/*

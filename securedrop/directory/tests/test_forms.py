@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from ivf.forms import LandingPageForm
+from directory.forms import LandingPageForm
 
 
 class LandingPageFormTest(TestCase):

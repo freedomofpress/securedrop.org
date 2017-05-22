@@ -1,30 +1,12 @@
-{% extends 'base.html' %}
-
-{% block content %}
-
-<div class="jumbotron">
-  <div class="row">
-      <div class="text-center">
-        {% load static %}
-        <img src='{% static "img/logo.png" %}'>
-        <h2>Results for:<h2>
-        <p>
-          <a href="{{ url }}">{{ url }}</a>
-        </p>
-        <p><a class="btn btn-default" href="{% url 'ivf.views.home_page' %}" role="button">Scan another &raquo;</a></p>
-      </div>
-  </div>
-</div>
-
 <div class="container">
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-    {% if grade == 'A' %}
-    <p class="good-grade text-center">{{ grade }}</p>
-    {% elif grade == 'F' %}
-    <p class="fail-grade text-center">{{ grade }}</p>
+    {% if result.grade == 'A' %}
+    <p class="good-grade text-center">{{ result.grade }}</p>
+    {% elif result.grade == 'F' %}
+    <p class="fail-grade text-center">{{ result.grade }}</p>
     {% else %}
-    <p class="warning-grade text-center">{{ grade }}</p>
+    <p class="warning-grade text-center">{{ result.grade }}</p>
     {% endif %}
     </div>
   </div>
@@ -32,20 +14,19 @@
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
       <h3>Basic</h3>
-      {% if results.scraping.200_ok == True %}
+      {% if result.http_status_200_ok == True %}
         <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Successfully requested landing page.</p>
-      {% elif results.scraping.200_ok == False %}
+      {% elif result.http_status_200_ok == False %}
         <p class="text-danger lead"><span class="glyphicon glyphicon-remove"></span> Could not get to landing page.</p>
       {% endif %}
     </div>
   </div>
 
-
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      {% if results.scraping.no_redirect == True %}
+      {% if result.http_no_redirect == True %}
         <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Landing page does not redirect.</p>
-      {% elif results.scraping.no_redirect == False %}
+      {% elif result.http_no_redirect == False %}
         <p class="text-danger lead"><span class="glyphicon glyphicon-remove"></span> Landing page should not redirect.</p>
       {% endif %}
     </div>
@@ -53,9 +34,9 @@
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      {% if results.scraping.expected_encoding == True %}
+      {% if result.expected_encoding == True %}
         <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Expected encoding found on landing page.</p>
-      {% elif results.scraping.expected_encoding == False %}
+      {% elif result.expected_encoding == False %}
         <p class="text-danger lead"><span class="glyphicon glyphicon-remove"></span> Unexpected encoding found on landing page.</p>
       {% endif %}
     </div>
@@ -63,16 +44,17 @@
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      {% if results.https != None %}
+      {% if result.hsts != None %}
       <h3>HTTPS</h3>
       {% endif %}
-      {% if results.https == True %}
-        <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Landing page supports HTTPS.</p>
-      {% elif results.https == False %}
-        <p class="text-danger lead"><span class="glyphicon glyphicon-remove"></span> Landing page does not supports HTTPS.
-          HTTPS is critical for security on the landinge page.
-          <a class="btn" href="https://securethe.news/why/">Why?</a>
-          <a class="btn" href="https://securethe.news/how/">How can I set up HTTPS?</a>
+
+      {% if result.hsts == True %}
+        <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Landing page enforces HTTPS.</p>
+      {% elif result.live != False %}
+        <p class="text-danger lead"><span class="glyphicon glyphicon-remove"></span> Landing page does not enforce HTTPS.
+          HTTPS is critical for security on the landing page.
+          <a class="btn btn-sm btn-default" href="https://securethe.news/why/">Why?</a>
+          <a class="btn btn-sm btn-default" href="https://securethe.news/how/">How can I set up HTTPS?</a>
         </p>
       {% endif %}
     </div>
@@ -80,12 +62,42 @@
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      {% if results.scraping.no_server_info != None %}
+      {% if result.hsts_max_age > 16070400 %}
+        <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> HSTS max age is at least a year.</p>
+      {% elif result.live != False %}
+        <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> HSTS max age is less than a year. </p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      {% if result.hsts_entire_domain == True %}
+        <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> HTTPS is enforced on the entire domain.</p>
+      {% elif result.live != False %}
+        <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> HTTPS is not enforced on the entire domain. </p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      {% if result.hsts_preloaded == True %}
+        <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> The page is HSTS preloaded.</p>
+      {% elif result.hsts_preloaded == False %}
+        <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> The page is not HSTS preloaded. </p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      {% if result.no_server_info != None %}
       <h3>Server Security</h3>
       {% endif %}
-      {% if results.scraping.no_server_info == True %}
+      {% if result.no_server_info == True %}
         <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Server software not found in headers.</p>
-      {% elif results.scraping.no_server_info == False %}
+      {% elif result.no_server_info == False %}
         <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> Server software should not appear in headers. </p>
       {% endif %}
     </div>
@@ -93,9 +105,9 @@
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      {% if results.scraping.no_server_version == True %}
+      {% if result.no_server_version == True %}
         <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span>  No version info found in headers.</p>
-      {% elif results.scraping.no_server_version == False %}
+      {% elif result.no_server_version == False %}
         <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> Software version should not appear in headers. </p>
       {% endif %}
     </div>
@@ -103,9 +115,9 @@
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      {% if results.scraping.csp_origin_only == True %}
+      {% if result.csp_origin_only == True %}
         <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">Content Security Policy (CSP)</a> loads only from the origin domain.</p>
-      {% elif results.scraping.csp_origin_only == False %}
+      {% elif result.csp_origin_only == False %}
         <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">Content Security Policy (CSP)</a> should load only from self. CSP mitigates cross-site scripting and packet sniffing attacks.
           <a class="btn btn-sm btn-default" data-toggle="collapse" data-target="#csp-set">
             <span class="glyphicon glyphicon-wrench"></span> Fix
@@ -120,9 +132,9 @@
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      {% if results.scraping.mime_sniffing_blocked == True %}
+      {% if result.mime_sniffing_blocked == True %}
         <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options">MIME sniffing</a> is blocked.</p>
-      {% elif results.scraping.mime_sniffing_blocked == False %}
+      {% elif result.mime_sniffing_blocked == False %}
         <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options">MIME sniffing</a> is possible.
           <a class="btn btn-sm btn-default" data-toggle="collapse" data-target="#mimesniff-set">
             <span class="glyphicon glyphicon-wrench"></span> Fix
@@ -137,9 +149,9 @@
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      {% if results.scraping.noopen_download == True %}
+      {% if result.noopen_download == True %}
         <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Users cannot accidentally <a href="https://msdn.microsoft.com/en-us/library/jj542450(v=vs.85).aspx">open a download</a>.</p>
-      {% elif results.scraping.noopen_download == False %}
+      {% elif result.noopen_download == False %}
         <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> Users can accidentally <a href="https://msdn.microsoft.com/en-us/library/jj542450(v=vs.85).aspx">open a download</a>.
           <a class="btn btn-sm btn-default" data-toggle="collapse" data-target="#noopen-set">
             <span class="glyphicon glyphicon-wrench"></span> Fix
@@ -154,9 +166,9 @@
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      {% if results.scraping.xss_protection == True %}
+      {% if result.xss_protection == True %}
         <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection">XSS filtering</a> is enabled.</p>
-      {% elif results.scraping.xss_protection == False %}
+      {% elif result.xss_protection == False %}
         <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection">XSS attacks</a> are not prevented.
           <a class="btn btn-sm btn-default" data-toggle="collapse" data-target="#xss-protection-set">
             <span class="glyphicon glyphicon-wrench"></span> Fix
@@ -171,9 +183,9 @@
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      {% if results.scraping.clickjacking_protection == True %}
+      {% if result.clickjacking_protection == True %}
         <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Ensures that the server forbids embedding this page within an iframe, to <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options">prevent clickjacking attacks</a>. Otherwise another site could embed the Landing Page and mess with it.</p>
-      {% elif results.scraping.clickjacking_protection == False %}
+      {% elif result.clickjacking_protection == False %}
         <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> The server does not forbid embedding this page within an iframe, to <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options">prevent clickjacking attacks</a>. Another site could embed the Landing Page and mess with it.
           <a class="btn btn-sm btn-default" data-toggle="collapse" data-target="#xframe-set"><span class="glyphicon glyphicon-wrench"></span> Fix</a></p>
           <div id="xframe-set" class="collapse">
@@ -186,9 +198,9 @@
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      {% if results.scraping.good_cross_domain_policy == True %}
+      {% if result.good_cross_domain_policy == True %}
         <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Cross Domain Policy set correctly.</p>
-      {% elif results.scraping.good_cross_domain_policy == False %}
+      {% elif result.good_cross_domain_policy == False %}
         <p class="text-warning lead">
           <span class="glyphicon glyphicon-flag"></span>
           Cross Domain Policy not set correctly.
@@ -206,12 +218,12 @@
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      {% if results.scraping.http_1_0_caching_disabled != None %}
+      {% if result.http_1_0_caching_disabled != None %}
       <h3>Caching</h3>
       {% endif %}
-      {% if results.scraping.http_1_0_caching_disabled == True %}
+      {% if result.http_1_0_caching_disabled == True %}
         <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Caching is disabled (HTTP/1.0).</p>
-      {% elif results.scraping.http_1_0_caching_disabled == False %}
+      {% elif result.http_1_0_caching_disabled == False %}
         <p class="text-warning lead">
           <span class="glyphicon glyphicon-flag"></span> Caching is not disabled (HTTP/1.0).
           <a class="btn btn-sm btn-default" data-toggle="collapse" data-target="#pragma-set">
@@ -228,9 +240,9 @@
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      {% if results.scraping.cache_control_set == True %}
+      {% if result.cache_control_set == True %}
         <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Caching</a> is disabled (HTTP/1.1). </p>
-      {% elif results.scraping.cache_control_set == False %}
+      {% elif result.cache_control_set == False %}
         <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Caching</a> is not disabled (HTTP/1.1).
           <a class="btn btn-sm btn-default" data-toggle="collapse" data-target="#cache-control-set"><span class="glyphicon glyphicon-wrench"></span> Fix</a>
           <div id="cache-control-set" class="collapse">
@@ -244,9 +256,9 @@
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      {% if results.scraping.cache_control_revalidate_set == True or results.scraping.cache_control_nocache_set == True or results.scraping.cache_control_notransform_set == True or results.scraping.cache_control_nostore_set == True or results.scraping.cache_control_private_set == True%}
+      {% if result.cache_control_revalidate_set == True or result.cache_control_nocache_set == True or result.cache_control_notransform_set == True or result.cache_control_nostore_set == True or result.cache_control_private_set == True%}
         <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> headers set properly. </p>
-      {% else %}
+      {% elif result.live != False %}
         <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> headers not set properly.
           <a class="btn btn-sm btn-default" data-toggle="collapse" data-target="#cache-control-mustrevalidate-set"><span class="glyphicon glyphicon-wrench"></span> Fix</a>
           <div id="cache-control-mustrevalidate-set" class="collapse">
@@ -259,9 +271,9 @@
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      {% if results.scraping.expires_set == True %}
+      {% if result.expires_set == True %}
         <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> The page is <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expires">marked as expired</a>, so no cache will be used.</p>
-      {% elif results.scraping.expires_set == False %}
+      {% elif result.expires_set == False %}
         <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> The page is not <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expires">marked as expired</a>. Cache may be used.
           <a class="btn btn-sm btn-default" data-toggle="collapse" data-target="#expires-set"><span class="glyphicon glyphicon-wrench"></span> Fix</a>
           <div id="expires-set" class="collapse">
@@ -275,12 +287,12 @@
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      {% if results.scraping.safe_onion_address != None %}
+      {% if result.safe_onion_address != None %}
       <h3>Metadata</h3>
       {% endif %}
-      {% if results.scraping.safe_onion_address == True %}
+      {% if result.safe_onion_address == True %}
         <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> No clickable onion addresses were found.</p>
-      {% elif results.scraping.safe_onion_address == False %}
+      {% elif result.safe_onion_address == False %}
         <p class="text-danger lead"><span class="glyphicon glyphicon-remove"></span> Onion address should not be a clickable link. If clicked, some browsers will send a DNS request that will not be routed through tor, producing metadata that can identify a source. </p>
       {% endif %}
     </div>
@@ -288,7 +300,7 @@
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      {% if results.subdomain == False %}
+      {% if results.subdomain != True %}
         <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Landing page is not hosted on a subdomain.</p>
       {% else %}
         <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> Landing page should not be hosted on a subdomain. Using a subdomain can reveal to a passive observer that the client is looking at the securedrop page on your website.</p>
@@ -298,12 +310,12 @@
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      {% if results.scraping.no_cdn != None %}
+      {% if result.no_cdn != None %}
       <h3>3rd Parties</h3>
       {% endif %}
-      {% if results.scraping.no_cdn == True %}
+      {% if result.no_cdn == True %}
         <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Use of CDNs not found.</p>
-      {% elif results.scraping.no_cdn == False %}
+      {% elif result.no_cdn == False %}
         <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> CDNs are a 3rd party that function by man-in-the-middling traffic. Do not use a CDN on the landing page. </p>
       {% endif %}
     </div>
@@ -312,9 +324,9 @@
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      {% if results.scraping.no_analytics == True %}
+      {% if result.no_analytics == True %}
         <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Use of Google Analytics not found.</p>
-      {% elif results.scraping.no_analytics == False %}
+      {% elif result.no_analytics == False %}
         <p class="text-danger lead"><span class="glyphicon glyphicon-remove"></span> Google Analytics provides information that can be stored and disclosed by 3rd parties. Do not use analytics on the landing page. </p>
       {% endif %}
     </div>
@@ -322,13 +334,13 @@
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      {% if results.scraping.no_cookies != None %}
+      {% if result.no_cookies != None %}
       <h3>Local Storage</h3>
       {% endif %}
       <h3></h3>
-      {% if results.scraping.no_cookies == True %}
+      {% if result.no_cookies == True %}
         <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Landing page does not use cookies.</p>
-      {% elif results.scraping.no_cookies == False %}
+      {% elif result.no_cookies == False %}
         <p class="text-danger lead"><span class="glyphicon glyphicon-remove"></span> The landing page should not use cookies. </p>
       {% endif %}
     </div>
@@ -336,5 +348,8 @@
 
 </div>
 
-
-{% endblock %}
+<div class="row">
+    <div class="col-md-6 col-md-offset-3 text-center">
+        <a href="{% url 'securedrop_directory' %}" class="btn btn-sm btn-primary"/>Back to SecureDrop Directory</a>
+    </div>
+</div>
