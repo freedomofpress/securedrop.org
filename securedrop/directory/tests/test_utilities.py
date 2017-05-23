@@ -32,9 +32,14 @@ class VerificationUtilityTest(TestCase):
     def test_www_url_does_not_have_subdomain(self):
         self.assertFalse(utils.validate_subdomain('https://www.example.com/securedrop'))
 
-    def test_server_header_software_present(self):
+    def test_server_header_software_present_nginx(self):
         page = mock.Mock()
-        page.headers = {'Server': 'nginx'}
+        page.headers = {'Server': 'nginx/1.6.3'}
+        self.assertFalse(utils.validate_server_software(page))
+
+    def test_server_header_software_present_apache(self):
+        page = mock.Mock()
+        page.headers = {'Server': 'Apache/2.4.10 (Debian)'}
         self.assertFalse(utils.validate_server_software(page))
 
     def test_server_header_software_not_present(self):
@@ -49,7 +54,7 @@ class VerificationUtilityTest(TestCase):
 
     def test_server_header_version_is_present(self):
         page = mock.Mock()
-        page.headers = {'Server': '6.6.6'}
+        page.headers = {'Server': 'Apache/2.4.10 (Debian)'}
         self.assertFalse(utils.validate_server_version(page))
 
     def test_cloudflare_headers_not_present(self):
