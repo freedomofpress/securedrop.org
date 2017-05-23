@@ -83,9 +83,9 @@
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
       {% if result.hsts_preloaded == True %}
-        <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> The page is HSTS preloaded.</p>
+        <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> The page is <a href="https://hstspreload.org/">HSTS preloaded</a>.</p>
       {% elif result.hsts_preloaded == False %}
-        <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> The page is not HSTS preloaded. </p>
+        <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> The page is not <a href="https://hstspreload.org/">HSTS preloaded</a>. </p>
       {% endif %}
     </div>
   </div>
