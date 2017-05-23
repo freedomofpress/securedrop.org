@@ -105,3 +105,22 @@ class ResultTest(TestCase):
         result2.save()
         most_recent = self.securedrop.results.latest()
         self.assertEqual(most_recent.grade, 'F')
+
+    def test_result_string_representation(self):
+        result1 = Result(live=True, hsts=True, hsts_max_age=99999999,
+                         securedrop=self.securedrop)
+        self.assertIn(result1.securedrop.organization, result1.__str__())
+
+    def test_custom_eq_operator_compares_only_scan_attributes__same_result(self):
+        """Test custom __eq__ does not compare pk, _state, etc."""
+        result1 = Result(live=True, hsts=True, hsts_max_age=99999999,
+                         securedrop=self.securedrop)
+        result2 = Result(live=True, hsts=True, hsts_max_age=99999999,
+                         securedrop=self.securedrop)
+        self.assertTrue(result1 == result2)
+
+    def test_custom_eq_operator_compares_only_scan_attributes__new_result(self):
+        result1 = Result(live=True, hsts=True, hsts_max_age=99999999,
+                         securedrop=self.securedrop)
+        result2 = Result(live=False, securedrop=self.securedrop)
+        self.assertFalse(result1 == result2)
