@@ -189,7 +189,9 @@ def validate_encoding(page):
 def validate_server_software(page):
     if 'Server' not in page.headers:
         return True
-    elif 'nginx' in page.headers['Server'] or 'apache' in page.headers['Server']:
+    else:
+        server_header = str.lower(page.headers['Server'])
+    if 'nginx' in server_header or 'apache' in server_header:
         return False
     else:
         return True
