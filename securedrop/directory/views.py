@@ -3,8 +3,8 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
 from directory.forms import LandingPageForm
+from directory.landing_page.scanner import scan, clean_url
 from directory.models import Securedrop, Result
-from directory.utils import scan, clean_url
 
 
 class SecuredropListView(ListView):

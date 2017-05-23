@@ -6,3 +6,4 @@ source =
 omit =
    tests/
    directory/tests/*
+   directory/landing_page/tests/*
