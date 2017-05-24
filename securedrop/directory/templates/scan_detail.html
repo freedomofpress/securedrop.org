@@ -300,7 +300,7 @@
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      {% if results.subdomain != True %}
+      {% if result.subdomain != True %}
         <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Landing page is not hosted on a subdomain.</p>
       {% else %}
         <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> Landing page should not be hosted on a subdomain. Using a subdomain can reveal to a passive observer that the client is looking at the securedrop page on your website.</p>
