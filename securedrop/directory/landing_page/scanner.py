@@ -51,6 +51,7 @@ def scan(securedrop):
         securedrop=securedrop,
         live=pshtt_results['Live'],
         http_status_200_ok=validate_200_ok(no_redirects_page),
+        forces_https=pshtt_results['Strictly Forces HTTPS'],
         hsts=pshtt_results['HSTS'],
         hsts_max_age=pshtt_results['HSTS Max Age'],
         hsts_entire_domain=pshtt_results['HSTS Entire Domain'],

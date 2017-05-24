@@ -54,13 +54,13 @@
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      {% if result.hsts != None %}
+      {% if result.forces_https != None %}
       <h3>HTTPS</h3>
       {% endif %}
 
-      {% if result.hsts == True %}
+      {% if result.forces_https == True %}
         <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Landing page enforces HTTPS.</p>
-      {% elif result.live != False %}
+      {% elif result.forces_https == False %}
         <p class="text-danger lead"><span class="glyphicon glyphicon-remove"></span> Landing page does not enforce HTTPS.
           HTTPS is critical for security on the landing page.
           <a class="btn btn-sm btn-default" href="https://securethe.news/why/">Why?</a>
@@ -72,9 +72,19 @@
 
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
+      {% if result.hsts == True %}
+        <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> HSTS is supported.</p>
+      {% elif result.hsts == False %}
+        <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> HSTS is not supported. </p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
       {% if result.hsts_max_age > 16070400 %}
         <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> HSTS max age is at least a year.</p>
-      {% elif result.live != False %}
+      {% elif result.live == True %}
         <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> HSTS max age is less than a year. </p>
       {% endif %}
     </div>
@@ -84,7 +94,7 @@
     <div class="col-md-6 col-md-offset-3">
       {% if result.hsts_entire_domain == True %}
         <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> HTTPS is enforced on the entire domain.</p>
-      {% elif result.live != False %}
+      {% elif result.live == True %}
         <p class="text-warning lead"><span class="glyphicon glyphicon-flag"></span> HTTPS is not enforced on the entire domain. </p>
       {% endif %}
     </div>

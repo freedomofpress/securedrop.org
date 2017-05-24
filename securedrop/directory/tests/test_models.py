@@ -104,7 +104,7 @@ class ResultTest(TestCase):
                          securedrop=self.securedrop)
         result2.save()
         most_recent = self.securedrop.results.latest()
-        self.assertEqual(most_recent.grade, 'F')
+        self.assertEqual(most_recent.grade, 'C')
 
     def test_result_string_representation(self):
         result1 = Result(live=True, hsts=True, hsts_max_age=99999999,

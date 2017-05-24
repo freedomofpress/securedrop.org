@@ -29,6 +29,12 @@ class VerificationUtilityTest(TestCase):
     def test_url_does_have_subdomain(self):
         self.assertTrue(validation.validate_subdomain('https://securedrop.example.com'))
 
+    def test_guardian_url_does_have_subdomain(self):
+        self.assertTrue(validation.validate_subdomain('https://securedrop.theguardian.com'))
+
+    def test_guardian_url_does_have_subdomain(self):
+        self.assertTrue(validation.validate_subdomain('securedrop.theguardian.com'))
+
     def test_www_url_does_not_have_subdomain(self):
         self.assertFalse(validation.validate_subdomain('https://www.example.com/securedrop'))
 
@@ -207,12 +213,12 @@ class VerificationUtilityTest(TestCase):
         page.headers = {'Cache-Control': 'store'}
         self.assertFalse(validation.validate_nostore(page))
 
-    def test_cache_control_validate_nostore_set(self):
+    def test_cache_control_validate_private_set(self):
         page = mock.Mock()
         page.headers = {'Cache-Control': 'private'}
         self.assertTrue(validation.validate_private(page))
 
-    def test_cache_control_validate_nostore_not_set(self):
+    def test_cache_control_validate_private_not_set(self):
         page = mock.Mock()
         page.headers = {'Cache-Control': 'public'}
         self.assertFalse(validation.validate_private(page))
