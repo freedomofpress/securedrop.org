@@ -14,10 +14,20 @@
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
       <h3>Basic</h3>
-      {% if result.http_status_200_ok == True %}
-        <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Successfully requested landing page.</p>
-      {% elif result.http_status_200_ok == False %}
+      {% if result.live == True %}
+        <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Successfully received landing page.</p>
+      {% elif result.live == False %}
         <p class="text-danger lead"><span class="glyphicon glyphicon-remove"></span> Could not get to landing page.</p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      {% if result.http_status_200_ok == True %}
+        <p class="text-success lead"><span class="glyphicon glyphicon-ok"></span> Server responded with 200 OK.</p>
+      {% elif result.http_status_200_ok == False %}
+        <p class="text-danger lead"><span class="glyphicon glyphicon-remove"></span> Server did not respond with 200 OK.</p>
       {% endif %}
     </div>
   </div>

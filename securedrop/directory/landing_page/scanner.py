@@ -31,6 +31,12 @@ def scan(securedrop):
 
     try:
         page, soup = request_and_scrape_page(securedrop.landing_page_domain)
+
+        # In order to check the HTTP status code and redirect status, we must
+        # pass
+        no_redirects_page, _ = request_and_scrape_page(
+            securedrop.landing_page_domain, allow_redirects=False
+        )
     except requests.exceptions.RequestException:
         # Connection timed out, an invalid HTTP response was returned, or
         # a network problem occurred.
@@ -44,7 +50,7 @@ def scan(securedrop):
     return Result(
         securedrop=securedrop,
         live=pshtt_results['Live'],
-        http_status_200_ok=validate_200_ok(page),
+        http_status_200_ok=validate_200_ok(no_redirects_page),
         hsts=pshtt_results['HSTS'],
         hsts_max_age=pshtt_results['HSTS Max Age'],
         hsts_entire_domain=pshtt_results['HSTS Entire Domain'],
@@ -53,7 +59,7 @@ def scan(securedrop):
         no_cookies=validate_no_cookies(page),
         safe_onion_address=validate_onion_address_not_in_href(soup),
         no_cdn=validate_not_using_cdn(page),
-        http_no_redirect=validate_no_redirects(page),
+        http_no_redirect=validate_no_redirects(no_redirects_page),
         expected_encoding=validate_encoding(page),
         no_analytics=validate_not_using_analytics(page),
         no_server_info=validate_server_software(page),
@@ -117,12 +123,12 @@ def pshtt(url):
     return pshtt_results
 
 
-def request_and_scrape_page(domain):
+def request_and_scrape_page(domain, allow_redirects=True):
     try:
-        page = requests.get(domain)
+        page = requests.get(domain, allow_redirects=allow_redirects)
         soup = BeautifulSoup(page.content, "lxml")
     except requests.exceptions.MissingSchema:
-        page = requests.get('https://{}'.format(domain))
+        page = requests.get('https://{}'.format(domain), allow_redirects=allow_redirects)
         soup = BeautifulSoup(page.content, "lxml")
 
     return page, soup
