@@ -99,7 +99,7 @@ def pshtt(url):
     # Function adapted from Secure The News https://securethe.news
     domain = clean_url(url).split('/')[0]
 
-    pshtt_cmd = ['pshtt', '--json', '--timeout', '5', domain]
+    pshtt_cmd = ['pshtt', '--json', '--timeout', '10', domain]
 
     p = subprocess.Popen(
         pshtt_cmd,
