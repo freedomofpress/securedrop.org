@@ -20,7 +20,14 @@ def clean_url(url):
 def scan(securedrop):
     """Scan a single site"""
 
-    pshtt_results = pshtt(securedrop.landing_page_domain)
+    try:
+        pshtt_results = pshtt(securedrop.landing_page_domain)
+    except:
+        return Result(
+            securedrop=securedrop,
+            live=pshtt_results['Live'],
+            http_status_200_ok=False,
+        )
 
     try:
         page, soup = request_and_scrape_page(securedrop.landing_page_domain)
