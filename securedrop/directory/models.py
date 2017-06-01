@@ -43,6 +43,7 @@ class Result(models.Model):
     result_last_seen = models.DateTimeField(auto_now_add=True)
 
     # HTTPS fields populated with pshtt
+    forces_https = models.NullBooleanField()
     hsts = models.NullBooleanField()
     hsts_max_age = models.IntegerField(null=True, blank=True)
     hsts_entire_domain = models.NullBooleanField()
@@ -105,7 +106,7 @@ class Result(models.Model):
             self.grade = '?'
             return
 
-        if (self.hsts == False or
+        if (self.forces_https == False or
             self.no_cookies == False or
             self.http_no_redirect == False or
             self.http_status_200_ok == False or
@@ -116,7 +117,8 @@ class Result(models.Model):
               self.no_server_info == False or
               self.no_server_version == False):
             self.grade = 'D'
-        elif (self.expected_encoding == False or
+        elif (self.hsts == False or
+              self.expected_encoding == False or
               self.noopen_download == False or
               self.cache_control_set == False or
               self.csp_origin_only == False or

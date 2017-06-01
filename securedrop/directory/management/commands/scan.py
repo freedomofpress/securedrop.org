@@ -1,7 +1,7 @@
 from django.core.management import BaseCommand, CommandError
 
 from directory.models import Securedrop
-from directory.utils import bulk_scan
+from directory.landing_page.scanner import bulk_scan
 
 
 class Command(BaseCommand):

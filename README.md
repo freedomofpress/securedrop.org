@@ -12,6 +12,7 @@ For initial setup, you'll need to install dependencies and apply database migrat
 ```
 pip install pshtt
 pip3 install -r requirements.txt
+mkdir ../../database
 python3 manage.py migrate
 ```
 
