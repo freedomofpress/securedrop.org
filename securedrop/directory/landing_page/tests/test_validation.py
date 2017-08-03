@@ -93,6 +93,12 @@ class VerificationUtilityTest(TestCase):
         page.headers = {'Content-Security-Policy': "default-src 'self'"}
         self.assertTrue(scanner.validate_csp(page))
 
+ def test_csp_present_multiple_values(self):
+        """CSP check should pass with multiple values as long as "default-src 'self'" is among them. """
+        page = mock.Mock()
+        page.headers = {'Content-Security-Policy': "default-src 'self' style-src 'self'"}
+        self.assertTrue(scanner.validate_csp(page))
+
     def test_xss_protection_not_present(self):
         page = mock.Mock()
         page.headers = {'X-XSS-Protection': 'Crazy Value'}
