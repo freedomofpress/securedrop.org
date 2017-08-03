@@ -220,9 +220,12 @@ def validate_server_version(page):
 
 
 def validate_csp(page):
-    return validate_security_header(page,
-                             "Content-Security-Policy",
-                             "default-src 'self'")
+    if 'Content-Security-Policy' not in page.headers:
+        return False
+    elif "default-src 'self'" not in page.headers['Content-Security-Policy']:
+        return False
+    else:
+        return True
 
 
 def validate_xss_protection(page):
