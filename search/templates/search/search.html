@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags common_tags %}
+
+{% block title %}Search{% endblock %}
+
+{% block main %}
+	<div class="search-page">
+		<h2 class="page-title page-title--less-margin">Search</h2>
+
+		{% include "common/_search_bar.html" with class="search-bar--on-page" %}
+
+
+		{% if search_results %}
+			<ul class="search-page__list">
+				{% for result in search_results %}
+					<li class="search-page__list-item">
+						<section>
+							<h3 class="search-page__list-item-title">
+								<a href="{% pageurl result %}" class="search-page__list-item-link">
+									{{ result }}
+								</a>
+							</h4>
+							{% if result.search_description %}
+								{{ result.search_description|safe }}
+							{% elif result.content_type.name in content_types_with_body %}
+								{% with first_text_block=result.specific.body|first_block_of:'rich_text' %}
+									{% if first_text_block %}
+										{% firstof result.search_description|safe first_text_block|truncatewords_html:'40'|striptags %}
+									{% endif %}
+								{% endwith %}
+							{% endif %}
+						</section>
+					</li>
+				{% endfor %}
+			</ul>
+
+			{% if search_results.has_previous %}
+				<a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}" class="button button--outline">Previous</a>
+			{% endif %}
+
+			{% if search_results.has_next %}
+				<a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}" class="button button--outline">Next</a>
+			{% endif %}
+		{% elif search_query %}
+			No results found
+		{% endif %}
+	</div>
+{% endblock %}

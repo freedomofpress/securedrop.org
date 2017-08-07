@@ -1,0 +1,13 @@
+Django<1.12
+-e git+https://github.com/freedomofpress/django-logging.git@dfd8904#egg=django-logging-json
+django-modelcluster
+django-settings-export
+django-webpack-loader
+factory_boy
+gunicorn
+pip-tools
+psycopg2
+wagtail
+wagtail-factories
+wagtail-metadata
+unittest-xml-reporting

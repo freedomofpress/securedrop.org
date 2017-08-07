@@ -1,0 +1,128 @@
+---
+- name: Establish certs
+  hosts: all
+  gather_facts: true
+  pre_tasks:
+    - name: Set django root
+      set_fact:
+        django_root: /var/www/django
+  roles:
+    - role: freedomofpress.openssl_node
+      tags: ssl-node
+
+- name: Setup postgres
+  hosts: all
+  gather_facts: false
+  pre_tasks:
+    - name: Ensure ssl-cert user exists
+      group:
+        name: ssl-cert
+
+    - name: Allow postgres user access
+      file:
+        path: /etc/ssl/private/{{ansible_fqdn}}-key.pem
+        mode: 0640
+        group: ssl-cert
+  roles:
+    - role: ANXS.postgresql
+      tags: postgres
+  vars:
+    postgresql_users:
+      - name: django_user
+        pass: django_password
+    postgresql_databases:
+      - name: securedrop
+        owner: django_user
+    postgresql_user_privileges:
+      - name: django_user
+        db: securedrop
+        priv: "ALL"
+        role_attr_flags: "CREATEDB"
+
+- name: Django deps
+  hosts: all
+  gather_facts: false
+  pre_tasks:
+    - name: Create user
+      user:
+        name: gcorn
+        home: /home/gcorn
+        createhome: yes
+      tags: node
+  roles:
+    - role: jdauphant.nginx
+      tags: nginx
+
+    - role: geerlingguy.nodejs
+      tags: node
+  vars:
+    nodejs_version: "6.x"
+    nodejs_install_npm_user: gcorn
+    nginx_sites:
+      default:
+        - listen 80
+        - return 301 https://localhost:4443$request_uri
+      encrypted:
+        - listen 443 ssl
+        - location / { proxy_pass http://127.0.0.1:8000/; }
+        - location /static { alias /var/www/django-static; }
+        - location /media { alias /var/www/django-media; }
+        - ssl_certificate /etc/ssl/certs/{{ansible_fqdn}}.pem
+        - ssl_certificate_key /etc/ssl/private/{{ansible_fqdn}}-key.pem
+
+- name: Laydown pax flags (for us sad grsec users)
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Install GRSEC utilities
+      package:
+        name: "paxctld"
+      when: "'grsec' in ansible_kernel"
+
+    - name: Layout pax config
+      lineinfile:
+        dest: /etc/paxctld.conf
+        line: "{{ item }}"
+      with_items:
+        - "/usr/bin/nodejs m"
+        - "/home/gcorn/securedrop/bin/python3 m"
+        - "/home/gcorn/securedrop/bin/pip m"
+      when: "'grsec' in ansible_kernel"
+      notify: Restart paxctld
+      register: grsec_config_results
+
+  handlers:
+    - name: Restart paxctld
+      service:
+        name: paxctld
+        enabled: yes
+        state: restarted
+
+- name: preload django_stack stuff
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Install django stack necessary apt packages
+      apt:
+        name: "{{ item }}"
+      with_items:
+        - gcc
+        - g++
+        - python3
+        - python3-dev
+        - virtualenv
+        - libxml2-dev
+        - libxslt-dev
+        - zlib1g-dev
+        - libjpeg-dev
+        - libpq-dev
+        - libffi-dev
+        - git
+
+- name: Stop base container
+  hosts: localhost
+  tasks:
+    - name: Ensure base container stopped
+      docker_container:
+        name: debian_jessie_pftracker_ci_base
+        state: stopped

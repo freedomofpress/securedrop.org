@@ -1,0 +1,56 @@
+{% load static wagtailmetadata_tags wagtailsettings_tags %}
+{% load render_bundle from webpack_loader %}
+
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9"><![endif]-->
+<!--[if gt IE 8]><!--><html class="no-js" lang="en"><!--<![endif]-->
+	<head>
+		{% block head %}
+			<meta charset="utf-8" />
+			<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+			<title>
+				{% block title %}
+					{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
+				{% endblock %}
+				{% block title_suffix %}
+					{% with self.get_site.site_name as site_name %}
+						{% if site_name %}- {{ site_name }}{% endif %}
+					{% endwith %}
+				{% endblock %}
+			</title>
+			<meta name="description" content="" />
+			<meta name="viewport" content="width=device-width, initial-scale=1" />
+			<link rel="icon" type="image/x-icon" href={% static 'favicon/favicon.ico' %} />
+
+			{% block css %}
+			{% render_bundle 'common' 'css' %}
+			{% endblock %}
+
+			{% block meta %}
+				{% if self %}
+					{% meta_tags %}
+				{% endif %}
+				{% get_settings %}
+				{% with seo_settings=settings.common.SocialSharingSEOSettings %}
+					{% if seo_settings.twitter %}
+						<meta name="twitter:site" content="@{{ seo_settings.twitter }}">
+					{% endif %}
+					{% if seo_settings.facebook_page_id %}
+						<meta property="fb:pages" content="{{ seo_settings.facebook_page_id }}">
+					{% endif %}
+				{% endwith %}
+			{% endblock %}
+
+			<!--[if lte IE 11]>
+			<script type="text/javascript" src="{% static 'js/picturefill.3.0.2.min.js' %}"></script>
+			<![endif]-->
+		{% endblock %}
+	</head>
+
+	<body class="{% block body_class %}{% endblock %}">
+		{% block body %}
+		{% endblock %}
+	</body>
+</html>
