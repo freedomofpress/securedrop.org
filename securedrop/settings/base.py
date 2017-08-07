@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'menus',
     'search',
     'simple',
+    'github',
 
     'wagtail.contrib.settings',
     'wagtail.contrib.wagtailroutablepage',
