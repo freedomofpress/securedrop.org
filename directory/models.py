@@ -2,6 +2,7 @@ from django.db import models
 from django import forms
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
+from django.utils.text import slugify
 
 from modelcluster.fields import ParentalKey
 
@@ -31,7 +32,13 @@ class DirectoryPage(RoutablePageMixin, Page):
             form = DirectoryForm(request.POST)
             # check whether it's valid:
             if form.is_valid():
+                data = form.cleaned_data
                 # create secure_drop instance, adding parent page to the form
+                instance = SecureDropInstance.objects.create(
+                    page=self,
+                    url=data['url'],
+                    tor_address=data['tor_address'],
+                )
                 return HttpResponseRedirect('{0}thanks/'.format(self.url))
 
         # else redirect to a page with errors
