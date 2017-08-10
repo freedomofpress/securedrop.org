@@ -204,3 +204,11 @@ NOCAPTCHA = True
 
 # django-taggit
 TAGGIT_CASE_INSENSITIVE = True
+
+
+# GitHub Webhook Settings
+
+GITHUB_HOOK_SECRET_KEY = os.environ.get(
+    'GITHUB_HOOK_SECRET_KEY',
+    'default'
+).encode('utf-8')
