@@ -7,6 +7,7 @@ from modelcluster.fields import ParentalKey
 
 from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 from wagtail.wagtailcore.models import Page, Orderable
+from directory.utils import is_instance_valid
 
 
 class DirectoryForm(forms.Form):
@@ -14,7 +15,12 @@ class DirectoryForm(forms.Form):
     url = forms.URLField()
     tor_address = forms.CharField(label="Tor address", max_length=255)
 
-    # is_valid will run the validation script
+    def clean(self):
+        cleaned_data = super(DirectoryForm, self).clean()
+
+        if not is_instance_valid():
+            raise forms.ValidationError("Instance not valid, try again.")
+
 
 
 class DirectoryPage(RoutablePageMixin, Page):
