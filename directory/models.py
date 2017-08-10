@@ -5,9 +5,12 @@ from django.http import HttpResponseRedirect
 from django.utils.text import slugify
 
 from modelcluster.fields import ParentalKey
-
 from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 from wagtail.wagtailcore.models import Page, Orderable
+from wagtail.wagtailadmin.edit_handlers import (
+    InlinePanel,
+)
+
 from directory.utils import is_instance_valid
 
 
@@ -54,6 +57,10 @@ class DirectoryPage(RoutablePageMixin, Page):
     @route('thanks/')
     def thanks_view(self, request):
         return render(request, 'directory/thanks.html')
+
+    content_panels = Page.content_panels + [
+        InlinePanel('instances', label='Thingies'),
+    ]
 
 
 class SecureDropInstance(Orderable):
