@@ -17,4 +17,3 @@ def paginate(request, items, page_key=DEFAULT_PAGE_KEY, per_page=20, orphans=10)
         page = paginator.page(paginator.num_pages)
 
     return paginator, page
-

@@ -1,0 +1,54 @@
+*
+	box-sizing: border-box
+
+*:after,
+*:before
+	box-sizing: inherit
+
+html
+	height: 100%
+	font-family: $sans-serif
+
+body
+	margin: 0
+	height: 100%
+	font-size: $base
+
+b,
+strong
+	font-weight: $sans-bold
+
+i,
+em
+	font-style: italic
+
+// responsive images are the default
+img
+	max-width: 100%
+	height: auto
+
+a
+	+link--underline
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6
+	font-weight: normal
+	margin-top: 0
+	margin-bottom: 1rem
+
+h1
+	font-size: $h1
+h2
+	font-size: $h2
+h3
+	font-size: $h3
+h4
+	font-size: $h4
+h5
+	font-size: $h5
+h6
+	font-size: $h6

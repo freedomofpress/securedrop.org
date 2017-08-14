@@ -1,0 +1,20 @@
+{# This is used both on the blog index and the homepage sidebar. #}
+
+{% load wagtailcore_tags %}
+
+<div class="blog-tease">
+	{% if page.teaser_image %}
+		{% include "common/_teaser_image.html" %}
+	{% endif %}
+	<div class="blog-tease__body--{{ location }}">
+		<h3 class="blog-tease__title">
+			<a class="blog-tease__title-link" href="{% pageurl page %}">
+				{{ page.title }}
+			</a>
+		</h3>
+
+		<div class="blog-tease__tease">
+			{{ page.teaser_text|richtext }}
+		</div>
+	</div>
+</div>
