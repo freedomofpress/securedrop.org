@@ -30,6 +30,12 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Application definition
 
 INSTALLED_APPS = [
+    'blog',
+    'common',
+    'menus',
+    'search',
+    'simple',
+
     'wagtail.contrib.settings',
     'wagtail.contrib.wagtailroutablepage',
     'wagtail.contrib.modeladmin',
@@ -55,6 +61,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'build',
 ]
 
 MIDDLEWARE = [
@@ -154,6 +162,8 @@ else:
 
 WAGTAIL_SITE_NAME = "securedrop"
 
+WAGTAILIMAGES_IMAGE_MODEL = 'common.CustomImage'
+
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
@@ -167,7 +177,7 @@ WEBPACK_LOADER = {
     'DEFAULT': {
         'CACHE': not DEBUG,
         'BUNDLE_DIR_NAME': 'bundles/',  # must end with slash
-        'STATS_FILE': os.path.join(BASE_DIR, 'common/static/bundles/webpack-stats.json'),
+        'STATS_FILE': os.path.join(BASE_DIR, 'build/static/bundles/webpack-stats.json'),
         'POLL_INTERVAL': 0.1,
         'TIMEOUT': None,
         'IGNORE': ['.+\.hot-update.js', '.+\.map']

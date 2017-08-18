@@ -1,0 +1,58 @@
+// FONT SIZES
+
+$base: 16px
+
+$h1: 2rem
+$h2: 1.5rem
+$h3: 1.2rem
+$h4: 1rem
+$h5: 1rem
+$h6: 1rem
+
+// FONT FAMILIES
+
+$sans-serif: Calibri, "Gil Sans", sans-serif
+$serif: Georgia, serif
+
+// FONT WEIGHTS
+$serif-regular: 400
+$serif-bold: 600
+$sans-regular: 400
+$sans-bold: 600
+
+
+// COLORS
+// When possible, colors should include optically adjusted variations: e.g.,
+// $gray50--text (for text and thin borders) should be slightly darker than
+// $gray50 (for backgrounds and other color fields)
+
+$white: #FFF
+$gray10: #ddd
+$gray10--text: darken($gray10,10)
+$gray50: #888
+$gray50--text: darken($gray50,5)
+$gray80: #444
+$gray80--text: darken($gray80,5)
+$gray90: #222
+$gray90--text: darken($gray90,2)
+$black: #000
+
+$brand-primary: teal
+$brand-primary-text: $brand-primary
+$brand-secondary: rebeccapurple
+$brand-secondary-text: $brand-secondary
+
+$link-color: $brand-primary-text
+$link-hover-color: darken($brand-primary, 10)
+
+
+// BREAKPOINTS
+// Be sure to add any extras to $breakpoints-map in mixins/_breakpoints.scss
+// $breakpoints-map mixins for sorting ascending and ensuring starting at 0 are not included, so do that yourself.
+
+$breakpoint-tiny: 0
+$breakpoint-extra-small: 24rem
+$breakpoint-small: 36rem
+$breakpoint-medium: 48rem
+$breakpoint-large: 60rem
+$breakpoint-extra-large: 72rem

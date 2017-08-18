@@ -1,0 +1,18 @@
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags %}
+
+{% image self.image width-1440 as x1 %}
+{% image self.image width-2880 as x2 %}
+
+<div class="image__wrapper
+	{% if self.alignment == 'full-width' %}
+		image__wrapper--full-width
+	{% else %}
+		image__wrapper--{% if self.alignment == 'left' %}left{% else %}right{% endif %}
+	{% endif %}">
+	<img
+		alt="{{ x1.alt }}"
+		src="{{ x1.url }}"
+		srcset="{{ x2.url }} 2x"
+	/>
+</div>

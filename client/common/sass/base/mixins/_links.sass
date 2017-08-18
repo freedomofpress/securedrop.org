@@ -1,0 +1,37 @@
+// UTILITIES
+
+=link-transition
+	transition-duration: 0.1s
+	transition-timing-function: linear
+	transition-property: color, background-color
+
+=link-color($color: $link-color, $color-hover: #{darken($color,10)})
+	color: $color
+	+hover
+		color: $color-hover
+
+=decoration($decoration, $decoration-hover: $decoration)
+	text-decoration: $decoration
+	+hover
+		text-decoration: $decoration-hover
+
+// STYLES
+
+=link--unstyled
+	+link-color(inherit,inherit)
+	+decoration(inherit)
+
+=link--underline($color: $link-color, $color-hover: #{darken($color,10)})
+	+link-transition
+	+link-color($color,$color-hover)
+	+decoration(underline)
+
+=link--no-underline($color: inherit, $color-hover: $link-color)
+	+link-transition
+	+link-color($color,$color-hover)
+	+decoration(none)
+
+=link--underline-on-hover($color: inherit, $color-hover: $link-color)
+	+link-transition
+	+link-color($color,$color-hover)
+	+decoration(none,underline)

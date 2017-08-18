@@ -1,0 +1,16 @@
+{% load wagtailcore_tags %}
+
+<blockquote class="blockquote" {% if self.source_url %}cite="{{ self.source_url }}"{% endif%}>
+	{{ self.text|richtext }}
+	{% if self.source_text and self.source_url %}
+		<cite class="blockquote__citation">
+			<a class="blockquote__link" href="{{ self.source_url}}">
+				{{ self.source_text }}
+			</a>
+		</cite>
+	{% elif self.source_text %}
+		<cite class="blockquote__citation">
+			{{ self.source_text }}
+		</cite>
+	{% endif %}
+</blockquote>

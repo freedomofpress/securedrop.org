@@ -1,0 +1,20 @@
+=list--unstyled
+	list-style-type: none
+	margin: 0
+	padding: 0
+
+=list--comma($punct: ',')
+	&::after
+		content: '#{$punct} '
+
+	&:last-child::after
+		content: ''
+
+=list--comma-human($punct: ',')
+	+list--comma($punct)
+
+	&:nth-last-child(2)::after
+		content: '#{$punct} and '
+
+	&:first-child:nth-last-child(2)::after
+		content: ' and '

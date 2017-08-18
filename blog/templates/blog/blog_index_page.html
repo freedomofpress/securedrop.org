@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags common_tags %}
+
+{% block secondary-header %}
+	<h2>{{ page.title }}</h2>
+{% endblock %}
+
+{% block main %}
+		{% for post in entries_page %}
+			<div>
+				{% include "blog/_blog_tease.html" with page=post.specific location="blog-index" single_column=True %}
+			</div>
+		{% endfor %}
+
+		{% if entries_page.has_previous %}
+			<a
+				href="?{% query_transform request page=entries_page.previous_page_number %}"
+				class="js-infinite-scrolling-prev-link"
+			>
+				Previous Page
+			</a>
+		{% endif %}
+
+		{% if entries_page.has_next %}
+			<a
+				href="?{% query_transform request page=entries_page.next_page_number %}"
+				class="button button--outline button--center js-infinite-scrolling-next-link"
+			>
+				More Posts
+			</a>
+		{% endif %}
+{% endblock main %}

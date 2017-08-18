@@ -8,7 +8,7 @@ var path = require('path');
 var TARGET = process.env.npm_lifecycle_event;
 process.env.BABEL_ENV = TARGET;
 
-var target = __dirname + '/common/static/bundles';
+var target = __dirname + '/build/static/bundles';
 
 var STATIC_URL = process.env.STATIC_URL || '/static/';
 var sassData = '$static-url: "' + STATIC_URL + '";';
@@ -17,8 +17,7 @@ console.log('Using STATIC_URL', STATIC_URL);
 
 var common = {
 	entry: {
-		common: __dirname + '/common/static/js/common.js',
-		editor: __dirname + '/autocomplete/static/js/editor.js',
+		common: __dirname + '/client/common/js/common.js',
 	},
 
 	output: {
@@ -28,8 +27,7 @@ var common = {
 
 	resolve: {
 		alias: {
-			'~': __dirname + '/common/static/js',
-			WagtailAutocomplete: path.resolve(__dirname, 'autocomplete/static/js/components'),
+			'~': __dirname + '/client/common/js',
 			modernizr$: path.resolve(__dirname, '.modernizrrc')
 		},
 		extensions: ['.js', '.jsx'],
@@ -50,8 +48,7 @@ var common = {
 					}
 				],
 				include: [
-					path.join(__dirname, '/common/static/js'),
-					path.join(__dirname, '/autocomplete/static/js'),
+					path.join(__dirname, '/client/common/js'),
 				],
 			},
 			{
