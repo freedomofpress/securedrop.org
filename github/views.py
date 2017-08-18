@@ -43,18 +43,19 @@ def handle_release_hook(release):
         )
         release.full_clean()
         release.save()
+        return release
     except KeyError as error:
         logger.error(
-            'GitHub release event received but failed due to missing data: %s %s',
+            'GitHub release event received but failed due to missing data: %s',
             error,
-            release,
         )
+        return False
     except Exception as error:
         logger.error(
-            'GitHub release event received but failed to create Release object: %s %s',
+            'GitHub release event received but failed to create Release object: %s',
             error,
-            release,
         )
+        return False
 
 
 @require_POST
@@ -62,38 +63,46 @@ def handle_release_hook(release):
 def receive_hook(request):
     encoding = request.encoding or settings.DEFAULT_CHARSET
     content = request.body.decode(encoding)
+    logger.info(
+        'GitHub hook received. '
+        'Request content and error or success status follow immediately: %s',
+        content
+    )
+
     if not content:
         logger.warn('GitHub hook received with no POST data')
         return HttpResponse(status=204)
 
     if not validate_sha1_signature(request, settings.GITHUB_HOOK_SECRET_KEY):
-        logger.warn('GitHub hook received event with an invalid signature. %s', content)
+        logger.warn('GitHub hook received event with an invalid signature.')
         return HttpResponse(status=204)
 
     try:
         body = json.loads(content)
     except Exception as error:
-        logger.warn('GitHub hook received erroneous JSON POST data. %s %s', content, error)
+        logger.warn('GitHub hook received erroneous JSON POST data. %s', error)
         return HttpResponse(status=204)
 
     event_type = request.META.get('HTTP_X_GITHUB_EVENT')
     if event_type == 'ping':
-        logger.info('Ping received from GitHub hook. %s', content)
+        logger.info('Ping received from GitHub hook.')
         return HttpResponse(status=204)
     elif event_type != 'release':
-        logger.warn('Received an unsupported GitHub event: %s %s', event_type, content)
+        logger.warn('Received an unsupported GitHub event: %s', event_type)
         return HttpResponse(status=204)
 
     if body.get('action', None) != 'published':
         # Currently the only `action` value for the Release hook should be
         # `published`.
-        logger.warn('GitHub hook received event with an action value other than published. %s', content)
+        logger.warn('GitHub hook received event with an action value other than published.')
         return HttpResponse(status=204)
 
     release = body.get('release', False)
     if release:
-        handle_release_hook(release)
+        obj = handle_release_hook(release)
+        if obj:
+            logger.info('Successfully created release %s', obj.tag_name)
     else:
-        logger.warn('GitHub hook received event without a release attribute. %s', content)
+        logger.warn('GitHub hook received event without a release attribute.')
 
     return HttpResponse(status=204)
