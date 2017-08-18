@@ -37,12 +37,18 @@ def validate_sha1_signature(request, secret):
 def handle_release_hook(release):
     try:
         release = Release(
-            tag_name=release.get('tag_name', ''),
-            url=release.get('html_url', ''),
-            date=release.get('published_at', ''),
+            tag_name=release['tag_name'],
+            url=release['html_url'],
+            date=release['published_at'],
         )
         release.full_clean()
         release.save()
+    except KeyError as error:
+        logger.error(
+            'GitHub release event received but failed due to missing data: %s %s',
+            error,
+            release,
+        )
     except Exception as error:
         logger.error(
             'GitHub release event received but failed to create Release object: %s %s',
