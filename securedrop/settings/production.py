@@ -1,7 +1,12 @@
 from __future__ import absolute_import, unicode_literals
 
 import os
+import logging
 from .base import *  # noqa: F403, F401
+
+
+logger = logging.getLogger(__name__)
+
 
 try:
     from .local import *  # noqa: F403, F401
@@ -129,3 +134,9 @@ if os.environ.get('MAILGUN_API_KEY'):
 
 # Ensure Django knows its being served over https
 SECURE_PROXY_SSL_HEADER = ('X-Forwarded-Proto', 'https')
+
+
+# GitHub Webhook Settings
+
+if GITHUB_HOOK_SECRET_KEY == b'default':
+    logger.critical('GITHUB_HOOK_SECRET_KEY has a value of "default". It has likely not been set.')
