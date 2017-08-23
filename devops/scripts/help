@@ -17,4 +17,5 @@ dev-sass-lint           Runs sass-lint utility over the code-base
 dev-import-db           Imports a database dump from file named ./import.db
 dev-save-db             Save a snapshot of the database for the current git branch
 dev-restore-db          Restore the most recent database snapshot for the current git branch
+dev-update-requirements Update requirements files after a new requirement is added to requirements.in or dev-requirements.in
 dev-chownroot           Chown root owned files caused from previous root-run containers

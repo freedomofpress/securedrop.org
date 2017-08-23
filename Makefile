@@ -62,3 +62,7 @@ dev-save-db:
 .PHONY: dev-restore-db
 dev-restore-db:
 	./devops/scripts/restoredb.sh
+
+.PHONY: dev-update-requirements
+dev-update-requirements:
+	./devops/scripts/update-requirements.sh
