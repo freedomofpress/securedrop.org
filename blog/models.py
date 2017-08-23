@@ -26,11 +26,14 @@ from common.blocks import (
 
 
 class BlogIndexPage(MetadataPageMixin, Page):
-    body = StreamField([
-        ('rich_text', blocks.RichTextBlock(icon='doc-full', label='Rich Text')),
-        ('image', ImageChooserBlock()),
-        ('raw_html', blocks.RawHTMLBlock()),
-    ])
+    body = StreamField(
+        [
+            ('rich_text', blocks.RichTextBlock(icon='doc-full', label='Rich Text')),
+            ('image', ImageChooserBlock()),
+            ('raw_html', blocks.RawHTMLBlock()),
+        ],
+        blank=True
+    )
 
     content_panels = Page.content_panels + [
         StreamFieldPanel('body'),
@@ -77,20 +80,23 @@ class BlogPage(MetadataPageMixin, Page):
         help_text='Past or future date of publication'
     )
 
-    body = StreamField([
-        ('text', StyledTextBlock(label='Text', template='common/blocks/styled_text_full_bleed.html')),
-        ('image', AlignedImageBlock()),
-        ('raw_html', blocks.RawHTMLBlock()),
-        ('blockquote', RichTextBlockQuoteBlock()),
-        ('list', blocks.ListBlock(
-            blocks.CharBlock(label="List Item"),
-            template='common/blocks/list_block_columns.html'
-        )),
-        ('video', AlignedEmbedBlock()),
-        ('heading_1', Heading1()),
-        ('heading_2', Heading2()),
-        ('heading_3', Heading3()),
-    ])
+    body = StreamField(
+        [
+            ('text', StyledTextBlock(label='Text', template='common/blocks/styled_text_full_bleed.html')),
+            ('image', AlignedImageBlock()),
+            ('raw_html', blocks.RawHTMLBlock()),
+            ('blockquote', RichTextBlockQuoteBlock()),
+            ('list', blocks.ListBlock(
+                blocks.CharBlock(label="List Item"),
+                template='common/blocks/list_block_columns.html'
+            )),
+            ('video', AlignedEmbedBlock()),
+            ('heading_1', Heading1()),
+            ('heading_2', Heading2()),
+            ('heading_3', Heading3()),
+        ],
+        blank=False
+    )
 
     teaser_image = models.ForeignKey(
         'common.CustomImage',
