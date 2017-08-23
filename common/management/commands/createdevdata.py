@@ -2,6 +2,7 @@ from home.models import HomePage
 
 from wagtail.wagtailcore.models import Page, Site
 
+from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 from django.db import transaction
 from django.core import management
@@ -26,3 +27,17 @@ class Command(BaseCommand):
         )
 
         management.call_command('createblogdata', '10')
+
+        # Create superuser
+        if not User.objects.filter(is_superuser=True).exists():
+            User.objects.create_superuser(
+                'test',
+                'test@securedrop',
+                'test',
+            )
+            self.stdout.write(
+                'Superuser created:\n'
+                '\tname: test\n'
+                '\temail: test@securedrop\n'
+                '\tpassword: test'
+            )
