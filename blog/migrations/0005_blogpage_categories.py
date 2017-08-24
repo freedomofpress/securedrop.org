@@ -9,7 +9,7 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('blog', '0002_categorypage'),
+        ('blog', '0004_categorypage'),
     ]
 
     operations = [

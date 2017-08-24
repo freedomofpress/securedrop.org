@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('wagtailcore', '0039_collectionviewrestriction'),
-        ('blog', '0001_initial'),
+        ('blog', '0003_blogindexpage_feed_limit'),
     ]
 
     operations = [
