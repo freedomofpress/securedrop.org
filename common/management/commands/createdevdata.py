@@ -24,20 +24,20 @@ class Command(BaseCommand):
     @transaction.atomic
     def handle(self, *args, **options):
         if options['delete']:
-            home_page = Page.objects.get(slug='home')
-            home_page.delete()
-            home_page = HomePage(title='Home', slug='home')
+            Page.objects.filter(slug='home').delete()
 
-            root_page = Page.objects.get(title='Root')
-            root_page.add_child(instance=home_page)
+        home_page = HomePage(title='Home', slug='home')
 
-            Site.objects.create(
-                site_name='SecureDrop.org (Dev)',
-                hostname='localhost',
-                port='8000',
-                root_page=home_page,
-                is_default_site=True
-            )
+        root_page = Page.objects.get(title='Root')
+        root_page.add_child(instance=home_page)
+
+        Site.objects.create(
+            site_name='SecureDrop.org (Dev)',
+            hostname='localhost',
+            port='8000',
+            root_page=home_page,
+            is_default_site=True
+        )
 
         management.call_command('createblogdata', '10')
 
