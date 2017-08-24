@@ -2,6 +2,11 @@
 
 {% load wagtailcore_tags common_tags %}
 
+{% block head %}
+    {{ block.super }}
+    {% include "common/_rss_autodiscovery.html" %}
+{% endblock %}
+
 {% block secondary-header %}
 	<h2>{{ page.title }}</h2>
 {% endblock %}
