@@ -137,6 +137,14 @@ class BlogPage(MetadataPageMixin, Page):
 
     categories = ParentalManyToManyField('blog.CategoryPage', blank=True)
 
+    release = models.ForeignKey(
+        'github.Release',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='posts',
+    )
+
     content_panels = Page.content_panels + [
         FieldPanel('publication_datetime'),
         StreamFieldPanel('body'),
