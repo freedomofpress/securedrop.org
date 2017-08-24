@@ -3,6 +3,8 @@ from django.utils.cache import patch_cache_control
 from django.utils.html import strip_tags
 from django.template.defaultfilters import truncatewords
 
+from modelcluster.fields import ParentalManyToManyField
+
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel, StreamFieldPanel
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.fields import StreamField, RichTextField
@@ -135,6 +137,8 @@ class BlogPage(MetadataPageMixin, Page):
         related_name='+',
     )
 
+    categories = ParentalManyToManyField('blog.CategoryPage', blank=True)
+
     content_panels = Page.content_panels + [
         FieldPanel('publication_datetime'),
         StreamFieldPanel('body'),
@@ -146,6 +150,7 @@ class BlogPage(MetadataPageMixin, Page):
             ]
         ),
         PageChooserPanel('author', 'common.PersonPage'),
+        FieldPanel('categories'),
     ]
 
     parent_page_types = ['blog.BlogIndexPage']
@@ -170,3 +175,31 @@ class BlogPage(MetadataPageMixin, Page):
             strip_tags(self.body.render_as_block()),
             20
         )
+
+
+class CategoryPage(Page):
+    description = RichTextField(blank=True, null=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('description'),
+    ]
+
+    def get_blog_posts(self):
+        return BlogPage.objects.live().filter(categories=self)
+
+    def get_context(self, request):
+        context = super(CategoryPage, self).get_context(request)
+
+        entry_qs = self.get_blog_posts()
+        # Use parent's settings for pagination counts
+        parent = self.get_parent().specific
+
+        paginator, entries = paginate(request, entry_qs,
+                                      page_key=DEFAULT_PAGE_KEY,
+                                      per_page=parent.per_page,
+                                      orphans=parent.orphans)
+
+        context['entries_page'] = entries
+        context['paginator'] = paginator
+
+        return context
