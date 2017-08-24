@@ -15,7 +15,6 @@ from __future__ import absolute_import, unicode_literals
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
-import dj_database_url
 import logging
 logger = logging.getLogger(__name__)
 
@@ -32,6 +31,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 INSTALLED_APPS = [
     'blog',
     'common',
+    'home',
     'menus',
     'search',
     'simple',
@@ -109,7 +109,10 @@ WSGI_APPLICATION = 'securedrop.wsgi.application'
 
 # Set the url as DATABASE_URL in the environment
 DATABASES = {
-    'default': dj_database_url.config(default="sqlite:///db.sqlite3")
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 }
 
 

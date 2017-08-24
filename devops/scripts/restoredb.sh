@@ -10,7 +10,7 @@ FILE=$(find $FOLDER -iname "$PREFIX*.dump" | sort -r | head -n 1)
 [ -z $FILE ] && echo "no snapshots found for branch $BRANCH" && exit 1
 
 OWNER="postgres"
-DBNAME="trackerdb"
+DBNAME="securedropdb"
 CONTAINER="sd_postgresql"
 
 # Terminate all other connections

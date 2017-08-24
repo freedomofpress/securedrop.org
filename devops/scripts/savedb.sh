@@ -5,7 +5,7 @@
 BRANCH=`git rev-parse --abbrev-ref HEAD`
 DATE=`date +%Y-%m-%d-%H-%M-%S`
 DUMPFILE="pfi-$BRANCH.$DATE.dump"
-DBNAME="trackerdb"
+DBNAME="securedropdb"
 FOLDER="db-snapshots"
 OWNER="postgres"
 
