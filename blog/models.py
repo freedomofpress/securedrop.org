@@ -16,7 +16,6 @@ from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 from blog.feeds import BlogIndexPageFeed
 from common.utils import DEFAULT_PAGE_KEY, paginate
 from common.models import MetadataPageMixin
-
 from common.blocks import (
     Heading1,
     Heading2,
