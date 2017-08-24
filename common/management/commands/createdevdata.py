@@ -11,20 +11,33 @@ from django.core import management
 class Command(BaseCommand):
     help = 'Creates data appropriate for development'
 
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--delete',
+            action='store_true',
+            dest='delete',
+            default=False,
+            help='Delete homepage and child pages before creating new data.',
+        )
+
+
     @transaction.atomic
     def handle(self, *args, **options):
-        Page.objects.get(slug='home').delete()
-        home_page = HomePage(title='Home', slug='home')
-        root_page = Page.objects.get(title='Root')
-        root_page.add_child(instance=home_page)
+        if options['delete']:
+            home_page = Page.objects.get(slug='home')
+            home_page.delete()
+            home_page = HomePage(title='Home', slug='home')
 
-        Site.objects.create(
-            site_name='SecureDrop.org (Dev)',
-            hostname='localhost',
-            port='8000',
-            root_page=home_page,
-            is_default_site=True
-        )
+            root_page = Page.objects.get(title='Root')
+            root_page.add_child(instance=home_page)
+
+            Site.objects.create(
+                site_name='SecureDrop.org (Dev)',
+                hostname='localhost',
+                port='8000',
+                root_page=home_page,
+                is_default_site=True
+            )
 
         management.call_command('createblogdata', '10')
 
