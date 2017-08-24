@@ -2,8 +2,6 @@ from blog.models import BlogIndexPage
 from blog.tests.factories import BlogPageFactory, BlogIndexPageFactory
 from home.models import HomePage
 
-from wagtail.wagtailcore.models import Page
-
 from django.core.management.base import BaseCommand
 from django.db import transaction
 
@@ -12,7 +10,7 @@ class Command(BaseCommand):
     help = 'Creates blog data appropriate for development'
 
     def add_arguments(self, parser):
-            parser.add_argument('number_of_posts', type=int)
+        parser.add_argument('number_of_posts', type=int)
 
     @transaction.atomic
     def handle(self, *args, **options):
