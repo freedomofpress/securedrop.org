@@ -60,25 +60,32 @@ class BaseSidebarPageMixin(models.Model):
 
 
 class SimplePage(Page):
-    body = StreamField([
-        ('text', StyledTextBlock(label='Text', template='common/blocks/styled_text_full_bleed.html')),
-        ('image', AlignedImageBlock()),
-        ('raw_html', blocks.RawHTMLBlock()),
-        ('blockquote', RichTextBlockQuoteBlock()),
-        ('list', blocks.ListBlock(
-            blocks.CharBlock(label="List Item"),
-            template='common/blocks/list_block_columns.html'
-        )),
-        ('video', AlignedEmbedBlock()),
-        ('heading_1', Heading1()),
-        ('heading_2', Heading2()),
-        ('heading_3', Heading3()),
-    ])
+    body = StreamField(
+        [
+            ('text', StyledTextBlock(label='Text', template='common/blocks/styled_text_full_bleed.html')),
+            ('image', AlignedImageBlock()),
+            ('raw_html', blocks.RawHTMLBlock()),
+            ('blockquote', RichTextBlockQuoteBlock()),
+            ('list', blocks.ListBlock(
+                blocks.CharBlock(label="List Item"),
+                template='common/blocks/list_block_columns.html'
+            )),
+            ('video', AlignedEmbedBlock()),
+            ('heading_1', Heading1()),
+            ('heading_2', Heading2()),
+            ('heading_3', Heading3()),
+        ],
+        blank=False
+    )
 
-    sidebar_content = StreamField([
-        ('heading', Heading2()),
-        ('rich_text', blocks.RichTextBlock()),
-    ], default=None)
+    sidebar_content = StreamField(
+        [
+            ('heading', Heading2()),
+            ('rich_text', blocks.RichTextBlock()),
+        ],
+        default=None,
+        blank=True,
+    )
 
     content_panels = Page.content_panels + [
         StreamFieldPanel('body'),
@@ -100,20 +107,23 @@ class SimplePage(Page):
 
 
 class SimplePageWithMenuSidebar(BaseSidebarPageMixin, Page):
-    body = StreamField([
-        ('text', StyledTextBlock(label='Text')),
-        ('image', AlignedImageBlock()),
-        ('raw_html', blocks.RawHTMLBlock()),
-        ('blockquote', RichTextBlockQuoteBlock()),
-        ('list', blocks.ListBlock(
-            blocks.CharBlock(label="List Item"),
-            template='common/blocks/list_block_columns.html'
-        )),
-        ('video', AlignedEmbedBlock()),
-        ('heading_1', Heading1()),
-        ('heading_2', Heading2()),
-        ('heading_3', Heading3()),
-    ])
+    body = StreamField(
+        [
+            ('text', StyledTextBlock(label='Text')),
+            ('image', AlignedImageBlock()),
+            ('raw_html', blocks.RawHTMLBlock()),
+            ('blockquote', RichTextBlockQuoteBlock()),
+            ('list', blocks.ListBlock(
+                blocks.CharBlock(label="List Item"),
+                template='common/blocks/list_block_columns.html'
+            )),
+            ('video', AlignedEmbedBlock()),
+            ('heading_1', Heading1()),
+            ('heading_2', Heading2()),
+            ('heading_3', Heading3()),
+        ],
+        blank=False
+    )
 
     content_panels = Page.content_panels + [
         StreamFieldPanel('body'),

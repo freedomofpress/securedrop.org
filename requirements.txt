@@ -37,6 +37,6 @@ unittest-xml-reporting==2.1.0
 urllib3==1.21.1           # via elasticsearch, requests
 wagtail-factories==0.3.0
 wagtail-metadata==0.3.1
-wagtail==1.11.1
+wagtail==1.12
 webencodings==0.5.1       # via html5lib
 willow==0.4               # via wagtail
