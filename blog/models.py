@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils.cache import patch_cache_control
 from django.utils.html import strip_tags
 from django.template.defaultfilters import truncatewords
 
@@ -16,7 +15,8 @@ from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 
 from blog.feeds import BlogIndexPageFeed
 from common.utils import DEFAULT_PAGE_KEY, paginate
-from common.models import PersonPage, MetadataPageMixin
+from common.models import MetadataPageMixin
+
 from common.blocks import (
     Heading1,
     Heading2,
@@ -70,7 +70,6 @@ class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
     def get_context(self, request):
         context = super(BlogIndexPage, self).get_context(request)
         entry_qs = self.get_posts()
-
 
         paginator, entries = paginate(
             request,
