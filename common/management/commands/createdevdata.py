@@ -21,7 +21,6 @@ class Command(BaseCommand):
             help='Delete homepage and child pages before creating new data.',
         )
 
-
     @transaction.atomic
     def handle(self, *args, **options):
         if options['delete']:
