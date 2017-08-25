@@ -1,7 +1,6 @@
 from datetime import datetime, timezone
 import os
 
-from django.http.request import HttpRequest
 from django.test import TestCase, Client, override_settings
 from django.urls import reverse
 import hashlib
@@ -59,7 +58,7 @@ class TestReceiveHook(TestCase):
 
     @override_settings(GITHUB_HOOK_SECRET_KEY=b'test')
     def test_successful_release(self):
-        response = self._post_hook(
+        self._post_hook(
             json_file_name='valid_release_hook.json',
             secret=b'test',
             payload_digest_func=lambda payload: payload,
@@ -72,7 +71,7 @@ class TestReceiveHook(TestCase):
         )
 
     def test_blank_request_fails(self):
-        response = self.client.post(
+        self.client.post(
             reverse('github:receive-hook'),
             data='',
             content_type='application/json',
@@ -82,7 +81,7 @@ class TestReceiveHook(TestCase):
 
     @override_settings(GITHUB_HOOK_SECRET_KEY=b'test')
     def test_ignore_non_release_events(self):
-        response = self._post_hook(
+        self._post_hook(
             json_file_name='valid_release_hook.json',
             secret=b'test',
             payload_digest_func=lambda payload: payload,
@@ -92,7 +91,7 @@ class TestReceiveHook(TestCase):
 
     @override_settings(GITHUB_HOOK_SECRET_KEY=b'test')
     def test_incorrect_signature_due_to_payload(self):
-        response = self._post_hook(
+        self._post_hook(
             json_file_name='valid_release_hook.json',
             secret=b'test',
             payload_digest_func=lambda payload: payload + 'invalid',
@@ -101,7 +100,7 @@ class TestReceiveHook(TestCase):
 
     @override_settings(GITHUB_HOOK_SECRET_KEY=b'test')
     def test_incorrect_signature_format(self):
-        response = self._post_hook(
+        self._post_hook(
             json_file_name='valid_release_hook.json',
             secret=b'test',
             payload_digest_func=lambda payload: payload,
@@ -111,7 +110,7 @@ class TestReceiveHook(TestCase):
 
     @override_settings(GITHUB_HOOK_SECRET_KEY=b'WRONG SECRET KEY')
     def test_incorrect_secret(self):
-        response = self._post_hook(
+        self._post_hook(
             json_file_name='valid_release_hook.json',
             secret=b'test',
             payload_digest_func=lambda payload: payload,
@@ -120,7 +119,7 @@ class TestReceiveHook(TestCase):
 
     @override_settings(GITHUB_HOOK_SECRET_KEY=b'test')
     def test_missing_data_in_release_fails(self):
-        response = self._post_hook(
+        self._post_hook(
             json_file_name='missing_key_release_hook.json',
             secret=b'test',
             payload_digest_func=lambda payload: payload,
@@ -129,7 +128,7 @@ class TestReceiveHook(TestCase):
 
     @override_settings(GITHUB_HOOK_SECRET_KEY=b'test')
     def test_non_published_action_value_ignored(self):
-        response = self._post_hook(
+        self._post_hook(
             json_file_name='non_published_action_release_hook.json',
             secret=b'test',
             payload_digest_func=lambda payload: payload,
