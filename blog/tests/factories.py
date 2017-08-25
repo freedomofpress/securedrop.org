@@ -3,7 +3,8 @@ from datetime import timezone
 import factory
 import wagtail_factories
 
-from blog.models import BlogPage, BlogIndexPage
+from blog.models import BlogPage, BlogIndexPage, CategoryPage
+
 
 class BlogIndexPageFactory(wagtail_factories.PageFactory):
     class Meta:
@@ -22,3 +23,10 @@ class BlogPageFactory(wagtail_factories.PageFactory):
     title = factory.Faker('sentence')
     parent = factory.SubFactory(BlogIndexPageFactory)
 
+
+class CategoryPageFactory(wagtail_factories.PageFactory):
+    class Meta:
+        model = CategoryPage
+
+    parent = factory.SubFactory(wagtail_factories.PageFactory, parent=None)
+    description = factory.Faker('paragraph')
