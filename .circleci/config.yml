@@ -18,7 +18,7 @@ jobs:
           name: Flake8 linting
           command: |
             . ~/.venv/bin/activate
-            flake8
+            flake8 --exit-zero
 
       - run:
           name: Ensure Django service stands up
