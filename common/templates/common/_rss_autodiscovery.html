@@ -1,0 +1,8 @@
+{% load wagtailroutablepage_tags %}
+
+<link
+    rel="alternate"
+    type="application/rss+xml"
+    title="RSS"
+    href="{{ page.get_site.root_url }}{% routablepageurl page "feed" %}"
+>

@@ -10,9 +10,10 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailsearch import index
+from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 
+from blog.feeds import BlogIndexPageFeed
 from common.utils import DEFAULT_PAGE_KEY, paginate
-
 from common.models import PersonPage, MetadataPageMixin
 from common.blocks import (
     Heading1,
@@ -25,7 +26,7 @@ from common.blocks import (
 )
 
 
-class BlogIndexPage(MetadataPageMixin, Page):
+class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
     body = StreamField(
         [
             ('rich_text', blocks.RichTextBlock(icon='doc-full', label='Rich Text')),
@@ -35,8 +36,18 @@ class BlogIndexPage(MetadataPageMixin, Page):
         blank=True
     )
 
+    feed_limit = models.PositiveIntegerField(
+        default=20,
+        help_text='Maximum number of posts to be included in the '
+                  'syndication feed. 0 for unlimited.'
+    )
+
     content_panels = Page.content_panels + [
         StreamFieldPanel('body'),
+    ]
+
+    settings_panels = Page.settings_panels + [
+        FieldPanel('feed_limit'),
     ]
 
     subpage_types = ['blog.BlogPage']
@@ -44,6 +55,10 @@ class BlogIndexPage(MetadataPageMixin, Page):
     search_fields = Page.search_fields + [
         index.SearchField('body'),
     ]
+
+    @route(r'^feed/$')
+    def feed(self, request):
+        return BlogIndexPageFeed(self)(request)
 
     def get_posts(self):
         return BlogPage.objects.child_of(self)\
