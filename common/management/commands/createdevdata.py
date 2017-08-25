@@ -2,6 +2,7 @@ from home.models import HomePage
 
 from wagtail.wagtailcore.models import Page, Site
 
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 from django.core.management.base import BaseCommand
 from django.db import transaction
@@ -26,18 +27,22 @@ class Command(BaseCommand):
         if options['delete']:
             Page.objects.filter(slug='home').delete()
 
-        home_page = HomePage(title='Home', slug='home')
+        try:
+            HomePage.objects.get(slug='home')
+        except ObjectDoesNotExist:
+            Page.objects.filter(slug='home').delete()
+            home_page = HomePage(title='Home', slug='home')
 
-        root_page = Page.objects.get(title='Root')
-        root_page.add_child(instance=home_page)
+            root_page = Page.objects.get(title='Root')
+            root_page.add_child(instance=home_page)
 
-        Site.objects.create(
-            site_name='SecureDrop.org (Dev)',
-            hostname='localhost',
-            port='8000',
-            root_page=home_page,
-            is_default_site=True
-        )
+            Site.objects.create(
+                site_name='SecureDrop.org (Dev)',
+                hostname='localhost',
+                port='8000',
+                root_page=home_page,
+                is_default_site=True
+            )
 
         management.call_command('createblogdata', '10')
 
