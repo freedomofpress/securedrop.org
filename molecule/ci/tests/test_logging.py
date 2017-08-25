@@ -1,10 +1,11 @@
 import json
+import pytest
 
 def request_and_scrape(url, filter_key, host):
     """ Take in URL, grab the relevant log line,
         return dict for comparison """
 
-    JSON_LOG_FILE = "/var/www/django/logs/app.log"
+    JSON_LOG_FILE = "/var/www/django-alpha/logs/app.log"
     # Generate log event via http requests
     host.run("curl --user-agent testinfra http://localhost:8000" + url)
     # Pick out the last log line from django logs

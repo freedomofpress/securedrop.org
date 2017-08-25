@@ -9,31 +9,21 @@
         name: paxctld
         state: started
       when: ansible_kernel.endswith('grsec')
+
+    - name: Create postgres DB
+      postgresql_db:
+        name: securedrop
+        owner: "{{ django_db_user }}"
+      register: pg_db_results
+      until: pg_db_results|succeeded
+      retries: 5
+      delay: 20
+  post_tasks:
+    - debug:
+        msg: "You can hit the www interface at https://localhost:{{ lookup('pipe', 'docker port debian_jessie_sd.org_ci 443 | cut -d\":\" -f 2') }}"
   roles:
     - role: freedomofpress.django_stack
       tags: django
-  post_tasks:
-    - name: Run tests
-      script: django_tests.sh
-      tags: tests
-      become: yes
-      become_user: "{{ django_stack_gcorn_user }}"
-      no_log: true
-      register: test_run_results
-      # Need this to keep going and get us test output xml
-      ignore_errors: yes
-
-    - name: Yank out tests for analysis
-      fetch:
-        src: "/home/gcorn/app-tests.xml"
-        dest: ../../test-results/
-        flat: yes
-      tags: tests
-
-    - name: Fail if test failed earlier
-      fail:
-      when: test_run_results|failed
-      tags: tests
   vars:
     django_stack_superuser_admin: admin
     django_stack_superuser_email: mike@freedom.press
@@ -45,21 +35,22 @@
     django_stack_deploy_src: "{{ lookup('pipe', 'pwd') }}/../../"
     django_stack_manage_post:
       - createdevdata
-    django_stack_npm_commands:
-      - run build
+    django_stack_npm_install_cmd: "npm install; npm run build"
     django_stack_gunicorn_opt_envs:
       DJANGO_ALLOWED_HOSTS: "'*'"
       DJANGO_SETTINGS_MODULE: securedrop.settings.production-ci
       DJANGO_JSON_LOG: True
       DJANGO_DB_NAME: securedrop
+      GITHUB_HOOK_SECRET_KEY: test
     django_stack_gcorn_app_settings: securedrop.settings.production-ci
     django_stack_force_refresh: true
     django_stack_rsync_opts:
-      - "--exclude=.git"
       - "--exclude=devops"
+      - "--exclude=molecule"
       - "--exclude=node_modules"
       - "--exclude=src"
     # The default packages are preinstalled on the base dockerimage
     django_stack_pkgs: []
     django_stack_global_no_log: yes
     django_stack_manage_no_log: no
+    django_stack_rsync_no_log: no

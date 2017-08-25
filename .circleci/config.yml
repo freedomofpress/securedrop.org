@@ -1,0 +1,30 @@
+---
+version: 2
+jobs:
+  build:
+    machine: true
+    working_directory: ~/securedrop.org
+    steps:
+      - checkout
+
+      - run:
+          name: Install testing pre-reqs
+          command: |
+            virtualenv ~/.venv
+            . ~/.venv/bin/activate
+            pip install -r devops/requirements.txt
+
+      - run:
+          name: Flake8 linting
+          command: |
+            . ~/.venv/bin/activate
+            flake8 --exit-zero
+
+      - run:
+          name: Ensure Django service stands up
+          command: |
+            . ~/.venv/bin/activate
+            make ci-go
+
+      - store_test_results:
+          path: ~/securedrop.org/test-results

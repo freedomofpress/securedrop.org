@@ -1,4 +1,4 @@
 ---
 - src: https://github.com/freedomofpress/django_stack.git
   name: freedomofpress.django_stack
-  version: master
+  version: CI_Expand
