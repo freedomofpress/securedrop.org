@@ -30,7 +30,9 @@ scenario:
     - dependency
     - create
     - converge
+    - side_effect
     - verify
+    - destroy
 verifier:
   name: testinfra
   lint:
