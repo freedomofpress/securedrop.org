@@ -50,7 +50,6 @@ def test_json_log_exception(host):
     assert error_line['request'] == request
 
 
-@pytest.mark.xfail
 def test_json_log_200(host):
     """
     Ensure json logging is working for requests
