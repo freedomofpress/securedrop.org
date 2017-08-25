@@ -24,6 +24,7 @@ from common.blocks import (
     AlignedImageBlock,
     AlignedEmbedBlock,
     RichTextBlockQuoteBlock,
+    CodeBlock,
 )
 
 
@@ -98,6 +99,7 @@ class BlogPage(MetadataPageMixin, Page):
     body = StreamField(
         [
             ('text', StyledTextBlock(label='Text', template='common/blocks/styled_text_full_bleed.html')),
+            ('code', CodeBlock(label='Code Block')),
             ('image', AlignedImageBlock()),
             ('raw_html', blocks.RawHTMLBlock()),
             ('blockquote', RichTextBlockQuoteBlock()),
