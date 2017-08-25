@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('github', '0001_initial'),
-        ('blog', '0004_blogpage_categories'),
+        ('blog', '0005_blogpage_categories'),
     ]
 
     operations = [
