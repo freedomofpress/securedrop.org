@@ -66,3 +66,7 @@ dev-restore-db:
 .PHONY: dev-update-requirements
 dev-update-requirements:
 	./devops/scripts/update-requirements.sh
+
+.PHONY: flake8
+flake8:
+	./devops/scripts/run-command-in-venv.sh flake8
