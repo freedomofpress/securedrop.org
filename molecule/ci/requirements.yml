@@ -1,4 +1,4 @@
 ---
-- src: https://github.com/freedomofpress/django_stack.git
-  name: freedomofpress.django_stack
-  version: CI_Expand
+- src: https://github.com/freedomofpress/ansible-role-django.git
+  name: freedomofpress.django
+  version: master
