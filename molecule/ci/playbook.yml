@@ -3,6 +3,9 @@
 - name: Run django environment
   hosts: django
   become: yes
+  environment:
+    # Required to install pshtt
+    LC_ALL: "en_US.UTF-8"
   pre_tasks:
     - name: Make sure paxctld is started
       service:
@@ -18,6 +21,7 @@
       until: pg_db_results|succeeded
       retries: 5
       delay: 20
+
   post_tasks:
     - debug:
         msg: "You can hit the www interface at https://localhost:{{ lookup('pipe', 'docker port debian_jessie_sd.org_ci 443 | cut -d\":\" -f 2') }}"
@@ -49,8 +53,10 @@
       - "--exclude=molecule"
       - "--exclude=node_modules"
       - "--exclude=src"
-    # The default packages are preinstalled on the base dockerimage
-    django_stack_pkgs: []
+    django_stack_venv_base_pkgs:
+      - setuptools # pshtt dependency sslyze requires newer setuptools
+    django_stack_pkgs:
+      - libssl-dev # required for pshtt
     django_stack_global_no_log: yes
     django_stack_manage_no_log: no
     django_stack_rsync_no_log: no
