@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags wagtailimages_tags%}
 
 {% block main%}
 	<div>
@@ -10,6 +10,17 @@
 			<a href="{% pageurl button.link %}"><button>{{ button.text }}</button></a>
 		{% endfor %}
 	</div>
+
+	<div>
+		<h2>{{ page.features_header}}</h2>
+		{% for feature in page.features.all %}
+			<div>
+				{% image feature.icon fill-50x50-c100 %}
+				<h3>{{ feature.title }}</h3>
+				<p>{{ feature.description|richtext }}</p>
+			</div>
+		{% endfor %}
+	<div>
 {% endblock %}
 
 
