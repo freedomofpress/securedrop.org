@@ -1,10 +1,11 @@
 from django.db import models
+from modelcluster.fields import ParentalKey
 
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel, InlinePanel
 
-from common.models import MetadataPageMixin
+from common.models import MetadataPageMixin, Button
 
 
 class HomePage(MetadataPageMixin, Page):
@@ -21,9 +22,22 @@ class HomePage(MetadataPageMixin, Page):
             [
                 FieldPanel('description_header'),
                 FieldPanel('description'),
+                InlinePanel(
+                    'description_buttons',
+                    label="Links",
+                    max_num=2,
+                )
             ],
-            "Description"
+            "Description",
+            classname="collapsible"
         )
     ]
 
 
+class DescriptionButtons(Orderable, Button):
+    page = ParentalKey('home.HomePage', related_name='description_buttons')
+
+    panels = [
+        FieldPanel('text'),
+        PageChooserPanel('link')
+    ]
