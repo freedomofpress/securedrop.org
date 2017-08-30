@@ -5,5 +5,8 @@
 {% block body %}
 	{% wagtailuserbar %}
 
-	<h1>It works</h1>
+	<main class="{% block main_classes %}{% endblock %}">
+	{% block main %}
+	{% endblock %}
+	</main>
 {% endblock %}
