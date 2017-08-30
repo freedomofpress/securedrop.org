@@ -1,8 +1,11 @@
 {% extends "base.html" %}
-{% block body %}
-	{% block main%}
- 	<h1>{{ page.title }}</h1>
- 	<p>This is the homepage</p>
-	{% endblock %}
+{% load wagtailcore_tags %}
+
+{% block main%}
+	<div>
+		<h1>{{ page.title }}</h1>
+		<p>{{ page.description|richtext }}</p>
+	</div>
 {% endblock %}
+
 
