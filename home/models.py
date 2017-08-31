@@ -13,7 +13,7 @@ class HomePage(MetadataPageMixin, Page):
     description_header = models.CharField(max_length=255, blank=True, null=True)
     # Disables headers and image/video embeds
     description = RichTextField(
-        features=['bold', 'italic', 'ol', 'ul', 'hr', 'link', 'document-link' ],
+        features=['bold', 'italic', 'ol', 'ul', 'hr', 'link', 'document-link'],
         blank=True,
         null=True
     )
@@ -56,6 +56,7 @@ class DescriptionButtons(Orderable, Button):
         PageChooserPanel('link')
     ]
 
+
 class Feature(Orderable):
     page = ParentalKey('home.HomePage', related_name='features')
     icon = models.ForeignKey(
@@ -67,7 +68,7 @@ class Feature(Orderable):
     )
     title = models.CharField(max_length=255, null=True, blank=True)
     description = RichTextField(
-        features=['bold', 'italic', 'ol', 'ul', 'hr', 'link', 'document-link' ],
+        features=['bold', 'italic', 'ol', 'ul', 'hr', 'link', 'document-link'],
         blank=True,
         null=True
     )
