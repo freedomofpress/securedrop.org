@@ -25,9 +25,17 @@
   post_tasks:
     - debug:
         msg: "You can hit the www interface at https://localhost:{{ lookup('pipe', 'docker port debian_jessie_sd.org_ci 443 | cut -d\":\" -f 2') }}"
+
   roles:
     - role: freedomofpress.django
       tags: django
+  # The paxtld flags should be added to the CI base image.
+  handlers:
+    - name: Restart paxctld
+      service:
+        name: paxctld
+        enabled: yes
+        state: restarted
   vars:
     django_stack_superuser_admin: admin
     django_stack_superuser_email: mike@freedom.press
