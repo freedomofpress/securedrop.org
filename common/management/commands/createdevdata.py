@@ -1,4 +1,5 @@
 from home.models import HomePage
+from home.tests.factories import HomePageFactory
 
 from wagtail.wagtailcore.models import Page, Site
 
@@ -30,7 +31,8 @@ class Command(BaseCommand):
             HomePage.objects.get(slug='home')
         except ObjectDoesNotExist:
             Page.objects.filter(slug='home').delete()
-            home_page = HomePage(title='Home', slug='home')
+            # homepage cannot be saved without a parent
+            home_page = HomePageFactory.build()
 
             root_page = Page.objects.get(title='Root')
             root_page.add_child(instance=home_page)
