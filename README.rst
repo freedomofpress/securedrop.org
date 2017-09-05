@@ -52,6 +52,13 @@ in the background); in order to monitor progress use the following two commands
 You should be able to hit the web server interface at http://localhost:8000.
 You can directly access the database on port `15432` (see further below)
 
+Updating Requirements
++++++++++++++++++++++
+
+New requirements should be added to ``requirements.in`` or ``dev-requirements.in``.
+After adding the requirement(s) there, run ``make dev-update-requirements`` to
+properly compile the requirements files.
+
 Resetting database
 ++++++++++++++++++
 
@@ -151,3 +158,8 @@ When checking out a new branch after working on another, it can be
 helpful to restore your snapshot from master, so that the migrations
 for the new branch, which were presumably based off of master, will
 have a clean starting point.
+
+Other commands
+++++++++++++++
+
+In order to ensure that all commands are run in the same environment, we have added a ``make flake8`` command that runs ``flake8`` in the docker environment, rather than on your local env.
