@@ -28,6 +28,7 @@ ipaddress==1.0.18         # via faker
 olefile==0.44             # via pillow
 pillow==4.2.1             # via wagtail
 pip-tools==1.9.0
+pshtt==0.2.3
 psycopg2==2.7.3
 python-dateutil==2.6.1    # via faker
 pytz==2017.2              # via django, django-modelcluster
