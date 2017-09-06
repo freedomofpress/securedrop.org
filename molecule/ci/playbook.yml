@@ -22,7 +22,24 @@
       retries: 5
       delay: 20
 
-  post_tasks:
+  tasks:
+    # The paxtld flags should be added to the CI base image.
+    - name: Layout pax config
+      lineinfile:
+        dest: /etc/paxctld.conf
+        line: "{{ item }}"
+      with_items:
+        - "/usr/bin/nodejs m"
+        - "/home/gcorn/securedrop/bin/python3 m"
+        - "/home/gcorn/securedrop/bin/pip m"
+        - "/home/gcorn/securedrop-alpha/bin/python3 m"
+        - "/home/gcorn/securedrop-alpha/pip m"
+        - "/usr/bin/python m"
+        - "/usr/bin/python3 m"
+      when: "'grsec' in ansible_kernel"
+      notify: Restart paxctld
+      register: grsec_config_results
+
     - debug:
         msg: "You can hit the www interface at https://localhost:{{ lookup('pipe', 'docker port debian_jessie_sd.org_ci 443 | cut -d\":\" -f 2') }}"
 

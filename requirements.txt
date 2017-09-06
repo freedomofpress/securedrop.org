@@ -17,7 +17,7 @@ django-treebeard==4.1.2   # via wagtail
 django-webpack-loader==0.5.0
 django==1.11.4
 djangorestframework==3.6.4  # via wagtail
-elasticsearch==2.4.1      # via django-logging-json
+elasticsearch==5.4.0
 factory-boy==2.9.2
 faker==0.7.18             # via factory-boy
 first==2.0.1              # via pip-tools

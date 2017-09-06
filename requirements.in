@@ -4,6 +4,7 @@ django-logging-json
 django-modelcluster
 django-settings-export
 django-webpack-loader
+elasticsearch>=5.4.0
 factory_boy
 gunicorn
 pip-tools
