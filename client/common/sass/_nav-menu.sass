@@ -7,9 +7,12 @@
   opacity: 0.5
   color: $white
 
-
 .nav-menu__item
   padding: 0.5rem
 
 .nav-menu__link
   +link--underline-on-hover(inherit, inherit)
+
+.nav-menu--mobile-hidden
+  +media-breakpoint-down(small)
+    display: none
