@@ -1,4 +1,19 @@
+"""
+Duplicated testing logic from the CI Molecule scenario.
+We can't simply reimport the same test file because
+we need to provide the `testinfra_hosts` var override
+to target the dev env.
+"""
+import pytest
+import json
+
 testinfra_hosts = ["docker://sd_django"]
+
+PSHTT_CLI_PATH = "/usr/local/bin/pshtt"
+PSHTT_DOMAINS = [
+    'freedom.press',
+    'securedrop.org'
+]
 
 
 def test_pshtt_installed(host):
@@ -17,7 +32,37 @@ def test_pshtt_installed(host):
 
     The following checks confirm the above.
     """
-    pshtt_binary = host.file("/usr/local/bin/pshtt")
+    pshtt_binary = host.file(PSHTT_CLI_PATH)
     assert pshtt_binary.exists
     assert host.check_output(pshtt_binary.path + " --version") \
-            == "v0.0.1"
+        == "v0.0.1"
+
+
+@pytest.mark.parametrize('domain', PSHTT_DOMAINS)
+def test_pssht_connectivity(host, domain):
+    """
+    Confirm that the pshtt program can make external network calls,
+    otherwise it's useless. Mostly this is to confirm that the pip
+    installation pulled in all required dependencies for functionality,
+    but also has bearing on confirming the development environment
+    works as expected.
+    """
+    c = host.command(PSHTT_CLI_PATH + " " + domain)
+    assert c.rc == 0
+    assert c.stderr.strip() == "Wrote results to results.csv."
+
+
+@pytest.mark.parametrize('domain', PSHTT_DOMAINS)
+def test_pssht_json_output(host, domain):
+    """
+    Confirm that the pshtt program reports usable JSON back when asked,
+    via the `--json` flag. Perform cursory inspection of the JSON object
+    to make sure it's populated correctly.
+    """
+    c = host.command(PSHTT_CLI_PATH + " --json " + domain)
+    assert c.rc == 0
+    j = json.loads(c.stdout.strip())
+    # JSON output is always a list, so retrieve first item via [0].
+    assert j[0]['Live']
+    assert j[0]['endpoints']['http']['live']
+    assert j[0]['endpoints']['https']['live']
