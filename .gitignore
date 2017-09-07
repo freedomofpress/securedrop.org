@@ -15,6 +15,7 @@ logs/
 
 # devops virtualenv
 devops/.venv
+devops/.compile-venv
 devops/.vagrant
 .molecule
 .cache
