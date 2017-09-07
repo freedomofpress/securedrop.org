@@ -4,12 +4,16 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
-beautifulsoup4==4.6.0     # via wagtail
+-e git+https://github.com/freedomofpress/django-logging.git@Remove_Elastic#egg=django-logging-json
+asn1crypto==0.22.0        # via cryptography
+beautifulsoup4==4.6.0     # via pytablereader, wagtail
 bleach==2.0.0
 certifi==2017.7.27.1      # via requests
+cffi==1.10.0              # via cryptography
 chardet==3.0.4            # via requests
 click==6.7                # via pip-tools
-django-logging-json==1.5.5
+cryptography==1.9         # via pyopenssl, sslyze
+dataproperty==0.25.6      # via pytablereader, pytablewriter, simplesqlite
 django-modelcluster==3.1
 django-settings-export==1.2.1
 django-taggit==0.22.1     # via wagtail
@@ -17,23 +21,43 @@ django-treebeard==4.1.2   # via wagtail
 django-webpack-loader==0.5.0
 django==1.11.4
 djangorestframework==3.6.4  # via wagtail
-elasticsearch==5.4.0
+docopt==0.6.2             # via pshtt
+dominate==2.3.1           # via pytablewriter
+elasticsearch==5.4.0      # via pytablewriter
 factory-boy==2.9.2
 faker==0.7.18             # via factory-boy
 first==2.0.1              # via pip-tools
 gunicorn==19.7.1
 html5lib==0.999999999     # via bleach, wagtail
-idna==2.6                 # via requests
-ipaddress==1.0.18         # via faker
+idna==2.6                 # via cryptography, requests
+jsonschema==2.6.0         # via pytablereader
+logbook==1.1.0            # via dataproperty, pytablereader, pytablewriter, simplesqlite
+markdown2==2.3.4          # via pytablereader
+mbstrdecoder==0.2.2       # via pytablereader, pytablewriter, simplesqlite, typepy
+nassl==0.17.0             # via sslyze
 olefile==0.44             # via pillow
+path.py==10.4             # via pytablereader
+pathvalidate==0.16.1      # via pytablereader, pytablewriter, simplesqlite
 pillow==4.2.1             # via wagtail
 pip-tools==1.9.0
 pshtt==0.2.3
 psycopg2==2.7.3
-python-dateutil==2.6.1    # via faker
-pytz==2017.2              # via django, django-modelcluster
-requests==2.18.4          # via wagtail
-six==1.10.0               # via bleach, django-logging-json, faker, html5lib, pip-tools, python-dateutil, unittest-xml-reporting
+publicsuffix==1.1.0       # via pshtt
+pycparser==2.18           # via cffi
+pyopenssl==17.2.0         # via pshtt
+pyparsing==2.2.0          # via pytablereader
+pytablereader==0.13.3     # via pytablewriter, simplesqlite
+pytablewriter==0.24.0     # via pshtt
+python-dateutil==2.6.1    # via faker, typepy
+pytz==2017.2              # via django, django-modelcluster, typepy
+requests-cache==0.4.13    # via pshtt
+requests==2.18.4          # via pshtt, pytablereader, requests-cache, wagtail
+simplesqlite==0.15.0      # via pytablewriter
+six==1.10.0               # via bleach, cryptography, faker, html5lib, mbstrdecoder, pip-tools, pyopenssl, pytablereader, pytablewriter, python-dateutil, simplesqlite, typepy, unittest-xml-reporting
+sslyze==1.1.4             # via pshtt
+tls-parser==1.1.0         # via sslyze
+toml==0.9.2               # via pytablewriter
+typepy==0.0.20            # via dataproperty, pytablereader, pytablewriter, simplesqlite
 unidecode==0.4.21         # via wagtail
 unittest-xml-reporting==2.1.0
 urllib3==1.22             # via elasticsearch, requests
@@ -41,4 +65,8 @@ wagtail-factories==0.3.0
 wagtail-metadata==0.3.1
 wagtail==1.12
 webencodings==0.5.1       # via html5lib
+wget==3.2                 # via pshtt
 willow==0.4               # via wagtail
+xlrd==1.1.0               # via pytablereader
+xlsxwriter==0.9.9         # via pytablewriter
+xlwt==1.3.0               # via pytablewriter
