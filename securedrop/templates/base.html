@@ -5,6 +5,11 @@
 {% block body %}
 	{% wagtailuserbar %}
   {% include 'common/_tor.html' %}
+
+  <nav>
+    {% include "menus/_header_menu.html" %}
+  </nav>
+
 	<main class="{% block main_classes %}{% endblock %}">
 	{% block main %}
 	{% endblock %}
