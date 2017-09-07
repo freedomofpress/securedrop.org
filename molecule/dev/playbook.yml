@@ -59,9 +59,10 @@
         user: postgres
       register: pg_container_results
 
-    - name: If grsec, add paxflags cmd to node
+    - name: If grsec, add pax additions for node + django
       set_fact:
         node_grsec_image: "node_grsec"
+        django_grsec_cmd: "paxctl -Cm `which python`"
       when: ansible_kernel.endswith('grsec')
 
     - name: Build node image with pax flags
@@ -108,7 +109,7 @@
         interactive: true
         tty: true
         command: |
-          /bin/bash -c "./manage.py migrate; ./manage.py runserver 0.0.0.0:8000"
+          /bin/bash -c "./manage.py migrate && ./manage.py runserver 0.0.0.0:8000"
         user: gcorn
         env:
           DJANGO_DB_PASSWORD: securedroppassword
@@ -117,6 +118,10 @@
           DJANGO_DB_PORT: 5432
           DJANGO_DB_HOST: "{{ pg_container_results.ansible_facts.docker_container.NetworkSettings.IPAddress }}"
         recreate: yes
+
+    - name: Slap paxflags onto pshtt and python when under grsec
+      command: docker exec -u root sd_django /bin/bash -c "{{ django_grsec_cmd }}"
+      when: ansible_kernel.endswith('grsec')
 
     - name: Establish www port
       set_fact:
