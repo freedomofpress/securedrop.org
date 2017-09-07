@@ -24,15 +24,18 @@
         - root_check_result.stdout_lines
         - not ansible_kernel.endswith('Microsoft')
 
-    - name: Get hashes from our requirements file
+    - name: Get hashes from our requirements and dockerfile
       stat:
-        path: "../../dev-requirements.txt"
+        path: "{{ item }}"
         get_md5: false
         checksum_algorithm: sha256
-      register: requirements_stat_result
+      with_items:
+        - "../../dev-requirements.txt"
+        - "{{ molecule_scenario_directory }}/DjangoDockerfile"
+      register: hash_stat_result
 
     - set_fact:
-        requirements_hash: "{{ requirements_stat_result.stat.checksum[0:9] }}"
+        requirements_hash: "{{ hash_stat_result.results[0].stat.checksum[0:5] + hash_stat_result.results[1].stat.checksum[0:5]}}"
 
     - name: Create Django docker image (should be everytime requirements change)
       docker_image:
