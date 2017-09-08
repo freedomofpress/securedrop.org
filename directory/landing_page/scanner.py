@@ -6,7 +6,7 @@ import subprocess
 
 from django.utils import timezone
 
-from directory.models import Result
+import directory.models
 
 
 def clean_url(url):
@@ -22,7 +22,7 @@ def scan(securedrop):
     try:
         pshtt_results = pshtt(securedrop.landing_page)
     except:
-        return Result(
+        return directory.models.Result(
             securedrop=securedrop,
             live=pshtt_results['Live'],
             http_status_200_ok=False,
@@ -40,13 +40,13 @@ def scan(securedrop):
         # Connection timed out, an invalid HTTP response was returned, or
         # a network problem occurred.
         # Catch the base class exception for these cases.
-        return Result(
+        return directory.models.Result(
             securedrop=securedrop,
             live=pshtt_results['Live'],
             http_status_200_ok=False,
         )
 
-    return Result(
+    return directory.models.Result(
         securedrop=securedrop,
         live=pshtt_results['Live'],
         http_status_200_ok=validate_200_ok(no_redirects_page),
@@ -88,7 +88,7 @@ def bulk_scan(securedrops):
         # Before we save, let's get the most recent scan before saving
         try:
             prior_result = securedrop.results.latest()
-        except Result.DoesNotExist:
+        except directory.models.Result.DoesNotExist:
             current_result.save()
             continue
 
