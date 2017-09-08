@@ -4,8 +4,12 @@
 {% block main%}
 	<div>
 		<h1>{{ page.title }}</h1>
-		<h2>{% if page.description_header %}{{ page.description_header }}{% endif %}</h2>
-		<p>{{ page.description|richtext }}</p>
+		{% if page.description_header %}
+			<h2>{{ page.description_header }}</h2>
+		{% endif %}
+		{% if page.description %}
+			<p>{{ page.description|richtext }}</p>
+		{% endif %}
 
 		{% for button in page.description_buttons.all %}
 			<a href="{% pageurl button.link %}"><button>{{ button.text }}</button></a>
@@ -13,7 +17,9 @@
 	</div>
 
 	<div>
-		<h2>{{ page.features_header}}</h2>
+		{% if page.features_header %}
+			<h2>{{ page.features_header}}</h2>
+		{% endif %}
 		{% for feature in page.features.all %}
 			<div>
 				{% image feature.icon fill-50x50-c100 %}
