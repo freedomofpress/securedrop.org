@@ -9,3 +9,4 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
 import '../sass/common.sass'
 import '~/detect-tor'
+import '~/slidingnav'

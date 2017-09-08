@@ -1,0 +1,48 @@
+$sliding-nav-side: 'left'
+$sliding-nav-width: 250px
+
+.sliding-nav
+	#{$sliding-nav-side}: -$sliding-nav-width
+	background: $brand-primary
+	bottom: 0
+	font-family: $sans-serif
+	overflow: auto
+	position: fixed
+	top: 0
+	transition: $sliding-nav-transition-ms transform ease-out
+	width: $sliding-nav-width
+	// Places nav above shade
+	z-index: 100
+
+	>:first-child
+		margin-bottom: 20px
+
+.sliding-nav--is-active
+	@if $sliding-nav-side == 'right'
+		transform: translate3d(-$sliding-nav-width, 0, 0)
+
+	@if $sliding-nav-side == 'left'
+		transform: translate3d($sliding-nav-width, 0, 0)
+
+
+.sliding-nav__list
+	list-style-type: none
+	margin-bottom: 0.25rem
+	margin: 0
+	padding: 0
+
+.sliding-nav__link
+	+uppercase
+	display: block
+	padding: 10px 20px
+	text-decoration: none
+	color: $black
+
+	// Not BEM but we don't h8 our CMS users so we're not making them add two classes.
+	&.header__nav-link--highlighted
+		color: $white
+		background-color: darken($brand-primary, 20%)
+
+	+hover
+		background-color: darken($brand-primary, 20%)
+		color: #fff

@@ -1,0 +1,21 @@
+.hamburger
+	position: relative
+	background-color: $brand-primary
+	padding-bottom: 11px
+	float: right
+	z-index: 100
+
+	+media-breakpoint-up(small)
+		display: none
+
+.hamburger-inner
+	background-color: $white
+	border-radius: 0
+
+	&:before,
+	&:after
+		background-color: $white
+		border-radius: 0
+
+	+media-breakpoint-up(small)
+		display: none
