@@ -2,7 +2,7 @@ from wagtailmetadata.models import MetadataPageMixin as OriginalMetadataPageMixi
 
 
 class MetadataPageMixin(OriginalMetadataPageMixin):
-    "Provide defaults for metadate for pages in this application"
+    "Provide defaults for metadata for pages in this application"
 
     def _get_ssssettings(self):
         # Imported here to avoid circular dependency
