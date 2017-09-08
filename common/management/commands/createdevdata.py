@@ -1,9 +1,12 @@
+from common.models import SocialSharingSEOSettings, CustomImage
 from home.models import HomePage
+from home.tests.factories import HomePageFactory
 
 from wagtail.wagtailcore.models import Page, Site
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
+from django.core.files.images import ImageFile
 from django.core.management.base import BaseCommand
 from django.db import transaction
 from django.core import management
@@ -30,18 +33,35 @@ class Command(BaseCommand):
             HomePage.objects.get(slug='home')
         except ObjectDoesNotExist:
             Page.objects.filter(slug='home').delete()
-            home_page = HomePage(title='Home', slug='home')
+            # homepage cannot be saved without a parent
+            home_page = HomePageFactory.build()
 
             root_page = Page.objects.get(title='Root')
             root_page.add_child(instance=home_page)
 
-            Site.objects.create(
+            site = Site.objects.create(
                 site_name='SecureDrop.org (Dev)',
                 hostname='localhost',
                 port='8000',
                 root_page=home_page,
                 is_default_site=True
             )
+
+            image = CustomImage.objects.filter(title='Sample Image').first()
+            if not image:
+                image = CustomImage.objects.create(
+                    title='Sample Image',
+                    file=ImageFile(open('client/common/images/securedrop.png', 'rb'), name='logo.png'),
+                    attribution='createdevdata'
+                )
+
+            sssettings = SocialSharingSEOSettings.for_site(site)
+            sssettings.default_description = 'SecureDrop'
+            sssettings.default_image = image
+            sssettings.save()
+
+            home_page.save()
+            site.save()
 
         management.call_command('createblogdata', '10')
 
