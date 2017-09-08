@@ -63,7 +63,6 @@ class Command(BaseCommand):
             home_page.save()
             site.save()
 
-
         management.call_command('createblogdata', '10')
 
         # Create superuser
