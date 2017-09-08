@@ -1,2 +1,3 @@
 django-debug-toolbar
+vcrpy
 -r requirements.txt
