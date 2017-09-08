@@ -53,4 +53,8 @@
 		{% block body %}
 		{% endblock %}
 	</body>
+
+	{% block js %}
+		{% render_bundle 'common' 'js' %}
+	{% endblock %}
 </html>
