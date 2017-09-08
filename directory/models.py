@@ -11,19 +11,13 @@ from wagtail.wagtailadmin.edit_handlers import (
     InlinePanel,
 )
 
-from directory.utils import is_instance_valid
+from directory.landing_page import scanner
 
 
 class DirectoryForm(forms.Form):
-    instance_name = forms.CharField(label="Instance name", max_length=255)
-    url = forms.URLField()
-    tor_address = forms.CharField(label="Tor address", max_length=255)
-
-    def clean(self):
-        super(DirectoryForm, self).clean()
-
-        if not is_instance_valid():
-            raise forms.ValidationError("Instance not valid, try again.")
+    organization = forms.CharField(label="Organization", max_length=255)
+    url = forms.URLField(label='Landing Page URL')
+    tor_address = forms.CharField(label="Tor Onion Address", max_length=255)
 
 
 class DirectoryPage(RoutablePageMixin, Page):
@@ -36,11 +30,15 @@ class DirectoryPage(RoutablePageMixin, Page):
             if form.is_valid():
                 data = form.cleaned_data
                 # create secure_drop instance, adding parent page to the form
-                SecureDropInstance.objects.create(
+                sd_instance = SecureDropInstance.objects.create(
                     page=self,
-                    url=data['url'],
-                    tor_address=data['tor_address'],
+                    landing_page=data['url'],
+                    onion_address=data['tor_address'],
+                    organization=data['organization'],
+                    slug=slugify(data['organization']),
                 )
+                result = scanner.scan(sd_instance)
+                result.save()
                 return HttpResponseRedirect('{0}thanks/'.format(self.url))
 
         # else redirect to a page with errors
@@ -71,9 +69,6 @@ class SecureDropInstance(Orderable):
     slug = models.SlugField('Slug', unique=True, editable=False)
 
     added = models.DateTimeField(auto_now_add=True)
-
-    def clean(self):
-        self.slug = slugify(self.organization)
 
     def __str__(self):
         return '<SecureDropInstance {!r}>'.format(self.organization)
