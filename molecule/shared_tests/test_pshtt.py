@@ -1,15 +1,8 @@
-"""
-Duplicated testing logic from the CI Molecule scenario.
-We can't simply reimport the same test file because
-we need to provide the `testinfra_hosts` var override
-to target the dev env.
-"""
 import pytest
 import json
+import os
 
-testinfra_hosts = ["docker://sd_django"]
-
-PSHTT_CLI_PATH = "/usr/local/bin/pshtt"
+PSHTT_CLI_PATH = os.environ['pshtt_location']
 PSHTT_DOMAINS = [
     'freedom.press',
     'securedrop.org'
@@ -47,9 +40,9 @@ def test_pssht_connectivity(host, domain):
     but also has bearing on confirming the development environment
     works as expected.
     """
-    c = host.command(PSHTT_CLI_PATH + " " + domain)
+    c = host.command("{} -o /tmp/o.csv {}".format(PSHTT_CLI_PATH, domain))
     assert c.rc == 0
-    assert c.stderr.strip() == "Wrote results to results.csv."
+    assert c.stderr.strip() == "Wrote results to /tmp/o.csv."
 
 
 @pytest.mark.parametrize('domain', PSHTT_DOMAINS)

@@ -18,5 +18,11 @@ scenario:
     - verify
 verifier:
   name: testinfra
+  directory: ../shared_tests
+  options:
+    connection: docker
+    hosts: sd_django
+  env:
+    pshtt_location: /usr/local/bin/pshtt
   lint:
     name: flake8
