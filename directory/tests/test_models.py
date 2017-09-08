@@ -31,20 +31,26 @@ class SecuredropTest(TestCase):
             securedrop.full_clean()
 
     def test_duplicate_securedrops_are_invalid(self):
-        securedrop1 = SecureDropInstanceFactory(organization='Freedom of the Press Foundation',
-                                 landing_page='freedom.press',
-                                 onion_address='notreal.onion')
+        securedrop1 = SecureDropInstanceFactory(
+            organization='Freedom of the Press Foundation',
+            landing_page='freedom.press',
+            onion_address='notreal.onion',
+        )
         securedrop1.save()
-        securedrop2 = SecureDropInstanceFactory(organization='Freedom of the Press Foundation',
-                                 landing_page='freedom.press',
-                                 onion_address='notreal.onion')
+        securedrop2 = SecureDropInstanceFactory(
+            organization='Freedom of the Press Foundation',
+            landing_page='freedom.press',
+            onion_address='notreal.onion',
+        )
         with self.assertRaises(IntegrityError):
             securedrop2.save()
 
     def test_securedrop_string_representation(self):
-        securedrop1 = SecureDropInstance(organization='Freedom of the Press Foundation',
-                                 landing_page='freedom.press',
-                                 onion_address='notreal.onion')
+        securedrop1 = SecureDropInstance(
+            organization='Freedom of the Press Foundation',
+            landing_page='freedom.press',
+            onion_address='notreal.onion',
+        )
         self.assertIn(securedrop1.organization, securedrop1.__str__())
 
 

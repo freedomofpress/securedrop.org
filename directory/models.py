@@ -20,11 +20,10 @@ class DirectoryForm(forms.Form):
     tor_address = forms.CharField(label="Tor address", max_length=255)
 
     def clean(self):
-        cleaned_data = super(DirectoryForm, self).clean()
+        super(DirectoryForm, self).clean()
 
         if not is_instance_valid():
             raise forms.ValidationError("Instance not valid, try again.")
-
 
 
 class DirectoryPage(RoutablePageMixin, Page):
@@ -37,7 +36,7 @@ class DirectoryPage(RoutablePageMixin, Page):
             if form.is_valid():
                 data = form.cleaned_data
                 # create secure_drop instance, adding parent page to the form
-                instance = SecureDropInstance.objects.create(
+                SecureDropInstance.objects.create(
                     page=self,
                     url=data['url'],
                     tor_address=data['tor_address'],
@@ -143,9 +142,9 @@ class Result(models.Model):
         excluded_keys = ['_state', '_securedrop_cache', 'result_last_seen',
                          'id', 'grade']
 
-        self_values_to_compare = [(k,v) for k, v in self.__dict__.items()
+        self_values_to_compare = [(k, v) for k, v in self.__dict__.items()
                                   if k not in excluded_keys]
-        other_values_to_compare = [(k,v) for k, v in other.__dict__.items()
+        other_values_to_compare = [(k, v) for k, v in other.__dict__.items()
                                    if k not in excluded_keys]
 
         return self_values_to_compare == other_values_to_compare
@@ -154,41 +153,41 @@ class Result(models.Model):
         return 'Scan result for {}'.format(self.securedrop.organization)
 
     def compute_grade(self):
-        if self.live == False:
+        if self.live is False:
             self.grade = '?'
             return
 
-        if (self.forces_https == False or
-            self.no_cookies == False or
-            self.http_no_redirect == False or
-            self.http_status_200_ok == False or
-            self.no_analytics == False):
+        if (self.forces_https is False or
+            self.no_cookies is False or
+            self.http_no_redirect is False or
+            self.http_status_200_ok is False or
+            self.no_analytics is False):  # noqa: E129
             self.grade = 'F'
-        elif (self.subdomain == True or
-              self.no_cdn == False or
-              self.no_server_info == False or
-              self.no_server_version == False):
+        elif (self.subdomain is True or
+              self.no_cdn is False or
+              self.no_server_info is False or
+              self.no_server_version is False):
             self.grade = 'D'
-        elif (self.hsts == False or
-              self.expected_encoding == False or
-              self.noopen_download == False or
-              self.cache_control_set == False or
-              self.csp_origin_only == False or
-              self.mime_sniffing_blocked == False or
-              self.xss_protection == False or
-              self.clickjacking_protection == False or
-              self.good_cross_domain_policy == False or
-              self.http_1_0_caching_disabled == False or
-              self.expires_set == False or
+        elif (self.hsts is False or
+              self.expected_encoding is False or
+              self.noopen_download is False or
+              self.cache_control_set is False or
+              self.csp_origin_only is False or
+              self.mime_sniffing_blocked is False or
+              self.xss_protection is False or
+              self.clickjacking_protection is False or
+              self.good_cross_domain_policy is False or
+              self.http_1_0_caching_disabled is False or
+              self.expires_set is False or
               self.hsts_max_age <= 16070400):
             self.grade = 'C'
-        elif (self.cache_control_revalidate_set == False or
-              self.cache_control_nocache_set == False or
-              self.cache_control_notransform_set == False or
-              self.cache_control_nostore_set == False or
-              self.cache_control_private_set == False or
-              self.hsts_preloaded == False or
-              self.hsts_entire_domain == False):
+        elif (self.cache_control_revalidate_set is False or
+              self.cache_control_nocache_set is False or
+              self.cache_control_notransform_set is False or
+              self.cache_control_nostore_set is False or
+              self.cache_control_private_set is False or
+              self.hsts_preloaded is False or
+              self.hsts_entire_domain is False):
             self.grade = 'B'
         else:
             self.grade = 'A'

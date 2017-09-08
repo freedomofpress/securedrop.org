@@ -1,5 +1,4 @@
 from bs4 import BeautifulSoup
-from collections import Iterable
 import json
 import requests
 import re
@@ -7,7 +6,7 @@ import subprocess
 
 from django.utils import timezone
 
-from directory.models import SecureDropInstance, Result
+from directory.models import Result
 
 
 def clean_url(url):
@@ -220,39 +219,51 @@ def validate_server_version(page):
 
 
 def validate_csp(page):
-    return validate_security_header(page,
-                             "Content-Security-Policy",
-                             "default-src 'self'")
+    return validate_security_header(
+        page,
+        "Content-Security-Policy",
+        "default-src 'self'",
+    )
 
 
 def validate_xss_protection(page):
-    return validate_security_header(page,
-                             "X-XSS-Protection",
-                             "1; mode=block")
+    return validate_security_header(
+        page,
+        "X-XSS-Protection",
+        "1; mode=block",
+    )
 
 
 def validate_no_sniff(page):
-    return validate_security_header(page,
-                             "X-Content-Type-Options",
-                             "nosniff")
+    return validate_security_header(
+        page,
+        "X-Content-Type-Options",
+        "nosniff",
+    )
 
 
 def validate_download_options(page):
-    return validate_security_header(page,
-                             "X-Download-Options",
-                             "noopen")
+    return validate_security_header(
+        page,
+        "X-Download-Options",
+        "noopen",
+    )
 
 
 def validate_clickjacking_protection(page):
-    return validate_security_header(page,
-                             "X-Frame-Options",
-                             "DENY")
+    return validate_security_header(
+        page,
+        "X-Frame-Options",
+        "DENY",
+    )
 
 
 def validate_cross_domain_policy(page):
-    return validate_security_header(page,
-                             "X-Permitted-Cross-Domain-Policies",
-                             "master-only")
+    return validate_security_header(
+        page,
+        "X-Permitted-Cross-Domain-Policies",
+        "master-only",
+    )
 
 
 def validate_pragma(page):

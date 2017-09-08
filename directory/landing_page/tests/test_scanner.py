@@ -1,17 +1,10 @@
-from bs4 import BeautifulSoup
 import os
-from unittest import mock
 
 from django.test import TestCase
 import vcr
 
 from directory.landing_page import scanner
-from directory.models import (
-    SecureDropInstance,
-    Result,
-)
 from directory.tests.factories import (
-    DirectoryPageFactory,
     SecureDropInstanceFactory,
 )
 

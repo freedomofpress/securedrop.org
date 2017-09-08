@@ -1,15 +1,9 @@
 from bs4 import BeautifulSoup
-import os
 from unittest import mock
 
 from django.test import TestCase
-import vcr
 
 from directory.landing_page import validation
-from directory.models import SecureDropInstance, Result
-
-
-VCR_DIR = os.path.join(os.path.dirname(__file__), 'scans_vcr')
 
 
 class VerificationUtilityTest(TestCase):
@@ -32,7 +26,7 @@ class VerificationUtilityTest(TestCase):
     def test_guardian_url_does_have_subdomain(self):
         self.assertTrue(validation.validate_subdomain('https://securedrop.theguardian.com'))
 
-    def test_guardian_url_does_have_subdomain(self):
+    def test_guardian_url_does_not_have_protocol(self):
         self.assertTrue(validation.validate_subdomain('securedrop.theguardian.com'))
 
     def test_www_url_does_not_have_subdomain(self):
@@ -108,7 +102,7 @@ class VerificationUtilityTest(TestCase):
         page.headers = {'X-Content-Type-Options': 'Crazy Value'}
         self.assertFalse(validation.validate_no_sniff(page))
 
-    def test_nosniff_protection_not_present(self):
+    def test_nosniff_protection_present(self):
         page = mock.Mock()
         page.headers = {'X-Content-Type-Options': 'nosniff'}
         self.assertTrue(validation.validate_no_sniff(page))
@@ -178,7 +172,7 @@ class VerificationUtilityTest(TestCase):
         page.headers = {'Cache-Control': 'must-revalidate'}
         self.assertTrue(validation.validate_cache_must_revalidate(page))
 
-    def test_cache_control_must_revalidate_set(self):
+    def test_cache_control_must_not_revalidate_set(self):
         page = mock.Mock()
         page.headers = {'Cache-Control': 'must-not-revalidate'}
         self.assertFalse(validation.validate_cache_must_revalidate(page))
