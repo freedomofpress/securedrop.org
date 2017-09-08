@@ -7,7 +7,7 @@ import subprocess
 
 from django.utils import timezone
 
-from directory.models import Securedrop, Result
+from directory.models import SecureDropInstance, Result
 
 
 def validate_subdomain(url):

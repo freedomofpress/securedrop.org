@@ -6,7 +6,7 @@ from django.test import TestCase
 import vcr
 
 from directory.landing_page import validation
-from directory.models import Securedrop, Result
+from directory.models import SecureDropInstance, Result
 
 
 VCR_DIR = os.path.join(os.path.dirname(__file__), 'scans_vcr')

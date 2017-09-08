@@ -21,7 +21,7 @@ def scan(securedrop):
     """Scan a single site"""
 
     try:
-        pshtt_results = pshtt(securedrop.landing_page_domain)
+        pshtt_results = pshtt(securedrop.landing_page)
     except:
         return Result(
             securedrop=securedrop,
@@ -30,12 +30,12 @@ def scan(securedrop):
         )
 
     try:
-        page, soup = request_and_scrape_page(securedrop.landing_page_domain)
+        page, soup = request_and_scrape_page(securedrop.landing_page)
 
         # In order to check the HTTP status code and redirect status, we must
         # pass
         no_redirects_page, _ = request_and_scrape_page(
-            securedrop.landing_page_domain, allow_redirects=False
+            securedrop.landing_page, allow_redirects=False
         )
     except requests.exceptions.RequestException:
         # Connection timed out, an invalid HTTP response was returned, or
@@ -56,7 +56,7 @@ def scan(securedrop):
         hsts_max_age=pshtt_results['HSTS Max Age'],
         hsts_entire_domain=pshtt_results['HSTS Entire Domain'],
         hsts_preloaded=pshtt_results['HSTS Preloaded'],
-        subdomain=validate_subdomain(securedrop.landing_page_domain),
+        subdomain=validate_subdomain(securedrop.landing_page),
         no_cookies=validate_no_cookies(page),
         safe_onion_address=validate_onion_address_not_in_href(soup),
         no_cdn=validate_not_using_cdn(page),
