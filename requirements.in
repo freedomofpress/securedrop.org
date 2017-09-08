@@ -1,12 +1,13 @@
 bleach
 Django<1.12
-django-logging-json
+-e git+https://github.com/freedomofpress/django-logging.git@Remove_Elastic#egg=django-logging-json
 django-modelcluster
 django-settings-export
 django-webpack-loader
 factory_boy
 gunicorn
 pip-tools
+pshtt
 psycopg2
 wagtail
 wagtail-factories
