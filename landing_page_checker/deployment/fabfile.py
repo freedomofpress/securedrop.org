@@ -7,6 +7,7 @@ REPO_URL = 'git@github.com:freedomofpress/securedrop-landing-page-checker.git'
 # Modified from Ch.11 of "Test Driven Development with Python"
 # http://www.obeythetestinggoat.com/book/chapter_automate_deployment_with_fabric.html
 
+
 def deploy():
     site_folder = '/home/{}/sites/{}'.format(env.user, env.host)
     source_folder = site_folder + '/source'
@@ -35,7 +36,8 @@ def _get_latest_source(source_folder):
 def _update_settings(source_folder, site_name):
     settings_path = source_folder + '/securedrop/securedrop/settings.py'
     sed(settings_path, "DEBUG = True", "DEBUG = False")
-    sed(settings_path,
+    sed(
+        settings_path,
         'ALLOWED_HOSTS =.+$',
         'ALLOWED_HOSTS = ["{}"]'.format(site_name)
     )

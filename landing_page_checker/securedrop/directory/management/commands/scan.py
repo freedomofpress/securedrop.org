@@ -9,11 +9,18 @@ class Command(BaseCommand):
     help = "Scan one or all SecureDrop landing pages for security"
 
     def add_arguments(self, parser):
-        parser.add_argument('securedrops', nargs='*', type=str, default='',
-            help=("Specify one or more domain names of securedrop landing pages "
-                  " to scan. Specify the domain name with the 'https://' or "
-                  "'http://' removed. If unspecified, scan all landing pages in the "
-                  "directory."))
+        parser.add_argument(
+            'securedrops',
+            nargs='*',
+            type=str,
+            default='',
+            help=(
+                "Specify one or more domain names of securedrop landing pages "
+                " to scan. Specify the domain name with the 'https://' or "
+                "'http://' removed. If unspecified, scan all landing pages in the "
+                "directory."
+            ),
+        )
 
     def handle(self, *args, **options):
         if options['securedrops']:
@@ -34,7 +41,7 @@ class Command(BaseCommand):
                         securedrops.append(securedrop)
                     except Securedrop.DoesNotExist:
                         msg = "Landing page '{}' does not exist".format(
-                            'https://{}'.format(domain)
+                            'https://{}'.format(domain_name)
                         )
                         raise CommandError(msg)
         else:

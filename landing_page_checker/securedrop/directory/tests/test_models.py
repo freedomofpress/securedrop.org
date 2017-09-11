@@ -43,7 +43,7 @@ class ResultTest(TestCase):
             organization='Freedom of the Press Foundation',
             landing_page_domain='freedom.press',
             onion_address='notreal.onion'
-            )
+        )
 
     def test_grade_computed_on_save(self):
         result = Result(live=True, hsts=True, hsts_max_age=99999999,

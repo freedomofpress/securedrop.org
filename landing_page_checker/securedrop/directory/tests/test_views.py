@@ -1,8 +1,6 @@
 from django.test import TestCase
-from django.utils.html import escape
 
 from directory.forms import LandingPageForm
-from directory.views import landing_page_test
 
 
 class HomePageTest(TestCase):
@@ -29,7 +27,7 @@ class LandingPageScannerTest(TestCase):
     def test_invalid_input_returns_to_landing_page_scanner(self):
         response = self.client.post(
             '/test',
-            data = {'url': ''},
+            data={'url': ''},
             follow=True
         )
         self.assertTemplateUsed(response, 'landing_page_test.html')

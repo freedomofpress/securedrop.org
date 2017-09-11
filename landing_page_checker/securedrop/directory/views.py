@@ -4,7 +4,7 @@ from django.views.generic.list import ListView
 
 from directory.forms import LandingPageForm
 from directory.landing_page.scanner import scan, clean_url
-from directory.models import Securedrop, Result
+from directory.models import Securedrop
 
 
 class SecuredropListView(ListView):
