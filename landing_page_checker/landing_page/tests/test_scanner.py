@@ -3,8 +3,8 @@ import os
 from django.test import TestCase
 import vcr
 
-from directory.landing_page import scanner
-from directory.models import Securedrop
+from landing_page_checker.landing_page import scanner
+from landing_page_checker.models import Securedrop
 
 
 VCR_DIR = os.path.join(os.path.dirname(__file__), 'scans_vcr')

@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'search',
     'simple',
     'github',
+    'landing_page_checker',
 
     'wagtail.contrib.settings',
     'wagtail.contrib.wagtailroutablepage',

@@ -2,7 +2,7 @@ from django.db.utils import IntegrityError
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
-from directory.models import Securedrop, Result
+from landing_page_checker.models import Securedrop, Result
 
 
 class SecuredropTest(TestCase):

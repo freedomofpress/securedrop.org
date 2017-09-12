@@ -6,7 +6,7 @@ import subprocess
 
 from django.utils import timezone
 
-from directory.models import Result
+from landing_page_checker.models import Result
 
 
 def clean_url(url):

@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from directory.forms import LandingPageForm
+from landing_page_checker.forms import LandingPageForm
 
 
 class LandingPageFormTest(TestCase):
