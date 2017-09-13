@@ -4,27 +4,21 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.utils.text import slugify
 
-from modelcluster.fields import ParentalKey
 from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailadmin.edit_handlers import (
     InlinePanel,
 )
 
-from directory.utils import is_instance_valid
+from landing_page_checker.landing_page import scanner
+from landing_page_checker.models import Securedrop
 
 
 class DirectoryForm(forms.Form):
     instance_name = forms.CharField(label="Instance name", max_length=255)
+    organization = forms.CharField(label="Organization", max_length=255)
     url = forms.URLField()
     tor_address = forms.CharField(label="Tor address", max_length=255)
-
-    def clean(self):
-        cleaned_data = super(DirectoryForm, self).clean()
-
-        if not is_instance_valid():
-            raise forms.ValidationError("Instance not valid, try again.")
-
 
 
 class DirectoryPage(RoutablePageMixin, Page):
@@ -37,11 +31,16 @@ class DirectoryPage(RoutablePageMixin, Page):
             if form.is_valid():
                 data = form.cleaned_data
                 # create secure_drop instance, adding parent page to the form
-                instance = SecureDropInstance.objects.create(
+                instance = Securedrop.objects.create(
                     page=self,
-                    url=data['url'],
-                    tor_address=data['tor_address'],
+                    landing_page_domain=data['url'],
+                    organization=data['organization'],
+                    slug=slugify(data['organization']),
+                    onion_address=data['tor_address'],
                 )
+                result = scanner.scan(instance)
+                result.save()
+
                 return HttpResponseRedirect('{0}thanks/'.format(self.url))
 
         # else redirect to a page with errors
@@ -61,9 +60,3 @@ class DirectoryPage(RoutablePageMixin, Page):
     content_panels = Page.content_panels + [
         InlinePanel('instances', label='Thingies'),
     ]
-
-
-class SecureDropInstance(Orderable):
-    page = ParentalKey('directory.DirectoryPage', related_name='instances')
-    url = models.URLField(blank=True, null=True)
-    tor_address = models.CharField(max_length=100, null=True, blank=True)
