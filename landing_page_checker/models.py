@@ -2,9 +2,12 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.utils.text import slugify
+from modelcluster.fields import ParentalKey
+from wagtail.wagtailcore.models import Orderable
 
 
 class Securedrop(models.Model):
+    page = ParentalKey('directory.DirectoryPage', related_name='instances')
     organization = models.CharField('Organization', max_length=255, unique=True)
     slug = models.SlugField('Slug', unique=True, editable=False)
 
