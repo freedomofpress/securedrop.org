@@ -1,0 +1,8 @@
+Django==1.10
+requests==2.13.0
+virtualenv==15.1.0
+beautifulsoup4==4.5.3
+bs4==0.0.1
+lxml==3.7.2
+gunicorn==19.7.1
+vcrpy==1.11.0
