@@ -1,3 +1,4 @@
 django-debug-toolbar
 vcrpy
+factory_boy
 -r requirements.txt
