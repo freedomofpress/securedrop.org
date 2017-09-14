@@ -14,7 +14,6 @@ from landing_page_checker.models import Securedrop
 
 
 class DirectoryForm(forms.Form):
-    instance_name = forms.CharField(label="Instance name", max_length=255)
     organization = forms.CharField(label="Organization", max_length=255)
     url = forms.URLField()
     tor_address = forms.CharField(label="Tor address", max_length=255)
