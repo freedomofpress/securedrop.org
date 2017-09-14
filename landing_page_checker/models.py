@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils.text import slugify
 from modelcluster.fields import ParentalKey
-from wagtail.wagtailcore.models import Orderable
 
 
 class Securedrop(models.Model):

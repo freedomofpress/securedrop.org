@@ -1,11 +1,10 @@
-from django.db import models
 from django import forms
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.utils.text import slugify
 
 from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
-from wagtail.wagtailcore.models import Page, Orderable
+from wagtail.wagtailcore.models import Page
 from wagtail.wagtailadmin.edit_handlers import (
     InlinePanel,
 )
