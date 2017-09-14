@@ -11,6 +11,7 @@ pip-tools
 pshtt
 psycopg2
 pygments
+vcrpy
 wagtail
 wagtail-factories
 wagtail-metadata
