@@ -10,7 +10,7 @@ from wagtail.wagtailadmin.edit_handlers import (
 )
 
 from landing_page_checker.landing_page import scanner
-from landing_page_checker.models import Securedrop
+from landing_page_checker.models import Securedrop as SecuredropInstance
 
 
 class DirectoryForm(forms.Form):
@@ -29,7 +29,7 @@ class DirectoryPage(RoutablePageMixin, Page):
             if form.is_valid():
                 data = form.cleaned_data
                 # create secure_drop instance, adding parent page to the form
-                instance = Securedrop.objects.create(
+                instance = SecuredropInstance.objects.create(
                     page=self,
                     landing_page_domain=data['url'],
                     organization=data['organization'],
