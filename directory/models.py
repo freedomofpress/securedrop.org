@@ -56,5 +56,5 @@ class DirectoryPage(RoutablePageMixin, Page):
         return render(request, 'directory/thanks.html')
 
     content_panels = Page.content_panels + [
-        InlinePanel('instances', label='Thingies'),
+        InlinePanel('instances', label='Securedrop Instances'),
     ]
