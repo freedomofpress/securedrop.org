@@ -4,7 +4,7 @@
 
 {% block body %}
 	{% wagtailuserbar %}
-
+  {% include 'common/_tor.html' %}
 	<main class="{% block main_classes %}{% endblock %}">
 	{% block main %}
 	{% endblock %}
