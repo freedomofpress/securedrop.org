@@ -64,6 +64,7 @@ class Command(BaseCommand):
             site.save()
 
         management.call_command('createblogdata', '10')
+        management.call_command('createdirectory', '10')
 
         # Create superuser
         if not User.objects.filter(is_superuser=True).exists():
