@@ -119,16 +119,7 @@ class CodeBlock(blocks.StructBlock):
         ('json', 'JSON'),
     )
 
-    STYLE_CHOICES = (
-        ('syntax', 'default'),
-        ('emacs', 'emacs'),
-        ('monokai', 'monokai'),
-        ('vim', 'vim'),
-        ('xcode', 'xcode'),
-    )
-
     language = blocks.ChoiceBlock(choices=LANGUAGE_CHOICES)
-    style = blocks.ChoiceBlock(choices=STYLE_CHOICES, default='syntax')
     code = blocks.TextBlock()
 
     def render(self, value, **kwargs):
