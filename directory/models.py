@@ -1,4 +1,3 @@
-from django import forms
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.utils.text import slugify
@@ -9,14 +8,9 @@ from wagtail.wagtailadmin.edit_handlers import (
     InlinePanel,
 )
 
+from directory.forms import DirectoryForm
 from landing_page_checker.landing_page import scanner
 from landing_page_checker.models import Securedrop as SecuredropInstance
-
-
-class DirectoryForm(forms.Form):
-    organization = forms.CharField(label="Organization", max_length=255)
-    url = forms.URLField()
-    tor_address = forms.CharField(label="Tor address", max_length=255)
 
 
 class DirectoryPage(RoutablePageMixin, Page):
