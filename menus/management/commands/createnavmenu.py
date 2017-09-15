@@ -2,9 +2,7 @@ from blog.models import BlogIndexPage
 from blog.tests.factories import BlogIndexPageFactory
 from home.models import HomePage
 from menus.models import Menu, MenuItem
-from simple.models import SimplePage
 
-from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import BaseCommand
 from django.db import transaction
 
