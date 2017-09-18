@@ -6,10 +6,12 @@ django-settings-export
 django-webpack-loader
 factory_boy
 gunicorn
+lxml
 pip-tools
 pshtt
 psycopg2
 pygments
+vcrpy
 wagtail
 wagtail-factories
 wagtail-metadata
