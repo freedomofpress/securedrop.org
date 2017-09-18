@@ -57,6 +57,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // });
   } else {
     // If the user is not using Tor Browser, we want to encourage them to do so.
+    useTorBrowser.classList.remove('use-tor-browser--hidden')
+
     const closeUseTorBrowser = document.getElementById('use-tor-browser-close')
     closeUseTorBrowser.addEventListener('click', () => {
       useTorBrowser.classList.add('use-tor-browser--hidden')
