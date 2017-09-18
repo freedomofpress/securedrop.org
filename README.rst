@@ -25,7 +25,7 @@ the following env vars in your shell profile (see this `GitHub comment <https://
 Local Development instructions
 ------------------------------
 
-Clone the Git repository from ``git@github.com:littleweaver/securedrop.org.git``.
+Clone the Git repository from ``git@github.com:freedomofpress/securedrop.org.git``.
 
 Run the following commands to get up and running:
 
@@ -50,7 +50,8 @@ in the background); in order to monitor progress use the following two commands
     make dev-attach-django #attach a shell to the python process
 
 You should be able to hit the web server interface at http://localhost:8000.
-You can directly access the database on port `15432` (see further below)
+You can also directly access the database (see further below). Note that you'll need
+to populate the database with development data using ``make dev-createdevdata``.
 
 Updating Requirements
 +++++++++++++++++++++
@@ -105,15 +106,16 @@ images that are referenced from an external site backup.
 Connect to postgresql service from host
 ---------------------------------------
 
-The postgresql service is exposed to your host on port ``15432``. If you have a GUI
-database manipulation application you'd like to utilize point it to ``localhost``,
-port ``15432``, username ``tracker``, password ``trackerpassword``, dbname ``securedropdb``
+The postgresql service is exposed to your host on a port that will be displayed
+to you in the output of ``make dev-go``. If you have a GUI
+database manipulation application you'd like to utilize point it to ``localhost``
+with the correct port, username ``securedrop``, password ``securedroppassword``, dbname ``securedropdb``
 
 
 Mimic CI and production environment
 -----------------------------------
 
-You can mimic a production environment where django is deployment with gunicorn,
+You can mimic a production environment where django is deployed with gunicorn,
 reverse nginx proxy, and debug mode off using the following command:
 
 .. code:: bash
