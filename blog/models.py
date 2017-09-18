@@ -16,7 +16,6 @@ from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 from blog.feeds import BlogIndexPageFeed
 from common.utils import DEFAULT_PAGE_KEY, paginate
 from common.models import MetadataPageMixin
-
 from common.blocks import (
     Heading1,
     Heading2,
@@ -25,6 +24,7 @@ from common.blocks import (
     AlignedImageBlock,
     AlignedEmbedBlock,
     RichTextBlockQuoteBlock,
+    CodeBlock,
 )
 
 
@@ -99,6 +99,7 @@ class BlogPage(MetadataPageMixin, Page):
     body = StreamField(
         [
             ('text', StyledTextBlock(label='Text', template='common/blocks/styled_text_full_bleed.html')),
+            ('code', CodeBlock(label='Code Block')),
             ('image', AlignedImageBlock()),
             ('raw_html', blocks.RawHTMLBlock()),
             ('blockquote', RichTextBlockQuoteBlock()),
@@ -137,6 +138,14 @@ class BlogPage(MetadataPageMixin, Page):
     )
 
     categories = ParentalManyToManyField('blog.CategoryPage', blank=True)
+
+    release = models.ForeignKey(
+        'github.Release',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='posts',
+    )
 
     content_panels = Page.content_panels + [
         FieldPanel('publication_datetime'),

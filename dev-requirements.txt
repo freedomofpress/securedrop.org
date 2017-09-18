@@ -49,6 +49,7 @@ pyopenssl==17.2.0
 pyparsing==2.2.0
 pytablereader==0.13.3
 pytablewriter==0.24.0
+pygments==2.2.0
 python-dateutil==2.6.1
 pytz==2017.2
 requests-cache==0.4.13
