@@ -1,0 +1,302 @@
+.syntax {
+  .hll {
+    background-color: #ffffcc;
+  }
+
+  background: #f0f3f3;
+
+  .c {
+    color: #0099FF;
+    font-style: italic;
+  }
+
+  .err {
+    color: #AA0000;
+    background-color: #FFAAAA;
+  }
+
+  .k {
+    color: #006699;
+    font-weight: bold;
+  }
+
+  .o {
+    color: #555555;
+  }
+
+  .ch, .cm {
+    color: #0099FF;
+    font-style: italic;
+  }
+
+  .cp {
+    color: #009999;
+  }
+
+  .cpf, .c1 {
+    color: #0099FF;
+    font-style: italic;
+  }
+
+  .cs {
+    color: #0099FF;
+    font-weight: bold;
+    font-style: italic;
+  }
+
+  .gd {
+    background-color: #FFCCCC;
+    border: 1px solid #CC0000;
+  }
+
+  .ge {
+    font-style: italic;
+  }
+
+  .gr {
+    color: #FF0000;
+  }
+
+  .gh {
+    color: #003300;
+    font-weight: bold;
+  }
+
+  .gi {
+    background-color: #CCFFCC;
+    border: 1px solid #00CC00;
+  }
+
+  .go {
+    color: #AAAAAA;
+  }
+
+  .gp {
+    color: #000099;
+    font-weight: bold;
+  }
+
+  .gs {
+    font-weight: bold;
+  }
+
+  .gu {
+    color: #003300;
+    font-weight: bold;
+  }
+
+  .gt {
+    color: #99CC66;
+  }
+
+  .kc, .kd, .kn {
+    color: #006699;
+    font-weight: bold;
+  }
+
+  .kp {
+    color: #006699;
+  }
+
+  .kr {
+    color: #006699;
+    font-weight: bold;
+  }
+
+  .kt {
+    color: #007788;
+    font-weight: bold;
+  }
+
+  .m {
+    color: #FF6600;
+  }
+
+  .s {
+    color: #CC3300;
+  }
+
+  .na {
+    color: #330099;
+  }
+
+  .nb {
+    color: #336666;
+  }
+
+  .nc {
+    color: #00AA88;
+    font-weight: bold;
+  }
+
+  .no {
+    color: #336600;
+  }
+
+  .nd {
+    color: #9999FF;
+  }
+
+  .ni {
+    color: #999999;
+    font-weight: bold;
+  }
+
+  .ne {
+    color: #CC0000;
+    font-weight: bold;
+  }
+
+  .nf {
+    color: #CC00FF;
+  }
+
+  .nl {
+    color: #9999FF;
+  }
+
+  .nn {
+    color: #00CCFF;
+    font-weight: bold;
+  }
+
+  .nt {
+    color: #330099;
+    font-weight: bold;
+  }
+
+  .nv {
+    color: #003333;
+  }
+
+  .ow {
+    color: #000000;
+    font-weight: bold;
+  }
+
+  .w {
+    color: #bbbbbb;
+  }
+
+  .mb, .mf, .mh, .mi, .mo {
+    color: #FF6600;
+  }
+
+  .sb, .sc {
+    color: #CC3300;
+  }
+
+  .sd {
+    color: #CC3300;
+    font-style: italic;
+  }
+
+  .s2 {
+    color: #CC3300;
+  }
+
+  .se {
+    color: #CC3300;
+    font-weight: bold;
+  }
+
+  .sh {
+    color: #CC3300;
+  }
+
+  .si {
+    color: #AA0000;
+  }
+
+  .sx {
+    color: #CC3300;
+  }
+
+  .sr {
+    color: #33AAAA;
+  }
+
+  .s1 {
+    color: #CC3300;
+  }
+
+  .ss {
+    color: #FFCC33;
+  }
+
+  .bp {
+    color: #336666;
+  }
+
+  .vc, .vg, .vi {
+    color: #003333;
+  }
+
+  .il {
+    color: #FF6600;
+  }
+}
+
+/* Comment */
+/* Error */
+/* Keyword */
+/* Operator */
+/* Comment.Hashbang */
+/* Comment.Multiline */
+/* Comment.Preproc */
+/* Comment.PreprocFile */
+/* Comment.Single */
+/* Comment.Special */
+/* Generic.Deleted */
+/* Generic.Emph */
+/* Generic.Error */
+/* Generic.Heading */
+/* Generic.Inserted */
+/* Generic.Output */
+/* Generic.Prompt */
+/* Generic.Strong */
+/* Generic.Subheading */
+/* Generic.Traceback */
+/* Keyword.Constant */
+/* Keyword.Declaration */
+/* Keyword.Namespace */
+/* Keyword.Pseudo */
+/* Keyword.Reserved */
+/* Keyword.Type */
+/* Literal.Number */
+/* Literal.String */
+/* Name.Attribute */
+/* Name.Builtin */
+/* Name.Class */
+/* Name.Constant */
+/* Name.Decorator */
+/* Name.Entity */
+/* Name.Exception */
+/* Name.Function */
+/* Name.Label */
+/* Name.Namespace */
+/* Name.Tag */
+/* Name.Variable */
+/* Operator.Word */
+/* Text.Whitespace */
+/* Literal.Number.Bin */
+/* Literal.Number.Float */
+/* Literal.Number.Hex */
+/* Literal.Number.Integer */
+/* Literal.Number.Oct */
+/* Literal.String.Backtick */
+/* Literal.String.Char */
+/* Literal.String.Doc */
+/* Literal.String.Double */
+/* Literal.String.Escape */
+/* Literal.String.Heredoc */
+/* Literal.String.Interpol */
+/* Literal.String.Other */
+/* Literal.String.Regex */
+/* Literal.String.Single */
+/* Literal.String.Symbol */
+/* Name.Builtin.Pseudo */
+/* Name.Variable.Class */
+/* Name.Variable.Global */
+/* Name.Variable.Instance */
+/* Literal.Number.Integer.Long */

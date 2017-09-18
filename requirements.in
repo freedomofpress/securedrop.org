@@ -9,6 +9,7 @@ gunicorn
 pip-tools
 pshtt
 psycopg2
+pygments
 wagtail
 wagtail-factories
 wagtail-metadata
