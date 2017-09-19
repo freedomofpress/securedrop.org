@@ -1,12 +1,39 @@
 {% extends "super.html" %}
 {% load wagtailuserbar %}
+ {% load render_bundle from webpack_loader %}
 
 
 {% block body %}
 	{% wagtailuserbar %}
   {% include 'common/_tor.html' %}
+
+  <nav>
+    {% include "menus/_header_menu.html" %}
+
+    <button
+      class="hamburger hamburger--collapse js-sliding-nav-trigger"
+      type="button"
+      aria-label="Menu"
+      aria-controls="navigation"
+      aria-expanded="false"
+    >
+      <span class="hamburger-box">
+        <span class="hamburger-inner"></span>
+      </span>
+    </button>
+
+    {% include "menus/_sliding_nav.html" %}
+  </nav>
+
 	<main class="{% block main_classes %}{% endblock %}">
 	{% block main %}
 	{% endblock %}
 	</main>
+
+  <div class="shade js-sliding-nav-overlay"></div>
+
+  {% block js %}
+    {% render_bundle 'common' 'js' %}
+  {% endblock %}
 {% endblock %}
+
