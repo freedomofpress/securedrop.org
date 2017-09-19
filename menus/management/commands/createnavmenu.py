@@ -17,7 +17,7 @@ class Command(BaseCommand):
 
             home_page = HomePage.objects.get(slug='home')
 
-            if BlogIndexPage.objects.first:
+            if BlogIndexPage.objects.first():
                 blog_index_page = BlogIndexPage.objects.first()
             else:
                 blog_index_page = BlogIndexPageFactory(parent=home_page)
