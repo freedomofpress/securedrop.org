@@ -27,13 +27,26 @@
 	flex-basis: 20rem
 	margin-left: 2rem
 	margin-bottom: 1rem
+	line-height: 1.5
 
 	+media-breakpoint-down(extra-small)
 		flex-basis: 100%
 		margin-left: 0
 
+.instances__item-header
+	margin: 0
+	font-size: 1.5rem
+
+.instances__item-landingpage
+	margin-bottom: 0.75rem
+	+link--underline(inherit, $gray10)
+
+.instances__item-onion-address--bold
+	font-weight: bold
+
 .instances__button
 	color: $black
 	background-color: $white
 	border-radius: $button-border-radius
-	padding: $button-padding	
+	padding: $button-padding
+	border: 1px solid $black

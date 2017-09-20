@@ -19,7 +19,18 @@ class HomePage(MetadataPageMixin, Page):
         blank=True,
         null=True
     )
-    features_header = models.CharField(max_length=255, blank=True, null=True)
+    features_header = models.CharField(
+        max_length=255,
+        default="What SecureDrop Does")
+    instances_header = models.CharField(
+        max_length=255,
+        default="Share Documents Securely With These Organizations")
+    instances_button = models.ForeignKey(
+        'home.InstancesButton',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
 
 
     content_panels = Page.content_panels + [
@@ -50,7 +61,9 @@ class HomePage(MetadataPageMixin, Page):
         ),
         MultiFieldPanel(
             [
-                InlinePanel('instances', max_num=8),
+                FieldPanel('instances_header'),
+                InlinePanel('instances', label="Instances", max_num=8),
+                InlinePanel('instance_button', label="Button", max_num=1)
             ],
             "Highlighted Instances",
             classname="collapsible"
@@ -73,6 +86,13 @@ class DescriptionButtons(Orderable, Button):
         PageChooserPanel('link')
     ]
 
+class InstancesButton(Button):
+    page = ParentalKey('home.HomePage', related_name='instance_button')
+
+    panels = [
+        FieldPanel('text'),
+        PageChooserPanel('link')
+    ]
 
 class Feature(Orderable):
     page = ParentalKey('home.HomePage', related_name='features')
