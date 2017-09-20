@@ -1,6 +1,13 @@
 .main-nav
   +clearfix
 
+  +media-breakpoint-down(extra-small)
+    width: 100%
+    position: absolute
+    top: 0
+    left: 0
+    background: rgba($black,0.25)
+
 .nav-menu
   +list--unstyled
   display: flex
@@ -17,7 +24,7 @@
   padding: 0.5rem
 
 .nav-menu__link
-  +link--underline-on-hover(inherit, inherit)
+  +link--no-underline(inherit, $nav-hover-color)
 
 .nav-menu--mobile-hidden
   +media-breakpoint-down(extra-small)

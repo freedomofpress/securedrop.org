@@ -1,9 +1,19 @@
 .hamburger
 	position: relative
-	background-color: $brand-primary
 	padding-bottom: 11px
 	float: right
 	z-index: 100
+
+	&:hover
+		// overrides native hamburger style
+		opacity: 1.0
+		// this is not BEM but..
+		.hamburger-inner
+			background-color: $nav-hover-color
+			&:before,
+			&:after
+				background-color: $nav-hover-color
+
 
 	+media-breakpoint-up(small)
 		display: none
