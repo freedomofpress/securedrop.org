@@ -57,6 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // });
   } else {
     // If the user is not using Tor Browser, we want to encourage them to do so.
+    // TODO: Disable scrolling
     useTorBrowser.classList.remove('use-tor-browser--hidden')
 
     const closeUseTorBrowser = document.getElementById('use-tor-browser-close')
