@@ -21,6 +21,7 @@ class HomePage(MetadataPageMixin, Page):
     )
     features_header = models.CharField(max_length=255, blank=True, null=True)
 
+
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
@@ -46,7 +47,14 @@ class HomePage(MetadataPageMixin, Page):
             ],
             "Features",
             classname="collapsible"
-        )
+        ),
+        MultiFieldPanel(
+            [
+                InlinePanel('instances', max_num=8),
+            ],
+            "Highlighted Instances",
+            classname="collapsible"
+        ),
     ]
 
     def get_latest_blog(self):
@@ -86,4 +94,19 @@ class Feature(Orderable):
         ImageChooserPanel('icon'),
         FieldPanel('title'),
         FieldPanel('description')
+    ]
+
+
+class HomePageInstances(Orderable):
+    page = ParentalKey('home.HomePage', related_name='instances')
+    instance = models.ForeignKey(
+        'landing_page_checker.Securedrop',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
+    panels = [
+        FieldPanel('instance'),
     ]
