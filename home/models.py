@@ -7,6 +7,8 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, Page
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 from common.models import MetadataPageMixin, Button
+from blog.models import BlogPage
+from github.models import Release
 
 
 class HomePage(MetadataPageMixin, Page):
@@ -46,6 +48,13 @@ class HomePage(MetadataPageMixin, Page):
             classname="collapsible"
         )
     ]
+
+    def get_latest_blog(self):
+        return BlogPage.objects.all().live().order_by('-publication_datetime').first()
+
+    def get_latest_release(self):
+        return Release.objects.all().order_by('-date').first()
+
 
 
 class DescriptionButtons(Orderable, Button):

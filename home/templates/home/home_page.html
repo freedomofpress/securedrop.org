@@ -24,18 +24,30 @@
 {% endblock header %}
 
 {% block main%}
-
-	<div>
+	<div class="updates">
+		<div class="updates__item">
+			<h2 class="updates__header">Latest News</h2>
+			<a href="#">{{ self.get_latest_blog }}</a>
+		</div>
+		<div class="updates__item">
+			<h2 class="updates__header">Latest Release</h2>
+			<a href="">{{ self.get_latest_release }}</a>
+		</div>
+	</div>
+	<div class="features">
 		{% if page.features_header %}
-			<h2>{{ page.features_header}}</h2>
+			<h2 class="features__header">{{ page.features_header}}</h2>
 		{% endif %}
-		{% for feature in page.features.all %}
-			<div>
-				{% image feature.icon fill-50x50-c100 %}
-				<h3>{{ feature.title }}</h3>
-				<p>{{ feature.description|richtext }}</p>
-			</div>
-		{% endfor %}
+		<div class="features__items">
+			{% for feature in page.features.all %}
+				<div class="features__item">
+					{% image feature.icon fill-50x50-c100 %}
+					<h3 class="features__item-header">{{ feature.title }}</h3>
+					<div class="features__item-description">{{ feature.description|richtext }}</div>
+				</div>
+			{% endfor %}
+		</div>
+		<button class="features__button">Learn More About SecureDrop</button>
 	<div>
 {% endblock %}
 
