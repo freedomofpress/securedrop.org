@@ -67,7 +67,9 @@
 				</div>
 			{% endfor %}
 		</div>
-		<button class="features__button">Learn More About SecureDrop</button>
+		{% for button in page.features_button.all %}
+			<a href="{% pageurl button.link %}"><button class="instances__button">{{ button.text }}</button></a>
+		{% endfor %}
 	<div>
 {% endblock %}
 

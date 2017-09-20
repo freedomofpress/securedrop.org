@@ -60,6 +60,7 @@ class HomePage(MetadataPageMixin, Page):
                     label="SecureDrop Features",
                     max_num=8
                 ),
+                InlinePanel('features_button', label="Features Button", max_num=1)
             ],
             "Features",
             classname="collapsible"
@@ -83,7 +84,6 @@ class HomePage(MetadataPageMixin, Page):
         return Release.objects.all().order_by('-date').first()
 
 
-
 class DescriptionButtons(Orderable, Button):
     page = ParentalKey('home.HomePage', related_name='description_buttons')
 
@@ -92,6 +92,7 @@ class DescriptionButtons(Orderable, Button):
         PageChooserPanel('link')
     ]
 
+
 class InstancesButton(Button):
     page = ParentalKey('home.HomePage', related_name='instance_button')
 
@@ -99,6 +100,16 @@ class InstancesButton(Button):
         FieldPanel('text'),
         PageChooserPanel('link')
     ]
+
+
+class FeaturesButton(Button):
+    page = ParentalKey('home.HomePage', related_name='features_button')
+
+    panels = [
+        FieldPanel('text'),
+        PageChooserPanel('link')
+    ]
+
 
 class Feature(Orderable):
     page = ParentalKey('home.HomePage', related_name='features')
