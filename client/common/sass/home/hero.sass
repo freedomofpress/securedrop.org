@@ -16,7 +16,17 @@ $hero_background: $brand-secondary
 	+uppercase
 
 .hero__description
+	margin-bottom: 1rem
 	.rich-text
-		width: 5rem
-		background-color: red
+		+p-remove-first-and-last-margin
+		p
+			width: 20rem
+
+
+.hero__button
+	color: white
+	background-color: transparent
+	border: 1px solid $white
+	border-radius: 0.25rem
+	padding: 0.5rem
 

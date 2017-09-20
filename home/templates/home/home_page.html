@@ -13,7 +13,7 @@
 				<h2 class="hero__description-header">{{ page.description_header }}</h2>
 			{% endif %}
 			{% if page.description %}
-				<p class="hero__description">{{ page.description|richtext }}</p>
+				<div class="hero__description">{{ page.description|richtext }}</div>
 			{% endif %}
 
 			{% for button in page.description_buttons.all %}
