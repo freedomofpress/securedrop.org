@@ -3,27 +3,29 @@
 
 {% with footer=settings.common.FooterSettings %}
 	<footer class="footer">
-		<section class="support__support">
-			<h2>{{ footer.support_title }}</h2>
-			<div class="support__search">Search</div>
-			<nav class="support__nav">
-				<ul class="support__nav-list">
-					{% for item in footer.support_menu.menu_items.all %}
-						<li class="support__nav-item {{ item.html_classes }}">
-							<a class="footer__nav-link" href="{{ item.url }}">
-								{{ item.text }}
-							</a>
-						</li>
-					{% endfor %}
-				</ul>
-			</nav>
-		</section>
-		<section class="footer-links">
-			<a href="{{ footer.donation_link }}"><button class="footer-links__donate">Donate</button></a>
-			<a href="{{ footer.contribute_link }"><button class="footer-links__contribute">Contribute</button></a>
-		</section>
+		<div class="footer__line-wrapper">
+			<section class="support">
+				<h2 class="support__title">{{ footer.support_title }}</h2>
+				<div class="support__search">Search</div>
+				<nav class="support__nav">
+					<ul class="support__nav-list">
+						{% for item in footer.support_menu.menu_items.all %}
+							<li class="support__nav-item {{ item.html_classes }}">
+								<a class="support__nav-link" href="{{ item.url }}">
+									{{ item.text }}
+								</a>
+							</li>
+						{% endfor %}
+					</ul>
+				</nav>
+			</section>
+			<section class="footer-links">
+				<a href="{{ footer.donation_link }}"><button class="footer-links__donate">Donate</button></a>
+				<a href="{{ footer.contribute_link }"><button class="footer-links__contribute">Contribute</button></a>
+			</section>
+		</div>
 		<section class="footer-main">
-			<h2>{{ footer.title|richtext }}</h2>
+			<h2 class='footer-main__title'>{{ footer.title|richtext }}</h2>
 			<nav class="footer-main__nav">
 				<ul class="footer-main__nav-list">
 					{% for item in footer.main_menu.menu_items.all %}

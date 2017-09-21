@@ -1,0 +1,60 @@
+$support-background-color: $gray90
+$links-background-color: red
+$footer-background-color: blue
+
+.footer__line-wrapper
+	display: flex
+	flex-wrap: wrap
+	height: 15rem
+
+.support
+	background-color: $support-background-color
+	color: $white
+	padding: 1rem
+	// as a flex-child
+	flex-grow: 2
+	// as a flex-parent
+	display: flex
+	flex-direction: column
+	justify-content: space-around
+	align-items: center
+
+.support__title
+	margin: 0
+	padding: 0
+
+.support__nav
+	width: 75%
+
+.support__nav-list
+	+list--unstyled
+	display: flex
+	flex-flow: column wrap
+	align-items: flex-start
+	justify-content: center
+	align-content: space-around
+	height: 3rem
+	width: 100%
+
+	+media-breakpoint-down(extra-small)
+		flex-wrap: nowrap
+		align-items: center
+
+.support__nav-item
+	height: 1.5rem
+
+.support__nav-link
+	+link--no-underline($gray10--text, $white)
+
+.footer-links
+	background-color: $links-background-color
+	color: $white
+	flex-grow: 1
+
+.footer-main
+	background-color: $footer-background-color
+	color: $white
+
+.footer-main__title
+	.rich-text
+		+p-remove-first-and-last-margin
