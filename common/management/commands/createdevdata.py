@@ -66,6 +66,7 @@ class Command(BaseCommand):
         management.call_command('createblogdata', '10')
         management.call_command('createdirectory', '10')
         management.call_command('createnavmenu')
+        management.call_command('createfootersettings')
 
         # Create superuser
         if not User.objects.filter(is_superuser=True).exists():
