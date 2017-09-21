@@ -1,23 +1,29 @@
-$support-background-color: $gray90
-$links-background-color: red
-$footer-background-color: blue
+$support-background-color: #22222f
+$links-background-color: #a72807
+$footer-background-color: #3e3190
 
 .footer__line-wrapper
 	display: flex
 	flex-wrap: wrap
 	height: 15rem
 
+	+media-breakpoint-down(extra-small)
+		height: auto
+
 .support
 	background-color: $support-background-color
 	color: $white
 	padding: 1rem
 	// as a flex-child
-	flex-grow: 2
+	flex-grow: 5
 	// as a flex-parent
 	display: flex
 	flex-direction: column
 	justify-content: space-around
 	align-items: center
+
+	+media-breakpoint-down(extra-small)
+		min-height: 15rem
 
 .support__title
 	margin: 0
@@ -49,7 +55,33 @@ $footer-background-color: blue
 .footer-links
 	background-color: $links-background-color
 	color: $white
+	padding: 2rem
+	// as a flex-child
 	flex-grow: 1
+	// as a flex-parent
+	display: flex
+	flex-direction: column
+	justify-content: space-around
+	align-items: center
+
+	+media-breakpoint-down(extra-small)
+		min-height: 15rem
+
+
+.footer-links__donate, .footer-links__contribute
+	border-radius: $button-border-radius
+	padding: 1rem
+	width: 10rem
+
+.footer-links__donate
+	background-color: $white
+	color: $links-background-color
+	border: none
+
+.footer-links__contribute
+	border: 1px solid $white
+	background-color: inherit
+	color: $white
 
 .footer-main
 	background-color: $footer-background-color
