@@ -39,7 +39,6 @@ class HomePage(MetadataPageMixin, Page):
         help_text="Text displayed linking to each instance landing page."
     )
 
-
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
