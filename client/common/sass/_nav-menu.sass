@@ -1,31 +1,31 @@
 .main-nav
-  +clearfix
+	+clearfix
 
-  +media-breakpoint-down(extra-small)
-    width: 100%
-    position: absolute
-    top: 0
-    left: 0
-    background: rgba($black,0.25)
+	+media-breakpoint-down(extra-small)
+		width: 100%
+		position: absolute
+		top: 0
+		left: 0
+		background: rgba($black,0.25)
 
 .nav-menu
-  +list--unstyled
-  display: flex
-  justify-content: flex-end
-  align-items: center
-  background: rgba($black,0.25)
-  color: $white
-  width: 100%
-  position: absolute
-  top: 0
-  left: 0
+	+list--unstyled
+	display: flex
+	justify-content: flex-end
+	align-items: center
+	background: rgba($black,0.25)
+	color: $white
+	width: 100%
+	position: absolute
+	top: 0
+	left: 0
 
 .nav-menu__item
-  padding: 0.5rem
+	padding: 0.5rem
 
 .nav-menu__link
-  +link--no-underline(inherit, $nav-hover-color)
+	+link--no-underline(inherit, $nav-hover-color)
 
 .nav-menu--mobile-hidden
-  +media-breakpoint-down(extra-small)
-    display: none
+	+media-breakpoint-down(extra-small)
+		display: none
