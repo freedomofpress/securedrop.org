@@ -1,31 +1,74 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags wagtailimages_tags%}
 
-{% block main%}
-	<div>
-		<h1>{{ page.title }}</h1>
-		{% if page.description_header %}
-			<h2>{{ page.description_header }}</h2>
-		{% endif %}
-		{% if page.description %}
-			<p>{{ page.description|richtext }}</p>
-		{% endif %}
 
-		{% for button in page.description_buttons.all %}
-			<a href="{% pageurl button.link %}"><button>{{ button.text }}</button></a>
+{% block header %}
+	{{ block.super }}
+
+	<div class="hero">
+		<img src="images/securedrop.png">
+		<div class="hero__text">
+			<h1 class="hero__title">{{ page.title }}</h1>
+			{% if page.description_header %}
+				<h2 class="hero__description-header">{{ page.description_header }}</h2>
+			{% endif %}
+			{% if page.description %}
+				<div class="hero__description">{{ page.description|richtext }}</div>
+			{% endif %}
+
+			{% for button in page.description_buttons.all %}
+				<a href="{% pageurl button.link %}"><button class="hero__button">{{ button.text }}</button></a>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock header %}
+
+{% block main %}
+	<div class="updates">
+		<div class="updates__item">
+			<h2 class="updates__header">Latest News</h2>
+			<a href="#">{{ self.get_latest_blog }}</a>
+		</div>
+		<div class="updates__item">
+			<h2 class="updates__header">Latest Release</h2>
+			<a href="">{{ self.get_latest_release }}</a>
+		</div>
+	</div>
+
+	<div class="instances">
+		<h2 class="instances__header">{{ page.instances_header }}</h2>
+		<div class="instances__items">
+			{% for highlighted_instance in page.instances.all %}
+				<div class="instances__item">
+					{% image instance.icon fill-50x50-c100 %}
+					<h3 class="instances__item-header">{{ highlighted_instance.instance.organization }}</h3>
+					<a href="{{ highlighted_instance.instance.landing_page_domain }}" class="instances__item-landingpage">
+						{{ page.instance_link_default_text }}
+					</a>
+					<div class="instances__item-onion-address"><span class="instances__item-onion-address--bold">TOR address:</span> {{ highlighted_instance.instance.onion_address }}</div>
+				</div>
+			{% endfor %}
+		</div>
+		{% for button in page.instance_button.all %}
+			<a href="{% pageurl button.link %}"><button class="instances__button">{{ button.text }}</button></a>
 		{% endfor %}
 	</div>
 
-	<div>
+	<div class="features">
 		{% if page.features_header %}
-			<h2>{{ page.features_header}}</h2>
+			<h2 class="features__header">{{ page.features_header}}</h2>
 		{% endif %}
-		{% for feature in page.features.all %}
-			<div>
-				{% image feature.icon fill-50x50-c100 %}
-				<h3>{{ feature.title }}</h3>
-				<p>{{ feature.description|richtext }}</p>
-			</div>
+		<div class="features__items">
+			{% for feature in page.features.all %}
+				<div class="features__item">
+					{% image feature.icon fill-50x50-c100 %}
+					<h3 class="features__item-header">{{ feature.title }}</h3>
+					<div class="features__item-description">{{ feature.description|richtext }}</div>
+				</div>
+			{% endfor %}
+		</div>
+		{% for button in page.features_button.all %}
+			<a href="{% pageurl button.link %}"><button class="instances__button">{{ button.text }}</button></a>
 		{% endfor %}
 	<div>
 {% endblock %}

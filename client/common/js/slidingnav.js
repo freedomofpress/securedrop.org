@@ -31,7 +31,6 @@ class SlidingNav {
 
 document.addEventListener('DOMContentLoaded', () => {
 	// We're assuming there's only one sliding nav to be instantiated
-	console.log('Locked and Loaded')
 	const navElement = document.getElementsByClassName('js-sliding-nav')[0]
 	const triggerElement = document.getElementsByClassName('js-sliding-nav-trigger')[0]
 	const overlayElement = document.getElementsByClassName('js-sliding-nav-overlay')[0]

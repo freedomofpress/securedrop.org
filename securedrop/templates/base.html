@@ -5,25 +5,32 @@
 
 {% block body %}
 	{% wagtailuserbar %}
+
   {% include 'common/_tor.html' %}
 
-  <nav>
-    {% include "menus/_header_menu.html" %}
+  <header class="header">
+    {% block header %}
 
-    <button
-      class="hamburger hamburger--collapse js-sliding-nav-trigger"
-      type="button"
-      aria-label="Menu"
-      aria-controls="navigation"
-      aria-expanded="false"
-    >
-      <span class="hamburger-box">
-        <span class="hamburger-inner"></span>
-      </span>
-    </button>
+      <nav class="main-nav">
+        {% include "menus/_header_menu.html" %}
 
-    {% include "menus/_sliding_nav.html" %}
-  </nav>
+        <button
+          class="hamburger hamburger--collapse js-sliding-nav-trigger"
+          type="button"
+          aria-label="Menu"
+          aria-controls="navigation"
+          aria-expanded="false"
+        >
+          <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+          </span>
+        </button>
+
+        {% include "menus/_sliding_nav.html" %}
+      </nav>
+
+    {% endblock header %}
+  </header>
 
 	<main class="{% block main_classes %}{% endblock %}">
 	{% block main %}
