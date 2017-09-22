@@ -87,7 +87,7 @@ class Command(BaseCommand):
                 ),
             ])
 
-            footer_settings.main_menu = footer_menu
+        footer_settings.main_menu = footer_menu
 
         support_menu, sm_created = Menu.objects.get_or_create(
             name='Support Menu', slug='support_menu')
@@ -119,6 +119,6 @@ class Command(BaseCommand):
                 ),
             ])
 
-            footer_settings.support_menu = support_menu
+        footer_settings.support_menu = support_menu
 
         footer_settings.save()
