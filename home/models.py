@@ -21,10 +21,12 @@ class HomePage(MetadataPageMixin, Page):
     )
     features_header = models.CharField(
         max_length=255,
-        default="What SecureDrop Does")
+        default="What SecureDrop Does"
+    )
     instances_header = models.CharField(
         max_length=255,
-        default="Share Documents Securely With These Organizations")
+        default="Share Documents Securely With These Organizations"
+    )
     instances_button = models.ForeignKey(
         'home.InstancesButton',
         blank=True,
@@ -78,10 +80,10 @@ class HomePage(MetadataPageMixin, Page):
     ]
 
     def get_latest_blog(self):
-        return BlogPage.objects.all().live().order_by('-publication_datetime').first()
+        return BlogPage.objects.live().order_by('-publication_datetime').first()
 
     def get_latest_release(self):
-        return Release.objects.all().order_by('-date').first()
+        return Release.objects.order_by('-date').first()
 
 
 class DescriptionButtons(Orderable, Button):
