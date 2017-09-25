@@ -1,0 +1,27 @@
+.blog-tease
+	padding-bottom: 3rem
+
+.blog-tease__title-link
+	+link__no-underline($black)
+
+.blog-tease__footer
+	display: flex
+	justify-content: space-between
+
+.blog-tease__description::after
+	content: ' '
+
+.blog-tease__chevron
+	height: 1.4rem
+	margin-left: 0.5rem
+	vertical-align: middle
+
+.blog-tease__link
+	+media-breakpoint-down(extra-small)
+		display: none
+
+.blog-tease__mobile-link
+	display: inline
+
+	+media-breakpoint-up(small)
+		display: none

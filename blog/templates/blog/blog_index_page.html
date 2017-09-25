@@ -1,10 +1,10 @@
-{% extends "base.html" %}
+{% extends "layout/_layout_sidebar.html" %}
 
 {% load wagtailcore_tags common_tags %}
 
 {% block head %}
-    {{ block.super }}
-    {% include "common/_rss_autodiscovery.html" %}
+  {{ block.super }}
+  {% include "common/_rss_autodiscovery.html" %}
 {% endblock %}
 
 {% block secondary-header %}
@@ -14,7 +14,7 @@
 {% block main %}
 		{% for post in entries_page %}
 			<div>
-				{% include "blog/_blog_tease.html" with page=post.specific location="blog-index" single_column=True %}
+				{% include "blog/_blog_tease.html" with page=post.specific location="blog-index" link_text=page.link_to_page_text %}
 			</div>
 		{% endfor %}
 
@@ -36,3 +36,16 @@
 			</a>
 		{% endif %}
 {% endblock main %}
+
+{% block sidebar %}
+	<ul class="category-list">
+		{% for category in page.get_category_pages %}
+			<li class="category-list__item">
+				{{ category.title }}
+			</li>
+		{% endfor %}
+	<ul>
+{% endblock sidebar%}
+
+{% block js %}
+{% endblock %}
