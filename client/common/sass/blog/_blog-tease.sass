@@ -1,6 +1,10 @@
 .blog-tease
 	padding-bottom: 3rem
 
+.blog-tease__title
+	font-weight: 600
+	line-height: 1.5
+
 .blog-tease__title-link
 	+link__no-underline($black)
 
@@ -8,8 +12,14 @@
 	display: flex
 	justify-content: space-between
 
+.blog-tease__text
+	line-height: 1.5
+
 .blog-tease__description::after
 	content: ' '
+
+.blog-tease__date
+	color: $gray50--text
 
 .blog-tease__chevron
 	height: 1.4rem
