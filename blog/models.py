@@ -167,6 +167,11 @@ class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
         help_text="Text to display at the bottom of blog teasers that links to the blog page."
     )
 
+    release_title = models.CharField(
+        max_length=100,
+        default="Current Release",
+        help_text="Text to display as a title for the current release in the sidebar.")
+
     feed_limit = models.PositiveIntegerField(
         default=20,
         help_text='Maximum number of posts to be included in the '
@@ -180,6 +185,7 @@ class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
     settings_panels = Page.settings_panels + [
         FieldPanel('feed_limit'),
         FieldPanel('link_to_page_text'),
+        FieldPanel('release_title'),
     ]
 
     subpage_types = ['blog.BlogPage']
