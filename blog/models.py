@@ -26,69 +26,7 @@ from common.blocks import (
     RichTextBlockQuoteBlock,
     CodeBlock,
 )
-
-
-class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
-    body = StreamField(
-        [
-            ('rich_text', blocks.RichTextBlock(icon='doc-full', label='Rich Text')),
-            ('image', ImageChooserBlock()),
-            ('raw_html', blocks.RawHTMLBlock()),
-        ],
-        blank=True
-    )
-
-    feed_limit = models.PositiveIntegerField(
-        default=20,
-        help_text='Maximum number of posts to be included in the '
-                  'syndication feed. 0 for unlimited.'
-    )
-
-    content_panels = Page.content_panels + [
-        StreamFieldPanel('body'),
-    ]
-
-    settings_panels = Page.settings_panels + [
-        FieldPanel('feed_limit'),
-    ]
-
-    subpage_types = ['blog.BlogPage']
-
-    search_fields = Page.search_fields + [
-        index.SearchField('body'),
-    ]
-
-    @route(r'^feed/$')
-    def feed(self, request):
-        return BlogIndexPageFeed(self)(request)
-
-    def get_posts(self):
-        return BlogPage.objects.child_of(self)\
-                       .live()\
-                       .order_by('-publication_datetime')
-
-    def get_context(self, request):
-        context = super(BlogIndexPage, self).get_context(request)
-        entry_qs = self.get_posts()
-
-        paginator, entries = paginate(
-            request,
-            entry_qs,
-            page_key=DEFAULT_PAGE_KEY,
-            per_page=8,
-            orphans=5
-        )
-
-        context['entries_page'] = entries
-        context['paginator'] = paginator
-
-        return context
-
-    def get_meta_description(self):
-        return truncatewords(
-            strip_tags(self.body.render_as_block()),
-            20
-        )
+from github.models import Release
 
 
 class BlogPage(MetadataPageMixin, Page):
@@ -211,3 +149,79 @@ class CategoryPage(Page):
         context['paginator'] = paginator
 
         return context
+
+
+class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
+    body = StreamField(
+        [
+            ('rich_text', blocks.RichTextBlock(icon='doc-full', label='Rich Text')),
+            ('image', ImageChooserBlock()),
+            ('raw_html', blocks.RawHTMLBlock()),
+        ],
+        blank=True
+    )
+
+    link_to_page_text = models.CharField(
+        max_length=100,
+        default="Read More",
+        help_text="Text to display at the bottom of blog teasers that links to the blog page."
+    )
+
+    feed_limit = models.PositiveIntegerField(
+        default=20,
+        help_text='Maximum number of posts to be included in the '
+                  'syndication feed. 0 for unlimited.'
+    )
+
+    content_panels = Page.content_panels + [
+        StreamFieldPanel('body'),
+    ]
+
+    settings_panels = Page.settings_panels + [
+        FieldPanel('feed_limit'),
+        FieldPanel('link_to_page_text'),
+    ]
+
+    subpage_types = ['blog.BlogPage']
+
+    search_fields = Page.search_fields + [
+        index.SearchField('body'),
+    ]
+
+    @route(r'^feed/$')
+    def feed(self, request):
+        return BlogIndexPageFeed(self)(request)
+
+    def get_posts(self):
+        return BlogPage.objects.child_of(self)\
+                       .live()\
+                       .order_by('-publication_datetime')
+
+    def get_context(self, request):
+        context = super(BlogIndexPage, self).get_context(request)
+        entry_qs = self.get_posts()
+
+        paginator, entries = paginate(
+            request,
+            entry_qs,
+            page_key=DEFAULT_PAGE_KEY,
+            per_page=8,
+            orphans=5
+        )
+
+        context['entries_page'] = entries
+        context['paginator'] = paginator
+
+        return context
+
+    def get_meta_description(self):
+        return truncatewords(
+            strip_tags(self.body.render_as_block()),
+            20
+        )
+
+    def get_category_pages(self):
+        return CategoryPage.objects.live()
+
+    def get_current_release(self):
+        return Release.objects.order_by('-date')
