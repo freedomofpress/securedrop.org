@@ -51,7 +51,7 @@ class Command(BaseCommand):
             if not image:
                 image = CustomImage.objects.create(
                     title='Sample Image',
-                    file=ImageFile(open('client/common/images/securedrop.png', 'rb'), name='logo.png'),
+                    file=ImageFile(open('common/static/images/securedrop.png', 'rb'), name='logo.png'),
                     attribution='createdevdata'
                 )
 
@@ -66,6 +66,7 @@ class Command(BaseCommand):
         management.call_command('createblogdata', '10')
         management.call_command('createdirectory', '10')
         management.call_command('createnavmenu')
+        management.call_command('createfootersettings')
 
         # Create superuser
         if not User.objects.filter(is_superuser=True).exists():

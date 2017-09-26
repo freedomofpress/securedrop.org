@@ -1,0 +1,53 @@
+{% load wagtailcore_tags wagtailsettings_tags static %}
+{% get_settings %}
+
+{% with footer=settings.common.FooterSettings %}
+	<footer class="footer">
+		<div class="footer__line-wrapper">
+			<section class="support">
+				<h2 class="support__title">{{ footer.support_title }}</h2>
+				<div class="support__search">Search</div>
+				<nav class="support__nav">
+					<ul class="support__nav-list">
+						{% for item in footer.support_menu.menu_items.all %}
+							<li class="support__nav-item {{ item.html_classes }}">
+								<a class="support__nav-link" href="{{ item.url }}">
+									{{ item.text }}
+								</a>
+							</li>
+						{% endfor %}
+					</ul>
+				</nav>
+			</section>
+			<section class="footer-links">
+				<a href="{{ footer.donation_link }}"><button class="footer-links__donate">Donate</button></a>
+				<a href="{{ footer.contribute_link }"><button class="footer-links__contribute">Contribute</button></a>
+			</section>
+		</div>
+		<section class="footer-main">
+			<div class="footer-main__logo">
+				<img src="https://securedrop.org/sites/all/themes/securedrop/images/logo.png"/>
+			</div>
+			<div class="footer-main__content">
+				<h2 class='footer-main__title'>{{ footer.title|richtext }}</h2>
+				<div class="footer-main__wrapper">
+					<nav class="footer-main__nav">
+						<ul class="footer-main__nav-list">
+							{% for item in footer.main_menu.menu_items.all %}
+								<li class="footer-main__nav-item {{ item.html_classes }}">
+									<a class="footer-main__nav-link" href="{{ item.url }}">
+										{{ item.text }}
+									</a>
+								</li>
+							{% endfor %}
+						</ul>
+					</nav>
+					<div class="footer-main__release">
+						<div class="footer-main__release-key-description">{{ footer.release_key_description }}</div>
+						<a class="footer-main__release-key-link" href="{{ footer.release_key_link }}"><div class="footer-main__release-key">{{ footer.release_key }}</div></a>
+					</div>
+				</div>
+			</div>
+		</section>
+	</footer>
+{% endwith %}

@@ -1,0 +1,179 @@
+$support-background-color: #22222f
+$links-background-color: #a72807
+$footer-background-color: #3e3190
+$list-item-height: 1.5rem
+$list-bottom-padding: 2rem
+
+.footer__line-wrapper
+	display: flex
+	flex-wrap: wrap
+	height: 15rem
+
+	+media-breakpoint-down(extra-small)
+		height: auto
+
+.support
+	background-color: $support-background-color
+	color: $white
+	padding: 1rem
+	// as a flex-child
+	flex-grow: 5
+	// as a flex-parent
+	display: flex
+	flex-direction: column
+	justify-content: space-around
+	align-items: center
+
+	+media-breakpoint-down(extra-small)
+		min-height: 15rem
+
+.support__title
+	margin: 0
+	padding: 0
+
+.support__nav
+	width: 75%
+
+.support__nav-list
+	+list--unstyled
+	display: flex
+	flex-flow: column wrap
+	align-items: flex-start
+	justify-content: center
+	align-content: space-around
+	height: 2 * $list-item-height
+	width: 100%
+
+	+media-breakpoint-down(extra-small)
+		flex-wrap: nowrap
+		align-items: center
+
+.support__nav-item
+	height: $list-item-height
+
+.support__nav-link
+	+link--no-underline($gray10--text, $white)
+
+.footer-links
+	background-color: $links-background-color
+	color: $white
+	padding: 2rem
+	// as a flex-child
+	flex-grow: 1
+	// as a flex-parent
+	display: flex
+	flex-direction: column
+	justify-content: space-around
+	align-items: center
+
+	+media-breakpoint-down(extra-small)
+		min-height: 15rem
+
+
+.footer-links__donate, .footer-links__contribute
+	border-radius: $button-border-radius
+	padding: 1rem
+	width: 10rem
+
+.footer-links__donate
+	background-color: $white
+	color: $links-background-color
+	border: none
+
+.footer-links__contribute
+	border: 1px solid $white
+	background-color: inherit
+	color: $white
+
+.footer-main
+	display: flex
+	background-color: $footer-background-color
+	color: $white
+
+	+media-breakpoint-down(extra-small)
+		flex-direction: column
+
+.footer-main__title
+	font-size: 3rem
+	padding-bottom: 2rem
+
+	.rich-text
+		+p-remove-first-and-last-margin
+		a
+			+link--no-underline($white, $gray10--text)
+
+.footer-main__content
+	padding: 5rem 3rem 5rem 2rem
+	// as a flex-child
+	flex-basis: 66%
+
+	+media-breakpoint-down(extra-small)
+		text-align: center
+		padding: 4rem
+
+
+.footer-main__wrapper
+	display: flex
+	flex-wrap: wrap
+	justify-content: flex-start
+
+	+media-breakpoint-down(small)
+		flex-direction: column
+
+	+media-breakpoint-down(extra-small)
+		display: none
+
+.footer-main__nav
+	flex-basis: 25rem
+
+	+media-breakpoint-down(small)
+		flex-basis: 5rem
+
+.footer-main__nav-list
+	+list--unstyled
+	height: 3 * $list-item-height + $list-bottom-padding
+	max-width: 20rem
+	padding-bottom: $list-bottom-padding
+	// as a flex-parent
+	display: flex
+	flex-flow: column wrap
+	align-items: flex-start
+	justify-content: center
+
+
+.footer-main__nav-item
+	height: $list-item-height
+	min-width: 5rem
+
+.footer-main__nav-link
+	+link--no-underline($gray10--text, $white)
+
+.footer-main__release
+	color: $gray10--text
+	min-height: 5rem
+	max-width: 15rem
+
+.footer-main__release-key-link
+	+link--no-underline($white, $gray10--text)
+
+.footer-main__logo
+	padding: 2rem
+	// as a flex-child
+	flex-grow: 1
+	flex-basis: 33%
+	// as a flex-parent
+	display: flex
+	align-items: center
+	justify-content: center
+
+	+media-breakpoint-down(extra-small)
+		flex-basis: 75%
+		padding-top: 5rem
+		padding-bottom: 0
+
+	img
+		width: 10rem
+		height: auto
+
+		+media-breakpoint-down(extra-small)
+			width: 15rem
