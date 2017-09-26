@@ -3,12 +3,24 @@ $content-padding: 3rem
 .flex-wrapper
 	display: flex
 
+	+media-breakpoint-down(extra-small)
+		flex-direction: column-reverse
+
 .flex-wrapper__main
 	flex-basis: 75%
 	padding: $content-padding
+
+	+media-breakpoint-down(extra-small)
+		flex-basis: 100%
 
 
 .flex-wrapper__aside
 	flex-basis: 25%
 	align-self: stretch
 	padding: $content-padding $content-padding $content-padding 0
+
+	+media-breakpoint-down(extra-small)
+		flex-basis: 100%
+		padding: $content-padding $content-padding 0 $content-padding
+
+
