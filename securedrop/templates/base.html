@@ -39,14 +39,15 @@
 		{% endblock header %}
 	</header>
 
-	{% block secondary-header %}
-	{% endblock %}
+	<div class="site-wrapper">
+		{% block content %}
+			{% block title %}
+				<h1 class="{% block title-classes %}{% endblock %}">{{ page.title }}</h1>
+			{% endblock %}
+		{% endblock %}
 
-
-	{% block content %}
-	{% endblock %}
-
-	{% include 'common/_footer.html' %}
+		{% include 'common/_footer.html' %}
+	</div>
 
 	<div class="shade js-sliding-nav-overlay"></div>
 
