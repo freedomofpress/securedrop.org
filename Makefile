@@ -51,10 +51,6 @@ dev-sass-lint: ## Runs sass-lint utility over the code-base
 dev-import-db: ## Imports a database dump from file named ./import.db
 	docker exec -it sd_postgresql bash -c "cat /django/import.db | sed 's/OWNER\ TO\ [a-z]*/OWNER\ TO\ tracker/g' | psql securedropdb -U tracker &> /dev/null"
 
-.PHONY: ci-devops-builder
-ci-devops-builder: ## Builds CI www image
-	./devops/scripts/ci-django-build.sh
-
 .PHONY: dev-save-db
 dev-save-db: ## Save a snapshot of the database for the current git branch
 	./devops/scripts/savedb.sh
