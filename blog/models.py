@@ -75,7 +75,14 @@ class BlogPage(MetadataPageMixin, Page):
         related_name='+',
     )
 
-    categories = ParentalManyToManyField('blog.CategoryPage', blank=True)
+    category = models.ForeignKey(
+        # Likely a CategoryPage
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
 
     release = models.ForeignKey(
         'github.Release',
@@ -96,7 +103,7 @@ class BlogPage(MetadataPageMixin, Page):
             ]
         ),
         PageChooserPanel('author', 'common.PersonPage'),
-        FieldPanel('categories'),
+        PageChooserPanel('category', 'blog.CategoryPage'),
     ]
 
     parent_page_types = ['blog.BlogIndexPage']

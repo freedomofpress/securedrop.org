@@ -25,7 +25,7 @@ class Command(BaseCommand):
         if BlogIndexPage.objects.all():
             blog_index_page = BlogIndexPage.objects.all().first()
         else:
-            blog_index_page = BlogIndexPageFactory(parent=home_page)
+            blog_index_page = BlogIndexPageFactory(parent=home_page, title="News")
 
         CATEGORY_NAMES = [
             'Release Announcement',
@@ -45,5 +45,5 @@ class Command(BaseCommand):
 
         for x in range(number_of_posts):
             blog_page = BlogPageFactory(parent=blog_index_page)
-            blog_page.categories = [random.choice(categories)]
+            blog_page.category = random.choice(categories)
             blog_page.save()
