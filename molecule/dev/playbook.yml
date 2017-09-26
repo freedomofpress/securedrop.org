@@ -76,6 +76,11 @@
         tag: "{{ node_tag }}"
       when: ansible_kernel.endswith('grsec')
 
+    - name: Purge existing node container wait flag
+      file:
+        state: absent
+        path: "{{ molecule_scenario_directory }}/../../.node_complete"
+
     - name: Start node
       docker_container:
         name: sd_node
@@ -84,9 +89,14 @@
           - ../../:/var/www/django
         state: started
         working_dir: /var/www/django
-        command: /bin/ash -c "npm install; npm run start"
+        command: /bin/ash -c "npm install && touch .node_complete && npm run start"
         user: node
         recreate: yes
+
+    - name: Wait for node to finish installing deps
+      wait_for:
+        path: "{{ molecule_scenario_directory }}/../../.node_complete"
+        timeout: 3600
 
     - name: Establish postgres port
       set_fact:
