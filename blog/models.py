@@ -237,4 +237,4 @@ class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
         return CategoryPage.objects.live()
 
     def get_current_release(self):
-        return Release.objects.order_by('-date')
+        return Release.objects.order_by('-date').first()
