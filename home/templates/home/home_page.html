@@ -1,12 +1,12 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags%}
+{% load wagtailcore_tags wagtailimages_tags static %}
 
 
 {% block header %}
 	{{ block.super }}
 
 	<div class="hero">
-		<img src="images/securedrop.png">
+		<img src="{% static 'images/securedrop.png' %}" />
 		<div class="hero__text">
 			<h1 class="hero__title">{{ page.title }}</h1>
 			{% if page.description_header %}
