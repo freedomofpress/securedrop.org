@@ -3,9 +3,10 @@
 	margin: 0
 	padding: 0
 
-=list--comma($punct: ',')
+=list--comma($punct: ',', $color: inherit)
 	&::after
 		content: '#{$punct} '
+		color: $color
 
 	&:last-child::after
 		content: ''
@@ -15,6 +16,7 @@
 
 	&:nth-last-child(2)::after
 		content: '#{$punct} and '
+		color: $color
 
 	&:first-child:nth-last-child(2)::after
 		content: ' and '
