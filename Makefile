@@ -71,6 +71,10 @@ update-requirements: ## Update requirements files after a new requirement is add
 flake8: ## Runs flake8 against code-base
 	./devops/scripts/run-command-in-venv.sh flake8
 
+.PHONY: clean
+clean: ## clean out local developer assets
+	@rm -rvf ./node_modules
+
 # Explaination of the below shell command should it ever break.
 # 1. Set the field separator to ": ##" and any make targets that might appear between : and ##
 # 2. Use sed-like syntax to remove the make targets
