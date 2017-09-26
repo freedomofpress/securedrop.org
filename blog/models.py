@@ -2,8 +2,6 @@ from django.db import models
 from django.utils.html import strip_tags
 from django.template.defaultfilters import truncatewords
 
-from modelcluster.fields import ParentalManyToManyField
-
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel, StreamFieldPanel
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.fields import StreamField, RichTextField
@@ -84,12 +82,13 @@ class BlogPage(MetadataPageMixin, Page):
         related_name='+',
     )
 
-    release = models.ForeignKey(
+    release = models.OneToOneField(
         'github.Release',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='posts',
+        related_name='blog_page',
+        help_text='Releases can be associated with only one post, which should be a release announcement.'
     )
 
     content_panels = Page.content_panels + [
@@ -104,6 +103,7 @@ class BlogPage(MetadataPageMixin, Page):
         ),
         PageChooserPanel('author', 'common.PersonPage'),
         PageChooserPanel('category', 'blog.CategoryPage'),
+        FieldPanel('release'),
     ]
 
     parent_page_types = ['blog.BlogIndexPage']
