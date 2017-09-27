@@ -27,7 +27,7 @@
 				{{ page.publication_datetime|date:"F j, Y"  }}
 			</div>
 
-			<section>
+			<section class="blog-page__body">
 				{% for block in page.body %}
 					{% include_block block %}
 				{% endfor %}
