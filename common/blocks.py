@@ -126,7 +126,7 @@ class CodeBlock(blocks.StructBlock):
         src = value['code'].strip('\n')
         lang = value['language']
         lexer = get_lexer_by_name(lang)
-        css_classes = ['code', value['style']]
+        css_classes = ['code', 'syntax']
 
         formatter = get_formatter_by_name(
             'html',
