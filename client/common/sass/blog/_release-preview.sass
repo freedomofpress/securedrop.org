@@ -24,5 +24,9 @@ $release-preview-spacer: 1rem
 	padding-top: 0.5rem
 
 .release-preview__link
-	+list--comma(' |', $black)
+	+list--comma(' |')
 	+link--no-underline($gray50--text, $brand-primary)
+
+	&::after
+		// sets color of list separator
+		color: $black
