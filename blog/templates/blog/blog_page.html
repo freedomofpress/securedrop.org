@@ -11,11 +11,11 @@
 	layout-one-column--blog
 {% endblock %}
 
-{% block title-classes %}
+{% block page_title_classes %}
 	blog-title
 {% endblock %}
 
-{% block title %}
+{% block page_title %}
 	{% include "common/_hexagon.svg" with class="blog-hexagon" category_slug=page.category.slug %}
 	{{ block.super }}
 {% endblock %}

@@ -41,8 +41,8 @@
 
 	<div class="site-wrapper">
 		{% block content %}
-			{% block title %}
-				<h1 class="{% block title-classes %}{% endblock %}">{{ page.title }}</h1>
+			{% block page_title %}
+				<h1 class="{% block page_title_classes %}{% endblock %}">{{ page.title }}</h1>
 			{% endblock %}
 		{% endblock %}
 
