@@ -1,0 +1,29 @@
+.captioned-media__wrapper
+	+clearfix
+	margin: 1rem 0 1.5rem
+
+.captioned-media__wrapper--right
+.captioned-media__wrapper--right
+	float: right
+	width: 50%
+	padding-left: 1rem
+
+.captioned-media__wrapper--left
+.captioned-media__wrapper--left
+	float: left
+	width: 50%
+	padding-right: 1rem
+
+.captioned-media__wrapper--right,
+.captioned-media__wrapper--right,
+.captioned-media__wrapper--left
+.captioned-media__wrapper--left
+	+media-breakpoint-down(extra-small)
+		float: none
+		width: 100%
+		padding-right: 1rem
+		padding-left: 1rem
+
+		img
+			width: 100%
+			height: auto
