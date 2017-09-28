@@ -6,23 +6,43 @@ $hero_background: $brand-secondary
 	height: 30rem
 	padding: 4rem 2rem
 	display: flex
-	justify-content: center
-	align-items: center
+	justify-content: flex-start
+	align-items: flex-start
+	flex-wrap: wrap
 	// move it above the rest of the page (anticipaing hexagons)
 	z-index: 10
 
+	+media-breakpoint-down(extra-small)
+		flex-direction: column
+		height: auto
+
+.hero__logo
+	padding-right: 2rem
+	flex-grow: 1
+	height: auto
+
+	+media-breakpoint-down(extra-small)
+		align-self: center
+		max-width: 75%
+		height: auto
+		flex-grow: 0
+		padding-right: 0
+		padding-bottom: 2rem
+
 .hero__text
-	flex-basis: 40rem
+	flex-grow: 5
 
 .hero__title
-	+uppercase
+	max-width: 90%
 
 .hero__description
 	margin-bottom: 1rem
+	max-width: 50rem
 	.rich-text
 		+p-remove-first-and-last-margin
-		p
-			width: 20rem
+
+	+media-breakpoint-down(extra-small)
+		max-width: 100%
 
 
 .hero__button
