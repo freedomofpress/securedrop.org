@@ -1,0 +1,35 @@
+.site-alert
+	background-color: $red
+	color: $white
+	min-height: 2rem
+	padding-left: 1rem
+	max-width: 100%
+
+	display: flex
+	align-items: center
+	justify-content: space-between
+
+.site-alert--hidden
+	display: none
+
+.site-alert__title
+	font-weight: 600
+
+.site-alert__body
+	margin-left: 0.5rem
+	.rich-text
+		+p-remove-first-and-last-margin
+		display: inline
+		p:first-child
+			display: inline
+
+.site-alert__close-button
+	background-color: inherit
+	padding-right: 1rem
+	border: none
+
+.site-alert__close-button--hidden
+	display: none
+
+.site-alert__close-x
+	fill: $white

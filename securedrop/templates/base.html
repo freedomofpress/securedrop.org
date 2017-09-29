@@ -1,5 +1,6 @@
 {% extends "super.html" %}
-{% load wagtailuserbar get_menu %}
+
+{% load wagtailuserbar wagtailcore_tags get_menu %}
 {% load render_bundle from webpack_loader %}
 
 {% block body %}
@@ -9,8 +10,22 @@
 
 	<header class="header">
 		{% block header %}
+			{% with alert=settings.common.AlertSettings %}
+				{% if alert.display_alert %}
+					<div id="js-site-alert" class="site-alert">
+						<div>
+							<span class="site-alert__title">{{ alert.title }}:</span><span class="site-alert__body">{{ alert.body|richtext }}</span>
+						</div>
+
+						<button id="js-site-alert-button" class="site-alert__close-button site-alert__close-button--hidden">
+							<svg class="site-alert__close-x" viewBox="0 0 12 16" version="1.1" width="12" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"></path></svg>
+						</button>
+					</div>
+				{% endif %}
+			{% endwith %}
+
 			{% get_menu 'main' as menu_items %}
-			<nav class="main-nav">
+			<nav id='js-main-nav' class="main-nav {% if settings.common.AlertSettings.display_alert %}main-nav--alert{% endif %}">
 				<ul class="nav-menu nav-menu--mobile-hidden {% block nav-classes %}{% endblock %}">
 				  {% for item in menu_items %}
 				  <li class="nav-menu__item">
