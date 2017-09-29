@@ -7,7 +7,6 @@ from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.fields import StreamField, RichTextField
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailimages.blocks import ImageChooserBlock
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailsearch import index
 from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 
@@ -51,14 +50,6 @@ class BlogPage(MetadataPageMixin, Page):
         blank=False
     )
 
-    teaser_image = models.ForeignKey(
-        'common.CustomImage',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-    )
-
     teaser_text = RichTextField(
         null=True,
         blank=True
@@ -97,7 +88,6 @@ class BlogPage(MetadataPageMixin, Page):
         MultiFieldPanel(
             heading='Teaser',
             children=[
-                ImageChooserPanel('teaser_image'),
                 FieldPanel('teaser_text'),
             ]
         ),
@@ -113,9 +103,6 @@ class BlogPage(MetadataPageMixin, Page):
         index.SearchField('teaser_text'),
         index.FilterField('publication_datetime'),
     ]
-
-    def get_meta_image(self):
-        return self.teaser_image or super(BlogPage, self).get_meta_image()
 
     def get_meta_description(self):
         if self.teaser_text:
