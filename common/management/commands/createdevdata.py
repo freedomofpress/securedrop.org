@@ -34,7 +34,9 @@ class Command(BaseCommand):
         except ObjectDoesNotExist:
             Page.objects.filter(slug='home').delete()
             # homepage cannot be saved without a parent
-            home_page = HomePageFactory.build()
+            home_page = HomePageFactory.build(
+                description_header="Share and accept documents securely."
+            )
 
             root_page = Page.objects.get(title='Root')
             root_page.add_child(instance=home_page)

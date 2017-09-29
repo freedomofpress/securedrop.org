@@ -12,7 +12,7 @@ from github.models import Release
 
 
 class HomePage(MetadataPageMixin, Page):
-    description_header = models.CharField(max_length=255, blank=True, null=True)
+    description_header = models.CharField(max_length=255, default="Share and accept documents securely.")
     # Disables headers and image/video embeds
     description = RichTextField(
         features=['bold', 'italic', 'ol', 'ul', 'hr', 'link', 'document-link'],
