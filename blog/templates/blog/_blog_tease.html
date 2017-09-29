@@ -3,10 +3,8 @@
 {% load wagtailcore_tags %}
 
 <div class="blog-tease">
-	{% if page.teaser_image %}
-		{% include "common/_teaser_image.html" %}
-	{% endif %}
-	<div class="blog-tease__body--{{ location }}">
+	{% include "common/_hexagon.svg" with class="blog-tease__hexagon" category_slug=page.category.slug %}
+	<div class="blog-tease__body">
 		<h3 class="blog-tease__title">
 			<a class="blog-tease__title-link" href="{% pageurl page %}">
 				{{ page.title }}
@@ -14,7 +12,30 @@
 		</h3>
 
 		<div class="blog-tease__tease">
-			{{ page.teaser_text|richtext }}
+			<p class="blog-tease__text">
+				<span class="blog-tease__description">
+				{% if page.teaser_text %}
+					{{ page.teaser_text|striptags }}
+				{% else %}
+					{% include_block page.body.0|striptags|truncatewords_html:50 %}
+				{% endif %}
+				</span>
+				<a
+						href="{% pageurl page %}"
+						class="blog-tease__mobile-link"
+					>{{ link_text }}{% include 'common/chevron-right.svg' with class="blog-tease__chevron" %}</a>
+			</p>
+			<div class="blog-tease__footer">
+				<div class="blog-tease__date">
+					{{ page.publication_datetime|date:"M j Y, g:i A" }}
+
+				</div>
+
+					<a
+						href="{% pageurl page %}"
+						class="blog-tease__link"
+					>{{ link_text }}{% include 'common/chevron-right.svg' with class="blog-tease__chevron" %}</a>
+			</div>
 		</div>
 	</div>
 </div>

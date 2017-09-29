@@ -1,0 +1,49 @@
+.blog-tease
+	padding-bottom: 3rem
+	display: flex
+	align-items: flex-start
+	flex-wrap: wrap
+
+.blog-tease__hexagon
+	width: 2rem
+	height: auto
+	margin-right: 1rem
+	margin-bottom: 1rem
+
+.blog-tease__body
+	width: 80%
+
+.blog-tease__title
+	font-weight: 600
+	line-height: 1.5
+
+.blog-tease__title-link
+	+link__no-underline($black)
+
+.blog-tease__footer
+	display: flex
+	justify-content: space-between
+
+.blog-tease__text
+	line-height: 1.5
+
+.blog-tease__description::after
+	content: ' '
+
+.blog-tease__date
+	color: $gray50--text
+
+.blog-tease__chevron
+	height: 1.4rem
+	margin-left: 0.5rem
+	vertical-align: middle
+
+.blog-tease__link
+	+media-breakpoint-down(extra-small)
+		display: none
+
+.blog-tease__mobile-link
+	display: inline
+
+	+media-breakpoint-up(small)
+		display: none

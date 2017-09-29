@@ -2,8 +2,6 @@ from django.db import models
 from django.utils.html import strip_tags
 from django.template.defaultfilters import truncatewords
 
-from modelcluster.fields import ParentalManyToManyField
-
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel, StreamFieldPanel
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.fields import StreamField, RichTextField
@@ -26,69 +24,7 @@ from common.blocks import (
     RichTextBlockQuoteBlock,
     CodeBlock,
 )
-
-
-class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
-    body = StreamField(
-        [
-            ('rich_text', blocks.RichTextBlock(icon='doc-full', label='Rich Text')),
-            ('image', ImageChooserBlock()),
-            ('raw_html', blocks.RawHTMLBlock()),
-        ],
-        blank=True
-    )
-
-    feed_limit = models.PositiveIntegerField(
-        default=20,
-        help_text='Maximum number of posts to be included in the '
-                  'syndication feed. 0 for unlimited.'
-    )
-
-    content_panels = Page.content_panels + [
-        StreamFieldPanel('body'),
-    ]
-
-    settings_panels = Page.settings_panels + [
-        FieldPanel('feed_limit'),
-    ]
-
-    subpage_types = ['blog.BlogPage']
-
-    search_fields = Page.search_fields + [
-        index.SearchField('body'),
-    ]
-
-    @route(r'^feed/$')
-    def feed(self, request):
-        return BlogIndexPageFeed(self)(request)
-
-    def get_posts(self):
-        return BlogPage.objects.child_of(self)\
-                       .live()\
-                       .order_by('-publication_datetime')
-
-    def get_context(self, request):
-        context = super(BlogIndexPage, self).get_context(request)
-        entry_qs = self.get_posts()
-
-        paginator, entries = paginate(
-            request,
-            entry_qs,
-            page_key=DEFAULT_PAGE_KEY,
-            per_page=8,
-            orphans=5
-        )
-
-        context['entries_page'] = entries
-        context['paginator'] = paginator
-
-        return context
-
-    def get_meta_description(self):
-        return truncatewords(
-            strip_tags(self.body.render_as_block()),
-            20
-        )
+from github.models import Release
 
 
 class BlogPage(MetadataPageMixin, Page):
@@ -137,14 +73,22 @@ class BlogPage(MetadataPageMixin, Page):
         related_name='+',
     )
 
-    categories = ParentalManyToManyField('blog.CategoryPage', blank=True)
+    category = models.ForeignKey(
+        # Likely a CategoryPage
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
 
-    release = models.ForeignKey(
+    release = models.OneToOneField(
         'github.Release',
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='posts',
+        related_name='blog_page',
+        help_text='Releases can be associated with only one post, which should be a release announcement.'
     )
 
     content_panels = Page.content_panels + [
@@ -158,7 +102,8 @@ class BlogPage(MetadataPageMixin, Page):
             ]
         ),
         PageChooserPanel('author', 'common.PersonPage'),
-        FieldPanel('categories'),
+        PageChooserPanel('category', 'blog.CategoryPage'),
+        FieldPanel('release'),
     ]
 
     parent_page_types = ['blog.BlogIndexPage']
@@ -211,3 +156,85 @@ class CategoryPage(Page):
         context['paginator'] = paginator
 
         return context
+
+
+class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
+    body = StreamField(
+        [
+            ('rich_text', blocks.RichTextBlock(icon='doc-full', label='Rich Text')),
+            ('image', ImageChooserBlock()),
+            ('raw_html', blocks.RawHTMLBlock()),
+        ],
+        blank=True
+    )
+
+    link_to_page_text = models.CharField(
+        max_length=100,
+        default="Read More",
+        help_text="Text to display at the bottom of blog teasers that links to the blog page."
+    )
+
+    release_title = models.CharField(
+        max_length=100,
+        default="Current Release",
+        help_text="Text to display as a title for the current release in the sidebar.")
+
+    feed_limit = models.PositiveIntegerField(
+        default=20,
+        help_text='Maximum number of posts to be included in the '
+                  'syndication feed. 0 for unlimited.'
+    )
+
+    content_panels = Page.content_panels + [
+        StreamFieldPanel('body'),
+    ]
+
+    settings_panels = Page.settings_panels + [
+        FieldPanel('feed_limit'),
+        FieldPanel('link_to_page_text'),
+        FieldPanel('release_title'),
+    ]
+
+    subpage_types = ['blog.BlogPage']
+
+    search_fields = Page.search_fields + [
+        index.SearchField('body'),
+    ]
+
+    @route(r'^feed/$')
+    def feed(self, request):
+        return BlogIndexPageFeed(self)(request)
+
+    def get_posts(self):
+        return BlogPage.objects.child_of(self)\
+                       .live()\
+                       .order_by('-publication_datetime')
+
+    def get_context(self, request):
+        context = super(BlogIndexPage, self).get_context(request)
+        entry_qs = self.get_posts()
+
+        paginator, entries = paginate(
+            request,
+            entry_qs,
+            page_key=DEFAULT_PAGE_KEY,
+            per_page=8,
+            orphans=5
+        )
+
+        context['entries_page'] = entries
+        context['paginator'] = paginator
+
+        return context
+
+    def get_meta_description(self):
+        return truncatewords(
+            strip_tags(self.body.render_as_block()),
+            20
+        )
+
+    def get_category_pages(self):
+        return CategoryPage.objects.live()
+
+    def get_current_release(self):
+        return Release.objects.order_by('-date').first()

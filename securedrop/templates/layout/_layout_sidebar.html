@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<div class="flex-wrapper">
+		<main class="{% block main_classes %}flex-wrapper__main{% endblock %}">
+			{% block main %}
+			{% endblock %}
+		</main>
+
+		<aside class="{% block sidebar_classes %}flex-wrapper__aside{% endblock %}">
+			{% block sidebar %}
+			{% endblock %}
+		</aside>
+	</div>
+{% endblock content%}
