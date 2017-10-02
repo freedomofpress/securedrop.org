@@ -1,8 +1,11 @@
+$alert-button-width: 13px
+$alert-button-height: 16px
+
 .site-alert
 	background-color: $red
 	color: $white
 	min-height: 2rem
-	padding-left: 1rem
+	padding: 0 1rem
 	max-width: 100%
 
 	display: flex
@@ -25,11 +28,16 @@
 
 .site-alert__close-button
 	background-color: inherit
-	padding-right: 1rem
 	border: none
+	margin: 0
+	padding: 0
+	width: $alert-button-width
+	height: $alert-button-height
 
 .site-alert__close-button--hidden
 	display: none
 
 .site-alert__close-x
 	fill: $white
+	width: $alert-button-width
+	height: $alert-button-height
