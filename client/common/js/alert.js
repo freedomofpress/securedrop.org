@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		closeButton.addEventListener('click', () => {
 			alert.classList.add('site-alert--hidden')
-			mainNav.classList.remove('main-nav--alert')
 		})
 	} catch(e) {
 		if(!(e instanceof TypeError)) {

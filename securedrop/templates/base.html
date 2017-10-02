@@ -8,7 +8,7 @@
 
 	{% include 'common/_tor.html' %}
 
-	<header class="header">
+	<header>
 		{% block header %}
 			{% with alert=settings.common.AlertSettings %}
 				{% if alert.display_alert %}
@@ -24,33 +24,33 @@
 				{% endif %}
 			{% endwith %}
 
-			{% get_menu 'main' as menu_items %}
-			<nav id='js-main-nav' class="main-nav {% if settings.common.AlertSettings.display_alert %}main-nav--alert{% endif %}">
-				<ul class="nav-menu nav-menu--mobile-hidden {% block nav-classes %}{% endblock %}">
-				  {% for item in menu_items %}
-				  <li class="nav-menu__item">
-				    <a class="nav-menu__link {{ item.html_classes }}" href="{{ item.url }}">
-				      {{ item.text }}
-				    </a>
-				  </li>
-				  {% endfor %}
-				</ul>
+			<div class="header">
+				{% get_menu 'main' as menu_items %}
+					<nav id='js-main-nav' class="main-nav">
+						<ul class="nav-menu nav-menu--mobile-hidden {% block nav-classes %}{% endblock %}">
+							{% for item in menu_items %}
+							<li class="nav-menu__item">
+								<a class="nav-menu__link {{ item.html_classes }}" href="{{ item.url }}">
+									{{ item.text }}
+								</a>
+							</li>
+							{% endfor %}
+						</ul>
+					</nav>
 
-				<button
-					class="hamburger hamburger--collapse js-sliding-nav-trigger"
-					type="button"
-					aria-label="Menu"
-					aria-controls="navigation"
-					aria-expanded="false"
-				>
-					<span class="hamburger-box">
-						<span class="hamburger-inner"></span>
-					</span>
-				</button>
-
-				{% include "menus/_sliding_nav.html" %}
-			</nav>
-
+					<button
+						class="hamburger hamburger--collapse js-sliding-nav-trigger"
+						type="button"
+						aria-label="Menu"
+						aria-controls="navigation"
+						aria-expanded="false"
+					>
+						<span class="hamburger-box">
+							<span class="hamburger-inner"></span>
+						</span>
+					</button>
+				</nav>
+			</div>
 		{% endblock header %}
 	</header>
 
