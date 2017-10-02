@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "layout/_layout_one_column.html" %}
 
 {% load wagtailcore_tags %}
 
@@ -7,33 +7,34 @@
 	<meta property="og:type" content="article" />
 {% endblock %}
 
+{% block layout_classes %}
+	layout-one-column--blog
+{% endblock %}
+
+{% block page_title_classes %}
+	blog-title
+{% endblock %}
+
+{% block page_title %}
+	{% include "common/_hexagon.svg" with class="blog-hexagon" category_slug=page.category.slug %}
+	{{ block.super }}
+{% endblock %}
+
 {% block main %}
 	<div class="blog-page">
-		{% if page.teaser_image %}
-			{% include "common/_top_image.html" %}
-		{% endif %}
-
-		<h1 class="heading-block heading-block--1">{{ page.title }}</h1>
-		<div class="stream-sections">
-			<article>
-				<div class="stream-section">
-					<div class="blog-page__date">
-						{{ page.publication_datetime|date:"F j, Y"  }}
-					</div>
-				</div>
-
-				<section>
-					{% for block in page.body %}
-						{% include_block block %}
-					{% endfor %}
-
-				</section>
-			</article>
-			<div class="stream-section">
-				<div class="blog-page__return-button">
-					<a href="{% pageurl page.get_parent %}" class="button button--outline">Return to {{ page.get_parent.title }}</a>
-				</div>
+		<article>
+			<div class="blog-page__date">
+				{{ page.publication_datetime|date:"F j, Y"  }}
 			</div>
+
+			<section class="blog-page__body">
+				{% for block in page.body %}
+					{% include_block block %}
+				{% endfor %}
+			</section>
+		</article>
+		<div class="blog-page__return-button">
+			<a href="{% pageurl page.get_parent %}" class="button button--outline">Return to {{ page.get_parent.title }}</a>
 		</div>
 	</div>
 {% endblock %}

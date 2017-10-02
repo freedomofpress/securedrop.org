@@ -14,11 +14,7 @@ class BlogIndexPageFeed(Feed):
         self.blog_index_page = blog_index_page
         super(BlogIndexPageFeed, self).__init__(*args, **kwargs)
 
-    def _get_teaser_image(self, obj):
-        if obj.teaser_image:
-            return obj.teaser_image.get_rendition('original')
-
-    def _get_categories(self, obj):
+    def _get_category(self, obj):
         categories = obj.categories.all().select_related('category')
         return [inline.category for inline in categories]
 
@@ -75,15 +71,3 @@ class BlogIndexPageFeed(Feed):
 
     def item_updatedate(self, obj):
         return obj.last_published_at
-
-    def item_extra_kwargs(self, obj):
-        image = self._get_teaser_image(obj)
-        if image:
-            return {
-                'teaser_image': {
-                    'url': self._get_complete_url(image.url),
-                    'width': image.width,
-                    'height': image.height,
-                }
-            }
-        return {}

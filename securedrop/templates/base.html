@@ -1,7 +1,6 @@
 {% extends "super.html" %}
-{% load wagtailuserbar %}
+{% load wagtailuserbar get_menu %}
 {% load render_bundle from webpack_loader %}
-
 
 {% block body %}
 	{% wagtailuserbar %}
@@ -10,9 +9,17 @@
 
 	<header class="header">
 		{% block header %}
-
+			{% get_menu 'main' as menu_items %}
 			<nav class="main-nav">
-				{% include "menus/_header_menu.html" %}
+				<ul class="nav-menu nav-menu--mobile-hidden {% block nav-classes %}{% endblock %}">
+				  {% for item in menu_items %}
+				  <li class="nav-menu__item">
+				    <a class="nav-menu__link {{ item.html_classes }}" href="{{ item.url }}">
+				      {{ item.text }}
+				    </a>
+				  </li>
+				  {% endfor %}
+				</ul>
 
 				<button
 					class="hamburger hamburger--collapse js-sliding-nav-trigger"
@@ -32,14 +39,15 @@
 		{% endblock header %}
 	</header>
 
-	{% block secondary-header %}
-	{% endblock %}
+	<div class="site-wrapper">
+		{% block content %}
+			{% block page_title %}
+				<h1 class="{% block page_title_classes %}{% endblock %}">{{ page.title }}</h1>
+			{% endblock %}
+		{% endblock %}
 
-
-	{% block content %}
-	{% endblock %}
-
-	{% include 'common/_footer.html' %}
+		{% include 'common/_footer.html' %}
+	</div>
 
 	<div class="shade js-sliding-nav-overlay"></div>
 

@@ -1,0 +1,20 @@
+.layout-one-column
+	display: flex
+	flex-direction: column
+	justify-content: space-between
+	align-items: center
+
+.layout-one-column__main
+	width: 80%
+
+	+media-breakpoint-down(extra-small)
+		width: 100%
+		padding: 0.5rem
+
+.layout-one-column--blog
+	margin-top: $nav-height
+	padding: 5rem
+
+	+media-breakpoint-down(extra-small)
+		padding: 0 1rem 3rem 1rem
+		margin-top: $nav-height + 3rem

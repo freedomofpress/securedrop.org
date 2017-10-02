@@ -7,7 +7,6 @@ from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.fields import StreamField, RichTextField
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailimages.blocks import ImageChooserBlock
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailsearch import index
 from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 
@@ -18,7 +17,6 @@ from common.blocks import (
     Heading1,
     Heading2,
     Heading3,
-    StyledTextBlock,
     AlignedImageBlock,
     AlignedEmbedBlock,
     RichTextBlockQuoteBlock,
@@ -34,7 +32,7 @@ class BlogPage(MetadataPageMixin, Page):
 
     body = StreamField(
         [
-            ('text', StyledTextBlock(label='Text', template='common/blocks/styled_text_full_bleed.html')),
+            ('text', blocks.RichTextBlock()),
             ('code', CodeBlock(label='Code Block')),
             ('image', AlignedImageBlock()),
             ('raw_html', blocks.RawHTMLBlock()),
@@ -49,14 +47,6 @@ class BlogPage(MetadataPageMixin, Page):
             ('heading_3', Heading3()),
         ],
         blank=False
-    )
-
-    teaser_image = models.ForeignKey(
-        'common.CustomImage',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
     )
 
     teaser_text = RichTextField(
@@ -97,7 +87,6 @@ class BlogPage(MetadataPageMixin, Page):
         MultiFieldPanel(
             heading='Teaser',
             children=[
-                ImageChooserPanel('teaser_image'),
                 FieldPanel('teaser_text'),
             ]
         ),
@@ -113,9 +102,6 @@ class BlogPage(MetadataPageMixin, Page):
         index.SearchField('teaser_text'),
         index.FilterField('publication_datetime'),
     ]
-
-    def get_meta_image(self):
-        return self.teaser_image or super(BlogPage, self).get_meta_image()
 
     def get_meta_description(self):
         if self.teaser_text:
