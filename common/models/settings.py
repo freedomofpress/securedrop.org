@@ -73,6 +73,21 @@ class FooterSettings(BaseSetting):
         verbose_name = 'Site Footer'
 
 
+@register_setting(icon='warning')
+class AlertSettings(BaseSetting):
+    title = models.CharField(max_length=100, default='Alert')
+    body = RichTextField(blank=True, null=True)
+    close_text = models.CharField(
+        max_length=100,
+        default='Close Alert',
+        help_text='Text on the close button visible only to screenreaders.'
+    )
+    display_alert = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = 'Site Alert'
+
+
 @register_setting(icon='plus')
 class SocialSharingSEOSettings(BaseSetting):
     default_description = models.TextField(

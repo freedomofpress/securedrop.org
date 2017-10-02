@@ -1,5 +1,6 @@
 {% extends "super.html" %}
-{% load wagtailuserbar get_menu %}
+
+{% load wagtailuserbar wagtailcore_tags get_menu %}
 {% load render_bundle from webpack_loader %}
 
 {% block body %}
@@ -7,35 +8,51 @@
 
 	{% include 'common/_tor.html' %}
 
-	<header class="header">
+	<header>
 		{% block header %}
-			{% get_menu 'main' as menu_items %}
-			<nav class="main-nav">
-				<ul class="nav-menu nav-menu--mobile-hidden {% block nav-classes %}{% endblock %}">
-				  {% for item in menu_items %}
-				  <li class="nav-menu__item">
-				    <a class="nav-menu__link {{ item.html_classes }}" href="{{ item.url }}">
-				      {{ item.text }}
-				    </a>
-				  </li>
-				  {% endfor %}
-				</ul>
+			{% with alert=settings.common.AlertSettings %}
+				{% if alert.display_alert %}
+					<div id="js-site-alert" class="site-alert">
+						<div>
+							<span class="site-alert__title">{{ alert.title }}:</span><span class="site-alert__body">{{ alert.body|richtext }}</span>
+						</div>
 
-				<button
-					class="hamburger hamburger--collapse js-sliding-nav-trigger"
-					type="button"
-					aria-label="Menu"
-					aria-controls="navigation"
-					aria-expanded="false"
-				>
-					<span class="hamburger-box">
-						<span class="hamburger-inner"></span>
-					</span>
-				</button>
+						<button id="js-site-alert-button" class="site-alert__close-button site-alert__close-button--hidden">
+							<span class="sr-only">{{ alert.close_text }}</span>
+							<svg class="site-alert__close-x" viewBox="0 0 12 16" version="1.1" aria-hidden="true"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"></path></svg>
+						</button>
+					</div>
+				{% endif %}
+			{% endwith %}
 
-				{% include "menus/_sliding_nav.html" %}
-			</nav>
+			<div class="header">
+				{% get_menu 'main' as menu_items %}
+					<nav id='js-main-nav' class="main-nav">
+						<ul class="nav-menu nav-menu--mobile-hidden {% block nav-classes %}{% endblock %}">
+							{% for item in menu_items %}
+							<li class="nav-menu__item">
+								<a class="nav-menu__link {{ item.html_classes }}" href="{{ item.url }}">
+									{{ item.text }}
+								</a>
+							</li>
+							{% endfor %}
+						</ul>
+					</nav>
 
+					<button
+						class="hamburger hamburger--collapse js-sliding-nav-trigger"
+						type="button"
+						aria-label="Menu"
+						aria-controls="navigation"
+						aria-expanded="false"
+					>
+						<span class="hamburger-box">
+							<span class="hamburger-inner"></span>
+						</span>
+					</button>
+				</nav>
+			</div>
+			{% include "menus/_sliding_nav.html" %}
 		{% endblock header %}
 	</header>
 

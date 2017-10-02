@@ -1,0 +1,49 @@
+$alert-button-width: 13px
+$alert-button-height: 16px
+
+.site-alert
+	background-color: $red
+	color: $white
+	min-height: 2rem
+	padding: 0 1rem
+	max-width: 100%
+
+	display: flex
+	align-items: center
+	justify-content: space-between
+
+.site-alert--hidden
+	display: none
+
+.site-alert__title
+	font-weight: 600
+
+.site-alert__body
+	margin-left: 0.5rem
+	.rich-text
+		+p-remove-first-and-last-margin
+		display: inline
+		p:first-child
+			display: inline
+
+.site-alert__close-button
+	background-color: inherit
+	border: none
+	margin: 0
+	padding: 0
+	width: $alert-button-width
+	height: $alert-button-height
+
+.site-alert__close-button--hidden
+	display: none
+
+.site-alert__close-x
+	fill: $white
+	width: $alert-button-width
+	height: $alert-button-height
+
+	transition-duration: 0.1s
+	transition-timing-function: linear
+	transition-property: fill
+	+hover
+		fill: $gray50
