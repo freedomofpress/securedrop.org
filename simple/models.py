@@ -13,7 +13,6 @@ from common.blocks import (
     Heading1,
     Heading2,
     Heading3,
-    StyledTextBlock,
     AlignedImageBlock,
     AlignedEmbedBlock,
     RichTextBlockQuoteBlock,
@@ -62,7 +61,7 @@ class BaseSidebarPageMixin(models.Model):
 class SimplePage(Page):
     body = StreamField(
         [
-            ('text', StyledTextBlock(label='Text', template='common/blocks/styled_text_full_bleed.html')),
+            ('text', blocks.RichTextBlock()),
             ('image', AlignedImageBlock()),
             ('raw_html', blocks.RawHTMLBlock()),
             ('blockquote', RichTextBlockQuoteBlock()),
@@ -109,7 +108,7 @@ class SimplePage(Page):
 class SimplePageWithMenuSidebar(BaseSidebarPageMixin, Page):
     body = StreamField(
         [
-            ('text', StyledTextBlock(label='Text')),
+            ('text', blocks.RichTextBlock()),
             ('image', AlignedImageBlock()),
             ('raw_html', blocks.RawHTMLBlock()),
             ('blockquote', RichTextBlockQuoteBlock()),
