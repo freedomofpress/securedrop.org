@@ -1,6 +1,5 @@
-$support-background-color: #22222f
-$links-background-color: #a72807
-$footer-background-color: #3e3190
+$support-background-color: $gray90
+$links-background-color: $blue
 $list-item-height: 1.5rem
 $list-bottom-padding: 2rem
 
@@ -87,7 +86,7 @@ $list-bottom-padding: 2rem
 
 .footer-main
 	display: flex
-	background-color: $footer-background-color
+	+sd-gradient($purple1,$purple2)
 	color: $white
 
 	+media-breakpoint-down(extra-small)

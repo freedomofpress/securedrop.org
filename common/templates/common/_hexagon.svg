@@ -1,20 +1,20 @@
 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 155" class="{{ class }} {{ class }}--{{category_slug}}" >
 	<defs>
-	  <linearGradient id="interest-article" x1="0%" y1="0%" x2="100%" y2="0%">
-	    <stop offset="0%"   stop-color="#9400D3"/>
-	    <stop offset="100%" stop-color="#4B0082"/>
+	  <linearGradient id="interest-article" x1="0%" y1="0%" x2="100%" y2="100%">
+	    <stop offset="0%"   stop-color="#7D2E85"/>
+	    <stop offset="100%" stop-color="#15277A"/>
 	  </linearGradient>
-	  <linearGradient id="release-announcement" x1="0%" y1="0%" x2="100%" y2="0%">
-	    <stop offset="0%"   stop-color="#9400D3"/>
-	    <stop offset="100%" stop-color="#FF1493"/>
+	  <linearGradient id="release-announcement" x1="0%" y1="0%" x2="100%" y2="100%">
+	    <stop offset="0%"   stop-color="#0579E6"/>
+	    <stop offset="100%" stop-color="#231484"/>
 	  </linearGradient>
-	  <linearGradient id="pre-release-announcement" x1="0%" y1="0%" x2="100%" y2="0%">
-	    <stop offset="0%"   stop-color="#FF1493"/>
-	    <stop offset="100%" stop-color="#9400D3"/>
+	  <linearGradient id="pre-release-announcement" x1="0%" y1="0%" x2="100%" y2="100%">
+	    <stop offset="0%"   stop-color="#2B8FFF"/>
+	    <stop offset="100%" stop-color="#032843"/>
 	  </linearGradient>
-	  <linearGradient id="security-advisory" x1="0%" y1="0%" x2="100%" y2="0%">
-	    <stop offset="0%"   stop-color="#0000FF"/>
-	    <stop offset="100%" stop-color="#00008A"/>
+	  <linearGradient id="security-advisory" x1="0%" y1="0%" x2="100%" y2="100%">
+	    <stop offset="0%"   stop-color="#E93791"/>
+	    <stop offset="100%" stop-color="#C71438"/>
 	  </linearGradient>
 
 	</defs>
