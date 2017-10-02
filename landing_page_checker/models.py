@@ -2,13 +2,12 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.utils.text import slugify
-from modelcluster.fields import ParentalKey
+
+from wagtail.wagtailcore.models import Page
 
 
-class Securedrop(models.Model):
-    page = ParentalKey('directory.DirectoryPage', related_name='instances')
+class SecuredropPage(Page):
     organization = models.CharField('Organization', max_length=255, unique=True)
-    slug = models.SlugField('Slug', unique=True, editable=False)
 
     landing_page_domain = models.CharField(
         'Landing Page Domain Name',
@@ -34,7 +33,7 @@ class Result(models.Model):
     # produce a new Result row. If multiple consecutive scans have the same
     # result, then we only insert that result once and set the result_last_seen
     # to the date of the last scan.
-    securedrop = models.ForeignKey(Securedrop, on_delete=models.CASCADE,
+    securedrop = models.ForeignKey(SecuredropPage, on_delete=models.CASCADE,
                                    related_name='results')
 
     live = models.BooleanField()

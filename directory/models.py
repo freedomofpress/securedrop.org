@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from django.utils.text import slugify
 
 from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 from wagtail.wagtailcore.models import Page
@@ -10,7 +9,7 @@ from wagtail.wagtailadmin.edit_handlers import (
 
 from directory.forms import DirectoryForm
 from landing_page_checker.landing_page import scanner
-from landing_page_checker.models import Securedrop as SecuredropInstance
+from landing_page_checker.models import SecuredropPage as SecuredropInstance
 
 
 class DirectoryPage(RoutablePageMixin, Page):
@@ -23,13 +22,14 @@ class DirectoryPage(RoutablePageMixin, Page):
             if form.is_valid():
                 data = form.cleaned_data
                 # create secure_drop instance, adding parent page to the form
-                instance = SecuredropInstance.objects.create(
-                    page=self,
+                instance = SecuredropInstance(
+                    title=data['organization'],
                     landing_page_domain=data['url'],
                     organization=data['organization'],
-                    slug=slugify(data['organization']),
                     onion_address=data['tor_address'],
                 )
+                self.add_child(instance=instance)
+                instance.save()
                 result = scanner.scan(instance)
                 result.save()
 
@@ -48,7 +48,3 @@ class DirectoryPage(RoutablePageMixin, Page):
     @route('thanks/')
     def thanks_view(self, request):
         return render(request, 'directory/thanks.html')
-
-    content_panels = Page.content_panels + [
-        InlinePanel('instances', label='Securedrop Instances'),
-    ]

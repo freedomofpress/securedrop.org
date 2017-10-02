@@ -138,7 +138,7 @@ class Feature(Orderable):
 class HomePageInstances(Orderable):
     page = ParentalKey('home.HomePage', related_name='instances')
     instance = models.ForeignKey(
-        'landing_page_checker.Securedrop',
+        'landing_page_checker.SecuredropPage',
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
