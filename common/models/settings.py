@@ -77,6 +77,11 @@ class FooterSettings(BaseSetting):
 class AlertSettings(BaseSetting):
     title = models.CharField(max_length=100, default='Alert')
     body = RichTextField(blank=True, null=True)
+    close_text = models.CharField(
+        max_length=100,
+        default='Close Alert',
+        help_text='Text on the close button visible only to screenreaders.'
+    )
     display_alert = models.BooleanField(default=False)
 
     class Meta:
