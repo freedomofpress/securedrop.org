@@ -4,6 +4,7 @@ from django.db import models
 from django.utils.text import slugify
 
 from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.fields import RichTextField
 
 
 class SecuredropPage(Page):
@@ -20,6 +21,15 @@ class SecuredropPage(Page):
         unique=True)
 
     added = models.DateTimeField(auto_now_add=True)
+
+    organization_logo = models.ForeignKey(
+        'common.CustomImage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+    organization_description = RichTextField(blank=True, null=True)
 
     def clean(self):
         self.slug = slugify(self.organization)
