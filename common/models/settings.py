@@ -148,6 +148,18 @@ class DirectorySettings(BaseSetting):
         max_length=100,
         default='Security Grade'
     )
+    security_warning = RichTextField(
+        blank=True,
+        null=True,
+        help_text="Warning displayed for sources on instance pages."
+    )
+
+    panels = [
+        FieldPanel('landing_page_link_text'),
+        FieldPanel('compare_onion_address_text'),
+        FieldPanel('grade_text'),
+        FieldPanel('security_warning')
+    ]
 
     class Meta:
         verbose_name = 'Directory Settings'
