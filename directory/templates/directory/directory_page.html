@@ -4,14 +4,37 @@
 {% block main_classes %}
 	{{ block.super }}
 	layout-sidebar--directory
-	}
 {% endblock %}
 
 {% block main %}
-	<section class="directory__body">
+	<section class="directory-body">
 		{{ page.body|richtext }}
 	</section>
 	<section class="instance-list">
+		<table class="instance-table">
+				<thead class="instance-table__head">
+					<tr>
+						<th></th>
+						<th class="instance-table__title">Organization</th>
+						<th class="instance-table__title">Security Grade</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for instance in page.get_children %}
+						<tr class="instance-table__row">
+							<td class="instance-table__icon"><a class="instance-table__link" href="{% pageurl instance %}">Icon</a></td>
+							<td class="instance-table__org">
+								<a class="instance-table__link" href="{% pageurl instance %}">
+									<h3 class="instance-table__org-name">{{instance.title}}</h3>
+									<div class="instance-table__org-description">Some text about my awesome org.</div>
+								</a>
+							</td>
+							<td class="instance-table__grade"><a class="instance-table__link" href="{% pageurl instance %}">{{instance.specific.results.latest.grade}}</a></td>
+						</a></tr>
+						<tr class="instance-table__spacer"><td></td></tr>
+					{% endfor %}
+				</tbody>
+			</table>
 	</section>
 {% endblock main %}
 
@@ -31,9 +54,11 @@
 		<div class="submit-instance__body">
 			{{ page.submit_body|richtext }}
 		</div>
-		<button class="submit-instance__button">
-			{{ page.submit_button_text }}
-		</button>
+		<a href="{{page.url}}form">
+			<button class="submit-instance__button">
+				{{ page.submit_button_text }}
+			</button>
+		</a>
 	</section>
 {% endblock sidebar%}
 
