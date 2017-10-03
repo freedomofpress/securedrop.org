@@ -8,17 +8,35 @@
 	<div class="instance-title">
 		{% if page.organization_logo %}
 			<div class="instance-title__logo">
-				{% image page.organization_logo %}
+				{% image page.organization_logo width-75  %}
 			</div>
 		{% endif %}
 		{{ block.super }}
 		<div class="instance-title__onion">
-			<span>{{settings.directory.compare_onion_address_text}} {{page.onion_address}}
+			{{settings.common.DirectorySettings.compare_onion_address_text}} <span class='instance-title__onion-address'>{{page.onion_address}}</span>
 		</div>
 	</div>
 {% endblock page_title %}
 
 {% block column_one %}
+	<div class="instance-description">
+		{{ page.organization_description|richtext }}
+	</div>
 
 {% endblock column_one %}
 
+{% block column_two %}
+	<div class="security_grade">
+		{{ settings.common.DirectorySettings.grade_text }}: <span class="security_grade__grade
+		security_grade__grade--{{ page.results.latest.grade }}">{{ page.results.latest.grade }}</span>
+	</div>
+
+	{% include "directory/_scan_results.html" with result=page.results.latest admin_status="not-admin" %}
+
+	<div class="row">
+		<a href="#" class="btn btn-sm btn-primary"/>Back to SecureDrop Directory</a>
+	</div>
+{% endblock column_two %}
+
+{% block js %}
+{% endblock %}

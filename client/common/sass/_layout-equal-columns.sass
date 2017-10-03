@@ -1,12 +1,18 @@
-.layout-equal-columns
+.layout-equal
 	display: flex
+	padding: 2rem
 
 	+media-breakpoint-down(extra-small)
 		flex-direction: column-reverse
 
-.layout-equal-columns__one, .layout-equal-columns__two
+.layout-equal__one, .layout-equal__two
 	flex-basis: 50%
-	padding: 3rem 1rem
+
+.layout-equal__one
+	padding-right: 1rem
+
+.layout-equal__two
+	padding-left: 1rem
 
 	+media-breakpoint-down(extra-small)
 		flex-basis: 100%

@@ -1,0 +1,11 @@
+.security_grade
+	font-weight: 400
+	font-size: 2rem
+
+.security_grade__grade
+	font-weight: 700
+	color: $yellow
+
+@each $name, $color in $grade-colors
+	.security_grade__grade--#{$name}
+		color: $color
