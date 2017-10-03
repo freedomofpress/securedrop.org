@@ -40,6 +40,8 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
         )
     ]
 
+    subpage_types = [ 'landing_page_checker.SecuredropPage' ]
+
 
     @route('form/')
     def form_view(self, request):
