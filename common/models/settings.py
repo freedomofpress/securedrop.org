@@ -131,3 +131,23 @@ class SocialSharingSEOSettings(BaseSetting):
 
     class Meta:
         verbose_name = 'Social Sharing/SEO'
+
+
+@register_setting(icon='form')
+class DirectorySettings(BaseSetting):
+    landing_page_link_text = models.CharField(
+        max_length=255,
+        default='Securedrop landing page'
+    )
+    compare_onion_address_text = models.CharField(
+        max_length=255,
+        default='Check this address against the one on the landing page:',
+        help_text='Text displayed immedieately before the onion address.'
+    )
+    grade_text = models.CharField(
+        max_length=100,
+        default='Security Grade'
+    )
+
+    class Meta:
+        verbose_name = 'Directory Settings'
