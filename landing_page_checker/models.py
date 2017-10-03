@@ -5,6 +5,8 @@ from django.utils.text import slugify
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import RichTextField
+from wagtail.wagtailadmin.edit_handlers import FieldPanel
+from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 
 class SecuredropPage(Page):
@@ -30,6 +32,14 @@ class SecuredropPage(Page):
         related_name='+',
     )
     organization_description = RichTextField(blank=True, null=True)
+
+    content_panels = Page.content_panels + [
+        FieldPanel('landing_page_domain'),
+        FieldPanel('onion_address'),
+        FieldPanel('organization'),
+        FieldPanel('organization_description'),
+        ImageChooserPanel('organization_logo'),
+    ]
 
     def clean(self):
         self.slug = slugify(self.organization)
