@@ -4,6 +4,7 @@
 {% block meta %}
 {% endblock %}
 
+
 {% block page_title %}
 	<div class="instance-title">
 		{% if page.organization_logo %}
@@ -11,7 +12,8 @@
 				{% image page.organization_logo width-75  %}
 			</div>
 		{% endif %}
-		{{ block.super }}
+		<h1 class="instance-title__header">{{ page.title }}</h1>
+		<a class="instance-title__landing-page" href="{{page.landing_page_domain}}">{{settings.common.DirectorySettings.landing_page_link_text}} {% include "common/chevron-right.svg" with class="instance-title__chevron" %}</a>
 		<div class="instance-title__onion">
 			{{settings.common.DirectorySettings.compare_onion_address_text}} <span class='instance-title__onion-address'>{{page.onion_address}}</span>
 		</div>
@@ -22,7 +24,11 @@
 	<div class="instance-description">
 		{{ page.organization_description|richtext }}
 	</div>
-
+	{% if settings.common.DirectorySettings.security_warning %}
+		<div class="security-warning">
+			{{ settings.common.DirectorySettings.security_warning|richtext }}
+		</div>
+	{% endif %}
 {% endblock column_one %}
 
 {% block column_two %}
@@ -34,7 +40,7 @@
 	{% include "directory/_scan_results.html" with result=page.results.latest admin_status="not-admin" %}
 
 	<div class="row">
-		<a href="#" class="btn btn-sm btn-primary"/>Back to SecureDrop Directory</a>
+		<a href="{% pageurl page.get_parent %}" class="btn btn-sm btn-primary"/>Back to SecureDrop Directory</a>
 	</div>
 {% endblock column_two %}
 
