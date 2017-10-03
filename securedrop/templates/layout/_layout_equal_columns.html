@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+	{{ block.super }}
+	<div class="layout-equal">
+		<section class="{% block column-one_classes %}layout-equal__one{% endblock %}">
+			{% block column_one %}
+			{% endblock %}
+		</section>
+
+		<section class="{% block column-two_classes %}layout-equal__two{% endblock %}">
+			{% block column_two %}
+			{% endblock %}
+		</section>
+	</div>
+{% endblock content%}

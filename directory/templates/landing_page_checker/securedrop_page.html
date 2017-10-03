@@ -1,0 +1,24 @@
+{% extends "layout/_layout_equal_columns.html"%}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block meta %}
+{% endblock %}
+
+{% block page_title %}
+	<div class="instance-title">
+		{% if page.organization_logo %}
+			<div class="instance-title__logo">
+				{% image page.organization_logo %}
+			</div>
+		{% endif %}
+		{{ block.super }}
+		<div class="instance-title__onion">
+			<span>{{settings.directory.compare_onion_address_text}} {{page.onion_address}}
+		</div>
+	</div>
+{% endblock page_title %}
+
+{% block column_one %}
+
+{% endblock column_one %}
+
