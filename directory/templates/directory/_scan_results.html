@@ -4,30 +4,45 @@
 		{% if result.live == True %}
 			<p class="scan-result__success">
 				{% include "common/checkmark.svg" with class="scan-result__checkmark" %}
-			Successfully received landing page.</p>
+				<span class="scan-result__text">Successfully received landing page.</span>
+			</p>
 		{% elif result.live == False %}
-			<p class="scan-result__fail"><span class="glyphicon glyphicon-remove"></span> Could not get to landing page.</p>
+			<p class="scan-result__fail">
+				{% include "common/_x.svg" with class="scan-result__x" %}
+			 Could not get to landing page.</p>
 		{% endif %}
 		{% if result.http_status_200_ok == True %}
 			<p class="scan-result__success">
 				{% include "common/checkmark.svg" with class="scan-result__checkmark" %}
-			 Server responded with 200 OK.</p>
+				<span class="scan-result__text">Server responded with 200 OK.</span>
+			</p>
 		{% elif result.http_status_200_ok == False %}
-			<p class="scan-result__fail"><span class="glyphicon glyphicon-remove"></span> Server did not respond with 200 OK.</p>
+			<p class="scan-result__fail">
+				{% include "common/_x.svg" with class="scan-result__x" %}
+				<span class="scan-result__text">Server did not respond with 200 OK.</span>
+			</p>
 		{% endif %}
 		{% if result.http_no_redirect == True %}
 			<p class="scan-result__success">
 				{% include "common/checkmark.svg" with class="scan-result__checkmark" %}
-			 Landing page does not redirect.</p>
+				<span class="scan-result__text">Landing page does not redirect.</span>
+			</p>
 		{% elif result.http_no_redirect == False %}
-			<p class="scan-result__fail"><span class="glyphicon glyphicon-remove"></span> Landing page should not redirect.</p>
+			<p class="scan-result__fail">
+				{% include "common/_x.svg" with class="scan-result__x" %}
+				<span class="scan-result__text">Landing page should not redirect.</span>
+			</p>
 		{% endif %}
 		{% if result.expected_encoding == True %}
 			<p class="scan-result__success">
 				{% include "common/checkmark.svg" with class="scan-result__checkmark" %}
-			 Expected encoding found on landing page.</p>
+				<span class="scan-result__text">Expected encoding found on landing page.</span>
+			</p>
 		{% elif result.expected_encoding == False %}
-			<p class="scan-result__fail"><span class="glyphicon glyphicon-remove"></span> Unexpected encoding found on landing page.</p>
+			<p class="scan-result__fail">
+				{% include "common/_x.svg" with class="scan-result__x" %}
+				<span class="scan-result__text">Unexpected encoding found on landing page.</span>
+			</p>
 		{% endif %}
 	</section>
 
@@ -39,10 +54,15 @@
 		{% if result.forces_https == True %}
 			<p class="scan-result__success">
 				{% include "common/checkmark.svg" with class="scan-result__checkmark" %}
-			 Landing page enforces HTTPS.</p>
+				<span class="scan-result__text">Landing page enforces HTTPS.</span>
+			</p>
 		{% elif result.forces_https == False %}
-			<p class="scan-result__fail"><span class="glyphicon glyphicon-remove"></span> Landing page does not enforce HTTPS.
-				HTTPS is critical for security on the landing page.
+			<p class="scan-result__fail">
+				{% include "common/_x.svg" with class="scan-result__x" %}
+				<span class="scan-result__text">
+					Landing page does not enforce HTTPS.
+					HTTPS is critical for security on the landing page.
+				</span>
 				<span class="scan-result__fix scan-result__fix--{{admin_status}}">
 					<a class="scan-result__link" href="https://securethe.news/why/">Why?</a>
 					<a class="scan-result__link" href="https://securethe.news/how/">How can I set up HTTPS?</a>
@@ -52,30 +72,46 @@
 		{% if result.hsts == True %}
 			<p class="scan-result__success">
 				{% include "common/checkmark.svg" with class="scan-result__checkmark" %}
-			 HSTS is supported.</p>
+				<span class="scan-result__text">HSTS is supported.</span>
+			</p>
 		{% elif result.hsts == False %}
-			<p class="scan-result__warning"><span class="glyphicon glyphicon-flag"></span> HSTS is not supported. </p>
+			<p class="scan-result__warning">
+				{% include "common/flag.svg" with class="scan-result__flag" %}
+				<span class="scan-result__text">HSTS is not supported.</span>
+			</p>
 		{% endif %}
 		{% if result.hsts_max_age > 16070400 %}
 			<p class="scan-result__success">
 				{% include "common/checkmark.svg" with class="scan-result__checkmark" %}
-			 HSTS max age is at least a year.</p>
+				<span class="scan-result__text">HSTS max age is at least a year.</span>
+			</p>
 		{% elif result.live == True %}
-			<p class="scan-result__warning"><span class="glyphicon glyphicon-flag"></span> HSTS max age is less than a year. </p>
+			<p class="scan-result__warning">
+				{% include "common/flag.svg" with class="scan-result__flag" %}
+				<span class="scan-result__text">HSTS max age is less than a year.</span>
+			</p>
 		{% endif %}
 		{% if result.hsts_entire_domain == True %}
 			<p class="scan-result__success">
 				{% include "common/checkmark.svg" with class="scan-result__checkmark" %}
-			 HTTPS is enforced on the entire domain.</p>
+				<span class="scan-result__text">HTTPS is enforced on the entire domain.</span>
+			</p>
 		{% elif result.live == True %}
-			<p class="scan-result__warning"><span class="glyphicon glyphicon-flag"></span> HTTPS is not enforced on the entire domain. </p>
+			<p class="scan-result__warning">
+				{% include "common/flag.svg" with class="scan-result__flag" %}
+				<span class="scan-result__text">HTTPS is not enforced on the entire domain.</span>
+			</p>
 		{% endif %}
 		{% if result.hsts_preloaded == True %}
 			<p class="scan-result__success">
 				{% include "common/checkmark.svg" with class="scan-result__checkmark" %}
-			 The page is <a class="scan-result__link" href="https://hstspreload.org/">HSTS preloaded</a>.</p>
+				<span class="scan-result__text">The page is <a class="scan-result__link" href="https://hstspreload.org/">HSTS preloaded</a>.</span>
+			</p>
 		{% elif result.hsts_preloaded == False %}
-			<p class="scan-result__warning"><span class="glyphicon glyphicon-flag"></span> The page is not <a class="scan-result__link" href="https://hstspreload.org/">HSTS preloaded</a>. </p>
+			<p class="scan-result__warning">
+				{% include "common/flag.svg" with class="scan-result__flag" %}
+				<span class="scan-result__text">The page is not <a class="scan-result__link" href="https://hstspreload.org/">HSTS preloaded</a>.</span>
+			</p>
 		{% endif %}
 	</section>
 
@@ -86,24 +122,38 @@
 		{% if result.no_server_info == True %}
 			<p class="scan-result__success">
 				{% include "common/checkmark.svg" with class="scan-result__checkmark" %}
-			 Server software not found in headers.</p>
+				<span class="scan-result__text">Server software not found in headers.</span>
+			</p>
 		{% elif result.no_server_info == False %}
-			<p class="scan-result__warning"><span class="glyphicon glyphicon-flag"></span> Server software should not appear in headers. </p>
+			<p class="scan-result__warning">
+				{% include "common/flag.svg" with class="scan-result__flag" %}
+				<span class="scan-result__text">Server software should not appear in headers.</span>
+			</p>
 		{% endif %}
 		{% if result.no_server_version == True %}
 			<p class="scan-result__success">
 				{% include "common/checkmark.svg" with class="scan-result__checkmark" %}
-			  No version info found in headers.</p>
+			  <span class="scan-result__text">No version info found in headers.</span>
+			</p>
 		{% elif result.no_server_version == False %}
-			<p class="scan-result__warning"><span class="glyphicon glyphicon-flag"></span> Software version should not appear in headers. </p>
+			<p class="scan-result__warning">
+				{% include "common/flag.svg" with class="scan-result__flag" %}
+				<span class="scan-result__text">Software version should not appear in headers.</span>
+			</p>
 		{% endif %}
 		{% if result.csp_origin_only == True %}
 			<p class="scan-result__success">
 				{% include "common/checkmark.svg" with class="scan-result__checkmark" %}
-			 <a class="scan-result__link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">Content Security Policy (CSP)</a> loads only from the origin domain.</p>
+				<span class="scan-result__text"><a class="scan-result__link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">Content Security Policy (CSP)</a> loads only from the origin domain.</span>
+			</p>
 		{% elif result.csp_origin_only == False %}
-			<p class="scan-result__warning"><span class="glyphicon glyphicon-flag"></span> <a class="scan-result__link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">Content Security Policy (CSP)</a> should load only from self. CSP mitigates cross-site scripting and packet sniffing attacks.</p>
-				<div class="scan-result__fix scan-result__fix--{{admin_status}}">
+			<p class="scan-result__warning">
+				{% include "common/flag.svg" with class="scan-result__flag" %}
+				<span class="scan-result__text">
+					<a class="scan-result__link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">Content Security Policy (CSP)</a> should load only from self. CSP mitigates cross-site scripting and packet sniffing attacks.
+				</span>
+			</p>
+			<div class="scan-result__fix scan-result__fix--{{admin_status}}">
 				<a class="scan-result__link" class="btn btn-sm btn-default" data-toggle="collapse" data-target="#csp-set">
 					<span class="glyphicon glyphicon-wrench"></span> Fix
 				</a>
@@ -116,9 +166,13 @@
 		{% if result.mime_sniffing_blocked == True %}
 			<p class="scan-result__success">
 				{% include "common/checkmark.svg" with class="scan-result__checkmark" %}
-			 <a class="scan-result__link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options">MIME sniffing</a> is blocked.</p>
+				<span class="scan-result__text"><a class="scan-result__link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options">MIME sniffing</a> is blocked.</span>
+			</p>
 		{% elif result.mime_sniffing_blocked == False %}
-			<p class="scan-result__warning"><span class="glyphicon glyphicon-flag"></span> <a class="scan-result__link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options">MIME sniffing</a> is possible.</p>
+			<p class="scan-result__warning">
+				{% include "common/flag.svg" with class="scan-result__flag" %}
+				<span class="scan-result__text"><a class="scan-result__link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options">MIME sniffing</a> is possible.</span>
+			</p>
 			<div class="scan-result__fix scan-result__fix--{{admin_status}}">
 				<a class="scan-result__link">
 					<span class="glyphicon glyphicon-wrench"></span> Fix
@@ -132,9 +186,13 @@
 		{% if result.noopen_download == True %}
 			<p class="scan-result__success">
 				{% include "common/checkmark.svg" with class="scan-result__checkmark" %}
-			 Users cannot accidentally <a class="scan-result__link" href="https://msdn.microsoft.com/en-us/library/jj542450(v=vs.85).aspx">open a download</a>.</p>
+				<span class="scan-result__text">Users cannot accidentally <a class="scan-result__link" href="https://msdn.microsoft.com/en-us/library/jj542450(v=vs.85).aspx">open a download</a>.</span>
+			</p>
 		{% elif result.noopen_download == False %}
-			<p class="scan-result__warning"><span class="glyphicon glyphicon-flag"></span> Users can accidentally <a class="scan-result__link" href="https://msdn.microsoft.com/en-us/library/jj542450(v=vs.85).aspx">open a download</a>.</p>
+			<p class="scan-result__warning">
+				{% include "common/flag.svg" with class="scan-result__flag" %}
+				<span class="scan-result__text">Users can accidentally <a class="scan-result__link" href="https://msdn.microsoft.com/en-us/library/jj542450(v=vs.85).aspx">open a download</a>.</span>
+			</p>
 			<div class="scan-result__fix scan-result__fix--{{admin_status}}">
 				<a class="scan-result__link">
 					<span class="glyphicon glyphicon-wrench"></span> Fix
@@ -148,25 +206,34 @@
 		{% if result.xss_protection == True %}
 			<p class="scan-result__success">
 				{% include "common/checkmark.svg" with class="scan-result__checkmark" %}
-			 <a class="scan-result__link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection">XSS filtering</a> is enabled.</p>
+				<span class="scan-result__text"><a class="scan-result__link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection">XSS filtering</a> is enabled.</span>
+			</p>
 		{% elif result.xss_protection == False %}
-			<p class="scan-result__warning"><span class="glyphicon glyphicon-flag"></span> <a class="scan-result__link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection">XSS attacks</a> are not prevented.</p>
-				<div class="scan-result__fix scan-result__fix--{{admin_status}}">
-					<a class="scan-result__link" class="btn btn-sm btn-default" data-toggle="collapse" data-target="#xss-protection-set">
-						<span class="glyphicon glyphicon-wrench"></span> Fix
-					</a>
-					<div id="xss-protection-set" class="collapse">
-						<p>Add the following to your security headers:</p>
-						<pre>X-XSS-Protection 1; mode=block</pre>
-					</div>
+			<p class="scan-result__warning">
+				{% include "common/flag.svg" with class="scan-result__flag" %}
+				<span class="scan-result__text"><a class="scan-result__link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection">XSS attacks</a> are not prevented.</span>
+			</p>
+			<div class="scan-result__fix scan-result__fix--{{admin_status}}">
+				<a class="scan-result__link" class="btn btn-sm btn-default" data-toggle="collapse" data-target="#xss-protection-set">
+					<span class="glyphicon glyphicon-wrench"></span> Fix
+				</a>
+				<div id="xss-protection-set" class="collapse">
+					<p>Add the following to your security headers:</p>
+					<pre>X-XSS-Protection 1; mode=block</pre>
 				</div>
+			</div>
 		{% endif %}
 		{% if result.clickjacking_protection == True %}
 			<p class="scan-result__success">
 				{% include "common/checkmark.svg" with class="scan-result__checkmark" %}
-			 Ensures that the server forbids embedding this page within an iframe, to <a class="scan-result__link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options">prevent clickjacking attacks</a>. Otherwise another site could embed the Landing Page and mess with it.</p>
+				<span class="scan-result__text">
+				Ensures that the server forbids embedding this page within an iframe, to <a class="scan-result__link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options">prevent clickjacking attacks</a>. Otherwise another site could embed the Landing Page and mess with it.</span>
+			</p>
 		{% elif result.clickjacking_protection == False %}
-			<p class="scan-result__warning"><span class="glyphicon glyphicon-flag"></span> The server does not forbid embedding this page within an iframe, to <a class="scan-result__link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options">prevent clickjacking attacks</a>. Another site could embed the Landing Page and mess with it.</p>
+			<p class="scan-result__warning">
+				{% include "common/flag.svg" with class="scan-result__flag" %}
+				<span class="scan-result__text">The server does not forbid embedding this page within an iframe, to <a class="scan-result__link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options">prevent clickjacking attacks</a>. Another site could embed the Landing Page and mess with it.</span>
+			</p>
 			<div class="scan-result__fix scan-result__fix--{{admin_status}}">
 				<a class="scan-result__link"><span class="glyphicon glyphicon-wrench"></span> Fix</a>
 				<div>
@@ -178,21 +245,22 @@
 		{% if result.good_cross_domain_policy == True %}
 			<p class="scan-result__success">
 				{% include "common/checkmark.svg" with class="scan-result__checkmark" %}
-			 Cross Domain Policy set correctly.</p>
+				<span class="scan-result__text">Cross Domain Policy set correctly.</span>
+			</p>
 		{% elif result.good_cross_domain_policy == False %}
 			<p class="scan-result__warning">
-				<span class="glyphicon glyphicon-flag"></span>
-				Cross Domain Policy not set correctly.
+				{% include "common/flag.svg" with class="scan-result__flag" %}
+				<span class="scan-result__text">Cross Domain Policy not set correctly.</span>
 			</p>
-				<div class="scan-result__fix scan-result__fix--{{admin_status}}">
-					<a class="scan-result__link" class="btn btn-sm btn-default" data-toggle="collapse" data-target="#cross-domain-policy-set">
-						<span class="glyphicon glyphicon-wrench"></span> Fix
-					</a>
-					<div id="cross-domain-policy-set" class="collapse">
-						<p>Add the following to your security headers:</p>
-						<pre>X-Permitted-Cross-Domain-Policies master-only</pre>
-					</div>
+			<div class="scan-result__fix scan-result__fix--{{admin_status}}">
+				<a class="scan-result__link" class="btn btn-sm btn-default" data-toggle="collapse" data-target="#cross-domain-policy-set">
+					<span class="glyphicon glyphicon-wrench"></span> Fix
+				</a>
+				<div id="cross-domain-policy-set" class="collapse">
+					<p>Add the following to your security headers:</p>
+					<pre>X-Permitted-Cross-Domain-Policies master-only</pre>
 				</div>
+			</div>
 		{% endif %}
 	</section>
 
@@ -203,10 +271,12 @@
 		{% if result.http_1_0_caching_disabled == True %}
 			<p class="scan-result__success">
 				{% include "common/checkmark.svg" with class="scan-result__checkmark" %}
-			 Caching is disabled (HTTP/1.0).</p>
+				<span class="scan-result__text">Caching is disabled (HTTP/1.0).</span>
+			</p>
 		{% elif result.http_1_0_caching_disabled == False %}
-			<p class="scan-result__fail">
-				<span class="glyphicon glyphicon-flag"></span> Caching is not disabled (HTTP/1.0).
+			<p class="scan-result__warning">
+				{% include "common/flag.svg" with class="scan-result__flag" %}
+				<span class="scan-result__text">Caching is not disabled (HTTP/1.0).</span>
 			</p>
 			<div class="scan-result__fix scan-result__fix--{{admin_status}}">
 				<a class="scan-result__link">
@@ -221,9 +291,13 @@
 		{% if result.cache_control_set == True %}
 			<p class="scan-result__success">
 				{% include "common/checkmark.svg" with class="scan-result__checkmark" %}
-			 <a class="scan-result__link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Caching</a> is disabled (HTTP/1.1). </p>
+				<span class="scan-result__text"><a class="scan-result__link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Caching</a> is disabled (HTTP/1.1).</span>
+			</p>
 		{% elif result.cache_control_set == False %}
-			<p class="scan-result__fail"><span class="glyphicon glyphicon-flag"></span> <a class="scan-result__link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Caching</a> is not disabled (HTTP/1.1).</p>
+			<p class="scan-result__fail">
+				{% include "common/flag.svg" with class="scan-result__flag" %}
+				<span class="scan-result__text"><a class="scan-result__link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Caching</a> is not disabled (HTTP/1.1).</span>
+			</p>
 			<div class="scan-result__fix scan-result__fix--{{admin_status}}">
 				<a class="scan-result__link"><span class="glyphicon glyphicon-wrench"></span> Fix</a>
 				<div>
@@ -235,30 +309,38 @@
 		{% if result.cache_control_revalidate_set == True or result.cache_control_nocache_set == True or result.cache_control_notransform_set == True or result.cache_control_nostore_set == True or result.cache_control_private_set == True %}
 			<p class="scan-result__success">
 				{% include "common/checkmark.svg" with class="scan-result__checkmark" %}
-			 <a class="scan-result__link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> headers set properly. </p>
+				<span class="scan-result__text"><a class="scan-result__link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> headers set properly.</span>
+			</p>
 		{% elif result.live != False %}
-			<p class="scan-result__fail"><span class="glyphicon glyphicon-flag"></span> <a class="scan-result__link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> headers not set properly.
-				<div class="scan-result__fix scan-result__fix--{{admin_status}}">
-					<a class="scan-result__link"><span class="glyphicon glyphicon-wrench"></span> Fix</a>
-					<div >
-						<p>Add the following to your security headers:</p>
-						<pre>Cache-Control "max-age=0, no-cache, no-store, must-revalidate, private"</pre>
-					</div>
+			<p class="scan-result__fail">
+				{% include "common/flag.svg" with class="scan-result__flag" %}
+				<span class="scan-result__text"><a class="scan-result__link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> headers not set properly.</span>
+			</p>
+			<div class="scan-result__fix scan-result__fix--{{admin_status}}">
+				<a class="scan-result__link"><span class="glyphicon glyphicon-wrench"></span> Fix</a>
+				<div >
+					<p>Add the following to your security headers:</p>
+					<pre>Cache-Control "max-age=0, no-cache, no-store, must-revalidate, private"</pre>
 				</div>
+			</div>
 		{% endif %}
 		{% if result.expires_set == True %}
 			<p class="scan-result__success">
 				{% include "common/checkmark.svg" with class="scan-result__checkmark" %}
-			 The page is <a class="scan-result__link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expires">marked as expired</a>, so no cache will be used.</p>
+				<span class="scan-result__text">The page is <a class="scan-result__link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expires">marked as expired</a>, so no cache will be used.</span>
+			</p>
 		{% elif result.expires_set == False %}
-			<p class="scan-result__fail"><span class="glyphicon glyphicon-flag"></span> The page is not <a class="scan-result__link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expires">marked as expired</a>. Cache may be used.</p>
-			 <div class="scan-result__fix scan-result__fix--{{admin_status}}">
-					<a class="scan-result__link"><span class="glyphicon glyphicon-wrench"></span> Fix</a>
-					<div>
-						<p>Add the following to your security headers:</p>
-						<pre>Expires -1</pre>
-					</div>
+			<p class="scan-result__warning">
+				{% include "common/flag.svg" with class="scan-result__flag" %}
+				<span class="scan-result__text">The page is not <a class="scan-result__link" href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expires">marked as expired</a>. Cache may be used.</span>
+			</p>
+			<div class="scan-result__fix scan-result__fix--{{admin_status}}">
+				<a class="scan-result__link"><span class="glyphicon glyphicon-wrench"></span> Fix</a>
+				<div>
+					<p>Add the following to your security headers:</p>
+					<pre>Expires -1</pre>
 				</div>
+			</div>
 		{% endif %}
 		{% if result.safe_onion_address != None %}
 			<h3 class="scan-result__heading">Metadata</h3>
@@ -266,16 +348,25 @@
 		{% if result.safe_onion_address == True %}
 			<p class="scan-result__success">
 				{% include "common/checkmark.svg" with class="scan-result__checkmark" %}
-			 No clickable onion addresses were found.</p>
+				<span class="scan-result__text">No clickable onion addresses were found.</span>
+			</p>
 		{% elif result.safe_onion_address == False %}
-			<p class="scan-result__fail"><span class="glyphicon glyphicon-remove"></span> Onion address should not be a clickable link. If clicked, some browsers will send a DNS request that will not be routed through tor, producing metadata that can identify a source. </p>
+			<p class="scan-result__fail">
+				{% include "common/_x.svg" with class="scan-result__x" %}
+				<span class="scan-result__text">Onion address should not be a clickable link. If clicked, some browsers will send a DNS request that will not be routed through tor, producing metadata that can identify a source.</span>
+			</p>
 		{% endif %}
 		{% if result.subdomain != True %}
 			<p class="scan-result__success">
 				{% include "common/checkmark.svg" with class="scan-result__checkmark" %}
-			 Landing page is not hosted on a subdomain.</p>
-		{% else %}
-			<p class="scan-result__fail"><span class="glyphicon glyphicon-flag"></span> Landing page should not be hosted on a subdomain. Using a subdomain can reveal to a passive observer that the client is looking at the securedrop page on your website.</p>
+				<span class="scan-result__text">Landing page is not hosted on a subdomain.</span>
+			</p>
+		{%
+		 else %}
+			<p class="scan-result__fail">
+				{% include "common/flag.svg" with class="scan-result__flag" %}
+				<span class="scan-result__text">Landing page should not be hosted on a subdomain. Using a subdomain can reveal to a passive observer that the client is looking at the securedrop page on your website.</span>
+			</p>
 		{% endif %}
 	</section>
 
@@ -286,16 +377,24 @@
 		{% if result.no_cdn == True %}
 			<p class="scan-result__success">
 				{% include "common/checkmark.svg" with class="scan-result__checkmark" %}
-			 Use of CDNs not found.</p>
+				<span class="scan-result__text">Use of CDNs not found.</span>
+			</p>
 		{% elif result.no_cdn == False %}
-			<p class="scan-result__fail"><span class="glyphicon glyphicon-flag"></span> CDNs are a 3rd party that function by man-in-the-middling traffic. Do not use a CDN on the landing page. </p>
+			<p class="scan-result__fail">
+				{% include "common/flag.svg" with class="scan-result__flag" %}
+				<span class="scan-result__text">CDNs are a 3rd party that function by man-in-the-middling traffic. Do not use a CDN on the landing page. </span>
+			</p>
 		{% endif %}
 		{% if result.no_analytics == True %}
 			<p class="scan-result__success">
 				{% include "common/checkmark.svg" with class="scan-result__checkmark" %}
-			 Use of Google Analytics not found.</p>
+				<span class="scan-result__text">Use of Google Analytics not found.</span>
+			</p>
 		{% elif result.no_analytics == False %}
-			<p class="scan-result__fail"><span class="glyphicon glyphicon-remove"></span> Google Analytics provides information that can be stored and disclosed by 3rd parties. Do not use analytics on the landing page. </p>
+			<p class="scan-result__fail">
+				{% include "common/_x.svg" with class="scan-result__x" %}
+				<span class="scan-result__text">Google Analytics provides information that can be stored and disclosed by 3rd parties. Do not use analytics on the landing page. </span>
+			</p>
 		{% endif %}
 	</section>
 
@@ -306,9 +405,13 @@
 		{% if result.no_cookies == True %}
 			<p class="scan-result__success">
 				{% include "common/checkmark.svg" with class="scan-result__checkmark" %}
-			 Landing page does not use cookies.</p>
+				<span class="scan-result__text">Landing page does not use cookies.</span>
+			</p>
 		{% elif result.no_cookies == False %}
-			<p class="scan-result__fail"><span class="glyphicon glyphicon-remove"></span> The landing page should not use cookies. </p>
+			<p class="scan-result__fail">
+				{% include "common/_x.svg" with class="scan-result__x" %}
+				<span class="scan-result__text">The landing page should not use cookies. </span>
+			</p>
 		{% endif %}
 	</section>
 </div>
