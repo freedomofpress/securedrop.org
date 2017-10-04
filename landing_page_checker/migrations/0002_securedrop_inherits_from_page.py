@@ -11,6 +11,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('directory', '0002_auto_20170913_2144'),
+        ('home', '0011_change_description_header'),
         ('wagtailcore', '0040_page_draft_title'),
         ('landing_page_checker', '0001_initial'),
     ]
