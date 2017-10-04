@@ -6,9 +6,6 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel
 from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailadmin.edit_handlers import (
-    InlinePanel,
-)
 
 from common.models.mixins import MetadataPageMixin
 from directory.forms import DirectoryForm
@@ -40,8 +37,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
         )
     ]
 
-    subpage_types = [ 'landing_page_checker.SecuredropPage' ]
-
+    subpage_types = ['landing_page_checker.SecuredropPage']
 
     @route('form/')
     def form_view(self, request):
