@@ -51,10 +51,6 @@ dev-sass-lint: ## Runs sass-lint utility over the code-base
 dev-import-db: ## Imports a database dump from file named ./import.db
 	docker exec -it sd_postgresql bash -c "cat /django/import.db | sed 's/OWNER\ TO\ [a-z]*/OWNER\ TO\ tracker/g' | psql securedropdb -U tracker &> /dev/null"
 
-.PHONY: ci-devops-builder
-ci-devops-builder: ## Builds CI www image
-	./devops/scripts/ci-django-build.sh
-
 .PHONY: dev-save-db
 dev-save-db: ## Save a snapshot of the database for the current git branch
 	./devops/scripts/savedb.sh
@@ -70,6 +66,10 @@ update-requirements: ## Update requirements files after a new requirement is add
 .PHONY: flake8
 flake8: ## Runs flake8 against code-base
 	./devops/scripts/run-command-in-venv.sh flake8
+
+.PHONY: clean
+clean: ## clean out local developer assets
+	@rm -rvf ./node_modules
 
 # Explaination of the below shell command should it ever break.
 # 1. Set the field separator to ": ##" and any make targets that might appear between : and ##
