@@ -77,18 +77,8 @@ class SimplePage(Page):
         blank=False
     )
 
-    sidebar_content = StreamField(
-        [
-            ('heading', Heading2()),
-            ('rich_text', blocks.RichTextBlock()),
-        ],
-        default=None,
-        blank=True,
-    )
-
     content_panels = Page.content_panels + [
         StreamFieldPanel('body'),
-        StreamFieldPanel('sidebar_content')
     ]
 
     search_fields = Page.search_fields + [
