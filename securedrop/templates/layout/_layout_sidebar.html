@@ -2,7 +2,8 @@
 
 {% block content %}
 	{{ block.super }}
-	<div class="layout-sidebar {% block layout_classes %}{% endblock %}">
+	<div class="layout-sidebar {% block layout_sidebar_classes %}{% endblock %}">
+
 		<main class="{% block main_classes %}layout-sidebar__main{% endblock %}">
 			{% block main %}
 			{% endblock %}
