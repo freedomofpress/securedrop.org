@@ -1,10 +1,10 @@
 from __future__ import absolute_import, unicode_literals
 
+from django.contrib.postgres.search import SearchQuery, SearchVector, SearchRank
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import render
 
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailsearch.models import Query
+from search.models import SearchDocument
 
 
 def search(request):
@@ -13,13 +13,16 @@ def search(request):
 
     # Search
     if search_query:
-        search_results = Page.objects.live().search(search_query)
-        query = Query.get(search_query)
-
-        # Record hit
-        query.add_hit()
+        vector = SearchVector('search_content')
+        query = SearchQuery(search_query)
+        search_results = SearchDocument.objects.annotate(
+            rank=SearchRank(vector, query),
+            search=vector
+        ).filter(
+            search=query
+        ).order_by('-rank')
     else:
-        search_results = Page.objects.none()
+        search_results = SearchDocument.objects.none()
 
     # Pagination
     paginator = Paginator(search_results, 10)
