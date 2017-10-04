@@ -1,0 +1,20 @@
+{% extends 'layout/_layout_sidebar.html' %}
+{% load wagtailcore_tags static %}
+
+{% block layout_classes %}
+	layout-sidebar--simple
+{% endblock %}
+
+{% block main %}
+	<div class="stream">
+		{% for block in page.body %}
+			<section class="stream__block">
+				{% include_block block %}
+			</section>
+		{% endfor %}
+	</div>
+{% endblock main %}
+
+{% block sidebar %}
+	<img class="simple-page__logo" src="{% static 'images/securedrop.png' %}" />
+{% endblock %}
