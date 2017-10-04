@@ -78,11 +78,17 @@ $list-bottom-padding: 2rem
 	background-color: $white
 	color: $links-background-color
 	border: none
+	+link-transition
+	+hover
+		background-color: $gray10
 
 .footer-links__contribute
 	border: 1px solid $white
-	background-color: inherit
+	background-color: $links-background-color
 	color: $white
+	+link-transition
+	+hover
+		background-color: lighten($links-background-color, 10)
 
 .footer-main
 	display: flex
