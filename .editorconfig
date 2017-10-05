@@ -1,0 +1,18 @@
+# EditorConfig for Little Weaver Web Collective Style
+# http://editorconfig.org/ http://littleweaverweb.com/
+
+root = true
+
+[*]
+end_of_line = lf
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.{html,sass,js,scss,css,php,svg}]
+charset = utf-8
+indent_style = tab
+
+# PEP 8 Compliant
+[*.py]
+indent_style = space
+indent_size = 4
