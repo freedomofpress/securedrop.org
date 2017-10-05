@@ -2,7 +2,7 @@ from django.db import models
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
 from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailcore.models import Page
@@ -22,6 +22,15 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
         max_length=100,
         default="Scan my instance",
         help_text="Text displayed on link to scanning form.")
+    faq_link = models.ForeignKey(
+        # Likely an FAQ page
+        'wagtailcore.Page',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text="Linked to by the info icon next to 'Security' in the directory table headers."
+    )
 
     content_panels = Page.content_panels + [
         FieldPanel('body'),
@@ -35,6 +44,10 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
             ],
             classname='collapsible'
         )
+    ]
+
+    settings_panels = Page.settings_panels + [
+        PageChooserPanel('faq_link')
     ]
 
     subpage_types = ['landing_page_checker.SecuredropPage']
