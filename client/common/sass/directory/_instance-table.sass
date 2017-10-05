@@ -10,6 +10,9 @@
 	text-align: left
 	font-weight: 400
 
+.instance-table__title--security
+	text-align: right
+
 .instance-table__faq-link
 	+link--no-underline(inherit, $gray80)
 	height: 1rem
@@ -26,6 +29,9 @@
 .instance-table__org-description
 	color: $gray50--text
 
+.instance-table__grade-column
+	text-align: right
+
 .instance-table__grade
 	color: $white
 	width: 3rem
@@ -33,6 +39,7 @@
 	font-weight: 500
 	text-align: center
 	border-radius: 0.5rem
+
 
 @each $name, $color in $grade-colors
 	.instance-table__grade--#{$name}
@@ -45,6 +52,7 @@
 
 .instance-table__link
 	+link--unstyled
+	display: inline-block
 
 .instance-table__spacer
 	height: 1rem
