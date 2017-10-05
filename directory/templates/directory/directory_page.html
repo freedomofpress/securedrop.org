@@ -20,7 +20,14 @@
 					<tr>
 						<th class="instance-table__title">Organization</th>
 						<th></th>
-						<th class="instance-table__title">Security</th>
+						<th class="instance-table__title instance-table__title--security">
+							Security
+							{% if page.faq_link %}
+								<a class="instance-table__faq-link" href="{% pageurl page.faq_link %}">
+									{% include "common/question-circle.svg" with class="instance-table__question-circle" %}
+									<div class="sr-only">More information about security grades</div></a>
+							{% endif %}
+					</th>
 					</tr>
 				</thead>
 				<tbody>
