@@ -64,7 +64,6 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
                 instance = SecuredropInstance(
                     title=data['organization'],
                     landing_page_domain=data['url'],
-                    organization=data['organization'],
                     onion_address=data['tor_address'],
                 )
                 self.add_child(instance=instance)

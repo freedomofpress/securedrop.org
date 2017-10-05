@@ -1,5 +1,5 @@
 {% extends "layout/_layout_equal_columns.html"%}
-{% load wagtailcore_tags wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags result_tags %}
 
 {% block meta %}
 {% endblock %}
@@ -36,7 +36,7 @@
 		security_grade__grade--{{ page.results.latest.grade }}">{{ page.results.latest.grade }}</div>
 	</div>
 
-	{% include "directory/_scan_results.html" with result=page.results.latest admin_status="not-admin" %}
+	{% result_groups page.results.latest True %}
 
 	<div class="row">
 		<a href="{% pageurl page.get_parent %}" class="btn btn-sm btn-primary"/>Back to SecureDrop Directory</a>

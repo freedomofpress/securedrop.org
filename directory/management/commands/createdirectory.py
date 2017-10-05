@@ -4,7 +4,7 @@ from django.core.management.base import BaseCommand
 from directory.models import DirectoryPage
 from directory.tests.factories import DirectoryPageFactory
 from home.models import HomePage
-from landing_page_checker.tests.factories import SecuredropFactory
+from landing_page_checker.tests.factories import SecuredropPageFactory
 
 
 class Command(BaseCommand):
@@ -23,5 +23,5 @@ class Command(BaseCommand):
             directory = DirectoryPageFactory(parent=home_page)
             directory.save()
         for _ in range(number_of_instances):
-            instance = SecuredropFactory(page=directory)
+            instance = SecuredropPageFactory(parent=directory)
             instance.save()
