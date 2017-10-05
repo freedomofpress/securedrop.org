@@ -34,9 +34,13 @@
 					{% for instance in page.get_children %}
 						<tr class="instance-table__row">
 							<td class="instance-table__icon">
-								{% if instance.specific.organization_logo %}
-									<a class="instance-table__link" href="{% pageurl instance %}">{% image instance.specific.organization_logo width-40 %}</a>
-								{% endif%}
+								<a class="instance-table__link" href="{% pageurl instance %}">
+									{% if instance.specific.organization_logo %}
+										{% image instance.specific.organization_logo width-40 %}
+									{% else %}
+										{% include "common/_hexagon.svg" with class="instance-table__hexagon" category_slug="instance-table" %}
+									{% endif %}
+								</a>
 							</td>
 							<td class="instance-table__org">
 								<a class="instance-table__link" href="{% pageurl instance %}">
