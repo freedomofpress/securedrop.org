@@ -1,30 +1,40 @@
 .main-nav
-	+clearfix
-
-	+media-breakpoint-down(extra-small)
-		position: relative
-		width: 100%
-		height: 3.5em
-		margin-bottom: -3.5em
-
-		background: rgba($black,0.25)
+	background: rgba($black,0.25)
+	color: $white
+	width: 100%
+	position: absolute
+	top: 0
+	left: 0
+	height: $nav-height
 
 .nav-menu
+	+layout-x
+	position: relative
+	display: flex
+	justify-content: space-between
+	align-items: center
+
+.nav-menu__logo
+	width: 2rem
+
+	// Put hexagon in the margin
+	position: absolute
+	left: 3rem
+	+media-breakpoint-only(small)
+		left: 1rem
+
+	*
+		fill: white
+
+.nav-menu__wordmark
+	height: 2rem
+	width: auto
+
+.nav-menu__list
 	+list--unstyled
 	display: flex
 	justify-content: flex-end
 	align-items: center
-	background: rgba($black,0.25)
-	color: $white
-	width: 100%
-	padding-right: 2rem
-	position: absolute
-	top: 0
-	left: 0
-
-
-.nav-menu--solid
-	+sd-gradient($purple1, $purple2)
 	height: $nav-height
 
 .nav-menu__item

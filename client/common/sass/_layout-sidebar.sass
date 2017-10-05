@@ -1,6 +1,6 @@
-$content-padding: 3rem
-
 .layout-sidebar
+	+layout-x
+	+layout-y
 	display: flex
 
 	+media-breakpoint-down(extra-small)
@@ -8,7 +8,7 @@ $content-padding: 3rem
 
 .layout-sidebar__main
 	flex-basis: 75%
-	padding: $content-padding
+	padding-right: $layout-padding
 
 	+media-breakpoint-down(extra-small)
 		flex-basis: 100%
@@ -17,10 +17,7 @@ $content-padding: 3rem
 .layout-sidebar__aside
 	flex-basis: 25%
 	align-self: stretch
-	padding: $content-padding $content-padding $content-padding 0
 
 	+media-breakpoint-down(extra-small)
 		flex-basis: 100%
-		padding: $content-padding $content-padding 0 $content-padding
-
-
+		padding-bottom: $layout-padding

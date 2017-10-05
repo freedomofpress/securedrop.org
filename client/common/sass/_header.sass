@@ -1,2 +1,30 @@
+$header-padding: 3.5rem
+
 .header
 	position: relative
+	color: white
+	+sd-gradient($slate1,$slate2)
+	min-height: $nav-height
+
+.header__title
+	+layout-x
+	padding-top: $header-padding + $nav-height
+	padding-bottom: $header-padding
+
+	+media-breakpoint-down(extra-small)
+		text-align: center
+
+.header--slate
+	+sd-gradient($slate1,$slate2)
+
+.header--blue-bright
+	+sd-gradient($blue-bright1,$blue-bright2)
+
+.header--blue-bold
+	+sd-gradient($blue-bold1,$blue-bold2)
+
+.header--purple
+	+sd-gradient($purple1,$purple2)
+
+.header--transparent
+	background: transparent

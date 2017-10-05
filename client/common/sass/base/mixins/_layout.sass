@@ -1,0 +1,25 @@
+=layout-x
+	width: 100%
+	padding-left: 1rem
+	padding-right: 1rem
+	+media-breakpoint-only(small)
+		padding-left: 4rem
+		padding-right: 4rem
+
+	+media-breakpoint-up(medium)
+		padding-left: 2*$layout-padding
+		padding-right: 2*$layout-padding
+
+	+media-breakpoint-up(large)
+		width: 1200px
+		margin-left: auto
+		margin-right: auto
+
+
+=layout-y
+	padding-top: 2*$layout-padding
+	padding-bottom: 2*$layout-padding
+
+	+media-breakpoint-down(extra-small)
+		padding-top: $layout-padding
+		padding-bottom: $layout-padding

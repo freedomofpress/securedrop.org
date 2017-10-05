@@ -7,21 +7,19 @@
 	<meta property="og:type" content="article" />
 {% endblock %}
 
-{% block layout_classes %}
-	layout-one-column--blog
-{% endblock %}
-
-{% block page_title_classes %}
-	blog-title
+{% block header_classes %}
+	header--purple
 {% endblock %}
 
 {% block page_title %}
-	{% include "common/_hexagon.svg" with class="blog-hexagon" category_slug=page.category.slug %}
-	{{ block.super }}
 {% endblock %}
 
 {% block main %}
 	<div class="blog-page">
+		<div class="blog-title">
+			{% include "common/_hexagon.svg" with class="blog-title__hexagon" category_slug=page.category.slug %}
+			<h1>{{ page.title }}</h1>
+		</div>
 		<article>
 			<div class="blog-page__date">
 				{{ page.publication_datetime|date:"F j, Y"  }}
