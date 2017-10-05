@@ -1,7 +1,6 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from django.utils.text import slugify
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import RichTextField
@@ -10,8 +9,6 @@ from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 
 class SecuredropPage(Page):
-    organization = models.CharField('Organization', max_length=255, unique=True)
-
     landing_page_domain = models.CharField(
         'Landing Page Domain Name',
         max_length=255,
@@ -36,16 +33,9 @@ class SecuredropPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('landing_page_domain'),
         FieldPanel('onion_address'),
-        FieldPanel('organization'),
         FieldPanel('organization_description'),
         ImageChooserPanel('organization_logo'),
     ]
-
-    def clean(self):
-        self.slug = slugify(self.organization)
-
-    def __str__(self):
-        return '{}'.format(self.organization)
 
 
 class Result(models.Model):
@@ -119,7 +109,7 @@ class Result(models.Model):
         return self_values_to_compare == other_values_to_compare
 
     def __str__(self):
-        return 'Scan result for {}'.format(self.securedrop.organization)
+        return 'Scan result for {}'.format(self.securedrop.title)
 
     def compute_grade(self):
         if self.live is False:

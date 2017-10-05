@@ -2,56 +2,64 @@ from django.db.utils import IntegrityError
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
-from landing_page_checker.models import Securedrop, Result
-from landing_page_checker.tests.factories import SecuredropFactory
+from landing_page_checker.models import SecuredropPage, Result
+from landing_page_checker.tests.factories import SecuredropPageFactory
 
 
-class SecuredropTest(TestCase):
+class SecuredropPageTest(TestCase):
     def test_securedrop_can_save_expected_urls(self):
-        securedrop = SecuredropFactory(
-            organization='Freedom of the Press Foundation',
+        securedrop = SecuredropPageFactory(
+            title='Freedom of the Press Foundation',
             landing_page_domain='freedom.press',
             onion_address='notreal.onion',
+            parent=None
         )
         securedrop.save()
-        self.assertIn(securedrop, Securedrop.objects.all())
+        self.assertIn(securedrop, SecuredropPage.objects.all())
 
     def test_securedrop_cannot_save_empty_urls(self):
-        securedrop = SecuredropFactory(landing_page_domain='')
+        securedrop = SecuredropPageFactory(
+            landing_page_domain='',
+            parent=None
+        )
         with self.assertRaises(ValidationError):
             securedrop.save()
             securedrop.full_clean()
 
     def test_duplicate_securedrops_are_invalid(self):
-        securedrop1 = SecuredropFactory(
-            organization='Freedom of the Press Foundation',
+        securedrop1 = SecuredropPageFactory(
+            title='Freedom of the Press Foundation',
             landing_page_domain='freedom.press',
             onion_address='notreal.onion',
+            parent=None
         )
         securedrop1.save()
-        securedrop2 = SecuredropFactory(
-            organization='Freedom of the Press Foundation',
+        securedrop2 = SecuredropPageFactory(
+            title='Freedom of the Press Foundation',
             landing_page_domain='freedom.press',
             onion_address='notreal.onion',
+            parent=None
         )
         with self.assertRaises(IntegrityError):
             securedrop2.save()
 
     def test_securedrop_string_representation(self):
-        securedrop1 = SecuredropFactory(
-            organization='Freedom of the Press Foundation',
+        securedrop1 = SecuredropPageFactory(
+            title='Freedom of the Press Foundation',
             landing_page_domain='freedom.press',
             onion_address='notreal.onion',
+            parent=None
         )
-        self.assertIn(securedrop1.organization, securedrop1.__str__())
+        self.assertIn(securedrop1.title, securedrop1.__str__())
 
 
 class ResultTest(TestCase):
     def setUp(self):
-        self.securedrop = SecuredropFactory(
-            organization='Freedom of the Press Foundation',
+        self.securedrop = SecuredropPageFactory(
+            title='Freedom of the Press Foundation',
             landing_page_domain='freedom.press',
-            onion_address='notreal.onion'
+            onion_address='notreal.onion',
+            parent=None
         )
         self.securedrop.save()
 
@@ -119,7 +127,7 @@ class ResultTest(TestCase):
     def test_result_string_representation(self):
         result1 = Result(live=True, hsts=True, hsts_max_age=99999999,
                          securedrop=self.securedrop)
-        self.assertIn(result1.securedrop.organization, result1.__str__())
+        self.assertIn(result1.securedrop.title, result1.__str__())
 
     def test_custom_eq_operator_compares_only_scan_attributes__same_result(self):
         """Test custom __eq__ does not compare pk, _state, etc."""
