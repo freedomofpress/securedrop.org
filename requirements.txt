@@ -46,8 +46,8 @@ pshtt==0.2.3
 psycopg2==2.7.3
 publicsuffix==1.1.0       # via pshtt
 pycparser==2.18           # via cffi
-pyopenssl==17.2.0         # via pshtt
 pygments==2.2.0
+pyopenssl==17.2.0         # via pshtt
 pyparsing==2.2.0          # via pytablereader
 pytablereader==0.13.3     # via pytablewriter, simplesqlite
 pytablewriter==0.24.0     # via pshtt
