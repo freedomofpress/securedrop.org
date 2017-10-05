@@ -1,11 +1,19 @@
-.security_grade
-	font-weight: 400
-	font-size: 2rem
+$security-font-size: 2rem
+
+.security_grade__text
+	font-size: $security-font-size
+	display: inline-block
 
 .security_grade__grade
-	font-weight: 700
-	color: $yellow
+	color: $white
+	width: 3rem
+	font-size: $security-font-size
+	font-weight: 500
+	margin-left: 0.5rem
+	text-align: center
+	border-radius: 0.5rem
+	display: inline-block
 
 @each $name, $color in $grade-colors
 	.security_grade__grade--#{$name}
-		color: $color
+		background-color: $color

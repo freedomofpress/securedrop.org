@@ -32,8 +32,8 @@
 
 {% block column_two %}
 	<div class="security_grade">
-		{{ settings.common.DirectorySettings.grade_text }}: <span class="security_grade__grade
-		security_grade__grade--{{ page.results.latest.grade }}">{{ page.results.latest.grade }}</span>
+		<div class="security_grade__text">{{ settings.common.DirectorySettings.grade_text }}:</div> <div class="security_grade__grade
+		security_grade__grade--{{ page.results.latest.grade }}">{{ page.results.latest.grade }}</div>
 	</div>
 
 	{% include "directory/_scan_results.html" with result=page.results.latest admin_status="not-admin" %}
