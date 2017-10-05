@@ -13,7 +13,7 @@ def search(request):
 
     # Search
     if search_query:
-        vector = SearchVector('search_content')
+        vector = SearchVector('title', 'search_content')
         query = SearchQuery(search_query)
         search_results = SearchDocument.objects.annotate(
             rank=SearchRank(vector, query),
