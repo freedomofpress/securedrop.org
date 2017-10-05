@@ -27,17 +27,16 @@
 
 			<div class="header">
 				{% get_menu 'main' as menu_items %}
-					<nav id='js-main-nav' class="main-nav">
-						<ul class="nav-menu nav-menu--mobile-hidden {% block nav-classes %}{% endblock %}">
-							{% for item in menu_items %}
-							<li class="nav-menu__item">
-								<a class="nav-menu__link {{ item.html_classes }}" href="{{ item.url }}">
-									{{ item.text }}
-								</a>
-							</li>
-							{% endfor %}
-						</ul>
-					</nav>
+				<nav id='js-main-nav' class="main-nav">
+					<ul class="nav-menu nav-menu--mobile-hidden {% block nav-classes %}{% endblock %}">
+						{% for item in menu_items %}
+						<li class="nav-menu__item">
+							<a class="nav-menu__link {{ item.html_classes }}" href="{{ item.url }}">
+								{{ item.text }}
+							</a>
+						</li>
+						{% endfor %}
+					</ul>
 
 					<button
 						class="hamburger hamburger--collapse js-sliding-nav-trigger"
@@ -69,4 +68,3 @@
 	<div class="shade js-sliding-nav-overlay"></div>
 
 {% endblock body %}
-
