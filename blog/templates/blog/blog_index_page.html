@@ -7,6 +7,10 @@
   {% include "common/_rss_autodiscovery.html" %}
 {% endblock %}
 
+{% block header_classes %}
+    header--purple
+{% endblock %}
+
 {% block main %}
 		{% for post in entries_page %}
 			<div>
