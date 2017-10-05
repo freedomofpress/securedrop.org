@@ -1,10 +1,7 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags wagtailimages_tags static %}
 
-
-{% block header %}
-	{{ block.super }}
-
+{% block page_title %}
 	<div class="hero">
 		<img class="hero__logo" src="{% static 'images/securedrop.png' %}" />
 		<div class="hero__text">
@@ -22,7 +19,11 @@
 			{% endfor %}
 		</div>
 	</div>
-{% endblock header %}
+{% endblock %}
+
+{% block header_classes %}
+	header--transparent
+{% endblock %}
 
 {% block main %}
 	<div class="updates">
@@ -73,5 +74,3 @@
 		{% endfor %}
 	<div>
 {% endblock %}
-
-
