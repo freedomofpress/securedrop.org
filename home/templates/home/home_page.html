@@ -25,7 +25,7 @@
 	header--transparent
 {% endblock %}
 
-{% block main %}
+{% block content %}
 	<div class="updates">
 		<div class="updates__item">
 			<h2 class="updates__header">Latest News</h2>
@@ -72,5 +72,5 @@
 		{% for button in page.features_button.all %}
 			<a href="{% pageurl button.link %}"><button class="instances__button">{{ button.text }}</button></a>
 		{% endfor %}
-	<div>
+	</div>
 {% endblock %}
