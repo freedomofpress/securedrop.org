@@ -38,22 +38,24 @@
 	</div>
 
 	<div class="instances">
-		<h2 class="instances__header">{{ page.instances_header }}</h2>
-		<div class="instances__items">
-			{% for highlighted_instance in page.instances.all %}
-				<div class="instances__item">
-					{% image instance.icon fill-50x50-c100 %}
-					<h3 class="instances__item-header">{{ highlighted_instance.instance.organization }}</h3>
-					<a href="{{ highlighted_instance.instance.landing_page_domain }}" class="instances__item-landingpage">
-						{{ page.instance_link_default_text }}
-					</a>
-					<div class="instances__item-onion-address"><span class="instances__item-onion-address--bold">TOR address:</span> {{ highlighted_instance.instance.onion_address }}</div>
-				</div>
+		<div class="instances__content">
+			<h2 class="instances__header">{{ page.instances_header }}</h2>
+			<div class="instances__items">
+				{% for highlighted_instance in page.instances.all %}
+					<div class="instances__item">
+						{% image instance.icon fill-50x50-c100 %}
+						<h3 class="instances__item-header">{{ highlighted_instance.instance.organization }}</h3>
+						<a href="{{ highlighted_instance.instance.landing_page_domain }}" class="instances__item-landingpage">
+							{{ page.instance_link_default_text }}
+						</a>
+						<div class="instances__item-onion-address"><span class="instances__item-onion-address--bold">TOR address:</span> {{ highlighted_instance.instance.onion_address }}</div>
+					</div>
+				{% endfor %}
+			</div>
+			{% for button in page.instance_button.all %}
+				<a href="{% pageurl button.link %}"><button class="instances__button">{{ button.text }}</button></a>
 			{% endfor %}
 		</div>
-		{% for button in page.instance_button.all %}
-			<a href="{% pageurl button.link %}"><button class="instances__button">{{ button.text }}</button></a>
-		{% endfor %}
 	</div>
 
 	<div class="features">
