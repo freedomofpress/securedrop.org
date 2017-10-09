@@ -63,9 +63,11 @@
 		<div class="features__items">
 			{% for feature in page.features.all %}
 				<div class="features__item">
-					{% image feature.icon fill-50x50-c100 %}
-					<h3 class="features__item-header">{{ feature.title }}</h3>
-					<div class="features__item-description">{{ feature.description|richtext }}</div>
+					{% image feature.icon max-100x100 class='features__item-image' %}
+					<div class="features__item-text">
+						<h3 class="features__item-heading">{{ feature.title }}</h3>
+						{{ feature.description|richtext }}
+					</div>
 				</div>
 			{% endfor %}
 		</div>

@@ -25,10 +25,20 @@
 	flex-basis: 30rem
 	margin-left: 2rem
 	margin-bottom: 1rem
+	display: flex
+	align-items: center
 
 	+media-breakpoint-down(extra-small)
 		flex-basis: 100%
 		margin-left: 0
+
+.features__item-text
+	+p-remove-first-and-last-margin
+	margin-left: 1rem
+
+.features__item-heading
+	font-weight: $sans-bold
+	margin-bottom: 0.5rem
 
 .features__button
 	color: $white
