@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'blog',
     'common',
     'home',
+    'marketing',
     'menus',
     'search',
     'simple',

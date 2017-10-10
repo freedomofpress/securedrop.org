@@ -1,0 +1,17 @@
+{% extends "layout/_layout_one_column.html" %}
+{% load wagtailcore_tags %}
+
+{% block main %}
+
+{% include "marketing/_feature_list.html" with features=page.get_children.live %}
+<a href="{% pageurl page.get_children.live.first %}">
+{% include "common/chevron-right.svg" %}
+</a>
+<h2>{{ page.subheader }}</h2>
+<div>
+	{% for block in page.body %}
+		{% include_block block %}
+	{% endfor %}
+</div>
+
+{% endblock main %}
