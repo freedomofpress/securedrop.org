@@ -3,8 +3,8 @@
 
 {% block main %}
 
-{% include "marketing/_feature_list.html" with features=page.get_children.live %}
-<a href="{% pageurl page.get_children.live.first %}">
+{% include "marketing/_feature_list.html" with features=page.features.all %}
+<a href="{% pageurl page.features.all.first.feature %}">
 {% include "common/chevron-right.svg" %}
 </a>
 <h2>{{ page.subheader }}</h2>

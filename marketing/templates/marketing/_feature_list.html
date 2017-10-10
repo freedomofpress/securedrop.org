@@ -1,13 +1,15 @@
-{% load wagtailimages_tags %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
 <div class="features__items">
 	{% for feature in features %}
-		<div class="features__item">
-			{% if feature.specific.icon %}
-				{% image feature.specific.icon fill-50x50-c100 %}
-			{% endif %}
-			<h3 class="features__item-header">{{ feature.title }}</h3>
-			<div class="features__item-description">{{ feature.specific.teaser_description }}</div>
-		</div>
+		<a href="{% pageurl feature.feature %}">
+			<div class="features__item">
+				{% if feature.feature.icon %}
+					{% image feature.feature.icon fill-50x50-c100 %}
+				{% endif %}
+				<h3 class="features__item-header">{{ feature.title }}</h3>
+				<div class="features__item-description">{{ feature.feature.teaser_description }}</div>
+			</div>
+		</a>
 	{% endfor %}
 </div>

@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.exceptions import ObjectDoesNotExist
+from modelcluster.fields import ParentalKey
 
 from common.models import MetadataPageMixin
 from common.blocks import (
@@ -11,10 +12,10 @@ from common.blocks import (
     RichTextBlockQuoteBlock,
 )
 
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, StreamFieldPanel
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel, PageChooserPanel, StreamFieldPanel
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.fields import StreamField, RichTextField
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 
@@ -44,11 +45,27 @@ class MarketingIndexPage(MetadataPageMixin, Page):
     )
 
     content_panels = Page.content_panels + [
+        InlinePanel('features'),
         FieldPanel('subheader'),
         StreamFieldPanel('body'),
     ]
 
     subpage_types = ['marketing.FeaturePage']
+
+
+class OrderedFeatures(Orderable):
+    page = ParentalKey(
+        'marketing.MarketingIndexPage',
+        related_name='features'
+    )
+    feature = models.ForeignKey(
+        'marketing.FeaturePage',
+        related_name='marketing_order'
+    )
+
+    panels = [
+        PageChooserPanel('feature')
+    ]
 
 
 class FeaturePage(MetadataPageMixin, Page):
@@ -69,35 +86,35 @@ class FeaturePage(MetadataPageMixin, Page):
         null=True
     )
 
-    sort_order = models.PositiveIntegerField(null=True, blank=True, unique=True, help_text="Determines what order pages will be displayed in.")
-    sort_order_field = 'sort_order'
-
     parent_page_types = ['marketing.MarketingIndexPage']
 
     content_panels = Page.content_panels +  [
         ImageChooserPanel('icon'),
         FieldPanel('teaser_description'),
         FieldPanel('description'),
-        FieldPanel('sort_order')
     ]
 
-    class Meta:
-        ordering = ['sort_order']
+    def sort_order(self):
+        return self.marketing_order.get(page=self.get_parent()).sort_order
 
     def next(self):
         try:
-            return FeaturePage.objects.get(sort_order=self.sort_order + 1)
+            return OrderedFeatures.objects.get(
+                page=self.get_parent(),
+                sort_order=self.sort_order() + 1).feature
         except(ObjectDoesNotExist):
             return None
 
     def previous(self):
         try:
-            return FeaturePage.objects.get(sort_order=self.sort_order - 1)
+            return OrderedFeatures.objects.get(
+                page=self.get_parent(),
+                sort_order=self.sort_order() - 1).feature
         except(ObjectDoesNotExist):
             return None
 
     def all_features(self):
-        return FeaturePage.objects.live()
+        return self.get_parent().specific.features.all()
 
     def __str__(self):
-        return '%s. %s' % (self.sort_order, self.title)
+        return '%s. %s' % (self.sort_order() + 1, self.title)
