@@ -1,0 +1,28 @@
+.features-list__items
+	display: flex
+	flex-wrap: wrap
+	justify-content: space-between
+	width: 100%
+
+	+media-breakpoint-down(extra-small)
+		flex-basis: 75%
+		justify-content: center
+
+.features-list__item
+	flex-basis: 30rem
+	margin-left: 2rem
+	margin-bottom: 1rem
+	display: flex
+	align-items: center
+
+	+media-breakpoint-down(extra-small)
+		flex-basis: 100%
+		margin-left: 0
+
+.features-list__item-text
+	+p-remove-first-and-last-margin
+	margin-left: 1rem
+
+.features-list__item-heading
+	font-weight: $sans-bold
+	margin-bottom: 0.5rem
