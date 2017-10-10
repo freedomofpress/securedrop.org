@@ -5,10 +5,12 @@
 		<a href="{% pageurl feature.feature %}">
 			<div class="features__item">
 				{% if feature.feature.icon %}
-					{% image feature.feature.icon fill-50x50-c100 %}
+					{% image feature.icon max-100x100 class='features__item-image' %}
 				{% endif %}
-				<h3 class="features__item-header">{{ feature.title }}</h3>
-				<div class="features__item-description">{{ feature.feature.teaser_description }}</div>
+				<div class="features__item-text">
+					<h3 class="features__item-heading">{{ feature.title }}</h3>
+					<div class="features__item-description">{{ feature.feature.teaser_description }}</div>
+				</div>
 			</div>
 		</a>
 	{% endfor %}

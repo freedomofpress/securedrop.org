@@ -58,7 +58,7 @@ class HomePage(MetadataPageMixin, Page):
                 FieldPanel('features_header'),
                 InlinePanel(
                     'features',
-                    label="SecureDrop Features",
+                    label="Highlighted Features",
                     max_num=8
                 ),
                 InlinePanel('features_button', label="Features Button", max_num=1)
@@ -112,26 +112,15 @@ class FeaturesButton(Button):
     ]
 
 
-class Feature(Orderable):
+class HomepageFeature(Orderable):
     page = ParentalKey('home.HomePage', related_name='features')
-    icon = models.ForeignKey(
-        'common.CustomImage',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-    )
-    title = models.CharField(max_length=255, null=True, blank=True)
-    description = RichTextField(
-        features=['bold', 'italic', 'ol', 'ul', 'hr', 'link', 'document-link'],
-        blank=True,
-        null=True
+    feature = models.ForeignKey(
+        'marketing.FeaturePage',
+        related_name='+'
     )
 
     panels = [
-        ImageChooserPanel('icon'),
-        FieldPanel('title'),
-        FieldPanel('description')
+        PageChooserPanel('feature')
     ]
 
 
