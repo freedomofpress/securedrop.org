@@ -3,7 +3,9 @@
 
 {% block page_title %}
 	<div class="hero">
-		<img class="hero__logo" src="{% static 'images/securedrop.png' %}" />
+		<div class="hero__logo">
+			{% include "common/_logo_transparent_white.svg" with class="hero__logo-svg" %}
+		</div>
 		<div class="hero__text">
 			<h1 class="sr_only">{{ site.title }}</h1>
 			{% include "common/_site_title.svg" with class="hero__title" %}
