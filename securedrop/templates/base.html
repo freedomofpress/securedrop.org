@@ -30,8 +30,10 @@
 				<nav id='js-main-nav' class="main-nav">
 					<div class="nav-menu nav-menu--mobile-hidden {% block nav_classes %}{% endblock %}">
 						{% block nav_logos %}
-							{% include "common/_hexagon.svg" with class="nav-menu__logo" category_slug='security-advisory' %}
-							{% include "common/_site_title.svg" with class="nav-menu__wordmark" %}
+							<a href="/" class="nav-menu__logos">
+								{% include "common/_hexagon.svg" with class="nav-menu__logo" category_slug='security-advisory' %}
+								{% include "common/_site_title.svg" with class="nav-menu__wordmark" %}
+							</a>
 						{% endblock nav_logos %}
 						<ul class="nav-menu__list">
 							{% for item in menu_items %}

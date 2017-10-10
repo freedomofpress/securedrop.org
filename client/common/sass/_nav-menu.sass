@@ -17,14 +17,18 @@
 .nav-menu--homepage
 	justify-content: flex-end
 
+.nav-menu__logos
+	height: 2rem
+	position: relative
+	left: -3rem // put hexagon in the margin
+	display: flex
+	align-items: center
+	+hover
+		opacity: 0.8
+
 .nav-menu__logo
 	width: 2rem
-
-	// Put hexagon in the margin
-	position: absolute
-	left: 3rem
-	+media-breakpoint-only(small)
-		left: 1rem
+	margin-right: 1rem
 
 	*
 		fill: white
