@@ -31,11 +31,15 @@
 	margin-right: 1rem
 
 	*
-		fill: white
+		fill: $white
 
 .nav-menu__wordmark
 	height: 2rem
 	width: auto
+
+
+$nav-menu-search-width: 1.25rem
+$nav-menu-item-padding: 0.5rem
 
 .nav-menu__list
 	+list--unstyled
@@ -43,12 +47,31 @@
 	justify-content: flex-end
 	align-items: center
 	height: $nav-height
+	position: relative
+	right: -#{$nav-menu-search-width + 2*$nav-menu-item-padding}
 
 .nav-menu__item
-	padding: 0.5rem
+	padding: $nav-menu-item-padding
+
+.nav-menu__item--search
+	padding: 0
+	margin-left: $nav-menu-item-padding
 
 .nav-menu__link
 	+link--no-underline(inherit, $nav-hover-color)
+
+	+hover
+		*
+			fill: $nav-hover-color
+
+.nav-menu__search-icon
+	width: $nav-menu-search-width
+	height: auto
+	position: relative
+	top: 0.2rem
+
+	*
+		fill: white
 
 .nav-menu--mobile-hidden
 	+media-breakpoint-down(extra-small)
