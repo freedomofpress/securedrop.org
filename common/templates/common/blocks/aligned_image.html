@@ -6,9 +6,9 @@
 
 <div class="image__wrapper
 	{% if self.alignment == 'full-width' %}
-		image__wrapper--full-width
+		captioned-media__wrapper--full-width
 	{% else %}
-		image__wrapper--{% if self.alignment == 'left' %}left{% else %}right{% endif %}
+		captioned-media__wrapper--{% if self.alignment == 'left' %}left{% else %}right{% endif %}
 	{% endif %}">
 	<img
 		alt="{{ x1.alt }}"

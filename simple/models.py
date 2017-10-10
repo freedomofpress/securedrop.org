@@ -9,6 +9,7 @@ from wagtail.wagtailcore.fields import StreamField
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from wagtail.wagtailsearch import index
 
+from common.models import MetadataPageMixin
 from common.blocks import (
     Heading1,
     Heading2,
@@ -58,7 +59,7 @@ class BaseSidebarPageMixin(models.Model):
         abstract = True
 
 
-class SimplePage(Page):
+class SimplePage(MetadataPageMixin, Page):
     body = StreamField(
         [
             ('text', blocks.RichTextBlock()),
@@ -77,18 +78,8 @@ class SimplePage(Page):
         blank=False
     )
 
-    sidebar_content = StreamField(
-        [
-            ('heading', Heading2()),
-            ('rich_text', blocks.RichTextBlock()),
-        ],
-        default=None,
-        blank=True,
-    )
-
     content_panels = Page.content_panels + [
         StreamFieldPanel('body'),
-        StreamFieldPanel('sidebar_content')
     ]
 
     search_fields = Page.search_fields + [
@@ -105,7 +96,7 @@ class SimplePage(Page):
         )
 
 
-class SimplePageWithMenuSidebar(BaseSidebarPageMixin, Page):
+class SimplePageWithMenuSidebar(MetadataPageMixin, BaseSidebarPageMixin, Page):
     body = StreamField(
         [
             ('text', blocks.RichTextBlock()),
