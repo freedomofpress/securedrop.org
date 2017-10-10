@@ -1,35 +1,37 @@
 
 .hero
-	color: $white
-	+sd-gradient($blue-bright1,$blue-bright2)
 	height: 30rem
 	padding: 4rem 2rem
 	display: flex
 	justify-content: flex-start
 	align-items: flex-start
-	flex-wrap: wrap
+	flex-wrap: nowrap
 	// move it above the rest of the page (anticipaing hexagons)
 	z-index: 10
 
 	+media-breakpoint-down(extra-small)
+		flex-wrap: wrap
 		flex-direction: column
 		height: auto
 
 .hero__logo
 	padding-right: 2rem
 	flex-grow: 1
-	height: auto
+	flex-basis: 33%
 
 	+media-breakpoint-down(extra-small)
 		align-self: center
 		max-width: 75%
-		height: auto
 		flex-grow: 0
 		padding-right: 0
 		padding-bottom: 2rem
 
+.hero__logo-svg
+	height: auto
+	width: 100%
+
 .hero__text
-	flex-grow: 5
+	flex-grow: 2
 
 .hero__title
 	max-width: 90%
