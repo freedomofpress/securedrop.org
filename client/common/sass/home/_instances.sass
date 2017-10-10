@@ -1,10 +1,13 @@
 .instances
+	+layout-y
+	color: $white
+	+sd-gradient($slate1,$slate2)
+
+.instances__content
+	+layout-x--more-padding-on-extra-small
 	display: flex
 	flex-direction: column
 	align-items: center
-	padding: 3rem 4rem
-	color: $white
-	background-color: $gray80
 
 .instances__header
 	flex-basis: 75%
@@ -17,11 +20,7 @@
 	flex-wrap: wrap
 	justify-content: space-between
 	flex-wrap: wrap
-	width: 70%
-
-	+media-breakpoint-down(extra-small)
-		flex-basis: 75%
-		justify-content: center
+	width: 100%
 
 .instances__item
 	flex-basis: 20rem

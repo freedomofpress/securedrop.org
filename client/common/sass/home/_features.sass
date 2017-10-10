@@ -2,7 +2,8 @@
 	display: flex
 	flex-direction: column
 	align-items: center
-	padding: 3rem 4rem
+	+layout-x--more-padding-on-extra-small
+	+layout-y
 
 .features__header
 	flex-basis: 75%
@@ -15,7 +16,7 @@
 	flex-wrap: wrap
 	justify-content: space-between
 	flex-wrap: wrap
-	width: 80%
+	width: 100%
 
 	+media-breakpoint-down(extra-small)
 		flex-basis: 75%
@@ -25,10 +26,20 @@
 	flex-basis: 30rem
 	margin-left: 2rem
 	margin-bottom: 1rem
+	display: flex
+	align-items: center
 
 	+media-breakpoint-down(extra-small)
 		flex-basis: 100%
 		margin-left: 0
+
+.features__item-text
+	+p-remove-first-and-last-margin
+	margin-left: 1rem
+
+.features__item-heading
+	font-weight: $sans-bold
+	margin-bottom: 0.5rem
 
 .features__button
 	color: $white
