@@ -1,24 +1,27 @@
 {% load wagtailcore_tags common_tags %}
 
+<main class="scan-result">
 {% for result_group in result_groups %}
 	<section class="scan-result__section">
 		<h3 class="scan-result__heading">{{ result_group.name }}</h3>
 		{% for result_state in result_group.result_states.all %}
 			{% if result|get_attr:result_state.name == True %}
-				<div class="scan-result__success">
+				<div class="scan-result__result scan-result__result--success">
 					{% include "common/checkmark.svg" with class="scan-result__checkmark" %}
 					<span class="scan-result__text">{{ result_state.success_text|richtext }}</span>
 				</div>
 			{% elif result|get_attr:result_state.name == False %}
 				{% if result_state.is_warning == True %}
-					<div class="scan-result__warning">
+					<div class="scan-result__result scan-result__result--warning">
 					{% include "common/flag.svg" with class="scan-result__flag" %}
 				{% else %}
-					<div class="scan-result__fail">
+					<div class="scan-result__result scan-result__result--fail">
 					{% include "common/_x.svg" with class="scan-result__x" %}
 				{% endif %}
 					<span class="scan-result__text">{{ result_state.failure_text|richtext }}</span>
 				</div>
 			{% endif %}
 		{% endfor %}
+	</section>
 {% endfor %}
+</main>
