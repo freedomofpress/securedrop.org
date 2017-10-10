@@ -3,8 +3,8 @@
 	transition-timing-function: linear
 	transition-property: background-color
 
-=button--lighten($background-color: $background-color)
+=button-hover-color($color1, $color2: lighten($color1, 8))
 	+button-transition
-	background-color: $background-color
+	background-color: $color1
 	+hover
-		background-color: lighten($background-color, 7)
+		background-color: $color2
