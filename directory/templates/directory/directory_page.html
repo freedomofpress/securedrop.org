@@ -27,7 +27,7 @@
 									{% include "common/question-circle.svg" with class="instance-table__question-circle" %}
 									<div class="sr-only">More information about security grades</div></a>
 							{% endif %}
-					</th>
+						</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -54,7 +54,6 @@
 							</td>
 							<td class="instance-table__grade-column"><a class="instance-table__link" href="{% pageurl instance %}"><div class="instance-table__grade instance-table__grade--{{instance.specific.results.latest.grade}}">{{instance.specific.results.latest.grade}}</div></a></td>
 						</a></tr>
-						<tr class="instance-table__spacer"><td></td></tr>
 					{% endfor %}
 				</tbody>
 			</table>
