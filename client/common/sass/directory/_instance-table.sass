@@ -36,11 +36,13 @@
 	width: auto
 
 .instance-table__org-name
-	margin-bottom: 0.25rem
+	margin-bottom: 0.3rem
 	font-size: 2rem
+	line-height: 1
 
 .instance-table__org-description
-	color: $gray50--text
+	.rich-text
+		+p-remove-first-and-last-margin
 
 .instance-table__grade-column
 	text-align: right

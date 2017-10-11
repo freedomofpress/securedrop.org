@@ -45,9 +45,9 @@
 							<td class="instance-table__org">
 								<a class="instance-table__link" href="{% pageurl instance %}">
 									<h3 class="instance-table__org-name">{{instance.title}}</h3>
-									{% if instance.organization_description %}
+									{% if instance.specific.organization_description %}
 										<div class="instance-table__org-description">
-											{{ instance.organization_description|richtext|truncatewords_html:20 }}
+											{{ instance.specific.organization_description|richtext|truncatewords_html:20 }}
 										</div>
 									{% endif %}
 								</a>
