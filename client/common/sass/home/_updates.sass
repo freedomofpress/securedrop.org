@@ -1,15 +1,19 @@
-$hero-overlap: 3rem
+$hero-overlap: 4rem
 
 .updates
+	padding: 2rem + $hero-overlap 1rem 2rem
+	// ensures that the hero overlaps (with hexagons)
+	margin-top: -$hero-overlap
+	position: relative
+	z-index: 8
+
+.updates__content
 	display: flex
 	justify-content: center
 	align-items: flex-start
 	flex-wrap: wrap
-	background-color: $gray10
-	padding: 2rem + $hero-overlap 1rem 2rem
-	// ensures that the hero overlaps (with hexagons)
-	margin-top: -$hero-overlap
-
+	position: relative
+	z-index: 9
 
 .updates__header
 	+uppercase

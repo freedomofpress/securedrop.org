@@ -27,7 +27,9 @@
 
 			<div class="header {% block header_classes %}{% endblock %}">
 				<div class="hexagons-background">
-					{% include "common/_hexagons_background.svg" with class="hexagons-background__svg" %}
+					{% block header_hexagons %}
+						{% include "common/_hexagons_background.svg" with class="hexagons-background__svg" %}
+					{% endblock %}
 				</div>
 				{% get_menu 'main' as menu_items %}
 				<nav id='js-main-nav' class="main-nav">
