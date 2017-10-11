@@ -9,10 +9,8 @@ from landing_page_checker.tests.factories import SecuredropPageFactory
 class SecuredropPageTest(TestCase):
     def test_securedrop_can_save_expected_urls(self):
         securedrop = SecuredropPageFactory(
-            title='Freedom of the Press Foundation',
-            landing_page_domain='freedom.press',
+            landing_page_domain='something.org',
             onion_address='notreal.onion',
-            parent=None
         )
         securedrop.save()
         self.assertIn(securedrop, SecuredropPage.objects.all())
@@ -46,21 +44,13 @@ class SecuredropPageTest(TestCase):
     def test_securedrop_string_representation(self):
         securedrop1 = SecuredropPageFactory(
             title='Freedom of the Press Foundation',
-            landing_page_domain='freedom.press',
-            onion_address='notreal.onion',
-            parent=None
         )
         self.assertIn(securedrop1.title, securedrop1.__str__())
 
 
 class ResultTest(TestCase):
     def setUp(self):
-        self.securedrop = SecuredropPageFactory(
-            title='Freedom of the Press Foundation',
-            landing_page_domain='freedom.press',
-            onion_address='notreal.onion',
-            parent=None
-        )
+        self.securedrop = SecuredropPageFactory()
         self.securedrop.save()
 
     def test_grade_computed_on_save(self):
