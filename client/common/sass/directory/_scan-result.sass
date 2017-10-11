@@ -33,13 +33,7 @@
 
 .scan-result__text
 	a
-		+decoration(underline)
-		text-decoration-style: dashed
-		color: inherit
-
-		+hover
-			color: $gray50
-			text-decoration-style: dashed
+		+link--underline(inherit, $link-hover-color)
 
 .scan-result__x, .scan-result__checkmark, .scan-result__flag
 	height: auto
