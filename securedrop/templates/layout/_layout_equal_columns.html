@@ -2,6 +2,10 @@
 
 {% block content %}
 	{{ block.super }}
+	<section>
+		{% block top %}
+		{% endblock %}
+	</section>
 	<div class="layout-equal">
 		<section class="{% block column-one_classes %}layout-equal__one{% endblock %}">
 			{% block column_one %}

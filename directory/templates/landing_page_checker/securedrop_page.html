@@ -2,10 +2,13 @@
 {% load wagtailcore_tags wagtailimages_tags result_tags %}
 
 {% block header_classes %}
-	header--transparent
+	header--slate
 {% endblock %}
 
 {% block page_title %}
+{% endblock page_title %}
+
+{% block top%}
 	<div class="instance-title">
 		{% if page.organization_logo %}
 			<div class="instance-title__logo">
@@ -18,7 +21,8 @@
 			{{settings.common.DirectorySettings.compare_onion_address_text}} <span class='instance-title__onion-address'>{{page.onion_address}}</span>
 		</div>
 	</div>
-{% endblock page_title %}
+{% endblock top %}
+
 
 {% block column_one %}
 	<div class="instance-description">
