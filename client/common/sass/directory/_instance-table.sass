@@ -1,27 +1,28 @@
+$table-margin: 1rem
+
 .instance-table
 	width: 100%
 	border-collapse: separate
+	margin: 0 -$table-margin
+
+.instance-table__title, .instance-table__icon, .instance-table__org, .instance-table__grade-column
+	padding: $table-margin
 
 .instance-table__icon
 	border-top-left-radius: $button-border-radius
 	border-bottom-left-radius: $button-border-radius
-	padding: 0.25rem 0
+	padding-right: 0
 
 .instance-table__grade-column
 	border-top-right-radius: $button-border-radius
 	border-bottom-right-radius: $button-border-radius
-
-.instance-table__icon, .instance-table__org, .instance-table__grade-column
-	padding: 0.5rem
-
-.instance-table__head
-	margin-bottom: 2rem
 
 .instance-table__title
 	text-transform: uppercase
 	color: $gray50--text
 	text-align: left
 	font-weight: 400
+	margin-bottom: 1rem
 
 .instance-table__title--security
 	text-align: right
