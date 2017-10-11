@@ -1,3 +1,80 @@
-<h1>{{ page.title }}</h1>
+{% extends "layout/_layout_sidebar.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
 
-<a href="{{page.url}}form">FORM</a>
+{% block main_classes %}
+	{{ block.super }}
+	layout-sidebar--directory
+{% endblock %}
+
+{% block layout_sidebar_classes %}
+	layout-sidebar--directory
+{% endblock %}
+
+{% block main %}
+	<section class="directory-body">
+		{{ page.body|richtext }}
+	</section>
+	<section class="instance-list">
+		<table class="instance-table">
+				<thead class="instance-table__head">
+					<tr>
+						<th colspan="2" class="instance-table__title">Organization</th>
+						<th colspan="2" class="instance-table__title instance-table__title--security">
+							Security
+							{% if page.faq_link %}
+								<a class="instance-table__faq-link" href="{% pageurl page.faq_link %}">
+									{% include "common/question-circle.svg" with class="instance-table__question-circle" %}
+									<div class="sr-only">More information about security grades</div></a>
+							{% endif %}
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for instance in page.get_children %}
+						<tr class="instance-table__row">
+							<td class="instance-table__icon">
+								<a class="instance-table__link" href="{% pageurl instance %}">
+									{% if instance.specific.organization_logo %}
+										{% image instance.specific.organization_logo width-40 %}
+									{% else %}
+										{% include "common/_hexagon.svg" with class="instance-table__hexagon" category_slug="instance-table" %}
+									{% endif %}
+								</a>
+							</td>
+							<td class="instance-table__org">
+								<a class="instance-table__link" href="{% pageurl instance %}">
+									<h3 class="instance-table__org-name">{{instance.title}}</h3>
+									{% if instance.specific.organization_description %}
+										<div class="instance-table__org-description">
+											{{ instance.specific.organization_description|richtext|truncatewords_html:20 }}
+										</div>
+									{% endif %}
+								</a>
+							</td>
+							<td class="instance-table__grade-column"><a class="instance-table__link" href="{% pageurl instance %}"><div class="instance-table__grade instance-table__grade--{{instance.specific.results.latest.grade}}">{{instance.specific.results.latest.grade}}</div></a></td>
+						</a></tr>
+					{% endfor %}
+				</tbody>
+			</table>
+	</section>
+{% endblock main %}
+
+{% block sidebar %}
+	<section class="source-warning">
+		{% include "common/info-circle.svg" with class="source-warning__info-icon" %}
+		<span class="source_warning__text">{{ page.source_warning|richtext }}</span>
+	</section>
+	<section class="submit-instance">
+		<h2 class="submit-instance__title">
+			{{ page.submit_title }}
+		</h2>
+		<div class="submit-instance__body">
+			{{ page.submit_body|richtext }}
+		</div>
+		<a href="{{page.url}}form">
+			<button class="submit-instance__button">
+				{{ page.submit_button_text }}
+			</button>
+		</a>
+	</section>
+{% endblock sidebar %}

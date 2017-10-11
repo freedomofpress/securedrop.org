@@ -1,0 +1,74 @@
+$table-margin: 1rem
+
+.instance-table
+	width: 100%
+	border-collapse: separate
+	margin: 0 -$table-margin
+
+.instance-table__title, .instance-table__icon, .instance-table__org, .instance-table__grade-column
+	padding: $table-margin
+
+.instance-table__icon
+	border-top-left-radius: $button-border-radius
+	border-bottom-left-radius: $button-border-radius
+	padding-right: 0
+
+.instance-table__grade-column
+	border-top-right-radius: $button-border-radius
+	border-bottom-right-radius: $button-border-radius
+
+.instance-table__title
+	text-transform: uppercase
+	color: $gray50--text
+	text-align: left
+	font-weight: 400
+	margin-bottom: 1rem
+
+.instance-table__title--security
+	text-align: right
+
+.instance-table__faq-link
+	+link--no-underline(inherit, $gray80)
+	height: 1rem
+	vertical-align: -1px
+
+.instance-table__question-circle
+	height: 1rem
+	width: auto
+
+.instance-table__org-name
+	margin-bottom: 0.3rem
+	font-size: 2rem
+	line-height: 1
+
+.instance-table__org-description
+	.rich-text
+		+p-remove-first-and-last-margin
+
+.instance-table__grade-column
+	text-align: right
+
+.instance-table__grade
+	color: $white
+	width: 3rem
+	font-size: 2rem
+	font-weight: 500
+	text-align: center
+	border-radius: 0.5rem
+
+
+@each $name, $color in $grade-colors
+	.instance-table__grade--#{$name}
+		background-color: $color
+
+.instance-table__row
+	+link-transition
+	+hover
+		background-color: $gray10
+
+.instance-table__link
+	+link--unstyled
+	display: inline-block
+
+.instance-table__hexagon
+	height: 2.5rem

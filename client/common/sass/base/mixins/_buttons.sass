@@ -1,0 +1,10 @@
+=button-transition
+	transition-duration: 0.1s
+	transition-timing-function: linear
+	transition-property: background-color
+
+=button-hover-color($color1, $color2: lighten($color1, 8))
+	+button-transition
+	background-color: $color1
+	+hover
+		background-color: $color2

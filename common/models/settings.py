@@ -131,3 +131,40 @@ class SocialSharingSEOSettings(BaseSetting):
 
     class Meta:
         verbose_name = 'Social Sharing/SEO'
+
+
+@register_setting(icon='form')
+class DirectorySettings(BaseSetting):
+    landing_page_link_text = models.CharField(
+        max_length=255,
+        default='Securedrop landing page'
+    )
+    compare_onion_address_text = models.CharField(
+        max_length=255,
+        default='Check this address against the one on the landing page:',
+        help_text='Text displayed immedieately before the onion address.'
+    )
+    grade_text = models.CharField(
+        max_length=100,
+        default='Security Grade'
+    )
+    security_warning = RichTextField(
+        blank=True,
+        null=True,
+        help_text="Warning displayed for sources on instance pages."
+    )
+    no_results_text = RichTextField(
+        default='Results could not be calculated.',
+        help_text='Text displayed when there are no results for a results group.'
+    )
+
+    panels = [
+        FieldPanel('landing_page_link_text'),
+        FieldPanel('compare_onion_address_text'),
+        FieldPanel('grade_text'),
+        FieldPanel('security_warning'),
+        FieldPanel('no_results_text')
+    ]
+
+    class Meta:
+        verbose_name = 'Directory Settings'

@@ -19,7 +19,7 @@
 
 						<button id="js-site-alert-button" class="site-alert__close-button site-alert__close-button--hidden">
 							<span class="sr-only">{{ alert.close_text }}</span>
-							<svg class="site-alert__close-x" viewBox="0 0 12 16" version="1.1" aria-hidden="true"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48z"></path></svg>
+							{% include "common/_x.svg" with class="site-alert__close-x"%}
 						</button>
 					</div>
 				{% endif %}

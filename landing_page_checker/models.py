@@ -1,15 +1,16 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from django.utils.text import slugify
-from modelcluster.fields import ParentalKey
+
+from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.fields import RichTextField
+from wagtail.wagtailadmin.edit_handlers import FieldPanel
+from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+
+from common.models.mixins import MetadataPageMixin
 
 
-class Securedrop(models.Model):
-    page = ParentalKey('directory.DirectoryPage', related_name='instances')
-    organization = models.CharField('Organization', max_length=255, unique=True)
-    slug = models.SlugField('Slug', unique=True, editable=False)
-
+class SecuredropPage(MetadataPageMixin, Page):
     landing_page_domain = models.CharField(
         'Landing Page Domain Name',
         max_length=255,
@@ -22,11 +23,21 @@ class Securedrop(models.Model):
 
     added = models.DateTimeField(auto_now_add=True)
 
-    def clean(self):
-        self.slug = slugify(self.organization)
+    organization_logo = models.ForeignKey(
+        'common.CustomImage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+    organization_description = RichTextField(blank=True, null=True)
 
-    def __str__(self):
-        return '{}'.format(self.organization)
+    content_panels = Page.content_panels + [
+        FieldPanel('landing_page_domain'),
+        FieldPanel('onion_address'),
+        FieldPanel('organization_description'),
+        ImageChooserPanel('organization_logo'),
+    ]
 
 
 class Result(models.Model):
@@ -34,7 +45,7 @@ class Result(models.Model):
     # produce a new Result row. If multiple consecutive scans have the same
     # result, then we only insert that result once and set the result_last_seen
     # to the date of the last scan.
-    securedrop = models.ForeignKey(Securedrop, on_delete=models.CASCADE,
+    securedrop = models.ForeignKey(SecuredropPage, on_delete=models.CASCADE,
                                    related_name='results')
 
     live = models.BooleanField()
@@ -100,7 +111,7 @@ class Result(models.Model):
         return self_values_to_compare == other_values_to_compare
 
     def __str__(self):
-        return 'Scan result for {}'.format(self.securedrop.organization)
+        return 'Scan result for {}'.format(self.securedrop.title)
 
     def compute_grade(self):
         if self.live is False:

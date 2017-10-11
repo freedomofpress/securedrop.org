@@ -2,10 +2,9 @@ import random
 import string
 
 import factory
-from django.utils.text import slugify
 
-from directory.tests.factories import DirectoryPageFactory
-from landing_page_checker.models import Securedrop
+import wagtail_factories
+from landing_page_checker.models import SecuredropPage
 
 
 def random_onion_address():
@@ -15,12 +14,11 @@ def random_onion_address():
     ) + '.onion'
 
 
-class SecuredropFactory(factory.Factory):
+class SecuredropPageFactory(wagtail_factories.PageFactory):
     class Meta:
-        model = Securedrop
+        model = SecuredropPage
 
-    page = factory.SubFactory(DirectoryPageFactory)
-    organization = factory.Faker('sentence', nb_words=3)
-    slug = factory.LazyAttribute(lambda o: slugify(o.organization))
+    title = factory.Faker('sentence', nb_words=3)
     landing_page_domain = factory.Faker('uri')
     onion_address = factory.LazyFunction(random_onion_address)
+    parent = None
