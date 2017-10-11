@@ -16,30 +16,32 @@ class SecuredropPageTest(TestCase):
         self.assertIn(securedrop, SecuredropPage.objects.all())
 
     def test_securedrop_cannot_save_empty_urls(self):
-        securedrop = SecuredropPageFactory(
-            landing_page_domain='',
-            parent=None
+        with self.assertRaises(ValidationError):
+            SecuredropPageFactory(
+                landing_page_domain='',
+            )
+
+    def test_duplicate_landing_pages_are_invalid(self):
+        landing_page_domain = 'freedom.press'
+
+        SecuredropPageFactory(
+            landing_page_domain=landing_page_domain,
         )
         with self.assertRaises(ValidationError):
-            securedrop.save()
-            securedrop.full_clean()
+            SecuredropPageFactory(
+                landing_page_domain=landing_page_domain,
+            )
 
-    def test_duplicate_securedrops_are_invalid(self):
-        securedrop1 = SecuredropPageFactory(
-            title='Freedom of the Press Foundation',
-            landing_page_domain='freedom.press',
-            onion_address='notreal.onion',
-            parent=None
+    def test_duplicate_onion_addresses_are_invalid(self):
+        onion_address = 'notreal.onion'
+
+        SecuredropPageFactory(
+            onion_address=onion_address,
         )
-        securedrop1.save()
-        securedrop2 = SecuredropPageFactory(
-            title='Freedom of the Press Foundation',
-            landing_page_domain='freedom.press',
-            onion_address='notreal.onion',
-            parent=None
-        )
-        with self.assertRaises(IntegrityError):
-            securedrop2.save()
+        with self.assertRaises(ValidationError):
+            SecuredropPageFactory(
+                onion_address=onion_address,
+            )
 
     def test_securedrop_string_representation(self):
         securedrop1 = SecuredropPageFactory(
