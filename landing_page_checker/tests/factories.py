@@ -23,3 +23,4 @@ class SecuredropPageFactory(wagtail_factories.PageFactory):
     title = factory.Faker('sentence', nb_words=3)
     landing_page_domain = factory.Faker('uri')
     onion_address = factory.LazyFunction(random_onion_address)
+    parent = None
