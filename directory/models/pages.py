@@ -20,7 +20,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
     submit_body = RichTextField(blank=True, null=True)
     submit_button_text = models.CharField(
         max_length=100,
-        default="Scan my instance",
+        default="Get Started",
         help_text="Text displayed on link to scanning form.")
     faq_link = models.ForeignKey(
         # Likely an FAQ page
