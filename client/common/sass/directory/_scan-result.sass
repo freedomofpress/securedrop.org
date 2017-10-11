@@ -31,14 +31,15 @@
 .scan-result__fix--not-admin
 	display: none
 
-.scan-result__link
-	+decoration(underline)
-	text-decoration-style: dashed
-	color: inherit
-
-	+hover
-		color: $gray50
+.scan-result__text
+	a
+		+decoration(underline)
 		text-decoration-style: dashed
+		color: inherit
+
+		+hover
+			color: $gray50
+			text-decoration-style: dashed
 
 .scan-result__x, .scan-result__checkmark, .scan-result__flag
 	height: auto
