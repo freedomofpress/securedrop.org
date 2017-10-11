@@ -26,6 +26,7 @@
 			{% endwith %}
 
 			<div class="header {% block header_classes %}{% endblock %}">
+				{% include "common/_hexagons_background.svg" with class="hexagons-background" %}
 				{% get_menu 'main' as menu_items %}
 				<nav id='js-main-nav' class="main-nav">
 					<div class="nav-menu nav-menu--mobile-hidden {% block nav_classes %}{% endblock %}">
