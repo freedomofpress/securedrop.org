@@ -2,10 +2,8 @@ import random
 import string
 
 import factory
-from django.utils.text import slugify
 
 import wagtail_factories
-from directory.tests.factories import DirectoryPageFactory
 from landing_page_checker.models import SecuredropPage
 
 

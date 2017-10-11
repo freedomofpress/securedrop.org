@@ -1,4 +1,3 @@
-from django.db.utils import IntegrityError
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 

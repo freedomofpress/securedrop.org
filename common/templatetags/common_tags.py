@@ -33,6 +33,7 @@ def query_transform(request, **kwargs):
         updated[k] = v
     return updated.urlencode()
 
+
 @register.filter
 def get_attr(obj, attribute):
     """ Try to get an attribute from an object
@@ -40,5 +41,5 @@ def get_attr(obj, attribute):
     Returns false if object does not exist
     """
     if hasattr(obj, attribute):
-        return  getattr(obj, attribute)
+        return getattr(obj, attribute)
     return False

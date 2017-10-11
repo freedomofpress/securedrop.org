@@ -1,5 +1,4 @@
 from django.db import models
-from django.core.exceptions import ValidationError
 
 from modelcluster.models import ClusterableModel
 from modelcluster.fields import ParentalKey
