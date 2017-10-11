@@ -20,7 +20,7 @@ class Command(BaseCommand):
         home_page = HomePage.objects.get(slug='home')
         directory = DirectoryPage.objects.first()
         if not directory:
-            directory = DirectoryPageFactory(parent=home_page)
+            directory = DirectoryPageFactory(parent=home_page, title="Directory")
             directory.save()
         for _ in range(number_of_instances):
             instance = SecuredropPageFactory(parent=directory)
