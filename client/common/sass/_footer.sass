@@ -88,6 +88,7 @@ $list-bottom-padding: 2rem
 	display: flex
 	+sd-gradient($purple1,$purple2)
 	color: $white
+	position: relative
 
 	+media-breakpoint-down(extra-small)
 		flex-direction: column
@@ -105,6 +106,8 @@ $list-bottom-padding: 2rem
 	padding: 5rem 3rem 5rem 2rem
 	// as a flex-child
 	flex-basis: 66%
+	position: relative
+	z-index: 7
 
 	+media-breakpoint-down(extra-small)
 		text-align: center
@@ -164,6 +167,8 @@ $list-bottom-padding: 2rem
 	display: flex
 	align-items: center
 	justify-content: center
+	position: relative
+	z-index: 7
 
 	+media-breakpoint-down(extra-small)
 		flex-basis: 75%

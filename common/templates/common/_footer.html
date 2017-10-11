@@ -25,6 +25,9 @@
 			</section>
 		</div>
 		<section class="footer-main">
+			<div class="hexagons-background">
+				{% include "common/_hexagons_background.svg" with class="hexagons-background__svg hexagons-background__svg--footer" %}
+			</div>
 			{% include "common/_logo_solid_white.svg" with class="footer-main__logo" %}
 			<div class="footer-main__content">
 				<h2 class='footer-main__title'>{{ footer.title|richtext }}</h2>
