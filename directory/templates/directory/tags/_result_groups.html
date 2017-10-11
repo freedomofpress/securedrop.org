@@ -20,6 +20,10 @@
 				{% endif %}
 					<span class="scan-result__text">{{ result_state.failure_text|richtext }}</span>
 				</div>
+			{% elif forloop.first and result|get_attr:result_state.name == None %}
+				<div class="scan-result__result">
+					<p>{{ no_results_text }}</p>
+				</div>
 			{% endif %}
 		{% endfor %}
 	</section>

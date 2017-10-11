@@ -153,12 +153,17 @@ class DirectorySettings(BaseSetting):
         null=True,
         help_text="Warning displayed for sources on instance pages."
     )
+    no_results_text = RichTextField(
+        default='Results could not be calculated.',
+        help_text='Text displayed when there are no results for a results group.'
+    )
 
     panels = [
         FieldPanel('landing_page_link_text'),
         FieldPanel('compare_onion_address_text'),
         FieldPanel('grade_text'),
-        FieldPanel('security_warning')
+        FieldPanel('security_warning'),
+        FieldPanel('no_results_text')
     ]
 
     class Meta:

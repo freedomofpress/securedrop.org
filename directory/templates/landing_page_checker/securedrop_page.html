@@ -41,7 +41,7 @@
 		security_grade__grade--{{ page.results.latest.grade }}">{{ page.results.latest.grade }}</div>
 	</div>
 
-	{% result_groups page.results.latest True %}
+	{% result_groups page.results.latest True settings.common.DirectorySettings.no_results_text%}
 
 	<div class="row">
 		<a href="{% pageurl page.get_parent %}" class="btn btn-sm btn-primary"/>Back to SecureDrop Directory</a>
