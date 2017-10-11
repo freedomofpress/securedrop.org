@@ -16,7 +16,7 @@
 
 .scan-result__result
 	display: flex
-	align-items: center
+	align-items: flex-start
 	padding: 0.1rem 0
 
 .scan-result__result--success
@@ -32,6 +32,8 @@
 	display: none
 
 .scan-result__text
+	// align lowercase text with the middle of the x
+	padding-top: 5px
 	a
 		+link--underline(inherit, $link-hover-color)
 
