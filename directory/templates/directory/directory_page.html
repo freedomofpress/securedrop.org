@@ -51,7 +51,13 @@
 									{% endif %}
 								</a>
 							</td>
-							<td class="instance-table__grade-column"><a class="instance-table__link" href="{% pageurl instance %}"><div class="instance-table__grade instance-table__grade--{{instance.specific.results.latest.grade}}">{{instance.specific.results.latest.grade}}</div></a></td>
+							<td class="instance-table__grade-column">
+								<a class="instance-table__link" href="{% pageurl instance %}">
+									<div class="instance-table__grade instance-table__grade--{{instance.specific.results.latest.grade}}">
+										{{instance.specific.results.latest.grade}}
+									</div>
+								</a>
+							</td>
 						</a></tr>
 					{% endfor %}
 				</tbody>
