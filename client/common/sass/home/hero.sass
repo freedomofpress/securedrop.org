@@ -11,12 +11,18 @@
 
 	+media-breakpoint-down(extra-small)
 		text-align: center
+		flex-direction: column
+		align-items: center
+		height: 55.1rem
 
 .hero__logo
 	width: 16rem
 	flex-shrink: 0
 	flex-grow: 0
 	margin-right: $layout-padding
+	+media-breakpoint-down(extra-small)
+		margin-right: 0
+		margin-bottom: $layout-padding
 
 .hero__logo-svg
 	height: auto
@@ -28,6 +34,7 @@
 
 .hero__title
 	max-width: 90%
+	margin-bottom: 1.5rem
 
 .hero__description
 	margin-bottom: 1rem
@@ -36,7 +43,7 @@
 		+p-remove-first-and-last-margin
 
 	+media-breakpoint-down(extra-small)
-		max-width: 100%
+		display: none
 
 
 .hero__button
