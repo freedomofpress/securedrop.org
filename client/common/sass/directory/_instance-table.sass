@@ -4,6 +4,8 @@ $table-margin: 1rem
 	width: 100%
 	border-collapse: separate
 	margin: 0 -$table-margin
+	+media-breakpoint-down(extra-small)
+		margin: 0 0 $layout-padding
 
 .instance-table__title, .instance-table__icon, .instance-table__org, .instance-table__grade-column
 	padding: $table-margin
@@ -12,6 +14,10 @@ $table-margin: 1rem
 	border-top-left-radius: $button-border-radius
 	border-bottom-left-radius: $button-border-radius
 	padding-right: 0
+	width: 6rem
+
+.instance-table__hexagon
+	width: 100%
 
 .instance-table__grade-column
 	border-top-right-radius: $button-border-radius
@@ -69,6 +75,3 @@ $table-margin: 1rem
 .instance-table__link
 	+link--unstyled
 	display: inline-block
-
-.instance-table__hexagon
-	height: 2.5rem
