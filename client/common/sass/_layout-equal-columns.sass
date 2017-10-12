@@ -1,22 +1,24 @@
-$layout-equal-column-padding: 1.5rem
-
 .layout-equal
 	display: flex
-	padding: 2rem 2rem 5rem
-	max-width: 1000px
-	margin: 0 auto
+	+layout-x
+	+layout-y
 
 	+media-breakpoint-down(extra-small)
-		flex-direction: column-reverse
+		flex-direction: column
 
 .layout-equal__one, .layout-equal__two
 	flex-basis: 50%
 
 .layout-equal__one
-	padding-right: $layout-equal-column-padding
+	padding-right: $layout-padding
+
+	+media-breakpoint-down(extra-small)
+		padding-right: 0
+		padding-bottom: $layout-padding
 
 .layout-equal__two
-	padding-left: $layout-equal-column-padding
+	padding-left: $layout-padding
 
 	+media-breakpoint-down(extra-small)
 		flex-basis: 100%
+		padding: 0

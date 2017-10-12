@@ -19,7 +19,7 @@
 				<thead class="instance-table__head">
 					<tr>
 						<th colspan="2" class="instance-table__title">Organization</th>
-						<th colspan="2" class="instance-table__title instance-table__title--security">
+						<th class="instance-table__title instance-table__title--security">
 							Security
 							{% if page.faq_link %}
 								<a class="instance-table__faq-link" href="{% pageurl page.faq_link %}">
@@ -35,7 +35,7 @@
 							<td class="instance-table__icon">
 								<a class="instance-table__link" href="{% pageurl instance %}">
 									{% if instance.specific.organization_logo %}
-										{% image instance.specific.organization_logo width-40 %}
+										{% image instance.specific.organization_logo width-144 %}
 									{% else %}
 										{% include "common/_hexagon.svg" with class="instance-table__hexagon" category_slug="instance-table" %}
 									{% endif %}
@@ -51,7 +51,13 @@
 									{% endif %}
 								</a>
 							</td>
-							<td class="instance-table__grade-column"><a class="instance-table__link" href="{% pageurl instance %}"><div class="instance-table__grade instance-table__grade--{{instance.specific.results.latest.grade}}">{{instance.specific.results.latest.grade}}</div></a></td>
+							<td class="instance-table__grade-column">
+								<a class="instance-table__link" href="{% pageurl instance %}">
+									<div class="instance-table__grade instance-table__grade--{{instance.specific.results.latest.grade}}">
+										{{instance.specific.results.latest.grade}}
+									</div>
+								</a>
+							</td>
 						</a></tr>
 					{% endfor %}
 				</tbody>

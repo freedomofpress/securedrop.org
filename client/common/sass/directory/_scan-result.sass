@@ -1,3 +1,8 @@
+$spacer-max: 7px
+$spacer-success: 3px
+$spacer-warning: 7px
+$spacer-fail: 0px
+
 .scan-result
 	font-weight: 300
 	padding-top: 1.5rem
@@ -17,16 +22,22 @@
 .scan-result__result
 	display: flex
 	align-items: flex-start
-	padding: 0.1rem 0
+	padding-bottom: 1rem
 
 .scan-result__result--success
 	color: $green
+	margin-top: $spacer-max - $spacer-success
 
 .scan-result__result--warning
 	color: $yellow
+	margin-top: $spacer-max - $spacer-warning
+
+.scan-result__text--warning
+	color: $gray50--text
 
 .scan-result__result--fail
 	color: $red
+	margin-top: $spacer-max - $spacer-fail
 
 .scan-result__fix--not-admin
 	display: none
@@ -34,6 +45,7 @@
 .scan-result__text
 	// align lowercase text with the middle of the x
 	padding-top: 5px
+	padding-left: 1rem
 	a
 		+link--underline(inherit, $link-hover-color)
 
@@ -42,5 +54,8 @@
 	width: 1.5rem
 	flex-shrink: 0
 
-.scan-result__text
-	padding-left: 1.75rem
+.scan-result__checkmark
+	margin-top: $spacer-success
+
+.scan-result__flag
+	margin-top: $spacer-warning
