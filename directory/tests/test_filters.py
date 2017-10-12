@@ -5,6 +5,21 @@ from directory.tests.factories import DirectoryPageFactory, LanguageFactory, Cou
 from landing_page_checker.tests.factories import SecuredropPageFactory
 
 
+class DirectoryFilterTest(TestCase):
+    def setUp(self):
+        self.directory = DirectoryPageFactory()
+        self.child = SecuredropPageFactory(parent=self.directory)
+        self.not_child = SecuredropPageFactory(parent=None)
+
+    def test_directory_returns_its_children(self):
+        filtered_instances = self.directory.get_instances()
+        self.assertIn(self.child, filtered_instances)
+
+    def test_directory_does_not_return_instances_that_are_not_children(self):
+        filtered_instances = self.directory.get_instances()
+        self.assertNotIn(self.not_child, filtered_instances)
+
+
 class DirectoryLanguageFilterTest(TestCase):
     def setUp(self):
         self.directory = DirectoryPageFactory()
