@@ -10,6 +10,7 @@ $sliding-nav-width: 250px
 	position: fixed
 	top: 0
 	transition: $sliding-nav-transition-ms transform ease-out
+	padding: 2rem 0
 	width: $sliding-nav-width
 	// Places nav above shade
 	z-index: $z-sliding-nav
@@ -24,6 +25,12 @@ $sliding-nav-width: 250px
 	@if $sliding-nav-side == 'left'
 		transform: translate3d($sliding-nav-width, 0, 0)
 
+
+.sliding-nav__logo
+	width: 4rem
+	height: auto
+	margin-left: 1rem
+	margin-bottom: 2rem
 
 .sliding-nav__list
 	list-style-type: none
