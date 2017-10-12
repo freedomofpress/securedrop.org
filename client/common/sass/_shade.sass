@@ -9,13 +9,13 @@ $sliding-nav-transition-ms: 250ms
 	background-color: rgba($brand-primary, 0.5)
 	opacity: 0
 	// places it behind the body
-	z-index: -1
+	z-index: $z-shade--inactive
 	transition: $sliding-nav-transition-ms opacity ease-out
 	pointer-events: none
 
 
 .shade--is-active
 	// places it above the body but behind the sliding nav
-	z-index: 10
+	z-index: $z-shade--active
 	opacity: 1
 	pointer-events: auto
