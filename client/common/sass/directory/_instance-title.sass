@@ -1,17 +1,21 @@
 .instance-title
-	padding: 5rem
+	+layout-x
+	padding-top: $layout-padding
 	display: flex
 	flex-direction: column
 	justify-content: center
 	align-items: center
+	text-align: center
 
 .instance-title__logo
 	max-width: 10rem
 	height: auto
-	margin-bottom: 3rem
+	margin-bottom: $layout-padding
+	+media-breakpoint-down(extra-small)
+		margin-bottom: 0.5*$layout-padding
 
 .instance-title__onion-address
-	font-weight: 600
+	font-weight: $sans-bold
 
 .instance-title__header
 	font-size: 3rem
