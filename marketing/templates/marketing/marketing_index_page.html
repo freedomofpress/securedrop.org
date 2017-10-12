@@ -3,10 +3,12 @@
 
 {% block main %}
 
-{% include "marketing/_feature_list.html" with features=page.features.all %}
-<a href="{% pageurl page.features.all.first.feature %}">
-{% include "common/chevron-right.svg" %}
-</a>
+{% if page.features.all %}
+	{% include "marketing/_feature_list.html" with features=page.features.all %}
+	<a href="{% pageurl page.features.all.first.feature %}">
+		{% include "common/chevron-right.svg" %}
+	</a>
+{% endif %}
 <h2>{{ page.subheader }}</h2>
 <div>
 	{% for block in page.body %}

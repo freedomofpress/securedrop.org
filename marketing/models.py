@@ -45,7 +45,7 @@ class MarketingIndexPage(MetadataPageMixin, Page):
     )
 
     content_panels = Page.content_panels + [
-        InlinePanel('features'),
+        InlinePanel('features', label="Features"),
         FieldPanel('subheader'),
         StreamFieldPanel('body'),
     ]
