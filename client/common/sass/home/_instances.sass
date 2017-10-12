@@ -2,12 +2,15 @@
 	+layout-y
 	color: $white
 	+sd-gradient($slate1,$slate2)
+	position: relative
 
 .instances__content
 	+layout-x--more-padding-on-extra-small
 	display: flex
 	flex-direction: column
 	align-items: center
+	position: relative
+	z-index: $z-hexagons__content
 
 .instances__header
 	flex-basis: 75%

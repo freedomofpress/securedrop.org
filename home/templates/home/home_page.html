@@ -27,6 +27,10 @@
 	header--blue-bright
 {% endblock %}
 
+{% block header_hexagons %}
+	{% include "common/_hexagons_background.svg" with class="hexagons-background__svg hexagons-background__svg--hero" %}
+{% endblock %}
+
 {% block nav_classes %}
 	nav-menu--homepage
 {% endblock %}
@@ -37,17 +41,25 @@
 {% block content %}
 	<main>
 		<div class="updates">
-			<div class="updates__item">
-				<h2 class="updates__header">Latest News</h2>
-				<a href="#">{{ self.get_latest_blog }}</a>
+			<div class="hexagons-background">
+				{% include "common/_hexagons_background.svg" with class="hexagons-background__svg hexagons-background__svg--updates" %}
 			</div>
-			<div class="updates__item">
-				<h2 class="updates__header">Latest Release</h2>
-				<a href="">{{ self.get_latest_release }}</a>
+			<div class="updates__content">
+				<div class="updates__item">
+					<h2 class="updates__header">Latest News</h2>
+					<a href="#">{{ self.get_latest_blog }}</a>
+				</div>
+				<div class="updates__item">
+					<h2 class="updates__header">Latest Release</h2>
+					<a href="">{{ self.get_latest_release }}</a>
+				</div>
 			</div>
 		</div>
 
 		<div class="instances">
+			<div class="hexagons-background">
+				{% include "common/_hexagons_background.svg" with class="hexagons-background__svg hexagons-background__svg--instances" %}
+			</div>
 			<div class="instances__content">
 				<h2 class="instances__header">{{ page.instances_header }}</h2>
 				<div class="instances__items">

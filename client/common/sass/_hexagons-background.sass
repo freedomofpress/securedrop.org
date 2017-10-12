@@ -1,0 +1,85 @@
+.hexagons-background
+	position: absolute
+	overflow: hidden
+	width: 100%
+	height: 100%
+	top: 0
+	left: 0
+
+.hexagons-background__svg
+	position: absolute
+	opacity: 0.2
+	transform: translateY(-2rem) scale(3)
+
+.hexagons-background__svg--footer
+	transform: rotate(90deg) scale(4)
+
+.hexagons-background__svg--hero
+	opacity: 0.3
+	+media-breakpoint-down(extra-small)
+		left: 50%
+		transform: translate(27.5rem, 15.9rem) scale(8)
+		opacity: 0.2
+	+media-breakpoint-only(small)
+		transform: translate(7.5rem, 15.9rem) scale(8)
+	+media-breakpoint-only(medium)
+		transform: translate(9.5rem, 15.9rem) scale(8)
+	+media-breakpoint-up(large)
+		left: 50%
+		transform: translate(4rem, 15.9rem) scale(8)
+
+.hexagons-background__svg--updates
+	opacity: 1
+	+media-breakpoint-down(extra-small)
+		left: 50%
+		transform: translate(11.5rem, 245rem) scale(8)
+	+media-breakpoint-only(small)
+		transform: translate(15.5rem, 245rem) scale(8)
+	+media-breakpoint-only(medium)
+		transform: translate(17.5rem, 245rem) scale(8)
+	+media-breakpoint-up(large)
+		left: 50%
+		transform: translate(12rem, 245rem) scale(8)
+	.hexagons-background__hexagon
+		fill: $gray10 !important
+		opacity: 1 !important
+
+.hexagons-background__svg--instances
+	transform: rotate(-15deg) scale(6)
+
+.hexagons-background__hexagon
+	fill: $white
+
+.hexagons-background__hexagon--1
+	opacity: .1
+	fill: $black
+
+.hexagons-background__hexagon--2
+	opacity: .1
+
+.hexagons-background__hexagon--3
+	opacity: .2
+	fill: $black
+
+.hexagons-background__hexagon--4
+	opacity: .2
+
+.hexagons-background__hexagon--5
+	opacity: .3
+	fill: $black
+
+.hexagons-background__hexagon--6
+	opacity: .3
+
+.hexagons-background__hexagon--7
+	opacity: .4
+	fill: $black
+
+.hexagons-background__hexagon--8
+	opacity: .4
+
+.hexagons-background__hexagon--9
+	opacity: 0
+
+.hexagons-background__hexagon--10
+	opacity: 0
