@@ -92,6 +92,7 @@ $list-bottom-padding: 2rem
 
 	+media-breakpoint-down(extra-small)
 		flex-direction: column
+		align-items: center
 
 .footer-main__title
 	font-size: 3rem
@@ -123,13 +124,16 @@ $list-bottom-padding: 2rem
 		flex-direction: column
 
 	+media-breakpoint-down(extra-small)
-		display: none
+		align-items: center
 
 .footer-main__nav
 	flex-basis: 25rem
 
 	+media-breakpoint-down(small)
 		flex-basis: 5rem
+	+media-breakpoint-down(extra-small)
+		flex-basis: auto
+		width: 100%
 
 .footer-main__nav-list
 	+list--unstyled
@@ -141,11 +145,15 @@ $list-bottom-padding: 2rem
 	flex-flow: column wrap
 	align-items: flex-start
 	justify-content: center
+	+media-breakpoint-down(extra-small)
+		max-width: 100%
 
 
 .footer-main__nav-item
 	height: $list-item-height
 	min-width: 5rem
+	+media-breakpoint-down(extra-small)
+		width: 50%
 
 .footer-main__nav-link
 	+link--no-underline($gray10--text, $white)
@@ -169,6 +177,7 @@ $list-bottom-padding: 2rem
 	justify-content: center
 	position: relative
 	z-index: $z-hexagons__content
+	max-width: 100%
 
 	+media-breakpoint-down(extra-small)
 		flex-basis: 75%
