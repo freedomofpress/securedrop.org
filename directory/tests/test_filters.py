@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from directory.tests.factories import DirectoryPageFactory, LanguageFactory
+from directory.tests.factories import DirectoryPageFactory, LanguageFactory, CountryFactory, TopicFactory
 
 from landing_page_checker.tests.factories import SecuredropPageFactory
 
@@ -21,7 +21,7 @@ class DirectoryLanguageFilterTest(TestCase):
         self.chinese_instance = SecuredropPageFactory(parent=self.directory)
         self.chinese_instance.languages.add(chinese)
         self.chinese_instance.save()
-        self.lang_filter = { 'languages': spanish }
+        self.lang_filter = {'languages': spanish}
 
     def test_language_filtered_for_is_in_queryset(self):
         filtered_instances = self.directory.get_instances(filters=self.lang_filter)
@@ -30,3 +30,113 @@ class DirectoryLanguageFilterTest(TestCase):
     def test_langauge_not_filtered_for_is_not_in_queryset(self):
         filtered_instances = self.directory.get_instances(filters=self.lang_filter)
         self.assertNotIn(self.chinese_instance, filtered_instances)
+
+
+class DirectoryCountryFilterTest(TestCase):
+    def setUp(self):
+        self.directory = DirectoryPageFactory()
+        # set up countries
+        mexico = CountryFactory(title='Mexico')
+        azerbaijan = CountryFactory(title='Azerbaijan')
+        mexico.save()
+        azerbaijan.save()
+        # set up instances that are children of the directory and have those countries
+        self.mexico_instance = SecuredropPageFactory(parent=self.directory)
+        self.mexico_instance.countries.add(mexico)
+        self.mexico_instance.save()
+
+        self.azerbaijan_instance = SecuredropPageFactory(parent=self.directory)
+        self.azerbaijan_instance.countries.add(azerbaijan)
+        self.azerbaijan_instance.save()
+        self.country_filter = {'countries': mexico}
+
+    def test_country_filtered_for_is_in_queryset(self):
+        filtered_instances = self.directory.get_instances(filters=self.country_filter)
+        self.assertIn(self.mexico_instance, filtered_instances)
+
+    def test_country_not_filtered_for_is_not_in_queryset(self):
+        filtered_instances = self.directory.get_instances(filters=self.country_filter)
+        self.assertNotIn(self.azerbaijan_instance, filtered_instances)
+
+
+class DirectoryTopicFilterTest(TestCase):
+    def setUp(self):
+        self.directory = DirectoryPageFactory()
+        # set up topics
+        pf = TopicFactory(title='Press Freedom')
+        irs = TopicFactory(title='IRS')
+        pf.save()
+        irs.save()
+        # set up instances that are children of the directory and have those topics
+        self.pf_instance = SecuredropPageFactory(parent=self.directory)
+        self.pf_instance.topics.add(pf)
+        self.pf_instance.save()
+
+        self.irs_instance = SecuredropPageFactory(parent=self.directory)
+        self.irs_instance.topics.add(irs)
+        self.irs_instance.save()
+        self.topic_filter = {'topics': pf}
+
+    def test_topic_filtered_for_is_in_queryset(self):
+        filtered_instances = self.directory.get_instances(filters=self.topic_filter)
+        self.assertIn(self.pf_instance, filtered_instances)
+
+    def test_topic_not_filtered_for_is_not_in_queryset(self):
+        filtered_instances = self.directory.get_instances(filters=self.topic_filter)
+        self.assertNotIn(self.irs_instance, filtered_instances)
+
+
+class DirectoryMultipleFiltersTest(TestCase):
+    def setUp(self):
+        self.directory = DirectoryPageFactory()
+        # set up languages
+        spanish = LanguageFactory(title='Spanish')
+        chinese = LanguageFactory(title='Chinese')
+        spanish.save()
+        chinese.save()
+        # set up countries
+        mexico = CountryFactory(title='Mexico')
+        azerbaijan = CountryFactory(title='Azerbaijan')
+        mexico.save()
+        azerbaijan.save()
+        # set up topics
+        pf = TopicFactory(title='Press Freedom')
+        irs = TopicFactory(title='IRS')
+        pf.save()
+        irs.save()
+        # set up instances that are children of the directory and have multiple categories
+        self.sp_mx_instance = SecuredropPageFactory(parent=self.directory)
+        self.sp_mx_instance.languages.add(spanish)
+        self.sp_mx_instance.countries.add(mexico)
+        self.sp_mx_instance.save()
+
+        self.az_pf_instance = SecuredropPageFactory(parent=self.directory)
+        self.az_pf_instance.countries.add(azerbaijan)
+        self.az_pf_instance.topics.add(pf)
+        self.az_pf_instance.save()
+
+        self.other_instance = SecuredropPageFactory(parent=self.directory)
+        self.other_instance.languages.add(spanish)
+        self.other_instance.topics.add(pf)
+        self.other_instance.save()
+
+        # filters
+        self.lang_country_filter = {
+            'languages': spanish,
+            'countries': mexico
+        }
+
+        self.country_topic_filter = {
+            'countries': azerbaijan,
+            'topics': pf
+        }
+
+    def test_country_and_language_filter(self):
+        filtered_instances = self.directory.get_instances(filters=self.lang_country_filter)
+        self.assertIn(self.sp_mx_instance, filtered_instances)
+        self.assertNotIn(self.other_instance, filtered_instances)
+
+    def test_country_and_topic_filter(self):
+        filtered_instances = self.directory.get_instances(filters=self.country_topic_filter)
+        self.assertIn(self.az_pf_instance, filtered_instances)
+        self.assertNotIn(self.other_instance, filtered_instances)

@@ -85,14 +85,24 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
 
         Currently accepts the following get keys:
         - `language` an language id
+        - `country` a country id
+        - `topic` a topic id
+
         Returns filters with objects, not PKs because objects can be used
         to render information about the filter in the template. (I.e., "You
         are filtering for instances that list Spanish as a language")
         """
         filters = {}
         language_id = query.get('language')
+        country_id = query.get('country')
+        topic_id = query.get('topic')
         if language_id:
             filters['languages'] = Language.objects.get(id=language_id)
+        if country_id:
+            filters['countries'] = Country.objects.get(id=country_id)
+        if topic_id:
+            filters['topic'] = Topic.objects.get(id=topic_id)
+
         return filters
 
     def get_context(self, request):
