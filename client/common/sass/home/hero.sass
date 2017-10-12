@@ -1,28 +1,22 @@
-
 .hero
-	height: 30rem
-	padding: 4rem 2rem
+	+layout-x--more-padding-on-extra-small
+	position: relative
+	z-index: $z-hexagons__background
+	padding-top: $header-padding + $nav-height
+	padding-bottom: $header-padding
+	height: 41.3rem
 	display: flex
 	justify-content: flex-start
 	align-items: flex-start
-	flex-wrap: nowrap
 
 	+media-breakpoint-down(extra-small)
-		flex-wrap: wrap
-		flex-direction: column
-		height: auto
+		text-align: center
 
 .hero__logo
-	padding-right: 2rem
-	flex-grow: 1
-	flex-basis: 33%
-
-	+media-breakpoint-down(extra-small)
-		align-self: center
-		max-width: 75%
-		flex-grow: 0
-		padding-right: 0
-		padding-bottom: 2rem
+	width: 16rem
+	flex-shrink: 0
+	flex-grow: 0
+	margin-right: $layout-padding
 
 .hero__logo-svg
 	height: auto
@@ -30,6 +24,7 @@
 
 .hero__text
 	flex-grow: 2
+	max-width: 32rem
 
 .hero__title
 	max-width: 90%
@@ -45,8 +40,9 @@
 
 
 .hero__button
-	color: white
-	background-color: transparent
-	border: 1px solid $white
+	color: $blue-bright2
+	background-color: white
+	margin-top: 1rem
+	border-width: 0px
 	border-radius: $button-border-radius
-	padding: $button-padding
+	padding: 2*$button-padding 3*$button-padding
