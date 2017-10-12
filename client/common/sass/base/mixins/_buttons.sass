@@ -1,10 +1,76 @@
+// Most buttons will ge two classes:
+	// A base class with a size:
+		// +button-small
+		// +button-large
+	// A color class
+		// Either directly describing the color
+			// +button-solid--blue
+			// +button-solid--black
+			// +button-solid--white
+			// +button-outline--white
+		// Or taking colors
+			// +button-color($color1, $color2)
+			// +button-outline($color1, $color2)
+
+
+// Helper Function
+
+=button-base
+	border-radius: $button-border-radius
+	text-decoration: none
+	text-align: center
+	+hover
+		text-decoration: none
+
 =button-transition
 	transition-duration: 0.1s
 	transition-timing-function: linear
-	transition-property: background-color
+	transition-property: background-color, color
 
-=button-hover-color($color1, $color2: lighten($color1, 8))
+// button Sizes
+
+=button-small
+	+button-base
 	+button-transition
+	padding: $button-padding-y $button-padding-x
+
+=button-large
+	+button-base
+	+button-transition
+	padding: 2*$button-padding-y 2*$button-padding-x
+
+
+// Solid Buttons
+
+=button-solid($color-text: $white, $color1: $link-color, $color2: $link-hover-color)
+	+button-transition
+	color: $color-text
 	background-color: $color1
+	border: none
 	+hover
+		color: $color-text
 		background-color: $color2
+
+=button-solid--blue
+	+button-solid($white, $link-color, $link-hover-color)
+
+=button-solid--black
+	+button-solid($white, $gray90, $gray80)
+
+=button-solid--white
+	+button-solid($gray90--text, $white, $gray10)
+
+
+// Outline Buttons
+
+=button-outline($color1, $color2: $black)
+	+button-transition
+	color: $color1
+	border: 1px solid $color1
+	background: transparent
+	+hover
+		background-color: $color1
+		color: $color2
+
+=button-outline--white
+	+button-outline($white, $link-color)
