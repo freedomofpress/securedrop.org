@@ -4,7 +4,6 @@ from modelcluster.fields import ParentalKey
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel, InlinePanel
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 from common.models import MetadataPageMixin, Button
 from blog.models import BlogPage
