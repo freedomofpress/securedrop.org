@@ -17,7 +17,7 @@
 			{% endif %}
 
 			{% for button in page.description_buttons.all %}
-				<a href="{% pageurl button.link %}"><button class="hero__button">{{ button.text }}</button></a>
+				<a href="{% pageurl button.link %}"n class="hero__button">{{ button.text }}</a>
 			{% endfor %}
 		</div>
 	</div>
@@ -75,7 +75,9 @@
 					{% endfor %}
 				</div>
 				{% for button in page.instance_button.all %}
-					<a href="{% pageurl button.link %}"><button class="instances__button">{{ button.text }}</button></a>
+					<a href="{% pageurl button.link %}" class="instances__button">
+						{{ button.text }}
+					</a>
 				{% endfor %}
 			</div>
 		</div>
@@ -86,7 +88,9 @@
 			{% endif %}
 			{% include "marketing/_feature_list.html" with features=page.features.all %}
 			{% for button in page.features_button.all %}
-				<a href="{% pageurl button.link %}"><button class="instances__button">{{ button.text }}</button></a>
+				<a href="{% pageurl button.link %}" class="features__button">
+					{{ button.text }}
+				</a>
 			{% endfor %}
 		</div>
 	</main>
