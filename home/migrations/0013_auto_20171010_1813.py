@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('marketing', '0002_orderedfeatures'),
-        ('home', '0011_change_description_header'),
+        ('home', '0012_securedrop_inherits_from_page'),
     ]
 
     operations = [
