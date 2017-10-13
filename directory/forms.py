@@ -1,4 +1,5 @@
 from django import forms
+from captcha.fields import ReCaptchaField
 
 
 class DirectoryForm(forms.Form):
@@ -9,3 +10,4 @@ class DirectoryForm(forms.Form):
 
 class ScannerForm(forms.Form):
     url = forms.URLField()
+    captcha = ReCaptchaField(label='')
