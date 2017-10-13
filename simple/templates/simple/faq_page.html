@@ -1,0 +1,29 @@
+{% extends "layout/_layout_one_column.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block main %}
+	<div class="stream">
+		{% for block in page.body %}
+			<section class="stream__block">
+				{% include_block block %}
+			</section>
+		{% endfor %}
+	</div>
+	{% with questions=page.questions.all %}
+		{% if questions %}
+			<ol id="list">
+				{% for question in questions %}
+					<li><a href="#{{question.question|slugify}}">{{question.question}}</a></li>
+				{% endfor %}
+			</ol>
+		{% endif %}
+		{% for question in questions %}
+			<h2 id="{{question.question|slugify}}">{{question.question}}</h2>
+			<div>
+				{{question.answer|richtext}}
+			</div>
+			<a href="#list">Back to Top</a>
+		{% endfor %}
+	{% endwith %}
+{% endblock main %}

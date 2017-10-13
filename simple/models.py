@@ -1,11 +1,12 @@
 from django.db import models
+from modelcluster.fields import ParentalKey
+
 from django.utils.html import strip_tags
 from django.template.defaultfilters import truncatewords
-from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel
+from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, InlinePanel
 from wagtail.wagtailcore import blocks
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailcore.fields import StreamField
-
+from wagtail.wagtailcore.models import Page, Orderable
+from wagtail.wagtailcore.fields import StreamField, RichTextField
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 from wagtail.wagtailsearch import index
 
@@ -18,8 +19,6 @@ from common.blocks import (
     AlignedEmbedBlock,
     RichTextBlockQuoteBlock,
 )
-
-# from common.models import MetadataPageMixin
 
 
 class BaseSidebarPageMixin(models.Model):
@@ -94,6 +93,21 @@ class SimplePage(MetadataPageMixin, Page):
             strip_tags(self.body.render_as_block()),
             20
         )
+
+
+class FAQPage(SimplePage):
+    content_panels = SimplePage.content_panels + [
+        InlinePanel('questions', label="Questions")
+    ]
+
+
+class FaqQuestion(Orderable):
+    page = ParentalKey('simple.FAQPage', related_name='questions')
+    question = models.CharField(max_length=255)
+    # features disables h1 use
+    answer = RichTextField(
+        features=['h2', 'h3', 'bold', 'italic', 'link', 'embed', 'image', 'embed', 'document-link', 'ol', 'ul']
+    )
 
 
 class SimplePageWithMenuSidebar(MetadataPageMixin, BaseSidebarPageMixin, Page):
