@@ -88,7 +88,7 @@ class FeaturePage(MetadataPageMixin, Page):
 
     parent_page_types = ['marketing.MarketingIndexPage']
 
-    content_panels = Page.content_panels +  [
+    content_panels = Page.content_panels + [
         ImageChooserPanel('icon'),
         FieldPanel('teaser_description'),
         FieldPanel('description'),
