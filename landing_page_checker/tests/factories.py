@@ -64,4 +64,4 @@ class SecuredropPageFactory(wagtail_factories.PageFactory):
             topic.topics.add(self)
             topics.append(topic)
         if not create:
-            self._prefetched_objects_cache = {'topics': languages}
+            self._prefetched_objects_cache = {'topics': topics}
