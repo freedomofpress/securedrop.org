@@ -88,6 +88,53 @@ class AlertSettings(BaseSetting):
         verbose_name = 'Site Alert'
 
 
+@register_setting(icon='warning')
+class TorAlertSettings(BaseSetting):
+    title = models.CharField(max_length=255, default="Have a document to share?")
+    subtitle = models.CharField(
+        max_length=255,
+        default="Your security is compromised while using this browser.",
+        blank=True,
+        null=True,
+    )
+    body = RichTextField(
+        blank=True,
+        null=True
+    )
+    tor_settings_title = models.CharField(max_length=255, default="Your Tor security settings are too low.")
+    tor_settings_subtitle = models.CharField(
+        max_length=255,
+        default="These settings allow JavaScript to run which compromises your security.",
+        blank=True,
+        null=True,
+    )
+    tor_settings_body = RichTextField(
+        blank=True,
+        null=True
+    )
+
+    panels = [
+        MultiFieldPanel(
+            [
+                FieldPanel('title'),
+                FieldPanel('subtitle'),
+                FieldPanel('body'),
+            ],
+            "Tor Not Detected Alert",
+            classname="collapsible"
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('tor_settings_title'),
+                FieldPanel('tor_settings_subtitle'),
+                FieldPanel('tor_settings_body'),
+            ],
+            "Tor Settings Too Low Alert",
+            classname="collapsible"
+        ),
+    ]
+
+
 @register_setting(icon='plus')
 class SocialSharingSEOSettings(BaseSetting):
     default_description = models.TextField(
