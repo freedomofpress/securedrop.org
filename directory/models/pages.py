@@ -1,7 +1,7 @@
 from django.core.validators import MaxValueValidator
 from django.db import models
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
 from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
@@ -11,9 +11,12 @@ from wagtail.wagtailcore.models import Page
 from common.models.mixins import MetadataPageMixin
 from common.utils import paginate, DEFAULT_PAGE_KEY
 from directory.models import Language, Topic, Country
-from directory.forms import DirectoryForm
+from directory.forms import DirectoryForm, ScannerForm
 from landing_page_checker.landing_page import scanner
 from landing_page_checker.models import SecuredropPage as SecuredropInstance
+
+
+SCAN_URL = 'scan/'
 
 
 class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
@@ -147,6 +150,41 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
         }
 
         return context
+
+    @route(SCAN_URL)
+    def scan_view(self, request):
+        if request.method == 'POST':
+            form = ScannerForm(request.POST)
+            if form.is_valid():
+                data = form.cleaned_data
+            else:
+                return HttpResponse('not cool')
+            instance = SecuredropInstance(
+                landing_page_domain=data['url'],
+            )
+            result = scanner.scan(instance)
+            result.compute_grade()
+
+            return render(
+                request,
+                # TODO: Make a real template for this
+                'landing_page_checker/result.html',
+                {
+                    'landing_page_domain': data['url'],
+                    'result': result,
+                    'page': self,
+                    'directory': self,
+                },
+            )
+
+        else:
+            form = ScannerForm()
+
+        context = {
+            'form': form,
+            'submit_url': '{base}{scan_url}'.format(base=self.url, scan_url=SCAN_URL)
+        }
+        return render(request, 'directory/scanner_form.html', context)
 
     @route('form/')
     def form_view(self, request):

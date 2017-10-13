@@ -1,0 +1,41 @@
+{% extends "layout/_layout_equal_columns.html"%}
+{% load wagtailcore_tags wagtailimages_tags result_tags %}
+
+{% block header_classes %}
+header--slate
+{% endblock %}
+
+{% block page_title %}
+{% endblock page_title %}
+
+{% block top %}
+<div class="instance-title">
+    <h1 class="instance-title__header">Scan Result</h1>
+    <a class="instance-title__landing-page" href="{{ landing_page_domain }}">{{ landing_page_domain }}{% include "common/chevron-right.svg" with class="instance-title__chevron" %}</a>
+</div>
+{% endblock top %}
+
+
+{% block column_one %}
+<div class="instance-description">
+    Scan results
+</div>
+{% if settings.common.DirectorySettings.security_warning %}
+<div class="security-warning">
+    {{ settings.common.DirectorySettings.security_warning|richtext }}
+</div>
+{% endif %}
+{% endblock column_one %}
+
+{% block column_two %}
+<div class="security_grade">
+    <div class="security_grade__text">{{ settings.common.DirectorySettings.grade_text }}:</div> <div class="security_grade__grade
+																											security_grade__grade--{{ result.grade }}">{{ result.grade }}</div>
+</div>
+
+{% result_groups result True settings.common.DirectorySettings.no_results_text%}
+
+<div class="row">
+
+</div>
+{% endblock column_two %}
