@@ -1,3 +1,12 @@
+$shimmer-duration: 10s // time from 0 to 100; 0 to 0 is twice this
+$shimmer-delay-multiplier: 0.2*$shimmer-duration
+
+@keyframes shimmer
+	0%
+		opacity: 0
+	100%
+		opacity: 0.4
+
 .hexagons-background
 	position: absolute
 	overflow: hidden
@@ -49,37 +58,19 @@
 
 .hexagons-background__hexagon
 	fill: $white
-
-.hexagons-background__hexagon--1
-	opacity: .1
-	fill: $black
-
-.hexagons-background__hexagon--2
-	opacity: .1
-
-.hexagons-background__hexagon--3
-	opacity: .2
-	fill: $black
-
-.hexagons-background__hexagon--4
-	opacity: .2
-
-.hexagons-background__hexagon--5
-	opacity: .3
-	fill: $black
-
-.hexagons-background__hexagon--6
-	opacity: .3
-
-.hexagons-background__hexagon--7
-	opacity: .4
-	fill: $black
-
-.hexagons-background__hexagon--8
-	opacity: .4
-
-.hexagons-background__hexagon--9
 	opacity: 0
+	.hexagons-background__svg--animated &
+		fill: $black
+		animation: shimmer $shimmer-duration alternate infinite
 
-.hexagons-background__hexagon--10
-	opacity: 0
+@for $i from 1 through 10
+	.hexagons-background__hexagon--#{$i}
+		@if $i<=5
+			opacity: $i*0.1
+		@if $i>5
+			opacity: 1-($i*0.1)
+			fill: $black
+@for $i from 1 through 9
+	.hexagons-background__svg--animated .hexagons-background__hexagon--#{$i}
+		opacity: 0
+		animation-delay: $i*$shimmer-delay-multiplier
