@@ -44,7 +44,7 @@ class FiltersFromQueryDictTest(TestCase):
         sports.save()
         querydict = QueryDict('topic={}'.format(sports.id))
         filters = self.directory.filters_from_querydict(querydict)
-        self.assertEqual(filters['topic'], sports)
+        self.assertEqual(filters['topics'], sports)
 
     def test_non_int_id_does_not_break_filters(self):
         querydict = QueryDict('topic=foo')
@@ -69,7 +69,7 @@ class FiltersFromQueryDictTest(TestCase):
             thailand.id
         ))
         filters = self.directory.filters_from_querydict(querydict)
-        self.assertEqual(filters['topic'], scotus)
+        self.assertEqual(filters['topics'], scotus)
         self.assertEqual(filters['countries'], thailand)
         self.assertEqual(filters['languages'], afrikaans)
 

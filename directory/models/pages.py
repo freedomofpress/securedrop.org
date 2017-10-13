@@ -115,7 +115,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
 
         if topic_id:
             try:
-                filters['topic'] = Topic.objects.get(id=topic_id)
+                filters['topics'] = Topic.objects.get(id=topic_id)
             except ValueError:
                 pass
             except Country.DoesNotExist:
