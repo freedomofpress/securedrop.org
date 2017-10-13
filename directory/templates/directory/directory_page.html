@@ -15,6 +15,27 @@
 		{{ page.body|richtext }}
 	</section>
 	<section class="instance-list">
+		<form id="filter-form" method="GET" class="filters">
+			<select name='language' form='filter-form'>
+				<option selected disabled class="hideoption">Language Accepted</option>
+				{% for language in all_filters.languages %}
+					<option value="{{language.id}}">{{language.title}}</option>
+				{% endfor %}
+			</select>
+			<select name="country" label="Country">
+				<option selected disabled class="hideoption">Country</option>
+				{% for country in all_filters.countries %}
+					<option value="{{country.id}}">{{country.title}}</option>
+				{% endfor %}
+			</select>
+			<select name="topic" label="Topic">
+				<option selected disabled class="hideoption">Topic</option>
+				{% for topic in all_filters.topics %}
+					<option value="{{topic.id}}">{{topic.title}}</option>
+				{% endfor %}
+			</select>
+			<input type="submit" value="Submit" />
+		</form>
 		<table class="instance-table">
 				<thead class="instance-table__head">
 					<tr>
