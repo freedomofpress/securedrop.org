@@ -14,16 +14,17 @@ class DirectoryPageFactory(wagtail_factories.PageFactory):
 class LanguageFactory(factory.Factory):
     class Meta:
         model = Language
-    title = factory.Faker('word')
+    # there were not suffient random words in faker, so we're using sentences
+    title = factory.Faker('sentence', nb_words=3)
 
 
 class CountryFactory(factory.Factory):
     class Meta:
         model = Country
-    title = factory.Faker('word')
+    title = factory.Faker('sentence', nb_words=3)
 
 
 class TopicFactory(factory.Factory):
     class Meta:
         model = Topic
-    title = factory.Faker('word')
+    title = factory.Faker('sentence', nb_words=3)
