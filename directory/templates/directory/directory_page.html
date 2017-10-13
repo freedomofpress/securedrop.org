@@ -16,25 +16,25 @@
 	</section>
 	<section class="instance-list">
 		<form id="filter-form" method="GET" class="filters">
-			<select name='language' form='filter-form'>
-				<option selected disabled class="hideoption">Language Accepted</option>
+			<select name='language' form='filter-form' class="filters__select">
+				<option {% if not entries_filters.languages %}selected{% endif %} disabled>Language Accepted</option>
 				{% for language in all_filters.languages %}
-					<option value="{{language.id}}">{{language.title}}</option>
+					<option {% if entries_filters.languages == language %}selected{%endif%} value="{{language.id}}">{{language.title}}</option>
 				{% endfor %}
 			</select>
-			<select name="country" label="Country">
-				<option selected disabled class="hideoption">Country</option>
+			<select name="country" label="Country" class="filters__select">
+				<option {% if not entries_filters.countries %}selected{% endif %} disabled>Country</option>
 				{% for country in all_filters.countries %}
-					<option value="{{country.id}}">{{country.title}}</option>
+					<option {% if entries_filters.countries == country %}selected{%endif%} value="{{country.id}}">{{country.title}}</option>
 				{% endfor %}
 			</select>
-			<select name="topic" label="Topic">
-				<option selected disabled class="hideoption">Topic</option>
+			<select name="topic" label="Topic" class="filters__select">
+				<option {% if not entries_filters.topics %}selected{% endif %}  disabled>Topic</option>
 				{% for topic in all_filters.topics %}
-					<option value="{{topic.id}}">{{topic.title}}</option>
+					<option {% if entries_filters.topics == topic %}selected{%endif%} value="{{topic.id}}">{{topic.title}}</option>
 				{% endfor %}
 			</select>
-			<input type="submit" value="Submit" />
+			<input type="submit" value="Submit" class="filters__submit" />
 		</form>
 		<table class="instance-table">
 				<thead class="instance-table__head">
@@ -80,6 +80,8 @@
 								</a>
 							</td>
 						</a></tr>
+					{% empty %}
+					<p>No instances match those filter criteria</p>
 					{% endfor %}
 				</tbody>
 			</table>
