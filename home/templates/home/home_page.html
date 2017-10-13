@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "layout/_layout_one_column.html" %}
 {% load wagtailcore_tags wagtailimages_tags static %}
 
 {% block page_title %}
@@ -84,20 +84,10 @@
 			{% if page.features_header %}
 				<h2 class="features__header">{{ page.features_header}}</h2>
 			{% endif %}
-			<div class="features__items">
-				{% for feature in page.features.all %}
-					<div class="features__item">
-						{% image feature.icon max-100x100 class='features__item-image' %}
-						<div class="features__item-text">
-							<h3 class="features__item-heading">{{ feature.title }}</h3>
-							{{ feature.description|richtext }}
-						</div>
-					</div>
-				{% endfor %}
-			</div>
+			{% include "marketing/_feature_list.html" with features=page.features.all %}
 			{% for button in page.features_button.all %}
 				<a href="{% pageurl button.link %}"><button class="instances__button">{{ button.text }}</button></a>
 			{% endfor %}
 		</div>
 	</main>
-{% endblock %}
+{% endblock content %}

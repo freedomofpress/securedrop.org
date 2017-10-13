@@ -4,7 +4,6 @@ from modelcluster.fields import ParentalKey
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel, InlinePanel
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 from common.models import MetadataPageMixin, Button
 from blog.models import BlogPage
@@ -58,7 +57,7 @@ class HomePage(MetadataPageMixin, Page):
                 FieldPanel('features_header'),
                 InlinePanel(
                     'features',
-                    label="SecureDrop Features",
+                    label="Highlighted Features",
                     max_num=8
                 ),
                 InlinePanel('features_button', label="Features Button", max_num=1)
@@ -112,26 +111,15 @@ class FeaturesButton(Button):
     ]
 
 
-class Feature(Orderable):
+class HomepageFeature(Orderable):
     page = ParentalKey('home.HomePage', related_name='features')
-    icon = models.ForeignKey(
-        'common.CustomImage',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-    )
-    title = models.CharField(max_length=255, null=True, blank=True)
-    description = RichTextField(
-        features=['bold', 'italic', 'ol', 'ul', 'hr', 'link', 'document-link'],
-        blank=True,
-        null=True
+    feature = models.ForeignKey(
+        'marketing.FeaturePage',
+        related_name='+'
     )
 
     panels = [
-        ImageChooserPanel('icon'),
-        FieldPanel('title'),
-        FieldPanel('description')
+        PageChooserPanel('feature')
     ]
 
 
