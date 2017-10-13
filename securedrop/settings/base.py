@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'landing_page_checker',
     'directory',
 
+    'captcha',
+
     'wagtail.contrib.settings',
     'wagtail.contrib.wagtailroutablepage',
     'wagtail.contrib.modeladmin',
