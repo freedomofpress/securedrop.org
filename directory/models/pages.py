@@ -91,17 +91,35 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
         Returns filters with objects, not PKs because objects can be used
         to render information about the filter in the template. (I.e., "You
         are filtering for instances that list Spanish as a language")
+        Returns an empty filters object if PKs are invalid.
         """
         filters = {}
         language_id = query.get('language')
         country_id = query.get('country')
         topic_id = query.get('topic')
         if language_id:
-            filters['languages'] = Language.objects.get(id=language_id)
+            try:
+                filters['languages'] = Language.objects.get(id=language_id)
+            except ValueError:
+                pass
+            except Language.DoesNotExist:
+                pass
+
         if country_id:
-            filters['countries'] = Country.objects.get(id=country_id)
+            try:
+                filters['countries'] = Country.objects.get(id=country_id)
+            except ValueError:
+                pass
+            except Country.DoesNotExist:
+                pass
+
         if topic_id:
-            filters['topic'] = Topic.objects.get(id=topic_id)
+            try:
+                filters['topic'] = Topic.objects.get(id=topic_id)
+            except ValueError:
+                pass
+            except Country.DoesNotExist:
+                pass
 
         return filters
 

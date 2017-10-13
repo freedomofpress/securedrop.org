@@ -1,4 +1,5 @@
 from django.test import TestCase
+from django.http import QueryDict
 
 from directory.tests.factories import DirectoryPageFactory, LanguageFactory, CountryFactory, TopicFactory
 
@@ -18,6 +19,59 @@ class DirectoryFilterTest(TestCase):
     def test_directory_does_not_return_instances_that_are_not_children(self):
         filtered_instances = self.directory.get_instances()
         self.assertNotIn(self.not_child, filtered_instances)
+
+
+class FiltersFromQueryDictTest(TestCase):
+    def setUp(self):
+        self.directory = DirectoryPageFactory()
+
+    def test_correct_language_returned_from_querydict(self):
+        georgian = LanguageFactory(title="Georgian")
+        georgian.save()
+        querydict = QueryDict('language={}'.format(georgian.id))
+        filters = self.directory.filters_from_querydict(querydict)
+        self.assertEqual(filters['languages'], georgian)
+
+    def test_correct_country_returned_from_querydict(self):
+        honduras = CountryFactory(title="Honduras")
+        honduras.save()
+        querydict = QueryDict('country={}'.format(honduras.id))
+        filters = self.directory.filters_from_querydict(querydict)
+        self.assertEqual(filters['countries'], honduras)
+
+    def test_correct_topic_returned_from_querydict(self):
+        sports = TopicFactory(title="sports")
+        sports.save()
+        querydict = QueryDict('topic={}'.format(sports.id))
+        filters = self.directory.filters_from_querydict(querydict)
+        self.assertEqual(filters['topic'], sports)
+
+    def test_non_int_id_does_not_break_filters(self):
+        querydict = QueryDict('topic=foo')
+        filters = self.directory.filters_from_querydict(querydict)
+        self.assertEqual({}, filters)
+
+    def test_invalid_id_does_not_break_filters(self):
+        querydict = QueryDict('language=100000')
+        filters = self.directory.filters_from_querydict(querydict)
+        self.assertEqual({}, filters)
+
+    def test_multiple_filters_returned_from_querydict(self):
+        afrikaans = LanguageFactory(title="Afrikaans")
+        afrikaans.save()
+        thailand = CountryFactory(title="Country")
+        thailand.save()
+        scotus = TopicFactory(title="SCOTUS")
+        scotus.save()
+        querydict = QueryDict('language={}&topic={}&country={}'.format(
+            afrikaans.id,
+            scotus.id,
+            thailand.id
+        ))
+        filters = self.directory.filters_from_querydict(querydict)
+        self.assertEqual(filters['topic'], scotus)
+        self.assertEqual(filters['countries'], thailand)
+        self.assertEqual(filters['languages'], afrikaans)
 
 
 class DirectoryLanguageFilterTest(TestCase):
