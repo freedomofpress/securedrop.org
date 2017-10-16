@@ -1,35 +1,33 @@
 import datetime
 from django.forms.utils import pretty_name
-from django.utils.html import format_html
+from django.template.loader import render_to_string
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 from wagtail.wagtailadmin.edit_handlers import EditHandler
 
 
 class BaseReadOnlyPanel(EditHandler):
-    def render(self):
+    def get_value(self):
         value = getattr(self.instance, self.attr)
         if isinstance(value, datetime.date):
             value = value.strftime('%A, %B %d, %Y %X')
         if callable(value):
             value = value()
-        return format_html('<div style="padding-top: 1.2em;">{}</div>', value)
+        return value
 
     def render_as_object(self):
-        return format_html(
-            '<li class="object">'
-            '<h2><label for={}>{}</h2>'
-            '<fieldset><legend>{}</legend>'
-            '<div class="field">{}</div>'
-            '</li>',
-            self.label, self.label, self.label, self.render())
+        template = "common/edit_handlers/read_only_object.html"
+        return mark_safe(render_to_string(template, {
+            'label': self.label,
+            'value': self.get_value(),
+        }))
 
     def render_as_field(self):
-        return format_html(
-            '<div class="field">'
-            '<label>{}{}</label>'
-            '<div class="field-content">{}</div>'
-            '</div>',
-            self.label, _(':'), self.render())
+        template = "common/edit_handlers/read_only_field.html"
+        return mark_safe(render_to_string(template, {
+            'label': self.label,
+            'value': self.get_value(),
+        }))
 
 
 class ReadOnlyPanel:
