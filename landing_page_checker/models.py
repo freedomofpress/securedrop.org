@@ -12,6 +12,7 @@ from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from autocomplete.edit_handlers import AutocompleteFieldPanel
 from common.models.mixins import MetadataPageMixin
 from search.utils import get_search_content_by_fields
+from common.models.edit_handlers import ReadOnlyPanel
 
 
 class SecuredropOwner(models.Model):
@@ -75,6 +76,7 @@ class SecuredropPage(MetadataPageMixin, Page):
     )
 
     content_panels = Page.content_panels + [
+        ReadOnlyPanel('added', heading="Date Added"),
         FieldPanel('landing_page_domain'),
         FieldPanel('onion_address'),
         FieldPanel('organization_description'),
