@@ -77,10 +77,8 @@
 		<div class="submit-instance__body">
 			{{ page.submit_body|richtext }}
 		</div>
-		<a href="{{page.url}}form">
-			<button class="submit-instance__button">
-				{{ page.submit_button_text }}
-			</button>
+		<a href="{{page.url}}form" class="submit-instance__button">
+			{{ page.submit_button_text }}
 		</a>
 	</section>
 {% endblock sidebar %}

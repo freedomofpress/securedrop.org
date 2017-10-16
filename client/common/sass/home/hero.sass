@@ -37,7 +37,7 @@
 	margin-bottom: 1.5rem
 
 .hero__description
-	margin-bottom: 1rem
+	margin-bottom: 3rem
 	max-width: 50rem
 	.rich-text
 		+p-remove-first-and-last-margin
@@ -47,9 +47,5 @@
 
 
 .hero__button
-	color: $blue-bright2
-	background-color: white
-	margin-top: 1rem
-	border-width: 0px
-	border-radius: $button-border-radius
-	padding: 2*$button-padding 3*$button-padding
+	+button-large
+	+button-solid($blue-bright2, $white, rgba($white, 0.9))

@@ -70,19 +70,14 @@ $list-bottom-padding: 2rem
 
 
 .footer-links__donate, .footer-links__contribute
-	border-radius: $button-border-radius
-	padding: 1rem
+	+button-large
 	width: 10rem
 
 .footer-links__donate
-	background-color: $white
-	color: $links-background-color
-	border: none
+	+button-solid($links-background-color, $white, rgba($white, 0.9))
 
 .footer-links__contribute
-	border: 1px solid $white
-	background-color: inherit
-	color: $white
+	+button-outline($white, $links-background-color)
 
 .footer-main
 	display: flex
