@@ -164,4 +164,30 @@ have a clean starting point.
 Other commands
 ++++++++++++++
 
-In order to ensure that all commands are run in the same environment, we have added a ``make flake8`` command that runs ``flake8`` in the docker environment, rather than on your local env.
+In order to ensure that all commands are run in the same environment, we have
+added a ``make flake8`` command that runs ``flake8`` in the docker environment,
+rather than on your local env.
+
+Management commands
+-------------------
+
+Management commands in this repo are modularized. Running ``createdevdata`` will
+ run all of these commands, but they can also be run indvidually. All commands
+ listed should be prefaced by ``docker exec sd_django ./manage.py``. Most of
+ these commands are meant to be used once at the beginning of development.
+ They should not be run in production as many of them create fake data.
+
+
+* ``createdevdata [--delete]`` - Runs all of the other management commands and
+  creates fake data. The ``delete`` flag deletes the current homepage and
+  creates a new one.
+* ``createblogdata <number_of_posts>`` - Creates a blog index page and the
+  indicated number of posts.
+* ``createdirectory <number_of_instances>`` - Creates a directory page and the
+  indicated number of SecureDrop instances.
+* ``createresultgroups`` - Creates the initial text for the scan results shown
+  on the details page of a securedrop instance.
+* ``createfootersettings`` - Creates the initial default text and buttons for
+  the footer.
+* ``createnavmenu`` - Creates the main nav menu and links it to the appropriate
+  pages. Creates a ``DirectoryPage``, ``BlogIndexPage``, and ``MarketingIndexPage`` if they do not yet exist.
