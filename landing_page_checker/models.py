@@ -5,7 +5,6 @@ from modelcluster.fields import ParentalManyToManyField
 from django.core.validators import RegexValidator, validate_image_file_extension
 
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
