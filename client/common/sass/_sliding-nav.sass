@@ -3,13 +3,14 @@ $sliding-nav-width: 250px
 
 .sliding-nav
 	#{$sliding-nav-side}: -$sliding-nav-width
-	background: $brand-primary
+	background: $white
 	bottom: 0
 	font-family: $sans-serif
 	overflow: auto
 	position: fixed
 	top: 0
 	transition: $sliding-nav-transition-ms transform ease-out
+	padding: 2rem 0
 	width: $sliding-nav-width
 	// Places nav above shade
 	z-index: $z-sliding-nav
@@ -25,6 +26,12 @@ $sliding-nav-width: 250px
 		transform: translate3d($sliding-nav-width, 0, 0)
 
 
+.sliding-nav__logo
+	width: 4rem
+	height: auto
+	margin-left: 1rem
+	margin-bottom: 2rem
+
 .sliding-nav__list
 	list-style-type: none
 	margin-bottom: 0.25rem
@@ -36,13 +43,18 @@ $sliding-nav-width: 250px
 	display: block
 	padding: 10px 20px
 	text-decoration: none
-	color: $black
+	color: $gray90--text
+
+	+hover
+		background-color: $gray10
+		text-decoration: none
+		color: $gray90--text
 
 	// Not BEM but we don't h8 our CMS users so we're not making them add two classes.
 	&.header__nav-link--highlighted
 		color: $white
-		background-color: darken($brand-primary, 20%)
+		background-color: $link-color
 
-	+hover
-		background-color: darken($brand-primary, 20%)
-		color: #fff
+		+hover
+			background-color: $link-hover-color
+			color: $white

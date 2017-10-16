@@ -23,10 +23,22 @@
 	background-color: $white
 	border-radius: 0
 
-	&:before,
-	&:after
+	&::before,
+	&::after
 		background-color: $white
 		border-radius: 0
 
 	+media-breakpoint-up(small)
 		display: none
+
+.hamburger.is-active
+	.hamburger-inner,
+	.hamburger-inner::before,
+	.hamburger-inner::after
+		background-color: $black
+
+	+hover
+		.hamburger-inner,
+		.hamburger-inner::before,
+		.hamburger-inner::after
+			background-color: $gray80--text
