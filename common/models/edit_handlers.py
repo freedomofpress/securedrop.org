@@ -16,10 +16,12 @@ class BaseReadOnlyPanel(EditHandler):
 
     def render_as_object(self):
         return format_html(
+            '<li class="object">'
+            '<h2><label for={}>{}</h2>'
             '<fieldset><legend>{}</legend>'
-            '<ul class="fields"><li><div class="field">{}</div></li></ul>'
-            '</fieldset>',
-            self.label, self.render())
+            '<div class="field">{}</div>'
+            '</li>',
+            self.label, self.label, self.label, self.render())
 
     def render_as_field(self):
         return format_html(
