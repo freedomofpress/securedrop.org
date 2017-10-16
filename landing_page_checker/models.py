@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from modelcluster.fields import ParentalManyToManyField
+from django.core.validators import RegexValidator, validate_image_file_extension
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import RichTextField
@@ -13,15 +14,18 @@ from common.models.mixins import MetadataPageMixin
 
 
 class SecuredropPage(MetadataPageMixin, Page):
-    landing_page_domain = models.CharField(
+    landing_page_domain = models.URLField(
         'Landing Page Domain Name',
         max_length=255,
-        unique=True)
+        unique=True
+    )
 
-    onion_address = models.CharField(
+    onion_address = models.URLField(
         'SecureDrop Onion Address',
         max_length=255,
-        unique=True)
+        unique=True,
+        validators=[RegexValidator(regex=r'\.onion$')]
+    )
 
     added = models.DateTimeField(auto_now_add=True)
 
@@ -31,8 +35,9 @@ class SecuredropPage(MetadataPageMixin, Page):
         blank=True,
         on_delete=models.SET_NULL,
         related_name='+',
+        validators=[validate_image_file_extension]
     )
-    organization_description = RichTextField(blank=True, null=True)
+    organization_description = models.CharField(max_length=95, blank=True, null=True, help_text="A micro description of your organization that will be displayed in the directory.")
 
     languages = ParentalManyToManyField(
         'directory.Language',
