@@ -19,7 +19,7 @@ class BaseReadOnlyPanel(EditHandler):
             '<fieldset><legend>{}</legend>'
             '<ul class="fields"><li><div class="field">{}</div></li></ul>'
             '</fieldset>',
-            self.heading, self.render())
+            self.label, self.render())
 
     def render_as_field(self):
         return format_html(
@@ -27,16 +27,16 @@ class BaseReadOnlyPanel(EditHandler):
             '<label>{}{}</label>'
             '<div class="field-content">{}</div>'
             '</div>',
-            self.heading, _(':'), self.render())
+            self.label, _(':'), self.render())
 
 
 class ReadOnlyPanel:
-    def __init__(self, attr, heading=None, classname=''):
+    def __init__(self, attr, label=None, classname=''):
         self.attr = attr
-        self.heading = pretty_name(self.attr) if heading is None else heading
+        self.label = pretty_name(self.attr) if label is None else label
         self.classname = classname
 
     def bind_to_model(self, model):
         return type(str(_('ReadOnlyPanel')), (BaseReadOnlyPanel,),
-                    {'attr': self.attr, 'heading': self.heading,
+                    {'attr': self.attr, 'label': self.label,
                      'classname': self.classname})
