@@ -6,6 +6,9 @@ from modelcluster.fields import ParentalManyToManyField, ParentalKey
 from django.core.validators import RegexValidator
 
 from wagtail.wagtailcore.models import Page
+
+from wagtail.wagtailadmin.edit_handlers import FieldPanel
+from wagtail.wagtailcore.models import Page
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
@@ -76,7 +79,7 @@ class SecuredropPage(MetadataPageMixin, Page):
     )
 
     content_panels = Page.content_panels + [
-        ReadOnlyPanel('added', heading="Date Added"),
+        ReadOnlyPanel('added', label='Date Added'),
         FieldPanel('landing_page_domain'),
         FieldPanel('onion_address'),
         FieldPanel('organization_description'),
@@ -85,6 +88,7 @@ class SecuredropPage(MetadataPageMixin, Page):
         AutocompleteFieldPanel('countries', 'directory.Country'),
         AutocompleteFieldPanel('topics', 'directory.Topic'),
         InlinePanel('owners', label='Owners')
+        InlinePanel('results', label='Results'),
     ]
 
     search_fields_pgsql = ['title', 'landing_page_domain', 'onion_address', 'organization_description']
@@ -116,9 +120,7 @@ class Result(models.Model):
     # produce a new Result row. If multiple consecutive scans have the same
     # result, then we only insert that result once and set the result_last_seen
     # to the date of the last scan.
-    securedrop = models.ForeignKey(SecuredropPage, on_delete=models.CASCADE,
-                                   related_name='results')
-
+    securedrop = ParentalKey('landing_page_checker.SecuredropPage', related_name='results')
     live = models.BooleanField()
 
     # In order to save a scan result when it is different from the last scan
@@ -163,6 +165,41 @@ class Result(models.Model):
     no_cookies = models.NullBooleanField()
 
     grade = models.CharField(max_length=2, editable=False, default='?')
+
+    panels = [
+        ReadOnlyPanel('grade'),
+        FieldPanel('live'),
+        ReadOnlyPanel('result_last_seen'),
+        FieldPanel("forces_https"),
+        FieldPanel("hsts"),
+        FieldPanel("hsts_max_age"),
+        FieldPanel("hsts_entire_domain"),
+        FieldPanel("hsts_preloaded"),
+        FieldPanel("http_status_200_ok"),
+        FieldPanel("http_no_redirect"),
+        FieldPanel("expected_encoding"),
+        FieldPanel("no_server_info"),
+        FieldPanel("no_server_version"),
+        FieldPanel("csp_origin_only"),
+        FieldPanel("mime_sniffing_blocked"),
+        FieldPanel("noopen_download"),
+        FieldPanel("xss_protection"),
+        FieldPanel("clickjacking_protection"),
+        FieldPanel("good_cross_domain_policy"),
+        FieldPanel("http_1_0_caching_disabled"),
+        FieldPanel("cache_control_set"),
+        FieldPanel("cache_control_revalidate_set"),
+        FieldPanel("cache_control_nocache_set"),
+        FieldPanel("cache_control_notransform_set"),
+        FieldPanel("cache_control_nostore_set"),
+        FieldPanel("cache_control_private_set"),
+        FieldPanel("expires_set"),
+        FieldPanel("safe_onion_address"),
+        FieldPanel("no_cdn"),
+        FieldPanel("no_analytics"),
+        FieldPanel("subdomain"),
+        FieldPanel("no_cookies"),
+    ]
 
     class Meta:
         get_latest_by = 'result_last_seen'
