@@ -116,7 +116,7 @@ class BlogPage(MetadataPageMixin, Page):
         )
 
 
-class CategoryPage(Page):
+class CategoryPage(MetadataPageMixin, Page):
     description = RichTextField(blank=True, null=True)
 
     content_panels = Page.content_panels + [
