@@ -22,6 +22,7 @@
 	</section>
 	<section class="instance-list">
 		<form id="filter-form" method="GET" class="filters">
+			<input class="filters__input" name='search' placeholder="Search instances..." />
 			<div class="filters__selectors">
 				<select name='language' class="filters__select">
 					<option {% if not entries_filters.languages %}selected{% endif %} disabled>Language Accepted</option>
