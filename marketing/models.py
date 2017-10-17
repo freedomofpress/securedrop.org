@@ -69,6 +69,7 @@ class OrderedFeatures(Orderable):
 
 
 class FeaturePage(MetadataPageMixin, Page):
+    teaser_title = models.CharField(max_length=60)
     icon = models.ForeignKey(
         'common.CustomImage',
         null=True,
@@ -89,6 +90,7 @@ class FeaturePage(MetadataPageMixin, Page):
     parent_page_types = ['marketing.MarketingIndexPage']
 
     content_panels = Page.content_panels + [
+        FieldPanel('teaser_title'),
         ImageChooserPanel('icon'),
         FieldPanel('teaser_description'),
         FieldPanel('description'),
