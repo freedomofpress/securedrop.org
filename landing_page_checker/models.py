@@ -19,7 +19,7 @@ class SecuredropPage(MetadataPageMixin, Page):
         unique=True
     )
 
-    onion_address = models.URLField(
+    onion_address = models.CharField(
         'SecureDrop Onion Address',
         max_length=255,
         unique=True,
