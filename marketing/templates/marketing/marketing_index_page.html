@@ -1,6 +1,10 @@
 {% extends "layout/_layout_one_column.html" %}
 {% load wagtailcore_tags %}
 
+{% block header_classes %}
+	header--blue-bold
+{% endblock %}
+
 {% block main %}
 
 {% if page.features.all %}

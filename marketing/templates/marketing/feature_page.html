@@ -1,6 +1,10 @@
 {% extends "layout/_layout_sidebar.html" %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
+{% block header_classes %}
+	header--blue-bold
+{% endblock %}
+
 {% block main %}
 	<div>
 		{{ page.description|richtext }}
