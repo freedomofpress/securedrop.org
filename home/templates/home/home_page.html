@@ -95,7 +95,7 @@
 			{% if page.features_header %}
 				<h2 class="features__header">{{ page.features_header}}</h2>
 			{% endif %}
-			{% include "marketing/_feature_list.html" with features=page.features.all %}
+			{% include "marketing/_features_list.html" with features=page.features.all %}
 			{% for button in page.features_button.all %}
 				<a href="{% pageurl button.link %}" class="features__button">
 					{{ button.text }}

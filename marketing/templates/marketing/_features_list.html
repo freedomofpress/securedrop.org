@@ -1,15 +1,16 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
-<div class="features-list__items">
+<div class="features-list">
 	{% for feature in features %}
-			<div class="features-list__item">
+			<a class="features-list__item" href="{% pageurl page.features.all.first.feature %}">
 				{% if feature.feature.icon %}
 					{% image feature.feature.icon max-100x100 class='features-list__item-image' %}
 				{% endif %}
 				<div class="features-list__item-text">
-					<h3 class="features-list__item-heading">{{ feature.feature.title }}</h3>
+					<h3 class="features-list__item-heading">{{ feature.feature.teaser_title }}</h3>
 					<div class="features-list__item-description">{{ feature.feature.teaser_description }}</div>
 				</div>
-			</div>
+				{% include "common/chevron-right.svg" with class="features-list__chevron" %}
+			</a>
 	{% endfor %}
 </div>

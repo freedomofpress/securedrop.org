@@ -1,23 +1,27 @@
-.features-list__items
+.features-list
 	display: flex
 	flex-wrap: wrap
 	justify-content: space-between
 	width: 100%
+	margin: 0 -1rem
 
 	+media-breakpoint-down(extra-small)
-		flex-basis: 75%
-		justify-content: center
+		flex-direction: column
 
 .features-list__item
-	flex-basis: 30rem
-	margin-left: 2rem
-	margin-bottom: 1rem
+	flex-basis: 48%
 	display: flex
 	align-items: center
+	border-radius: $button-border-radius
+	padding: 1rem
+	+link--no-underline(inherit, inherit)
 
 	+media-breakpoint-down(extra-small)
-		flex-basis: 100%
-		margin-left: 0
+		width: 100%
+
+	+hover
+		background-color: $gray10
+
 
 .features-list__item-text
 	+p-remove-first-and-last-margin
@@ -26,3 +30,8 @@
 .features-list__item-heading
 	font-weight: $sans-bold
 	margin-bottom: 0.5rem
+
+.features-list__chevron
+	+chevron-large
+	flex-grow: 0
+	flex-shrink: 0

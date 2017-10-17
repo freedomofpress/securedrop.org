@@ -7,15 +7,22 @@
 
 {% block main %}
 	{% if page.features.all %}
-		{% include "marketing/_feature_list.html" with features=page.features.all %}
-		<a href="{% pageurl page.features.all.first.feature %}">
-			{% include "common/chevron-right.svg" %}
-		</a>
+		{% include "marketing/_features_list.html" with features=page.features.all %}
 	{% endif %}
-	<h2>{{ page.subheader }}</h2>
-	<div>
+{% endblock main %}
+
+{% block content %}
+	{{ block.super }}
+	<div class="header header--slate header--subheader">
+		<div class="hexagons-background">
+				{% include "common/_hexagons_background.svg" with class="hexagons-background__svg" %}
+		</div>
+		<h1 class="header__title">{{ page.subheader }}</h1>
+	</div>
+	<div class="layout-one-column">
 		{% for block in page.body %}
 			{% include_block block %}
 		{% endfor %}
 	</div>
-{% endblock main %}
+
+{% endblock %}
