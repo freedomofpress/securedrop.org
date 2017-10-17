@@ -24,18 +24,21 @@
 			<div class="filters__selectors">
 				<select name='language' class="filters__select">
 					<option {% if not entries_filters.languages %}selected{% endif %} disabled>Language Accepted</option>
+					<option value="None">No language</option>
 					{% for language in all_filters.languages %}
 						<option {% if entries_filters.languages == language %}selected{%endif%} value="{{language.id}}">{{language.title}}</option>
 					{% endfor %}
 				</select>
 				<select name="country" label="Country" class="filters__select">
 					<option {% if not entries_filters.countries %}selected{% endif %} disabled>Country</option>
+					<option value="None">No country</option>
 					{% for country in all_filters.countries %}
 						<option {% if entries_filters.countries == country %}selected{%endif%} value="{{country.id}}">{{country.title}}</option>
 					{% endfor %}
 				</select>
 				<select name="topic" label="Topic" class="filters__select">
 					<option {% if not entries_filters.topics %}selected{% endif %}  disabled>Topic</option>
+					<option value="None">No topic</option>
 					{% for topic in all_filters.topics %}
 						<option {% if entries_filters.topics == topic %}selected{%endif%} value="{{topic.id}}">{{topic.title}}</option>
 					{% endfor %}
