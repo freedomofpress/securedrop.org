@@ -3,9 +3,9 @@
 {% block content %}
 	<div class="layout-one-column">
 		{{ block.super }}
-		<main class="{% block main_classes %}layout-one-column__main{% endblock %}">
+		<main class="{% block main_classes %}{% endblock %}">
 			{% block main %}
 			{% endblock %}
 		</main>
 	</div>
-{% endblock content%}
+{% endblock content %}
