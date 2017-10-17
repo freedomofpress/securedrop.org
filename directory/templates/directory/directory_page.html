@@ -85,6 +85,7 @@
 											{{ instance.specific.organization_description|richtext|truncatewords_html:20 }}
 										</div>
 									{% endif %}
+									{% include "directory/_tag-list.html" with page=instance.specific directory=page %}
 								</a>
 							</td>
 							<td class="instance-table__grade-column">
