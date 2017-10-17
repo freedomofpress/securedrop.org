@@ -200,6 +200,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
                     title=data['organization'],
                     landing_page_domain=data['url'],
                     onion_address=data['tor_address'],
+                    live=False,
                 )
                 self.add_child(instance=instance)
                 instance.save()
