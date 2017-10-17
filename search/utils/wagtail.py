@@ -1,6 +1,9 @@
 from search.models import SearchDocument
 
 
+KEY_FORMAT = 'wagtail-page-{}'
+
+
 def index_wagtail_page(page):
     """
     Create or update a search document for a Wagtail Page. Returns an
@@ -20,7 +23,7 @@ def index_wagtail_page(page):
     search_content = page.get_search_content() if hasattr(page, 'get_search_content') else ''
 
     # Create a new SearchDocument
-    document_key = 'wagtail-page-{}'.format(page.pk)
+    document_key = KEY_FORMAT.format(page.pk)
     result = SearchDocument.objects.update_or_create(
         {
             'title': page.title,
@@ -52,3 +55,13 @@ def index_wagtail_pages(queryset):
         results.append(index_wagtail_page(page))
 
     return results
+
+
+def delete_wagtail_page(page):
+    """
+    Delete search document for a single Wagtail Page
+
+    """
+
+    key = KEY_FORMAT.format(page.pk)
+    SearchDocument.objects.get(key=key).delete()
