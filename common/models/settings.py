@@ -90,7 +90,11 @@ class AlertSettings(BaseSetting):
 
 @register_setting(icon='warning')
 class TorAlertSettings(BaseSetting):
-    title = models.CharField(max_length=255, default="Have a document to share?")
+    title = models.CharField(
+        max_length=255,
+        default="Have a document to share?",
+        help_text="Displayed if user is not browsing with Tor."
+    )
     subtitle = models.CharField(
         max_length=255,
         default="Your security is compromised while using this browser.",
@@ -99,9 +103,10 @@ class TorAlertSettings(BaseSetting):
     )
     body = RichTextField(
         blank=True,
-        null=True
+        null=True,
+        help_text="Text explaining how and why to use Tor browser. Only displayed if user is not browsing with Tor."
     )
-    tor_settings_title = models.CharField(max_length=255, default="Your Tor security settings are too low.")
+    tor_settings_title = models.CharField(max_length=255, default="Your Tor security settings are too low. Only displayed if user is browsing with Tor already.")
     tor_settings_subtitle = models.CharField(
         max_length=255,
         default="These settings allow JavaScript to run which compromises your security.",
@@ -110,7 +115,8 @@ class TorAlertSettings(BaseSetting):
     )
     tor_settings_body = RichTextField(
         blank=True,
-        null=True
+        null=True,
+        help_text="Text explaining how and why to change Tor security settings."
     )
 
     panels = [
