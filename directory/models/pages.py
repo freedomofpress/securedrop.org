@@ -125,9 +125,13 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
         Returns an empty filters object if PKs are invalid.
         """
         filters = {}
+        search = query.get('search')
         language_id = query.get('language')
         country_id = query.get('country')
         topic_id = query.get('topic')
+        if search:
+            filters['title__icontains'] = search
+
         if language_id:
             try:
                 filters['languages'] = Language.objects.get(id=language_id)
