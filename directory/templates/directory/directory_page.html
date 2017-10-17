@@ -21,26 +21,30 @@
 	</section>
 	<section class="instance-list">
 		<form id="filter-form" method="GET" class="filters">
-			<select name='language' form='filter-form' class="filters__select">
-				<option {% if not entries_filters.languages %}selected{% endif %} disabled>Language Accepted</option>
-				{% for language in all_filters.languages %}
-					<option {% if entries_filters.languages == language %}selected{%endif%} value="{{language.id}}">{{language.title}}</option>
-				{% endfor %}
-			</select>
-			<select name="country" label="Country" class="filters__select">
-				<option {% if not entries_filters.countries %}selected{% endif %} disabled>Country</option>
-				{% for country in all_filters.countries %}
-					<option {% if entries_filters.countries == country %}selected{%endif%} value="{{country.id}}">{{country.title}}</option>
-				{% endfor %}
-			</select>
-			<select name="topic" label="Topic" class="filters__select">
-				<option {% if not entries_filters.topics %}selected{% endif %}  disabled>Topic</option>
-				{% for topic in all_filters.topics %}
-					<option {% if entries_filters.topics == topic %}selected{%endif%} value="{{topic.id}}">{{topic.title}}</option>
-				{% endfor %}
-			</select>
-			<input type="submit" value="Submit" class="filters__submit" />
-			<a href="{% pageurl page %}">Clear Filters</a>
+			<div class="filters__selectors">
+				<select name='language' class="filters__select">
+					<option {% if not entries_filters.languages %}selected{% endif %} disabled>Language Accepted</option>
+					{% for language in all_filters.languages %}
+						<option {% if entries_filters.languages == language %}selected{%endif%} value="{{language.id}}">{{language.title}}</option>
+					{% endfor %}
+				</select>
+				<select name="country" label="Country" class="filters__select">
+					<option {% if not entries_filters.countries %}selected{% endif %} disabled>Country</option>
+					{% for country in all_filters.countries %}
+						<option {% if entries_filters.countries == country %}selected{%endif%} value="{{country.id}}">{{country.title}}</option>
+					{% endfor %}
+				</select>
+				<select name="topic" label="Topic" class="filters__select">
+					<option {% if not entries_filters.topics %}selected{% endif %}  disabled>Topic</option>
+					{% for topic in all_filters.topics %}
+						<option {% if entries_filters.topics == topic %}selected{%endif%} value="{{topic.id}}">{{topic.title}}</option>
+					{% endfor %}
+				</select>
+			</div>
+			<div class="filters__buttons">
+				<input type="submit" value="Submit" class="filters__submit">
+				<a href="{% pageurl page %}">Clear Filters</a>
+			</div>
 		</form>
 		<table class="instance-table">
 				<thead class="instance-table__head">
