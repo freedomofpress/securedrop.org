@@ -8,11 +8,23 @@ from landing_page_checker.tests.factories import SecuredropPageFactory
 class SecuredropPageTest(TestCase):
     def test_securedrop_can_save_expected_urls(self):
         securedrop = SecuredropPageFactory(
-            landing_page_domain='something.org',
-            onion_address='notreal.onion',
+            landing_page_domain='https://www.something.org',
+            onion_address='https://notreal.onion',
         )
         securedrop.save()
         self.assertIn(securedrop, SecuredropPage.objects.all())
+
+    def test_securedrop_cannot_save_invalid_url(self):
+        with self.assertRaises(ValidationError):
+            SecuredropPageFactory(
+                landing_page_domain='something',
+            )
+
+    def test_securedrop_cannot_save_invalid_onion_address(self):
+        with self.assertRaises(ValidationError):
+            SecuredropPageFactory(
+                onion_address='https://notreal.com',
+            )
 
     def test_securedrop_cannot_save_empty_urls(self):
         with self.assertRaises(ValidationError):
@@ -21,7 +33,7 @@ class SecuredropPageTest(TestCase):
             )
 
     def test_duplicate_landing_pages_are_invalid(self):
-        landing_page_domain = 'freedom.press'
+        landing_page_domain = 'https://www.freedom.press'
 
         SecuredropPageFactory(
             landing_page_domain=landing_page_domain,
@@ -32,7 +44,7 @@ class SecuredropPageTest(TestCase):
             )
 
     def test_duplicate_onion_addresses_are_invalid(self):
-        onion_address = 'notreal.onion'
+        onion_address = 'https://notreal.onion'
 
         SecuredropPageFactory(
             onion_address=onion_address,

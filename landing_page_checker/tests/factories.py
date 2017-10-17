@@ -9,7 +9,7 @@ from directory.tests.factories import LanguageFactory, CountryFactory, TopicFact
 
 
 def random_onion_address():
-    return ''.join(
+    return 'https://' + ''.join(
         random.choice(string.ascii_lowercase + string.digits)
         for _ in range(16)
     ) + '.onion'
