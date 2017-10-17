@@ -167,13 +167,14 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
 
             return render(
                 request,
-                # TODO: Make a real template for this
                 'landing_page_checker/result.html',
                 {
                     'landing_page_domain': data['url'],
                     'result': result,
-                    'page': self,
-                    'directory': self,
+                    'submission_form': DirectoryForm(initial={
+                        'url': data['url'],
+                    }),
+                    'submission_url': '{0}form/'.format(self.url),
                 },
             )
 

@@ -25,6 +25,13 @@ header--slate
     {{ settings.common.DirectorySettings.security_warning|richtext }}
 </div>
 {% endif %}
+<div class="submission-form">
+	<form action="{{ submission_url }}" method="post">
+		{% csrf_token %}
+		{{ submission_form.as_p }}
+		<input type="submit" value="Submit" />
+	</form>
+</div>
 {% endblock column_one %}
 
 {% block column_two %}
