@@ -106,7 +106,10 @@ class TorAlertSettings(BaseSetting):
         null=True,
         help_text="Text explaining how and why to use Tor browser. Only displayed if user is not browsing with Tor."
     )
-    tor_settings_title = models.CharField(max_length=255, default="Your Tor security settings are too low. Only displayed if user is browsing with Tor already.")
+    tor_settings_title = models.CharField(
+        max_length=255,
+        default="Your Tor security settings are too low.",
+        help_text="This alert is only displayed if the user is browsing with Tor already.")
     tor_settings_subtitle = models.CharField(
         max_length=255,
         default="These settings allow JavaScript to run which compromises your security.",
