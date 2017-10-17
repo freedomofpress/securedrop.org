@@ -1,0 +1,31 @@
+// HOW TO USE
+// Add the mixin +left-chevron--right or +text-chevron--left
+// to the chrevron icon styles.
+//
+// SIZES
+// The default size is small, for text and small buttons.
+// The large size is for large buttons.
+
+
+
+// Helper mixin
+
+=text-chevron($size: small)
+	height: 0.8em
+	vertical-align: -0.06em
+	fill: currentColor
+	@if $size == "large"
+		height: 1em
+		vertical-align: -0.2em
+
+// Mixins to use
+
+=text-chevron--right($size: small)
+	+text-chevron($size)
+	margin-left: 0.5em
+
+
+=text-chevron--left($size: small)
+	+text-chevron($size)
+	margin-right: 0.5em
+	transform: rotate(180deg)
