@@ -1,28 +1,37 @@
+$select-width: 11.5rem
+$background-image-width: 1.5rem
+$select-padding: 0.5rem
+$select-height: 2.5rem
+
 .filters
- display: flex
- flex-wrap: wrap
- margin-bottom: 2rem
+	display: flex
+	flex-wrap: wrap
+	margin-bottom: 2rem
 
 .filters__select
+	appearance: none;
 	border-radius: $button-border-radius
 	background: transparent
 	border: 1px solid $gray50
-	height: 2rem
-	width: 11rem
+	height: 2.5rem
+	width: $select-width
 	color: $gray50--text
 	margin-right: 1rem
 	margin-bottom: 1rem
-	padding: 0.5rem
+	padding: $select-padding $background-image-width + $select-padding $select-padding $select-padding
+	background: transparent url("http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png") no-repeat $select-width - $background-image-width center;
+	background-repeat: no-repeat;
 
 .filters__submit
-	width: 2rem
-	height: 2rem
+	width: $select-height
+	height: $select-height
 	overflow: hidden
 	border-radius: $button-border-radius
 	border: none
 	background-color: $gray80
-	color: white
+	color: $white
 	margin-bottom: 0.5rem
+	padding: 0.5rem
 
 .filters__buttons
 	display: flex

@@ -1,5 +1,6 @@
 {% extends "layout/_layout_sidebar.html" %}
-{% load wagtailcore_tags wagtailimages_tags querydict_update %}
+
+{% load wagtailcore_tags wagtailimages_tags querydict_update static%}
 {% load render_bundle from webpack_loader %}
 
 {% block header_classes %}
@@ -45,7 +46,7 @@
 				</select>
 			</div>
 			<div class="filters__buttons">
-				<input type="submit" value="Submit" class="filters__submit">
+				<input type="image" src="{% static "images/chevron-right.svg" %}" alt="submit" name="submit" class="filters__submit">
 				<a href="{% pageurl page %}">Clear Filters</a>
 			</div>
 		</form>
