@@ -47,8 +47,9 @@ def index_wagtail_pages(queryset):
 
     """
 
-    # Make sure we get only live pages in their most specific subclass instance
-    pages = filter(lambda x: not x.is_root(), queryset.live().specific())
+    # Make sure we get only live, non-root pages in their most specific
+    # subclass instance
+    pages = queryset.filter(depth__gt=1).live().specific()
 
     results = []
     for page in pages:
