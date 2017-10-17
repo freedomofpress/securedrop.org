@@ -17,7 +17,10 @@
 			{% endif %}
 
 			{% for button in page.description_buttons.all %}
-				<a href="{% pageurl button.link %}"n class="hero__button">{{ button.text }}</a>
+				<a href="{% pageurl button.link %}" class="hero__button">
+					{{ button.text }}
+					{% include "common/chevron-right.svg" with class="hero__button-icon" %}
+				</a>
 			{% endfor %}
 		</div>
 	</div>
@@ -77,6 +80,7 @@
 				{% for button in page.instance_button.all %}
 					<a href="{% pageurl button.link %}" class="instances__button">
 						{{ button.text }}
+						{% include "common/chevron-right.svg" with class="instances__button-icon" %}
 					</a>
 				{% endfor %}
 			</div>
@@ -90,6 +94,7 @@
 			{% for button in page.features_button.all %}
 				<a href="{% pageurl button.link %}" class="features__button">
 					{{ button.text }}
+					{% include "common/chevron-right.svg" with class="features__button-icon" %}
 				</a>
 			{% endfor %}
 		</div>

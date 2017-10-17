@@ -23,6 +23,7 @@
 				href="?{% query_transform request page=entries_page.previous_page_number %}"
 				class="pagination-button js-infinite-scrolling-prev-link"
 			>
+				{% include "common/chevron-right.svg" with class="pagination-button__icon-left" %}
 				Previous Page
 			</a>
 		{% endif %}
@@ -33,6 +34,7 @@
 				class="pagination-button js-infinite-scrolling-next-link"
 			>
 				More Posts
+				{% include "common/chevron-right.svg" with class="pagination-button__icon-right" %}
 			</a>
 		{% endif %}
 {% endblock main %}
