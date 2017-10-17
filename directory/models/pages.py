@@ -1,3 +1,4 @@
+from django.core.validators import MaxValueValidator
 from django.db import models
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
@@ -8,6 +9,8 @@ from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailcore.models import Page
 
 from common.models.mixins import MetadataPageMixin
+from common.utils import paginate, DEFAULT_PAGE_KEY
+from directory.models import Language, Topic, Country
 from directory.forms import DirectoryForm
 from landing_page_checker.landing_page import scanner
 from landing_page_checker.models import SecuredropPage as SecuredropInstance
@@ -31,6 +34,17 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
         related_name='+',
         help_text="Linked to by the info icon next to 'Security' in the directory table headers."
     )
+    per_page = models.PositiveSmallIntegerField(
+        default=10,
+        # More than 25 would be unfriendly for users.
+        validators=[MaxValueValidator(25)],
+        help_text='Number of news stories to display per page',
+    )
+    orphans = models.PositiveSmallIntegerField(
+        default=2,
+        validators=[MaxValueValidator(5)],
+        help_text='Minimum number of stories on the last page (if the last page is smaller, they will get added to the preceding page)'
+    )
 
     content_panels = Page.content_panels + [
         FieldPanel('body'),
@@ -47,10 +61,92 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
     ]
 
     settings_panels = Page.settings_panels + [
-        PageChooserPanel('faq_link')
+        PageChooserPanel('faq_link'),
+        MultiFieldPanel((
+            FieldPanel('per_page'),
+            FieldPanel('orphans'),
+        ), 'Pagination'),
     ]
 
     subpage_types = ['landing_page_checker.SecuredropPage']
+
+    def get_instances(self, filters=None):
+        """Get `SecuredropPage` children of this page
+
+        consistently filtered by visibility and `filters` parameter
+        """
+        instances = SecuredropInstance.objects.child_of(self).live()
+        if filters:
+            instances = instances.filter(**filters)
+        return instances
+
+    def filters_from_querydict(self, query):
+        """Accept a querydict and return a list of queryset filters
+
+        Currently accepts the following get keys:
+        - `language` an language id
+        - `country` a country id
+        - `topic` a topic id
+
+        Returns filters with objects, not PKs because objects can be used
+        to render information about the filter in the template. (I.e., "You
+        are filtering for instances that list Spanish as a language")
+        Returns an empty filters object if PKs are invalid.
+        """
+        filters = {}
+        language_id = query.get('language')
+        country_id = query.get('country')
+        topic_id = query.get('topic')
+        if language_id:
+            try:
+                filters['languages'] = Language.objects.get(id=language_id)
+            except ValueError:
+                pass
+            except Language.DoesNotExist:
+                pass
+
+        if country_id:
+            try:
+                filters['countries'] = Country.objects.get(id=country_id)
+            except ValueError:
+                pass
+            except Country.DoesNotExist:
+                pass
+
+        if topic_id:
+            try:
+                filters['topics'] = Topic.objects.get(id=topic_id)
+            except ValueError:
+                pass
+            except Country.DoesNotExist:
+                pass
+
+        return filters
+
+    def get_context(self, request):
+        context = super(DirectoryPage, self).get_context(request)
+
+        entry_filters = self.filters_from_querydict(request.GET)
+        entry_qs = self.get_instances(filters=entry_filters)
+
+        paginator, entries = paginate(
+            request,
+            entry_qs,
+            page_key=DEFAULT_PAGE_KEY,
+            per_page=self.per_page,
+            orphans=self.orphans
+        )
+
+        context['entries_page'] = entries
+        context['entries_filters'] = entry_filters
+        context['paginator'] = paginator
+        context['all_filters'] = {
+            'languages': Language.objects.all(),
+            'countries': Country.objects.all(),
+            'topics': Topic.objects.all(),
+        }
+
+        return context
 
     @route('form/')
     def form_view(self, request):

@@ -18,6 +18,7 @@ console.log('Using STATIC_URL', STATIC_URL);
 var common = {
 	entry: {
 		common: __dirname + '/client/common/js/common.js',
+		editor: __dirname + '/client/autocomplete/js/editor.js',
 	},
 
 	output: {
@@ -28,6 +29,7 @@ var common = {
 	resolve: {
 		alias: {
 			'~': __dirname + '/client/common/js',
+			WagtailAutocomplete: path.resolve(__dirname, 'client/autocomplete/js/components'),
 			modernizr$: path.resolve(__dirname, '.modernizrrc')
 		},
 		extensions: ['.js', '.jsx'],
@@ -49,6 +51,7 @@ var common = {
 				],
 				include: [
 					path.join(__dirname, '/client/common/js'),
+					path.join(__dirname, '/client/autocomplete/js'),
 				],
 			},
 			{

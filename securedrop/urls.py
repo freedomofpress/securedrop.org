@@ -9,10 +9,14 @@ from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtailcore import urls as wagtail_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
 
+from autocomplete.urls.public import urlpatterns as autocomplete_public_urls
+from autocomplete.urls.admin import urlpatterns as autocomplete_admin_urls
+
 
 urlpatterns = [
     url(r'^django-admin/', include(admin.site.urls)),
-
+    url(r'^autocomplete/', include(autocomplete_public_urls)),
+    url(r'^admin/autocomplete/', include(autocomplete_admin_urls)),
     url(r'^admin/', include(wagtailadmin_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
 

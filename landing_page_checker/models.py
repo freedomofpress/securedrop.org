@@ -1,12 +1,14 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from modelcluster.fields import ParentalManyToManyField
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
+from autocomplete.edit_handlers import AutocompleteFieldPanel
 from common.models.mixins import MetadataPageMixin
 
 
@@ -32,11 +34,35 @@ class SecuredropPage(MetadataPageMixin, Page):
     )
     organization_description = RichTextField(blank=True, null=True)
 
+    languages = ParentalManyToManyField(
+        'directory.Language',
+        blank=True,
+        verbose_name='Languages Accepted',
+        related_name='languages'
+    )
+
+    countries = ParentalManyToManyField(
+        'directory.Country',
+        blank=True,
+        verbose_name='Countries',
+        related_name='countries'
+    )
+
+    topics = ParentalManyToManyField(
+        'directory.Topic',
+        blank=True,
+        verbose_name='Preferred Topics',
+        related_name='topics'
+    )
+
     content_panels = Page.content_panels + [
         FieldPanel('landing_page_domain'),
         FieldPanel('onion_address'),
         FieldPanel('organization_description'),
         ImageChooserPanel('organization_logo'),
+        AutocompleteFieldPanel('languages', 'directory.Language'),
+        AutocompleteFieldPanel('countries', 'directory.Country'),
+        AutocompleteFieldPanel('topics', 'directory.Topic'),
     ]
 
 
