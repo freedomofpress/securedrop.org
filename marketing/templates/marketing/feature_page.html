@@ -24,14 +24,15 @@
 
 {% block sidebar %}
 	{% if page.icon %}
-		{% image page.icon fill-50x50-c100 %}
+		{% image page.icon max-500x500 %}
 	{% endif %}
-	<ol>
+	<ol class="features-sidebar__list">
 		{% for feature in page.all_features %}
 			<li>
-				<a href="{% pageurl feature.feature %}">
-				{{ feature.feature.title }}
-			</a></li>
+				<a href="{% pageurl feature.feature %}" class="features-sidebar__link">
+					{{ feature.feature.title }}
+				</a>
+			</li>
 		{% endfor %}
 	</ol>
 {% endblock %}
