@@ -55,8 +55,10 @@
 		{% endblock %}
 	</body>
 
-	{% block js %}
+	{% block js-common %}
 		{% render_bundle 'common' 'js' %}
-		{% render_bundle 'torEntry' 'js' %}
+	{% endblock %}
+
+	{% block js-tor %}
 	{% endblock %}
 </html>
