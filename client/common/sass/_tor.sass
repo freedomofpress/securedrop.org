@@ -1,13 +1,40 @@
 .use-tor-browser--hidden, .js-tor-warning--hidden
 	display: none
 
-#use-tor-browser
-	position: fixed
-	top: 1rem
-	left: 1rem
-	right: 1rem
-	bottom: 1rem
-	+sd-gradient($red1,$red2)
+.tor-warning
+	display: flex
+	justify-content: space-between
+	align-items: center
+	padding: 1rem 0 1rem 1rem // padding-right is on close button
 	color: $white
-	// ensure that warning is above everything, including the mobile menu
-	z-index: $z-tor-popup
+	+sd-gradient($red1,$red2)
+	+media-breakpoint-down(extra-small)
+		position: fixed
+		top: 1rem
+		left: 1rem
+		right: 1rem
+		bottom: 1rem
+		// ensure that warning is above everything, including the mobile menu
+		z-index: $z-tor-popup
+		padding: 1rem
+		display: block
+
+.tor-warning__title
+	+media-breakpoint-down(extra-small)
+		padding-right: $rem-in-px + $alert-button-width
+
+.tor-warning__close-button
+	background-color: inherit
+	border: none
+	margin: 0
+	padding: 1rem
+	+link-transition
+	+link--no-underline($white,$gray50)
+	+media-breakpoint-down(extra-small)
+		position: absolute
+		right: 0
+		top: 0
+
+.tor-warning__close-x
+	width: $alert-button-width
+	height: $alert-button-height
