@@ -9,16 +9,29 @@
 	<div>
 		{{ page.description|richtext }}
 
-		{% if page.previous %}
-			<a href="{% pageurl page.previous %}">
-				{{ page.previous }}
-			</a>
-		{% endif %}
-		{% if page.next %}
-			<a href="{% pageurl page.next %}">
-				{{ page.next }}
-			</a>
-		{% endif %}
+		<nav aria-label="Page navigation">
+			{% if page.previous %}
+				<a
+					href="{% pageurl page.previous %}"
+					class="pagination__link--previous js-infinite-scrolling-prev-link"
+					aria-label="Previous"
+				>
+					{% include "common/chevron-right.svg" with class="pagination__icon--previous" %}{{ page.previous }}
+				</a>
+			{% endif %}
+
+			{% if page.next %}
+				<a
+					href="{% pageurl page.next %}"
+					class="pagination__link--next js-infinite-scrolling-next-link"
+					aria-label="Next"
+				>
+					{{ page.next }}{% include "common/chevron-right.svg" with class="pagination__icon--next" %}
+				</a>
+			{% endif %}
+		</nav>
+
+
 	</div>
 {% endblock main %}
 
