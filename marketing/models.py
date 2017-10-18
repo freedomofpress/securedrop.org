@@ -60,7 +60,8 @@ class OrderedFeatures(Orderable):
     )
     feature = models.ForeignKey(
         'marketing.FeaturePage',
-        related_name='marketing_order'
+        related_name='marketing_order',
+        unique=True
     )
 
     panels = [
