@@ -123,8 +123,10 @@ class CategoryPage(MetadataPageMixin, Page):
         FieldPanel('description'),
     ]
 
+    parent_page_types = ['blog.BlogIndexPage']
+
     def get_blog_posts(self):
-        return BlogPage.objects.live().filter(categories=self)
+        return BlogPage.objects.live().filter(category=self)
 
     def get_context(self, request):
         context = super(CategoryPage, self).get_context(request)
@@ -181,7 +183,7 @@ class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
         FieldPanel('release_title'),
     ]
 
-    subpage_types = ['blog.BlogPage']
+    subpage_types = ['blog.BlogPage', 'blog.CategoryPage']
 
     search_fields = Page.search_fields + [
         index.SearchField('body'),
