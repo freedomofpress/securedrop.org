@@ -1,5 +1,4 @@
 from django.db import models
-from django.core.exceptions import ObjectDoesNotExist
 from modelcluster.fields import ParentalKey
 
 from common.models import MetadataPageMixin
@@ -101,23 +100,23 @@ class FeaturePage(MetadataPageMixin, Page):
         return self.marketing_order.get(page=self.get_parent()).sort_order
 
     def next(self):
-        try:
-            return OrderedFeatures.objects.get(
-                page=self.get_parent(),
-                sort_order=self.sort_order() + 1).feature
-        except(ObjectDoesNotExist):
-            return None
+        ordered_feature = OrderedFeatures.objects.filter(
+            page=self.get_parent(),
+            sort_order__gt=self.sort_order()).first()
+        if ordered_feature:
+            return ordered_feature.feature
+        return None
 
     def previous(self):
-        try:
-            return OrderedFeatures.objects.get(
-                page=self.get_parent(),
-                sort_order=self.sort_order() - 1).feature
-        except(ObjectDoesNotExist):
-            return None
+        ordered_feature = OrderedFeatures.objects.filter(
+            page=self.get_parent(),
+            sort_order__lt=self.sort_order()).last()
+        if ordered_feature:
+            return ordered_feature.feature
+        return None
 
     def all_features(self):
         return self.get_parent().specific.features.all()
 
     def __str__(self):
-        return '%s. %s' % (self.sort_order() + 1, self.teaser_title)
+        return self.teaser_title
