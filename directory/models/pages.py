@@ -2,6 +2,8 @@ from django.core.validators import MaxValueValidator
 from django.db import models
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
 from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
@@ -215,6 +217,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
         return render(request, 'directory/scanner_form.html', context)
 
     @route('form/')
+    @method_decorator(login_required)
     def form_view(self, request):
         if request.method == 'POST':
             # create a form instance and populate it with data from the request:
