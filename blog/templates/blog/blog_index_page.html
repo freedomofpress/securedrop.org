@@ -1,7 +1,5 @@
 {% extends "layout/_layout_sidebar.html" %}
 
-{% load wagtailcore_tags common_tags %}
-
 {% block head %}
   {{ block.super }}
   {% include "common/_rss_autodiscovery.html" %}
@@ -12,58 +10,9 @@
 {% endblock %}
 
 {% block main %}
-	{% for post in entries_page %}
-		<div>
-			{% include "blog/_blog_tease.html" with page=post.specific location="blog-index" link_text=page.link_to_page_text %}
-		</div>
-	{% endfor %}
-	<nav aria-label="Page navigation">
-		{% if entries_page.has_previous %}
-			<a
-				href="?{% query_transform request page=entries_page.previous_page_number %}"
-				class="pagination__link--button pagination__link--previous js-infinite-scrolling-prev-link"
-				aria-label="Previous"
-			>
-				{% include "common/chevron-right.svg" with class="pagination__icon--previous" %}
-				Previous Page
-			</a>
-		{% endif %}
-
-		{% if entries_page.has_next %}
-			<a
-				href="?{% query_transform request page=entries_page.next_page_number %}"
-				class="pagination__link--button pagination__link--next js-infinite-scrolling-next-link"
-				aria-label="Next"
-			>
-				More Posts
-				{% include "common/chevron-right.svg" with class="pagination__icon--next" %}
-			</a>
-		{% endif %}
-	</nav>
+	{% include "blog/_blog_posts_body.html" with link_text=page.link_to_page_text %}
 {% endblock main %}
 
 {% block sidebar %}
-	<ul class="category-list">
-		{% for category in page.get_category_pages %}
-			<li class="category-list__item">
-				{% include "common/_hexagon.svg" with class="category-list__hexagon" category_slug=category.slug %}
-				<span class="category-list__text">{{ category.title }}</span>
-			</li>
-		{% endfor %}
-	</ul>
-	<div class="release-preview">
-		<h3 class="release-preview__title">{{ page.release_title }}</h3>
-		{% if page.get_current_release %}
-		{% with current_release=page.get_current_release %}
-			<h4 class="release-preview__tag">SecureDrop {{ current_release.tag_name }}</h4>
-			<div class="release-preview__date">{{ current_release.date|date:"E j, Y"}}
-			<div class="release-preview__links">
-				<a href="{{ current_release.url }}" class="release-preview__link">Github</a>
-				{% if current_release.blog_page %}
-					<a href="{% pageurl current_release.blog_page %}" class="release-preview__link">Release notes</a>
-				{% endif %}
-			</div>
-		{% endwith%}
-		{% endif %}
-	</div>
+	{% include "blog/_sidebar_with_categories_and_release.html" %}
 {% endblock sidebar %}

@@ -125,13 +125,13 @@ class CategoryPage(MetadataPageMixin, Page):
 
     parent_page_types = ['blog.BlogIndexPage']
 
-    def get_blog_posts(self):
+    def get_posts(self):
         return BlogPage.objects.live().filter(category=self)
 
     def get_context(self, request):
         context = super(CategoryPage, self).get_context(request)
 
-        entry_qs = self.get_blog_posts()
+        entry_qs = self.get_posts()
         # Use parent's settings for pagination counts
         parent = self.get_parent().specific
 
@@ -212,8 +212,8 @@ class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
 
     def get_posts(self):
         return BlogPage.objects.child_of(self)\
-                       .live()\
-                       .order_by('-publication_datetime')
+            .live()\
+            .order_by('-publication_datetime')
 
     def get_context(self, request):
         context = super(BlogIndexPage, self).get_context(request)
@@ -239,7 +239,7 @@ class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
         )
 
     def get_category_pages(self):
-        return CategoryPage.objects.live()
+        return CategoryPage.objects.child_of(self).live()
 
     def get_current_release(self):
         return Release.objects.order_by('-date').first()
