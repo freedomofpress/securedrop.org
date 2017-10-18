@@ -89,16 +89,16 @@
 			<nav aria-label="Page navigation">
 				{% if entries_page.has_previous %}
 					{% querydict_update request.GET page=entries_page.previous_page_number as qdict_previous %}
-					<a class="pagination-button pagination-button--previous" aria-label="Previous" href="?{{ qdict_previous.urlencode }}">
-						{% include "common/chevron-right.svg" with class="pagination-button__icon--left" %}
+					<a class="pagination__link--button pagination__link--previous" aria-label="Previous" href="?{{ qdict_previous.urlencode }}">
+						{% include "common/chevron-right.svg" with class="pagination__icon--previous" %}
 						Previous
 					</a>
 				{% endif %}
 				{% if entries_page.has_next %}
 					{% querydict_update request.GET page=entries_page.next_page_number as qdict_next %}
-					<a class="pagination-button pagination-button--next" aria-label="Next" href="?{{ qdict_next.urlencode }}">
+					<a class="pagination__link--button pagination__link--next" aria-label="Next" href="?{{ qdict_next.urlencode }}">
 						Next
-						{% include "common/chevron-right.svg" with class="pagination-button__icon--right" %}
+						{% include "common/chevron-right.svg" with class="pagination__icon--next" %}
 					</a>
 				{% endif %}
 			</nav>
