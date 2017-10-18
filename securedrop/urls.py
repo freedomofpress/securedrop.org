@@ -23,6 +23,7 @@ urlpatterns = [
     url(r'^search/$', search_views.search, name='search'),
 
     url(r'^github/', include('github.urls')),
+    url(r'^accounts/', include('allauth.urls')),
 
     url(r'', include(wagtail_urls)),
 ]

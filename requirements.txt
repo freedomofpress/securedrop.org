@@ -14,6 +14,8 @@ chardet==3.0.4            # via requests
 click==6.7                # via pip-tools
 cryptography==1.9         # via pyopenssl, sslyze
 dataproperty==0.25.6      # via pytablereader, pytablewriter, simplesqlite
+defusedxml==0.5.0         # via python3-openid
+django-allauth==0.33.0
 django-modelcluster==3.1
 django-recaptcha==1.3.1
 django-settings-export==1.2.1
@@ -25,12 +27,14 @@ djangorestframework==3.6.4  # via wagtail
 docopt==0.6.2             # via pshtt
 dominate==2.3.1           # via pytablewriter
 elasticsearch==5.4.0      # via pytablewriter
+enum34==1.1.6             # via cryptography
 factory-boy==2.9.2
 faker==0.7.18             # via factory-boy
 first==2.0.1              # via pip-tools
 gunicorn==19.7.1
 html5lib==0.999999999     # via bleach, wagtail
 idna==2.6                 # via cryptography, requests
+ipaddress==1.0.18         # via cryptography
 jsonschema==2.6.0         # via pytablereader
 logbook==1.1.0            # via dataproperty, pytablereader, pytablewriter, simplesqlite
 lxml==3.8.0
@@ -38,6 +42,7 @@ markdown2==2.3.4          # via pytablereader
 mbstrdecoder==0.2.2       # via pytablereader, pytablewriter, simplesqlite, typepy
 multidict==3.1.3          # via yarl
 nassl==0.17.0             # via sslyze
+oauthlib==2.0.5           # via requests-oauthlib
 olefile==0.44             # via pillow
 path.py==10.4             # via pytablereader
 pathvalidate==0.16.1      # via pytablereader, pytablewriter, simplesqlite
@@ -53,10 +58,12 @@ pyparsing==2.2.0          # via pytablereader
 pytablereader==0.13.3     # via pytablewriter, simplesqlite
 pytablewriter==0.24.0     # via pshtt
 python-dateutil==2.6.1    # via faker, typepy
+python3-openid==3.1.0     # via django-allauth
 pytz==2017.2              # via django, django-modelcluster, typepy
 pyyaml==3.12              # via vcrpy
 requests-cache==0.4.13    # via pshtt
-requests==2.18.4          # via pshtt, pytablereader, requests-cache, wagtail
+requests-oauthlib==0.8.0  # via django-allauth
+requests==2.18.4          # via django-allauth, pshtt, pytablereader, requests-cache, requests-oauthlib, wagtail
 simplesqlite==0.15.0      # via pytablewriter
 six==1.10.0               # via bleach, cryptography, faker, html5lib, mbstrdecoder, pip-tools, pyopenssl, pytablereader, pytablewriter, python-dateutil, simplesqlite, typepy, unittest-xml-reporting, vcrpy
 sslyze==1.1.4             # via pshtt
