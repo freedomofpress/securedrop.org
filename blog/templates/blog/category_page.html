@@ -1,6 +1,8 @@
 {% extends "layout/_layout_sidebar.html" %}
+{% load wagtailcore_tags %}
 
 {% block main %}
+	<a href="{% pageurl page.get_parent %}" class="back">All news</a>
 	{% include "blog/_blog_posts_body.html" with link_text=page.get_parent.specific.link_to_page_text %}
 {% endblock main %}
 
