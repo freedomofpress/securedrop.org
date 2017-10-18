@@ -173,6 +173,16 @@ class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
                   'syndication feed. 0 for unlimited.'
     )
 
+    # pagination
+    per_page = models.PositiveIntegerField(
+        default=8,
+        help_text="Number of posts to display per page."
+    )
+    orphans = models.PositiveIntegerField(
+        default=5,
+        help_text="Number of posts to append to the last page to prevent there being a small last page."
+    )
+
     content_panels = Page.content_panels + [
         StreamFieldPanel('body'),
     ]
@@ -181,6 +191,13 @@ class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
         FieldPanel('feed_limit'),
         FieldPanel('link_to_page_text'),
         FieldPanel('release_title'),
+        MultiFieldPanel(
+            [
+                FieldPanel('per_page'),
+                FieldPanel('orphans')
+            ],
+            'Pagination'
+        )
     ]
 
     subpage_types = ['blog.BlogPage', 'blog.CategoryPage']
@@ -206,8 +223,8 @@ class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
             request,
             entry_qs,
             page_key=DEFAULT_PAGE_KEY,
-            per_page=8,
-            orphans=5
+            per_page=self.per_page,
+            orphans=self.orphans
         )
 
         context['entries_page'] = entries
