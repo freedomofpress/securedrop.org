@@ -1,0 +1,9 @@
+{% extends "layout/_layout_one_column.html" %}
+
+{% block content %}
+	<ul>
+	{% for instance in object_list %}
+		<li><a href="{% url 'securedrop_detail' instance.slug %}">{{ instance.title }}</li>
+	{% endfor %}
+	</ul>
+{% endblock %}

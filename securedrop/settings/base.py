@@ -29,6 +29,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Application definition
 
 INSTALLED_APPS = [
+    'accounts',
     'autocomplete',
     'blog',
     'common',
@@ -250,4 +251,5 @@ ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE=True
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE=True
 ACCOUNT_UNIQUE_EMAIL=True
 SOCIALACCOUNT_EMAIL_REQUIRED=True
+ACCOUNT_ADAPTER = 'accounts.users.adapter.MyAccountAdapter'
 
