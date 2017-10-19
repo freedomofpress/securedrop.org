@@ -129,7 +129,7 @@ class CategoryPage(MetadataPageMixin, Page):
     parent_page_types = ['blog.BlogIndexPage']
 
     def get_posts(self):
-        return BlogPage.objects.live().filter(category=self)
+        return BlogPage.objects.filter(category=self).sibling_of(self, inclusive=False).live()
 
     def get_context(self, request):
         context = super(CategoryPage, self).get_context(request)
