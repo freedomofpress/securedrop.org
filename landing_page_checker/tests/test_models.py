@@ -2,7 +2,7 @@ from django.core.exceptions import ValidationError
 from django.test import TestCase
 
 from landing_page_checker.models import SecuredropPage, Result
-from landing_page_checker.tests.factories import SecuredropPageFactory
+from landing_page_checker.tests.factories import SecuredropPageFactory, ResultFactory
 
 
 class SecuredropPageTest(TestCase):
@@ -59,6 +59,13 @@ class SecuredropPageTest(TestCase):
             title='Freedom of the Press Foundation',
         )
         self.assertIn(securedrop1.title, securedrop1.__str__())
+
+    def test_returns_latest_live_result(self):
+        sd = SecuredropPageFactory()
+        r1 = ResultFactory(live=False, securedrop=sd)
+        r2 = ResultFactory(live=False, securedrop=sd)
+        r3 = ResultFactory(live=True, securedrop=sd)
+        self.assertEqual(r3, sd.get_live_result)
 
 
 class ResultTest(TestCase):

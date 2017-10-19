@@ -65,3 +65,7 @@ class SecuredropPageFactory(wagtail_factories.PageFactory):
             topics.append(topic)
         if not create:
             self._prefetched_objects_cache = {'topics': topics}
+
+
+class ResultFactory(factory.Factory):
+    hsts_max_age = random.randint(0, 16070400 * 2)
