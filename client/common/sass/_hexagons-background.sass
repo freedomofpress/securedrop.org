@@ -18,28 +18,28 @@
 	opacity: 0.3
 	+media-breakpoint-down(extra-small)
 		left: 50%
-		transform: translate(27.5rem, 15.9rem) scale(8)
+		transform: translate(13.5rem, 14.3rem) scale(8)
 		opacity: 0.2
 	+media-breakpoint-only(small)
-		transform: translate(7.5rem, 15.9rem) scale(8)
+		transform: translate(9.5rem, 14.3rem) scale(8)
 	+media-breakpoint-only(medium)
-		transform: translate(9.5rem, 15.9rem) scale(8)
+		transform: translate(11.5rem, 14.3rem) scale(8)
 	+media-breakpoint-up(large)
 		left: 50%
-		transform: translate(4rem, 15.9rem) scale(8)
+		transform: translate(6rem, 14.3rem) scale(8)
 
 .hexagons-background__svg--updates
 	opacity: 1
 	+media-breakpoint-down(extra-small)
 		left: 50%
-		transform: translate(11.5rem, 245rem) scale(8)
+		transform: translate(21.5rem, 8.5rem) scale(8)
 	+media-breakpoint-only(small)
-		transform: translate(15.5rem, 245rem) scale(8)
+		transform: translate(9.5rem, 8.5rem) scale(8)
 	+media-breakpoint-only(medium)
-		transform: translate(17.5rem, 245rem) scale(8)
+		transform: translate(11.5rem, 8.5rem) scale(8)
 	+media-breakpoint-up(large)
 		left: 50%
-		transform: translate(12rem, 245rem) scale(8)
+		transform: translate(6rem, 8.5rem) scale(8)
 	.hexagons-background__hexagon
 		fill: $gray10 !important
 		opacity: 1 !important
@@ -47,39 +47,39 @@
 .hexagons-background__svg--instances
 	transform: rotate(-15deg) scale(6)
 
-.hexagons-background__hexagon
-	fill: $white
+@for $i from 0 to 4
+	@keyframes shimmer#{$i}
+		0%
+			opacity: $i*0.1
+		#{50 - $i*10}%
+			opacity: 0.5
+		#{100 - $i*10}%
+			opacity: 0
+		100%
+			opacity: $i*0.1
+@for $i from 5 to 9
+	@keyframes shimmer#{$i}
+		0%
+			opacity: 1 - $i*0.1
+		#{100 - $i*10}%
+			opacity: 0
+		#{150 - $i*10}%
+			opacity: 0.5
+		100%
+			opacity: 1 - $i*0.1
 
-.hexagons-background__hexagon--1
-	opacity: .1
-	fill: $black
-
-.hexagons-background__hexagon--2
-	opacity: .1
-
-.hexagons-background__hexagon--3
-	opacity: .2
-	fill: $black
-
-.hexagons-background__hexagon--4
-	opacity: .2
-
-.hexagons-background__hexagon--5
-	opacity: .3
-	fill: $black
-
-.hexagons-background__hexagon--6
-	opacity: .3
-
-.hexagons-background__hexagon--7
-	opacity: .4
-	fill: $black
-
-.hexagons-background__hexagon--8
-	opacity: .4
-
-.hexagons-background__hexagon--9
-	opacity: 0
-
-.hexagons-background__hexagon--10
-	opacity: 0
+@for $i from 1 through 10
+	.hexagons-background__hexagon--#{$i}
+		@if $i<=5
+			opacity: $i*0.1
+			fill: $white
+		@else
+			opacity: 1 - $i*0.1
+			fill: $black
+		.hexagons-background__svg--animated &
+			$shimmer-duration: 50s
+			fill: $black
+			@if $i == 10
+				animation: shimmer0 $shimmer-duration infinite
+			@else
+				animation: shimmer#{$i} $shimmer-duration infinite

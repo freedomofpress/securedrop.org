@@ -1,9 +1,9 @@
-$hero-overlap: 7rem
+$hero-overlap: 5rem
 
 .updates
-	padding: 2rem + $hero-overlap 1rem 2rem
 	// ensures that the hero overlaps (with hexagons)
 	margin-top: -$hero-overlap
+	padding-top: $hero-overlap
 	position: relative
 	z-index: $z-hexagons__background--updates
 
@@ -14,6 +14,9 @@ $hero-overlap: 7rem
 	flex-wrap: wrap
 	position: relative
 	z-index: $z-hexagons__content--updates
+	width: 100%
+	padding: 2rem 1rem
+	background-color: $gray10
 
 .updates__header
 	+uppercase

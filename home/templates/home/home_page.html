@@ -31,7 +31,7 @@
 {% endblock %}
 
 {% block header_hexagons %}
-	{% include "common/_hexagons_background.svg" with class="hexagons-background__svg hexagons-background__svg--hero" %}
+	{% include "common/_hexagons_background_hero.svg" with class="hexagons-background__svg hexagons-background__svg--hero hexagons-background__svg--animated" %}
 {% endblock %}
 
 {% block nav_classes %}
@@ -45,7 +45,7 @@
 	<main>
 		<div class="updates">
 			<div class="hexagons-background">
-				{% include "common/_hexagons_background.svg" with class="hexagons-background__svg hexagons-background__svg--updates" %}
+				{% include "common/_hexagons_background_updates.svg" with class="hexagons-background__svg hexagons-background__svg--updates" %}
 			</div>
 			<div class="updates__content">
 				<div class="updates__item">
