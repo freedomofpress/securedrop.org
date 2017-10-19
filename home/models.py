@@ -115,7 +115,8 @@ class HomepageFeature(Orderable):
     page = ParentalKey('home.HomePage', related_name='features')
     feature = models.ForeignKey(
         'marketing.FeaturePage',
-        related_name='+'
+        related_name='+',
+        unique=True
     )
 
     panels = [
