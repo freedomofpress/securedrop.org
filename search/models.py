@@ -14,4 +14,4 @@ class SearchDocument(models.Model):
     search_content = models.TextField()
     data = HStoreField()
     result_type = models.CharField(max_length=1, choices=RESULT_TYPES)
-    key = models.CharField(max_length=255)
+    key = models.CharField(max_length=255, unique=True)
