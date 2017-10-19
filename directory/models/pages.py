@@ -233,6 +233,8 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
                     live=False,
                 )
                 self.add_child(instance=instance)
+                if request.user:
+                    instance.owners.add(request.user)
                 instance.save()
                 result = scanner.scan(instance)
                 result.save()

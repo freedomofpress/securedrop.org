@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+from django.conf import settings
 from django.db import models
 from modelcluster.fields import ParentalManyToManyField
 from django.core.validators import RegexValidator, validate_image_file_extension
@@ -34,7 +35,6 @@ class SecuredropPage(MetadataPageMixin, Page):
         blank=True,
         on_delete=models.SET_NULL,
         related_name='+',
-        validators=[validate_image_file_extension]
     )
     organization_description = models.CharField(max_length=95, blank=True, null=True, help_text="A micro description of your organization that will be displayed in the directory.")
 
@@ -57,6 +57,10 @@ class SecuredropPage(MetadataPageMixin, Page):
         blank=True,
         verbose_name='Preferred Topics',
         related_name='topics'
+    )
+
+    owners = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
     )
 
     content_panels = Page.content_panels + [
