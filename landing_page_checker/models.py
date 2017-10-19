@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django.conf import settings
 from django.db import models
 from modelcluster.fields import ParentalManyToManyField
-from django.core.validators import RegexValidator, validate_image_file_extension
+from django.core.validators import RegexValidator
 
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailadmin.edit_handlers import FieldPanel
