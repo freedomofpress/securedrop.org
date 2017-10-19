@@ -180,7 +180,7 @@ class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
     )
     orphans = models.PositiveIntegerField(
         default=5,
-        help_text="Number of posts to append to the last page to prevent there being a small last page."
+        help_text="Minimum number of stories on the last page (if the last page is smaller, they will get added to the preceding page)."
     )
 
     content_panels = Page.content_panels + [
