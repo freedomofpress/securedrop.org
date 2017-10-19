@@ -2,15 +2,26 @@ from __future__ import unicode_literals
 
 from django.conf import settings
 from django.db import models
-from modelcluster.fields import ParentalManyToManyField
+from modelcluster.fields import ParentalManyToManyField, ParentalKey
 from django.core.validators import RegexValidator
 
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailadmin.edit_handlers import FieldPanel
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 from autocomplete.edit_handlers import AutocompleteFieldPanel
 from common.models.mixins import MetadataPageMixin
+
+
+class SecuredropOwner(models.Model):
+    page = ParentalKey(
+        'landing_page_checker.SecuredropPage',
+        related_name='owners'
+    )
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name='instances'
+    )
 
 
 class SecuredropPage(MetadataPageMixin, Page):
@@ -59,10 +70,6 @@ class SecuredropPage(MetadataPageMixin, Page):
         related_name='topics'
     )
 
-    owners = models.ManyToManyField(
-        settings.AUTH_USER_MODEL,
-    )
-
     content_panels = Page.content_panels + [
         FieldPanel('landing_page_domain'),
         FieldPanel('onion_address'),
@@ -71,6 +78,7 @@ class SecuredropPage(MetadataPageMixin, Page):
         AutocompleteFieldPanel('languages', 'directory.Language'),
         AutocompleteFieldPanel('countries', 'directory.Country'),
         AutocompleteFieldPanel('topics', 'directory.Topic'),
+        InlinePanel('owners')
     ]
 
     def get_live_result(self):

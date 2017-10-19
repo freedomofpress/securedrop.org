@@ -15,6 +15,7 @@ from common.utils import paginate, DEFAULT_PAGE_KEY
 from directory.models import Language, Topic, Country
 from directory.forms import DirectoryForm, ScannerForm
 from landing_page_checker.landing_page import scanner
+from landing_page_checker.models import SecuredropOwner
 from landing_page_checker.models import SecuredropPage as SecuredropInstance
 
 
@@ -65,7 +66,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
                 FieldPanel('source_warning'),
                 FieldPanel('submit_title'),
                 FieldPanel('submit_body'),
-                FieldPanel('submit_button_text')
+                FieldPanel('submit_button_text'),
             ],
             classname='collapsible'
         )
@@ -234,7 +235,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
                 )
                 self.add_child(instance=instance)
                 if request.user:
-                    instance.owners.add(request.user)
+                    SecuredropOwner(page=instance, owner=request.user).save()
                 instance.save()
                 result = scanner.scan(instance)
                 result.save()
