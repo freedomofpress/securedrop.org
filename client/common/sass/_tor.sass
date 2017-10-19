@@ -1,13 +1,63 @@
-.use-tor-browser--hidden, .js-tor-warning--hidden
+.tor-warning
+	display: flex
+	justify-content: space-between
+	align-items: center
+	padding: 1rem 0 1rem 1rem // padding-right is on close button
+	color: $white
+	+sd-gradient($red1,$red2)
+	+p-remove-first-and-last-margin
+	+media-breakpoint-down(extra-small)
+		position: fixed
+		top: 1rem
+		left: 1rem
+		right: 1rem
+		bottom: 1rem
+		// ensure that warning is above everything, including the mobile menu
+		z-index: $z-tor-popup
+		padding: 1rem
+		margin: 0
+		display: block
+
+
+// This is an override of .tor-warning
++media-breakpoint-up(small)
+	.tor-warning--homepage
+		width: 80%
+		height: $homepage-tor-warning-height
+		margin: -0.5*$homepage-tor-warning-height auto 0
+		margin-bottom: $layout-padding
+		padding: $layout-padding
+		position: relative
+		z-index: $z-tor-homepage
+
+// This is an override of .tor-warning
+.tor-warning--hidden
 	display: none
 
-#use-tor-browser
-	position: fixed
-	top: 1rem
-	left: 1rem
-	right: 1rem
-	bottom: 1rem
-	+sd-gradient($red1,$red2)
-	color: $white
-	// ensure that warning is above everything, including the mobile menu
-	z-index: $z-tor-popup
+.tor-warning__title
+	+media-breakpoint-down(extra-small)
+		padding-right: $rem-in-px + 2*$alert-button-width
+
+.tor-warning__close-button
+	background-color: inherit
+	border: none
+	margin: 0
+	padding: 1rem
+	+link-transition
+	+link--no-underline($white,$gray50)
+	+media-breakpoint-down(extra-small)
+		position: absolute
+		right: 0
+		top: 0
+
+	// sorry BEM
+	+media-breakpoint-up(small)
+		.tor-warning--homepage &
+			display: none
+
+.tor-warning__close-x
+	width: $alert-button-width
+	height: $alert-button-height
+	+media-breakpoint-down(extra-small)
+		width: 2*$alert-button-width
+		height: 2*$alert-button-height

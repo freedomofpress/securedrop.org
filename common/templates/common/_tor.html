@@ -1,26 +1,33 @@
 {% load wagtailcore_tags %}
 
-<div id='use-tor-browser' class='use-tor-browser--hidden'>
-	<h1>{{ settings.common.TorAlertSettings.title }}</h1>
-	{% if settings.common.TorAlertSettings.subtitle %}
-		<h2>{{ settings.common.TorAlertSettings.subtitle }}</h2>
-	{% endif %}
-	{% if settings.common.TorAlertSettings.body %}
-		<div>
+{# This warning shows when you are not using Tor #}
+<div id='js-use-tor-browser' class='tor-warning tor-warning--hidden {{ class }}'>
+	<div>
+		<h1 class="tor-warning__title">{{ settings.common.TorAlertSettings.title }}</h1>
+		{% if settings.common.TorAlertSettings.subtitle %}
+			<h2>{{ settings.common.TorAlertSettings.subtitle }}</h2>
+		{% endif %}
+		{% if settings.common.TorAlertSettings.body %}
 			{{ settings.common.TorAlertSettings.body|richtext }}
-		</div>
-	{% endif %}
-<div id='use-tor-browser-close'>Close</div></div>
+		{% endif %}
+	</div>
+	<button id="js-use-tor-browser-close" class="tor-warning__close-button">
+		<span class="sr-only">{{ alert.close_text }}</span>
+		{% include "common/_x.svg" with class="tor-warning__close-x"%}
+	</button>
+</div>
 
-<div id='js-tor-warning' class='js-tor-warning--hidden'>
-	<h1>{{ settings.common.TorAlertSettings.tor_settings_title }}</h1>
+{# This warning shows when you are using Tor and your security settings are lax #}
+<div id='js-tor-warning' class='tor-warning--hidden {{ class }}'>
+	<h1 class="tor-warning__title">{{ settings.common.TorAlertSettings.tor_settings_title }}</h1>
 	{% if settings.common.TorAlertSettings.tor_settings_subtitle %}
 		<h2>{{ settings.common.TorAlertSettings.tor_settings_subtitle }}</h2>
 	{% endif %}
 	{% if settings.common.TorAlertSettings.tor_settings_body %}
-		<div>
-			{{ settings.common.TorAlertSettings.tor_settings_body|richtext }}
-		</div>
+		{{ settings.common.TorAlertSettings.tor_settings_body|richtext }}
 	{% endif %}
-	<div id='js-tor-warning-close'>Close</div>
+	<button id="js-tor-warning-close" class="tor-warning__close-button">
+		<span class="sr-only">{{ alert.close_text }}</span>
+		{% include "common/_x.svg" with class="tor-warning__close-x"%}
+	</button>
 </div>

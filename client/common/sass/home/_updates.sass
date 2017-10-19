@@ -1,13 +1,15 @@
 $hero-overlap: 7rem
 
 .updates
-	padding: 2rem + $hero-overlap 1rem 2rem
+	padding-top: $layout-padding + $hero-overlap
+	padding-bottom: $layout-padding + 0.5*$homepage-tor-warning-height
 	// ensures that the hero overlaps (with hexagons)
 	margin-top: -$hero-overlap
 	position: relative
 	z-index: $z-hexagons__background--updates
 
 .updates__content
+	+layout-x--more-padding-on-extra-small
 	display: flex
 	justify-content: center
 	align-items: flex-start

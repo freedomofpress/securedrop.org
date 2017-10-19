@@ -6,7 +6,9 @@
 {% block body %}
 	{% wagtailuserbar %}
 
-	{% include 'common/_tor.html' %}
+	{% block tor_warning %}
+		{% include 'common/_tor.html' %}
+	{% endblock %}
 
 	<header>
 		{% block header %}

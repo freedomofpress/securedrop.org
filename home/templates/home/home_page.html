@@ -1,6 +1,24 @@
 {% extends "layout/_layout_one_column.html" %}
 {% load wagtailcore_tags wagtailimages_tags static %}
 
+{% block tor_warning %}
+{% endblock %}
+
+{% block header_classes %}
+	header--blue-bright
+{% endblock %}
+
+{% block header_hexagons %}
+	{% include "common/_hexagons_background.svg" with class="hexagons-background__svg hexagons-background__svg--hero" %}
+{% endblock %}
+
+{% block nav_classes %}
+	nav-menu--homepage
+{% endblock %}
+
+{% block nav_logos %}
+{% endblock %}
+
 {% block page_title %}
 	<div class="hero">
 		<div class="hero__logo">
@@ -26,21 +44,6 @@
 	</div>
 {% endblock %}
 
-{% block header_classes %}
-	header--blue-bright
-{% endblock %}
-
-{% block header_hexagons %}
-	{% include "common/_hexagons_background.svg" with class="hexagons-background__svg hexagons-background__svg--hero" %}
-{% endblock %}
-
-{% block nav_classes %}
-	nav-menu--homepage
-{% endblock %}
-
-{% block nav_logos %}
-{% endblock %}
-
 {% block content %}
 	<main>
 		<div class="updates">
@@ -59,10 +62,12 @@
 			</div>
 		</div>
 
+
 		<div class="instances">
 			<div class="hexagons-background">
 				{% include "common/_hexagons_background.svg" with class="hexagons-background__svg hexagons-background__svg--instances" %}
 			</div>
+			{% include 'common/_tor.html' with class='tor-warning--homepage'%}
 			<div class="instances__content">
 				<h2 class="instances__header">{{ page.instances_header }}</h2>
 				<div class="instances__items">

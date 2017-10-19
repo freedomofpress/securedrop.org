@@ -2,10 +2,10 @@ $alert-button-width: 13px
 $alert-button-height: 16px
 
 .site-alert
-	background-color: $red
+	+sd-gradient($red,darken($red,15))
 	color: $white
 	min-height: 2rem
-	padding: 0 1rem
+	padding-left: 1rem // padding-right is on close button
 	width: 100%
 
 	display: flex
@@ -30,20 +30,17 @@ $alert-button-height: 16px
 	background-color: inherit
 	border: none
 	margin: 0
-	padding: 0
-	width: $alert-button-width
-	height: $alert-button-height
+	padding: 0.5rem 1rem
+	align-self: stretch
+	+link-transition
+	+link--no-underline($white,$gray50)
+	display: flex
+	align-items: center
+	justify-content: center
 
 .site-alert__close-button--hidden
 	display: none
 
 .site-alert__close-x
-	color: $white
 	width: $alert-button-width
 	height: $alert-button-height
-
-	transition-duration: 0.1s
-	transition-timing-function: linear
-	transition-property: color
-	+hover
-		color: $gray50

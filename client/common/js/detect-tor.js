@@ -14,7 +14,7 @@ function tbb_version() {
 
 // Warn about using Javascript and not using Tor Browser
 document.addEventListener("DOMContentLoaded", () => {
-  const useTorBrowser = document.getElementById('use-tor-browser')
+  const useTorBrowser = document.getElementById('js-use-tor-browser')
 
   if (is_likely_tor_browser()) {
     /* If the source is using Tor Browser, we want to encourage them to turn Tor
@@ -23,13 +23,13 @@ document.addEventListener("DOMContentLoaded", () => {
       the Security Slider to "High", this code only runs if it set to another
       (less hardened) setting. */
     let torWarning = document.getElementById('js-tor-warning')
-    torWarning.classList.remove('js-tor-warning--hidden')
+    torWarning.classList.remove('tor-warning--hidden')
     //  hides the warning to use tor, since users already have it
-    useTorBrowser.classList.add('use-tor-browser--hidden')
+    useTorBrowser.classList.add('tor-warning--hidden')
 
     let torWarningClose = document.getElementById('js-tor-warning-close')
     torWarningClose.addEventListener('click', () => {
-      torWarning.classList.add('js-tor-warning--hidden')
+      torWarning.classList.add('tor-warning--hidden')
     })
 
     // TODO: Once there is design around it, display friendly bubble described below.
@@ -58,11 +58,11 @@ document.addEventListener("DOMContentLoaded", () => {
   } else {
     // If the user is not using Tor Browser, we want to encourage them to do so.
     // TODO: Disable scrolling
-    useTorBrowser.classList.remove('use-tor-browser--hidden')
+    useTorBrowser.classList.remove('tor-warning--hidden')
 
-    const closeUseTorBrowser = document.getElementById('use-tor-browser-close')
+    const closeUseTorBrowser = document.getElementById('js-use-tor-browser-close')
     closeUseTorBrowser.addEventListener('click', () => {
-      useTorBrowser.classList.add('use-tor-browser--hidden')
+      useTorBrowser.classList.add('tor-warning--hidden')
     })
   }
 });
