@@ -119,4 +119,4 @@ class FeaturePage(MetadataPageMixin, Page):
         return self.get_parent().specific.features.all()
 
     def __str__(self):
-        return '%s. %s' % (self.sort_order() + 1, self.title)
+        return '%s. %s' % (self.sort_order() + 1, self.teaser_title)

@@ -2,14 +2,19 @@
 	position: relative
 	color: white
 	+sd-gradient($slate1,$slate2)
-	min-height: $nav-height
+	padding-top: $nav-height // make space for nav
+
+.header--subheader
+	padding-top: 0
 
 .header__title
 	+layout-x
 	position: relative
 	z-index: $z-hexagons__background
-	padding-top: $header-padding + $nav-height
+	padding-top: $header-padding
 	padding-bottom: $header-padding
+	margin-bottom: 0
+	font-size: 2.5rem
 
 	+media-breakpoint-down(extra-small)
 		text-align: center

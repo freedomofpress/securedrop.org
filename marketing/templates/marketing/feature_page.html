@@ -1,33 +1,51 @@
 {% extends "layout/_layout_sidebar.html" %}
 {% load wagtailcore_tags wagtailimages_tags %}
 
+{% block header_classes %}
+	header--blue-bold
+{% endblock %}
+
 {% block main %}
 	<div>
 		{{ page.description|richtext }}
 
-		{% if page.previous %}
-			<a href="{% pageurl page.previous %}">
-				{{ page.previous }}
-			</a>
-		{% endif %}
-		{% if page.next %}
-			<a href="{% pageurl page.next %}">
-				{{ page.next }}
-			</a>
-		{% endif %}
+		<nav aria-label="Page navigation">
+			{% if page.previous %}
+				<a
+					href="{% pageurl page.previous %}"
+					class="pagination__link--previous js-infinite-scrolling-prev-link"
+					aria-label="Previous"
+				>
+					{% include "common/chevron-right.svg" with class="pagination__icon--previous" %}{{ page.previous }}
+				</a>
+			{% endif %}
+
+			{% if page.next %}
+				<a
+					href="{% pageurl page.next %}"
+					class="pagination__link--next js-infinite-scrolling-next-link"
+					aria-label="Next"
+				>
+					{{ page.next }}{% include "common/chevron-right.svg" with class="pagination__icon--next" %}
+				</a>
+			{% endif %}
+		</nav>
+
+
 	</div>
 {% endblock main %}
 
 {% block sidebar %}
 	{% if page.icon %}
-		{% image page.icon fill-50x50-c100 %}
+		{% image page.icon max-500x500 class="features-sidebar__image" %}
 	{% endif %}
-	<ol>
+	<ol class="features-sidebar__list">
 		{% for feature in page.all_features %}
 			<li>
-				<a href="{% pageurl feature.feature %}">
-				{{ feature.feature.title }}
-			</a></li>
+				<a href="{% pageurl feature.feature %}" class="features-sidebar__link">
+					{{ feature.feature.title }}
+				</a>
+			</li>
 		{% endfor %}
 	</ol>
 {% endblock %}
