@@ -1,7 +1,4 @@
-from django.db.models.signals import post_delete, post_save
-
 from wagtail.wagtailcore.signals import page_published, page_unpublished
-from wagtail.wagtailcore.models import Page
 
 from search.utils.wagtail import delete_wagtail_page, index_wagtail_page
 
