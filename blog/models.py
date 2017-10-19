@@ -115,6 +115,9 @@ class BlogPage(MetadataPageMixin, Page):
             20
         )
 
+    class Meta:
+        ordering = ['-publication_datetime']
+
 
 class CategoryPage(MetadataPageMixin, Page):
     description = RichTextField(blank=True, null=True)
@@ -211,9 +214,7 @@ class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
         return BlogIndexPageFeed(self)(request)
 
     def get_posts(self):
-        return BlogPage.objects.child_of(self)\
-            .live()\
-            .order_by('-publication_datetime')
+        return BlogPage.objects.child_of(self).live()
 
     def get_context(self, request):
         context = super(BlogIndexPage, self).get_context(request)
