@@ -11,15 +11,15 @@
 <div class="release-preview">
 	<h3 class="release-preview__title">{{ page.release_title }}</h3>
 	{% if page.get_current_release %}
-	{% with current_release=page.get_current_release %}
-		<h4 class="release-preview__tag">SecureDrop {{ current_release.tag_name }}</h4>
-		<div class="release-preview__date">{{ current_release.date|date:"E j, Y"}}
-		<div class="release-preview__links">
-			<a href="{{ current_release.url }}" class="release-preview__link">Github</a>
-			{% if current_release.blog_page %}
-				<a href="{% pageurl current_release.blog_page %}" class="release-preview__link">Release notes</a>
-			{% endif %}
-		</div>
-	{% endwith%}
+		{% with current_release=page.get_current_release %}
+			<h4 class="release-preview__tag">SecureDrop {{ current_release.tag_name }}</h4>
+			<div class="release-preview__date">{{ current_release.date|date:"E j, Y"}}
+			<div class="release-preview__links">
+				<a href="{{ current_release.url }}" class="release-preview__link">Github</a>
+				{% if current_release.blog_page %}
+					<a href="{% pageurl current_release.blog_page %}" class="release-preview__link">Release notes</a>
+				{% endif %}
+			</div>
+		{% endwith%}
 	{% endif %}
 </div>
