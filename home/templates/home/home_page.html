@@ -69,16 +69,23 @@
 			</div>
 			{% include 'common/_tor.html' with class='tor-warning--homepage'%}
 			<div class="instances__content">
+
 				<h2 class="instances__header">{{ page.instances_header }}</h2>
 				<div class="instances__items">
 					{% for highlighted_instance in page.instances.all %}
 						<div class="instances__item">
-							{% image instance.icon fill-50x50-c100 %}
-							<h3 class="instances__item-header">{{ highlighted_instance.instance.organization }}</h3>
-							<a href="{{ highlighted_instance.instance.landing_page_domain }}" class="instances__item-landingpage">
-								{{ page.instance_link_default_text }}
-							</a>
-							<div class="instances__item-onion-address"><span class="instances__item-onion-address--bold">TOR address:</span> {{ highlighted_instance.instance.onion_address }}</div>
+							{% if instance.specific.organization_logo %}
+								{% image instance.specific.organization_logo width-144 class="instances__logo" %}
+							{% else %}
+								{% include "common/_hexagon.svg" with class="instances__logo instances__logo--hexagon" category_slug="instance-table" %}
+							{% endif %}
+							<div>
+								<h3 class="instances__item-header">{{ highlighted_instance.instance.title }}</h3>
+								<a href="{{ highlighted_instance.instance.landing_page_domain }}" class="instances__item-landingpage">
+									{{ page.instance_link_default_text }}
+								</a>
+								<div class="instances__item-onion-address"><span class="instances__item-onion-address--bold">TOR address:</span> {{ highlighted_instance.instance.onion_address }}</div>
+							</div>
 						</div>
 					{% endfor %}
 				</div>

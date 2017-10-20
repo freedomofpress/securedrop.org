@@ -1,9 +1,12 @@
+$features-list-item-margin-bottom: 0.5rem
+$features-list-item-padding: 1rem
+
 .features-list
 	display: flex
 	flex-wrap: wrap
 	justify-content: space-between
 	width: 100%
-	margin: 0 -1rem
+	margin-bottom: -$features-list-item-margin-bottom
 
 	+media-breakpoint-down(extra-small)
 		flex-direction: column
@@ -13,15 +16,20 @@
 	flex-basis: 48%
 	display: flex
 	align-items: center
+	justify-content: space-around
 	border-radius: $button-border-radius
-	padding: 1rem
+	padding: $features-list-item-padding
+	margin: 0 -1*$features-list-item-padding $features-list-item-margin-bottom -1*$features-list-item-padding
 	+link--no-underline(inherit, inherit)
 
 	+media-breakpoint-down(extra-small)
-		width: 100%
+		flex-basis: 100%
 
 	+hover
 		background-color: $gray10
+
+.features-list__item-image
+	width: 6rem
 
 
 .features-list__item-text

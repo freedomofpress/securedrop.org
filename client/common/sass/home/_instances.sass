@@ -23,18 +23,30 @@
 	display: flex
 	flex-wrap: wrap
 	justify-content: space-between
-	flex-wrap: wrap
 	width: 100%
+	+media-breakpoint-down(extra-small)
+		flex-direction: column
+		width: auto
+		margin: 0 auto
 
 .instances__item
-	flex-basis: 20rem
-	margin-left: 2rem
-	margin-bottom: 1rem
-	line-height: 1.5
-
+	flex-basis: 48%
+	margin-bottom: 2rem
+	display: flex
+	align-items: center
 	+media-breakpoint-down(extra-small)
 		flex-basis: 100%
 		margin-left: 0
+
+.instances__logo
+	width: 6rem
+	margin-right: 2rem
+	flex-shrink: 0
+	flex-grow: 0
+
+.instances__logo--hexagon
+	polygon
+		fill: $white
 
 .instances__item-header
 	margin: 0
