@@ -62,10 +62,11 @@ class SecuredropPageTest(TestCase):
 
     def test_returns_latest_live_result(self):
         sd = SecuredropPageFactory()
-        ResultFactory(live=False, securedrop=sd)
-        ResultFactory(live=False, securedrop=sd)
+        ResultFactory(live=False, securedrop=sd).save()
+        ResultFactory(live=False, securedrop=sd).save()
         r3 = ResultFactory(live=True, securedrop=sd)
-        self.assertEqual(r3, sd.get_live_result)
+        r3.save()
+        self.assertEqual(r3, sd.get_live_result())
 
 
 class ResultTest(TestCase):
