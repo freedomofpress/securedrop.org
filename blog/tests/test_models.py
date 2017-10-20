@@ -23,7 +23,7 @@ class BlogIndexPageTest(TestCase):
 
     def test_get_posts_returns_newest_post_first(self):
         BlogPageFactory(publication_datetime='2018-01-01', parent=self.blog_index)
-        first = BlogPageFactory(publication_datetime='2018-03-31',parent=self.blog_index)
+        first = BlogPageFactory(publication_datetime='2018-03-31', parent=self.blog_index)
         BlogPageFactory(publication_datetime='2018-03-01', parent=self.blog_index)
         posts = self.blog_index.get_posts()
         self.assertEqual(first, posts.first())
@@ -86,4 +86,3 @@ class CategoryPageTest(TestCase):
         BlogPageFactory(publication_datetime='2018-03-01', parent=self.blog_index, category=self.category)
         posts = self.category.get_posts()
         self.assertEqual(last, posts.last())
-
