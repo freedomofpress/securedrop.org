@@ -1,5 +1,17 @@
-<form action="{{ submit_url }}" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Submit" />
-</form>
+{% extends "layout/_layout_one_column.html" %}
+
+{% block header_classes %}
+    header--slate
+{% endblock %}
+
+{% block page_title_text %}
+	Scanner Form
+{% endblock %}
+
+{% block main %}
+	<form action="{{ submit_url }}" method="post" class="basic-form">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<input type="submit" value="Submit" class="basic-form__submit" />
+	</form>
+{% endblock %}

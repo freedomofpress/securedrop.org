@@ -1,6 +1,10 @@
 {% extends "layout/_layout_sidebar.html" %}
 {% load wagtailcore_tags wagtailimages_tags querydict_update %}
 
+{% block header_classes %}
+    header--slate
+{% endblock %}
+
 {% block main_classes %}
 	{{ block.super }}
 	layout-sidebar--directory
