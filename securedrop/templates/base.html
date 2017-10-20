@@ -73,7 +73,9 @@
 
 				{% block page_title %}
 					<h1 class="header__title">
-						{{ page.title }}
+						{% block page_title_text %}
+							{{ page.title }}
+						{% endblock %}
 					</h1>
 				{% endblock %}
 			</div>
