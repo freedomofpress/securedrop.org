@@ -50,6 +50,19 @@
 									</a>
 								</li>
 							{% endfor %}
+							{% if user.is_authenticated %}
+								<li class="nav-menu__item">
+									<a class="nav-menu__link" href="{% url 'account_logout' %}">
+										Logout
+									</a>
+								</li>
+							{% else %}
+								<li class="nav-menu__item">
+									<a class="nav-menu__link" href="{% url 'account_login' %}">
+										Login
+									</a>
+								</li>
+							{% endif %}
 							<li class="nav-menu__item--search">
 								<a class="nav-menu__link" href="#">
 									{% include "common/_search_icon.svg" with class="nav-menu__search-icon" %}
