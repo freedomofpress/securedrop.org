@@ -114,6 +114,7 @@
 	</main>
 {% endblock content %}
 
-{% block js-tor %}
+{% block js %}
+	{{ block.super }}
 	{% render_bundle 'tor' 'js' %}
 {% endblock %}

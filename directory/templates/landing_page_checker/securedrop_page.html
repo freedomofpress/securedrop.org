@@ -60,6 +60,7 @@
 	</div>
 {% endblock column_two %}
 
-{% block js-tor %}
+{% block js %}
+	{{ block.super }}
 	{% render_bundle 'tor' 'js' %}
 {% endblock %}
