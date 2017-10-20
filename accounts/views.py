@@ -3,7 +3,8 @@ from django.views.generic import ListView, UpdateView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
-
+from django.contrib.auth import get_user_model
+from django.urls import reverse_lazy
 
 @method_decorator(login_required, name='dispatch')
 class SecuredropList(ListView):
@@ -30,3 +31,16 @@ class SecuredropDetail(UpdateView):
             raise PermissionDenied
         return obj
 
+
+@method_decorator(login_required, name='dispatch')
+class UpdateUserForm(UpdateView):
+    model = get_user_model()
+    template_name = 'accounts/change_name.html'
+    fields = ['first_name', 'last_name']
+    success_url = reverse_lazy('dashboard')
+
+    def get_object(self, **kwargs):
+        obj = super(UpdateUserForm, self).get_object(**kwargs)
+        if self.request.user != obj:
+            raise PermissionDenied
+        return obj

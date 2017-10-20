@@ -52,6 +52,11 @@
 							{% endfor %}
 							{% if user.is_authenticated %}
 								<li class="nav-menu__item">
+									<a class="nav-menu__link" href="{% url 'dashboard' %}">
+										Dashboard
+									</a>
+								</li>
+								<li class="nav-menu__item">
 									<a class="nav-menu__link" href="{% url 'account_logout' %}">
 										Logout
 									</a>
