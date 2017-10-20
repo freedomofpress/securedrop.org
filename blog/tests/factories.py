@@ -30,3 +30,4 @@ class CategoryPageFactory(wagtail_factories.PageFactory):
 
     parent = factory.SubFactory(wagtail_factories.PageFactory, parent=None)
     description = factory.Faker('paragraph')
+    title = factory.Faker('sentence', nb_words=3)
