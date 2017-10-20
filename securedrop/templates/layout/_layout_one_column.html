@@ -1,11 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-	<div class="layout-one-column">
-		{{ block.super }}
-		<main class="{% block main_classes %}{% endblock %}">
-			{% block main %}
-			{% endblock %}
-		</main>
-	</div>
+	{{ block.super }}
+	<main class="layout-one-column {% block main_classes %}{% endblock %}">
+		{% block main %}
+		{% endblock %}
+	</main>
 {% endblock content %}
