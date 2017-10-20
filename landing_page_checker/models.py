@@ -78,7 +78,7 @@ class SecuredropPage(MetadataPageMixin, Page):
         AutocompleteFieldPanel('languages', 'directory.Language'),
         AutocompleteFieldPanel('countries', 'directory.Country'),
         AutocompleteFieldPanel('topics', 'directory.Topic'),
-        InlinePanel('owners')
+        InlinePanel('owners', label='Owners')
     ]
 
     def get_live_result(self):
