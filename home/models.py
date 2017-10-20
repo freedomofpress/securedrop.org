@@ -58,7 +58,7 @@ class HomePage(MetadataPageMixin, Page):
                 InlinePanel(
                     'features',
                     label="Highlighted Features",
-                    max_num=8
+                    max_num=6
                 ),
                 InlinePanel('features_button', label="Features Button", max_num=1)
             ],
@@ -68,7 +68,7 @@ class HomePage(MetadataPageMixin, Page):
         MultiFieldPanel(
             [
                 FieldPanel('instances_header'),
-                InlinePanel('instances', label="Instances", max_num=8),
+                InlinePanel('instances', label="Instances", max_num=6),
                 InlinePanel('instance_button', label="Button", max_num=1),
                 FieldPanel('instance_link_default_text')
             ],
