@@ -1,5 +1,6 @@
 {% extends "layout/_layout_one_column.html" %}
 {% load wagtailcore_tags %}
+{% load render_bundle from webpack_loader %}
 
 {% block header_classes %}
     header--slate
@@ -16,4 +17,19 @@
 		{{ form.as_p }}
 		<input type="submit" value="Submit" class="basic-form__submit" />
 	</form>
+{% endblock %}
+
+{% block js %}
+	{{ block.super }}
+	{% render_bundle 'common' 'autocomplete' %}
+	<script type="text/javascript">
+		window.renderAutocompleteWidget(
+			'js-{{ widget.attrs.id }}',
+			'{{ widget.name }}',
+			JSON.parse('{{ widget.value|escapejs }}'),
+			'{{ widget.page_type }}',
+			'{{ widget.can_create }}' === 'True',
+			'{{ widget.is_single }}' === 'True',
+		);
+	</script>
 {% endblock %}
