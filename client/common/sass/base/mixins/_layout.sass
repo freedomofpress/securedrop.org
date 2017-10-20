@@ -8,7 +8,6 @@
 	+media-breakpoint-only(small)
 		padding-left: 4rem
 		padding-right: 4rem
-
 	+media-breakpoint-up(medium)
 		padding-left: 2*$layout-padding
 		padding-right: 2*$layout-padding
@@ -19,9 +18,18 @@
 		margin-right: auto
 
 =layout-y
-	padding-top: 2*$layout-padding
-	padding-bottom: 2*$layout-padding
-
+	padding-top: $layout-padding
+	padding-bottom: $layout-padding
 	+media-breakpoint-down(extra-small)
-		padding-top: $layout-padding
-		padding-bottom: $layout-padding
+		padding-top: 2rem
+		padding-bottom: 2rem
+	+media-breakpoint-down(tiny)
+		padding-top: 1rem
+		padding-bottom: 1rem
+
+=layout-y--not-tiny
+	padding-top: $layout-padding
+	padding-bottom: $layout-padding
+	+media-breakpoint-down(extra-small)
+		padding-top: 2rem
+		padding-bottom: 2rem

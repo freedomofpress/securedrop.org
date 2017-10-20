@@ -1,9 +1,10 @@
 .instances
-	+layout-y
-	padding-top: 0
+	+layout-y--not-tiny
 	color: $white
 	+sd-gradient($slate1,$slate2)
 	position: relative
+	+media-breakpoint-up(small)
+		padding-top: 0
 
 .instances__content
 	+layout-x
@@ -14,10 +15,11 @@
 	z-index: $z-hexagons__content
 
 .instances__header
-	flex-basis: 75%
-	font-size: 3rem
 	margin-bottom: 2rem
 	text-align: center
+	font-size: $homepage-section-heading-font-size
+	+media-breakpoint-down(extra-small)
+		font-size: $homepage-section-heading-font-size--small
 
 .instances__items
 	display: flex
