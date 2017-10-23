@@ -48,6 +48,10 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
         validators=[MaxValueValidator(5)],
         help_text='Minimum number of stories on the last page (if the last page is smaller, they will get added to the preceding page)'
     )
+    scanner_form_title = models.CharField(max_length=100, default="Scan")
+    scanner_form_text = RichTextField(null=True, blank=True)
+    org_details_form_title = models.CharField(max_length=100, default="Enter organization details")
+    org_details_form_text = RichTextField(null=True, blank=True)
 
     content_panels = Page.content_panels + [
         FieldPanel('body'),
@@ -69,6 +73,14 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
             FieldPanel('per_page'),
             FieldPanel('orphans'),
         ), 'Pagination'),
+        MultiFieldPanel((
+            FieldPanel('scanner_form_title'),
+            FieldPanel('scanner_form_text'),
+        ), 'Scanner form'),
+        MultiFieldPanel((
+            FieldPanel('org_details_form_title'),
+            FieldPanel('org_details_form_text')
+        ), 'Organization details form'),
     ]
 
     subpage_types = ['landing_page_checker.SecuredropPage']
@@ -164,18 +176,23 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
             )
             result = scanner.scan(instance)
             result.compute_grade()
+            context = {
+                'landing_page_domain': data['url'],
+                'result': result,
+                'submission_form': DirectoryForm(initial={
+                    'url': data['url'],
+                }),
+                'submission_url': '{0}form/'.format(self.url),
+                'org_details_form_title': self.org_details_form_title
+            }
+
+            if self.org_details_form_text:
+                context['org_details_form_text'] = self.scanner_form_text
 
             return render(
                 request,
                 'landing_page_checker/result.html',
-                {
-                    'landing_page_domain': data['url'],
-                    'result': result,
-                    'submission_form': DirectoryForm(initial={
-                        'url': data['url'],
-                    }),
-                    'submission_url': '{0}form/'.format(self.url),
-                },
+                context,
             )
 
         else:
@@ -183,8 +200,11 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
 
         context = {
             'form': form,
-            'submit_url': '{base}{scan_url}'.format(base=self.url, scan_url=SCAN_URL)
+            'submit_url': '{base}{scan_url}'.format(base=self.url, scan_url=SCAN_URL),
+            'form_title': self.scanner_form_title,
         }
+        if self.scanner_form_text:
+            context['text'] = self.scanner_form_text
         return render(request, 'directory/scanner_form.html', context)
 
     @route('form/')
@@ -212,11 +232,18 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
         # else redirect to a page with errors
         else:
             form = DirectoryForm()
+            context = {
+                'form': form,
+                'submit_url': '{0}form/'.format(self.url),
+                'form_title': self.org_details_form_title
+            }
+            if self.org_details_form_text:
+                context['text'] = self.org_details_form_text
 
         return render(
             request,
             'directory/directory_form.html',
-            {'form': form, 'submit_url': '{0}form/'.format(self.url)}
+            context
         )
 
     @route('thanks/')

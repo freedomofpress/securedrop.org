@@ -17,15 +17,11 @@
 
 
 {% block column_one %}
-<div class="instance-description">
-    Scan results
-</div>
-{% if settings.common.DirectorySettings.security_warning %}
-<div class="security-warning">
-    {{ settings.common.DirectorySettings.security_warning|richtext }}
-</div>
-{% endif %}
+<h2 class="instance-description">
+  {{ org_details_form_title }}
+</h2>
 <div>
+	{{ org_details_form_text|richtext }}
 	<form action="{{ submission_url }}" method="post" class="basic-form">
 		{% csrf_token %}
 		{{ submission_form.as_p }}
