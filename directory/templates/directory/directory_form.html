@@ -1,3 +1,4 @@
+<<<<<<< f5f7b55c68f2773e1fde514ca6b83c7d6769c40c
 {% extends "layout/_layout_one_column.html" %}
 {% load wagtailcore_tags %}
 {% load render_bundle from webpack_loader %}
@@ -21,15 +22,5 @@
 
 {% block js %}
 	{{ block.super }}
-	{% render_bundle 'common' 'autocomplete' %}
-	<script type="text/javascript">
-		window.renderAutocompleteWidget(
-			'js-{{ widget.attrs.id }}',
-			'{{ widget.name }}',
-			JSON.parse('{{ widget.value|escapejs }}'),
-			'{{ widget.page_type }}',
-			'{{ widget.can_create }}' === 'True',
-			'{{ widget.is_single }}' === 'True',
-		);
-	</script>
+	{% render_bundle 'editor' %}
 {% endblock %}

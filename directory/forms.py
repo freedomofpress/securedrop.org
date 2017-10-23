@@ -6,6 +6,7 @@ from autocomplete.widgets import Autocomplete
 from directory.models import Language
 from common.models import CustomImage
 
+
 class DirectoryForm(forms.Form):
     organization = forms.CharField(label="Organization", max_length=255)
     url = forms.URLField()
@@ -13,7 +14,7 @@ class DirectoryForm(forms.Form):
     language = forms.ModelMultipleChoiceField(queryset=Language.objects.all(), widget=type(
                 '_Autocomplete',
                 (Autocomplete,),
-                dict(page_type=Language, can_create=True, is_single=True)
+                dict(page_type='directory.Language', can_create=True, is_single=False, api_base='/autocomplete/')
             ))
 
 
