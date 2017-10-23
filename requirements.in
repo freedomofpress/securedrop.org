@@ -13,7 +13,7 @@ pshtt
 psycopg2
 pygments
 vcrpy
-wagtail
+wagtail<1.13
 wagtail-factories
 wagtail-metadata
 unittest-xml-reporting
