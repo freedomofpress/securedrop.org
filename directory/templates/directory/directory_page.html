@@ -1,5 +1,6 @@
 {% extends "layout/_layout_sidebar.html" %}
 {% load wagtailcore_tags wagtailimages_tags querydict_update %}
+{% load render_bundle from webpack_loader %}
 
 {% block header_classes %}
     header--slate
@@ -127,3 +128,8 @@
 		</a>
 	</section>
 {% endblock sidebar %}
+
+{% block js %}
+	{{ block.super }}
+	{% render_bundle 'tor' 'js' %}
+{% endblock %}

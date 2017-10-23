@@ -1,5 +1,6 @@
 {% extends "layout/_layout_one_column.html" %}
 {% load wagtailcore_tags wagtailimages_tags static %}
+{% load render_bundle from webpack_loader %}
 
 {% block tor_warning %}
 {% endblock %}
@@ -112,3 +113,8 @@
 		</div>
 	</main>
 {% endblock content %}
+
+{% block js %}
+	{{ block.super }}
+	{% render_bundle 'tor' 'js' %}
+{% endblock %}

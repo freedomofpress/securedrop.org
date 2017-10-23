@@ -19,6 +19,7 @@ var common = {
 	entry: {
 		common: __dirname + '/client/common/js/common.js',
 		editor: __dirname + '/client/autocomplete/js/editor.js',
+		tor: __dirname + '/client/tor/js/torEntry.js',
 	},
 
 	output: {
@@ -30,6 +31,7 @@ var common = {
 		alias: {
 			'~': __dirname + '/client/common/js',
 			WagtailAutocomplete: path.resolve(__dirname, 'client/autocomplete/js/components'),
+			tor: __dirname + '/client/tor/js',
 			modernizr$: path.resolve(__dirname, '.modernizrrc')
 		},
 		extensions: ['.js', '.jsx'],
@@ -52,6 +54,7 @@ var common = {
 				include: [
 					path.join(__dirname, '/client/common/js'),
 					path.join(__dirname, '/client/autocomplete/js'),
+					path.join(__dirname, '/client/tor/js'),
 				],
 			},
 			{
