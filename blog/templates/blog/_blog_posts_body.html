@@ -1,0 +1,30 @@
+{% load wagtailcore_tags common_tags %}
+
+{% for post in entries_page %}
+		<div>
+			{% include "blog/_blog_tease.html" with page=post.specific link_text=link_text %}
+		</div>
+	{% endfor %}
+	<nav aria-label="Page navigation">
+		{% if entries_page.has_previous %}
+			<a
+				href="?{% query_transform request page=entries_page.previous_page_number %}"
+				class="pagination-button pagination-button--previous js-infinite-scrolling-prev-link"
+				aria-label="Previous"
+			>
+				{% include "common/chevron-right.svg" with class="pagination-button__icon--left" %}
+				Previous Page
+			</a>
+		{% endif %}
+
+		{% if entries_page.has_next %}
+			<a
+				href="?{% query_transform request page=entries_page.next_page_number %}"
+				class="pagination-button pagination-button--next js-infinite-scrolling-next-link"
+				aria-label="Next"
+			>
+				More Posts
+				{% include "common/chevron-right.svg" with class="pagination-button__icon--right" %}
+			</a>
+		{% endif %}
+	</nav>

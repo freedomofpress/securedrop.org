@@ -39,7 +39,7 @@ class Command(BaseCommand):
             try:
                 category_page = CategoryPage.objects.get(title=name)
             except ObjectDoesNotExist:
-                category_page = CategoryPageFactory(title=name, parent=home_page)
+                category_page = CategoryPageFactory(title=name, parent=blog_index_page)
 
             categories.append(category_page)
 

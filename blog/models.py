@@ -123,13 +123,18 @@ class CategoryPage(MetadataPageMixin, Page):
         FieldPanel('description'),
     ]
 
-    def get_blog_posts(self):
-        return BlogPage.objects.live().filter(categories=self)
+    parent_page_types = ['blog.BlogIndexPage']
+
+    def get_posts(self):
+        return BlogPage.objects.filter(category=self)\
+            .sibling_of(self, inclusive=False)\
+            .live()\
+            .order_by('-publication_datetime')
 
     def get_context(self, request):
         context = super(CategoryPage, self).get_context(request)
 
-        entry_qs = self.get_blog_posts()
+        entry_qs = self.get_posts()
         # Use parent's settings for pagination counts
         parent = self.get_parent().specific
 
@@ -171,6 +176,16 @@ class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
                   'syndication feed. 0 for unlimited.'
     )
 
+    # pagination
+    per_page = models.PositiveIntegerField(
+        default=8,
+        help_text="Number of posts to display per page."
+    )
+    orphans = models.PositiveIntegerField(
+        default=5,
+        help_text="Minimum number of stories on the last page (if the last page is smaller, they will get added to the preceding page)."
+    )
+
     content_panels = Page.content_panels + [
         StreamFieldPanel('body'),
     ]
@@ -179,9 +194,16 @@ class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
         FieldPanel('feed_limit'),
         FieldPanel('link_to_page_text'),
         FieldPanel('release_title'),
+        MultiFieldPanel(
+            [
+                FieldPanel('per_page'),
+                FieldPanel('orphans')
+            ],
+            'Pagination'
+        )
     ]
 
-    subpage_types = ['blog.BlogPage']
+    subpage_types = ['blog.BlogPage', 'blog.CategoryPage']
 
     search_fields = Page.search_fields + [
         index.SearchField('body'),
@@ -192,9 +214,7 @@ class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
         return BlogIndexPageFeed(self)(request)
 
     def get_posts(self):
-        return BlogPage.objects.child_of(self)\
-                       .live()\
-                       .order_by('-publication_datetime')
+        return BlogPage.objects.child_of(self).live().order_by('-publication_datetime')
 
     def get_context(self, request):
         context = super(BlogIndexPage, self).get_context(request)
@@ -204,8 +224,8 @@ class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
             request,
             entry_qs,
             page_key=DEFAULT_PAGE_KEY,
-            per_page=8,
-            orphans=5
+            per_page=self.per_page,
+            orphans=self.orphans
         )
 
         context['entries_page'] = entries
@@ -220,7 +240,7 @@ class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
         )
 
     def get_category_pages(self):
-        return CategoryPage.objects.live()
+        return CategoryPage.objects.child_of(self).live()
 
     def get_current_release(self):
         return Release.objects.order_by('-date').first()

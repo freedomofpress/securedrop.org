@@ -1,0 +1,11 @@
+{% extends "layout/_layout_sidebar.html" %}
+{% load wagtailcore_tags %}
+
+{% block main %}
+	<a href="{% pageurl page.get_parent %}" class="blog-back">All news</a>
+	{% include "blog/_blog_posts_body.html" with link_text=page.get_parent.specific.link_to_page_text %}
+{% endblock main %}
+
+{% block sidebar %}
+	{% include "blog/_sidebar_with_categories_and_release.html" with page=page.get_parent.specific %}
+{% endblock sidebar %}
