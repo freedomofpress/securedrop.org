@@ -12,7 +12,6 @@ class SecuredropList(ListView):
 
     def get_queryset(self, **kwargs):
         queryset = super(SecuredropList, self).get_queryset(**kwargs)
-        print(self.request.user)
         return queryset.filter(owners__owner=self.request.user)
 
 
