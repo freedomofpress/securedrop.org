@@ -1,5 +1,6 @@
 {% extends "layout/_layout_equal_columns.html"%}
 {% load wagtailcore_tags wagtailimages_tags result_tags %}
+{% load render_bundle from webpack_loader %}
 
 {% block header_classes %}
 	header--slate
@@ -42,3 +43,8 @@
 
 </div>
 {% endblock column_two %}
+
+{% block js %}
+	{{ block.super }}
+	{% render_bundle 'editor' %}
+{% endblock %}
