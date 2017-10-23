@@ -1,13 +1,14 @@
 {% extends "layout/_layout_one_column.html" %}
+{% load wagtailcore_tags %}
 
 {% block header_classes %}
     header--slate
 {% endblock %}
 
 {% block page_title_text %}
-	Form Success
+	{{ thank_you_title }}
 {% endblock %}
 
 {% block main %}
-	<h1>Thanks, it worked.</h1>
+	{{ text|richtext }}
 {% endblock %}

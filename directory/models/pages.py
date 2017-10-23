@@ -52,6 +52,8 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
     scanner_form_text = RichTextField(null=True, blank=True)
     org_details_form_title = models.CharField(max_length=100, default="Enter organization details")
     org_details_form_text = RichTextField(null=True, blank=True)
+    thank_you_title = models.CharField(max_length=100, default="Thank you")
+    thank_you_text = RichTextField(null=True, blank=True)
 
     content_panels = Page.content_panels + [
         FieldPanel('body'),
@@ -81,6 +83,11 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
             FieldPanel('org_details_form_title'),
             FieldPanel('org_details_form_text')
         ), 'Organization details form'),
+        MultiFieldPanel((
+            FieldPanel('thank_you_title'),
+            FieldPanel('thank_you_text')
+        ), 'Successful form submit text'),
+
     ]
 
     subpage_types = ['landing_page_checker.SecuredropPage']
@@ -248,4 +255,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
 
     @route('thanks/')
     def thanks_view(self, request):
-        return render(request, 'directory/thanks.html')
+        context = {'thank_you_title': self.thank_you_title}
+        if self.thank_you_text:
+            context['text'] = self.thank_you_text
+        return render(request, 'directory/thanks.html', context)
