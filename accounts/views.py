@@ -6,6 +6,7 @@ from django.core.exceptions import PermissionDenied
 from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 
+
 @method_decorator(login_required, name='dispatch')
 class SecuredropList(ListView):
     model = SecuredropPage
@@ -29,7 +30,7 @@ class SecuredropDetail(UpdateView):
 
     def get_object(self, **kwargs):
         obj = super(SecuredropDetail, self).get_object(**kwargs)
-        if self.request.user not in [ o.owner for o in obj.owners.all() ]:
+        if self.request.user not in [o.owner for o in obj.owners.all()]:
             raise PermissionDenied
         return obj
 
