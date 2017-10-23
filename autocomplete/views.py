@@ -19,12 +19,12 @@ def render_page(page):
 def objects(request):
     ids_param = request.GET.get('ids')
     if not ids_param:
-        return HttpResponseBadRequest
+        return HttpResponseBadRequest()
     page_type = request.GET.get('type', 'wagtailcore.Page')
     try:
         model = apps.get_model(page_type)
     except:
-        return HttpResponseBadRequest
+        return HttpResponseBadRequest()
 
     try:
         ids = [
@@ -32,7 +32,7 @@ def objects(request):
             for id in ids_param.split(',')
         ]
     except:
-        return HttpResponseBadRequest
+        return HttpResponseBadRequest()
 
     queryset = model.objects.filter(id__in=ids)
     if getattr(queryset, 'live', None):
@@ -51,7 +51,7 @@ def search(request):
     try:
         model = apps.get_model(page_type)
     except:
-        return HttpResponseBadRequest
+        return HttpResponseBadRequest()
 
     field_name = getattr(model, 'autocomplete_search_field', 'title')
     filter_kwargs = dict()
@@ -77,25 +77,25 @@ def search(request):
 def create(request, *args, **kwargs):
     value = request.POST.get('value', None)
     if not value:
-        return HttpResponseBadRequest
+        return HttpResponseBadRequest()
 
     page_type = request.POST.get('type', 'wagtailcore.Page')
     try:
         model = apps.get_model(page_type)
     except:
-        return HttpResponseBadRequest
+        return HttpResponseBadRequest()
 
     content_type = ContentType.objects.get_for_model(model)
     permission_label = '{}.add_{}'.format(
         content_type.app_label,
         content_type.model
     )
-    if not request.user.has_perm(permission_label):
-        return HttpResponseForbidden
+    #if not request.user.has_perm(permission_label):
+    #    return HttpResponseForbidden
 
     method = getattr(model, 'autocomplete_create', None)
     if not callable(method):
-        return HttpResponseBadRequest
+        return HttpResponseBadRequest()
 
     instance = method(value)
     return JsonResponse(render_page(instance))
