@@ -22,7 +22,10 @@ class SecuredropDetail(UpdateView):
     fields = ['title', 'landing_page_domain', 'onion_address', 'organization_description', 'organization_logo']
 
     def get_success_url(self):
-        return self.object.url
+        if self.object.live:
+            return self.object.url
+        else:
+            return self.object.get_parent().url
 
     def get_object(self, **kwargs):
         obj = super(SecuredropDetail, self).get_object(**kwargs)
