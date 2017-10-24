@@ -1,14 +1,18 @@
-{% extends "layout/_layout_one_column.html" %}
+{% extends "layout/_layout_sidebar.html" %}
 
 {% load wagtailcore_tags %}
 
+{% block main_classes %}layout_one_column--faq{% endblock %}
+
 {% block main %}
 	<div class="stream">
-		{% for block in page.body %}
-			<section class="stream__block">
-				{% include_block block %}
-			</section>
-		{% endfor %}
+		{% if page.body %}
+			{% for block in page.body %}
+				<section class="stream__block">
+					{% include_block block %}
+				</section>
+			{% endfor %}
+		{% endif %}
 	</div>
 	{% with questions=page.questions.all %}
 		{% if questions %}
@@ -27,3 +31,7 @@
 		{% endfor %}
 	{% endwith %}
 {% endblock main %}
+
+{% block sidebar %}
+	{% include 'simple/_sidebar.html' %}
+{% endblock %}
