@@ -37,6 +37,24 @@ $text-left-padding: 1rem
 	color: $red
 	margin-top: $spacer-max - $spacer-fail
 
+.scan-result__fix
+	.rich-text
+		p, pre
+		 margin: 0.5rem 0
+		+p-remove-first-and-last-margin
+		pre:first-child
+			margin-top: 0
+
+		pre:last-child
+			margin-bottom: 0
+
+	line-height: 1.2
+	margin-left: $icon-width + $text-left-padding
+	margin-top: 0.5rem
+	padding: 0.5rem
+	background-color: $gray10
+	border-radius: $button-border-radius
+
 .scan-result__fix--not-admin
 	display: none
 
@@ -57,21 +75,3 @@ $text-left-padding: 1rem
 
 .scan-result__flag
 	margin-top: $spacer-warning
-
-.scan-result__fix
-	.rich-text
-		p, pre
-		 margin: 0.5rem 0
-		+p-remove-first-and-last-margin
-		pre:first-child
-			margin-top: 0
-
-		pre:last-child
-			margin-bottom: 0
-
-	line-height: 1.2
-	margin-left: $icon-width + $text-left-padding
-	margin-top: 0.5rem
-	padding: 0.5rem
-	background-color: $gray10
-	border-radius: $button-border-radius
