@@ -95,21 +95,6 @@ class SimplePage(MetadataPageMixin, Page):
         )
 
 
-class FAQPage(SimplePage):
-    content_panels = SimplePage.content_panels + [
-        InlinePanel('questions', label="Questions")
-    ]
-
-
-class FaqQuestion(Orderable):
-    page = ParentalKey('simple.FAQPage', related_name='questions')
-    question = models.CharField(max_length=255)
-    # features disables h1 use
-    answer = RichTextField(
-        features=['h2', 'h3', 'bold', 'italic', 'link', 'embed', 'image', 'embed', 'document-link', 'ol', 'ul']
-    )
-
-
 class SimplePageWithMenuSidebar(MetadataPageMixin, BaseSidebarPageMixin, Page):
     body = StreamField(
         [
@@ -147,3 +132,40 @@ class SimplePageWithMenuSidebar(MetadataPageMixin, BaseSidebarPageMixin, Page):
             strip_tags(self.body.render_as_block()),
             20
         )
+
+
+class FAQPage(MetadataPageMixin, BaseSidebarPageMixin, Page):
+    body = StreamField(
+        [
+            ('text', blocks.RichTextBlock()),
+            ('image', AlignedImageBlock()),
+            ('raw_html', blocks.RawHTMLBlock()),
+            ('blockquote', RichTextBlockQuoteBlock()),
+            ('list', blocks.ListBlock(
+                blocks.CharBlock(label="List Item"),
+                template='common/blocks/list_block_columns.html'
+            )),
+            ('video', AlignedEmbedBlock()),
+            ('heading_1', Heading1()),
+            ('heading_2', Heading2()),
+            ('heading_3', Heading3()),
+        ],
+        blank=True,
+        null=True
+    )
+
+    content_panels = Page.content_panels + [
+        StreamFieldPanel('body'),
+        InlinePanel('questions', label="Questions")
+    ]
+
+    settings_panels = Page.settings_panels + BaseSidebarPageMixin.settings_panels
+
+
+class FaqQuestion(Orderable):
+    page = ParentalKey('simple.FAQPage', related_name='questions')
+    question = models.CharField(max_length=255)
+    # features disables h1 use
+    answer = RichTextField(
+        features=['h2', 'h3', 'bold', 'italic', 'link', 'embed', 'image', 'embed', 'document-link', 'ol', 'ul']
+    )
