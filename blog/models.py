@@ -121,6 +121,8 @@ class CategoryPage(MetadataPageMixin, Page):
         FieldPanel('description'),
     ]
 
+    search_fields_pgsql = ['title', 'description']
+
     parent_page_types = ['blog.BlogIndexPage']
 
     def get_posts(self):
@@ -145,6 +147,9 @@ class CategoryPage(MetadataPageMixin, Page):
         context['paginator'] = paginator
 
         return context
+
+    def get_search_content(self):
+        return get_search_content_by_fields(self, self.search_fields_pgsql)
 
 
 class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
@@ -203,9 +208,15 @@ class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
 
     subpage_types = ['blog.BlogPage', 'blog.CategoryPage']
 
-    search_fields = Page.search_fields + [
-        index.SearchField('body'),
-    ]
+    search_fields_pgsql = ['title', 'body']
+
+    def get_search_content(self):
+        search_content = get_search_content_by_fields(self, self.search_fields_pgsql)
+
+        for blog_page in self.get_posts():
+            search_content += blog_page.title + ' '
+
+        return search_content
 
     @route(r'^feed/$')
     def feed(self, request):
