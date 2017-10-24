@@ -1,14 +1,16 @@
 {% extends "layout/_layout_one_column.html" %}
+{% load wagtailcore_tags %}
 
 {% block header_classes %}
     header--slate
 {% endblock %}
 
 {% block page_title_text %}
-	Scan My Instance
+	{{form_title}}
 {% endblock %}
 
 {% block main %}
+	{{text|richtext}}
 	<form action="{{ submit_url }}" method="post" class="basic-form">
 		{% csrf_token %}
 		{{ form.as_p }}
