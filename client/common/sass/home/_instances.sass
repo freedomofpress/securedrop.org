@@ -38,13 +38,22 @@
 	align-items: center
 	+media-breakpoint-down(extra-small)
 		flex-basis: 100%
-		margin-left: 0
+	+media-breakpoint-down(tiny)
+		flex-direction: column
+		text-align: center
+		margin-bottom: 3rem
 
 .instances__logo
 	width: 6rem
 	margin-right: 2rem
 	flex-shrink: 0
 	flex-grow: 0
+	+media-breakpoint-between(extra-small,small)
+		width: 4rem
+		margin-right: 1rem
+	+media-breakpoint-down(tiny)
+		margin-bottom: 1rem
+		margin-right: 0
 
 .instances__logo--hexagon
 	polygon
@@ -54,13 +63,14 @@
 	margin: 0
 	font-size: 1.5rem
 
-.instances__item-landingpage
-	display: block
-	margin-bottom: 0.75rem
-	+link--underline(inherit, $gray10)
+.instances__item-description
+	font-size: 0.8rem
+	font-style: italic
 
-.instances__item-onion-address--bold
-	font-weight: $sans-bold
+.instances__item-link
+	display: block
+	margin-top: 0.5rem
+	+link--underline(inherit, $gray10)
 
 .instances__button
 	+button-large
