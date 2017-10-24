@@ -5,14 +5,12 @@ from django.template.defaultfilters import truncatewords
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel, StreamFieldPanel
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.fields import StreamField, RichTextField
-from wagtail.wagtailcore.blocks.stream_block import StreamValue
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailimages.blocks import ImageChooserBlock
-from wagtail.wagtailsearch import index
 from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 
 from blog.feeds import BlogIndexPageFeed
-from common.utils import DEFAULT_PAGE_KEY, paginate
+from common.utils import DEFAULT_PAGE_KEY, paginate, get_search_content_by_fields
 from common.models import MetadataPageMixin
 from common.blocks import (
     Heading1,
@@ -98,7 +96,7 @@ class BlogPage(MetadataPageMixin, Page):
 
     parent_page_types = ['blog.BlogIndexPage']
 
-    search_fields_pgsql = ['body', 'teaser_text', 'author', 'category']
+    search_fields_pgsql = ['title', 'body', 'teaser_text', 'author', 'category']
 
     def get_meta_description(self):
         if self.teaser_text:
@@ -113,21 +111,7 @@ class BlogPage(MetadataPageMixin, Page):
         )
 
     def get_search_content(self):
-        search_content = ''
-        for field in self.search_fields_pgsql:
-            if hasattr(self, field):
-                content = getattr(self, field)
-                print(type(content))
-                if content == None:
-                    pass
-                elif isinstance(content, StreamValue):
-                    search_content += strip_tags(content.__str__())
-                elif isinstance(content, str):
-                    search_content += strip_tags(content)
-                else:
-                    search_content += content.title
-                search_content + ' '
-        return search_content
+        return get_search_content_by_fields(self, self.search_fields_pgsql)
 
 
 class CategoryPage(MetadataPageMixin, Page):
