@@ -22,9 +22,9 @@
 				{% endif %}
 				</div>
 				{% if show_fixes and result_state.fix_text %}
-				<div class="scan-result__fix">
-					{{ result_state.fix_text|richtext }}
-				</div>
+					<div class="scan-result__fix">
+						{{ result_state.fix_text|richtext }}
+					</div>
 				{% endif %}
 			{% elif forloop.first and result|get_attr:result_state.name == None %}
 				<div class="scan-result__result">
