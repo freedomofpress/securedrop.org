@@ -39,7 +39,7 @@ class SecuredropPage(MetadataPageMixin, Page):
         'SecureDrop Onion Address',
         max_length=255,
         unique=True,
-        validators=[RegexValidator(regex=r'\.onion$')]
+        validators=[RegexValidator(regex=r'\.onion$', message="Enter a valid .onion address.")]
     )
 
     added = models.DateTimeField(auto_now_add=True)
