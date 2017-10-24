@@ -69,6 +69,10 @@ class SecuredropPage(MetadataPageMixin, Page):
         AutocompleteFieldPanel('topics', 'directory.Topic'),
     ]
 
+    def get_live_result(self):
+        # because results are ordered by date, returning the first one should be effective
+        return Result.objects.filter(securedrop=self, live=True).first()
+
 
 class Result(models.Model):
     # This is different from STN's Scan object in that each scan here will not

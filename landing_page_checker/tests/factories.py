@@ -4,7 +4,7 @@ import string
 import factory
 
 import wagtail_factories
-from landing_page_checker.models import SecuredropPage
+from landing_page_checker.models import SecuredropPage, Result
 from directory.tests.factories import LanguageFactory, CountryFactory, TopicFactory
 
 
@@ -65,3 +65,9 @@ class SecuredropPageFactory(wagtail_factories.PageFactory):
             topics.append(topic)
         if not create:
             self._prefetched_objects_cache = {'topics': topics}
+
+
+class ResultFactory(factory.Factory):
+    class Meta:
+        model = Result
+    hsts_max_age = random.randint(0, 16070400 * 2)
