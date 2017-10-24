@@ -2,12 +2,11 @@ $spacer-max: 7px
 $spacer-success: 3px
 $spacer-warning: 7px
 $spacer-fail: 0px
+$icon-width: 1.5rem
+$text-left-padding: 1rem
 
 .scan-result
 	font-weight: 300
-	padding-top: 1.5rem
-
-.scan-result
 	padding-top: 2rem
 
 .scan-result__section
@@ -16,13 +15,12 @@ $spacer-fail: 0px
 .scan-result__heading
 	color: $brand-primary
 	font-weight: 500
-	padding-bottom: 0.5rem
 	margin: 0
 
 .scan-result__result
 	display: flex
 	align-items: flex-start
-	padding-bottom: 1rem
+	padding-top: 1rem
 
 .scan-result__result--success
 	color: $green
@@ -45,13 +43,13 @@ $spacer-fail: 0px
 .scan-result__text
 	// align lowercase text with the middle of the x
 	padding-top: 5px
-	padding-left: 1rem
+	padding-left: $text-left-padding
 	a
 		+link--underline(inherit, $link-hover-color)
 
 .scan-result__x, .scan-result__checkmark, .scan-result__flag
 	height: auto
-	width: 1.5rem
+	width: $icon-width
 	flex-shrink: 0
 
 .scan-result__checkmark
@@ -59,3 +57,21 @@ $spacer-fail: 0px
 
 .scan-result__flag
 	margin-top: $spacer-warning
+
+.scan-result__fix
+	.rich-text
+		p, pre
+		 margin: 0.5rem 0
+		+p-remove-first-and-last-margin
+		pre:first-child
+			margin-top: 0
+
+		pre:last-child
+			margin-bottom: 0
+
+	line-height: 1.2
+	margin-left: $icon-width + $text-left-padding
+	margin-top: 0.5rem
+	padding: 0.5rem
+	background-color: $gray10
+	border-radius: $button-border-radius
