@@ -8,7 +8,6 @@ from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import StreamField, RichTextField
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
-from wagtail.wagtailsearch import index
 
 from common.models import MetadataPageMixin
 from common.blocks import (
@@ -82,7 +81,7 @@ class SimplePage(MetadataPageMixin, Page):
         StreamFieldPanel('body'),
     ]
 
-    search_fields_pgsql = [ 'title', 'body']
+    search_fields_pgsql = ['title', 'body']
 
     def get_search_content(self):
         return get_search_content_by_fields(self, self.search_fields_pgsql)
@@ -122,7 +121,7 @@ class SimplePageWithMenuSidebar(MetadataPageMixin, BaseSidebarPageMixin, Page):
 
     settings_panels = Page.settings_panels + BaseSidebarPageMixin.settings_panels
 
-    search_fields_pgsql = [ 'title', 'body']
+    search_fields_pgsql = ['title', 'body']
 
     def get_search_content(self):
         return get_search_content_by_fields(self, self.search_fields_pgsql)
