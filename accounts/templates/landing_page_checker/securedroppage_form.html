@@ -7,9 +7,7 @@
 {% block content %}
 	<form action="" method="post">
 	    {% csrf_token %}
-	    {{ form.as_p }}
-	    <label for="add_owner">Add Securedrop owner:</label>
-	    <input id="add_owner" name="add_owner" type="email" placeholder="Email address" />
+	    {{ form.as_p|safe }}
 	    <input type="submit" value="Submit" />
 	</form>
 {% endblock %}

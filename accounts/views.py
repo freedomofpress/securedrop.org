@@ -5,6 +5,11 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
+from django.core.exceptions import ObjectDoesNotExist
+from django.views.generic.edit import FormView
+from accounts.forms import SecuredropPageForm
+
+User = get_user_model()
 
 
 @method_decorator(login_required, name='dispatch')
@@ -17,22 +22,11 @@ class SecuredropList(ListView):
 
 
 @method_decorator(login_required, name='dispatch')
-class SecuredropDetail(UpdateView):
+class SecuredropView(UpdateView):
+    template_name = 'landing_page_checker/securedroppage_form.html'
+    form_class = SecuredropPageForm
     model = SecuredropPage
-
-    fields = ['title', 'landing_page_domain', 'onion_address', 'organization_description', 'organization_logo']
-
-    def get_success_url(self):
-        if self.object.live:
-            return self.object.url
-        else:
-            return self.object.get_parent().url
-
-    def get_object(self, **kwargs):
-        obj = super(SecuredropDetail, self).get_object(**kwargs)
-        if self.request.user not in [o.owner for o in obj.owners.all()]:
-            raise PermissionDenied
-        return obj
+    success_url = reverse_lazy('dashboard')
 
 
 @method_decorator(login_required, name='dispatch')
