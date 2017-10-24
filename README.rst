@@ -195,3 +195,9 @@ They should not be run in production as many of them create fake data.
       Creates the main nav menu and links it to the appropriate pages. Creates a
       ``DirectoryPage``, ``BlogIndexPage``, and ``MarketingIndexPage`` if they
       do not yet exist.
+
+Search
+------
+Wagtail
++++++++
+``get_search_content`` is a method on each page that should return a string of the "searchable content" for that page type. This should generally include HTML-stripped versions of the page body, any tags, anything in the search description field, etc. It's okay for these all to be naively concatenated together. This value is used to provide words to the search engine and is never displayed.
