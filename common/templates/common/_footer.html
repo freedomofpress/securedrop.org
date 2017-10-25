@@ -45,6 +45,24 @@
 									</a>
 								</li>
 							{% endfor %}
+							{% if user.is_authenticated %}
+								<li class="footer-main__nav-item">
+									<a class="footer-main__nav-link" href="{% url 'dashboard' %}">
+										Dashboard
+									</a>
+								</li>
+								<li class="footer-main__nav-item">
+									<a class="footer-main__nav-link" href="{% url 'account_logout' %}">
+										Logout
+									</a>
+								</li>
+							{% else %}
+								<li class="footer-main__nav-item">
+									<a class="footer-main__nav-link" href="{% url 'account_login' %}">
+										Login
+									</a>
+								</li>
+							{% endif%}
 						</ul>
 					</nav>
 					<div class="footer-main__release">
