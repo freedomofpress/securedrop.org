@@ -175,7 +175,7 @@ class DirectorySearchFilterTest(TestCase):
             title="Worst Instance",
             parent=self.directory
         )
-        self.search_filter = { 'title__icontains': 'best' }
+        self.search_filter = {'title__icontains': 'best'}
 
     def test_title_searched_is_in_queryset(self):
         filtered_instances = self.directory.get_instances(filters=self.search_filter)
