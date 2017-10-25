@@ -77,7 +77,7 @@ $list-bottom-padding: 2rem
 	width: 10rem
 
 .footer-links__donate
-	+button-solid($links-background-color, $white, rgba($white, 0.9))
+	+button-solid($links-background-color, $white, rgba($white, 0.7))
 
 .footer-links__contribute
 	+button-outline($white, $links-background-color)
@@ -85,7 +85,7 @@ $list-bottom-padding: 2rem
 .footer-main
 	display: flex
 	+sd-gradient($purple1,$purple2)
-	color: $white
+	color: $gray10--text
 	position: relative
 
 	+media-breakpoint-down(extra-small)
@@ -95,11 +95,12 @@ $list-bottom-padding: 2rem
 .footer-main__title
 	font-size: 3rem
 	padding-bottom: 2rem
+	color: $white
 
 	.rich-text
 		+p-remove-first-and-last-margin
 		a
-			+link--no-underline($white, $gray10--text)
+			+link--underline(inherit, $gray10)
 
 .footer-main__content
 	padding: 5rem 3rem 5rem 2rem
@@ -154,15 +155,14 @@ $list-bottom-padding: 2rem
 		width: 50%
 
 .footer-main__nav-link
-	+link--no-underline($gray10--text, $white)
+	+link--underline-on-hover(inherit, inherit)
 
 .footer-main__release
-	color: $gray10--text
 	min-height: 5rem
 	max-width: 15rem
 
 .footer-main__release-key-link
-	+link--no-underline($white, $gray10--text)
+	+link--underline-on-hover($white, $white)
 
 .footer-main__logo
 	padding: 2rem

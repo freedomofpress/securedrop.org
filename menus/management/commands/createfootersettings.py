@@ -22,7 +22,7 @@ class Command(BaseCommand):
         home_page = HomePage.objects.get(slug='home')
 
         footer_settings = FooterSettings.for_site(site)
-        footer_settings.title = RichText('SecureDrop is a project of <a href="https://freedom.press">Freedom of the Press Foundation</a>')
+        footer_settings.title = RichText('SecureDrop is a project of <a href="https://freedom.press">Freedom of the Press Foundation</a>.')
         footer_settings.release_key = 'abcdefghijklmonopqrs'
 
         try:
