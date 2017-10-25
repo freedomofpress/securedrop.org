@@ -1,34 +1,42 @@
-$select-width: 11.5rem
 $background-image-width: 1.5rem
 $select-padding: 0.5rem
 $input-height: 2.5rem
 $input-border: 1px solid $gray50
 $input-margin: 1rem
 
+.filter-form
+	margin-bottom: $layout-padding
+
 .filters
 	display: flex
-	flex-wrap: wrap
-	margin-bottom: 2rem
+	justify-content: space-between
 
-.filters__select
-	appearance: none;
+.filters__wrapper
+	flex-grow: 1
+	padding-right: $input-margin
+	&:last-child
+		padding-right: 0
+
+.filters__wrapper--input
+	flex-shrink: 0
+
+.filters__field
+	border: $input-border
+	padding-left: 1rem
+	margin-bottom: 1rem
+	height: $input-height
+	width: 100%
+
+.filters__field--select
+	appearance: none
 	border-radius: $button-border-radius
 	background: transparent
-	border: $input-border
-	height: $input-height
-	width: $select-width
 	color: $gray50--text
-	margin-right: $input-margin
-	margin-bottom: $input-margin
 	padding: $select-padding $background-image-width + $select-padding $select-padding $select-padding
-	background: transparent url("http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png") no-repeat $select-width - $background-image-width center
+	background: transparent url("http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png") no-repeat right $select-padding center
 
-.filters__input
+.filters__field--input
 	border-radius: $input-height
-	border: $input-border
-	margin-bottom: $input-margin
-	padding-left: 1rem
-	height: $input-height
 
 .filters__submit
 	width: $input-height
@@ -40,7 +48,8 @@ $input-margin: 1rem
 	color: $white
 	margin-bottom: 0.5rem
 	padding: 0.5rem
+	flex-shrink: 0
 
-.filters__buttons
-	display: flex
-	flex-direction: column
+.filters__clear
+	text-align: right
+
