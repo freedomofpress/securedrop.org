@@ -113,7 +113,10 @@
       when: "lookup('env', 'RAND_PORT') | bool"
 
     - name: Configure hstore extension
-      command: docker exec sd_postgresql /bin/bash -c "psql -c 'CREATE EXTENSION IF NOT EXISTS hstore;' securedropdb"
+      command: docker exec sd_postgresql /bin/bash -c "psql -c 'CREATE EXTENSION IF NOT EXISTS hstore;' {{ item }}"
+      with_items:
+        - securedropdb
+        - template1
 
     - name: Start Django server
       docker_container:
