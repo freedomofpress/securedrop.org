@@ -2,19 +2,22 @@
 	display: flex
 	flex-direction: column
 	align-items: center
-	+layout-x--more-padding-on-extra-small
-	+layout-y
+	+layout-x
+	+layout-y--no-tiny-breakpoint
 
 .features__header
-	flex-basis: 75%
-	font-size: 3rem
 	text-align: center
 	margin-bottom: 2rem
+	font-size: $homepage-section-heading-font-size
+	+media-breakpoint-down(extra-small)
+		font-size: $homepage-section-heading-font-size--small
 
 .features__button
 	+button-large
 	+button-solid--blue
 	margin-top: 3rem
+	+media-breakpoint-down(extra-small)
+		margin-top: 2rem
 
 .features__button-icon
 	+text-chevron--right(large)

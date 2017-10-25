@@ -9,22 +9,20 @@
 		{% if entries_page.has_previous %}
 			<a
 				href="?{% query_transform request page=entries_page.previous_page_number %}"
-				class="pagination-button pagination-button--previous js-infinite-scrolling-prev-link"
+				class="pagination__link--previous js-infinite-scrolling-prev-link"
 				aria-label="Previous"
 			>
-				{% include "common/chevron-right.svg" with class="pagination-button__icon--left" %}
-				Previous Page
+				{% include "common/chevron-right.svg" with class="pagination__icon--previous" %}Previous Page
 			</a>
 		{% endif %}
 
 		{% if entries_page.has_next %}
 			<a
 				href="?{% query_transform request page=entries_page.next_page_number %}"
-				class="pagination-button pagination-button--next js-infinite-scrolling-next-link"
+				class="pagination__link--next js-infinite-scrolling-next-link"
 				aria-label="Next"
 			>
-				More Posts
-				{% include "common/chevron-right.svg" with class="pagination-button__icon--right" %}
+				More Posts{% include "common/chevron-right.svg" with class="pagination__icon--next" %}
 			</a>
 		{% endif %}
 	</nav>

@@ -6,11 +6,6 @@
 	+media-breakpoint-down(extra-small)
 		flex-direction: column-reverse
 
-.layout-sidebar--directory
-	+media-breakpoint-down(extra-small)
-		flex-direction: column
-
-
 .layout-sidebar__main
 	flex-basis: 75%
 	padding-right: $layout-padding
@@ -28,3 +23,12 @@
 		flex-basis: 100%
 		padding-bottom: $layout-padding
 
+
+.layout-sidebar--directory
+	+media-breakpoint-down(extra-small)
+		flex-direction: column
+		// Not BEM sorry
+		.layout-sidebar__main
+			padding-bottom: $layout-padding
+		.layout-sidebar__aside
+			padding-bottom: 0

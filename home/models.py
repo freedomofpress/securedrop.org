@@ -34,8 +34,8 @@ class HomePage(MetadataPageMixin, Page):
     )
     instance_link_default_text = models.CharField(
         max_length=255,
-        default="SecureDrop landing page",
-        help_text="Text displayed linking to each instance landing page."
+        default="View in the directory",
+        help_text="Text displayed linking to each instance's page in the directory."
     )
 
     content_panels = Page.content_panels + [

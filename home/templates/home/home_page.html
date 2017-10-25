@@ -82,10 +82,14 @@
 							{% endif %}
 							<div>
 								<h3 class="instances__item-header">{{ highlighted_instance.instance.title }}</h3>
-								<a href="{{ highlighted_instance.instance.landing_page_domain }}" class="instances__item-landingpage">
+								{% if highlighted_instance.instance.organization_description %}
+									<div class="instances__item-description">
+										{{ highlighted_instance.instance.organization_description|richtext|truncatewords_html:20 }}
+									</div>
+								{% endif %}
+								<a href="{% pageurl highlighted_instance.instance %}" class="instances__item-link">
 									{{ page.instance_link_default_text }}
 								</a>
-								<div class="instances__item-onion-address"><span class="instances__item-onion-address--bold">TOR address:</span> {{ highlighted_instance.instance.onion_address }}</div>
 							</div>
 						</div>
 					{% endfor %}

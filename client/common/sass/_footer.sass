@@ -32,6 +32,8 @@ $list-bottom-padding: 2rem
 
 .support__nav
 	width: 75%
+	+media-breakpoint-down(extra-small)
+		width: 100%
 
 .support__nav-list
 	+list--unstyled
@@ -46,6 +48,7 @@ $list-bottom-padding: 2rem
 	+media-breakpoint-down(extra-small)
 		flex-wrap: nowrap
 		align-items: center
+		height: auto
 
 .support__nav-item
 	height: $list-item-height
