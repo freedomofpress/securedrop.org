@@ -3,7 +3,6 @@
 from __future__ import unicode_literals
 
 import django.contrib.postgres.fields.hstore
-from django.contrib.postgres.operations import HStoreExtension
 from django.db import migrations, models
 
 
@@ -15,7 +14,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        HStoreExtension(),
         migrations.CreateModel(
             name='SearchDocument',
             fields=[

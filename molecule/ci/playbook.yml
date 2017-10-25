@@ -27,6 +27,12 @@
       retries: 5
       delay: 20
 
+    - name: Ensure hstore extension in-place
+      postgresql_ext:
+        name: hstore
+        db: securedrop
+      become_user: postgres
+
   tasks:
     # The paxtld flags should be added to the CI base image.
     - name: Layout pax config
