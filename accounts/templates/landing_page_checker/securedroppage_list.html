@@ -15,10 +15,10 @@
 	</nav>
 	<h2>Edit instances</h2>
 	<ul>
-	{% for instance in object_list %}
-		<li><a href="{% url 'securedrop_detail' instance.slug %}">{{ instance.title }}</li>
-	{% empty %}
-		<p>You do not own any Securedrop instances</p>
-	{% endfor %}
+		{% for instance in object_list %}
+			<li><a href="{% url 'securedrop_detail' instance.slug %}">{{ instance.title }}</a></li>
+		{% empty %}
+			<li>You do not own any Securedrop instances</li>
+		{% endfor %}
 	</ul>
 {% endblock %}
