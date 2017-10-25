@@ -5,25 +5,12 @@
 <nav class="sliding-nav js-sliding-nav">
 	{% include "common/_logo_color.svg" with class="sliding-nav__logo" %}
 	<ul class='sliding-nav__list'>
-			{% for item in menu_items %}
-				<li class="sliding-nav__item">
-					<a class='sliding-nav__link {{ item.html_classes }}' href="{{ item.url }}">
-						{{ item.text }}
-					</a>
-				</li>
-			{% endfor %}
-			{% if user.is_authenticated %}
-				<li class="sliding-nav__item">
-					<a class="sliding-nav__link" href="{% url 'account_logout' %}">
-						Logout
-					</a>
-				</li>
-			{% else %}
-				<li class="sliding-nav__item">
-					<a class="sliding-nav__link" href="{% url 'account_login' %}">
-						Login
-					</a>
-				</li>
-			{% endif %}
+		{% for item in menu_items %}
+			<li class="sliding-nav__item">
+				<a class='sliding-nav__link {{ item.html_classes }}' href="{{ item.url }}">
+					{{ item.text }}
+				</a>
+			</li>
+		{% endfor %}
 	</ul>
 </nav>
