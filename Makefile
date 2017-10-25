@@ -11,6 +11,10 @@ ci-go: ## Stands-up a prod like environment under one docker container
 ci-tests: ## Runs testinfra against a pre-running CI container. Useful for debug
 	@molecule verify -s ci
 
+.PHONY: dev-tests
+dev-tests: ## Run django tests against developer environment
+	docker exec sd_django /bin/bash -c "cd /var/www/django && ./manage.py test --noinput -k"
+
 .PHONY: dev-go
 dev-go: ## Spin-up developer environment with three docker containers
 	./devops/scripts/dev.sh
