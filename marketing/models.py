@@ -10,6 +10,7 @@ from common.blocks import (
     AlignedEmbedBlock,
     RichTextBlockQuoteBlock,
 )
+from common.utils import get_search_content_by_fields
 
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel, PageChooserPanel, StreamFieldPanel
 from wagtail.wagtailcore import blocks
@@ -50,6 +51,18 @@ class MarketingIndexPage(MetadataPageMixin, Page):
     ]
 
     subpage_types = ['marketing.FeaturePage']
+
+    search_fields_pgsql = ['title', 'body', 'subheader']
+
+    def get_search_content(self):
+        search_content = get_search_content_by_fields(self, self.search_fields_pgsql)
+
+        for feature in self.features.all():
+            search_content += feature.feature.title + ' '
+            search_content += feature.feature.teaser_title + ' '
+            search_content += feature.feature.teaser_description + ' '
+
+        return search_content
 
 
 class OrderedFeatures(Orderable):
@@ -95,6 +108,11 @@ class FeaturePage(MetadataPageMixin, Page):
         FieldPanel('teaser_description'),
         FieldPanel('description'),
     ]
+
+    search_fields_pgsql = ['title', 'teaser_title', 'teaser_description', 'description']
+
+    def get_search_content(self):
+        return get_search_content_by_fields(self, self.search_fields_pgsql)
 
     def sort_order(self):
         return self.marketing_order.get(page=self.get_parent()).sort_order

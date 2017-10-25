@@ -7,11 +7,10 @@ from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.fields import StreamField, RichTextField
 from wagtail.wagtailcore.models import Page
 from wagtail.wagtailimages.blocks import ImageChooserBlock
-from wagtail.wagtailsearch import index
 from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 
 from blog.feeds import BlogIndexPageFeed
-from common.utils import DEFAULT_PAGE_KEY, paginate
+from common.utils import DEFAULT_PAGE_KEY, paginate, get_search_content_by_fields
 from common.models import MetadataPageMixin
 from common.blocks import (
     Heading1,
@@ -97,11 +96,7 @@ class BlogPage(MetadataPageMixin, Page):
 
     parent_page_types = ['blog.BlogIndexPage']
 
-    search_fields = Page.search_fields + [
-        index.SearchField('body', partial=True),
-        index.SearchField('teaser_text'),
-        index.FilterField('publication_datetime'),
-    ]
+    search_fields_pgsql = ['title', 'body', 'teaser_text', 'author', 'category']
 
     def get_meta_description(self):
         if self.teaser_text:
@@ -115,6 +110,9 @@ class BlogPage(MetadataPageMixin, Page):
             20
         )
 
+    def get_search_content(self):
+        return get_search_content_by_fields(self, self.search_fields_pgsql)
+
 
 class CategoryPage(MetadataPageMixin, Page):
     description = RichTextField(blank=True, null=True)
@@ -122,6 +120,8 @@ class CategoryPage(MetadataPageMixin, Page):
     content_panels = Page.content_panels + [
         FieldPanel('description'),
     ]
+
+    search_fields_pgsql = ['title', 'description']
 
     parent_page_types = ['blog.BlogIndexPage']
 
@@ -147,6 +147,9 @@ class CategoryPage(MetadataPageMixin, Page):
         context['paginator'] = paginator
 
         return context
+
+    def get_search_content(self):
+        return get_search_content_by_fields(self, self.search_fields_pgsql)
 
 
 class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
@@ -205,9 +208,15 @@ class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
 
     subpage_types = ['blog.BlogPage', 'blog.CategoryPage']
 
-    search_fields = Page.search_fields + [
-        index.SearchField('body'),
-    ]
+    search_fields_pgsql = ['title', 'body']
+
+    def get_search_content(self):
+        search_content = get_search_content_by_fields(self, self.search_fields_pgsql)
+
+        for blog_page in self.get_posts():
+            search_content += blog_page.title + ' '
+
+        return search_content
 
     @route(r'^feed/$')
     def feed(self, request):

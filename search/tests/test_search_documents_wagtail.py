@@ -2,6 +2,7 @@ from django.test import TestCase
 
 from wagtail.wagtailcore.models import Page
 
+from blog.tests.factories import BlogIndexPageFactory
 from home.tests.factories import HomePageFactory
 from search.utils.wagtail import (
     KEY_FORMAT,
@@ -57,3 +58,8 @@ class WagtailTestCase(TestCase):
             SearchDocument.objects.filter(key=KEY_FORMAT.format(page.pk)).count(),
             0
         )
+
+    def test_indexed_page_should_have_correct_content(self):
+        blog_index = BlogIndexPageFactory(parent=self.page, title="News", body="Some content")
+        index_wagtail_page(blog_index)
+        self.assertEqual(SearchDocument.objects.get(key=KEY_FORMAT.format(blog_index.pk)).search_content, blog_index.get_search_content())
