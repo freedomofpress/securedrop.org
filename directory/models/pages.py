@@ -31,6 +31,11 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
         max_length=100,
         default="Get Started",
         help_text="Text displayed on link to scanning form.")
+    manage_instances_text = models.CharField(
+        max_length=100,
+        default="Manage instances",
+        help_text="Text displayed on link to user dashboard."
+    )
     faq_link = models.ForeignKey(
         # Likely an FAQ page
         'wagtailcore.Page',
@@ -67,6 +72,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
                 FieldPanel('submit_title'),
                 FieldPanel('submit_body'),
                 FieldPanel('submit_button_text'),
+                FieldPanel('manage_instances_text')
             ],
             classname='collapsible'
         )
