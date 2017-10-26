@@ -57,3 +57,21 @@ class WagtailTestCase(TestCase):
             SearchDocument.objects.filter(key=KEY_FORMAT.format(page.pk)).count(),
             0
         )
+
+    def test_delete_unindexed_page(self):
+        """
+        Deleting a page should not raise an exception, even if it is
+        not indexed
+
+        """
+
+        page = self.page
+        try:
+            delete_wagtail_page(page)
+        except Exception as e:
+            self.fail(
+                'delete_wagtail_page raised an exception {} ("{}")'.format(
+                    type(e).__name__,
+                    e.args[0]
+                )
+            )

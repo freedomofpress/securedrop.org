@@ -65,4 +65,8 @@ def delete_wagtail_page(page):
     """
 
     key = KEY_FORMAT.format(page.pk)
-    SearchDocument.objects.get(key=key).delete()
+    try:
+        SearchDocument.objects.get(key=key).delete()
+    except SearchDocument.DoesNotExist:
+        # Don't bother deleting if it doesn't exist
+        pass
