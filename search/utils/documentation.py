@@ -18,7 +18,7 @@ def fetch_indexable_pages():
     # Select the main nav bar and extract links from it
     nav = soup.select('div[aria-label="main navigation"]')[0]
     links = nav.find_all('a', href=True)
-    return [urljoin(READTHEDOCS_BASE, link.get('href')) for link in links]
+    return [urljoin(READTHEDOCS_BASE, link.get('href')) for link in links] + [url]
 
 
 def scrape_documentation_page(url):
