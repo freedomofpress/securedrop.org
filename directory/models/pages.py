@@ -258,6 +258,8 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
                     live=False,
                 )
                 self.add_child(instance=instance)
+                if data['organization_description']:
+                    instance.organization_description = data['organization_description']
                 if data['languages_accepted']:
                     instance.languages = data['languages_accepted']
                 if data['countries']:

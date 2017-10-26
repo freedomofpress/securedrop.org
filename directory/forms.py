@@ -42,7 +42,7 @@ class DirectoryForm(forms.ModelForm):
 
     class Meta:
         model = SecuredropPage
-        fields = ['landing_page_domain']
+        fields = ['landing_page_domain', 'organization_description']
 
 
 class ScannerForm(forms.Form):
