@@ -22,7 +22,6 @@ class TestBlogIndex(TestCase):
         self.assertIn(self.title, self.search_content)
 
     def test_get_search_content_indexes_body(self):
-        print(self.search_content)
         self.assertIn(self.body, self.search_content)
 
     def test_get_search_content_index_blog_page_titles(self):
