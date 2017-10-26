@@ -67,19 +67,14 @@ class SecuredropPageForm(forms.ModelForm):
             self.cleaned_data['remove_owners'].delete()
             del self.cleaned_data['remove_owners']
 
-
-        # Do we need to save all changes now?
         if commit:
             if self.cleaned_data['organization_logo']:
                 self.cleaned_data['organization_logo'].save()
                 instance.organization_logo = self.cleaned_data['organization_logo']
-            instance.save()
-            self.save_m2m()
             if sdo:
                 sdo.save()
-            if self.cleaned_data['organization_logo']:
-                self.cleaned_data['organization_logo'].save()
-                instance.organization_logo = self.cleaned_data['organization_logo']
+            instance.save()
+            self.save_m2m()
 
         return instance
 
