@@ -3,7 +3,7 @@
 <ul class="category-list">
 	{% for category in page.get_category_pages %}
 		<li class="category-list__item">
-			<a class="category-list__link" href="{% pageurl category%}">{% include "common/_hexagon.svg" with class="category-list__hexagon" category_slug=category.slug %}
+			<a class="category-list__link" href="{% pageurl category %}">{% include "common/_hexagon.svg" with class="category-list__hexagon" category_slug=category.slug %}
 			<span class="category-list__text">{{ category.title }}</span></a>
 		</li>
 	{% endfor %}
