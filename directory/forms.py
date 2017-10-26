@@ -11,6 +11,7 @@ from landing_page_checker.models import SecuredropPage
 class DirectoryForm(forms.ModelForm):
     title = forms.CharField(label="Organization name", max_length=255)
     onion_address = forms.CharField(label="Tor address", max_length=255)
+    organization_logo = forms.FileField(required=False)
     languages_accepted = forms.ModelMultipleChoiceField(
         queryset=Language.objects.all(),
         widget=type(
