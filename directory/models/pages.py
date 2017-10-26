@@ -2,6 +2,8 @@ from django.core.validators import MaxValueValidator
 from django.db import models
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
 from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
@@ -13,6 +15,7 @@ from common.utils import paginate, DEFAULT_PAGE_KEY
 from directory.models import Language, Topic, Country
 from directory.forms import DirectoryForm, ScannerForm
 from landing_page_checker.landing_page import scanner
+from landing_page_checker.models import SecuredropOwner
 from landing_page_checker.models import SecuredropPage as SecuredropInstance
 
 
@@ -28,6 +31,11 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
         max_length=100,
         default="Get Started",
         help_text="Text displayed on link to scanning form.")
+    manage_instances_text = models.CharField(
+        max_length=100,
+        default="Manage instances",
+        help_text="Text displayed on link to user dashboard."
+    )
     faq_link = models.ForeignKey(
         # Likely an FAQ page
         'wagtailcore.Page',
@@ -63,7 +71,8 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
                 FieldPanel('source_warning'),
                 FieldPanel('submit_title'),
                 FieldPanel('submit_body'),
-                FieldPanel('submit_button_text')
+                FieldPanel('submit_button_text'),
+                FieldPanel('manage_instances_text')
             ],
             classname='collapsible'
         )
@@ -215,6 +224,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
         return render(request, 'directory/scanner_form.html', context)
 
     @route('form/')
+    @method_decorator(login_required)
     def form_view(self, request):
         if request.method == 'POST':
             # create a form instance and populate it with data from the request:
@@ -230,6 +240,8 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
                     live=False,
                 )
                 self.add_child(instance=instance)
+                if request.user:
+                    SecuredropOwner(page=instance, owner=request.user).save()
                 instance.save()
                 result = scanner.scan(instance)
                 result.save()

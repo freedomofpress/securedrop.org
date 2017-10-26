@@ -29,6 +29,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Application definition
 
 INSTALLED_APPS = [
+    'accounts',
     'autocomplete',
     'blog',
     'common',
@@ -58,6 +59,10 @@ INSTALLED_APPS = [
     'wagtail.wagtailadmin',
     'wagtail.wagtailcore',
 
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
     'wagtailmetadata',
     'webpack_loader',
     'taggit',
@@ -67,6 +72,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',
     'django.contrib.staticfiles',
 
     'build',
@@ -222,3 +228,27 @@ GITHUB_HOOK_SECRET_KEY = os.environ.get(
     'GITHUB_HOOK_SECRET_KEY',
     'default'
 ).encode('utf-8')
+
+# django-allauth
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+WAGTAIL_FRONTEND_LOGIN_URL = '/accounts/login/'
+SITE_ID = 1
+LOGIN_REDIRECT_URL = "/"
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
+ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
+ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
+ACCOUNT_UNIQUE_EMAIL = True
+SOCIALACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_ADAPTER = 'accounts.users.adapter.MyAccountAdapter'
+ACCOUNT_SIGNUP_FORM_CLASS = 'accounts.forms.SignupForm'

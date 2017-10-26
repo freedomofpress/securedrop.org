@@ -1,15 +1,27 @@
 from __future__ import unicode_literals
 
+from django.conf import settings
 from django.db import models
-from modelcluster.fields import ParentalManyToManyField
-from django.core.validators import RegexValidator, validate_image_file_extension
+from modelcluster.fields import ParentalManyToManyField, ParentalKey
+from django.core.validators import RegexValidator
 
 from wagtail.wagtailcore.models import Page
-from wagtail.wagtailadmin.edit_handlers import FieldPanel
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 from autocomplete.edit_handlers import AutocompleteFieldPanel
 from common.models.mixins import MetadataPageMixin
+
+
+class SecuredropOwner(models.Model):
+    page = ParentalKey(
+        'landing_page_checker.SecuredropPage',
+        related_name='owners'
+    )
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name='instances'
+    )
 
 
 class SecuredropPage(MetadataPageMixin, Page):
@@ -34,7 +46,6 @@ class SecuredropPage(MetadataPageMixin, Page):
         blank=True,
         on_delete=models.SET_NULL,
         related_name='+',
-        validators=[validate_image_file_extension]
     )
     organization_description = models.CharField(max_length=95, blank=True, null=True, help_text="A micro description of your organization that will be displayed in the directory.")
 
@@ -67,6 +78,7 @@ class SecuredropPage(MetadataPageMixin, Page):
         AutocompleteFieldPanel('languages', 'directory.Language'),
         AutocompleteFieldPanel('countries', 'directory.Country'),
         AutocompleteFieldPanel('topics', 'directory.Topic'),
+        InlinePanel('owners', label='Owners')
     ]
 
     def get_live_result(self):

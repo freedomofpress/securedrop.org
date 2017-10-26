@@ -1,0 +1,24 @@
+{% extends "layout/_layout_one_column.html" %}
+
+{% block page_title %}
+	<h1 class="header__title">{{ user.first_name }} {{ user.last_name }} Dashboard </h1>
+{% endblock %}
+
+{% block content %}
+	<nav>
+		<h2>Manage Account</h2>
+		<ul>
+			<li><a href="{% url 'account_email' %}">Manage Emails</a></li>
+			<li><a href="{% url 'account_change_password' %}">Change Password</a></li>
+			<li><a href="{% url 'account_change_name' user.pk %}">Edit Name</a></li>
+		</ul>
+	</nav>
+	<h2>Edit instances</h2>
+	<ul>
+		{% for instance in object_list %}
+			<li><a href="{% url 'securedrop_detail' instance.slug %}">{{ instance.title }}</a></li>
+		{% empty %}
+			<li>You do not own any Securedrop instances</li>
+		{% endfor %}
+	</ul>
+{% endblock %}

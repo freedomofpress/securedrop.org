@@ -17,3 +17,4 @@ wagtail<1.13
 wagtail-factories
 wagtail-metadata
 unittest-xml-reporting
+django-allauth
