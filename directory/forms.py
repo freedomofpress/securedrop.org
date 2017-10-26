@@ -1,10 +1,8 @@
 from django import forms
 from captcha.fields import ReCaptchaField
 
-from wagtail.wagtailimages.widgets import AdminImageChooser
 from autocomplete.widgets import Autocomplete
 from directory.models import Language, Topic, Country
-from common.models import CustomImage
 from landing_page_checker.models import SecuredropPage
 
 
