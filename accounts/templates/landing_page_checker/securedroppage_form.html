@@ -7,14 +7,16 @@
 	</h1>
 {% endblock %}
 
-{% block content %}
+{% block main_classes %}layout-one-column--left{% endblock %}
+
+{% block main %}
 	{% if object.organization_logo %}
 		Current logo:
 			{% image object.organization_logo width-100 %}
 		{% endif%}
-	<form action="" enctype="multipart/form-data" method="post">
+	<form class="basic-form" action="" enctype="multipart/form-data" method="post">
 	    {% csrf_token %}
 	    {{ form.as_p|safe }}
-	    <input type="submit" value="Submit" />
+	    <input class="basic-form__submit" type="submit" value="Submit" />
 	</form>
-{% endblock %}
+{% endblock main %}
