@@ -27,6 +27,17 @@
       retries: 5
       delay: 20
 
+    - name: Ensure hstore extension in-place
+      postgresql_ext:
+        name: hstore
+        db: "{{ item }}"
+      become_user: postgres
+      with_items:
+        - securedrop
+        # Tests will create a new testdb from the template with the extension
+        # pre-installed. Not needed in prod.
+        - template1
+
   tasks:
     # The paxtld flags should be added to the CI base image.
     - name: Layout pax config
