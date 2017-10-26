@@ -24,6 +24,9 @@ class SecuredropOwner(models.Model):
         related_name='instances'
     )
 
+    def __str__(self):
+        return self.owner.email
+
 
 class SecuredropPage(MetadataPageMixin, Page):
     landing_page_domain = models.URLField(

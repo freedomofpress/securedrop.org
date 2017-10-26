@@ -24,7 +24,14 @@ class SecuredropView(UpdateView):
     template_name = 'landing_page_checker/securedroppage_form.html'
     form_class = SecuredropPageForm
     model = SecuredropPage
-    success_url = reverse_lazy('dashboard')
+
+    def get_success_url(self):
+        return reverse_lazy('dashboard')
+
+    def get_form_kwargs(self):
+        kwargs = super(SecuredropView, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
 
 
 @method_decorator(login_required, name='dispatch')

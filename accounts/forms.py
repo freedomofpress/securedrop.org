@@ -25,14 +25,15 @@ class SignupForm(forms.ModelForm):
 
 class SecuredropPageForm(forms.ModelForm):
     add_owner = forms.EmailField(required=False)
+    remove_owners = forms.ModelMultipleChoiceField(queryset=SecuredropOwner.objects.none(), required=False)
     organization_logo = forms.FileField(required=False)
 
     def __init__(self, user=None, *args, **kwargs):
-        self.fields['owners'].queryset = self.instance.owners.all()
+        super(SecuredropPageForm, self).__init__(*args, **kwargs)
+        self.fields['remove_owners'].queryset = self.instance.owners.exclude(owner=user)
 
     def clean(self):
         cleaned_data = super(SecuredropPageForm, self).clean()
-
         if cleaned_data['add_owner']:
             try:
                 new_owner = cleaned_data['add_owner']
@@ -62,8 +63,9 @@ class SecuredropPageForm(forms.ModelForm):
         else:
             sdo = None
 
-        if self.cleaned_data['organization_logo']:
-            pass
+        if self.cleaned_data['remove_owners']:
+            self.cleaned_data['remove_owners'].delete()
+            del self.cleaned_data['remove_owners']
 
 
         # Do we need to save all changes now?
