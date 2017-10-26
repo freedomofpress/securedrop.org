@@ -80,4 +80,9 @@ class WagtailTestCase(TestCase):
     def test_indexed_page_should_have_correct_content(self):
         blog_index = BlogIndexPageFactory(parent=self.page, title="News", body="Some content")
         index_wagtail_page(blog_index)
-        self.assertEqual(SearchDocument.objects.get(key=KEY_FORMAT.format(blog_index.pk)).search_content, blog_index.get_search_content())
+        self.assertEqual(
+            SearchDocument.objects.get(
+                key=KEY_FORMAT.format(blog_index.pk)
+            ).search_content,
+            blog_index.get_search_content()
+        )
