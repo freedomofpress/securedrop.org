@@ -39,7 +39,7 @@ class HomePage(MetadataPageMixin, Page):
         help_text="Text displayed linking to each instance's page in the directory."
     )
 
-    search_fields_pgsql = ['title', 'description', 'features_header', 'instances header']
+    search_fields_pgsql = ['title', 'description', 'features_header', 'instances_header']
 
     content_panels = Page.content_panels + [
         MultiFieldPanel(
