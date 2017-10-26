@@ -3,6 +3,7 @@ $select-padding: 0.5rem
 $input-height: 2.5rem
 $input-border: 1px solid $gray50
 $input-margin: 1rem
+$filters-margin-bottom: 1rem
 
 .filter-form
 	margin-bottom: $layout-padding
@@ -17,13 +18,13 @@ $input-margin: 1rem
 	&:last-child
 		padding-right: 0
 
-.filters__wrapper--input
+.filters__wrapper--search
 	flex-shrink: 0
 
 .filters__field
 	border: $input-border
 	padding-left: 1rem
-	margin-bottom: 1rem
+	margin-bottom: $filters-margin-bottom
 	height: $input-height
 	width: 100%
 
@@ -35,7 +36,7 @@ $input-margin: 1rem
 	padding: $select-padding $background-image-width + $select-padding $select-padding $select-padding
 	background: transparent url($static-url  + "images/chevron-down.svg") no-repeat right $select-padding center
 
-.filters__field--input
+.filters__field--search
 	border-radius: $input-height
 
 .filters__submit
@@ -46,7 +47,7 @@ $input-margin: 1rem
 	border: none
 	background-color: $gray80
 	color: $white
-	margin-bottom: 0.5rem
+	margin-bottom: $filters-margin-bottom
 	padding: 0.5rem
 	flex-shrink: 0
 
