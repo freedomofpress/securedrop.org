@@ -1,11 +1,18 @@
 {% extends "layout/_layout_one_column.html" %}
+{% load wagtailimages_tags %}
 
 {% block page_title %}
-	<h1 class="header__title">Editing {{ object.title }}</h1>
+	<h1 class="header__title">
+		Editing {{ object.title }}
+	</h1>
 {% endblock %}
 
 {% block content %}
-	<form action="" method="post">
+	{% if object.organization_logo %}
+		Current logo:
+			{% image object.organization_logo width-100 %}
+		{% endif%}
+	<form action="" enctype="multipart/form-data" method="post">
 	    {% csrf_token %}
 	    {{ form.as_p|safe }}
 	    <input type="submit" value="Submit" />

@@ -6,7 +6,11 @@ from modelcluster.forms import ClusterForm
 from django import forms
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 
+from wagtail.wagtailimages import get_image_model
+
 User = get_user_model()
+WagtailImage = get_image_model()
+
 
 class SignupForm(forms.ModelForm):
     class Meta:
@@ -20,39 +24,63 @@ class SignupForm(forms.ModelForm):
 
 
 class SecuredropPageForm(forms.ModelForm):
-    add_owner = forms.EmailField()
+    add_owner = forms.EmailField(required=False)
+    organization_logo = forms.FileField(required=False)
 
-
-    # def __init__(self, *args, **kwargs):
-    #     if kwargs.get('instance'):
-    #         initial = kwargs.setdefault('initial', {})
-    #         initial['owners'] = [owner.owner for owner in kwargs['instance'].owners.all()]
-
+    def __init__(self, user=None, *args, **kwargs):
+        self.fields['owners'].queryset = self.instance.owners.all()
 
     def clean(self):
         cleaned_data = super(SecuredropPageForm, self).clean()
-        try:
-            User.objects.get(email=cleaned_data['add_owner'])
-        except ObjectDoesNotExist:
-            msg = ValidationError("That user does not exist", code='invalid')
-            self.add_error("add_owner", msg)
+
+        if cleaned_data['add_owner']:
+            try:
+                new_owner = cleaned_data['add_owner']
+                User.objects.get(email=new_owner)
+            except ObjectDoesNotExist:
+                msg = ValidationError("That user does not exist", code='invalid')
+                self.add_error("add_owner", msg)
+
+        if cleaned_data['organization_logo']:
+            try:
+                img_title = cleaned_data['title'] + "logo"
+                img = WagtailImage.objects.create(title=img_title, file=cleaned_data['organization_logo'])
+                cleaned_data['organization_logo'] = img
+            except:
+                msg = ValidationError("That image could not be saved", code='invalid')
+                self.add_error("organization_logo", msg)
+
+        return cleaned_data
 
     def save(self, commit=True):
         # Get the unsave Pizza instance
         instance = forms.ModelForm.save(self, False)
-        print(self.cleaned_data)
         # Add owner to the form
-        new_owner = User.objects.get(email=self.cleaned_data['add_owner'])
-        sdo = SecuredropOwner.objects.create(owner=new_owner, page=instance)
+        if self.cleaned_data['add_owner']:
+            new_owner = User.objects.get(email=self.cleaned_data['add_owner'])
+            sdo = SecuredropOwner.objects.create(owner=new_owner, page=instance)
+        else:
+            sdo = None
+
+        if self.cleaned_data['organization_logo']:
+            pass
+
 
         # Do we need to save all changes now?
         if commit:
+            if self.cleaned_data['organization_logo']:
+                self.cleaned_data['organization_logo'].save()
+                instance.organization_logo = self.cleaned_data['organization_logo']
             instance.save()
             self.save_m2m()
-            sdo.save()
+            if sdo:
+                sdo.save()
+            if self.cleaned_data['organization_logo']:
+                self.cleaned_data['organization_logo'].save()
+                instance.organization_logo = self.cleaned_data['organization_logo']
 
         return instance
 
     class Meta:
         model = SecuredropPage
-        fields = ['title', 'landing_page_domain', 'onion_address', 'organization_description', 'organization_logo',]
+        fields = ['title', 'landing_page_domain', 'onion_address', 'organization_description',]

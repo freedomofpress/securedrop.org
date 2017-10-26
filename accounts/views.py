@@ -5,8 +5,6 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
-from django.core.exceptions import ObjectDoesNotExist
-from django.views.generic.edit import FormView
 from accounts.forms import SecuredropPageForm
 
 User = get_user_model()
