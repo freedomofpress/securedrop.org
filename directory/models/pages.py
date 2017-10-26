@@ -252,10 +252,15 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
                     title=data['title'],
                     landing_page_domain=data['landing_page_domain'],
                     onion_address=data['onion_address'],
-                    languages=data['languages_accepted'],
                     live=False,
                 )
                 self.add_child(instance=instance)
+                if data['languages_accepted']:
+                    instance.languages = data['languages_accepted']
+                if data['countries']:
+                    instance.countries = data['countries']
+                if data['topics']:
+                    instance.topics = data['topics']
                 if request.user:
                     SecuredropOwner(page=instance, owner=request.user).save()
                 instance.save()
