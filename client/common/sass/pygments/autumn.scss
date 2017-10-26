@@ -3,11 +3,8 @@
     background-color: #ffffcc;
   }
 
-  background: #ffffff;
-  font-family: $mono;
-
   .c {
-    color: #aaaaaa;
+    color: $gray50--text;
     font-weight: $mono-light;
   }
 
@@ -21,7 +18,7 @@
   }
 
   .ch, .cm {
-    color: #aaaaaa;
+    color: $gray50--text;
     font-weight: $mono-light;
   }
 
@@ -30,7 +27,7 @@
   }
 
   .cpf, .c1 {
-    color: #aaaaaa;
+    color: $gray50--text;
     font-weight: $mono-light;
   }
 
@@ -61,11 +58,11 @@
   }
 
   .go {
-    color: #888888;
+    color: $gray80;
   }
 
   .gp {
-    color: #555555;
+    color: $gray80--text;
   }
 
   .gs {
@@ -115,7 +112,7 @@
   }
 
   .nd {
-    color: #888888;
+    color: $gray80;
   }
 
   .ni {
@@ -146,7 +143,7 @@
   }
 
   .w {
-    color: #bbbbbb;
+    color: $gray50--text;
   }
 
   .mb, .mf, .mh, .mi, .mo {
