@@ -1,5 +1,4 @@
 from django.apps import apps
-from django.contrib.contenttypes.models import ContentType
 from django.http import JsonResponse, HttpResponseBadRequest, HttpResponseForbidden
 from django.views.decorators.http import require_GET, require_POST
 
@@ -85,13 +84,8 @@ def create(request, *args, **kwargs):
     except:
         return HttpResponseBadRequest()
 
-    content_type = ContentType.objects.get_for_model(model)
-    permission_label = '{}.add_{}'.format(
-        content_type.app_label,
-        content_type.model
-    )
-    #if not request.user.has_perm(permission_label):
-    #    return HttpResponseForbidden
+    if not request.user:
+        return HttpResponseForbidden
 
     method = getattr(model, 'autocomplete_create', None)
     if not callable(method):
