@@ -2,11 +2,7 @@
 	background: rgba($black,0.25)
 	color: $white
 	width: 100%
-	position: absolute
-	top: 0
-	left: 0
 	min-height: $nav-height
-	z-index: $z-hexagons__content
 
 .nav-menu
 	+layout-x
@@ -14,9 +10,13 @@
 	display: flex
 	justify-content: space-between
 	align-items: center
+	+media-breakpoint-down(extra-small)
+		flex-direction: column
 
 .nav-menu--homepage
 	justify-content: flex-end
+	+media-breakpoint-down(extra-small)
+		flex-direction: row
 
 .nav-menu__logos
 	height: 2rem
@@ -24,6 +24,9 @@
 	align-items: center
 	+hover
 		opacity: 0.8
+	+media-breakpoint-down(extra-small)
+		padding-top: 1rem
+		height: 3rem
 
 .nav-menu__logo
 	width: 2rem
@@ -47,11 +50,8 @@ $nav-menu-item-padding: 0.5rem
 	align-items: center
 	min-height: $nav-height
 	position: relative
-	right: -#{$nav-menu-search-width + 2*$nav-menu-item-padding}
 	+media-breakpoint-down(extra-small)
 		flex-wrap: wrap
-		right: 0
-	+media-breakpoint-down(tiny)
 		justify-content: center
 
 .nav-menu__item
@@ -60,6 +60,8 @@ $nav-menu-item-padding: 0.5rem
 
 .nav-menu__item--search
 	padding: 10px 0 3px $nav-menu-item-padding
+	+media-breakpoint-down(extra-small)
+		padding-left: $nav-menu-item-padding
 
 .nav-menu__link
 	+link--no-underline(inherit, $nav-hover-color)
