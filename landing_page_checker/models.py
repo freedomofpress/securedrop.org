@@ -11,7 +11,7 @@ from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 from autocomplete.edit_handlers import AutocompleteFieldPanel
 from common.models.mixins import MetadataPageMixin
-from common.utils import get_search_content_by_fields
+from search.utils import get_search_content_by_fields
 
 
 class SecuredropOwner(models.Model):

@@ -11,7 +11,8 @@ from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailcore.models import Page
 
 from common.models.mixins import MetadataPageMixin
-from common.utils import paginate, DEFAULT_PAGE_KEY, get_search_content_by_fields
+from common.utils import paginate, DEFAULT_PAGE_KEY
+from search.utils import get_search_content_by_fields
 from directory.models import Language, Topic, Country
 from directory.forms import DirectoryForm, ScannerForm
 from landing_page_checker.landing_page import scanner

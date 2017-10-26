@@ -10,7 +10,8 @@ from wagtail.wagtailimages.blocks import ImageChooserBlock
 from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 
 from blog.feeds import BlogIndexPageFeed
-from common.utils import DEFAULT_PAGE_KEY, paginate, get_search_content_by_fields
+from common.utils import DEFAULT_PAGE_KEY, paginate
+from search.utils import get_search_content_by_fields
 from common.models import MetadataPageMixin
 from common.blocks import (
     Heading1,

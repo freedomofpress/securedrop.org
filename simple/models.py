@@ -18,7 +18,7 @@ from common.blocks import (
     AlignedEmbedBlock,
     RichTextBlockQuoteBlock,
 )
-from common.utils import get_search_content_by_fields
+from search.utils import get_search_content_by_fields
 
 
 class BaseSidebarPageMixin(models.Model):

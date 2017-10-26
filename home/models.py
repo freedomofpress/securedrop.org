@@ -6,7 +6,7 @@ from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel, InlinePanel
 
 from common.models import MetadataPageMixin, Button
-from common.utils import get_search_content_by_fields
+from search.utils import get_search_content_by_fields
 from blog.models import BlogPage
 from github.models import Release
 

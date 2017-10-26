@@ -10,7 +10,7 @@ from common.blocks import (
     AlignedEmbedBlock,
     RichTextBlockQuoteBlock,
 )
-from common.utils import get_search_content_by_fields
+from search.utils import get_search_content_by_fields
 
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel, PageChooserPanel, StreamFieldPanel
 from wagtail.wagtailcore import blocks
