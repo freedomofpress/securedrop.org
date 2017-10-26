@@ -29,17 +29,7 @@
 	<div class="instance-description">
 		{{ page.organization_description|richtext }}
 	</div>
-	<ul class="tag-list">
-		{% for language in page.languages.all %}
-			<li class="tag-list__item">{{ language.title }}</li>
-		{% endfor %}
-		{% for country in page.countries.all %}
-			<li class="tag-list__item">{{ country.title }}</li>
-		{% endfor %}
-		{% for topics in page.topics.all %}
-			<li class="tag-list__item">{{ topics.title }}</li>
-		{% endfor %}
-	</ul>
+	{% include "directory/_tag-list.html" with directory=page.get_parent %}
 	{% if settings.common.DirectorySettings.security_warning %}
 		<div class="security-warning">
 			{{ settings.common.DirectorySettings.security_warning|richtext }}

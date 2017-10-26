@@ -25,6 +25,12 @@ class FiltersFromQueryDictTest(TestCase):
     def setUp(self):
         self.directory = DirectoryPageFactory()
 
+    def test_correct_search_term_returned_from_querydict(self):
+        search_term = "Amet"
+        querydict = QueryDict('search={}'.format(search_term))
+        filters = self.directory.filters_from_querydict(querydict)
+        self.assertEqual(filters['title__icontains'], search_term)
+
     def test_correct_language_returned_from_querydict(self):
         georgian = LanguageFactory(title="Georgian")
         georgian.save()
@@ -57,18 +63,21 @@ class FiltersFromQueryDictTest(TestCase):
         self.assertEqual({}, filters)
 
     def test_multiple_filters_returned_from_querydict(self):
+        search_term = "Amet"
         afrikaans = LanguageFactory(title="Afrikaans")
         afrikaans.save()
         thailand = CountryFactory(title="Country")
         thailand.save()
         scotus = TopicFactory(title="SCOTUS")
         scotus.save()
-        querydict = QueryDict('language={}&topic={}&country={}'.format(
+        querydict = QueryDict('search={}&language={}&topic={}&country={}'.format(
+            search_term,
             afrikaans.id,
             scotus.id,
             thailand.id
         ))
         filters = self.directory.filters_from_querydict(querydict)
+        self.assertEqual(filters['title__icontains'], search_term)
         self.assertEqual(filters['topics'], scotus)
         self.assertEqual(filters['countries'], thailand)
         self.assertEqual(filters['languages'], afrikaans)
@@ -153,6 +162,28 @@ class DirectoryTopicFilterTest(TestCase):
     def test_topic_not_filtered_for_is_not_in_queryset(self):
         filtered_instances = self.directory.get_instances(filters=self.topic_filter)
         self.assertNotIn(self.irs_instance, filtered_instances)
+
+
+class DirectorySearchFilterTest(TestCase):
+    def setUp(self):
+        self.directory = DirectoryPageFactory()
+        self.best_instance = SecuredropPageFactory(
+            title="Best Instansce",
+            parent=self.directory
+        )
+        self.worst_instance = SecuredropPageFactory(
+            title="Worst Instance",
+            parent=self.directory
+        )
+        self.search_filter = {'title__icontains': 'best'}
+
+    def test_title_searched_is_in_queryset(self):
+        filtered_instances = self.directory.get_instances(filters=self.search_filter)
+        self.assertIn(self.best_instance, filtered_instances)
+
+    def test_title_not_searched_is_not_in_queryset(self):
+        filtered_instances = self.directory.get_instances(filters=self.search_filter)
+        self.assertNotIn(self.worst_instance, filtered_instances)
 
 
 class DirectoryMultipleFiltersTest(TestCase):

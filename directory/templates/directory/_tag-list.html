@@ -1,0 +1,11 @@
+<ul class="tag-list">
+	{% for language in page.languages.all %}
+		<li class="tag-list__item"><a class="tag-list__link" href="{{directory.url}}?language={{language.id}}">{{ language }}</a></li>
+	{% endfor %}
+	{% for country in page.countries.all %}
+		<li class="tag-list__item"><a class="tag-list__link" href="{{directory.url}}?country={{country.id}}">{{ country }}</a></li>
+	{% endfor %}
+	{% for topic in page.topics.all %}
+		<li class="tag-list__item"><a class="tag-list__link" href="{{directory.url}}?topic={{topic.id}}">{{ topic }}</a></li>
+	{% endfor %}
+</ul>
