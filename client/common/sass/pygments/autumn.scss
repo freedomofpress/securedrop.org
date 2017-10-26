@@ -4,10 +4,11 @@
   }
 
   background: #ffffff;
+  font-family: $mono;
 
   .c {
     color: #aaaaaa;
-    font-style: italic;
+    font-weight: $mono-light;
   }
 
   .err {
@@ -21,7 +22,7 @@
 
   .ch, .cm {
     color: #aaaaaa;
-    font-style: italic;
+    font-weight: $mono-light;
   }
 
   .cp {
@@ -30,12 +31,12 @@
 
   .cpf, .c1 {
     color: #aaaaaa;
-    font-style: italic;
+    font-weight: $mono-light;
   }
 
   .cs {
     color: #0000aa;
-    font-style: italic;
+    font-weight: $mono-light;
   }
 
   .gd {
@@ -43,7 +44,7 @@
   }
 
   .ge {
-    font-style: italic;
+    font-weight: $mono-light;
   }
 
   .gr {
@@ -52,7 +53,7 @@
 
   .gh {
     color: #000080;
-    font-weight: bold;
+    font-weight: $mono-bold;
   }
 
   .gi {
@@ -68,12 +69,12 @@
   }
 
   .gs {
-    font-weight: bold;
+    font-weight: $mono-bold;
   }
 
   .gu {
     color: #800080;
-    font-weight: bold;
+    font-weight: $mono-bold;
   }
 
   .gt {
@@ -119,7 +120,7 @@
 
   .ni {
     color: #880000;
-    font-weight: bold;
+    font-weight: $mono-bold;
   }
 
   .nf {
@@ -133,7 +134,7 @@
 
   .nt {
     color: #1e90ff;
-    font-weight: bold;
+    font-weight: $mono-bold;
   }
 
   .nv {
