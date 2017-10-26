@@ -54,15 +54,6 @@ class BlogPage(MetadataPageMixin, Page):
         blank=True
     )
 
-    author = models.ForeignKey(
-        # Likely a PersonPage
-        'wagtailcore.Page',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-    )
-
     category = models.ForeignKey(
         # Likely a CategoryPage
         'wagtailcore.Page',
@@ -90,7 +81,6 @@ class BlogPage(MetadataPageMixin, Page):
                 FieldPanel('teaser_text'),
             ]
         ),
-        PageChooserPanel('author', 'common.PersonPage'),
         PageChooserPanel('category', 'blog.CategoryPage'),
         FieldPanel('release'),
     ]
