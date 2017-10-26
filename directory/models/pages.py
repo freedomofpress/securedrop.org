@@ -211,7 +211,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
                 'landing_page_domain': data['url'],
                 'result': result,
                 'submission_form': DirectoryForm(initial={
-                    'url': data['url'],
+                    'landing_page_domain': data['url'],
                 }),
                 'submission_url': '{0}form/'.format(self.url),
                 'org_details_form_title': self.org_details_form_title
@@ -249,9 +249,10 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
                 data = form.cleaned_data
                 # create secure_drop instance, adding parent page to the form
                 instance = SecuredropInstance(
-                    title=data['organization'],
-                    landing_page_domain=data['url'],
-                    onion_address=data['tor_address'],
+                    title=data['title'],
+                    landing_page_domain=data['landing_page_domain'],
+                    onion_address=data['onion_address'],
+                    languages=data['languages_accepted'],
                     live=False,
                 )
                 self.add_child(instance=instance)

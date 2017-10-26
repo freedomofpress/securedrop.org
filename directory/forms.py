@@ -5,17 +5,21 @@ from wagtail.wagtailimages.widgets import AdminImageChooser
 from autocomplete.widgets import Autocomplete
 from directory.models import Language
 from common.models import CustomImage
+from landing_page_checker.models import SecuredropPage
 
 
-class DirectoryForm(forms.Form):
-    organization = forms.CharField(label="Organization", max_length=255)
-    url = forms.URLField()
-    tor_address = forms.CharField(label="Tor address", max_length=255)
+class DirectoryForm(forms.ModelForm):
+    title = forms.CharField(label="Organization name", max_length=255)
+    onion_address = forms.CharField(label="Tor address", max_length=255)
     languages_accepted = forms.ModelMultipleChoiceField(queryset=Language.objects.all(), widget=type(
                 '_Autocomplete',
                 (Autocomplete,),
                 dict(page_type='directory.Language', can_create=True, is_single=False, api_base='/autocomplete/')
             ))
+
+    class Meta:
+        model = SecuredropPage
+        fields = ['landing_page_domain']
 
 
 class ScannerForm(forms.Form):
