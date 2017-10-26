@@ -269,6 +269,13 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
 
                 return HttpResponseRedirect('{0}thanks/'.format(self.url))
 
+            else:
+                context = {
+                    'form': form,
+                    'submit_url': '{0}form/'.format(self.url),
+                    'form_title': self.org_details_form_title
+                }
+
         # else redirect to a page with errors
         else:
             form = DirectoryForm()
