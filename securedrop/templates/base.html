@@ -35,7 +35,8 @@
 				</div>
 				{% get_menu 'main' as menu_items %}
 				<nav id='js-main-nav' class="main-nav">
-					<div class="nav-menu nav-menu--mobile-hidden {% block nav_classes %}{% endblock %}">
+					{# receives .js-nav-menu-hidden if there is js #}
+					<div id='js-nav-menu' class="nav-menu {% block nav_classes %}{% endblock %}">
 						{% block nav_logos %}
 							<a href="/" class="nav-menu__logos">
 								{% include "common/_logo_solid_white.svg" with class="nav-menu__logo" %}
@@ -58,8 +59,10 @@
 						</ul>
 					</div>
 
+					{# loses .js-nav-menu-hidden if there is js #}
 					<button
-						class="hamburger hamburger--collapse js-sliding-nav-trigger"
+						id="js-nav-button"
+						class="hamburger hamburger--collapse js-nav-menu-hidden"
 						type="button"
 						aria-label="Menu"
 						aria-controls="navigation"

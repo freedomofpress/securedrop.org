@@ -32,29 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
       torWarning.classList.add('tor-warning--hidden')
     })
 
-    // TODO: Once there is design around it, display friendly bubble described below.
-    // Display a friendly bubble with step-by-step instructions on how to turn
-    // the security slider to High.
-    // var infoBubble = $('#security-slider-info-bubble');
-    // var fadeDuration = 500; // milliseconds
-
-    // $('#disable-js').click(function() {
-    //   infoBubble.fadeIn(fadeDuration);
-    //   return false; // don't follow link
-    // });
-
-    // If the user clicks outside of the infoBubble while it is visible, hide it.
-    // $(window).click(function() {
-    //   if (infoBubble.is(':visible')) {
-    //     infoBubble.fadeOut(fadeDuration);
-    //   }
-    // });
-
-    // If the user clicks inside the infoBubble while it is visible, make sure
-    // it stays visible.
-    // infoBubble.click(function(e) {
-    //   e.stopPropagation();
-    // });
   } else {
     // If the user is not using Tor Browser, we want to encourage them to do so.
     // TODO: Disable scrolling

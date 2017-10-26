@@ -5,7 +5,7 @@
 	position: absolute
 	top: 0
 	left: 0
-	height: $nav-height
+	min-height: $nav-height
 	z-index: $z-hexagons__content
 
 .nav-menu
@@ -45,14 +45,21 @@ $nav-menu-item-padding: 0.5rem
 	display: flex
 	justify-content: flex-end
 	align-items: center
-	height: $nav-height
+	min-height: $nav-height
+	position: relative
+	right: -#{$nav-menu-search-width + 2*$nav-menu-item-padding}
+	+media-breakpoint-down(extra-small)
+		flex-wrap: wrap
+		right: 0
+	+media-breakpoint-down(tiny)
+		justify-content: center
 
 .nav-menu__item
 	padding: $nav-menu-item-padding
+	white-space: nowrap
 
 .nav-menu__item--search
-	padding: 0
-	margin-left: $nav-menu-item-padding
+	padding: 10px 0 3px $nav-menu-item-padding
 
 .nav-menu__link
 	+link--no-underline(inherit, $nav-hover-color)
@@ -65,11 +72,6 @@ $nav-menu-item-padding: 0.5rem
 	width: $nav-menu-search-width
 	height: auto
 	position: relative
-	top: 0.2rem
 
 	*
 		fill: white
-
-.nav-menu--mobile-hidden
-	+media-breakpoint-down(extra-small)
-		display: none
