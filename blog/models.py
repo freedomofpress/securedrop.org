@@ -87,7 +87,7 @@ class BlogPage(MetadataPageMixin, Page):
 
     parent_page_types = ['blog.BlogIndexPage']
 
-    search_fields_pgsql = ['title', 'body', 'teaser_text', 'author', 'category']
+    search_fields_pgsql = ['title', 'body', 'teaser_text', 'category']
 
     def get_meta_description(self):
         if self.teaser_text:
