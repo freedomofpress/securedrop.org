@@ -12,6 +12,7 @@ from wagtail.wagtailcore.models import Page
 
 from common.models.mixins import MetadataPageMixin
 from common.utils import paginate, DEFAULT_PAGE_KEY
+from search.utils import get_search_content_by_fields
 from directory.models import Language, Topic, Country
 from directory.forms import DirectoryForm, ScannerForm
 from landing_page_checker.landing_page import scanner
@@ -100,6 +101,16 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
     ]
 
     subpage_types = ['landing_page_checker.SecuredropPage']
+
+    search_fields_pgsql = ['title', 'body', 'source_warning']
+
+    def get_search_content(self):
+        search_content = get_search_content_by_fields(self, self.search_fields_pgsql)
+
+        for instance in self.get_instances():
+            search_content += instance.title + ' '
+
+        return search_content
 
     def get_instances(self, filters=None):
         """Get `SecuredropPage` children of this page

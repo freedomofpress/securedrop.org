@@ -6,6 +6,7 @@ from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel, InlinePanel
 
 from common.models import MetadataPageMixin, Button
+from search.utils import get_search_content_by_fields
 from blog.models import BlogPage
 from github.models import Release
 
@@ -37,6 +38,8 @@ class HomePage(MetadataPageMixin, Page):
         default="View in the directory",
         help_text="Text displayed linking to each instance's page in the directory."
     )
+
+    search_fields_pgsql = ['title', 'description', 'features_header', 'instances_header']
 
     content_panels = Page.content_panels + [
         MultiFieldPanel(
@@ -76,6 +79,17 @@ class HomePage(MetadataPageMixin, Page):
             classname="collapsible"
         ),
     ]
+
+    def get_search_content(self):
+        search_content = get_search_content_by_fields(self, self.search_fields_pgsql)
+
+        for hp_feature in self.features.all():
+            search_content += hp_feature.feature.title + ' '
+
+        for hp_instance in self.instances.all():
+            search_content += hp_instance.instance.title + ' '
+
+        return search_content
 
     def get_latest_blog(self):
         return BlogPage.objects.live().order_by('-publication_datetime').first()

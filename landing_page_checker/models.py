@@ -11,6 +11,7 @@ from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 from autocomplete.edit_handlers import AutocompleteFieldPanel
 from common.models.mixins import MetadataPageMixin
+from search.utils import get_search_content_by_fields
 
 
 class SecuredropOwner(models.Model):
@@ -81,9 +82,20 @@ class SecuredropPage(MetadataPageMixin, Page):
         InlinePanel('owners', label='Owners')
     ]
 
+    search_fields_pgsql = ['title', 'landing_page_domain', 'onion_address', 'organization_description']
+
     def get_live_result(self):
         # because results are ordered by date, returning the first one should be effective
         return Result.objects.filter(securedrop=self, live=True).first()
+
+    def get_search_content(self):
+        search_content = get_search_content_by_fields(self, self.search_fields_pgsql)
+
+        for field in ['languages', 'countries', 'topics']:
+            titles = [item.title for item in getattr(self, field).all()]
+            search_content += " ".join(titles) + ' '
+
+        return search_content
 
 
 class Result(models.Model):
