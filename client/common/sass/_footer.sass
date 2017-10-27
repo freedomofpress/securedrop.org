@@ -98,7 +98,8 @@ $list-bottom-padding: 2rem
 	+layout-y--no-tiny-breakpoint
 	display: flex
 	align-items: center
-
+	+media-breakpoint-only(small)
+		align-items: flex-start
 	+media-breakpoint-down(extra-small)
 		flex-direction: column
 
