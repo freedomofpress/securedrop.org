@@ -3,5 +3,15 @@
 	text-align: center
 
 .blog-title__hexagon
-	width: 3rem
+	width: 4rem
 	height: auto
+	margin-bottom: 2rem
+	+media-breakpoint-down(extra-small)
+		margin-top: 1rem
+
+.blog-title__category
+	+uppercase
+	font-size: $h3
+
+.blog-title__category-link
+	+link--no-underline($gray50--text)

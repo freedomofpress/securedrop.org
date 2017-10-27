@@ -1,57 +1,54 @@
 $support-background-color: $gray90
 $links-background-color: $blue
-$list-item-height: 1.5rem
 $list-bottom-padding: 2rem
 
 .footer__line-wrapper
 	display: flex
-	flex-wrap: wrap
-	height: 15rem
+	min-height: 15rem
 
 	+media-breakpoint-down(extra-small)
-		height: auto
+		flex-direction: column
 
 .support
 	background-color: $support-background-color
 	color: $white
-	padding: 1rem
 	// as a flex-child
-	flex-grow: 5
+	flex-basis: 80%
 	// as a flex-parent
 	display: flex
 	flex-direction: column
 	justify-content: space-around
 	align-items: center
+	+layout-x
+	+layout-y--no-tiny-breakpoint
+	min-height: 15rem
 
-	+media-breakpoint-down(extra-small)
-		min-height: 15rem
+
 
 .support__title
 	margin: 0
 	padding: 0
 
-.support__nav
-	width: 75%
-	+media-breakpoint-down(extra-small)
-		width: 100%
+// .support__nav
 
 .support__nav-list
 	+list--unstyled
 	display: flex
-	flex-flow: column wrap
+	flex-flow: row wrap
 	align-items: flex-start
 	justify-content: center
 	align-content: space-around
-	height: 2 * $list-item-height
 	width: 100%
+	text-align: center
 
-	+media-breakpoint-down(extra-small)
-		flex-wrap: nowrap
+	+media-breakpoint-down(tiny)
+		flex-flow: column nowrap
 		align-items: center
-		height: auto
 
 .support__nav-item
-	height: $list-item-height
+	width: 50%
+	+media-breakpoint-down(tiny)
+		width: 100%
 
 .support__nav-link
 	+link--no-underline($gray10--text, $white)
@@ -59,51 +56,68 @@ $list-bottom-padding: 2rem
 .footer-links
 	background-color: $links-background-color
 	color: $white
-	padding: 2rem
+	+layout-x
+	+layout-y--no-tiny-breakpoint
 	// as a flex-child
-	flex-grow: 1
+	flex-basis: 20%
 	// as a flex-parent
 	display: flex
 	flex-direction: column
 	justify-content: space-around
 	align-items: center
-
-	+media-breakpoint-down(extra-small)
-		min-height: 15rem
+	// min-height: 15rem
+	+media-breakpoint-only(extra-small)
+		flex-direction: row
+		// min-height: auto
 
 
 .footer-links__donate, .footer-links__contribute
 	+button-large
 	width: 10rem
+	max-width: 100%
+	+media-breakpoint-down(extra-small)
+		width: 15rem
 
 .footer-links__donate
 	+button-solid($links-background-color, $white, rgba($white, 0.7))
+	margin-bottom: 2rem
+	+media-breakpoint-only(extra-small)
+		margin-bottom: 0
+		margin-right: 2rem
 
 .footer-links__contribute
 	+button-outline($white, $links-background-color)
 
 .footer-main
-	display: flex
 	+sd-gradient($purple1,$purple2)
 	color: $gray10--text
 	position: relative
 
+.footer-main__wrapper
+	+layout-x
+	+layout-y--no-tiny-breakpoint
+	display: flex
+	align-items: center
+	+media-breakpoint-only(small)
+		align-items: flex-start
 	+media-breakpoint-down(extra-small)
 		flex-direction: column
-		align-items: center
 
-.footer-main__title
-	font-size: 3rem
-	padding-bottom: 2rem
-	color: $white
-
-	.rich-text
-		+p-remove-first-and-last-margin
-		a
-			+link--underline(inherit, $gray10)
+.footer-main__logo
+	// as a flex-child
+	flex-grow: 1
+	width: 33%
+	height: auto
+	position: relative
+	z-index: $z-hexagons__content
+	+media-breakpoint-only(extra-small)
+		padding-top: 2rem
+	+media-breakpoint-down(extra-small)
+		max-width: 15rem
+		width: 100%
 
 .footer-main__content
-	padding: 5rem 3rem 5rem 2rem
+	padding-left: $layout-padding
 	// as a flex-child
 	flex-basis: 66%
 	position: relative
@@ -111,13 +125,23 @@ $list-bottom-padding: 2rem
 
 	+media-breakpoint-down(extra-small)
 		text-align: center
-		padding: 4rem
+		padding-left: 0
+		padding-top: $layout-padding
 
+.footer-main__title
+	font-size: $homepage-section-heading-font-size
+	padding-bottom: 2rem
+	color: $white
+	+media-breakpoint-down(extra-small)
+		font-size: $homepage-section-heading-font-size--small
 
-.footer-main__wrapper
+	.rich-text
+		+p-remove-first-and-last-margin
+		a
+			+link--underline(inherit, $gray10)
+
+.footer-main__text-wrapper
 	display: flex
-	flex-wrap: wrap
-	justify-content: flex-start
 
 	+media-breakpoint-down(small)
 		flex-direction: column
@@ -126,65 +150,34 @@ $list-bottom-padding: 2rem
 		align-items: center
 
 .footer-main__nav
-	flex-basis: 25rem
-
-	+media-breakpoint-down(small)
-		flex-basis: 5rem
 	+media-breakpoint-down(extra-small)
-		flex-basis: auto
 		width: 100%
 
 .footer-main__nav-list
 	+list--unstyled
-	height: 3 * $list-item-height + $list-bottom-padding
-	max-width: 20rem
 	padding-bottom: $list-bottom-padding
 	// as a flex-parent
 	display: flex
-	flex-flow: column wrap
-	align-items: flex-start
+	flex-flow: row wrap
 	justify-content: flex-start
 	+media-breakpoint-down(extra-small)
-		max-width: 100%
-
+		align-items: center
 
 .footer-main__nav-item
-	height: $list-item-height
-	min-width: 5rem
+	width: 50%
 	+media-breakpoint-down(extra-small)
-		width: 50%
+		text-align: center
+	+media-breakpoint-down(tiny)
+		width: 100%
 
 .footer-main__nav-link
 	+link--underline-on-hover(inherit, inherit)
 
 .footer-main__release
-	min-height: 5rem
-	max-width: 15rem
+	padding-left: $layout-padding
+	+media-breakpoint-down(small)
+		padding-left: 0
 
 .footer-main__release-key-link
 	+link--underline-on-hover($white, $white)
-
-.footer-main__logo
-	padding: 2rem
-	// as a flex-child
-	flex-grow: 1
-	flex-basis: 33%
-	// as a flex-parent
-	display: flex
-	align-items: center
-	justify-content: center
-	position: relative
-	z-index: $z-hexagons__content
-	max-width: 100%
-
-	+media-breakpoint-down(extra-small)
-		flex-basis: 75%
-		padding-top: 5rem
-		padding-bottom: 0
-
-	img
-		width: 10rem
-		height: auto
-
-		+media-breakpoint-down(extra-small)
-			width: 15rem
+	display: block

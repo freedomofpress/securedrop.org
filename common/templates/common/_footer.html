@@ -32,42 +32,44 @@
 			<div class="hexagons-background">
 				{% include "common/_hexagons_background.svg" with class="hexagons-background__svg hexagons-background__svg--footer" %}
 			</div>
-			{% include "common/_logo_solid_white.svg" with class="footer-main__logo" %}
-			<div class="footer-main__content">
-				<h2 class='footer-main__title'>{{ footer.title|richtext }}</h2>
-				<div class="footer-main__wrapper">
-					<nav class="footer-main__nav">
-						<ul class="footer-main__nav-list">
-							{% for item in footer.main_menu.menu_items.all %}
-								<li class="footer-main__nav-item {{ item.html_classes }}">
-									<a class="footer-main__nav-link" href="{{ item.url }}">
-										{{ item.text }}
-									</a>
-								</li>
-							{% endfor %}
-							{% if user.is_authenticated %}
-								<li class="footer-main__nav-item">
-									<a class="footer-main__nav-link" href="{% url 'dashboard' %}">
-										Dashboard
-									</a>
-								</li>
-								<li class="footer-main__nav-item">
-									<a class="footer-main__nav-link" href="{% url 'account_logout' %}">
-										Logout
-									</a>
-								</li>
-							{% else %}
-								<li class="footer-main__nav-item">
-									<a class="footer-main__nav-link" href="{% url 'account_login' %}">
-										Login
-									</a>
-								</li>
-							{% endif%}
-						</ul>
-					</nav>
-					<div class="footer-main__release">
-						<div class="footer-main__release-key-description">{{ footer.release_key_description }}</div>
-						<a class="footer-main__release-key-link" href="{{ footer.release_key_link }}"><div class="footer-main__release-key">{{ footer.release_key }}</div></a>
+			<div class="footer-main__wrapper">
+				{% include "common/_logo_solid_white.svg" with class="footer-main__logo" %}
+				<div class="footer-main__content">
+					<h2 class='footer-main__title'>{{ footer.title|richtext }}</h2>
+					<div class="footer-main__text-wrapper">
+						<nav class="footer-main__nav">
+							<ul class="footer-main__nav-list">
+								{% for item in footer.main_menu.menu_items.all %}
+									<li class="footer-main__nav-item {{ item.html_classes }}">
+										<a class="footer-main__nav-link" href="{{ item.url }}">
+											{{ item.text }}
+										</a>
+									</li>
+								{% endfor %}
+								{% if user.is_authenticated %}
+									<li class="footer-main__nav-item">
+										<a class="footer-main__nav-link" href="{% url 'dashboard' %}">
+											Dashboard
+										</a>
+									</li>
+									<li class="footer-main__nav-item">
+										<a class="footer-main__nav-link" href="{% url 'account_logout' %}">
+											Logout
+										</a>
+									</li>
+								{% else %}
+									<li class="footer-main__nav-item">
+										<a class="footer-main__nav-link" href="{% url 'account_login' %}">
+											Login
+										</a>
+									</li>
+								{% endif%}
+							</ul>
+						</nav>
+						<div class="footer-main__release">
+							<div class="footer-main__release-key-description">{{ footer.release_key_description }}</div>
+							<a class="footer-main__release-key-link" href="{{ footer.release_key_link }}"><div class="footer-main__release-key">{{ footer.release_key }}</div></a>
+						</div>
 					</div>
 				</div>
 			</div>
