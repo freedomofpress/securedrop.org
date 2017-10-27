@@ -2,7 +2,7 @@ from landing_page_checker.models import SecuredropPage, SecuredropOwner
 from django.contrib.auth import get_user_model
 from django import forms
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
-
+from django.db import IntegrityError
 from wagtail.wagtailimages import get_image_model
 
 User = get_user_model()
@@ -41,17 +41,18 @@ class SecuredropPageForm(forms.ModelForm):
 
         if cleaned_data['organization_logo']:
             try:
+                # autogenerate image title
                 img_title = cleaned_data['title'] + "logo"
                 img = WagtailImage.objects.create(title=img_title, file=cleaned_data['organization_logo'])
                 cleaned_data['organization_logo'] = img
-            except:
+            except IntegrityError:
                 msg = ValidationError("That image could not be saved", code='invalid')
                 self.add_error("organization_logo", msg)
 
         return cleaned_data
 
     def save(self, commit=True):
-        # Get the unsave Pizza instance
+        # Get the unsaved instance
         instance = forms.ModelForm.save(self, False)
         # Add owner to the form
         if self.cleaned_data['add_owner']:
