@@ -4,6 +4,7 @@ from django import forms
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.db import IntegrityError
 from wagtail.wagtailimages import get_image_model
+from django.utils.translation import ugettext_lazy as _
 
 User = get_user_model()
 WagtailImage = get_image_model()
@@ -36,7 +37,7 @@ class SecuredropPageForm(forms.ModelForm):
                 new_owner = cleaned_data['add_owner']
                 User.objects.get(email=new_owner)
             except ObjectDoesNotExist:
-                msg = ValidationError("That user does not exist", code='invalid')
+                msg = ValidationError(_("That user does not exist"), code='invalid')
                 self.add_error("add_owner", msg)
 
         if cleaned_data['organization_logo']:
@@ -46,7 +47,7 @@ class SecuredropPageForm(forms.ModelForm):
                 img = WagtailImage.objects.create(title=img_title, file=cleaned_data['organization_logo'])
                 cleaned_data['organization_logo'] = img
             except IntegrityError:
-                msg = ValidationError("That image could not be saved", code='invalid')
+                msg = ValidationError(_("That image could not be saved"), code='invalid')
                 self.add_error("organization_logo", msg)
 
         return cleaned_data
