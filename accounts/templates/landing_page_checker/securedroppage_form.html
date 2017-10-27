@@ -1,13 +1,22 @@
 {% extends "layout/_layout_one_column.html" %}
+{% load wagtailimages_tags %}
 
 {% block page_title %}
-	<h1 class="header__title">Editing {{ object.title }}</h1>
+	<h1 class="header__title">
+		Editing {{ object.title }}
+	</h1>
 {% endblock %}
 
-{% block content %}
-	<form action="" method="post">
-		{% csrf_token %}
-		{{ form.as_p }}
-		<input type="submit" value="Submit" />
+{% block main_classes %}layout-one-column--left{% endblock %}
+
+{% block main %}
+	{% if object.organization_logo %}
+		Current logo:
+			{% image object.organization_logo width-100 %}
+		{% endif%}
+	<form class="basic-form" action="" enctype="multipart/form-data" method="post">
+	    {% csrf_token %}
+	    {{ form.as_p|safe }}
+	    <input class="basic-form__submit" type="submit" value="Submit" />
 	</form>
-{% endblock %}
+{% endblock main %}

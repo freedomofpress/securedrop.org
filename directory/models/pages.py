@@ -73,7 +73,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
                 FieldPanel('submit_title'),
                 FieldPanel('submit_body'),
                 FieldPanel('submit_button_text'),
-                FieldPanel('manage_instances_text')
+                FieldPanel('manage_instances_text'),
             ],
             classname='collapsible'
         )
