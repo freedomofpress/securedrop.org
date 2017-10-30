@@ -1,5 +1,5 @@
 <form action="{% url 'search' %}" class="search-bar {{ class|default:'' }}" method="get">
-  {% include "search/_search_icon.html" with class="search-bar__icon" %}
+  {% include "common/_search_icon.svg" with class="search-bar__icon" %}
 
   <input
     type="text"
