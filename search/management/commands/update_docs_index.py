@@ -1,11 +1,8 @@
 from django.core.management.base import BaseCommand
 from django.db import transaction
 
-from wagtail.wagtailcore.models import Page
-
-from search.models import SearchDocument
-from search.utils.wagtail import index_wagtail_pages
 from search.utils.management import flush_documents_by_type
+from search.utils.documentation import index_documentation_pages
 
 
 class Command(BaseCommand):
@@ -25,8 +22,7 @@ class Command(BaseCommand):
         if options['rebuild'] is True:
             flush_documents_by_type('D')
 
-        index_documentation_pages()
-        all_results = index_wagtail_pages(live_pages)
+        all_results = index_documentation_pages()
 
         created_results = list(filter(lambda x: x[1] is True, all_results))
         updated_results = list(filter(lambda x: x[1] is False, all_results))

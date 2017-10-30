@@ -54,6 +54,8 @@ def index_documentation_page(url, page):
 
 def index_documentation_pages():
     """Create search documents for all indexable ReadTheDocs documentation pages"""
+    results = []
     for url in fetch_indexable_pages():
         page = scrape_documentation_page(url)
-        index_documentation_page(url, page)
+        results.append(index_documentation_page(url, page))
+    return results
