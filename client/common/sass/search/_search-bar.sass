@@ -1,0 +1,61 @@
+$search-bar-font-size: 18px
+$search-bar-line-height: 2
+$search-bar-padding: 4px
+$search-bar-button-width: 70px
+$search-bar-icon-width: 20px
+$search-bar-height: $search-bar-font-size * $search-bar-line-height
+
+.search-bar
+  position: relative
+  height: $search-bar-height
+  width: 100%
+  max-width: 300px
+
+.search-bar--mobile
+  width: 90%
+  margin: 10px auto
+
+.search-bar--on-page
+  width: 300px
+  max-width: 100%
+  border: 1px solid $gray50
+  height: $search-bar-height + 2px
+  margin-bottom: 2rem
+
+.search-bar__icon
+  position: absolute
+  // Place icon above input
+  z-index: 2
+  left: 0
+  height: $search-bar-font-size * $search-bar-line-height
+  width: $search-bar-font-size * $search-bar-line-height
+
+
+.search-bar__input
+  position: absolute
+  width: 100%
+  border-width: 0
+  font-size: $search-bar-font-size
+  line-height: $search-bar-line-height
+  padding: 0
+  padding-left: $search-bar-padding + $search-bar-font-size * $search-bar-line-height
+  padding-right: $search-bar-padding + $search-bar-button-width
+
+.search-bar__button
+  position: absolute
+  right: 0
+  width: $search-bar-button-width
+  height: $search-bar-font-size * $search-bar-line-height
+  border-width: 0
+  display: flex
+  justify-content: center
+
+  background-color: $brand-primary
+  color: white
+
+  +hover
+    background-color: $gray50
+
+.search-bar__chevron
+  height: $search-bar-font-size * 1.2
+  width: auto

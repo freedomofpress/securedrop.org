@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "layout/_layout_one_column.html" %}
 {% load static wagtailcore_tags common_tags %}
 
 {% block title %}Search{% endblock %}
@@ -7,28 +7,19 @@
 	<div class="search-page">
 		<h2 class="page-title page-title--less-margin">Search</h2>
 
-		{% include "common/_search_bar.html" with class="search-bar--on-page" %}
-
+		{% include "search/_search_bar.html" with class="search-bar--on-page" %}
 
 		{% if search_results %}
-			<ul class="search-page__list">
+			<ul class="search-list">
 				{% for result in search_results %}
-					<li class="search-page__list-item">
+					<li class="search-list__item">
 						<section>
-							<h3 class="search-page__list-item-title">
-								<a href="{% pageurl result %}" class="search-page__list-item-link">
-									{{ result }}
+							<h3 class="search-list__item-title">
+								<span class="search-list__icon search-list__icon--{{result.result_type}}"></span>
+								<a href="{{result.url}}" class="search-page__list-item-link">
+									{{ result.title }}
 								</a>
-							</h4>
-							{% if result.search_description %}
-								{{ result.search_description|safe }}
-							{% elif result.content_type.name in content_types_with_body %}
-								{% with first_text_block=result.specific.body|first_block_of:'rich_text' %}
-									{% if first_text_block %}
-										{% firstof result.search_description|safe first_text_block|truncatewords_html:'40'|striptags %}
-									{% endif %}
-								{% endwith %}
-							{% endif %}
+							</h3>
 						</section>
 					</li>
 				{% endfor %}
