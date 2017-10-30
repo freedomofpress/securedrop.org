@@ -195,6 +195,8 @@ They should not be run in production as many of them create fake data.
       Creates the main nav menu and links it to the appropriate pages. Creates a
       ``DirectoryPage``, ``BlogIndexPage``, and ``MarketingIndexPage`` if they
       do not yet exist.
+* ``update_docs_index``
+      Crawl the SecureDrop documentation pages on ``https://docs.securedrop.org/en/stable/`` and update the corresponding `SearchDocument` entries.  Pass ``--rebuild`` to this command to delete existing entries for documentation pages before fetching new data, which is useful if out-of-date information or pages are in the index.  Rebuild is usually the behavior that you will want.  Note that this command depends on a particular arrangement and format of HTML and links on the above 3rd party web URL.  If these change in the future, then the command will potentially fail and report zero or only a few documents indexed.
 
 Search
 ------
