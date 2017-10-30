@@ -26,6 +26,9 @@ class SecuredropView(UpdateView):
     model = SecuredropPage
 
     def get_success_url(self):
+        if self.object.live:
+            return self.object.url
+
         return reverse_lazy('dashboard')
 
     def get_form_kwargs(self):
