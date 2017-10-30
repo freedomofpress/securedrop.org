@@ -34,15 +34,22 @@ def index_documentation_page(url, page):
         search_content = ''.join(soup.select('div[role=main]')[0].strings)
     except IndexError:
         search_content = ''
+    if soup.title:
+        title = soup.title.string
+    else:
+        title = url
 
-    result = SearchDocument.objects.create(
-        title=soup.title.string,
-        url=url,
-        search_content=search_content,
-        data={},
-        result_type='D',
+    result = SearchDocument.objects.update_or_create(
+        {
+            'title': title,
+            'url': url,
+            'search_content': search_content,
+            'data': {},
+            'result_type': 'D',
+        },
         key=url,
     )
+    return result
 
 
 def index_documentation_pages():

@@ -1,13 +1,16 @@
+from unittest import mock
 import os
 
 import vcr
 from django.test import TestCase
 
 from search.models import SearchDocument
+from search.tests.factories import SearchDocumentFactory
 from search.utils.documentation import (
     READTHEDOCS_BASE,
     fetch_indexable_pages,
     index_documentation_pages,
+    index_documentation_page,
 )
 
 
@@ -21,6 +24,31 @@ class FetchPagesTestCase(TestCase):
         self.assertTrue(len(urls) > 0)
         for url in urls:
             self.assertTrue(url.startswith(READTHEDOCS_BASE))
+
+
+class IndexPagesTestCase(TestCase):
+    def test_should_use_a_default_title_if_none_exists(self):
+        url = 'https://example.com'
+        page = mock.Mock(content='<div role="main">new content</div>')
+        index_documentation_page(url, page)
+        self.assertEqual(
+            SearchDocument.objects.get(key=url).title,
+            url,
+        )
+
+    def test_should_update_pages_if_they_already_exist(self):
+        url = 'https://example.com'
+        page = mock.Mock(content='<div role="main">new content</div>')
+        SearchDocumentFactory(
+            url=url,
+            search_content='old content',
+            key=url,
+        )
+        index_documentation_page(url, page)
+        self.assertEqual(
+            SearchDocument.objects.get(key=url).search_content,
+            'new content',
+        )
 
 
 class UpdateDocumentationIndexTestCase(TestCase):
