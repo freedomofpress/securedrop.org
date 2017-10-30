@@ -16,11 +16,10 @@ $search-bar-height: $search-bar-font-size * $search-bar-line-height
   margin: 10px auto
 
 .search-bar--on-page
-  width: 300px
-  max-width: 100%
-  border: 1px solid $gray50
+  width: 50%
   height: $search-bar-height + 2px
   margin-bottom: 2rem
+  height: 200px
 
 .search-bar__icon
   position: absolute
@@ -40,6 +39,9 @@ $search-bar-height: $search-bar-font-size * $search-bar-line-height
   padding: 0
   padding-left: $search-bar-padding + $search-bar-font-size * $search-bar-line-height
   padding-right: $search-bar-padding + $search-bar-button-width
+  background-color: transparent
+  color: white
+  border-bottom: 2px solid $white
 
 .search-bar__button
   position: absolute
@@ -50,7 +52,8 @@ $search-bar-height: $search-bar-font-size * $search-bar-line-height
   display: flex
   justify-content: center
 
-  background-color: $brand-primary
+  background-color: $brand-secondary
+  border-radius: $button-border-radius
   color: white
 
   +hover
