@@ -8,7 +8,9 @@
 		<div class="footer__line-wrapper">
 			<section class="support">
 				<h2 id="aria-support-nav" class="support__title">{{ footer.support_title }}</h2>
-				<div class="support__search">{% trans 'Search' %}</div>
+				<div class="support__search">
+					{% include "search/_search_bar.html" with class="search-bar" %}
+				</div>
 				<nav class="support__nav" aria-labelledby="aria-support-nav">
 					<ul class="support__nav-list">
 						{% for item in footer.support_menu.menu_items.all %}
