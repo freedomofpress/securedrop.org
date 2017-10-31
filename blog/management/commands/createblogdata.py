@@ -44,6 +44,8 @@ class Command(BaseCommand):
             categories.append(category_page)
 
         for x in range(number_of_posts):
-            blog_page = BlogPageFactory(parent=blog_index_page)
-            blog_page.category = random.choice(categories)
+            blog_page = BlogPageFactory(
+                parent=blog_index_page,
+                category=random.choice(categories)
+            )
             blog_page.save()
