@@ -6,11 +6,10 @@ $hero-overlap: 5.2rem
 	margin-top: -$hero-overlap
 	position: relative
 	z-index: $z-hexagons__background--updates
-	+media-breakpoint-up(small)
-		padding-bottom: 0.5*$homepage-tor-warning-height
 
 .updates--tor-warning
-	padding-bottom: $layout-padding + 0.5*$homepage-tor-warning-height
+	+media-breakpoint-up(small)
+		padding-bottom: 0.5*$homepage-tor-warning-height
 
 .updates__content
 	+layout-x
