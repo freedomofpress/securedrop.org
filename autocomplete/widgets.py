@@ -38,7 +38,7 @@ class Autocomplete(Widget):
         context['widget']['page_type'] = self.page_type
         context['widget']['can_create'] = self.can_create
         context['widget']['is_single'] = self.is_single
-        if 'api_base' in context['widget']:
+        if self.api_base:
             context['widget']['api_base'] = self.api_base
         return context
 

@@ -23,11 +23,7 @@
 </h2>
 <div>
 	{{ org_details_form_text|richtext }}
-	<form action="{{ submission_url }}" method="post" class="basic-form">
-		{% csrf_token %}
-		{{ submission_form.as_p }}
-		<input type="submit" value="Submit" class="basic-form__submit" />
-	</form>
+	{% include "directory/_submission_form.html" with form=submission_form submit_url=submission_url %}
 </div>
 {% endblock column_one %}
 

@@ -1,4 +1,3 @@
-<<<<<<< f5f7b55c68f2773e1fde514ca6b83c7d6769c40c
 {% extends "layout/_layout_one_column.html" %}
 {% load wagtailcore_tags %}
 {% load render_bundle from webpack_loader %}
@@ -13,11 +12,11 @@
 
 {% block main %}
 	{{text|richtext}}
-	<form action="{{ submit_url }}" method="post" class="basic-form">
-		{% csrf_token %}
-		{{ form.as_p }}
-		<input type="submit" value="Submit" class="basic-form__submit" />
-	</form>
+		<form action="{{ submit_url }}" method="post" class="basic-form">
+			{% csrf_token %}
+			{{ form.as_p }}
+			<input type="submit" value="Submit" class="basic-form__submit" />
+		</form>
 {% endblock %}
 
 {% block js %}

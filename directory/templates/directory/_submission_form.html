@@ -1,0 +1,9 @@
+{% if user.is_authenticated %}
+	<form action="{{ submit_url }}" method="post" class="basic-form">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<input type="submit" value="Submit" class="basic-form__submit" />
+	</form>
+{% else %}
+	<a href="{% url 'account_login' %}">Log in</a> to add your Securedrop instance to the directory.
+{% endif %}
