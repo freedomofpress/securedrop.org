@@ -87,6 +87,14 @@ class SecuredropPage(MetadataPageMixin, Page):
 
     search_fields_pgsql = ['title', 'landing_page_domain', 'onion_address', 'organization_description']
 
+    def serve(self, request):
+        owners = [sd_owner.owner for sd_owner in self.owners.all()]
+        if request.user in owners:
+            self.editable = True
+        else:
+            self.editable = False
+        return super(SecuredropPage, self).serve(request)
+
     def get_live_result(self):
         # because results are ordered by date, returning the first one should be effective
         return Result.objects.filter(securedrop=self, live=True).first()
