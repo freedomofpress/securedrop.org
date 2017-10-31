@@ -2,12 +2,16 @@
 {% load wagtailcore_tags %}
 {% load render_bundle from webpack_loader %}
 
+{% block site_title %}
+	{{ form_title }}
+{% endblock %}
+
 {% block header_classes %}
     header--slate
 {% endblock %}
 
 {% block page_title_text %}
-	{{form_title}}
+	{{ form_title }}
 {% endblock %}
 
 {% block main %}
