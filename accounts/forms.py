@@ -6,6 +6,9 @@ from django.db import IntegrityError
 from wagtail.wagtailimages import get_image_model
 from django.utils.translation import ugettext_lazy as _
 
+from autocomplete.widgets import Autocomplete
+from directory.models import Language, Topic, Country
+
 User = get_user_model()
 WagtailImage = get_image_model()
 
@@ -25,6 +28,34 @@ class SecuredropPageForm(forms.ModelForm):
     add_owner = forms.EmailField(required=False)
     remove_owners = forms.ModelMultipleChoiceField(queryset=SecuredropOwner.objects.none(), required=False)
     organization_logo = forms.FileField(required=False)
+    languages = forms.ModelMultipleChoiceField(
+        queryset=Language.objects.all(),
+        widget=type(
+            '_Autocomplete',
+            (Autocomplete,),
+            dict(page_type='directory.Language', can_create=True, is_single=False, api_base='/autocomplete/')
+        ),
+        required=False,
+        label=_("Languages Accepted")
+    )
+    topics = forms.ModelMultipleChoiceField(
+        queryset=Topic.objects.all(),
+        widget=type(
+            '_Autocomplete',
+            (Autocomplete,),
+            dict(page_type='directory.Topic', can_create=True, is_single=False, api_base='/autocomplete/')
+        ),
+        required=False
+    )
+    countries = forms.ModelMultipleChoiceField(
+        queryset=Country.objects.all(),
+        widget=type(
+            '_Autocomplete',
+            (Autocomplete,),
+            dict(page_type='directory.Country', can_create=True, is_single=False, api_base='/autocomplete/')
+        ),
+        required=False
+    )
 
     def __init__(self, user=None, *args, **kwargs):
         super(SecuredropPageForm, self).__init__(*args, **kwargs)
@@ -70,8 +101,15 @@ class SecuredropPageForm(forms.ModelForm):
             if self.cleaned_data['organization_logo']:
                 self.cleaned_data['organization_logo'].save()
                 instance.organization_logo = self.cleaned_data['organization_logo']
+            # save the new owner object if there is one
             if sdo:
                 sdo.save()
+            if self.cleaned_data['languages']:
+                instance.languages = self.cleaned_data['languages']
+            if self.cleaned_data['countries']:
+                instance.countries = self.cleaned_data['countries']
+            if self.cleaned_data['topics']:
+                instance.topics = self.cleaned_data['topics']
             instance.save()
             self.save_m2m()
 
@@ -79,4 +117,4 @@ class SecuredropPageForm(forms.ModelForm):
 
     class Meta:
         model = SecuredropPage
-        fields = ['title', 'landing_page_domain', 'onion_address', 'organization_description', ]
+        fields = ['title', 'landing_page_domain', 'onion_address', 'organization_description', 'languages', 'topics', 'countries']
