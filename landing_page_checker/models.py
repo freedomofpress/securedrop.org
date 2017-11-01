@@ -87,7 +87,7 @@ class SecuredropPage(MetadataPageMixin, Page):
         AutocompleteFieldPanel('languages', 'directory.Language'),
         AutocompleteFieldPanel('countries', 'directory.Country'),
         AutocompleteFieldPanel('topics', 'directory.Topic'),
-        InlinePanel('owners', label='Owners')
+        InlinePanel('owners', label='Owners'),
         InlinePanel('results', label='Results'),
     ]
 
@@ -168,7 +168,7 @@ class Result(models.Model):
 
     panels = [
         ReadOnlyPanel('grade'),
-        FieldPanel('live'),
+        ReadOnlyPanel('live'),
         ReadOnlyPanel('result_last_seen'),
         ReadOnlyPanel("forces_https"),
         ReadOnlyPanel("hsts"),
@@ -204,7 +204,7 @@ class Result(models.Model):
     class Meta:
         get_latest_by = 'result_last_seen'
 
-    def __eq__(self, other):
+    def is_equal_to(self, other):
         # Override Django's pk attribute equality
         # We will use the equality method to compare the scan results only
 
