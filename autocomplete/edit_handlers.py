@@ -20,9 +20,10 @@ def _can_create(page_type):
 
 
 class AutocompleteFieldPanel:
-    def __init__(self, field_name, page_type='wagtailcore.Page'):
+    def __init__(self, field_name, page_type='wagtailcore.Page', api_base=''):
         self.field_name = field_name
         self.page_type = page_type
+        self.api_base = api_base
 
     def bind_to_model(self, model):
         can_create = _can_create(self.page_type)
@@ -32,7 +33,7 @@ class AutocompleteFieldPanel:
             widget=type(
                 '_Autocomplete',
                 (Autocomplete,),
-                dict(page_type=self.page_type, can_create=can_create, is_single=False),
+                dict(page_type=self.page_type, can_create=can_create, is_single=False, api_base=self.api_base),
             ),
         )
         return type('_AutocompleteFieldPanel', (BaseFieldPanel,), base)

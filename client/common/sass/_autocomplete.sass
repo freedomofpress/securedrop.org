@@ -1,0 +1,32 @@
+$gray: #e6e6e6
+$light-coral: #f37e77
+$deep-sky-blue: #9d9fa0
+
+//$input-border-color: $gray
+//$selection-bg: $light-violet
+//$selection-fg: $white
+//$suggestions-bg: $white
+// $suggestions-bg-active: $light-violet
+//$suggestions-fg-active: $white
+// $search-icon-color: $white-trans
+
+$input-border-color: $gray
+$selection-bg: $light-coral
+$selection-fg: $white
+$suggestions-bg: $white
+$suggestions-bg-active: $light-coral
+$suggestions-fg-active: $white
+$search-icon-color: $deep-sky-blue
+
+$wagtail-border-radius: $button-border-radius
+
+// sass-loader does not support webpack aliasing.
+// See webpack-contrib/sass-loader #410.
+@import ../../autocomplete/sass/accessibility
+@import ../../autocomplete/sass/autocomplete
+@import ../../autocomplete/sass/layout
+@import ../../autocomplete/sass/selection
+@import ../../autocomplete/sass/suggestions
+@import autocomplete/autocomplete
+@import autocomplete/selection
+@import autocomplete/suggestions

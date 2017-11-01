@@ -1,4 +1,5 @@
 from django.core.validators import MaxValueValidator
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
@@ -9,6 +10,7 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, Page
 from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailcore.models import Page
+from wagtail.wagtailimages import get_image_model
 
 from common.models.mixins import MetadataPageMixin
 from common.utils import paginate, DEFAULT_PAGE_KEY
@@ -211,7 +213,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
                 'landing_page_domain': data['url'],
                 'result': result,
                 'submission_form': DirectoryForm(initial={
-                    'url': data['url'],
+                    'landing_page_domain': data['url'],
                 }),
                 'submission_url': '{0}form/'.format(self.url),
                 'org_details_form_title': self.org_details_form_title
@@ -241,6 +243,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
     @route('form/')
     @method_decorator(login_required)
     def form_view(self, request):
+        WagtailImage = get_image_model()
         if request.method == 'POST':
             # create a form instance and populate it with data from the request:
             form = DirectoryForm(request.POST)
@@ -249,12 +252,29 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
                 data = form.cleaned_data
                 # create secure_drop instance, adding parent page to the form
                 instance = SecuredropInstance(
-                    title=data['organization'],
-                    landing_page_domain=data['url'],
-                    onion_address=data['tor_address'],
+                    title=data['title'],
+                    landing_page_domain=data['landing_page_domain'],
+                    onion_address=data['onion_address'],
                     live=False,
                 )
                 self.add_child(instance=instance)
+                if data['organization_description']:
+                    instance.organization_description = data['organization_description']
+                if data['languages_accepted']:
+                    instance.languages = data['languages_accepted']
+                if data['countries']:
+                    instance.countries = data['countries']
+                if data['topics']:
+                    instance.topics = data['topics']
+                if data['organization_logo']:
+                    try:
+                        img_title = data['title'] + "logo"
+                        img = WagtailImage.objects.create(title=img_title, file=data['organization_logo'])
+                        instance.organization_logo = img
+                    except:
+                        msg = ValidationError("That image could not be saved", code='invalid')
+                        form.add_error("organization_logo", msg)
+
                 if request.user:
                     SecuredropOwner(page=instance, owner=request.user).save()
                 instance.save()
@@ -262,6 +282,13 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
                 result.save()
 
                 return HttpResponseRedirect('{0}thanks/'.format(self.url))
+
+            else:
+                context = {
+                    'form': form,
+                    'submit_url': '{0}form/'.format(self.url),
+                    'form_title': self.org_details_form_title
+                }
 
         # else redirect to a page with errors
         else:
