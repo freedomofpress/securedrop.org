@@ -6,9 +6,6 @@ from modelcluster.fields import ParentalManyToManyField, ParentalKey
 from django.core.validators import RegexValidator
 
 from wagtail.wagtailcore.models import Page
-
-from wagtail.wagtailadmin.edit_handlers import FieldPanel
-from wagtail.wagtailcore.models import Page
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
