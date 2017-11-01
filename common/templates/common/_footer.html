@@ -1,4 +1,6 @@
 {% load wagtailcore_tags wagtailsettings_tags static %}
+{% load i18n %}
+
 {% get_settings %}
 
 {% with footer=settings.common.FooterSettings %}
@@ -6,7 +8,7 @@
 		<div class="footer__line-wrapper">
 			<section class="support">
 				<h2 class="support__title">{{ footer.support_title }}</h2>
-				<div class="support__search">Search</div>
+				<div class="support__search">{% trans 'Search' %}</div>
 				<nav class="support__nav">
 					<ul class="support__nav-list">
 						{% for item in footer.support_menu.menu_items.all %}
@@ -21,10 +23,10 @@
 			</section>
 			<section class="footer-links">
 				<a href="{{ footer.donation_link }}" class="footer-links__donate">
-					Donate
+					{% trans 'Donate' %}
 				</a>
-				<a href="{{ footer.contribute_link }" class="footer-links__contribute">
-					Contribute
+				<a href="{{ footer.contribute_link }}" class="footer-links__contribute">
+					{% trans 'Contribute' %}
 				</a>
 			</section>
 		</div>
@@ -49,18 +51,18 @@
 								{% if user.is_authenticated %}
 									<li class="footer-main__nav-item">
 										<a class="footer-main__nav-link" href="{% url 'dashboard' %}">
-											Dashboard
+											{% trans 'Dashboard' %}
 										</a>
 									</li>
 									<li class="footer-main__nav-item">
 										<a class="footer-main__nav-link" href="{% url 'account_logout' %}">
-											Sign Out
+											{% trans 'Sign Out' %}
 										</a>
 									</li>
 								{% else %}
 									<li class="footer-main__nav-item">
 										<a class="footer-main__nav-link" href="{% url 'account_login' %}">
-											Log In
+											{% trans 'Log In' %}
 										</a>
 									</li>
 								{% endif%}
