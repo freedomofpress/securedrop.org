@@ -1,11 +1,10 @@
 {% extends "layout/_layout_one_column.html" %}
+{% load i18n %}
 
-{% block page_title_text %}500 - Securedrop{% endblock %}
+{% block site_title %}500{% endblock %}
+
+{% block page_title_text %}{% trans "Internal server error" %}{% endblock %}
 
 {% block main %}
-	<div class="error">
-	    <h2 class="page-title">Internal server error</h2>
-
-	    <p class="error__text">Sorry, there seems to be an error. Please try again soon.</p>
-    </div>
+	<p>{% trans "Sorry, there seems to be an error. Please try again soon." %}</p>
 {% endblock %}

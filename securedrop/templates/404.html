@@ -1,11 +1,10 @@
 {% extends "layout/_layout_one_column.html" %}
+{% load i18n %}
 
-{% block page_title_text %}404 - Securedrop{% endblock %}
+{% block site_title %}404{% endblock %}
+
+{% block page_title_text %}{% trans "Page not found" %}{% endblock %}
 
 {% block main %}
-	<div class="error">
-    <h2 class="page-title">Page not found</h2>
-
-    <p class="error__text">Sorry, this page could not be found.</p>
-  </div>
+  <p>{% trans "Sorry, this page could not be found." %}</p>
 {% endblock %}
