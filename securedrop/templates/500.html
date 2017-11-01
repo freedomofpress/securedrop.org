@@ -1,0 +1,10 @@
+{% extends "layout/_layout_one_column.html" %}
+{% load i18n %}
+
+{% block site_title %}500{% endblock %}
+
+{% block page_title_text %}{% trans "Internal server error" %}{% endblock %}
+
+{% block main %}
+	<p>{% trans "Sorry, there seems to be an error. Please try again soon." %}</p>
+{% endblock %}

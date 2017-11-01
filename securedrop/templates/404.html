@@ -1,0 +1,10 @@
+{% extends "layout/_layout_one_column.html" %}
+{% load i18n %}
+
+{% block site_title %}404{% endblock %}
+
+{% block page_title_text %}{% trans "Page not found" %}{% endblock %}
+
+{% block main %}
+  <p>{% trans "Sorry, this page could not be found." %}</p>
+{% endblock %}
