@@ -1,6 +1,10 @@
 {% extends "layout/_layout_one_column.html" %}
 {% load wagtailcore_tags %}
 
+{% block site_title %}
+	{{ form_title }}
+{% endblock %}
+
 {% block header_classes %}
     header--slate
 {% endblock %}

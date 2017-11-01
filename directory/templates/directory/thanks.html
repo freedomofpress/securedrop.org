@@ -1,8 +1,12 @@
 {% extends "layout/_layout_one_column.html" %}
 {% load wagtailcore_tags %}
 
+{% block site_title %}
+	{{ thank_you_title }}
+{% endblock %}
+
 {% block header_classes %}
-    header--slate
+	header--slate
 {% endblock %}
 
 {% block page_title_text %}
