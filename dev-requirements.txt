@@ -30,14 +30,13 @@ djangorestframework==3.6.4
 docopt==0.6.2
 dominate==2.3.1
 elasticsearch==5.4.0
-enum34==1.1.6
 factory-boy==2.9.2
 faker==0.7.18
+feedparser==5.2.1
 first==2.0.1
 gunicorn==19.7.1
 html5lib==0.999999999
 idna==2.6
-ipaddress==1.0.18
 ipdb==0.10.3
 ipython-genutils==0.2.0   # via traitlets
 ipython==6.2.1            # via ipdb
