@@ -9,8 +9,20 @@ from directory.models import ResultGroup, ResultState
 class Command(BaseCommand):
     help = 'Creates result groups that store information shown as scan results.'
 
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--delete',
+            action='store_true',
+            dest='delete',
+            default=False,
+            help='Delete all result groups and create new ones',
+        )
+
     @transaction.atomic
     def handle(self, *args, **options):
+        if options['delete']:
+            ResultGroup.objects.all().delete()
+
         basic, _ = ResultGroup.objects.get_or_create(name='Basic')
         https, _ = ResultGroup.objects.get_or_create(name='HTTPS')
         server_security, _ = ResultGroup.objects.get_or_create(name='Server Security')
