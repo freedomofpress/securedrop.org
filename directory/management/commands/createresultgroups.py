@@ -194,8 +194,8 @@ class Command(BaseCommand):
             ),
             ResultState(
                 name='cache_control_revalidate_set',
-                success_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> headers set properly.'),
-                failure_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> headers not set properly.'),
+                success_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> must revalidate header set properly.'),
+                failure_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> must-revalidate header not set properly.'),
                 is_warning=True,
                 fix_text=RichText('<p>Add the following to your security headers:</p><pre>Cache-Control "max-age=0, no-cache, no-store, must-revalidate, private"</pre>'),
                 result_group=caching,
@@ -203,8 +203,8 @@ class Command(BaseCommand):
             ),
             ResultState(
                 name='cache_control_nocache_set',
-                success_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> headers set properly.'),
-                failure_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> headers not set properly.'),
+                success_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> no-cache header set properly.'),
+                failure_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> no-cache header not set properly.'),
                 is_warning=True,
                 fix_text=RichText('<p>Add the following to your security headers:</p><pre>Cache-Control "max-age=0, no-cache, no-store, must-revalidate, private"</pre>'),
                 result_group=caching,
@@ -212,8 +212,8 @@ class Command(BaseCommand):
             ),
             ResultState(
                 name='cache_control_notransform_set',
-                success_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> headers set properly.'),
-                failure_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> headers not set properly.'),
+                success_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> no-store header set properly.'),
+                failure_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> no-store header not set properly.'),
                 is_warning=True,
                 fix_text=RichText('<p>Add the following to your security headers:</p><pre>Cache-Control "max-age=0, no-cache, no-store, must-revalidate, private"</pre>'),
                 result_group=caching,
@@ -221,8 +221,8 @@ class Command(BaseCommand):
             ),
             ResultState(
                 name='cache_control_private_set',
-                success_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> headers set properly.'),
-                failure_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> headers not set properly.'),
+                success_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> private header set properly.'),
+                failure_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> private header not set properly.'),
                 is_warning=True,
                 fix_text=RichText('<p>Add the following to your security headers:</p><pre>Cache-Control "max-age=0, no-cache, no-store, must-revalidate, private"</pre>'),
                 result_group=caching,
