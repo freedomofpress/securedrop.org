@@ -200,35 +200,35 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
     def scan_view(self, request):
         if request.method == 'POST':
             form = ScannerForm(request.POST)
+            # if form is invalid, this will skip to returning the form with errors
             if form.is_valid():
                 data = form.cleaned_data
-            else:
-                return HttpResponse('not cool')
-            instance = SecuredropInstance(
-                landing_page_domain=data['url'],
-            )
-            result = scanner.scan(instance)
-            result.compute_grade()
-            context = {
-                'landing_page_domain': data['url'],
-                'result': result,
-                'submission_form': DirectoryForm(initial={
+
+                instance = SecuredropInstance(
+                    landing_page_domain=data['url'],
+                )
+                result = scanner.scan(instance)
+                result.compute_grade()
+                context = {
                     'landing_page_domain': data['url'],
-                }),
-                'submission_url': '{0}form/'.format(self.url),
-                'org_details_form_title': self.org_details_form_title
-            }
+                    'result': result,
+                    'submission_form': DirectoryForm(initial={
+                        'landing_page_domain': data['url'],
+                    }),
+                    'submission_url': '{0}form/'.format(self.url),
+                    'org_details_form_title': self.org_details_form_title
+                }
 
-            if self.org_details_form_text:
-                context['org_details_form_text'] = self.scanner_form_text
+                if self.org_details_form_text:
+                    context['org_details_form_text'] = self.scanner_form_text
 
-            return render(
-                request,
-                'landing_page_checker/result.html',
-                context,
-            )
+                return render(
+                    request,
+                    'landing_page_checker/result.html',
+                    context,
+                )
 
-        else:
+        elif request.method == 'GET':
             form = ScannerForm()
 
         context = {
