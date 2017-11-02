@@ -42,13 +42,17 @@
 	.rich-text
 		+p-remove-first-and-last-margin
 
+	a
+		+link--underline-on-hover($white, $gray10--text)
+		font-weight: $sans-bold
+
 	+media-breakpoint-down(extra-small)
 		display: none
 
 
 .hero__button
 	+button-large
-	+button-solid($blue-bright2, $white, rgba($white, 0.9))
+	+button-solid($blue-bright2, $white, $gray10)
 
 .hero__button-icon
 	+text-chevron--right(large)
