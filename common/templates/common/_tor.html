@@ -18,11 +18,13 @@
 </div>
 
 {# This warning shows when you are using Tor and your security settings are lax #}
-<div id='js-tor-warning' class='tor-warning--hidden {{ class }}'>
-	<h1 class="tor-warning__title">{{ settings.common.TorAlertSettings.tor_settings_title }}</h1>
-	{% if settings.common.TorAlertSettings.tor_settings_subtitle %}
-		<h2>{{ settings.common.TorAlertSettings.tor_settings_subtitle }}</h2>
-	{% endif %}
+<div id='js-tor-warning' class='tor-warning tor-warning--hidden {{ class }}'>
+	<div>
+		<h1 class="tor-warning__title">{{ settings.common.TorAlertSettings.tor_settings_title }}</h1>
+		{% if settings.common.TorAlertSettings.tor_settings_subtitle %}
+			<h2>{{ settings.common.TorAlertSettings.tor_settings_subtitle }}</h2>
+		{% endif %}
+	</div>
 	{% if settings.common.TorAlertSettings.tor_settings_body %}
 		{{ settings.common.TorAlertSettings.tor_settings_body|richtext }}
 	{% endif %}
