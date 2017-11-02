@@ -2,8 +2,8 @@ const TBB_UA_REGEX = /Mozilla\/5\.0 \(Windows NT 6\.1; rv:[0-9]{2}\.0\) Gecko\/2
 
 function is_likely_tor_browser() {
 	return window.navigator.userAgent.match(TBB_UA_REGEX) &&
-				 (window.navigator.mimeTypes &&
-					window.navigator.mimeTypes.length === 0);
+		window.navigator.mimeTypes &&
+		window.navigator.mimeTypes.length === 0
 }
 
 function tbb_version() {
