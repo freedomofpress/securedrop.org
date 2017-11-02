@@ -126,7 +126,7 @@ class Result(models.Model):
     # HTTPS fields populated with pshtt
     forces_https = models.NullBooleanField()
     hsts = models.NullBooleanField()
-    hsts_max_age = models.IntegerField(null=True, blank=True)
+    hsts_max_age = models.NullBooleanField()
     hsts_entire_domain = models.NullBooleanField()
     hsts_preloaded = models.NullBooleanField()
 
@@ -209,7 +209,7 @@ class Result(models.Model):
               self.good_cross_domain_policy is False or
               self.http_1_0_caching_disabled is False or
               self.expires_set is False or
-              self.hsts_max_age <= 16070400):
+              self.hsts_max_age is False):
             self.grade = 'C'
         elif (self.cache_control_revalidate_set is False or
               self.cache_control_nocache_set is False or

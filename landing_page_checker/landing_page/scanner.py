@@ -46,13 +46,16 @@ def scan(securedrop):
             http_status_200_ok=False,
         )
 
+    print(pshtt_results['HSTS Max Age'])
+    print(pshtt_results['HSTS Preloaded'])
+
     return Result(
         securedrop=securedrop,
         live=pshtt_results['Live'],
         http_status_200_ok=validate_200_ok(no_redirects_page),
         forces_https=pshtt_results['Strictly Forces HTTPS'],
         hsts=pshtt_results['HSTS'],
-        hsts_max_age=pshtt_results['HSTS Max Age'],
+        hsts_max_age=validate_hsts_max_age(pshtt_results['HSTS Max Age']),
         hsts_entire_domain=pshtt_results['HSTS Entire Domain'],
         hsts_preloaded=pshtt_results['HSTS Preloaded'],
         subdomain=validate_subdomain(securedrop.landing_page_domain),
@@ -179,6 +182,13 @@ def validate_no_redirects(page):
 
 def validate_200_ok(page):
     if page.status_code == 200:
+        return True
+    else:
+        return False
+
+
+def validate_hsts_max_age(max_age):
+    if max_age and max_age >= 16070400:
         return True
     else:
         return False
