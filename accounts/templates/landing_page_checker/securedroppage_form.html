@@ -1,5 +1,6 @@
 {% extends "layout/_layout_one_column.html" %}
 {% load wagtailimages_tags %}
+{% load render_bundle from webpack_loader %}
 
 {% block page_title %}
 	<h1 class="header__title">
@@ -20,3 +21,8 @@
 	    <input class="basic-form__submit" type="submit" value="Submit" />
 	</form>
 {% endblock main %}
+
+{% block js %}
+	{{ block.super }}
+	{% render_bundle 'editor' 'js' %}
+{% endblock %}
