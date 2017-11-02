@@ -70,4 +70,3 @@ class SecuredropPageFactory(wagtail_factories.PageFactory):
 class ResultFactory(factory.Factory):
     class Meta:
         model = Result
-    hsts_max_age = random.randint(0, 16070400 * 2)
