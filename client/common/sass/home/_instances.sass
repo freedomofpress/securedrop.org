@@ -27,8 +27,9 @@
 .instances__items
 	display: flex
 	flex-wrap: wrap
-	justify-content: space-between
+	justify-content: center
 	width: 100%
+	margin: 0 -1rem
 
 	+media-breakpoint-down(extra-small)
 		display: none
@@ -43,12 +44,14 @@
 		margin: 0 auto
 
 .instances__item
-	flex-basis: 48%
+	flex-basis: 50%
+	padding: 0 1rem
 	margin-bottom: 2rem
 	display: flex
 	align-items: center
 	+media-breakpoint-down(extra-small)
 		flex-basis: 100%
+		padding: 0
 	+media-breakpoint-down(tiny)
 		flex-direction: column
 		text-align: center
