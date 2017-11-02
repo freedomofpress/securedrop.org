@@ -21,11 +21,22 @@ $hero-overlap: 5.2rem
 	flex-wrap: wrap
 	position: relative
 	z-index: $z-hexagons__content--updates
-
-.updates__header
-	+uppercase
-	font-size: 1rem
+	color: $gray80--text
 
 .updates__item
 	padding: 1rem
 	flex-basis: 25rem
+	+p-remove-first-and-last-margin
+
+.updates__header
+	+uppercase
+	font-size: 1rem
+	margin-bottom: 0.5rem
+
+.updates__link
+	+link--underline-on-hover
+	font-weight: $sans-bold
+
+.updates__link--secondary
+	+link--underline-on-hover
+	font-weight: $sans-regular

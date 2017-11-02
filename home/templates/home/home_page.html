@@ -1,6 +1,7 @@
 {% extends "layout/_layout_one_column.html" %}
 {% load wagtailcore_tags wagtailimages_tags static i18n %}
 {% load render_bundle from webpack_loader %}
+{% load i18n %}
 
 {% block tor_warning %}
 {% endblock %}
@@ -54,11 +55,22 @@
 			<div class="updates__content">
 				<div class="updates__item">
 					<h2 class="updates__header">{% trans "Latest News" %}</h2>
-					<a href="#">{{ self.get_latest_blog }}</a>
+					<a href="#" class="updates__link">{{ self.get_latest_blog }}</a>
 				</div>
 				<div class="updates__item">
 					<h2 class="updates__header">{% trans "Latest Release" %}</h2>
-					<a href="">{{ self.get_latest_release }}</a>
+					<div> {# makes the p below this a first child #}
+						<p>
+							<a href="#" class="updates__link">{{ self.get_latest_release }}</a>
+							<br/>
+							TODO: Add date
+						</p>
+						<p>
+							<a href="#" class="updates__link--secondary">{% trans "Release Notes" %}</a>
+							| <a href="#" class="updates__link--secondary">{% trans "GitHub" %}</a>
+							| <a href="#" class="updates__link--secondary">{% trans "Documentation" %}</a>
+						</p>
+					</div>
 				</div>
 			</div>
 		</div>
