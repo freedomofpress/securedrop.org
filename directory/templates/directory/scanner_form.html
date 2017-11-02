@@ -1,5 +1,5 @@
 {% extends "layout/_layout_one_column.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags i18n%}
 
 {% block site_title %}
 	{{ form_title }}
@@ -15,9 +15,13 @@
 
 {% block main %}
 	{{ text|richtext }}
-	<form action="{{ submit_url }}" method="post" class="basic-form">
+	<form id="js-scanner-form" action="{{ submit_url }}" method="post" class="basic-form">
 		{% csrf_token %}
 		{{ form.as_p }}
-		<input type="submit" value="Submit" class="basic-form__submit" />
+		<input id='js-submit-button' type="submit" value="Submit" class="basic-form__submit" />
 	</form>
+  <div id="js-spinner" class="spinner spinner--hidden">
+    <p>{% trans "Scanning . . ." %}</p>
+    {% include "common/spinner.svg" %}
+  </div>
 {% endblock %}

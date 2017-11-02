@@ -1,5 +1,8 @@
 from django import forms
 from captcha.fields import ReCaptchaField
+from django.core.validators import RegexValidator
+from django.utils.translation import ugettext_lazy as _
+
 
 from autocomplete.widgets import Autocomplete
 from directory.models import Language, Topic, Country
@@ -7,8 +10,12 @@ from landing_page_checker.models import SecuredropPage
 
 
 class DirectoryForm(forms.ModelForm):
-    title = forms.CharField(label="Organization name", max_length=255)
-    onion_address = forms.CharField(label="Tor address", max_length=255)
+    title = forms.CharField(label=_("Organization name"), max_length=255)
+    onion_address = forms.CharField(
+        label="Tor address",
+        max_length=255,
+        validators=[RegexValidator(regex=r'\.onion$', message=_("Enter a valid .onion address"))],
+    )
     organization_logo = forms.FileField(required=False)
     languages_accepted = forms.ModelMultipleChoiceField(
         queryset=Language.objects.all(),

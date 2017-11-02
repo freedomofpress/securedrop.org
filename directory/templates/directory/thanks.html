@@ -1,5 +1,6 @@
 {% extends "layout/_layout_one_column.html" %}
 {% load wagtailcore_tags %}
+{% load i18n %}
 
 {% block site_title %}
 	{{ thank_you_title }}
@@ -15,4 +16,5 @@
 
 {% block main %}
 	{{ text|richtext }}
+  <a href="{{directory_link}}">{% include "common/chevron-right.svg" with class="thanks__chevron" %}{% trans "Return to directory" %}</a>
 {% endblock %}
