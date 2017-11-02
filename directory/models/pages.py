@@ -2,7 +2,7 @@ from django.core.validators import MaxValueValidator
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.shortcuts import render
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
