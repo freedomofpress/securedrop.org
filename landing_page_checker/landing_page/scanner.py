@@ -56,7 +56,7 @@ def scan(securedrop):
         forces_https=pshtt_results['Strictly Forces HTTPS'],
         hsts=pshtt_results['HSTS'],
         hsts_max_age=validate_hsts_max_age(pshtt_results['HSTS Max Age']),
-        hsts_entire_domain=pshtt_results['HSTS Entire Domain'],
+        hsts_entire_domain=validate_hsts_entire_domain(pshtt_results['HSTS Entire Domain']),
         hsts_preloaded=pshtt_results['HSTS Preloaded'],
         subdomain=validate_subdomain(securedrop.landing_page_domain),
         no_cookies=validate_no_cookies(page),
@@ -189,6 +189,14 @@ def validate_200_ok(page):
 
 def validate_hsts_max_age(max_age):
     if max_age and max_age >= 16070400:
+        return True
+    else:
+        return False
+
+
+def validate_hsts_entire_domain(pshtt_result):
+    # Ensures a boolean response for proper template rendering
+    if pshtt_result:
         return True
     else:
         return False
