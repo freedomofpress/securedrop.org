@@ -309,7 +309,10 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
 
     @route('thanks/')
     def thanks_view(self, request):
-        context = {'thank_you_title': self.thank_you_title}
+        context = {
+            'thank_you_title': self.thank_you_title,
+            'directory_link': self.url,
+        }
         if self.thank_you_text:
             context['text'] = self.thank_you_text
         return render(request, 'directory/thanks.html', context)
