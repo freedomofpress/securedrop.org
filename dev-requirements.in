@@ -1,4 +1,3 @@
 django-debug-toolbar
 ipdb
-feedparser
 -r requirements.txt

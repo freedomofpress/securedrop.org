@@ -29,6 +29,7 @@ dominate==2.3.1           # via pytablewriter
 elasticsearch==5.4.0      # via pytablewriter
 factory-boy==2.9.2
 faker==0.7.18             # via factory-boy
+feedparser==5.2.1
 first==2.0.1              # via pip-tools
 gunicorn==19.7.1
 html5lib==0.999999999     # via bleach, wagtail
