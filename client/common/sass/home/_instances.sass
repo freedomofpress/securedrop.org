@@ -26,7 +26,15 @@
 	flex-wrap: wrap
 	justify-content: space-between
 	width: 100%
+
 	+media-breakpoint-down(extra-small)
+		display: none
+
+.instances__items--mobile
+	display: none
+
+	+media-breakpoint-down(extra-small)
+		display: flex
 		flex-direction: column
 		width: auto
 		margin: 0 auto
