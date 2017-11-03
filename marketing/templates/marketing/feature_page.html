@@ -43,7 +43,7 @@
 		{% for feature in page.all_features %}
 			<li>
 				<a href="{% pageurl feature.feature %}" class="features-sidebar__link">
-					{{ feature.feature.title }}
+					{{ feature.feature.teaser_title }}
 				</a>
 			</li>
 		{% endfor %}
