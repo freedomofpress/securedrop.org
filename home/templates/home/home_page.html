@@ -1,5 +1,5 @@
 {% extends "layout/_layout_one_column.html" %}
-{% load wagtailcore_tags wagtailimages_tags static %}
+{% load wagtailcore_tags wagtailimages_tags static i18n %}
 {% load render_bundle from webpack_loader %}
 
 {% block tor_warning %}
@@ -53,11 +53,11 @@
 			</div>
 			<div class="updates__content">
 				<div class="updates__item">
-					<h2 class="updates__header">Latest News</h2>
+					<h2 class="updates__header">{% trans "Latest News" %}</h2>
 					<a href="#">{{ self.get_latest_blog }}</a>
 				</div>
 				<div class="updates__item">
-					<h2 class="updates__header">Latest Release</h2>
+					<h2 class="updates__header">{% trans "Latest Release" %}</h2>
 					<a href="">{{ self.get_latest_release }}</a>
 				</div>
 			</div>

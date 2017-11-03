@@ -1,5 +1,5 @@
 {% extends "layout/_layout_equal_columns.html"%}
-{% load wagtailcore_tags wagtailimages_tags result_tags %}
+{% load wagtailcore_tags wagtailimages_tags result_tags i18n %}
 {% load render_bundle from webpack_loader %}
 
 {% block header_classes %}
@@ -20,7 +20,7 @@
 			{{ page.title }}
 			{% if page.editable %}
 				<a href="{% url 'securedrop_detail' page.slug %}" class="instance-title__edit-link">
-					Edit{% include "common/chevron-right.svg" with class="instance-title__chevron" %}
+					{% trans "Edit" %} {% include "common/chevron-right.svg" with class="instance-title__chevron" %}
 				</a>
 			{% endif %}
 		</h1>
@@ -53,7 +53,7 @@
 	{% result_groups page.get_live_result False settings.common.DirectorySettings.no_results_text %}
 
 	<div class="row">
-		<a href="{% pageurl page.get_parent %}" class="btn btn-sm btn-primary"/>Back to SecureDrop Directory</a>
+		<a href="{% pageurl page.get_parent %}" class="btn btn-sm btn-primary"/>{% trans "Back to SecureDrop Directory" %}</a>
 	</div>
 {% endblock column_two %}
 

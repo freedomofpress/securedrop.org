@@ -1,4 +1,5 @@
-{% load wagtailcore_tags common_tags %}
+{% load wagtailcore_tags common_tags i18n %}
+
 
 {% for post in entries_page %}
 		<div>
@@ -12,7 +13,7 @@
 				class="pagination__link--previous js-infinite-scrolling-prev-link"
 				aria-label="Previous"
 			>
-				{% include "common/chevron-right.svg" with class="pagination__icon--previous" %}Previous Page
+				{% include "common/chevron-right.svg" with class="pagination__icon--previous" %}{% trans "Previous Page" %}
 			</a>
 		{% endif %}
 
@@ -22,7 +23,7 @@
 				class="pagination__link--next js-infinite-scrolling-next-link"
 				aria-label="Next"
 			>
-				More Posts{% include "common/chevron-right.svg" with class="pagination__icon--next" %}
+				{% trans "More Posts" %}{% include "common/chevron-right.svg" with class="pagination__icon--next" %}
 			</a>
 		{% endif %}
 	</nav>

@@ -1,6 +1,6 @@
 {% extends "layout/_layout_sidebar.html" %}
 
-{% load wagtailcore_tags wagtailimages_tags querydict_update static%}
+{% load wagtailcore_tags wagtailimages_tags querydict_update static i18n %}
 {% load render_bundle from webpack_loader %}
 
 {% block header_classes %}
@@ -28,8 +28,10 @@
 				</div>
 				<div class="filters__wrapper">
 					<select name='language' class="filters__field filters__field--select">
-						<option {% if not entries_filters.languages %}selected{% endif %} disabled>Language Accepted</option>
-						<option value="None">Any language</option>
+						<option {% if not entries_filters.languages %}selected{% endif %} disabled>
+							{% trans "Language Accepted" %}
+						</option>
+						<option value="None">{% trans "Any language" %}</option>
 						{% for language in all_filters.languages %}
 							<option {% if entries_filters.languages == language %}selected{%endif%} value="{{language.id}}">{{language.title}}</option>
 						{% endfor %}
@@ -39,8 +41,10 @@
 			<div class="filters">
 				<div class="filters__wrapper">
 					<select name="country" label="Country" class="filters__field filters__field--select">
-						<option {% if not entries_filters.countries %}selected{% endif %} disabled>Country</option>
-						<option value="None">Any country</option>
+						<option {% if not entries_filters.countries %}selected{% endif %} disabled>
+							{% trans "Country" %}
+						</option>
+						<option value="None">{% trans "Any country" %}</option>
 						{% for country in all_filters.countries %}
 							<option {% if entries_filters.countries == country %}selected{%endif%} value="{{country.id}}">{{country.title}}</option>
 						{% endfor %}
@@ -48,8 +52,10 @@
 				</div>
 				<div class="filters__wrapper">
 					<select name="topic" label="Topic" class="filters__field filters__field--select">
-						<option {% if not entries_filters.topics %}selected{% endif %}  disabled>Topic</option>
-						<option value="None">Any topic</option>
+						<option {% if not entries_filters.topics %}selected{% endif %}  disabled>
+							{% trans "Topic" %}
+						</option>
+						<option value="None">{% trans "Any topic" %}</option>
 						{% for topic in all_filters.topics %}
 							<option {% if entries_filters.topics == topic %}selected{%endif%} value="{{topic.id}}">{{topic.title}}</option>
 						{% endfor %}
@@ -58,19 +64,21 @@
 				<input type="image" src="{% static "images/chevron-right.svg" %}" alt="submit" name="submit" class="filters__submit">
 			</div>
 			<div class="filters__clear">
-				<a href="{% pageurl page %}">Clear Filters</a>
+				<a href="{% pageurl page %}">{% trans "Clear Filters" %}</a>
 			</div>
 		</form>
 		<table class="instance-table">
 				<thead class="instance-table__head">
 					<tr>
-						<th colspan="2" class="instance-table__title">Organization</th>
+						<th colspan="2" class="instance-table__title">{% trans "Organization" %}</th>
 						<th class="instance-table__title instance-table__title--security">
-							Security
+							{% trans "Security" %}
 							{% if page.faq_link %}
 								<a class="instance-table__faq-link" href="{% pageurl page.faq_link %}">
 									{% include "common/question-circle.svg" with class="instance-table__question-circle" %}
-									<div class="sr-only">More information about security grades</div></a>
+									<div class="sr-only">
+										{% trans "More information about security grades" %)
+									</div></a>
 							{% endif %}
 						</th>
 					</tr>
@@ -107,7 +115,7 @@
 							</td>
 						</a></tr>
 					{% empty %}
-					<p>No instances match those filter criteria</p>
+					<p>{% trans "No instances match those filter criteria" %}</p>
 					{% endfor %}
 				</tbody>
 			</table>
@@ -116,13 +124,13 @@
 					{% querydict_update request.GET page=entries_page.previous_page_number as qdict_previous %}
 					<a class="pagination__link--button pagination__link--previous" aria-label="Previous" href="?{{ qdict_previous.urlencode }}">
 						{% include "common/chevron-right.svg" with class="pagination__icon--previous" %}
-						Previous
+						{% trans "Previous" %}
 					</a>
 				{% endif %}
 				{% if entries_page.has_next %}
 					{% querydict_update request.GET page=entries_page.next_page_number as qdict_next %}
 					<a class="pagination__link--button pagination__link--next" aria-label="Next" href="?{{ qdict_next.urlencode }}">
-						Next
+						{% trans "Next" %}
 						{% include "common/chevron-right.svg" with class="pagination__icon--next" %}
 					</a>
 				{% endif %}

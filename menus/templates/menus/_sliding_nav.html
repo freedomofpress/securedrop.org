@@ -1,4 +1,4 @@
-{% load get_menu %}
+{% load get_menu i18n %}
 
 {% get_menu 'main' as menu_items %}
 
@@ -7,7 +7,7 @@
 	<ul class='sliding-nav__list'>
 		<li class="sliding-nav__item">
 			<a class='sliding-nav__link' href="/">
-				Home
+				{% trans "Home" %}
 			</a>
 		</li>
 		{% for item in menu_items %}
