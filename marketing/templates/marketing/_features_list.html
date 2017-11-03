@@ -2,6 +2,7 @@
 
 <div class="features-list">
 	{% for feature in features %}
+		<div class="features-list__item-wrapper">
 			<a class="features-list__item" href="{% pageurl page.features.all.first.feature %}">
 				{% if feature.feature.icon %}
 					{% image feature.feature.icon max-200x200 class='features-list__item-image' %}
@@ -12,5 +13,6 @@
 				</div>
 				{% include "common/chevron-right.svg" with class="features-list__chevron" %}
 			</a>
+		</div>
 	{% endfor %}
 </div>

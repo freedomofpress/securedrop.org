@@ -1,29 +1,32 @@
-$features-list-item-margin-bottom: 0.5rem
+$features-list-item-margin: 0.5rem
 $features-list-item-padding: 1rem
 
 .features-list
 	display: flex
 	flex-wrap: wrap
-	justify-content: space-between
+	justify-content: center
 	width: 100%
-	margin-bottom: -$features-list-item-margin-bottom
+	margin: 0 -1*$features-list-item-margin -1*$features-list-item-margin
 
 	+media-breakpoint-down(extra-small)
 		flex-direction: column
 		margin: 0
 
+.features-list__item-wrapper
+	flex-basis: 50%
+	padding: 0 $features-list-item-margin
+	+media-breakpoint-down(extra-small)
+		flex-basis: 100%
+		padding: 0
+
 .features-list__item
-	flex-basis: 48%
 	display: flex
 	align-items: center
 	justify-content: space-around
 	border-radius: $button-border-radius
 	padding: $features-list-item-padding
-	margin: 0 -1*$features-list-item-padding $features-list-item-margin-bottom -1*$features-list-item-padding
+	margin-bottom: $features-list-item-margin
 	+link--no-underline(inherit, inherit)
-
-	+media-breakpoint-down(extra-small)
-		flex-basis: 100%
 
 	+media-breakpoint-down(tiny)
 		border-radius: 0
