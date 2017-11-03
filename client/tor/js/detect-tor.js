@@ -16,6 +16,7 @@ function tbb_version() {
 document.addEventListener("DOMContentLoaded", () => {
 	const useTorBrowser = document.getElementById('js-use-tor-browser')
 	const instances = document.getElementById('js-instances')
+	const body = document.body
 
 	if (is_likely_tor_browser()) {
 		/* If the source is using Tor Browser, we want to encourage them to turn Tor
@@ -29,7 +30,9 @@ document.addEventListener("DOMContentLoaded", () => {
 		//  hides the warning to use tor, since users already have it
 		useTorBrowser.classList.add('tor-warning--hidden')
 		useTorBrowser.setAttribute('aria-hidden', 'true')
-		// Tell instances that there's a warning
+		// adds class to body that disables scrolling
+		body.classList.add('no-scroll')
+		// Tell instances and updates that there's a warning
 		// so that homepage styles are adjusted
 		if(instances) {
 			instances.classList.add('instances--tor-warning')
@@ -40,16 +43,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		closeUseTorBrowser.addEventListener('click', () => {
 			torWarning.classList.add('tor-warning--hidden')
+			// hides warning for screen readers
 			torWarning.setAttribute('aria-hidden', 'true')
+			body.classList.remove('no-scroll')
 			if(instances) {
 				instances.classList.remove('instances--tor-warning')
 			}
 		})
 	} else {
 		// If the user is not using Tor Browser, we want to encourage them to do so.
-		// TODO: Disable scrolling
 		useTorBrowser.classList.remove('tor-warning--hidden')
 		useTorBrowser.setAttribute('aria-hidden', 'false')
+		body.classList.add('no-scroll')
 		if(instances) {
 			instances.classList.add('instances--tor-warning')
 		}
@@ -58,6 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		closeUseTorBrowser.addEventListener('click', () => {
 			useTorBrowser.classList.add('tor-warning--hidden')
 			useTorBrowser.setAttribute('aria-hidden', 'true')
+			body.classList.remove('no-scroll')
 			if(instances) {
 				instances.classList.remove('instances--tor-warning')
 			}
