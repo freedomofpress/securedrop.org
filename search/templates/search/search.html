@@ -1,5 +1,5 @@
 {% extends "layout/_layout_one_column.html" %}
-{% load static wagtailcore_tags common_tags get_menu %}
+{% load static wagtailcore_tags common_tags get_menu i18n %}
 
 {% block page_title %}
 	{% include "search/_search_bar.html" with class="search-bar--on-page" %}
@@ -27,14 +27,20 @@
 			</ul>
 
 			{% if search_results.has_previous %}
-				<a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}" class="button button--outline">Previous</a>
+				<a class="pagination__link--previous" href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}" class="button button--outline">
+				{% include "common/chevron-right.svg" with class="pagination__icon--previous" %}
+				{% trans "Previous" %}
+			</a>
 			{% endif %}
 
 			{% if search_results.has_next %}
-				<a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}" class="button button--outline">Next</a>
+				<a class="pagination__link--next" href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}" class="button button--outline">
+				{% trans "Next" %}
+				{% include "common/chevron-right.svg" with class="pagination__icon--next" %}
+			</a>
 			{% endif %}
 		{% elif search_query %}
-			No results found
+			<p>{% trans "No results found" %}<p>
 		{% endif %}
 	</div>
 	<div>
