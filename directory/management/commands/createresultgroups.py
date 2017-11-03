@@ -9,8 +9,20 @@ from directory.models import ResultGroup, ResultState
 class Command(BaseCommand):
     help = 'Creates result groups that store information shown as scan results.'
 
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--delete',
+            action='store_true',
+            dest='delete',
+            default=False,
+            help='Delete all result groups and create new ones',
+        )
+
     @transaction.atomic
     def handle(self, *args, **options):
+        if options['delete']:
+            ResultGroup.objects.all().delete()
+
         basic, _ = ResultGroup.objects.get_or_create(name='Basic')
         https, _ = ResultGroup.objects.get_or_create(name='HTTPS')
         server_security, _ = ResultGroup.objects.get_or_create(name='Server Security')
@@ -26,6 +38,7 @@ class Command(BaseCommand):
                 failure_text='Could not get to landing page.',
                 is_warning=False,
                 result_group=basic,
+                sort_order=1
             ),
             ResultState(
                 name='http_status_200_ok',
@@ -33,6 +46,7 @@ class Command(BaseCommand):
                 failure_text='Server did not respond with 200 OK.',
                 is_warning=False,
                 result_group=basic,
+                sort_order=2
             ),
             ResultState(
                 name='http_no_redirect',
@@ -40,6 +54,7 @@ class Command(BaseCommand):
                 failure_text='Landing page should not redirect.',
                 is_warning=False,
                 result_group=basic,
+                sort_order=3
             ),
             ResultState(
                 name='expected_encoding',
@@ -47,6 +62,7 @@ class Command(BaseCommand):
                 failure_text='Unexpected encoding found on landing page.',
                 is_warning=False,
                 result_group=basic,
+                sort_order=4
             ),
             ResultState(
                 name='forces_https',
@@ -55,6 +71,7 @@ class Command(BaseCommand):
                 fix_text=RichText("<a href='https://securethe.news/why/'>Why?</a><a  href='https://securethe.news/how/'>How can I set up HTTPS?</a>"),
                 is_warning=False,
                 result_group=https,
+                sort_order=1
             ),
             ResultState(
                 name='hsts',
@@ -62,6 +79,7 @@ class Command(BaseCommand):
                 failure_text='HSTS is not supported.',
                 is_warning=True,
                 result_group=https,
+                sort_order=2
             ),
             ResultState(
                 name='hsts_max_age',
@@ -69,6 +87,7 @@ class Command(BaseCommand):
                 failure_text='HSTS max age is less than a year.',
                 is_warning=True,
                 result_group=https,
+                sort_order=3
             ),
             ResultState(
                 name='hsts_entire_domain',
@@ -76,6 +95,7 @@ class Command(BaseCommand):
                 failure_text='HTTPS is not enforced on the entire domain.',
                 is_warning=True,
                 result_group=https,
+                sort_order=4
             ),
             ResultState(
                 name='hsts_preloaded',
@@ -83,6 +103,7 @@ class Command(BaseCommand):
                 failure_text=RichText('The page is not <a href="https://hstspreload.org/">HSTS preloaded</a>'),
                 is_warning=True,
                 result_group=https,
+                sort_order=5
             ),
             ResultState(
                 name='no_server_info',
@@ -90,6 +111,7 @@ class Command(BaseCommand):
                 failure_text='Server software should not appear in headers.',
                 is_warning=True,
                 result_group=server_security,
+                sort_order=1
             ),
             ResultState(
                 name='no_server_version',
@@ -97,6 +119,7 @@ class Command(BaseCommand):
                 failure_text='Software version should not appear in headers.',
                 is_warning=True,
                 result_group=server_security,
+                sort_order=2
             ),
             ResultState(
                 name='csp_origin_only',
@@ -105,6 +128,7 @@ class Command(BaseCommand):
                 fix_text=RichText("<p>Add the following to your security headers:</p><pre>Content-Security-Policy default-src 'self'</pre>"),
                 is_warning=True,
                 result_group=server_security,
+                sort_order=3
             ),
             ResultState(
                 name='mime_sniffing_blocked',
@@ -112,6 +136,7 @@ class Command(BaseCommand):
                 failure_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Content-Type-Options">MIME sniffing</a> is possible.'),
                 is_warning=True,
                 result_group=server_security,
+                sort_order=4
             ),
             ResultState(
                 name='noopen_download',
@@ -120,14 +145,16 @@ class Command(BaseCommand):
                 fix_text=RichText('<p>Add the following to your security headers:</p><pre>X-Download-Options noopen</pre>'),
                 is_warning=True,
                 result_group=server_security,
+                sort_order=5
             ),
             ResultState(
                 name='xss_protection',
                 success_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection">XSS filtering</a> is enabled.'),
-                failure_text=RichText('href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection">XSS attacks</a> are not prevented.'),
+                failure_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-XSS-Protection">XSS attacks</a> are not prevented.'),
                 fix_text=RichText('<p>Add the following to your security headers:</p><pre>X-XSS-Protection 1; mode=block</pre>'),
                 is_warning=True,
                 result_group=server_security,
+                sort_order=6
             ),
             ResultState(
                 name='clickjacking_protection',
@@ -136,6 +163,7 @@ class Command(BaseCommand):
                 fix_text=RichText('<p>Add the following to your security headers:</p><pre>X-Frame-Options DENY</pre>'),
                 is_warning=True,
                 result_group=server_security,
+                sort_order=7
             ),
             ResultState(
                 name='good_cross_domain_policy',
@@ -144,6 +172,7 @@ class Command(BaseCommand):
                 is_warning=True,
                 fix_text=RichText('<p>Add the following to your security headers:</p><pre>X-Permitted-Cross-Domain-Policies master-only</pre>'),
                 result_group=server_security,
+                sort_order=8
             ),
             ResultState(
                 name='http_1_0_caching_disabled',
@@ -152,6 +181,7 @@ class Command(BaseCommand):
                 is_warning=True,
                 fix_text=RichText('<p>Add the following to your security headers:</p><pre>Pragma no-cache</pre>'),
                 result_group=caching,
+                sort_order=1
             ),
             ResultState(
                 name='cache_control_set',
@@ -160,38 +190,43 @@ class Command(BaseCommand):
                 is_warning=True,
                 fix_text=RichText('<p>Add the following to your security headers:</p><pre>Cache-Control "max-age=0, no-cache, no-store, must-revalidate, private"</pre>'),
                 result_group=caching,
+                sort_order=2
             ),
             ResultState(
                 name='cache_control_revalidate_set',
-                success_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> headers set properly.'),
-                failure_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> headers not set properly.'),
+                success_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> must revalidate header set properly.'),
+                failure_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> must-revalidate header not set properly.'),
                 is_warning=True,
                 fix_text=RichText('<p>Add the following to your security headers:</p><pre>Cache-Control "max-age=0, no-cache, no-store, must-revalidate, private"</pre>'),
                 result_group=caching,
+                sort_order=3
             ),
             ResultState(
                 name='cache_control_nocache_set',
-                success_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> headers set properly.'),
-                failure_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> headers not set properly.'),
+                success_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> no-cache header set properly.'),
+                failure_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> no-cache header not set properly.'),
                 is_warning=True,
                 fix_text=RichText('<p>Add the following to your security headers:</p><pre>Cache-Control "max-age=0, no-cache, no-store, must-revalidate, private"</pre>'),
                 result_group=caching,
+                sort_order=4
             ),
             ResultState(
                 name='cache_control_notransform_set',
-                success_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> headers set properly.'),
-                failure_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> headers not set properly.'),
+                success_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> no-store header set properly.'),
+                failure_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> no-store header not set properly.'),
                 is_warning=True,
                 fix_text=RichText('<p>Add the following to your security headers:</p><pre>Cache-Control "max-age=0, no-cache, no-store, must-revalidate, private"</pre>'),
                 result_group=caching,
+                sort_order=5
             ),
             ResultState(
                 name='cache_control_private_set',
-                success_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> headers set properly.'),
-                failure_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> headers not set properly.'),
+                success_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> private header set properly.'),
+                failure_text=RichText('<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a> private header not set properly.'),
                 is_warning=True,
                 fix_text=RichText('<p>Add the following to your security headers:</p><pre>Cache-Control "max-age=0, no-cache, no-store, must-revalidate, private"</pre>'),
                 result_group=caching,
+                sort_order=6
             ),
             ResultState(
                 name='expires_set',
@@ -200,6 +235,7 @@ class Command(BaseCommand):
                 is_warning=True,
                 fix_text=RichText('<p>Add the following to your security headers:</p><pre>Expires -1</pre>'),
                 result_group=caching,
+                sort_order=7
             ),
             ResultState(
                 name='safe_onion_address',
@@ -207,6 +243,7 @@ class Command(BaseCommand):
                 failure_text='Onion address should not be a clickable link. If clicked, some browsers will send a DNS request that will not be routed through tor, producing metadata that can identify a source.',
                 is_warning=False,
                 result_group=metadata,
+                sort_order=1
             ),
             ResultState(
                 name='subdomain',
@@ -214,6 +251,7 @@ class Command(BaseCommand):
                 failure_text='Landing page should not be hosted on a subdomain. Using a subdomain can reveal to a passive observer that the client is looking at the securedrop page on your website.',
                 is_warning=True,
                 result_group=metadata,
+                sort_order=2
             ),
             ResultState(
                 name='no_cdn',
@@ -221,6 +259,7 @@ class Command(BaseCommand):
                 failure_text='CDNs are a 3rd party that function by man-in-the-middling traffic. Do not use a CDN on the landing page.',
                 is_warning=True,
                 result_group=third_parties,
+                sort_order=1
             ),
             ResultState(
                 name='no_analytics',
@@ -228,6 +267,7 @@ class Command(BaseCommand):
                 failure_text='Google Analytics provides information that can be stored and disclosed by 3rd parties. Do not use analytics on the landing page.',
                 is_warning=False,
                 result_group=third_parties,
+                sort_order=2
             ),
             ResultState(
                 name='no_cookies',
@@ -235,5 +275,6 @@ class Command(BaseCommand):
                 failure_text='The landing page should not use cookies.',
                 is_warning=False,
                 result_group=local_storage,
+                sort_order=1
             ),
         ])
