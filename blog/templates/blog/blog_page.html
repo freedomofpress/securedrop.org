@@ -1,6 +1,6 @@
 {% extends "layout/_layout_one_column.html" %}
 
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags i18n %}
 
 {% block meta %}
 	{{ block.super }}
@@ -33,7 +33,7 @@
 			</section>
 		</article>
 		<div class="blog-page__return-button">
-			<a href="{% pageurl page.get_parent %}">Return to {{ page.get_parent.title }}</a>
+			<a href="{% pageurl page.get_parent %}">{% trans "Return to" %} {{ page.get_parent.title }}</a>
 		</div>
 	</div>
 {% endblock %}

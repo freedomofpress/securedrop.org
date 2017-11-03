@@ -1,4 +1,4 @@
-{% load wagtailcore_tags common_tags %}
+{% load wagtailcore_tags common_tags i18n %}
 
 <ul class="category-list">
 	{% for category in page.get_category_pages %}
@@ -17,7 +17,7 @@
 			<div class="release-preview__links">
 				<a href="{{ current_release.url }}" class="release-preview__link">Github</a>
 				{% if current_release.blog_page %}
-					<a href="{% pageurl current_release.blog_page %}" class="release-preview__link">Release notes</a>
+					<a href="{% pageurl current_release.blog_page %}" class="release-preview__link">{% trans "Release notes" %}</a>
 				{% endif %}
 			</div>
 		{% endwith%}
