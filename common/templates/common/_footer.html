@@ -7,9 +7,9 @@
 	<footer class="footer">
 		<div class="footer__line-wrapper">
 			<section class="support">
-				<h2 class="support__title">{{ footer.support_title }}</h2>
+				<h2 id="aria-support-nav" class="support__title">{{ footer.support_title }}</h2>
 				<div class="support__search">{% trans 'Search' %}</div>
-				<nav class="support__nav">
+				<nav class="support__nav" aria-labelledby="aria-support-nav">
 					<ul class="support__nav-list">
 						{% for item in footer.support_menu.menu_items.all %}
 							<li class="support__nav-item {{ item.html_classes }}">
@@ -37,9 +37,10 @@
 			<div class="footer-main__wrapper">
 				{% include "common/_logo_solid_white.svg" with class="footer-main__logo" %}
 				<div class="footer-main__content">
-					<h2 class='footer-main__title'>{{ footer.title|richtext }}</h2>
+					<h2 id="aria-footer-nav" class='footer-main__title'>{{ footer.title|richtext }}</h2>
 					<div class="footer-main__text-wrapper">
-						<nav class="footer-main__nav">
+						<nav class="footer-main__nav" aria-labelledby="aria-footer-nav">
+							<h3 class="sr-only">Footer navigation</h3>
 							<ul class="footer-main__nav-list">
 								{% for item in footer.main_menu.menu_items.all %}
 									<li class="footer-main__nav-item {{ item.html_classes }}">
