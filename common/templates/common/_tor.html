@@ -11,7 +11,11 @@
 			{{ settings.common.TorAlertSettings.body|richtext }}
 		{% endif %}
 	</div>
-	<button id="js-use-tor-browser-close" class="tor-warning__close-button">
+	<button
+		id="js-use-tor-browser-close"
+		class="tor-warning__close-button"
+		aria-label="Close Warning"
+	>
 		<span class="sr-only">{{ alert.close_text }}</span>
 		{% include "common/_x.svg" with class="tor-warning__close-x"%}
 	</button>
@@ -28,7 +32,11 @@
 	{% if settings.common.TorAlertSettings.tor_settings_body %}
 		{{ settings.common.TorAlertSettings.tor_settings_body|richtext }}
 	{% endif %}
-	<button id="js-tor-warning-close" class="tor-warning__close-button">
+	<button
+		id="js-tor-warning-close"
+		class="tor-warning__close-button"
+		aria-label="Close Warning"
+	>
 		<span class="sr-only">{{ alert.close_text }}</span>
 		{% include "common/_x.svg" with class="tor-warning__close-x"%}
 	</button>
