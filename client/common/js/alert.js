@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		closeButton.addEventListener('click', () => {
 			alert.classList.add('site-alert--hidden')
+			alert.setAttribute('aria-hidden', 'true')
 		})
 	} catch(e) {
 		if(!(e instanceof TypeError)) {

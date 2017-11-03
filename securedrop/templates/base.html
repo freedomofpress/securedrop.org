@@ -1,6 +1,6 @@
 {% extends "super.html" %}
 
-{% load wagtailuserbar wagtailcore_tags get_menu %}
+{% load wagtailuserbar wagtailcore_tags get_menu i18n %}
 {% load render_bundle from webpack_loader %}
 
 {% block body %}
@@ -34,11 +34,13 @@
 					{% endblock %}
 				</div>
 				{% get_menu 'main' as menu_items %}
-				<nav id='js-main-nav' class="main-nav">
+				<nav id='js-main-nav' class="main-nav" aria-labelledby="aria-main-nav">
 					{# receives .js-nav-menu-hidden if there is js #}
 					<div id='js-nav-menu' class="nav-menu {% block nav_classes %}{% endblock %}">
+						<h2 id="aria-main-nav" class='sr-only'>{% trans "Main menu" %}</h2>
 						{% block nav_logos %}
 							<a href="/" class="nav-menu__logos">
+								<span class="sr-only">{% trans "Home" %}</span>
 								{% include "common/_logo_solid_white.svg" with class="nav-menu__logo" %}
 								{% include "common/_site_title.svg" with class="nav-menu__wordmark" %}
 							</a>

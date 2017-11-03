@@ -1,7 +1,7 @@
 {% load wagtailcore_tags %}
 
 {# This warning shows when you are not using Tor #}
-<div id='js-use-tor-browser' class='tor-warning tor-warning--hidden {{ class }}'>
+<div id='js-use-tor-browser' class='tor-warning tor-warning--hidden {{ class }}' aria-hidden='true'>
 	<div>
 		<h1 class="tor-warning__title">{{ settings.common.TorAlertSettings.title }}</h1>
 		{% if settings.common.TorAlertSettings.subtitle %}
@@ -11,14 +11,18 @@
 			{{ settings.common.TorAlertSettings.body|richtext }}
 		{% endif %}
 	</div>
-	<button id="js-use-tor-browser-close" class="tor-warning__close-button">
+	<button
+		id="js-use-tor-browser-close"
+		class="tor-warning__close-button"
+		aria-label="Close Warning"
+	>
 		<span class="sr-only">{{ alert.close_text }}</span>
 		{% include "common/_x.svg" with class="tor-warning__close-x"%}
 	</button>
 </div>
 
 {# This warning shows when you are using Tor and your security settings are lax #}
-<div id='js-tor-warning' class='tor-warning tor-warning--hidden {{ class }}'>
+<div id='js-tor-warning' class='tor-warning tor-warning--hidden {{ class }}' aria-hidden='true'>
 	<div>
 		<h1 class="tor-warning__title">{{ settings.common.TorAlertSettings.tor_settings_title }}</h1>
 		{% if settings.common.TorAlertSettings.tor_settings_subtitle %}
@@ -28,7 +32,11 @@
 	{% if settings.common.TorAlertSettings.tor_settings_body %}
 		{{ settings.common.TorAlertSettings.tor_settings_body|richtext }}
 	{% endif %}
-	<button id="js-tor-warning-close" class="tor-warning__close-button">
+	<button
+		id="js-tor-warning-close"
+		class="tor-warning__close-button"
+		aria-label="Close Warning"
+	>
 		<span class="sr-only">{{ alert.close_text }}</span>
 		{% include "common/_x.svg" with class="tor-warning__close-x"%}
 	</button>
