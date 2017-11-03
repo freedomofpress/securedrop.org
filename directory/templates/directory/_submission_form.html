@@ -1,3 +1,4 @@
+{% load i18n %}
 {% if user.is_authenticated %}
 	<form action="{{ submit_url }}" method="post" class="basic-form">
 		{% csrf_token %}
@@ -5,5 +6,5 @@
 		<input type="submit" value="Submit" class="basic-form__submit" />
 	</form>
 {% else %}
-	<a href="{% url 'account_login' %}">Log in</a> to add your Securedrop instance to the directory.
+	<a href="{% url 'account_login' %}">{% trans "Log in" %}</a> {% trans "to add your Securedrop instance to the directory." %}
 {% endif %}
