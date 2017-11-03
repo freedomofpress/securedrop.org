@@ -2,8 +2,8 @@
 {% get_menu 'search-docs' as docs_items %}
 {% get_menu 'search-guides' as guide_items %}
 
-<div class="quicklinks">
-  <section class="quicklinks__section">
+<div class="quicklinks quicklinks--{{ modifier }}">
+  <section class="quicklinks__section quicklinks__section--{{ modifier }}">
     <h3>{% trans "Quick Links" %}</h3>
     <ul class="quicklinks__list">
       {% for item in docs_items %}
@@ -13,7 +13,7 @@
       {% endfor %}
     </ul>
   </section>
-  <section class="quicklinks__section">
+  <section class="quicklinks__section quicklinks__section--{{ modifier }}">
     <h3>{% trans "Guides to Securedrop" %}</h3>
 
     <ul class="quicklinks__list">

@@ -5,14 +5,21 @@
 	{% include "search/_search_bar.html" with class="search-bar--on-page" %}
 {% endblock %}
 
-{% if not search_results %}
 	{% block main_classes %}
-		layout-sidebar__main--search
+		{% if not search_results %}
+			layout-sidebar__main--search
+		{% else %}
+			{{ block.super }}
+		{% endif %}
+
 	{% endblock %}
 	{% block sidebar_classes %}
-		layout-sidebar__aside--hidden
+		{% if not search_results %}
+			layout-sidebar__aside--hidden
+		{% else %}
+			{{ block.super }}
+		{% endif %}
 	{% endblock %}
-{% endif %}
 
 
 {% block main %}
@@ -62,7 +69,7 @@
 
 {% block sidebar %}
 	{% if search_results %}
-		{% include "search/_quicklinks.html" %}
+		{% include "search/_quicklinks.html" with modifier='sidebar'%}
 	{% endif %}
 {% endblock %}
 

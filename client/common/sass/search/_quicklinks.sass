@@ -6,6 +6,10 @@
   +media-breakpoint-down(extra-small)
     flex-direction: column
 
+.quicklinks--sidebar
+  flex-direction: column
+  justify-content: flex-start
+
 .quicklinks__section
   &:not(:last-child)
     margin-right: 25%
@@ -13,6 +17,10 @@
     +media-breakpoint-down(extra-small)
       margin-right: 0
       margin-bottom: $layout-padding
+
+.quicklinks__section--sidebar
+  margin-right: 0
+  margin-bottom: $layout-padding
 
 .quicklinks__list
   +list--unstyled
