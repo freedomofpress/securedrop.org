@@ -1,6 +1,6 @@
 {% extends "layout/_layout_sidebar.html" %}
 
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags i18n %}
 
 {% block main_classes %}layout_one_column--faq{% endblock %}
 
@@ -27,7 +27,7 @@
 			<div>
 				{{question.answer|richtext}}
 			</div>
-			<a href="#list">Back to Top</a>
+			<a href="#list">{% trans "Back to Top" %}</a>
 		{% endfor %}
 	{% endwith %}
 {% endblock main %}
