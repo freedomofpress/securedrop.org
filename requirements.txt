@@ -27,14 +27,13 @@ djangorestframework==3.6.4  # via wagtail
 docopt==0.6.2             # via pshtt
 dominate==2.3.1           # via pytablewriter
 elasticsearch==5.4.0      # via pytablewriter
-enum34==1.1.6             # via cryptography
 factory-boy==2.9.2
 faker==0.7.18             # via factory-boy
+feedparser==5.2.1
 first==2.0.1              # via pip-tools
 gunicorn==19.7.1
 html5lib==0.999999999     # via bleach, wagtail
 idna==2.6                 # via cryptography, requests
-ipaddress==1.0.18         # via cryptography
 jsonschema==2.6.0         # via pytablereader
 logbook==1.1.0            # via dataproperty, pytablereader, pytablewriter, simplesqlite
 lxml==3.8.0

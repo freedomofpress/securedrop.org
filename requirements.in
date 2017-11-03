@@ -6,6 +6,7 @@ django-recaptcha
 django-settings-export
 django-webpack-loader
 factory_boy
+feedparser
 gunicorn
 lxml
 pip-tools
