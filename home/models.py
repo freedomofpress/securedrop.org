@@ -94,7 +94,7 @@ class HomePage(MetadataPageMixin, Page):
     def get_latest_blog(self):
         return BlogPage.objects.live().order_by('-publication_datetime').first()
 
-    def get_latest_release(self):
+    def get_current_release(self):
         return Release.objects.order_by('-date').first()
 
 
