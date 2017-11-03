@@ -28,19 +28,31 @@
 			<ul class="search-list">
 				{% for result in search_results %}
 					<li class="search-list__item">
-							<h3 class="search-list__item-title">
-								<span class="search-list__icon search-list__icon--{{result.result_type}}">
+						{% if result.result_type == 'W' %}
+							<div class="sr-only">SecureDrop.org page</div>
+							{% include "common/_hexagon.svg" with class="search-list__icon" category_slug="instance-table" %}
+						{% endif %}
+						<div class="search-item">
+							<div class="search-item__header">
+								<h2 class="search-item__title">
+									<a href="{{result.url}}" class="search-item__link">
+										{{ result.title }}{% include "common/chevron-right.svg" with class="search-item__chevron" %}
+									</a>
+								</h2>
+								<h3 class="search-item__subtitle">
 									{% if result.result_type == 'W' %}
-										{% include "common/_hexagon.svg" with class="instance-table__hexagon" category_slug="search" %}
+										Securedrop.org
+									{% elif result.result_type == 'F' %}
+										{% trans "Support Forum" %}
+									{% elif result.result_type == 'D' %}
+										Documentation
 									{% endif %}
-								</span>
-								<a href="{{result.url}}" class="search-page__list-item-link">
-									{{ result.title }}
-								</a>
-							</h3>
-							<p>
+								</h3>
+							</div>
+							<div class="search-item__description">
 								{{result.description|richtext}}
-							</p>
+							</div>
+						</div>
 					</li>
 				{% endfor %}
 			</ul>
