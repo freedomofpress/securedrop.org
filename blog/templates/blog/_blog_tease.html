@@ -6,11 +6,11 @@
 	{% include "common/_hexagon.svg" with class="blog-tease__hexagon" category_slug=page.category.slug %}
 	<div class="sr-only">{{ page.category.title }}</div>
 	<div class="blog-tease__body">
-		<h3 class="blog-tease__title">
+		<h2 class="blog-tease__title">
 			<a class="blog-tease__title-link" href="{% pageurl page %}">
 				{{ page.title }}
 			</a>
-		</h3>
+		</h2>
 
 		<div class="blog-tease__tease">
 			<p class="blog-tease__text">
