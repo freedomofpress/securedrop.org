@@ -5,10 +5,10 @@
 <div class="quicklinks">
   <section class="quicklinks__section">
     <h3>{% trans "Quick Links" %}</h3>
-    <ul>
+    <ul class="quicklinks__list">
       {% for item in docs_items %}
         <li><a class='{{ item.html_classes }}' href="{{ item.url }}">
-          {{ item.text }}
+          {{ item.text }}{% include "common/chevron-right.svg" with class="quicklinks__chevron" %}
         </a></li>
       {% endfor %}
     </ul>
@@ -16,10 +16,10 @@
   <section class="quicklinks__section">
     <h3>{% trans "Guides to Securedrop" %}</h3>
 
-    <ul>
+    <ul class="quicklinks__list">
       {% for item in guide_items %}
         <li><a class='{{ item.html_classes }}' href="{{ item.url }}">
-          {{ item.text }}
+          {{ item.text }}{% include "common/chevron-right.svg" with class="quicklinks__chevron" %}
         </a></li>
       {% endfor %}
     </ul>

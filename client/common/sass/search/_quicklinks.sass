@@ -1,0 +1,21 @@
+.quicklinks
+  display: flex
+  justify-content: center
+  width: 100%
+
+  +media-breakpoint-down(extra-small)
+    flex-direction: column
+
+.quicklinks__section
+  &:not(:last-child)
+    margin-right: 25%
+
+    +media-breakpoint-down(extra-small)
+      margin-right: 0
+      margin-bottom: $layout-padding
+
+.quicklinks__list
+  +list--unstyled
+
+.quicklinks__chevron
+  +text-chevron--right
