@@ -3,7 +3,7 @@
 <main class="scan-result">
 {% for result_group in result_groups %}
 	<section class="scan-result__section">
-		<h3 class="scan-result__heading">{{ result_group.name }}</h3>
+		<h2 class="scan-result__heading">{{ result_group.name }}</h2>
 		{% for result_state in result_group.result_states.all %}
 			{% if result|get_attr:result_state.name == True %}
 				<div class="scan-result__result scan-result__result--success">
