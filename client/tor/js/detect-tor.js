@@ -26,9 +26,12 @@ document.addEventListener("DOMContentLoaded", () => {
 			(less hardened) setting. */
 		let torWarning = document.getElementById('js-tor-warning')
 		torWarning.classList.remove('tor-warning--hidden')
+		torWarning.setAttribute('aria-hidden', 'false')
 		//  hides the warning to use tor, since users already have it
 		useTorBrowser.classList.add('tor-warning--hidden')
+		useTorBrowser.setAttribute('aria-hidden', 'true')
 		// Tell instances and updates that there's a warning
+		// so that homepage styles are adjusted
 		if(instances) {
 			instances.classList.add('instances--tor-warning')
 		}
@@ -41,6 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		closeUseTorBrowser.addEventListener('click', () => {
 			torWarning.classList.add('tor-warning--hidden')
+			torWarning.setAttribute('aria-hidden', 'true')
 			if(instances) {
 				instances.classList.remove('instances--tor-warning')
 			}
@@ -52,6 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		// If the user is not using Tor Browser, we want to encourage them to do so.
 		// TODO: Disable scrolling
 		useTorBrowser.classList.remove('tor-warning--hidden')
+		useTorBrowser.setAttribute('aria-hidden', 'false')
 		if(instances) {
 			instances.classList.add('instances--tor-warning')
 		}
@@ -62,6 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		const closeUseTorBrowser = document.getElementById('js-use-tor-browser-close')
 		closeUseTorBrowser.addEventListener('click', () => {
 			useTorBrowser.classList.add('tor-warning--hidden')
+			useTorBrowser.setAttribute('aria-hidden', 'true')
 			if(instances) {
 				instances.classList.remove('instances--tor-warning')
 			}
