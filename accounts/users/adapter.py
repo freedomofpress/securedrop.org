@@ -1,14 +1,13 @@
 from django.urls import reverse
-from allauth.account.adapter import DefaultAccountAdapter
 from wagtail.wagtailcore.models import Site
-
+from allauth_2fa.adapter import OTPAdapter
 try:
     from django.utils.encoding import force_text
 except ImportError:
     from django.utils.encoding import force_unicode as force_text
 
 
-class MyAccountAdapter(DefaultAccountAdapter):
+class MyAccountAdapter(OTPAdapter):
 
     def get_login_redirect_url(self, request):
         path = reverse('dashboard')
