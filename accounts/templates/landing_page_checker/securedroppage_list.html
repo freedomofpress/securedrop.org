@@ -23,6 +23,7 @@
 			<li><a href="{% url 'account_email' %}">{% trans "Manage email addresses" %}</a></li>
 			<li><a href="{% url 'account_change_password' %}">{% trans "Change password" %}</a></li>
 			<li><a href="{% url 'account_change_name' user.pk %}">{% trans "Edit name" %}</a></li>
+			<li><a href="{% url 'two-factor-setup' %}">{% trans "Manage Two-Factor Authentication" %}</a></li>
 		</ul>
 	</nav>
 	<h2>Edit instances</h2>
