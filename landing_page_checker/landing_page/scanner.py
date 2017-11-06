@@ -95,11 +95,11 @@ def bulk_scan(securedrops):
             current_result.save()
             continue
 
-        if prior_result == current_result:
+        if prior_result.is_equal_to(current_result):
             # Then let's not waste a row in the database
             prior_result.result_last_seen = timezone.now()
             prior_result.save()
-        elif prior_result != current_result:
+        else:
             # Then let's add this new scan result to the database
             current_result.save()
 

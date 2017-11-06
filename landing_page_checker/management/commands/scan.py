@@ -1,6 +1,6 @@
 from django.core.management import BaseCommand, CommandError
 
-from directory.models import SecuredropPage
+from landing_page_checker.models import SecuredropPage
 from landing_page_checker.landing_page.scanner import bulk_scan
 
 

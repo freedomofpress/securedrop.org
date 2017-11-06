@@ -140,16 +140,15 @@ class ResultTest(TestCase):
                          securedrop=self.securedrop)
         self.assertIn(result1.securedrop.title, result1.__str__())
 
-    def test_custom_eq_operator_compares_only_scan_attributes__same_result(self):
-        """Test custom __eq__ does not compare pk, _state, etc."""
+    def test_is_equal_to_compares_only_scan_attributes__same_result(self):
+        """Test is_equal_to does not compare pk, _state, etc."""
         result1 = Result(live=True, hsts=True, hsts_max_age=True,
                          securedrop=self.securedrop)
         result2 = Result(live=True, hsts=True, hsts_max_age=True,
                          securedrop=self.securedrop)
-        self.assertTrue(result1 == result2)
+        self.assertTrue(result1.is_equal_to(result2))
 
-    def test_custom_eq_operator_compares_only_scan_attributes__new_result(self):
-        result1 = Result(live=True, hsts=True, hsts_max_age=True,
-                         securedrop=self.securedrop)
+    def test_is_equal_to_compares_only_scan_attributes__new_result(self):
+        result1 = Result(live=True, hsts=True, hsts_max_age=True, securedrop=self.securedrop)
         result2 = Result(live=False, securedrop=self.securedrop)
-        self.assertFalse(result1 == result2)
+        self.assertFalse(result1.is_equal_to(result2))

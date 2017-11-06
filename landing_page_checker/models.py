@@ -12,6 +12,7 @@ from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from autocomplete.edit_handlers import AutocompleteFieldPanel
 from common.models.mixins import MetadataPageMixin
 from search.utils import get_search_content_by_fields
+from common.models.edit_handlers import ReadOnlyPanel
 
 
 class SecuredropOwner(models.Model):
@@ -75,6 +76,7 @@ class SecuredropPage(MetadataPageMixin, Page):
     )
 
     content_panels = Page.content_panels + [
+        ReadOnlyPanel('added', label='Date Added'),
         FieldPanel('landing_page_domain'),
         FieldPanel('onion_address'),
         FieldPanel('organization_description'),
@@ -82,7 +84,8 @@ class SecuredropPage(MetadataPageMixin, Page):
         AutocompleteFieldPanel('languages', 'directory.Language'),
         AutocompleteFieldPanel('countries', 'directory.Country'),
         AutocompleteFieldPanel('topics', 'directory.Topic'),
-        InlinePanel('owners', label='Owners')
+        InlinePanel('owners', label='Owners'),
+        InlinePanel('results', label='Results'),
     ]
 
     search_fields_pgsql = ['title', 'landing_page_domain', 'onion_address', 'organization_description']
@@ -114,9 +117,7 @@ class Result(models.Model):
     # produce a new Result row. If multiple consecutive scans have the same
     # result, then we only insert that result once and set the result_last_seen
     # to the date of the last scan.
-    securedrop = models.ForeignKey(SecuredropPage, on_delete=models.CASCADE,
-                                   related_name='results')
-
+    securedrop = ParentalKey('landing_page_checker.SecuredropPage', related_name='results')
     live = models.BooleanField()
 
     # In order to save a scan result when it is different from the last scan
@@ -162,12 +163,46 @@ class Result(models.Model):
 
     grade = models.CharField(max_length=2, editable=False, default='?')
 
+    panels = [
+        ReadOnlyPanel('grade'),
+        ReadOnlyPanel('live'),
+        ReadOnlyPanel('result_last_seen'),
+        ReadOnlyPanel("forces_https"),
+        ReadOnlyPanel("hsts"),
+        ReadOnlyPanel("hsts_max_age"),
+        ReadOnlyPanel("hsts_entire_domain"),
+        ReadOnlyPanel("hsts_preloaded"),
+        ReadOnlyPanel("http_status_200_ok"),
+        ReadOnlyPanel("http_no_redirect"),
+        ReadOnlyPanel("expected_encoding"),
+        ReadOnlyPanel("no_server_info"),
+        ReadOnlyPanel("no_server_version"),
+        ReadOnlyPanel("csp_origin_only"),
+        ReadOnlyPanel("mime_sniffing_blocked"),
+        ReadOnlyPanel("noopen_download"),
+        ReadOnlyPanel("xss_protection"),
+        ReadOnlyPanel("clickjacking_protection"),
+        ReadOnlyPanel("good_cross_domain_policy"),
+        ReadOnlyPanel("http_1_0_caching_disabled"),
+        ReadOnlyPanel("cache_control_set"),
+        ReadOnlyPanel("cache_control_revalidate_set"),
+        ReadOnlyPanel("cache_control_nocache_set"),
+        ReadOnlyPanel("cache_control_notransform_set"),
+        ReadOnlyPanel("cache_control_nostore_set"),
+        ReadOnlyPanel("cache_control_private_set"),
+        ReadOnlyPanel("expires_set"),
+        ReadOnlyPanel("safe_onion_address"),
+        ReadOnlyPanel("no_cdn"),
+        ReadOnlyPanel("no_analytics"),
+        ReadOnlyPanel("subdomain"),
+        ReadOnlyPanel("no_cookies"),
+    ]
+
     class Meta:
         get_latest_by = 'result_last_seen'
 
-    def __eq__(self, other):
-        # Override Django's pk attribute equality
-        # We will use the equality method to compare the scan results only
+    def is_equal_to(self, other):
+        # We will use this equality method to compare the scan results only
 
         excluded_keys = ['_state', '_securedrop_cache', 'result_last_seen',
                          'id', 'grade']
