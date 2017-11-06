@@ -202,8 +202,7 @@ class Result(models.Model):
         get_latest_by = 'result_last_seen'
 
     def is_equal_to(self, other):
-        # Override Django's pk attribute equality
-        # We will use the equality method to compare the scan results only
+        # We will use this equality method to compare the scan results only
 
         excluded_keys = ['_state', '_securedrop_cache', 'result_last_seen',
                          'id', 'grade']

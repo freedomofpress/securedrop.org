@@ -141,7 +141,7 @@ class ResultTest(TestCase):
         self.assertIn(result1.securedrop.title, result1.__str__())
 
     def test_is_equal_to_compares_only_scan_attributes__same_result(self):
-        """Test custom __eq__ does not compare pk, _state, etc."""
+        """Test is_equal_to does not compare pk, _state, etc."""
         result1 = Result(live=True, hsts=True, hsts_max_age=True,
                          securedrop=self.securedrop)
         result2 = Result(live=True, hsts=True, hsts_max_age=True,
