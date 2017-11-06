@@ -15,7 +15,6 @@ function tbb_version() {
 // Warn about using Javascript and not using Tor Browser
 document.addEventListener("DOMContentLoaded", () => {
 	const useTorBrowser = document.getElementById('js-use-tor-browser')
-	const updates = document.getElementById('js-updates')
 	const instances = document.getElementById('js-instances')
 
 	if (is_likely_tor_browser()) {
@@ -30,13 +29,10 @@ document.addEventListener("DOMContentLoaded", () => {
 		//  hides the warning to use tor, since users already have it
 		useTorBrowser.classList.add('tor-warning--hidden')
 		useTorBrowser.setAttribute('aria-hidden', 'true')
-		// Tell instances and updates that there's a warning
+		// Tell instances that there's a warning
 		// so that homepage styles are adjusted
 		if(instances) {
 			instances.classList.add('instances--tor-warning')
-		}
-		if(updates) {
-			updates.classList.add('updates--tor-warning')
 		}
 
 		let torWarningClose = document.getElementById('js-tor-warning-close')
@@ -48,9 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
 			if(instances) {
 				instances.classList.remove('instances--tor-warning')
 			}
-			if(updates) {
-				updates.classList.remove('updates--tor-warning')
-			}
 		})
 	} else {
 		// If the user is not using Tor Browser, we want to encourage them to do so.
@@ -60,9 +53,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		if(instances) {
 			instances.classList.add('instances--tor-warning')
 		}
-		if(updates) {
-			updates.classList.add('updates--tor-warning')
-		}
 
 		const closeUseTorBrowser = document.getElementById('js-use-tor-browser-close')
 		closeUseTorBrowser.addEventListener('click', () => {
@@ -70,9 +60,6 @@ document.addEventListener("DOMContentLoaded", () => {
 			useTorBrowser.setAttribute('aria-hidden', 'true')
 			if(instances) {
 				instances.classList.remove('instances--tor-warning')
-			}
-			if(updates) {
-				updates.classList.remove('updates--tor-warning')
 			}
 		})
 	}
