@@ -35,7 +35,8 @@ class MarketingIndexPage(MetadataPageMixin, Page):
             ('heading_2', Heading2()),
             ('heading_3', Heading3()),
         ],
-        blank=False
+        null=True,
+        blank=True
     )
 
     subheader = models.CharField(
@@ -44,10 +45,30 @@ class MarketingIndexPage(MetadataPageMixin, Page):
         help_text="Displayed below features and before the body."
     )
 
+    how_to_install_body = StreamField(
+        [
+            ('text', blocks.RichTextBlock()),
+            ('image', AlignedImageBlock()),
+            ('raw_html', blocks.RawHTMLBlock()),
+            ('blockquote', RichTextBlockQuoteBlock()),
+            ('list', blocks.ListBlock(
+                blocks.CharBlock(label="List Item"),
+                template='common/blocks/list_block_columns.html'
+            )),
+            ('video', AlignedEmbedBlock()),
+            ('heading_1', Heading1()),
+            ('heading_2', Heading2()),
+            ('heading_3', Heading3()),
+        ],
+        null=True,
+        blank=True
+    )
+
     content_panels = Page.content_panels + [
+        StreamFieldPanel('body'),
         InlinePanel('features', label="Features"),
         FieldPanel('subheader'),
-        StreamFieldPanel('body'),
+        StreamFieldPanel('how_to_install_body'),
     ]
 
     subpage_types = ['marketing.FeaturePage']
