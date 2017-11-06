@@ -1,3 +1,15 @@
+.tor-wrapper--homepage
+	width: 100%
+	position: relative
+	&::after
+		position: absolute
+		width: 100%
+		height: 50%
+		top: 0
+		z-index: $z-hexagons__background--updates
+		content: ""
+		background-color: $gray10
+
 .tor-warning
 	display: flex
 	justify-content: space-between
@@ -23,9 +35,7 @@
 +media-breakpoint-up(small)
 	.tor-warning--homepage
 		width: 80%
-		height: $homepage-tor-warning-height
 		margin: 0 auto
-		margin-top: -0.5*$homepage-tor-warning-height
 		margin-bottom: $layout-padding
 		padding: $layout-padding
 		position: relative
