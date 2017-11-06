@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'menus',
     'search',
     'simple',
+    'forms',
     'github',
     'landing_page_checker',
     'directory',

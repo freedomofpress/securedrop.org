@@ -1,0 +1,21 @@
+{% extends "layout/_layout_one_column.html" %}
+{% load wagtailcore_tags  %}
+
+{% block page_title_text %}{{ page.title }}{% endblock %}
+
+{% block main %}
+	<div class="site-alert">{{page.warning|richtext}}</div>
+	<div>
+		{{ page.intro|richtext }}
+		<form class="basic-form" action="{% pageurl page %}" method="POST">
+			{% csrf_token %}
+			{{ form.as_p }}
+			<button
+			  class="basic-form__submit"
+				type="submit"
+			>
+				{{ page.button_text|default:"Submit" }}
+			</button>
+		</form>
+	</div>
+{% endblock %}
