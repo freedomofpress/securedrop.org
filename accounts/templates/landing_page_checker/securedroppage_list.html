@@ -1,24 +1,29 @@
 {% extends "layout/_layout_one_column.html" %}
 
+{% load i18n %}
+
 {% block page_title %}
-	<h1 class="header__title">{{ user.first_name }} {{ user.last_name }} Dashboard </h1>
 {% endblock %}
 
-{% block site_content %}
-	<nav>
+{% block main %}
+	<h1>{% trans "Dashboard" %}
+		{% if user.first_name or user.last_name %}{% trans "for" %}{% endif %}
+		{{ user.first_name }} {{ user.last_name }}
+	</h1>
+	<nav class="dashboard__management">
 		<h2>Manage Account</h2>
-		<ul>
-			<li><a href="{% url 'account_email' %}">Manage Emails</a></li>
-			<li><a href="{% url 'account_change_password' %}">Change Password</a></li>
-			<li><a href="{% url 'account_change_name' user.pk %}">Edit Name</a></li>
+		<ul class=dashboard__list>
+			<li><a href="{% url 'account_email' %}">{% trans "Manage email addresses" %}</a></li>
+			<li><a href="{% url 'account_change_password' %}">{% trans "Change password" %}</a></li>
+			<li><a href="{% url 'account_change_name' user.pk %}">{% trans "Edit name" %}</a></li>
 		</ul>
 	</nav>
 	<h2>Edit instances</h2>
-	<ul>
+	<ul class=dashboard__list>
 		{% for instance in object_list %}
 			<li><a href="{% url 'securedrop_detail' instance.slug %}">{{ instance.title }}</a></li>
 		{% empty %}
-			<li>You do not own any Securedrop instances</li>
+			<li>{% trans "You do not own any Securedrop instances" %}</li>
 		{% endfor %}
 	</ul>
 {% endblock %}
