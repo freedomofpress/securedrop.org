@@ -1,0 +1,23 @@
+{% load i18n %}
+
+<div class="search-bar {{ class|default:'' }}">
+	<form action="{% url 'search' %}" class="search-bar__form" method="get">
+		{% include "common/_search_icon.svg" with class="search-bar__icon" %}
+
+		<input
+			type="text"
+			class="search-bar__input"
+			{% if search_query %} value="{{ search_query }}"{% endif %}
+			name="query"
+			placeholder="{% trans 'Search website, documentation, and forum' %}"
+		/>
+
+		<button
+			type="submit"
+			class="search-bar__button"
+		>
+			{% include "common/chevron-right.svg" with class="search-bar__chevron" %}
+			<span class="sr-only">Search</span>
+		</button>
+	</form>
+</div>

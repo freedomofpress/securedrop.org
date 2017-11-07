@@ -1,0 +1,48 @@
+.search-list
+  +list--unstyled
+
+.search-list__item
+  // As a flex-parent
+  display: flex
+  align-items: flex-start
+  margin-bottom: 1rem
+
+.search-list__icon
+  width: 3rem
+  height: auto
+  padding-right: 1rem
+  flex-shrink: 0
+  flex-grow: 0
+
+.search-list__icon--W
+  fill: $black
+
+.search-item
+  align-self: stretch
+  flex-grow: 1
+
+.search-item__header
+  display: flex
+  justify-content: space-between
+
+.search-item__title
+  color: $link-color
+
+.search-item__link
+  +link--no_underline($link-color, $link-hover-color)
+
+.search-item__chevron
+  +text-chevron--right
+
+.search-item__subtitle
+  text-transform: uppercase
+  color: $gray50
+  font-size: $h4
+
+.search-item__description
+  .rich-text
+    +p-remove-first-and-last-margin
+
+    &:before
+      content: ". . . "
+

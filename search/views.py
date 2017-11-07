@@ -2,6 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.contrib.postgres.search import SearchQuery, SearchVector, SearchRank
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+from django.db.models import Func, F, TextField
 from django.shortcuts import render
 
 from search.models import SearchDocument
@@ -17,7 +18,8 @@ def search(request):
         query = SearchQuery(search_query)
         search_results = SearchDocument.objects.annotate(
             rank=SearchRank(vector, query),
-            search=vector
+            search=vector,
+            description=Func(F('search_content'), query, function='TS_HEADLINE', output_field=TextField())
         ).filter(
             search=query
         ).order_by('-rank')

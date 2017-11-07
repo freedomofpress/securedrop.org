@@ -1,48 +1,87 @@
-{% extends "base.html" %}
-{% load static wagtailcore_tags common_tags %}
+{% extends "layout/_layout_sidebar.html" %}
+{% load static wagtailcore_tags common_tags i18n %}
 
-{% block title %}Search{% endblock %}
+{% block page_title %}
+	{% include "search/_search_bar.html" with class="search-bar--header" %}
+{% endblock %}
+
+	{% block main_classes %}
+		{% if not search_results %}
+			layout-sidebar__main--search
+		{% else %}
+			{{ block.super }}
+		{% endif %}
+
+	{% endblock %}
+	{% block sidebar_classes %}
+		{% if not search_results %}
+			layout-sidebar__aside--hidden
+		{% else %}
+			{{ block.super }}
+		{% endif %}
+	{% endblock %}
+
 
 {% block main %}
-	<div class="search-page">
-		<h2 class="page-title page-title--less-margin">Search</h2>
-
-		{% include "common/_search_bar.html" with class="search-bar--on-page" %}
-
-
+	<div>
 		{% if search_results %}
-			<ul class="search-page__list">
+			<ul class="search-list">
 				{% for result in search_results %}
-					<li class="search-page__list-item">
-						<section>
-							<h3 class="search-page__list-item-title">
-								<a href="{% pageurl result %}" class="search-page__list-item-link">
-									{{ result }}
-								</a>
-							</h4>
-							{% if result.search_description %}
-								{{ result.search_description|safe }}
-							{% elif result.content_type.name in content_types_with_body %}
-								{% with first_text_block=result.specific.body|first_block_of:'rich_text' %}
-									{% if first_text_block %}
-										{% firstof result.search_description|safe first_text_block|truncatewords_html:'40'|striptags %}
+					<li class="search-list__item">
+						{% if result.result_type == 'W' %}
+							<div class="sr-only">SecureDrop.org page</div>
+							{% include "common/_hexagon.svg" with class="search-list__icon" category_slug="instance-table" %}
+						{% endif %}
+						<div class="search-item">
+							<div class="search-item__header">
+								<h2 class="search-item__title">
+									<a href="{{result.url}}" class="search-item__link">
+										{{ result.title }}{% include "common/chevron-right.svg" with class="search-item__chevron" %}
+									</a>
+								</h2>
+								<h3 class="search-item__subtitle">
+									{% if result.result_type == 'W' %}
+										Securedrop.org
+									{% elif result.result_type == 'F' %}
+										{% trans "Support Forum" %}
+									{% elif result.result_type == 'D' %}
+										Documentation
 									{% endif %}
-								{% endwith %}
-							{% endif %}
-						</section>
+								</h3>
+							</div>
+							<div class="search-item__description">
+								{{result.description|richtext}}
+							</div>
+						</div>
 					</li>
 				{% endfor %}
 			</ul>
 
 			{% if search_results.has_previous %}
-				<a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}" class="button button--outline">Previous</a>
+				<a class="pagination__link--previous" href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}" class="button button--outline">
+					{% include "common/chevron-right.svg" with class="pagination__icon--previous" %}
+					{% trans "Previous" %}
+				</a>
 			{% endif %}
 
 			{% if search_results.has_next %}
-				<a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}" class="button button--outline">Next</a>
+				<a class="pagination__link--next" href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}" class="button button--outline">
+					{% trans "Next" %}
+					{% include "common/chevron-right.svg" with class="pagination__icon--next" %}
+				</a>
 			{% endif %}
 		{% elif search_query %}
-			No results found
+			<p>{% trans "No results found" %}</p>
+		{% endif %}
+		{% if not search_results %}
+			{% include "search/_quicklinks.html" %}
 		{% endif %}
 	</div>
 {% endblock %}
+
+{% block sidebar %}
+	{% if search_results %}
+		{% include "search/_quicklinks.html" with modifier='sidebar'%}
+	{% endif %}
+{% endblock %}
+

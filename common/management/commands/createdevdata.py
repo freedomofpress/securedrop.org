@@ -71,6 +71,7 @@ class Command(BaseCommand):
         management.call_command('createnavmenu')
         management.call_command('createfootersettings')
         management.call_command('createresultgroups')
+        management.call_command('createsearchmenus')
 
         # Create superuser
         if not User.objects.filter(is_superuser=True).exists():

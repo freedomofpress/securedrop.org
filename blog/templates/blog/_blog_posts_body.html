@@ -10,7 +10,7 @@
 		{% if entries_page.has_previous %}
 			<a
 				href="?{% query_transform request page=entries_page.previous_page_number %}"
-				class="pagination__link--previous js-infinite-scrolling-prev-link"
+				class="pagination__link--previous"
 				aria-label="Previous"
 			>
 				{% include "common/chevron-right.svg" with class="pagination__icon--previous" %}{% trans "Previous Page" %}
@@ -20,7 +20,7 @@
 		{% if entries_page.has_next %}
 			<a
 				href="?{% query_transform request page=entries_page.next_page_number %}"
-				class="pagination__link--next js-infinite-scrolling-next-link"
+				class="pagination__link--next"
 				aria-label="Next"
 			>
 				{% trans "More Posts" %}{% include "common/chevron-right.svg" with class="pagination__icon--next" %}
