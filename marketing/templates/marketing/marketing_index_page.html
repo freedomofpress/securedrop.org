@@ -7,7 +7,7 @@
 
 {% block main %}
 	<div>
-		{% for block in page.how_to_install_body %}
+		{% for block in page.body %}
 			{% include_block block %}
 		{% endfor %}
 	</div>
@@ -22,12 +22,20 @@
 		<div class="hexagons-background">
 				{% include "common/_hexagons_background.svg" with class="hexagons-background__svg" %}
 		</div>
-		<h1 id="how-to-install" class="header__title">{{ page.subheader }}</h1>
-	</div>
+		<div class="header__title">
+			<h1 class="header__title-text">
+				{{ page.subheader}}
+			</h1>
+			{% if page.how_to_install_subtitle %}
+				<div>
+					{{ page.how_to_install_subtitle }}
+				</div>
+			{% endif %}
+		</div>
+		</div>
 	<div class="layout-one-column">
 		{% for block in page.how_to_install_body %}
 			{% include_block block %}
 		{% endfor %}
 	</div>
-
 {% endblock %}

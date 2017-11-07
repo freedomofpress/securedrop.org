@@ -77,11 +77,18 @@
 				</nav>
 
 				{% block page_title %}
-					<h1 class="header__title">
-						{% block page_title_text %}
-							{{ page.title }}
-						{% endblock %}
-					</h1>
+					<div class="header__title">
+						<h1 class="header__title-text">
+							{% block page_title_text %}
+								{{ page.title }}
+							{% endblock %}
+						</h1>
+						{% if page.subtitle %}
+							<div>
+								{{ page.subtitle }}
+							</div>
+						{% endif %}
+					</div>
 				{% endblock %}
 			</div>
 			{% include "menus/_sliding_nav.html" %}
