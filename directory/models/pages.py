@@ -26,6 +26,7 @@ SCAN_URL = 'scan/'
 
 
 class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
+    subtitle = models.CharField(max_length=255, null=True, blank=True)
     body = RichTextField(blank=True, null=True)
     source_warning = RichTextField(blank=True, null=True, help_text="A warning for sources about checking onion addresses.")
     submit_title = models.CharField(max_length=255, default="Want to get your instance listed?")
@@ -67,6 +68,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
     thank_you_text = RichTextField(null=True, blank=True)
 
     content_panels = Page.content_panels + [
+        FieldPanel('subtitle'),
         FieldPanel('body'),
         MultiFieldPanel(
             heading="Sidebar",

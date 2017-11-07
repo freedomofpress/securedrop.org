@@ -7,6 +7,7 @@ from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, InlinePanel
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.models import Page, Orderable
 from wagtail.wagtailcore.fields import StreamField, RichTextField
+from wagtail.wagtailadmin.edit_handlers import FieldPanel
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 
 from common.models import MetadataPageMixin
@@ -59,6 +60,7 @@ class BaseSidebarPageMixin(models.Model):
 
 
 class SimplePage(MetadataPageMixin, Page):
+    subtitle = models.CharField(max_length=255, null=True, blank=True)
     body = StreamField(
         [
             ('text', blocks.RichTextBlock()),
@@ -78,6 +80,7 @@ class SimplePage(MetadataPageMixin, Page):
     )
 
     content_panels = Page.content_panels + [
+        FieldPanel('subtitle'),
         StreamFieldPanel('body'),
     ]
 
@@ -97,6 +100,7 @@ class SimplePage(MetadataPageMixin, Page):
 
 
 class SimplePageWithMenuSidebar(MetadataPageMixin, BaseSidebarPageMixin, Page):
+    subtitle = models.CharField(max_length=255, null=True, blank=True)
     body = StreamField(
         [
             ('text', blocks.RichTextBlock()),
@@ -116,6 +120,7 @@ class SimplePageWithMenuSidebar(MetadataPageMixin, BaseSidebarPageMixin, Page):
     )
 
     content_panels = Page.content_panels + [
+        FieldPanel('subtitle'),
         StreamFieldPanel('body'),
     ]
 
@@ -137,6 +142,7 @@ class SimplePageWithMenuSidebar(MetadataPageMixin, BaseSidebarPageMixin, Page):
 
 
 class FAQPage(MetadataPageMixin, BaseSidebarPageMixin, Page):
+    subtitle = models.CharField(max_length=255, null=True, blank=True)
     body = StreamField(
         [
             ('text', blocks.RichTextBlock()),
@@ -157,6 +163,7 @@ class FAQPage(MetadataPageMixin, BaseSidebarPageMixin, Page):
     )
 
     content_panels = Page.content_panels + [
+        FieldPanel('subtitle'),
         StreamFieldPanel('body'),
         InlinePanel('questions', label="Questions")
     ]

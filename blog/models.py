@@ -144,6 +144,8 @@ class CategoryPage(MetadataPageMixin, Page):
 
 
 class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
+    subtitle = models.CharField(max_length=255, null=True, blank=True)
+
     body = StreamField(
         [
             ('rich_text', blocks.RichTextBlock(icon='doc-full', label='Rich Text')),
@@ -181,6 +183,7 @@ class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
     )
 
     content_panels = Page.content_panels + [
+        FieldPanel('subtitle'),
         StreamFieldPanel('body'),
     ]
 
