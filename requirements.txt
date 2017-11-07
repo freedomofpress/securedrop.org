@@ -73,6 +73,7 @@ unidecode==0.4.21         # via wagtail
 unittest-xml-reporting==2.1.0
 urllib3==1.22             # via elasticsearch, requests
 vcrpy==1.11.1
+wagtail-django-recaptcha==0.2
 wagtail-factories==0.3.0
 wagtail-metadata==0.3.1
 wagtail==1.12.2

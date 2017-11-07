@@ -15,6 +15,7 @@ psycopg2
 pygments
 vcrpy
 wagtail<1.13
+wagtail-django-recaptcha
 wagtail-factories
 wagtail-metadata
 unittest-xml-reporting
