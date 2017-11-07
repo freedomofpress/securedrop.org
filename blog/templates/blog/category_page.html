@@ -11,5 +11,5 @@
 {% endblock main %}
 
 {% block sidebar %}
-	{% include "blog/_sidebar_with_categories_and_release.html" with page=page.get_parent.specific %}
+	{% include "blog/_sidebar_with_categories_and_release.html" with page=page.get_parent.specific current_category=self.title %}
 {% endblock sidebar %}

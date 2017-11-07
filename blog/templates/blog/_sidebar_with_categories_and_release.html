@@ -2,13 +2,24 @@
 
 <ul class="category-list">
 	{% for category in page.get_category_pages %}
-		<li class="category-list__item">
-			<a class="category-list__link" href="{% pageurl category %}">
-				<span class="category-list__hexagon-wrapper">
-					{% include "common/_hexagon.svg" with class="category-list__hexagon" category_slug=category.slug %}
+		{% if current_category and current_category == category.title %}
+			<li class="category-list__item">
+				<span>
+					<span class="category-list__hexagon-wrapper">
+						{% include "common/_hexagon.svg" with class="category-list__hexagon" category_slug=category.slug %}
+					</span>
+					<span class="category-list__text catgory-list__text--current-category">{{ category.title }}</span>
 				</span>
-				<span class="category-list__text">{{ category.title }}</span></a>
-		</li>
+			</li>
+		{% else %}
+			<li class="category-list__item">
+				<a class="category-list__link" href="{% pageurl category %}">
+					<span class="category-list__hexagon-wrapper">
+						{% include "common/_hexagon.svg" with class="category-list__hexagon" category_slug=category.slug %}
+					</span>
+					<span class="category-list__text">{{ category.title }}</span></a>
+			</li>
+		{% endif %}
 	{% endfor %}
 </ul>
 <div class="release-preview">
