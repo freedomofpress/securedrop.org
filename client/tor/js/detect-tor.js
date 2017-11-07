@@ -39,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 
 		let torWarningClose = document.getElementById('js-tor-warning-close')
-		const closeUseTorBrowser = document.getElementById('js-use-tor-browser-close')
+		const closeUseTorBrowser = document.getElementById('js-tor-warning-close')
 
 		closeUseTorBrowser.addEventListener('click', () => {
 			torWarning.classList.add('tor-warning--hidden')
