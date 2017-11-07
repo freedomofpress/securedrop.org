@@ -5,60 +5,75 @@ $search-bar-button-width: 70px
 $search-bar-icon-width: 20px
 $search-bar-height: $search-bar-font-size * $search-bar-line-height
 
-.search-bar
-  position: relative
-  height: $search-bar-height
-  width: 100%
-  max-width: 300px
+.search-bar--header
+	+layout-x
+	position: relative
+	padding-top: 2 * $header-padding
+	padding-bottom: 2 * $header-padding
+	z-index: $z-hexagons__background
 
-.search-bar--mobile
-  width: 90%
-  margin: 10px auto
+.search-bar--footer
+	padding: 2rem 0
+	width: 100%
 
-.search-bar--on-page
-  width: 50%
-  height: $search-bar-height + 2px
-  margin-bottom: 2rem
-  height: 200px
+	+media-breakpoint-up(medium)
+		width: 90%
+		margin: 0 auto
+
+	+media-breakpoint-up(large)
+		width: 75%
+
+	+media-breakpoint-up(extra-large)
+		width: 50%
+
+
+.search-bar__form
+	display: flex
+	align-items: center
+	justify-content: space-between
+	height: $search-bar-height
+	font-size: $search-bar-font-size
+	border-bottom: 2px solid $white
+
 
 .search-bar__icon
-  position: absolute
-  // Place icon above input
-  z-index: 2
-  left: 0
-  height: $search-bar-font-size * $search-bar-line-height
-  width: $search-bar-font-size * $search-bar-line-height
+	height: 1.3em
+	width: auto
+	fill: white
+	flex-grow: 0
+	flex-shrink: 0
 
 
 .search-bar__input
-  position: absolute
-  width: 100%
-  border-width: 0
-  font-size: $search-bar-font-size
-  line-height: $search-bar-line-height
-  padding: 0
-  padding-left: $search-bar-padding + $search-bar-font-size * $search-bar-line-height
-  padding-right: $search-bar-padding + $search-bar-button-width
-  background-color: transparent
-  color: white
-  border-bottom: 2px solid $white
+	flex-grow: 1
+	border-width: 0
+	font-size: $search-bar-font-size
+	line-height: $search-bar-line-height
+	padding: 0 1em
+	background-color: transparent
+	color: white
+
+	&::placeholder
+		color: $gray10--text
 
 .search-bar__button
-  position: absolute
-  right: 0
-  width: $search-bar-button-width
-  height: $search-bar-font-size * $search-bar-line-height
-  border-width: 0
-  display: flex
-  justify-content: center
+	padding: 0 0.5rem
+	height: $search-bar-font-size * $search-bar-line-height
+	border-width: 0
+	display: flex
+	justify-content: center
+	border-radius: $button-border-radius
+	color: white
+	background-color: transparent
+	flex-grow: 0
+	flex-shrink: 0
 
-  background-color: $brand-secondary
-  border-radius: $button-border-radius
-  color: white
-
-  +hover
-    background-color: $gray50
+	+hover
+		color: $gray20
 
 .search-bar__chevron
-  height: $search-bar-font-size * 1.2
-  width: auto
+	height: 1.2em
+	width: auto
+	fill: currentColor
+
+
