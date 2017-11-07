@@ -42,7 +42,7 @@ class FooterSettings(BaseSetting):
     panels = [
         FieldPanel('title'),
         SnippetChooserPanel('main_menu'),
-        PageChooserPanel('donation_link'),
+        FieldPanel('donation_link'),
         PageChooserPanel('contribute_link'),
         MultiFieldPanel(
             [
