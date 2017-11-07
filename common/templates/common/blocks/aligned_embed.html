@@ -1,8 +1,8 @@
 <div class="captioned-media__wrapper
 	{% if self.alignment == 'full-width' %}
-		captioned-media__wrapper--full-width
+		aligned-media__wrapper--full-width
 	{% else %}
-		captioned-media__wrapper--{% if self.alignment == 'left' %}left{% else %}right{% endif %}
+		aligned-media__wrapper--{% if self.alignment == 'left' %}left{% else %}right{% endif %}
 	{% endif %}
 ">
 	{{ self.video }}
