@@ -36,7 +36,7 @@ class Command(BaseCommand):
                 ),
                 MenuItem(
                     text='Support Forum',
-                    link_url='#',
+                    link_url='https://forum.securedrop.club/',
                     menu=docs,
                     sort_order=2
                 ),
