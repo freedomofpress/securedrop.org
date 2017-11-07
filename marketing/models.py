@@ -12,7 +12,7 @@ from common.blocks import (
 )
 from search.utils import get_search_content_by_fields
 
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel, PageChooserPanel, StreamFieldPanel
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel, PageChooserPanel, StreamFieldPanel, MultiFieldPanel
 from wagtail.wagtailcore import blocks
 from wagtail.wagtailcore.fields import StreamField, RichTextField
 from wagtail.wagtailcore.models import Page, Orderable
@@ -20,6 +20,13 @@ from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 
 class MarketingIndexPage(MetadataPageMixin, Page):
+    subtitle = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+        help_text="Appears immediately below page title."
+
+    )
     body = StreamField(
         [
             ('text', blocks.RichTextBlock()),
@@ -42,7 +49,15 @@ class MarketingIndexPage(MetadataPageMixin, Page):
     subheader = models.CharField(
         max_length=255,
         default="How to install SecureDrop at your organization.",
-        help_text="Displayed below features and before the body."
+        help_text="Displayed below features."
+    )
+
+    how_to_install_subtitle = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+        help_text="Appears immediately below subheader."
+
     )
 
     how_to_install_body = StreamField(
@@ -65,10 +80,17 @@ class MarketingIndexPage(MetadataPageMixin, Page):
     )
 
     content_panels = Page.content_panels + [
+        FieldPanel('subtitle'),
         StreamFieldPanel('body'),
         InlinePanel('features', label="Features"),
-        FieldPanel('subheader'),
-        StreamFieldPanel('how_to_install_body'),
+        MultiFieldPanel(
+            heading='How to install',
+            children=[
+                FieldPanel('subheader'),
+                FieldPanel('how_to_install_subtitle'),
+                StreamFieldPanel('how_to_install_body'),
+            ]
+        ),
     ]
 
     subpage_types = ['marketing.FeaturePage']
