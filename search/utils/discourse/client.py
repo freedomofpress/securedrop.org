@@ -1,4 +1,9 @@
+import logging
+
 import requests
+
+
+logger = logging.getLogger(__name__)
 
 
 class DiscourseClient(object):
@@ -15,7 +20,7 @@ class DiscourseClient(object):
         self._api_key = api_key
         self._secure = secure
 
-    def _request(self, method, path, data={}):
+    def _request(self, method, path, data={}, retries=3):
 
         request_url = '{protocol}{host}{path}'.format(
             protocol='https://' if self._secure else 'http://',
@@ -28,13 +33,37 @@ class DiscourseClient(object):
         }
         data_.update(data)
 
-        r = requests.request(
-            method,
-            request_url,
-            data=data_
-        )
+        while retries > 0:
+            try:
+                r = requests.request(method, request_url, data=data_)
+                try:
+                    r.raise_for_status()
+                    return r.json()
+                except requests.exceptions.HTTPError as e:
+                    return self._handle_http_error(e, method, request_url)
+            except (requests.exceptions.ConnectionError,
+                    requests.exceptions.Timeout) as e:
+                retries -= 1
+                if not retries:
+                    self._handle_connection_error(e, method, request_url)
+                    return False
 
-        return r.json()
+    def _handle_http_error(self, error, method, url):
+        logger.error(
+            'Error making %r request to Discourse URL %r: %s',
+            method,
+            url,
+            error,
+        )
+        return False
+
+    def _handle_connection_error(self, error, method, url):
+        logger.error(
+            'Connection failed on %r request to Discourse URL %r: %s',
+            method,
+            url,
+            error,
+        )
 
     def _get(self, *args, **kwargs):
         return self._request('GET', *args, **kwargs)
