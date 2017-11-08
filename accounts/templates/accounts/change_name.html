@@ -1,9 +1,9 @@
-{% extends "layout/_layout_one_column.html" %}
+{% extends "account/base.html" %}
 
 {% block page_title %}
 {% endblock %}
 
-{% block main %}
+{% block content %}
 	<h1>Change Name</h1>
 	<form action="" method="post" class="basic-form">
 		{% csrf_token %}
