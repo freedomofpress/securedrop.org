@@ -62,9 +62,9 @@ $green: #438944
 // Gradient pairs
 $slate1: $slate
 $slate2: #293947
-$blue-bright1: #2B8FFF
+$blue-bright1: darken(#2B8FFF,10)
 $blue-bright2: #032843
-$blue-bold1: $blue
+$blue-bold1: adjust-hue(darken($blue,5),2)
 $blue-bold2: $blue-dark
 $purple1: $purple
 $purple2: #15277A
@@ -72,12 +72,12 @@ $red1: $pink
 $red2: $red
 
 $brand-primary: $blue
-$brand-primary-text: $brand-primary
+$brand-primary--text: darken($brand-primary,10)
 $brand-secondary: $slate
-$brand-secondary-text: darken($slate,25)
+$brand-secondary--text: darken($slate,25)
 
-$link-color: $brand-primary-text
-$link-hover-color: darken($brand-primary, 10)
+$link-color: $brand-primary--text
+$link-hover-color: darken($brand-primary--text, 10)
 
 
 // LAYOUT
