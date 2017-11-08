@@ -6,7 +6,6 @@ $icon-width: 1.5rem
 $text-left-padding: 1rem
 
 .scan-result
-	font-weight: 300
 	padding-top: 2rem
 
 .scan-result__section
@@ -14,7 +13,7 @@ $text-left-padding: 1rem
 
 .scan-result__heading
 	color: $brand-primary
-	font-weight: 500
+	font-weight: $sans-bold
 	margin: 0
 
 .scan-result__result
@@ -38,22 +37,25 @@ $text-left-padding: 1rem
 	margin-top: $spacer-max - $spacer-fail
 
 .scan-result__fix
-	.rich-text
-		p, pre
-		 margin: 0.5rem 0
-		+p-remove-first-and-last-margin
-		pre:first-child
+	p, pre
+		margin: 0.5rem 0
+	+p-remove-first-and-last-margin
+	pre
+		white-space: pre-wrap
+		&:first-child
 			margin-top: 0
-
-		pre:last-child
+		&:last-child
 			margin-bottom: 0
+
 
 	line-height: 1.2
 	margin-left: $icon-width + $text-left-padding
 	margin-top: 0.5rem
 	padding: 0.5rem
-	background-color: $gray10
+	background-color: $gray5
 	border-radius: $button-border-radius
+
+
 
 .scan-result__text
 	// align lowercase text with the middle of the x

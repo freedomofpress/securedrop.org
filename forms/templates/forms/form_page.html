@@ -4,9 +4,11 @@
 {% block page_title_text %}{{ page.title }}{% endblock %}
 
 {% block main %}
-	<div class="site-alert">{{page.warning|richtext}}</div>
-	<div>
-		{{ page.intro|richtext }}
+	<div class="form-page">
+		<div class="form-page__warning">{{ page.warning|richtext }}</div>
+		<div class="form-page__intro">
+			{{ page.intro|richtext }}
+		</div>
 		<form class="basic-form" action="{% pageurl page %}" method="POST">
 			{% csrf_token %}
 			{{ form.as_p }}

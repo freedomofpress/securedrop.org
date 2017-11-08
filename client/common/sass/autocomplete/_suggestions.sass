@@ -1,18 +1,18 @@
 .suggestions
 	+list--unstyled
-
+	margin-top: 0 !important // because form styles are the worst and not BEM
 
 .suggestions__item
 	font-size: 1em
 	padding: 0.5em 0.6em
 	color: $black
 
-
 .suggestions__item--active
+	background-color: $brand-secondary-text
 	color: $white
-	background-color: lighten($brand-primary, 10)
 
+	path
+		fill: currentColor
 
 .suggestions__sub--single
-	width: 50%
 	display: block

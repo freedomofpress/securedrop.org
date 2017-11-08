@@ -1,10 +1,7 @@
-$space-between: 2%
-
 .autocomplete-layout
 	display: flex
-	justify-content: space-between
+	flex-direction: column
+	align-items: stretch
 
-
-.autocomplete-layout__item
-	// Cheap but robust padding when combined with space-between
-	width: 50% - $space-between / 2
+.autocomplete-layout__item:not(last-child)
+	margin-bottom: 0.5rem
