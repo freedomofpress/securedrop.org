@@ -30,7 +30,7 @@ class FooterSettings(BaseSetting):
         on_delete=models.SET_NULL,
         related_name='+',
     )
-    donation_link = models.URLField()
+    donation_url = models.URLField()
     contribute_link = models.ForeignKey(
         'wagtailcore.Page',
         null=True,
@@ -42,7 +42,7 @@ class FooterSettings(BaseSetting):
     panels = [
         FieldPanel('title'),
         SnippetChooserPanel('main_menu'),
-        FieldPanel('donation_link'),
+        FieldPanel('donation_url'),
         PageChooserPanel('contribute_link'),
         MultiFieldPanel(
             [
