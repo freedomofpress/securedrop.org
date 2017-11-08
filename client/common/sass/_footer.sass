@@ -88,7 +88,7 @@ $list-bottom-padding: 2rem
 
 .footer-main
 	+sd-gradient($purple1,$purple2)
-	color: $gray10--text
+	color: $white
 	position: relative
 
 .footer-main__wrapper
@@ -131,14 +131,13 @@ $list-bottom-padding: 2rem
 .footer-main__title
 	font-size: $homepage-section-heading-font-size
 	padding-bottom: 2rem
-	color: $white
 	+media-breakpoint-down(extra-small)
 		font-size: $homepage-section-heading-font-size--small
 
 	.rich-text
 		+p-remove-first-and-last-margin
 		a
-			+link--underline(inherit, $gray10)
+			+link--underline(inherit, $gray10--text)
 
 .footer-main__text-wrapper
 	display: flex
@@ -175,6 +174,7 @@ $list-bottom-padding: 2rem
 
 .footer-main__release
 	padding-left: $layout-padding
+	color: $gray10--text
 	+media-breakpoint-down(small)
 		padding-left: 0
 
