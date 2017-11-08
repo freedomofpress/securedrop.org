@@ -54,7 +54,7 @@ class Command(BaseCommand):
             if not image:
                 image = CustomImage.objects.create(
                     title='Sample Image',
-                    file=ImageFile(open('common/static/images/securedrop.png', 'rb'), name='logo.png'),
+                    file=ImageFile(open('common/static/images/logo_solid_white.png', 'rb'), name='logo'),
                     attribution='createdevdata'
                 )
 

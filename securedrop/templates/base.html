@@ -1,6 +1,6 @@
 {% extends "super.html" %}
 
-{% load wagtailuserbar wagtailcore_tags get_menu i18n %}
+{% load wagtailuserbar wagtailcore_tags get_menu i18n static %}
 {% load render_bundle from webpack_loader %}
 
 {% block body %}
@@ -41,8 +41,12 @@
 						{% block nav_logos %}
 							<a href="/" class="nav-menu__logos">
 								<span class="sr-only">{% trans "Home" %}</span>
-								{% include "common/_logo_solid_white.svg" with class="nav-menu__logo" %}
-								{% include "common/_site_title.svg" with class="nav-menu__wordmark" %}
+								<object class="nav-menu__logo" type="image/svg+xml" data="{% static 'images/_logo_solid_white.svg' %}">
+								  <img src="{% static 'images/logo_solid_white.png' %}" alt="White cube with keyhole (Securedrop logo)">
+								</object>
+								<object class="nav-menu__wordmark" type="image/svg+xml" data="{% static 'images/_site_title.svg' %}">
+									<img src="{% static 'images/site_title.png' %}" alt="Securedrop">
+								</object>
 							</a>
 						{% endblock nav_logos %}
 						<ul class="nav-menu__list">

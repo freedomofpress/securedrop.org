@@ -35,7 +35,9 @@
 				{% include "common/_hexagons_background.svg" with class="hexagons-background__svg hexagons-background__svg--footer" %}
 			</div>
 			<div class="footer-main__wrapper">
-				{% include "common/_logo_solid_white.svg" with class="footer-main__logo" %}
+				<object class="footer-main__logo" type="image/svg+xml" data="{% static 'images/_logo_transparent_white.svg' %}">
+				  <img src="{% static 'images/logo_transparent_white.png' %}" alt="White cube with keyhole (Securedrop logo)">
+				</object>
 				<div class="footer-main__content">
 					<h2 id="aria-footer-nav" class='footer-main__title'>{{ footer.title|richtext }}</h2>
 					<div class="footer-main__text-wrapper">
