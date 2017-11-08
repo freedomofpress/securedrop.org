@@ -84,7 +84,7 @@
 				</a>
 			{% endif %}
 		{% elif search_query %}
-			<h2 class='no-results'>{% trans "No results found" %}</h2>
+			<div class='no-results'>{% trans "No results found" %}</div>
 		{% endif %}
 		{% if not search_results %}
 			{% include "search/_quicklinks.html" %}
