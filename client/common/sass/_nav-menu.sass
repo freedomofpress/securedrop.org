@@ -31,6 +31,8 @@
 .nav-menu__logo
 	width: 2rem
 	margin-right: 1rem
+	// Prevents the objects from receiving pointer events instead of the link.
+	pointer-events: none
 
 	*
 		fill: $white
@@ -38,7 +40,8 @@
 .nav-menu__wordmark
 	height: 2rem
 	width: auto
-	// tbh I don't understand why we need this here and not in the class above this
+	// Prevents the objects from receiving pointer events instead of the link.
+	pointer-events: none
 	img
 		height: 2rem
 		width: auto
