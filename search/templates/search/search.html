@@ -71,14 +71,14 @@
 			</ul>
 
 			{% if search_results.has_previous %}
-				<a class="pagination__link--previous" href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}" class="button button--outline">
+				<a class="pagination__link--previous pagination__link--button" href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}" class="button button--outline">
 					{% include "common/chevron-right.svg" with class="pagination__icon--previous" %}
 					{% trans "Previous" %}
 				</a>
 			{% endif %}
 
 			{% if search_results.has_next %}
-				<a class="pagination__link--next" href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}" class="button button--outline">
+				<a class="pagination__link--next pagination__link--button" href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}" class="button button--outline">
 					{% trans "Next" %}
 					{% include "common/chevron-right.svg" with class="pagination__icon--next" %}
 				</a>

@@ -32,8 +32,9 @@
 				{% endfor %}
 			</section>
 		</article>
-		<div class="blog-page__return-button">
-			<a href="{% pageurl page.get_parent %}">{% trans "Return to" %} {{ page.get_parent.title }}</a>
-		</div>
+		<a class="blog-page__return-button" href="{% pageurl page.get_parent %}">
+		{% include "common/chevron-right.svg" with class="blog-page__chevron-left" %}
+		{% trans "Return to" %}
+		{{ page.get_parent.title }}</a>
 	</div>
 {% endblock %}
