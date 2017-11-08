@@ -5,10 +5,10 @@
 {% image self.image width-2880 as x2 %}
 
 <div class="image__wrapper
-	{% if self.alignment == 'full-width' %}
-		captioned-media__wrapper--full-width
+	{% if self.alignment == 'center' %}
+		aligned-media__wrapper--center
 	{% else %}
-		captioned-media__wrapper--{% if self.alignment == 'left' %}left{% else %}right{% endif %}
+		aligned-media__wrapper--{% if self.alignment == 'left' %}left{% else %}right{% endif %}
 	{% endif %}">
 	<img
 		alt="{{ x1.alt }}"

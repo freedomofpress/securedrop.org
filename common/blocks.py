@@ -39,7 +39,7 @@ class Heading3(blocks.StructBlock):
 ALIGNMENT_CHOICES = (
     ('left', 'Left'),
     ('right', 'Right'),
-    ('full-width', 'Full Width'),
+    ('center', 'Center'),
 )
 
 

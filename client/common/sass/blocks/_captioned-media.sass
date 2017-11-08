@@ -1,19 +1,19 @@
-.captioned-media__wrapper
+.aligned-media__wrapper
 	+clearfix
 	margin: 1rem 0 1.5rem
 
-.captioned-media__wrapper--right
+.aligned-media__wrapper--right
 	float: right
 	width: 50%
 	padding-left: 1rem
 
-.captioned-media__wrapper--left
+.aligned-media__wrapper--left
 	float: left
 	width: 50%
 	padding-right: 1rem
 
-.captioned-media__wrapper--right,
-.captioned-media__wrapper--left
+.aligned-media__wrapper--right,
+.aligned-media__wrapper--left
 	+media-breakpoint-down(extra-small)
 		float: none
 		width: 100%
@@ -23,3 +23,8 @@
 		img
 			width: 100%
 			height: auto
+
+.aligned-media__wrapper--center
+	img
+		display: block
+		margin: 0 auto
