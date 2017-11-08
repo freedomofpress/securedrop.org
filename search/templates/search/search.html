@@ -32,17 +32,17 @@
 						{% if result.result_type == 'W' %}
 							<div class="sr-only">SecureDrop.org page</div>
 							<object class="search-list__icon search-list__icon--W" type="image/svg+xml" data="{% static 'images/plain_hexagon.svg' %}">
-								 <img src="{% static 'images/plain_hexagon.png' %}" alt="White cube with keyhole (Securedrop logo)">
+								 <img src="{% static 'images/plain_hexagon.png' %}" alt="{% trans 'Gray hexagon' %}">
 							</object>
 						{% elif result.result_type == 'F' %}
 							<div class="sr-only">Support forum</div>
 							<object class="search-list__icon search-list__icon--F" type="image/svg+xml" data="{% static 'images/forum.svg' %}">
-								 <img src="{% static 'images/forum.png' %}" alt="White cube with keyhole (Securedrop logo)">
+								 <img src="{% static 'images/forum.png' %}" alt="{% trans 'Dialogue box' %}">
 							</object>
 						{% elif result.result_type == 'D' %}
 							<div class="sr-only">Documentation</div>
 							<object class="search-list__icon search-list__icon--D" type="image/svg+xml" data="{% static 'images/documentation.svg' %}">
-								 <img src="{% static 'images/documentation.png' %}" alt="White cube with keyhole (Securedrop logo)">
+								 <img src="{% static 'images/documentation.png' %}" alt="{% trans 'Stack of three books' %}">
 							</object>
 						{% endif %}
 						<div class="search-item">
