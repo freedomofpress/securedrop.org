@@ -1,21 +1,13 @@
 .basic-form
-	& > p
-		display: flex
-		align-items: center
-		& > label
-			width: 8em
+	+basic-form
+
 	.helptext
+		display: block
 		font-size: 0.9em
+		margin-top: 0.5rem
 
 .basic-form--hidden
-  display: none
-
-.basic-form--submit-instance
-	& > p
-		flex-direction: column
-		align-items: flex-start
-		& > label
-			width: auto
+	display: none
 
 .basic-form__submit
 	+button-small

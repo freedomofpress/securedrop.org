@@ -1,6 +1,6 @@
 {% load i18n %}
 {% if user.is_authenticated %}
-	<form action="{{ submit_url }}" method="post" class="basic-form basic-form--submit-instance">
+	<form action="{{ submit_url }}" method="post" class="basic-form">
 		{% csrf_token %}
 		{{ form.as_p }}
 		<input type="submit" value="Submit" class="basic-form__submit" />
