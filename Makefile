@@ -53,7 +53,7 @@ dev-sass-lint: ## Runs sass-lint utility over the code-base
 
 .PHONY: dev-import-db
 dev-import-db: ## Imports a database dump from file named ./import.db
-	docker exec -it sd_postgresql bash -c "cat /django/import.db | sed 's/OWNER\ TO\ [a-z]*/OWNER\ TO\ tracker/g' | psql securedropdb -U tracker &> /dev/null"
+	docker exec -it sd_postgresql bash -c "cat /django/import.db | sed 's/OWNER\ TO\ [a-z]*/OWNER\ TO\ postgres/g' | psql securedropdb -U postgres &> /dev/null"
 
 .PHONY: dev-save-db
 dev-save-db: ## Save a snapshot of the database for the current git branch
