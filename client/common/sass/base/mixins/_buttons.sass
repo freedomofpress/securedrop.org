@@ -26,7 +26,7 @@
 =button-transition
 	transition-duration: 0.1s
 	transition-timing-function: linear
-	transition-property: background-color, color
+	transition-property: background-color, color, border-color
 
 // Button Sizes
 
@@ -67,13 +67,14 @@
 
 // Outline Buttons
 
-=button-outline($color1, $color2: $black)
+=button-outline($color1, $color2: $black, $color3: $color1)
 	+button-transition
 	color: $color1
 	border: 1px solid $color1
 	background: transparent
 	+hover
-		background-color: $color1
+		background-color: $color3
+		border-color: transparent
 		color: $color2
 
 =button-outline--white
