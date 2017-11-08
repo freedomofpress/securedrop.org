@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.views.generic.base import TemplateView
 
 from search import views as search_views
 from wagtail.wagtailadmin import urls as wagtailadmin_urls
@@ -26,7 +27,9 @@ urlpatterns = [
     url(r'^github/', include('github.urls')),
     url(r'^accounts/', include('allauth.urls')),
     url(r'', include(account_urls)),
-
+    url(r'^500/$', TemplateView.as_view(template_name="500.html")),
+    url(r'^404/$', TemplateView.as_view(template_name="404.html")),
+    url(r'^403/$', TemplateView.as_view(template_name="403.html")),
     url(r'', include(wagtail_urls)),
 ]
 
