@@ -27,11 +27,10 @@ urlpatterns = [
     url(r'^github/', include('github.urls')),
     url(r'^accounts/', include('allauth.urls')),
     url(r'', include(account_urls)),
-
-    url(r'', include(wagtail_urls)),
     url(r'^500/$', TemplateView.as_view(template_name="500.html")),
     url(r'^404/$', TemplateView.as_view(template_name="404.html")),
     url(r'^403/$', TemplateView.as_view(template_name="403.html")),
+    url(r'', include(wagtail_urls)),
 ]
 
 
