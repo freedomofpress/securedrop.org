@@ -12,14 +12,26 @@ $filters-margin-bottom: 1rem
 	display: flex
 	justify-content: space-between
 
+	+media-breakpoint-down(extra-small)
+		flex-direction: column
+
 .filters__wrapper
 	flex-grow: 1
 	padding-right: $input-margin
 	&:last-child
 		padding-right: 0
 
+	+media-breakpoint-down(extra-small)
+		padding-right: 0
+
 .filters__wrapper--search
 	flex-shrink: 0
+
+.filters__wrapper--last
+	+media-breakpoint-down(extra-small)
+		display: flex
+		&:last-child
+			padding-left: $input-margin
 
 .filters__field
 	border: $input-border
@@ -47,9 +59,18 @@ $filters-margin-bottom: 1rem
 	border: none
 	background-color: $gray80
 	color: $white
+	margin-left: $input-margin
 	margin-bottom: $filters-margin-bottom
 	padding: 0.5rem
 	flex-shrink: 0
+
+.filters__submit--hide-mobile
+	+media-breakpoint-down(extra-small)
+		display: none
+
+.filters__submit--hide-desktop
+	+media-breakpoint-up(small)
+		display: none
 
 .filters__clear
 	text-align: right

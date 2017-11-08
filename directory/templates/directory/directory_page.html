@@ -53,7 +53,7 @@
 						{% endfor %}
 					</select>
 				</div>
-				<div class="filters__wrapper">
+				<div class="filters__wrapper--last">
 					<label class="sr-only" for="aria-topic">{% trans "Topic" %}</label>
 					<select name="topic" label="Topic" class="filters__field filters__field--select">
 						<option {% if not entries_filters.topics %}selected{% endif %}  disabled>
@@ -64,8 +64,9 @@
 							<option {% if entries_filters.topics == topic %}selected{%endif%} value="{{topic.id}}">{{topic.title}}</option>
 						{% endfor %}
 					</select>
+					<input type="image" src="{% static "images/chevron-right.svg" %}" alt="submit" name="submit" class="filters__submit filters__submit--hide-desktop">
 				</div>
-				<input type="image" src="{% static "images/chevron-right.svg" %}" alt="submit" name="submit" class="filters__submit">
+				<input type="image" src="{% static "images/chevron-right.svg" %}" alt="submit" name="submit" class="filters__submit filters__submit--hide-mobile">
 			</div>
 			<div class="filters__clear">
 				<a href="{% pageurl page %}">{% trans "Clear Filters" %}</a>
