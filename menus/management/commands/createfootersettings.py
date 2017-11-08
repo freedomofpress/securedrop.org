@@ -20,16 +20,11 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         site = Site.objects.get(site_name='SecureDrop.org (Dev)')
         home_page = HomePage.objects.get(slug='home')
+        donation_url = 'https://freedom.press/crowdfunding/securedrop/'
 
         footer_settings = FooterSettings.for_site(site)
         footer_settings.title = RichText('SecureDrop is a project of <a href="https://freedom.press">Freedom of the Press Foundation</a>.')
         footer_settings.release_key = 'abcdefghijklmonopqrs'
-
-        try:
-            donation_page = Page.objects.get(slug='donations')
-        except ObjectDoesNotExist:
-            donation_page = SimplePage(title='Donations', slug='donations')
-            home_page.add_child(instance=donation_page)
 
         try:
             contribute_page = Page.objects.get(slug='contribute')
@@ -37,7 +32,7 @@ class Command(BaseCommand):
             contribute_page = SimplePage(title='Contribute', slug='contribute')
             home_page.add_child(instance=contribute_page)
 
-        footer_settings.donation_link = donation_page
+        footer_settings.donation_link = donation_url
         footer_settings.contribute_link = contribute_page
 
         footer_menu, fm_created = Menu.objects.get_or_create(
@@ -51,7 +46,7 @@ class Command(BaseCommand):
             MenuItem.objects.bulk_create([
                 MenuItem(
                     text='Donate',
-                    link_page=donation_page,
+                    link_url=donation_url,
                     menu=footer_menu,
                     sort_order=1
                 ),
