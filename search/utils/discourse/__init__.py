@@ -1,3 +1,5 @@
+from urllib.parse import urlparse, urljoin
+
 from django.conf import settings
 from django.db import transaction
 from django.utils.html import strip_tags
@@ -44,12 +46,24 @@ def index_all_topics():
 
         # Create or update the document
         document_key = KEY_FORMAT.format(topic['id'])
+
+        url = urljoin(
+            urlparse(
+                '//' + settings.DISCOURSE_HOST,
+                'https' if client._secure else 'http',
+            ).geturl(),
+            '/'.join(['t', str(topic['id'])]),
+        )
+        # this is the only part that should be @transaction.atomic.. imo
         result = SearchDocument.objects.update_or_create(
             {
                 'title': topic_details['title'],
-                'url': '',
+                'url': url,
                 'search_content': '\n'.join(searchable_content),
-                'data': {},
+                'data': {
+                    'posts_count': topic['posts_count'],
+                    'created_at': topic['created_at'],
+                },
                 'result_type': 'F',
                 'key': document_key,
             },
