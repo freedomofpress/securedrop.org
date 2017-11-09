@@ -22,6 +22,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         if options['delete']:
             ResultGroup.objects.all().delete()
+            ResultState.objects.all().delete()
 
         basic, _ = ResultGroup.objects.get_or_create(name='Basic')
         https, _ = ResultGroup.objects.get_or_create(name='HTTPS')
