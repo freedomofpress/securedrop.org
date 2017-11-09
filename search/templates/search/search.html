@@ -5,21 +5,22 @@
 	{% include "search/_search_bar.html" with class="search-bar--header" %}
 {% endblock %}
 
-	{% block main_classes %}
-		{% if not search_results %}
-			layout-sidebar__main--search
-		{% else %}
-			{{ block.super }}
-		{% endif %}
+{% block main_classes %}
+	{% if not search_results %}
+		layout-sidebar__main--search
+	{% else %}
+		{{ block.super }}
+	{% endif %}
 
-	{% endblock %}
-	{% block sidebar_classes %}
-		{% if not search_results %}
-			layout-sidebar__aside--hidden
-		{% else %}
-			{{ block.super }}
-		{% endif %}
-	{% endblock %}
+{% endblock %}
+
+{% block sidebar_classes %}
+	{% if not search_results %}
+		layout-sidebar__aside--hidden
+	{% else %}
+		{{ block.super }}
+	{% endif %}
+{% endblock %}
 
 
 {% block main %}
@@ -29,14 +30,26 @@
 				{% for result in search_results %}
 					<li class="search-list__item">
 						{% if result.result_type == 'W' %}
-							<div class="sr-only">SecureDrop.org page</div>
-							{% include "common/_hexagon.svg" with class="search-list__icon" category_slug="instance-table" %}
+							<div class="sr-only">{% trans 'Gray hexagon' %}</div>
+							<object class="search-list__icon search-list__icon--W" type="image/svg+xml" data="{% static 'images/plain_hexagon.svg' %}">
+								 <img src="{% static 'images/slate_hexagon.png' %}" alt="{% trans 'Gray hexagon' %}">
+							</object>
+						{% elif result.result_type == 'F' %}
+							<div class="sr-only">{% trans 'Dialogue box' %}</div>
+							<object class="search-list__icon search-list__icon--F" type="image/svg+xml" data="{% static 'images/forum.svg' %}">
+								 <img src="{% static 'images/forum.png' %}" alt="{% trans 'Dialogue box' %}">
+							</object>
+						{% elif result.result_type == 'D' %}
+							<div class="sr-only">{% trans 'Stack of three books' %}</div>
+							<object class="search-list__icon search-list__icon--D" type="image/svg+xml" data="{% static 'images/documentation.svg' %}">
+								 <img src="{% static 'images/documentation.png' %}" alt="{% trans 'Stack of three books' %}">
+							</object>
 						{% endif %}
 						<div class="search-item">
 							<div class="search-item__header">
 								<h2 class="search-item__title">
 									<a href="{{result.url}}" class="search-item__link">
-										{{ result.title }}{% include "common/chevron-right.svg" with class="search-item__chevron" %}
+										{{ result.title }}
 									</a>
 								</h2>
 								<h3 class="search-item__subtitle">
@@ -45,7 +58,7 @@
 									{% elif result.result_type == 'F' %}
 										{% trans "Support Forum" %}
 									{% elif result.result_type == 'D' %}
-										Documentation
+										{% trans "Documentation" %}
 									{% endif %}
 								</h3>
 							</div>
@@ -71,7 +84,7 @@
 				</a>
 			{% endif %}
 		{% elif search_query %}
-			<p>{% trans "No results found" %}</p>
+			<div class='no-results'>{% trans "No results found" %}</div>
 		{% endif %}
 		{% if not search_results %}
 			{% include "search/_quicklinks.html" %}

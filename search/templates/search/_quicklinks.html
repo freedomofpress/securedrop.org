@@ -8,7 +8,7 @@
     <ul class="quicklinks__list">
       {% for item in docs_items %}
         <li><a class='{{ item.html_classes }}' href="{{ item.url }}">
-          {{ item.text }}{% include "common/chevron-right.svg" with class="quicklinks__chevron" %}
+          {{ item.text }}
         </a></li>
       {% endfor %}
     </ul>
@@ -19,7 +19,7 @@
     <ul class="quicklinks__list">
       {% for item in guide_items %}
         <li><a class='{{ item.html_classes }}' href="{{ item.url }}">
-          {{ item.text }}{% include "common/chevron-right.svg" with class="quicklinks__chevron" %}
+          {{ item.text }}
         </a></li>
       {% endfor %}
     </ul>
