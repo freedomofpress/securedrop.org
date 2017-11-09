@@ -46,6 +46,10 @@ $table-margin: 1rem
 	font-size: 2rem
 	line-height: 1
 
+.instance-table__chevron
+	fill: $black
+	+text-chevron--right
+
 .instance-table__org-description
 	.rich-text
 		+p-remove-first-and-last-margin
@@ -60,17 +64,13 @@ $table-margin: 1rem
 	font-weight: $sans-bold
 	text-align: center
 	border-radius: 0.5rem
+	float: right
 
 
 @each $name, $color in $grade-colors
 	.instance-table__grade--#{$name}
 		background-color: $color
 
-.instance-table__row
-	+link-transition
-	+hover
-		background-color: $gray10
-
 .instance-table__link
-	+link--unstyled
-	display: inline-block
+	+link--no-underline($color-hover: $link-color)
+
