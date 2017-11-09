@@ -1,14 +1,17 @@
 {% extends "layout/_layout_one_column.html" %}
 
-{% load i18n %}
+{% load i18n account %}
 
 {% block page_title %}
 {% endblock %}
 
 {% block main %}
-	<h1>{% trans "Dashboard" %}
-		{% if user.first_name or user.last_name %}{% trans "for" %}{% endif %}
-		{{ user.first_name }} {{ user.last_name }}
+	<h1>
+		{% user_display user as user_display %}
+    {% blocktrans %}
+      {{ user_display }}
+    {% endblocktrans %}
+		{% trans "Dashboard" %}
 	</h1>
 	<nav class="dashboard__management">
 		<h2>Manage Account</h2>
