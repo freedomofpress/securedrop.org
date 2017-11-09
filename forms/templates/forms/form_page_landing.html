@@ -2,5 +2,7 @@
 {% load wagtailcore_tags %}
 
 {% block main %}
-  {{ page.thank_you_text|richtext }}
+  <div class='thanks'>
+    {{ page.thank_you_text|richtext }}
+  </div>
 {% endblock %}
