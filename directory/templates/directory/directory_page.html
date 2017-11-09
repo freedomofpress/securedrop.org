@@ -75,7 +75,7 @@
 		<table class="instance-table">
 				<thead class="instance-table__head">
 					<tr>
-						<th colspan="2" class="instance-table__title">{% trans "Organization" %}</th>
+						<th colspan="3" class="instance-table__title">{% trans "Organization" %}</th>
 						<th class="instance-table__title instance-table__title--security">
 							{% trans "Security" %}
 							{% if page.faq_link %}
@@ -92,27 +92,27 @@
 					{% for instance in entries_page %}
 						<tr class="instance-table__row">
 							<td class="instance-table__icon">
-								<a class="instance-table__link" href="{% pageurl instance %}">
 									{% if instance.specific.organization_logo %}
 										{% image instance.specific.organization_logo width-144 %}
 									{% else %}
 										{% include "common/_hexagon.svg" with class="instance-table__hexagon" category_slug="instance-table" %}
 									{% endif %}
-								</a>
 							</td>
-							<td class="instance-table__org">
+							<td class="instance-table__org" colspan="2">
 								<a class="instance-table__link" href="{% pageurl instance %}">
-									<h3 class="instance-table__org-name">{{instance.title}}</h3>
+									<h3 class="instance-table__org-name">
+										{{instance.title}}
+										{% include "common/chevron-right.svg" with class="instance-table__chevron" %}
+									</h3>
+								</a>
 									{% if instance.specific.organization_description %}
 										<div class="instance-table__org-description">
 											{{ instance.specific.organization_description|richtext|truncatewords_html:20 }}
 										</div>
 									{% endif %}
 									{% include "directory/_tag-list.html" with page=instance.specific directory=page %}
-								</a>
 							</td>
 							<td class="instance-table__grade-column">
-								<a class="instance-table__link" href="{% pageurl instance %}">
 									<div class="instance-table__grade instance-table__grade--{{instance.specific.results.latest.grade}}">
 										{{instance.specific.results.latest.grade}}
 									</div>
