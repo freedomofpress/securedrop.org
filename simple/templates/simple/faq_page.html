@@ -5,7 +5,7 @@
 {% block main_classes %}layout_one_column--faq{% endblock %}
 
 {% block main %}
-	<div class="stream">
+	<div class="faq__body">
 		{% if page.body %}
 			{% for block in page.body %}
 				<section class="stream__block">
@@ -13,23 +13,26 @@
 				</section>
 			{% endfor %}
 		{% endif %}
+		{% with questions=page.questions.all %}
+			{% if questions %}
+				<ol id="list">
+					{% for question in questions %}
+						<li><a href="#{{question.question|slugify}}">{{question.question}}</a></li>
+					{% endfor %}
+				</ol>
+			{% endif %}
+			{% for question in questions %}
+				<h2 id="{{question.question|slugify}}">{{question.question}}</h2>
+				<div>
+					{{question.answer|richtext}}
+				</div>
+				<a class="faq__return_to_top" href="#list">
+					{% trans "Back to Top" %}
+					{% include "common/chevron-right.svg" with class="faq__chevron-up" %}
+				</a>
+			{% endfor %}
+		{% endwith %}
 	</div>
-	{% with questions=page.questions.all %}
-		{% if questions %}
-			<ol id="list">
-				{% for question in questions %}
-					<li><a href="#{{question.question|slugify}}">{{question.question}}</a></li>
-				{% endfor %}
-			</ol>
-		{% endif %}
-		{% for question in questions %}
-			<h2 id="{{question.question|slugify}}">{{question.question}}</h2>
-			<div>
-				{{question.answer|richtext}}
-			</div>
-			<a href="#list">{% trans "Back to Top" %}</a>
-		{% endfor %}
-	{% endwith %}
 {% endblock main %}
 
 {% block sidebar %}
