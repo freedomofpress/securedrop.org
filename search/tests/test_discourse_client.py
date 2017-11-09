@@ -87,3 +87,29 @@ class DiscourseClientTestCase(TestCase):
             connection_error,
         )
         self.assertIs(response, False)
+
+    @mock.patch('search.utils.discourse.client.requests.request')
+    def test_get_connection_error_then_success(self, mock_get):
+        mock_response = mock.Mock()
+        expected = {
+            'post_stream': 'stream',
+            'id': 0,
+        }
+        mock_response.json.return_value = expected
+        connection_error = requests.exceptions.ConnectionError()
+
+        mock_get.side_effect = [connection_error, connection_error, mock_response]
+
+        path = '/test/'
+        data = {'item': 1}
+        response = self.client._get(path, data)
+
+        method = 'GET'
+        url = 'https://example.com/test/'
+        final_data = {'item': 1, 'api_key': 'fake_api_key'}
+        expected_calls = [mock.call(method, url, data=final_data)] * 3
+
+        self.assertEqual(expected_calls, mock_get.call_args_list)
+
+        self.assertEqual(mock_response.json.call_count, 1)
+        self.assertEqual(expected, response)
