@@ -1,11 +1,26 @@
 {% extends "layout/_layout_one_column.html" %}
+{% load i18n account %}
 
 {% block main %}
+  {% if user.is_authenticated %}
+    {% user_display user as user_display %}
+    <div class="account__username">
+    {% blocktrans %}
+      Logged in as {{ user_display }}
+      {% endblocktrans %}
+    </div>
+  {% endif %}
 	<div class="allauth">
 		{% block content %}
 		{% endblock %}
 	</div>
-{% endblock %}
+  {% if user.is_authenticated %}
+    <a href="{% url 'dashboard' %}"class="account__dashboard-link">
+      {% include "common/chevron-right.svg" with class="account__chevron-left" %}
+      {% trans 'Return to dashboard' %}
+    </a>
+  {% endif %}
+{% endblock main %}
 
 {% block site_title %}
 	{% block head_title %}

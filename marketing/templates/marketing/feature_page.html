@@ -13,7 +13,8 @@
 			{% if page.previous %}
 				<a
 					href="{% pageurl page.previous %}"
-					class="pagination__link--previous js-infinite-scrolling-prev-link"
+					class="
+					pagination__link--button pagination__link--previous"
 					aria-label="Previous"
 				>
 					{% include "common/chevron-right.svg" with class="pagination__icon--previous" %}{{ page.previous }}
@@ -23,7 +24,7 @@
 			{% if page.next %}
 				<a
 					href="{% pageurl page.next %}"
-					class="pagination__link--next js-infinite-scrolling-next-link"
+					class="pagination__link--button pagination__link--next"
 					aria-label="Next"
 				>
 					{{ page.next }}{% include "common/chevron-right.svg" with class="pagination__icon--next" %}

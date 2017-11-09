@@ -20,6 +20,10 @@
 	    {{ form.as_p|safe }}
 	    <input class="basic-form__submit" type="submit" value="Submit" />
 	</form>
+	<a href="{% url 'dashboard' %}"class="account__dashboard-link">
+      {% include "common/chevron-right.svg" with class="account__chevron-left" %}
+    {% trans 'Return to dashboard' %}
+  </a>
 {% endblock main %}
 
 {% block js %}
