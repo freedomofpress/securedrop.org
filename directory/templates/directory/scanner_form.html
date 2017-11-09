@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block header_classes %}
-    header--slate
+		header--slate
 {% endblock %}
 
 {% block page_title_text %}
@@ -14,14 +14,17 @@
 {% endblock %}
 
 {% block main %}
-	{{ text|richtext }}
+	<div class='scanner-form'>
+		{{ text|richtext }}
+	</div>
+
 	<form id="js-scanner-form" action="{{ submit_url }}" method="post" class="basic-form">
 		{% csrf_token %}
 		{{ form.as_p }}
 		<input id='js-submit-button' type="submit" value="Submit" class="basic-form__submit" />
 	</form>
-  <div id="js-spinner" class="spinner spinner--hidden">
-    <p>{% trans "Scanning . . ." %}</p>
-    {% include "common/spinner.svg" %}
-  </div>
+	<div id="js-spinner" class="spinner spinner--hidden">
+		<p>{% trans "Scanning . . ." %}</p>
+		{% include "common/spinner.svg" %}
+	</div>
 {% endblock %}
