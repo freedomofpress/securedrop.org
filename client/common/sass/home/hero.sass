@@ -23,6 +23,7 @@
 	+media-breakpoint-down(extra-small)
 		margin-right: 0
 		margin-bottom: $layout-padding
+		height: 20rem
 
 .hero__logo-svg
 	height: auto
@@ -35,10 +36,16 @@
 .hero__title
 	max-width: 90%
 	margin-bottom: 1.5rem
+	+media-breakpoint-only(small)
+		max-height: 3rem
+
+.hero__description-header
+	+media-breakpoint-up(large)
+		font-size: 1.8rem
 
 .hero__description
-	margin-bottom: 3rem
-	max-width: 50rem
+	max-width: $text-max-width
+	font-size: 1.1rem
 	.rich-text
 		+p-remove-first-and-last-margin
 
@@ -49,10 +56,14 @@
 	+media-breakpoint-down(extra-small)
 		display: none
 
+	+media-breakpoint-up(large)
+		font-size: 1.2rem
+
 
 .hero__button
 	+button-large
 	+button-solid($blue-bright2, $white, $gray10)
+	margin-top: 2rem
 
 .hero__button-icon
 	+text-chevron--right(large)

@@ -1,5 +1,5 @@
 $support-background-color: $gray90
-$links-background-color: $blue
+$links-background-color: $brand-primary--text
 $list-bottom-padding: 2rem
 
 .footer__line-wrapper
@@ -65,10 +65,8 @@ $list-bottom-padding: 2rem
 	flex-direction: column
 	justify-content: space-around
 	align-items: center
-	// min-height: 15rem
 	+media-breakpoint-only(extra-small)
 		flex-direction: row
-		// min-height: auto
 
 
 .footer-links__donate, .footer-links__contribute
@@ -79,18 +77,18 @@ $list-bottom-padding: 2rem
 		width: 15rem
 
 .footer-links__donate
-	+button-solid($links-background-color, $white, rgba($white, 0.7))
+	+button-solid($links-background-color, $white, rgba($white, 0.6))
 	margin-bottom: 2rem
 	+media-breakpoint-only(extra-small)
 		margin-bottom: 0
 		margin-right: 2rem
 
 .footer-links__contribute
-	+button-outline($white, $links-background-color)
+	+button-outline($white, $links-background-color, rgba($white,0.6))
 
 .footer-main
 	+sd-gradient($purple1,$purple2)
-	color: $gray10--text
+	color: $white
 	position: relative
 
 .footer-main__wrapper
@@ -114,6 +112,8 @@ $list-bottom-padding: 2rem
 		padding-top: 2rem
 	+media-breakpoint-down(extra-small)
 		max-width: 15rem
+		max-height: 20rem
+		display: block
 		width: 100%
 
 .footer-main__content
@@ -131,14 +131,13 @@ $list-bottom-padding: 2rem
 .footer-main__title
 	font-size: $homepage-section-heading-font-size
 	padding-bottom: 2rem
-	color: $white
 	+media-breakpoint-down(extra-small)
 		font-size: $homepage-section-heading-font-size--small
 
 	.rich-text
 		+p-remove-first-and-last-margin
 		a
-			+link--underline(inherit, $gray10)
+			+link--underline(inherit, $gray10--text)
 
 .footer-main__text-wrapper
 	display: flex
@@ -175,6 +174,7 @@ $list-bottom-padding: 2rem
 
 .footer-main__release
 	padding-left: $layout-padding
+	color: $gray10--text
 	+media-breakpoint-down(small)
 		padding-left: 0
 
