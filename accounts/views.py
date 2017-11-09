@@ -24,6 +24,8 @@ class SecuredropView(UpdateView):
     template_name = 'landing_page_checker/securedroppage_form.html'
     form_class = SecuredropPageForm
     model = SecuredropPage
+    error_css_class = 'basic-form__error'
+    required_css_class = 'basic-form__required'
 
     def get_success_url(self):
         if self.object.live:
@@ -43,6 +45,8 @@ class UpdateUserForm(UpdateView):
     template_name = 'accounts/change_name.html'
     fields = ['first_name', 'last_name']
     success_url = reverse_lazy('dashboard')
+    error_css_class = 'basic-form__error'
+    required_css_class = 'basic-form__required'
 
     def get_object(self, **kwargs):
         obj = super(UpdateUserForm, self).get_object(**kwargs)

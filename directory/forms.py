@@ -10,6 +10,9 @@ from landing_page_checker.models import SecuredropPage
 
 
 class DirectoryForm(forms.ModelForm):
+    error_css_class = 'basic-form__error'
+    required_css_class = 'basic-form__required'
+
     title = forms.CharField(label=_("Organization name"), max_length=255)
     onion_address = forms.CharField(
         label="Tor address",
@@ -51,5 +54,8 @@ class DirectoryForm(forms.ModelForm):
 
 
 class ScannerForm(forms.Form):
+    error_css_class = 'basic-form__error'
+    required_css_class = 'basic-form__required'
+
     url = forms.URLField()
     captcha = ReCaptchaField(label='')
