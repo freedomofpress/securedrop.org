@@ -6,7 +6,7 @@
 
 		<input
 			type="text"
-			class="search-bar__input"
+			class="search-bar__input search-bar__input--{{ location }}"
 			{% if search_query %} value="{{ search_query }}"{% endif %}
 			name="query"
 			placeholder="{% trans 'Search website, documentation, and forum' %}"
