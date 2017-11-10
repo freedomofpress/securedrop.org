@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block main %}
-	<div>
+	<div class="marketing-index__text">
 		{% for block in page.body %}
 			{% include_block block %}
 		{% endfor %}
@@ -34,8 +34,10 @@
 		</div>
 		</div>
 	<div class="layout-one-column">
-		{% for block in page.how_to_install_body %}
-			{% include_block block %}
-		{% endfor %}
+		<div class="marketing-index__text">
+			{% for block in page.how_to_install_body %}
+				{% include_block block %}
+			{% endfor %}
+		</div>
 	</div>
 {% endblock %}

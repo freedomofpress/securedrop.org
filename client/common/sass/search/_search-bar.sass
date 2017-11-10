@@ -1,4 +1,4 @@
-$search-bar-font-size: 18px
+$search-bar-font-size: $embiggened-font-size
 $search-bar-line-height: 2
 $search-bar-padding: 4px
 $search-bar-button-width: 70px
@@ -39,7 +39,7 @@ $search-bar-height: $search-bar-font-size * $search-bar-line-height
 .search-bar__icon
 	height: 1.3em
 	width: auto
-	fill: white
+	fill: $white
 	flex-grow: 0
 	flex-shrink: 0
 
@@ -51,10 +51,16 @@ $search-bar-height: $search-bar-font-size * $search-bar-line-height
 	line-height: $search-bar-line-height
 	padding: 0 1em
 	background-color: transparent
-	color: white
+	color: $white
 
 	&::placeholder
 		color: $gray10--text
+
+.search-bar__input--header
+	font-size: 1.8rem
+
+	&::placeholder
+		color: rgba($white,0.8)
 
 .search-bar__button
 	padding: 0 0.5rem
@@ -63,7 +69,7 @@ $search-bar-height: $search-bar-font-size * $search-bar-line-height
 	display: flex
 	justify-content: center
 	border-radius: $button-border-radius
-	color: white
+	color: $white
 	background-color: transparent
 	flex-grow: 0
 	flex-shrink: 0
@@ -75,5 +81,3 @@ $search-bar-height: $search-bar-font-size * $search-bar-line-height
 	height: 1.2em
 	width: auto
 	fill: currentColor
-
-

@@ -2,7 +2,7 @@
 {% load static wagtailcore_tags common_tags i18n %}
 
 {% block page_title %}
-	{% include "search/_search_bar.html" with class="search-bar--header" %}
+	{% include "search/_search_bar.html" with class="search-bar--header" location="header" %}
 {% endblock %}
 
 {% block main_classes %}
@@ -97,4 +97,3 @@
 		{% include "search/_quicklinks.html" with modifier='sidebar'%}
 	{% endif %}
 {% endblock %}
-

@@ -7,7 +7,9 @@
 
 {% block main %}
 	<div>
-		{{ page.description|richtext }}
+		<div class="feature-page__text">
+			{{ page.description|richtext }}
+		</div>
 
 		<nav aria-label="Page navigation">
 			{% if page.previous %}
