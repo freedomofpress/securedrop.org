@@ -25,6 +25,18 @@ class SecuredropView(UpdateView):
     form_class = SecuredropPageForm
     model = SecuredropPage
 
+    def get(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if request.user not in [owner.owner for owner in obj.owners.all()]:
+            raise PermissionDenied
+        return super(SecuredropView, self).get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if request.user not in [owner.owner for owner in obj.owners.all()]:
+            raise PermissionDenied
+        return super(SecuredropView, self).post(request, *args, **kwargs)
+
     def get_success_url(self):
         if self.object.live:
             return self.object.url

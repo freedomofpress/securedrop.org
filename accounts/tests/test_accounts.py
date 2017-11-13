@@ -68,7 +68,15 @@ class AuthenticatedTest(TestCase):
         slug = self.user_owned_sd_page.slug
         response = self.client.post(
             reverse_lazy('securedrop_detail', kwargs={'slug': slug}),
-            {'title': new_title}
+            {
+                'title': new_title,
+                # The autocomplete widget parses the below form values
+                # as JSON, and 'null' is the least obtrusive value to
+                # send.
+                'languages': 'null',
+                'topics': 'null',
+                'countries': 'null',
+            },
         )
         self.assertEqual(response.status_code, 200)
 
@@ -77,6 +85,14 @@ class AuthenticatedTest(TestCase):
         slug = self.unowned_sd_page.slug
         response = self.client.post(
             reverse_lazy('securedrop_detail', kwargs={'slug': slug}),
-            {'title': new_title}
+            {
+                'title': new_title,
+                # The autocomplete widget parses the below form values
+                # as JSON, and 'null' is the least obtrusive value to
+                # send.
+                'languages': 'null',
+                'topics': 'null',
+                'countries': 'null',
+            }
         )
         self.assertEqual(response.status_code, 403)
