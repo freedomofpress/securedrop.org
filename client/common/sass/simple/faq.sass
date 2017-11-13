@@ -1,9 +1,16 @@
+.faq
+	max-width: $text-max-width
+
 .faq__body
-  max-width: $text-max-width
+	+p-remove-first-and-last-margin
+	padding-bottom: $layout-padding
+
+.faq__question
+	padding-top: $layout-padding
 
 .faq__return_to_top
-  +button-small
-  +button-solid--gray
+	+button-small
+	+button-solid--gray
 
 .faq__chevron-up
-  +text-chevron--up
+	+text-chevron--up
