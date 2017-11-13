@@ -5,10 +5,10 @@
 {% block main_classes %}layout_one_column--faq{% endblock %}
 
 {% block main %}
-	<div class="faq__body">
+	<div class="faq">
 		{% if page.body %}
 			{% for block in page.body %}
-				<section class="stream__block">
+				<section class="faq__body">
 					{% include_block block %}
 				</section>
 			{% endfor %}
@@ -22,7 +22,7 @@
 				</ol>
 			{% endif %}
 			{% for question in questions %}
-				<h2 id="{{question.question|slugify}}">{{question.question}}</h2>
+				<h2 class="faq__question" id="{{question.question|slugify}}">{{question.question}}</h2>
 				<div>
 					{{question.answer|richtext}}
 				</div>
