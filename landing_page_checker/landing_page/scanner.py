@@ -46,9 +46,6 @@ def scan(securedrop):
             http_status_200_ok=False,
         )
 
-    print(pshtt_results['HSTS Max Age'])
-    print(pshtt_results['HSTS Preloaded'])
-
     return Result(
         securedrop=securedrop,
         live=pshtt_results['Live'],
