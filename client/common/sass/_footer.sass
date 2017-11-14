@@ -129,6 +129,7 @@ $list-bottom-padding: 2rem
 		padding-top: $layout-padding
 
 .footer-main__title
+	color: $gray10--text
 	font-size: $homepage-section-heading-font-size
 	padding-bottom: 2rem
 	+media-breakpoint-down(extra-small)
@@ -137,7 +138,7 @@ $list-bottom-padding: 2rem
 	.rich-text
 		+p-remove-first-and-last-margin
 		a
-			+link--underline(inherit, $gray10--text)
+			+link--underline-on-hover($white, $white)
 
 .footer-main__text-wrapper
 	display: flex
