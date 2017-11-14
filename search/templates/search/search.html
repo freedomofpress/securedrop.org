@@ -1,6 +1,10 @@
 {% extends "layout/_layout_sidebar.html" %}
 {% load static wagtailcore_tags common_tags i18n %}
 
+{% block site_title %}
+	{% trans 'Search' %}
+{% endblock %}
+
 {% block page_title %}
 	{% include "search/_search_bar.html" with class="search-bar--header" location="header" %}
 {% endblock %}
