@@ -18,7 +18,7 @@
 		{{ text|richtext }}
 	</div>
 
-	<form id="js-scanner-form" action="{{ submit_url }}" method="post" class="basic-form">
+	<form id="js-scanner-form" action="{{ submit_url }}" method="post" class="basic-form" novalidate>
 		{% csrf_token %}
 		{{ form.as_p }}
 		<input id='js-submit-button' type="submit" value="Submit" class="basic-form__submit" />
