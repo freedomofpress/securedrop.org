@@ -1,9 +1,12 @@
 from django.db import models
+from django.core.validators import RegexValidator
+
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
+
 
 
 @register_setting
@@ -37,6 +40,12 @@ class FooterSettings(BaseSetting):
         blank=True,
         on_delete=models.SET_NULL,
         related_name='+',
+    )
+    securedrop_onion_address = models.CharField(
+        'SecureDrop Onion Address',
+        max_length=255,
+        default='secrdrop5wyphb5x.onion',
+        validators=[RegexValidator(regex=r'\.onion$', message="Enter a valid .onion address.")]
     )
 
     panels = [
