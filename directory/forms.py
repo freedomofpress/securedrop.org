@@ -1,6 +1,5 @@
 from django import forms
 from captcha.fields import ReCaptchaField
-from django.core.validators import RegexValidator
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -13,12 +12,6 @@ class DirectoryForm(forms.ModelForm):
     error_css_class = 'basic-form__error'
     required_css_class = 'basic-form__required'
 
-    title = forms.CharField(label=_("Organization name"), max_length=255)
-    onion_address = forms.CharField(
-        label="Tor address",
-        max_length=255,
-        validators=[RegexValidator(regex=r'\.onion$', message=_("Enter a valid .onion address"))],
-    )
     organization_logo = forms.FileField(required=False)
     languages_accepted = forms.ModelMultipleChoiceField(
         queryset=Language.objects.all(),
@@ -50,7 +43,16 @@ class DirectoryForm(forms.ModelForm):
 
     class Meta:
         model = SecuredropPage
-        fields = ['landing_page_domain', 'organization_description']
+        fields = [
+            'landing_page_domain',
+            'organization_description',
+            'title',
+            'onion_address',
+        ]
+        labels = {
+            'onion_address': _('Tor address'),
+            'title': _('Organization name')
+        }
 
 
 class ScannerForm(forms.Form):
