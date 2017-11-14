@@ -2,6 +2,10 @@
 
 {% load i18n account %}
 
+{% block site_title %}
+	{% trans 'Manage Account' %}
+{% endblock %}
+
 {% block page_title %}
 {% endblock %}
 
@@ -14,7 +18,7 @@
 		{% trans "Dashboard" %}
 	</h1>
 	<nav class="dashboard__management">
-		<h2>Manage Account</h2>
+		<h2>{% trans 'Manage Account' %}</h2>
 		<ul class=dashboard__list>
 			<li><a href="{% url 'account_email' %}">{% trans "Manage email addresses" %}</a></li>
 			<li><a href="{% url 'account_change_password' %}">{% trans "Change password" %}</a></li>
@@ -29,4 +33,4 @@
 			<li>{% trans "You do not own any Securedrop instances" %}</li>
 		{% endfor %}
 	</ul>
-{% endblock %}
+{% endblock main %}

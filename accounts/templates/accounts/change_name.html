@@ -1,10 +1,15 @@
 {% extends "account/base.html" %}
+{% load i18n %}
+
+{% block site_title %}
+	{% trans "Change Name" %}
+{% endblock %}
 
 {% block page_title %}
 {% endblock %}
 
 {% block content %}
-	<h1>Change Name</h1>
+	<h1>{% trans "Change Name" %}</h1>
 	<form action="" method="post" class="basic-form">
 		{% csrf_token %}
 		{{ form.as_p }}
