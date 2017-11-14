@@ -160,10 +160,11 @@
 				{{ page.submit_button_text }}
 				{% include "common/chevron-right.svg" with class="submit-instance__button-icon" %}
 			</a>
-			<a href="{% url 'dashboard' %}" class="submit-instance__button submit-instance__button--dashboard">
-				{{ page.manage_instances_text }}
-				{% include "common/chevron-right.svg" with class="submit-instance__button-icon" %}
-			</a>
+			{% if user.is_authenticated %}
+				<a href="{% url 'dashboard' %}" class="submit-instance__link">
+					{{ page.manage_instances_text }}
+				</a>
+			{% endif %}
 		</div>
 	</section>
 {% endblock sidebar %}
