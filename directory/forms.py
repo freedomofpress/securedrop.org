@@ -1,5 +1,6 @@
-from django import forms
 from captcha.fields import ReCaptchaField
+from django import forms
+from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -40,6 +41,12 @@ class DirectoryForm(forms.ModelForm):
         ),
         required=False
     )
+
+    def clean_title(self):
+        data = self.cleaned_data['title']
+        if SecuredropPage.objects.filter(title=data).exists():
+            raise ValidationError('Securedrop page with this Organization name already exists.')
+        return data
 
     class Meta:
         model = SecuredropPage
