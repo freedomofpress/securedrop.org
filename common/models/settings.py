@@ -8,7 +8,6 @@ from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 
 
-
 @register_setting
 class FooterSettings(BaseSetting):
     title = RichTextField(blank=True, null=True)
