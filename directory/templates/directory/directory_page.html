@@ -101,8 +101,7 @@
 							<td class="instance-table__org" colspan="2">
 								<a class="instance-table__link" href="{% pageurl instance %}">
 									<h3 class="instance-table__org-name">
-										{{instance.title}}
-										{% include "common/chevron-right.svg" with class="instance-table__chevron" %}
+										{{instance.title}}{% include "common/chevron-right.svg" with class="instance-table__chevron" %}
 									</h3>
 								</a>
 									{% if instance.specific.organization_description %}
