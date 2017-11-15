@@ -1,5 +1,5 @@
 {% extends "layout/_layout_one_column.html" %}
-{% load i18n %}
+{% load i18n wagtailcore_tags %}
 
 {% block page_title %}
 	<h1 class="header__title">
@@ -9,6 +9,9 @@
 
 {% block main %}
 	<div class="allauth">
+		{% if settings.common.TwoFactorAuthSettings.backup_tokens_text %}
+			{{ settings.common.TwoFactorAuthSettings.backup_tokens_text|richtext }}
+		{% endif %}
 		<ul>
 			{% for token in backup_tokens %}
 				<li>{{ token.token }}</li>

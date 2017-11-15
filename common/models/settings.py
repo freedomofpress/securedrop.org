@@ -234,3 +234,37 @@ class DirectorySettings(BaseSetting):
 
     class Meta:
         verbose_name = 'Directory Settings'
+
+
+@register_setting(icon='password')
+class TwoFactorAuthSettings(BaseSetting):
+    signup_form_text = RichTextField(
+        blank=True,
+        null=True,
+        help_text='Message displayed on the signup page',
+        default='Note: two-factor authentication is required to use your account.  After you complete this form, you must also complete setup of a two-factor authentication device.',
+    )
+
+    authenticate_text = RichTextField(
+        blank=True,
+        null=True,
+        help_text='Message displayed on the 2FA authentication form, where the user must enter their token',
+    )
+
+    setup_text = RichTextField(
+        blank=True,
+        null=True,
+        help_text='Message displayed on the 2FA setup form',
+    )
+
+    backup_tokens_text = RichTextField(
+        blank=True,
+        null=True,
+        help_text='Message displayed on the 2FA backup tokens generation form',
+    )
+
+    remove_text = RichTextField(
+        blank=True,
+        null=True,
+        help_text='Message displayed on the 2FA removal form',
+    )
