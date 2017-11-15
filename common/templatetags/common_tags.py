@@ -43,3 +43,8 @@ def get_attr(obj, attribute):
     if hasattr(obj, attribute):
         return getattr(obj, attribute)
     return False
+
+
+@register.simple_tag
+def get_site_name():
+    return 'SecureDrop'

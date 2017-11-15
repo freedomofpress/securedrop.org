@@ -1,4 +1,4 @@
-{% load static wagtailmetadata_tags wagtailsettings_tags %}
+{% load static wagtailmetadata_tags wagtailsettings_tags common_tags %}
 {% load render_bundle from webpack_loader %}
 
 <!DOCTYPE html>
@@ -19,7 +19,10 @@
 						- {{ site_name }}
 					{% else %}
 						{% with self.get_site.site_name as site_name %}
-							{% if site_name %}- {{ site_name }}{% endif %}
+							{% if site_name %}- {{ site_name }}
+							{% else %}
+								- {% get_site_name %}
+							{% endif %}
 						{% endwith %}
 					{% endif %}
 				{% endblock %}
