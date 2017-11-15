@@ -37,7 +37,7 @@ This is a site-wide alert that is displayed at the top of the screen in read, me
 
 Tor Alert
 +++++++++
-These alerts are for sources only, and are only displayed on the homepage, directory page, and individual instance pages. `Tor not detected` is meant to provide information for sources how are not yet using Tor, while `Tor settings too low` is meant for Tor users who have not disabled JavaScript.
+These alerts are aimed at sources only, and are only displayed on the homepage, directory page, and individual instance pages. `Tor not detected` is meant to provide information for sources how are not yet using Tor, while `Tor settings too low` is meant for Tor users who have not disabled JavaScript.
 
 Social Sharing SEO
 ++++++++++++++++++
@@ -45,7 +45,7 @@ These are settings for social media and search engine optimization, including a 
 
 Directory Settings
 ++++++++++++++++++
-These are settings that are used on Securedrop pages. This is text that will show up on every Securedrop page.
+These are settings that are used on the Securedrop instance pages (SecuredropPage) that users and admins can create. The text in these settings will show up on every Securedrop page.
 
 Page Settings
 -------------
@@ -65,7 +65,7 @@ These pages allow you to choose a menu (created in the Snippets panel) that will
 
 Snippets
 --------
-There are two types of snippets used on the page. Snippets can be accessed from the main Wagtail menu.
+There are two types of snippets used on the site. Snippets can be accessed from the main Wagtail menu.
 
 Menus
 +++++
