@@ -1,5 +1,26 @@
 Development
 =============
+This README covers how to install and get started with development in this repository.
+
+Table of Contents
+-----------------
+* Prerequisites_
+* `OpenSSL Installation Note`_
+* `Local Development instructions`_
+   * `Updating Requirements`_
+   * `Resetting database`_
+   * `Attaching to running containers`_
+* `Advanced actions against the database`_
+   * `Database import`_
+   * `Connect to postgresql service from host`_
+   * `Mimic CI and production environment`_
+   * `Database snapshots`_
+* `Other commands`_
+   * `Management commands`_
+* `Search`_
+   * `Wagtail`_
+   * `Documentation`_
+
 
 Prerequisites
 -------------
@@ -92,10 +113,10 @@ and get a bash shell (for example the postgresql container):
     docker exec -it sd_postgresql bash
 
 Advanced actions against the database
-+++++++++++++++++++++++++++++++++++++
+-------------------------------------
 
 Database import
----------------
++++++++++++++++
 
 Drop a postgres database dump into the root of the repo and rename it to
 ``import.db``. To import it into a running dev session (ensure ``make dev-go`` has
@@ -104,7 +125,7 @@ images that are referenced from an external site backup.
 
 
 Connect to postgresql service from host
----------------------------------------
++++++++++++++++++++++++++++++++++++++++
 
 The postgresql service is exposed to your host on a port that will be displayed
 to you in the output of ``make dev-go``. If you have a GUI
@@ -113,7 +134,7 @@ with the correct port, username ``securedrop``, password ``securedroppassword``,
 
 
 Mimic CI and production environment
------------------------------------
++++++++++++++++++++++++++++++++++++
 
 You can mimic a production environment where django is deployed with gunicorn,
 reverse nginx proxy, and debug mode off using the following command:
@@ -129,7 +150,7 @@ requirements installed that are in `devops/requirements.txt` or source
 `devops/.venv` (if you've already run `make dev-go` at least once).
 
 Database snapshots
-------------------
+++++++++++++++++++
 
 When developing, it is often required to switch branches.  These
 different branches can have mutually incompatible changes to the
@@ -162,14 +183,14 @@ for the new branch, which were presumably based off of master, will
 have a clean starting point.
 
 Other commands
-++++++++++++++
+--------------
 
 In order to ensure that all commands are run in the same environment, we have
 added a ``make flake8`` command that runs ``flake8`` in the docker environment,
 rather than on your local env.
 
 Management commands
--------------------
++++++++++++++++++++
 
 Management commands in this repo are modularized. Running ``createdevdata`` will
 run all of these commands, but they can also be run indvidually. All commands
@@ -195,11 +216,16 @@ They should not be run in production as many of them create fake data.
       Creates the main nav menu and links it to the appropriate pages. Creates a
       ``DirectoryPage``, ``BlogIndexPage``, and ``MarketingIndexPage`` if they
       do not yet exist.
-* ``update_docs_index``
-      Crawl the SecureDrop documentation pages on ``https://docs.securedrop.org/en/stable/`` and update the corresponding `SearchDocument` entries.  Pass ``--rebuild`` to this command to delete existing entries for documentation pages before fetching new data, which is useful if out-of-date information or pages are in the index.  Rebuild is usually the behavior that you will want.  Note that this command depends on a particular arrangement and format of HTML and links on the above 3rd party web URL.  If these change in the future, then the command will potentially fail and report zero or only a few documents indexed.
+
 
 Search
 ------
+
 Wagtail
 +++++++
 ``get_search_content`` is a method on each page that should return a string of the "searchable content" for that page type. This should generally include HTML-stripped versions of the page body, any tags, anything in the search description field, etc. It's okay for these all to be naively concatenated together. This value is used to provide words to the search engine and is never displayed.
+
+Documentation
++++++++++++++
+``update_docs_index``
+  Crawl the SecureDrop documentation pages on ``https://docs.securedrop.org/en/stable/`` and update the corresponding `SearchDocument` entries.  Pass ``--rebuild`` to this command to delete existing entries for documentation pages before fetching new data, which is useful if out-of-date information or pages are in the index.  Rebuild is usually the behavior that you will want.  Note that this command depends on a particular arrangement and format of HTML and links on the above 3rd party web URL.  If these change in the future, then the command will potentially fail and report zero or only a few documents indexed.
