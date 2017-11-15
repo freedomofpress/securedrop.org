@@ -1,6 +1,6 @@
 Development
 =============
-This README covers how to install and get started with development in this repository.
+This README covers how to install and get started with development in this repository. Information for Wagtail editors can be found in the `Wagtail Editors Guide <WAGTAIL.rst>`_.
 
 Table of Contents
 -----------------
