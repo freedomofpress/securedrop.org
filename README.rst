@@ -240,3 +240,12 @@ Discourse
   Crawl the SecureDrop forum pages on ``https://forum.securedrop.club/`` and update the corresponding ``SearchDocument`` entries.  Pass ``--rebuild`` to this command to delete existing entries for documentation pages before fetching new data, which is useful if out-of-date information or pages are in the index.  Rebuild is usually the behavior that you will want.
 
 Note that this command depends on the Discourse API.  If the API changes in the future, then the command will potentially fail and report zero or only a few documents indexed.  It also means we depend on two settings: ``DISCOURSE_HOST`` which should be set to the name of the Discourse server without the protocol (``forum.securedrop.club``) and ``DISCOURSE_API_KEY``, the value of which must be obtained securely from someone who knows it.  For local development, I recommend placing these settings in ``settings/local.py``.
+
+Authentication and Authorization
+--------------------------------
+
+The auth system for SecureDrop admins (not wagtail admins) relies on at least three packages.
+
+ * `django-allauth <http://django-allauth.readthedocs.io/en/latest/index.html>`_ for basic functionality (account management forms, third-party auth providers, email verification, etc.)
+* `django-otp <https://django-otp-official.readthedocs.io/>`_ for One Time Password (OTP) functionality, which is the foundation of two-factor authentication (2FA).
+* `django-allauth-2fa <https://github.com/percipient/django-allauth-2fa>`_ to link the above two packages together.
