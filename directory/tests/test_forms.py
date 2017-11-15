@@ -7,9 +7,9 @@ from landing_page_checker.tests.factories import SecuredropPageFactory
 
 class DirectoryFormTest(TestCase):
     @classmethod
-    def setUpTestData(self):
-        self.directory = DirectoryPageFactory()
-        self.securedrop_page = SecuredropPageFactory(parent=self.directory)
+    def setUpTestData(cls):
+        cls.directory = DirectoryPageFactory()
+        cls.securedrop_page = SecuredropPageFactory(parent=cls.directory)
 
     def test_validate_unique_title__invalid(self):
         # Make a form that has just a duplicate title, then verify that it
