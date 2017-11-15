@@ -3,6 +3,8 @@ Wagtail Editor's Guide
 
 This guide is designed for Wagtail editors of Securedrop.org. It will explain where to find certain settings and the ins and outs of this particular Wagtail site.
 
+General information about editing Wagtail sites can be found in `Wagtail's documentation <http://docs.wagtail.io/en/v1.12.2/editor_manual/index.html>`_.
+
 Table of Contents
 -----------------
 
