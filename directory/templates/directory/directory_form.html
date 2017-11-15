@@ -15,12 +15,12 @@
 {% endblock %}
 
 {% block main %}
-	{{text|richtext}}
-		<form action="{{ submit_url }}" method="post" class="basic-form">
-			{% csrf_token %}
-			{{ form.as_p }}
-			<input type="submit" value="Submit" class="basic-form__submit" />
-		</form>
+	{{ text|richtext }}
+	<form action="{{ submit_url }}" method="post" class="basic-form">
+		{% csrf_token %}
+		{{ form.as_p }}
+		<input type="submit" value="Submit" class="basic-form__submit" />
+	</form>
 {% endblock %}
 
 {% block js %}

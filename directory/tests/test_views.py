@@ -15,6 +15,8 @@ class ScanViewTest(TestCase):
     def setUpTestData(cls):
         cls.directory = DirectoryPageFactory(
             parent=Site.objects.get().root_page,
+            scanner_form_text='Scanner form',
+            org_details_form_text='Org form text'
         )
 
     @classmethod
@@ -69,6 +71,7 @@ class ScanViewTest(TestCase):
         self.assertTemplateUsed(response, 'landing_page_checker/result.html')
         self.assertTemplateUsed(response, 'directory/_submission_form.html')
         directory_form_as_p.assert_called_once()
+        self.assertEqual(response.context['form_text'], self.directory.org_details_form_text)
 
     def test_render_scan_form(self):
         response = self.client.get(
@@ -78,3 +81,4 @@ class ScanViewTest(TestCase):
         self.assertTemplateUsed(response, 'directory/scanner_form.html')
         self.assertTemplateUsed(response, 'captcha/widget_nocaptcha.html')
         self.assertTemplateNotUsed(response, 'landing_page_checker/result.html')
+        self.assertEqual(response.context['text'], self.directory.scanner_form_text)
