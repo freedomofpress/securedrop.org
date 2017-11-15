@@ -7,7 +7,7 @@ from django.db import models
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
+from django_otp.decorators import otp_required
 
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
 from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
@@ -247,7 +247,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
         return render(request, 'directory/scanner_form.html', context)
 
     @route('form/')
-    @method_decorator(login_required)
+    @method_decorator(otp_required)
     def form_view(self, request):
         WagtailImage = get_image_model()
         if request.method == 'POST':
