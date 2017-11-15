@@ -23,10 +23,10 @@
 
 {% block column_one %}
 <h2 class="instance-description">
-	{{ org_details_form_title }}
+  {{ form_title }}
 </h2>
 <div>
-	{{ org_details_form_text|richtext }}
+	{{ form_text|richtext }}
 	{% include "directory/_submission_form.html" with form=submission_form submit_url=submission_url %}
 </div>
 {% endblock column_one %}

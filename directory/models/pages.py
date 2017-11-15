@@ -218,11 +218,11 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
                         'landing_page_domain': data['url'],
                     }),
                     'submission_url': '{0}form/'.format(self.url),
-                    'org_details_form_title': self.org_details_form_title
+                    'form_title': self.org_details_form_title
                 }
 
                 if self.org_details_form_text:
-                    context['org_details_form_text'] = self.scanner_form_text
+                    context['form_text'] = self.org_details_form_text
 
                 return render(
                     request,
@@ -291,6 +291,8 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
                     'submit_url': '{0}form/'.format(self.url),
                     'form_title': self.org_details_form_title
                 }
+                if self.org_details_form_text:
+                    context['text'] = self.org_details_form_text
 
         # else redirect to a page with errors
         else:
