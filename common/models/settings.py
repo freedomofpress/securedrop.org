@@ -1,5 +1,6 @@
-from django.db import models
+from django.contrib.auth.models import Group
 from django.core.validators import RegexValidator
+from django.db import models
 
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
@@ -193,6 +194,12 @@ class SocialSharingSEOSettings(BaseSetting):
 
 @register_setting(icon='form')
 class DirectorySettings(BaseSetting):
+    new_instance_alert_group = models.OneToOneField(
+        Group,
+        blank=True,
+        null=True,
+        help_text='Users in this group will get an email alert when a new SecureDrop instance is submitted',
+    )
     landing_page_link_text = models.CharField(
         max_length=255,
         default='Securedrop landing page'
@@ -217,6 +224,7 @@ class DirectorySettings(BaseSetting):
     )
 
     panels = [
+        FieldPanel('new_instance_alert_group'),
         FieldPanel('landing_page_link_text'),
         FieldPanel('compare_onion_address_text'),
         FieldPanel('grade_text'),
