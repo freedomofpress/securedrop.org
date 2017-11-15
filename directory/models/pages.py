@@ -222,7 +222,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
                 }
 
                 if self.org_details_form_text:
-                    context['org_details_form_text'] = self.scanner_form_text
+                    context['org_details_form_text'] = self.org_details_form_text
 
                 return render(
                     request,
