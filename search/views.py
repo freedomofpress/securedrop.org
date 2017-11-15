@@ -4,7 +4,6 @@ from django.contrib.postgres.search import SearchQuery, SearchVector, SearchRank
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Func, F, TextField
 from django.shortcuts import render
-from wagtail.wagtailcore.models import Site
 
 from search.models import SearchDocument
 
@@ -39,5 +38,4 @@ def search(request):
     return render(request, 'search/search.html', {
         'search_query': search_query,
         'search_results': search_results,
-        'site_name': Site.objects.get(is_default_site=True).site_name
     })
