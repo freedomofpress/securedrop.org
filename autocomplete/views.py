@@ -84,7 +84,7 @@ def create(request, *args, **kwargs):
     except:
         return HttpResponseBadRequest()
 
-    if not request.user.is_authenticated:
+    if not request.user.is_verified:
         return HttpResponseForbidden()
 
     method = getattr(model, 'autocomplete_create', None)

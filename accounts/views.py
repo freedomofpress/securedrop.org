@@ -1,7 +1,6 @@
 from landing_page_checker.models import SecuredropPage
 from django.views.generic import ListView, UpdateView
 from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
@@ -25,7 +24,7 @@ class SecuredropList(ListView):
         return queryset.filter(owners__owner=self.request.user)
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(otp_required, name='dispatch')
 class SecuredropView(UpdateView):
     template_name = 'landing_page_checker/securedroppage_form.html'
     form_class = SecuredropPageForm
@@ -55,7 +54,7 @@ class SecuredropView(UpdateView):
         return kwargs
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(otp_required, name='dispatch')
 class UpdateUserForm(UpdateView):
     model = get_user_model()
     template_name = 'accounts/change_name.html'
