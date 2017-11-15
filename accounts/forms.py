@@ -14,6 +14,9 @@ WagtailImage = get_image_model()
 
 
 class SignupForm(forms.ModelForm):
+    error_css_class = 'basic-form__error'
+    required_css_class = 'basic-form__required'
+
     class Meta:
         model = get_user_model()
         fields = ['first_name', 'last_name']
@@ -25,6 +28,9 @@ class SignupForm(forms.ModelForm):
 
 
 class SecuredropPageForm(forms.ModelForm):
+    error_css_class = 'basic-form__error'
+    required_css_class = 'basic-form__required'
+
     add_owner = forms.EmailField(required=False)
     remove_owners = forms.ModelMultipleChoiceField(queryset=SecuredropOwner.objects.none(), required=False)
     organization_logo = forms.FileField(required=False)
