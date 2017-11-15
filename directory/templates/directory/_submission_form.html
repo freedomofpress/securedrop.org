@@ -1,5 +1,5 @@
 {% load i18n %}
-{% if user.is_authenticated %}
+{% if user.is_verified %}
 	<form action="{{ submit_url }}" method="post" class="basic-form">
 		{% csrf_token %}
 		{{ form.as_p }}
