@@ -7,10 +7,16 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 from accounts.forms import SecuredropPageForm
 
+from django_otp.decorators import otp_required
+
 User = get_user_model()
 
 
-@method_decorator(login_required, name='dispatch')
+# Setting redirect_field_name to None will cancel redirecting, but I
+# think it's necessary here to prevent that redirection from skipping
+# the step where we set the 'allauth_2fa_user_id' field on the session
+# (see MyAccountAdapter).
+@method_decorator(otp_required(redirect_field_name=None), name='dispatch')
 class SecuredropList(ListView):
     model = SecuredropPage
 
