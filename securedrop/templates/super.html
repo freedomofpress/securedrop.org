@@ -1,4 +1,4 @@
-{% load static wagtailmetadata_tags wagtailsettings_tags %}
+{% load static wagtailmetadata_tags wagtailsettings_tags common_tags %}
 {% load render_bundle from webpack_loader %}
 
 <!DOCTYPE html>
@@ -15,9 +15,7 @@
 					{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
 				{% endblock %}
 				{% block site_title_suffix %}
-					{% with self.get_site.site_name as site_name %}
-						{% if site_name %}- {{ site_name }}{% endif %}
-					{% endwith %}
+					- {% get_site_name %}
 				{% endblock %}
 			</title>
 			<meta name="description" content="" />

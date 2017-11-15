@@ -2,6 +2,7 @@ import bleach
 from django import template
 from django.utils.html import mark_safe
 from wagtail.wagtailcore.templatetags.wagtailcore_tags import richtext
+from wagtail.wagtailcore.models import Site
 
 register = template.Library()
 
@@ -43,3 +44,8 @@ def get_attr(obj, attribute):
     if hasattr(obj, attribute):
         return getattr(obj, attribute)
     return False
+
+
+@register.simple_tag
+def get_site_name():
+    return Site.objects.get(is_default_site=True).site_name
