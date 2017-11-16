@@ -19,6 +19,10 @@ def index_wagtail_page(page):
     if page.is_root():
         return
 
+    # We can't index non-routable pages
+    if page.full_url is None:
+        return
+
     # Get search content from page instance
     search_content = page.get_search_content() if hasattr(page, 'get_search_content') else ''
 
