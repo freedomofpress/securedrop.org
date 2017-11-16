@@ -71,6 +71,10 @@ $table-margin: 1rem
 	.instance-table__grade--#{$name}
 		background-color: $color
 
+@each $name, $color in $text-colors
+	.instance-table__grade--#{$name}
+		color: $color
+
 .instance-table__link
 	+link--no-underline($color-hover: $link-color)
 
