@@ -26,7 +26,7 @@
 			<li><a href="{% url 'two-factor-setup' %}">{% trans "Manage Two-Factor Authentication" %}</a></li>
 		</ul>
 	</nav>
-	<h2>Edit instances</h2>
+	<h2>{% trans "Edit instances" %}</h2>
 	<ul class="dashboard__list">
 		{% for instance in object_list %}
 			<li><a href="{% url 'securedrop_detail' instance.slug %}">{{ instance.title }}</a></li>
