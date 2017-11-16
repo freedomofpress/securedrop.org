@@ -1,12 +1,15 @@
-from landing_page_checker.models import SecuredropPage
 from django.views.generic import ListView, UpdateView
 from django.utils.decorators import method_decorator
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
-from accounts.forms import SecuredropPageForm
 
 from django_otp.decorators import otp_required
+
+from accounts.forms import SecuredropPageForm
+from directory.models import DirectoryPage, SCAN_URL
+from landing_page_checker.models import SecuredropPage
+
 
 User = get_user_model()
 
@@ -22,6 +25,16 @@ class SecuredropList(ListView):
     def get_queryset(self, **kwargs):
         queryset = super(SecuredropList, self).get_queryset(**kwargs)
         return queryset.filter(owners__owner=self.request.user)
+
+    def get_context_data(self, **kwargs):
+        context = super(SecuredropList, self).get_context_data(**kwargs)
+        context['create_link'] = self.get_create_link()
+        return context
+
+    def get_create_link(self):
+        # This assumes that there is only one directory
+        directory = DirectoryPage.objects.first()
+        return "{}{}".format(directory.url, SCAN_URL)
 
 
 @method_decorator(otp_required, name='dispatch')
