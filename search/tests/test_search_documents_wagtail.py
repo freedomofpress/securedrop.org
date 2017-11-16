@@ -29,6 +29,19 @@ class WagtailTestCase(TestCase):
             1
         )
 
+    def test_non_routable_wagtail_page(self):
+        # Wagtail can only route a page if it starts with the same
+        # path as Site.root_page.url, which in the case of this test
+        # is '/', so the non-routable URL should not start with '/'.
+        page = HomePageFactory.build(path='non_root_route')
+        index_wagtail_page(page)
+
+        # Document should not be created nor errors raised
+        self.assertEqual(
+            SearchDocument.objects.filter(key=KEY_FORMAT.format(page.pk)).count(),
+            0
+        )
+
     def test_index_wagtail_page_signal(self):
         page = self.page
         page.save_revision()
