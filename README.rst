@@ -20,6 +20,7 @@ Table of Contents
 * `Search`_
    * `Wagtail`_
    * `Documentation`_
+   * `Discourse`_
 
 
 Prerequisites
