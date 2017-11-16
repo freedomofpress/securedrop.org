@@ -7,6 +7,7 @@ try:
 except ImportError:
     from django.utils.encoding import force_unicode as force_text
 
+
 class MyAccountAdapter(DefaultAccountAdapter):
 
     def get_login_redirect_url(self, request):
