@@ -1,7 +1,9 @@
+import itertools
 from unittest import mock
 from unittest.mock import DEFAULT
 
 from django.test import TestCase, override_settings
+from django.utils.html import strip_tags
 
 from search.models import SearchDocument
 from search.utils.discourse import index_all_topics
@@ -45,15 +47,26 @@ class IndexTopicsTestCase(TestCase):
         self.document = SearchDocument.objects.get(key='discourse-topic-0')
 
     def test_created_document_title_should_be_post_title(self):
-        self.assertEqual(self.document.title, 'Example post title')
+        self.assertEqual(self.document.title, TOPIC_DETAILS['title'])
 
     def test_created_document_type_should_be_forum(self):
         self.assertEqual(self.document.result_type, 'F')
 
     def test_created_document_content_should_be_stripped_posts(self):
+        list_of_fields = [
+            [
+                post['name'],
+                post['username'],
+                strip_tags(post['cooked'])
+            ] for post in TOPIC_DETAILS['post_stream']['posts']
+        ]
+
         self.assertEqual(
             self.document.search_content,
-            'Example post title\nPerson 1\nusername1\nfirst content\nPerson 2\nusername2\nsecond content'
+            TOPIC_DETAILS['title'] + '\n' +
+            '\n'.join(
+                itertools.chain(*list_of_fields)
+            )
         )
 
     def test_created_document_has_correct_url(self):
