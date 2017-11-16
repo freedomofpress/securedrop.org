@@ -1,7 +1,15 @@
 $grade-colors: (
 	A: $green,
-	B: $yellow,
-	C: $yellow,
-	D: $yellow,
+	B: $yellow--grade,
+	C: $yellow--grade,
+	D: $yellow--grade,
 	F: $red,
-)
+);
+
+$text-colors: (
+	A: $white,
+	B: $gray80--text,
+	C: $gray80--text,
+	D: $gray80--text,
+	F: $white,
+);
