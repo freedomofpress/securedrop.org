@@ -217,7 +217,6 @@ They should not be run in production as many of them create fake data.
       ``DirectoryPage``, ``BlogIndexPage``, and ``MarketingIndexPage`` if they
       do not yet exist.
 
-
 Search
 ------
 
@@ -229,3 +228,10 @@ Documentation
 +++++++++++++
 ``update_docs_index``
   Crawl the SecureDrop documentation pages on ``https://docs.securedrop.org/en/stable/`` and update the corresponding `SearchDocument` entries.  Pass ``--rebuild`` to this command to delete existing entries for documentation pages before fetching new data, which is useful if out-of-date information or pages are in the index.  Rebuild is usually the behavior that you will want.  Note that this command depends on a particular arrangement and format of HTML and links on the above 3rd party web URL.  If these change in the future, then the command will potentially fail and report zero or only a few documents indexed.
+
+Discourse
++++++++++
+``update_discourse_index``
+  Crawl the SecureDrop forum pages on ``https://forum.securedrop.club/`` and update the corresponding ``SearchDocument`` entries.  Pass ``--rebuild`` to this command to delete existing entries for documentation pages before fetching new data, which is useful if out-of-date information or pages are in the index.  Rebuild is usually the behavior that you will want.
+
+Note that this command depends on the Discourse API.  If the API changes in the future, then the command will potentially fail and report zero or only a few documents indexed.  It also means we depend on two settings: ``DISCOURSE_HOST`` which should be set to the name of the Discourse server without the protocol (``forum.securedrop.club``) and ``DISCOURSE_API_KEY``, the value of which must be obtained securely from someone who knows it.  For local development, I recommend placing these settings in ``settings/local.py``.

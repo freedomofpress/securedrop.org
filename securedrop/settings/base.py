@@ -254,3 +254,7 @@ ACCOUNT_UNIQUE_EMAIL = True
 SOCIALACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_ADAPTER = 'accounts.users.adapter.MyAccountAdapter'
 ACCOUNT_SIGNUP_FORM_CLASS = 'accounts.forms.SignupForm'
+
+# Discourse API
+DISCOURSE_HOST = os.environ.get('DISCOURSE_HOST', '')
+DISCOURSE_API_KEY = os.environ.get('DISCOURSE_API_KEY', '')
