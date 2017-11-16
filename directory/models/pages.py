@@ -1,5 +1,8 @@
-from django.core.validators import MaxValueValidator
+from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.core.mail import send_mail
+from django.core.urlresolvers import reverse
+from django.core.validators import MaxValueValidator
 from django.db import models
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
@@ -13,6 +16,7 @@ from wagtail.wagtailcore.models import Page
 from wagtail.wagtailimages import get_image_model
 
 from common.models.mixins import MetadataPageMixin
+from common.models.settings import DirectorySettings
 from common.utils import paginate, DEFAULT_PAGE_KEY
 from search.utils import get_search_content_by_fields
 from directory.models import Language, Topic, Country
@@ -282,6 +286,20 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
                 instance.save()
                 result = scanner.scan(instance)
                 result.save()
+
+                directory_settings = DirectorySettings.for_site(request.site)
+                if directory_settings.new_instance_alert_group:
+                    recipient_emails = directory_settings.new_instance_alert_group.user_set.values_list('email', flat=True)
+                    send_mail(
+                        from_email=settings.DEFAULT_FROM_EMAIL,
+                        recipient_list=recipient_emails,
+                        subject='New Securedrop instance on directory',
+                        message='A new Securedrop instance was added to {}. Moderate and approve here: {}{}'.format(
+                            request.site.site_name,
+                            request.site.root_url,
+                            reverse('wagtailadmin_pages:edit', args=(instance.pk,)),
+                        ),
+                    )
 
                 return HttpResponseRedirect('{0}thanks/'.format(self.url))
 

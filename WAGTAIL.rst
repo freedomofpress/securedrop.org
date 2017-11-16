@@ -47,6 +47,8 @@ Directory Settings
 ++++++++++++++++++
 These are settings that are used on the Securedrop instance pages (SecuredropPage) that users and admins can create. The text in these settings will show up on every Securedrop page.
 
+You can also change which user group will receive alerts when securedrop instances are submitted.
+
 Page Settings
 -------------
 In addition to site-wide settings, some pages also have settings that are important to note. These settings can be reached via the ``Settings`` tab on each individual page.
