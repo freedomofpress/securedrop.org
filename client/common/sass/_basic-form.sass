@@ -12,3 +12,12 @@
 .basic-form__submit
 	+button-small
 	+button-solid--blue
+
+.basic-form__required > label::after
+	content: " *"
+	color: $red
+
+ul.errorlist
+	color: $red
+	font-size: 0.9em
+	margin-top: -.5rem
