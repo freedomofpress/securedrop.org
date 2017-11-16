@@ -35,7 +35,7 @@
 		{% endfor %}
 	</ul>
 
-	<a class="dashboard__link" href='/directory/scan'>
-		{% trans 'Create a new instance' %}
+	<a class="dashboard__link" href='{{ create_link }}'>
+		{% trans 'Add an instance' %}{% include "common/chevron-right.svg" with class="dashboard__chevron-right" %}
 	</a>
 {% endblock main %}
