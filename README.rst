@@ -222,16 +222,20 @@ Search
 
 Wagtail
 +++++++
-``get_search_content`` is a method on each page that should return a string of the "searchable content" for that page type. This should generally include HTML-stripped versions of the page body, any tags, anything in the search description field, etc. It's okay for these all to be naively concatenated together. This value is used to provide words to the search engine and is never displayed.
+``get_search_content``
+  Method on each page that should return a string of the "searchable content" for that page type. This should generally include HTML-stripped versions of the page body, any tags, anything in the search description field, etc. It's okay for these all to be naively concatenated together. This value is used to provide words to the search engine and is never displayed.
+
+``update_wagtail_index [--rebuild]``
+  Crawl Wagtail pages and create ``SearchDocument``s for each one. This command should only be run once when the repo is initialized, as thereafter ``SearchDocument``s will be updated via ``get_search_content`` which is run when pages are created, updated, or deleted. Note that if pages are changed outside of the Wagtail interface, their search documents will not be updated and this command will need to be run again. Pass ``--rebuild`` to this command to delete existing entries for Wagtail pages before fetching new data, which is useful if out-of-date information or pages are in the index.
 
 Documentation
 +++++++++++++
-``update_docs_index``
+``update_docs_index [--rebuild]``
   Crawl the SecureDrop documentation pages on ``https://docs.securedrop.org/en/stable/`` and update the corresponding `SearchDocument` entries.  Pass ``--rebuild`` to this command to delete existing entries for documentation pages before fetching new data, which is useful if out-of-date information or pages are in the index.  Rebuild is usually the behavior that you will want.  Note that this command depends on a particular arrangement and format of HTML and links on the above 3rd party web URL.  If these change in the future, then the command will potentially fail and report zero or only a few documents indexed.
 
 Discourse
 +++++++++
-``update_discourse_index``
+``update_discourse_index [--rebuild]``
   Crawl the SecureDrop forum pages on ``https://forum.securedrop.club/`` and update the corresponding ``SearchDocument`` entries.  Pass ``--rebuild`` to this command to delete existing entries for documentation pages before fetching new data, which is useful if out-of-date information or pages are in the index.  Rebuild is usually the behavior that you will want.
 
 Note that this command depends on the Discourse API.  If the API changes in the future, then the command will potentially fail and report zero or only a few documents indexed.  It also means we depend on two settings: ``DISCOURSE_HOST`` which should be set to the name of the Discourse server without the protocol (``forum.securedrop.club``) and ``DISCOURSE_API_KEY``, the value of which must be obtained securely from someone who knows it.  For local development, I recommend placing these settings in ``settings/local.py``.
