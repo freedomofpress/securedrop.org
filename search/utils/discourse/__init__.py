@@ -23,13 +23,8 @@ def index_all_topics():
     results = []
 
     for topic in topics:
-        # TODO: This loop can take a long time. It might be nice to make it a
-        # generator or something that can feed output to the management command
-        # and then stdout so you know it's still going
         topic_details = client.topic(topic['id'])
 
-        # TODO: Maybe separate the following into a separate method that can
-        # index a single topic from a passed-in data dict
         searchable_content = [topic_details['title']]
 
         # TODO: This only gets the most recent 20 posts on the topic, because
