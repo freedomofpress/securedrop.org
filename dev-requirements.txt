@@ -5,6 +5,7 @@
 #    pip-compile --output-file dev-requirements.txt dev-requirements.in
 #
 -e git+https://github.com/freedomofpress/django-logging.git@Remove_Elastic#egg=django-logging-json
+appnope==0.1.0            # via ipython
 asn1crypto==0.22.0
 beautifulsoup4==4.6.0
 bleach==2.0.0
@@ -106,3 +107,4 @@ xlrd==1.1.0
 xlsxwriter==0.9.9
 xlwt==1.3.0
 yarl==0.12.0
+zxcvbn-python==4.4.18
