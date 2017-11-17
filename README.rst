@@ -217,6 +217,10 @@ They should not be run in production as many of them create fake data.
       Creates the main nav menu and links it to the appropriate pages. Creates a
       ``DirectoryPage``, ``BlogIndexPage``, and ``MarketingIndexPage`` if they
       do not yet exist.
+* ``createsearchmenus``
+      Creates default search menus.
+* ``scan``
+      Scan one or all SecureDrop landing pages for security. By default, scans all pages in the directory.
 
 Search
 ------
