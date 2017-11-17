@@ -17,4 +17,6 @@ class ZxcvbnValidator(object):
             warning = result['feedback']['warning']
             suggestions = result['feedback']['suggestions']
             messages = [warning] + suggestions if warning else suggestions
+            if not messages:
+                messages = 'Use a stronger password.'
             raise ValidationError(messages)
