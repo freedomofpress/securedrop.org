@@ -1,14 +1,18 @@
 {% extends "layout/_layout_one_column.html" %}
 {% load i18n wagtailcore_tags %}
 
+{% block site_title %}
+	{% trans "Two-factor authentication backup tokens" %}
+{% endblock %}
+
 {% block page_title %}
-	<h1 class="header__title">
-		{% trans "Two-Factor Authentication Backup Tokens" %}
-	</h1>
 {% endblock %}
 
 {% block main %}
 	<div class="allauth">
+		<h1>
+			{% trans "Two-factor authentication backup tokens" %}
+		</h1>
 		{% if settings.common.TwoFactorAuthSettings.backup_tokens_text %}
 			{{ settings.common.TwoFactorAuthSettings.backup_tokens_text|richtext }}
 		{% endif %}
@@ -17,7 +21,7 @@
 				<li>{{ token.token }}</li>
 
 			{% empty %}
-				{% trans 'No tokens. Press the button below to generate some.' %}
+				{% trans 'You have no tokens. Press the button below to generate some.' %}
 
 			{% endfor %}
 		</ul>
@@ -29,6 +33,6 @@
 			</button>
 		</form>
 		<br>
-		<a href="{% url 'two-factor-remove' %}">Disable Two Factor</a>
+		<a href="{% url 'two-factor-remove' %}">Disable two factor</a>
 	</div>
 {% endblock %}

@@ -1,14 +1,19 @@
 {% extends "layout/_layout_one_column.html" %}
 {% load i18n wagtailcore_tags %}
 
+{% block site_title %}
+	{% trans "Disable two-factor authentication" %}
+{% endblock %}
+
 {% block page_title %}
-	<h1 class="header__title">
-		{% trans "Disable Two-Factor Authentication" %}
-	</h1>
 {% endblock %}
 
 {% block main %}
 	<div class="allauth">
+		<h1>
+			{% trans "Disable two-factor authentication" %}
+		</h1>
+
 		{% if settings.common.TwoFactorAuthSettings.remove_text %}
 			{{ settings.common.TwoFactorAuthSettings.remove_text|richtext }}
 		{% endif %}
@@ -18,7 +23,7 @@
 		<form method="post">
 			{% csrf_token %}
 			<button type="submit">
-				{% trans 'Disable Two-Factor' %}
+				{% trans 'Disable two-factor' %}
 			</button>
 		</form>
 	</div>
