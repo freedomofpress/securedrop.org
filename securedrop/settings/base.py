@@ -256,6 +256,11 @@ AUTHENTICATION_BACKENDS = (
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 )
+AUTH_PASSWORD_VALIDATORS = (
+    {
+        'NAME': 'accounts.password_validation.ZxcvbnValidator',
+    },
+)
 
 WAGTAIL_FRONTEND_LOGIN_URL = '/accounts/login/'
 SITE_ID = 1
