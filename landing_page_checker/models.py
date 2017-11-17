@@ -52,6 +52,16 @@ class SecuredropPage(MetadataPageMixin, Page):
         on_delete=models.SET_NULL,
         related_name='+',
     )
+
+    organization_logo_homepage = models.ForeignKey(
+        'common.CustomImage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        help_text='Optional second logo optimized to show up on dark backgrounds. For instances that are featured on the homepage.'
+    )
+
     organization_description = models.CharField(max_length=95, blank=True, null=True, help_text="A micro description of your organization that will be displayed in the directory.")
 
     languages = ParentalManyToManyField(
@@ -81,6 +91,7 @@ class SecuredropPage(MetadataPageMixin, Page):
         FieldPanel('onion_address'),
         FieldPanel('organization_description'),
         ImageChooserPanel('organization_logo'),
+        ImageChooserPanel('organization_logo_homepage'),
         AutocompleteFieldPanel('languages', 'directory.Language'),
         AutocompleteFieldPanel('countries', 'directory.Country'),
         AutocompleteFieldPanel('topics', 'directory.Topic'),
