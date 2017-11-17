@@ -25,6 +25,8 @@ urlpatterns = [
     url(r'^search/$', search_views.search, name='search'),
 
     url(r'^github/', include('github.urls')),
+    # Include the allauth and 2FA urls from their respective packages.
+    url(r'^accounts/', include('allauth_2fa.urls')),
     url(r'^accounts/', include('allauth.urls')),
     url(r'', include(account_urls)),
     url(r'^500/$', TemplateView.as_view(template_name="500.html")),

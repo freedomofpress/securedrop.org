@@ -78,6 +78,14 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
 
     'build',
+
+    # Configure the django-otp package.
+    'django_otp',
+    'django_otp.plugins.otp_totp',
+    'django_otp.plugins.otp_static',
+
+    # Enable two-factor auth.
+    'allauth_2fa',
 ]
 
 MIDDLEWARE = [
@@ -92,6 +100,15 @@ MIDDLEWARE = [
 
     'wagtail.wagtailcore.middleware.SiteMiddleware',
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
+
+    # Configure the django-otp package. Note this must be after the
+    # AuthenticationMiddleware.
+    'django_otp.middleware.OTPMiddleware',
+
+    # Reset login flow middleware. If this middleware is included, the login
+    # flow is reset if another page is loaded between login and successfully
+    # entering two-factor credentials.
+    'allauth_2fa.middleware.AllauthTwoFactorMiddleware',
 ]
 
 ROOT_URLCONF = 'securedrop.urls'

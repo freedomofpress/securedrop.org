@@ -1,11 +1,15 @@
+from time import time
 from unittest import mock
 import os
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.core import mail
+from django.core.urlresolvers import reverse_lazy
 from django.test import TestCase
 from wagtail.wagtailcore.models import Site
+from allauth.account.models import EmailAddress
+from django_otp.plugins.otp_totp.models import TOTPDevice
 
 from common.models.settings import DirectorySettings
 from directory.forms import ScannerForm, DirectoryForm
@@ -55,10 +59,32 @@ class ScanViewTest(TestCase):
 
     @mock.patch('directory.forms.DirectoryForm.as_p', return_value='')
     @mock.patch('directory.models.pages.scanner')
-    def test_authenticated_scan(self, scanner, directory_form_as_p):
+    def test_verified_scan(self, scanner, directory_form_as_p):
         User = get_user_model()
-        user = User.objects.create_user(username='username', email='email@email.com', is_active=True)
-        self.client.force_login(user)
+        email = 'email@email.com'
+        user = User.objects.create_user(username='username', email=email, is_active=True, password='password')
+        EmailAddress.objects.create(user=user, email=email, verified=True)
+        device = TOTPDevice.objects.create(
+            user=user,
+            confirmed=True,
+            key='2a2bbba1092ffdd25a328ad1a0a5f5d61d7aacc4',
+            step=30,
+            t0=int(time() - (30 * 3)),
+            digits=6,
+            tolerance=0,
+            drift=0,
+        )
+
+        self.client.post(
+            reverse_lazy('account_login'),
+            {'login': 'email@email.com', 'password': 'password'},
+        )
+        self.client.post(
+            reverse_lazy('two-factor-authenticate'),
+            # The token below corresponds to the parameters on the
+            # device just created.
+            {'otp_device': device.id, 'otp_token': '154567'},
+        )
         response = self.client.post(
             '{}{}'.format(self.directory.url, SCAN_URL),
             {
@@ -96,11 +122,34 @@ class FormViewTest(TestCase):
             parent=cls.site.root_page,
         )
         User = get_user_model()
-        cls.user = User.objects.create_user(username='username', email='email@email.com', is_active=True)
+        cls.email = 'email@email.com'
+        cls.password = 'password'
+        cls.user = User.objects.create_user(username='username', password=cls.password, email=cls.email, is_active=True)
         cls.recipient_group = Group.objects.create(name='Recipient group')
+        EmailAddress.objects.create(user=cls.user, email=cls.email, verified=True)
+        cls.device = TOTPDevice.objects.create(
+            user=cls.user,
+            confirmed=True,
+            key='2a2bbba1092ffdd25a328ad1a0a5f5d61d7aacc4',
+            step=30,
+            t0=int(time() - (30 * 3)),
+            digits=6,
+            tolerance=0,
+            drift=0,
+        )
 
     def setUp(self):
-        self.client.force_login(self.user)
+        # self.client.force_login(self.user)
+        self.client.post(
+            reverse_lazy('account_login'),
+            {'login': self.email, 'password': self.password},
+        )
+        self.client.post(
+            reverse_lazy('two-factor-authenticate'),
+            # The token below corresponds to the parameters on the
+            # device just created.
+            {'otp_device': self.device.id, 'otp_token': '154567'},
+        )
 
     @mock.patch('directory.models.pages.scanner')
     def test_sends_email(self, scanner):

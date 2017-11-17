@@ -21,3 +21,4 @@ wagtail-factories
 wagtail-metadata
 unittest-xml-reporting
 django-allauth
+django-allauth-2fa

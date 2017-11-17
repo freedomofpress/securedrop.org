@@ -16,10 +16,12 @@ cryptography==1.9
 dataproperty==0.25.6
 decorator==4.1.2          # via ipython, traitlets
 defusedxml==0.5.0
+django-allauth-2fa==0.4.4
 django-allauth==0.33.0
 django-anymail[mailgun]==1.2
 django-debug-toolbar==1.8
 django-modelcluster==3.1
+django-otp==0.4.1.1
 django-recaptcha==1.3.1
 django-settings-export==1.2.1
 django-taggit==0.22.1
@@ -74,6 +76,7 @@ python-dateutil==2.6.1
 python3-openid==3.1.0
 pytz==2017.2
 pyyaml==3.12
+qrcode==5.3
 requests-cache==0.4.13
 requests-oauthlib==0.8.0
 requests==2.18.4
