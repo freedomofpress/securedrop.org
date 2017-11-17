@@ -34,7 +34,9 @@ class SecuredropList(ListView):
     def get_create_link(self):
         # This assumes that there is only one directory
         directory = DirectoryPage.objects.first()
-        return "{}{}".format(directory.url, SCAN_URL)
+        if directory:
+            return "{}{}".format(directory.url, SCAN_URL)
+        return None
 
 
 @method_decorator(otp_required, name='dispatch')
