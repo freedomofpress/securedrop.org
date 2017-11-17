@@ -51,9 +51,9 @@ class DirectoryForm(forms.ModelForm):
     class Meta:
         model = SecuredropPage
         fields = [
+            'title',
             'landing_page_domain',
             'organization_description',
-            'title',
             'onion_address',
         ]
         labels = {
