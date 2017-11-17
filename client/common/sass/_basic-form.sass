@@ -12,3 +12,19 @@
 .basic-form__submit
 	+button-small
 	+button-solid--blue
+
+.basic-form__required > label::after
+	content: " *"
+	color: $red
+
+.basic-form__error
+	input[type="text"],
+	input[type="number"],
+	input[type="email"],
+	input[type="url"],
+	input[type="password"],
+	textarea
+		border-color: $red
+
+	& + .g-recaptcha
+		margin-top: -1rem
