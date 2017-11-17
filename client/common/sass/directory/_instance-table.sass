@@ -5,16 +5,17 @@ $table-margin: 1rem
 	border-collapse: collapse
 	margin: 0 -1*$table-margin $layout-padding
 
-.instance-table__title, .instance-table__icon, .instance-table__org, .instance-table__grade-column
+.instance-table__title, .instance-table__icon-column, .instance-table__org, .instance-table__grade-column
 	padding: $table-margin
 
-.instance-table__icon
+.instance-table__icon-column
 	border-top-left-radius: $button-border-radius
 	border-bottom-left-radius: $button-border-radius
 	padding-right: 0
 
-.instance-table__hexagon
+.instance-table__icon
 	width: 6rem
+	max-width: 6rem
 	+media-breakpoint-down(extra-small)
 		width: 4rem
 
