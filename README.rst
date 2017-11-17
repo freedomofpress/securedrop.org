@@ -208,17 +208,19 @@ They should not be run in production as many of them create fake data.
     Creates a blog index page and the indicated number of posts.
 * ``createdirectory <number_of_instances>``
       Creates a directory page and theindicated number of SecureDrop instances.
-* ``createresultgroups``
+* ``createresultgroups [--delete]``
       Creates the initial text for the scan results shown
-  on the details page of a securedrop instance.
+      on the details page of a securedrop instance. The ``delete`` flag
+      removes current result groups and result states.
 * ``createfootersettings``
       Creates the initial default text, menus, and buttons for the footer.
-* ``createnavmenu``
+* ``createnavmenu [--delete]``
       Creates the main nav menu and links it to the appropriate pages. Creates a
       ``DirectoryPage``, ``BlogIndexPage``, and ``MarketingIndexPage`` if they
-      do not yet exist.
-* ``createsearchmenus``
-      Creates default search menus.
+      do not yet exist. The ``delete`` flag destroys the existing nav menu.
+* ``createsearchmenus [--delete]``
+      Creates default search menus. The ``delete`` flag destroys any
+      existing search menus.
 * ``scan``
       Scan one or all SecureDrop landing pages for security. By default, scans all pages in the directory.
 
