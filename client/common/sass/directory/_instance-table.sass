@@ -12,6 +12,7 @@ $table-margin: 1rem
 	border-top-left-radius: $button-border-radius
 	border-bottom-left-radius: $button-border-radius
 	padding-right: 0
+	vertical-align: top
 
 .instance-table__icon
 	width: 6rem
@@ -46,6 +47,11 @@ $table-margin: 1rem
 	margin-bottom: 0.3rem
 	font-size: 2rem
 	line-height: 1
+
+	+media-breakpoint-down(tiny)
+		font-size: $h3
+		font-weight: $sans-bold
+		margin-bottom: 0.5rem
 
 .instance-table__chevron
 	fill: $black
