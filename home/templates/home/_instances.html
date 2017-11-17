@@ -1,8 +1,8 @@
 {% load wagtailcore_tags wagtailimages_tags  %}
 {% for highlighted_instance in instances %}
   <div class="instances__item">
-    {% if instance.specific.organization_logo %}
-      {% image instance.specific.organization_logo width-144 class="instances__logo" %}
+    {% if highlighted_instance.instance.organization_logo %}
+      {% image highlighted_instance.instance.organization_logo width-144 class="instances__logo" %}
     {% else %}
       {% include "common/_hexagon.svg" with class="instances__logo instances__logo--hexagon" category_slug="instance-table" %}
     {% endif %}
