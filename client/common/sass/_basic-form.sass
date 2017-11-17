@@ -17,7 +17,20 @@
 	content: " *"
 	color: $red
 
+.basic-form__error
+	input[type="text"],
+	input[type="number"],
+	input[type="email"],
+	input[type="url"],
+	input[type="password"],
+	textarea
+		border-color: $red
+
+	& + .g-recaptcha
+		margin-top: -1rem
+
 ul.errorlist
 	color: $red
 	font-size: 0.9em
-	margin-top: -.5rem
+	margin-top: 0
+	margin-bottom: -0.75rem
