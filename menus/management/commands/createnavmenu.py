@@ -20,7 +20,7 @@ class Command(BaseCommand):
             action='store_true',
             dest='delete',
             default=False,
-            help='Delete homepage and child pages before creating new data.',
+            help='Delete nav menu before creating new data.',
         )
 
     @transaction.atomic
