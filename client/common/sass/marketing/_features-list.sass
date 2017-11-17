@@ -11,6 +11,7 @@ $features-list-item-padding: 1rem
 
 	+media-breakpoint-down(extra-small)
 		flex-direction: column
+		align-items: stretch
 		margin: 0
 
 .features-list__item-wrapper
@@ -23,7 +24,7 @@ $features-list-item-padding: 1rem
 .features-list__item
 	display: flex
 	align-items: center
-	justify-content: space-around
+	justify-content: space-between
 	border-radius: $button-border-radius
 	padding: $features-list-item-padding
 	margin-bottom: $features-list-item-margin
@@ -35,13 +36,26 @@ $features-list-item-padding: 1rem
 	+hover
 		background-color: $gray10
 
+
+.features-list__item-content
+	display: flex
+	align-items: center
+	justify-content: space-around
+
+	+media-breakpoint-down(tiny)
+		flex-direction: column
+		align-items: flex-start
+
 .features-list__item-image
 	width: 6rem
-
 
 .features-list__item-text
 	+p-remove-first-and-last-margin
 	margin-left: 1rem
+
+	+media-breakpoint-down(tiny)
+		margin-left: 0
+		margin-top: 1rem
 
 .features-list__item-heading
 	font-weight: $sans-bold

@@ -24,6 +24,8 @@
 		margin-right: 0
 		margin-bottom: $layout-padding
 		height: 20rem
+	+media-breakpoint-down(tiny)
+		margin-bottom: 2rem
 
 .hero__logo-svg
 	height: auto
@@ -38,6 +40,8 @@
 	margin-bottom: 1.5rem
 	+media-breakpoint-only(small)
 		max-height: 3rem
+	+media-breakpoint-down(tiny)
+		margin-bottom: 1rem
 
 .hero__description-header
 	+media-breakpoint-up(large)
@@ -64,6 +68,8 @@
 	+button-large
 	+button-solid($blue-bright2, $white, $gray10)
 	margin-top: 2rem
+	+media-breakpoint-down(tiny)
+		margin-top: 0
 
 .hero__button-icon
 	+text-chevron--right(large)

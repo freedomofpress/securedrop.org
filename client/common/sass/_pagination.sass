@@ -1,12 +1,16 @@
 .pagination__link--button
 	+button-small
 	+button-solid--gray
+	+media-breakpoint-down(tiny)
+		margin-bottom: 1rem
 
 .pagination__link--previous
-	float: left
+	+media-breakpoint-up(extra-small)
+		float: left
 
 .pagination__link--next
-	float: right
+	+media-breakpoint-up(extra-small)
+		float: right
 
 .pagination__icon--previous
 	+text-chevron--left
