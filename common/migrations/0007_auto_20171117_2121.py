@@ -18,6 +18,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('common', '0006_merge_20171117_1652'),
+        ('sites', '__latest__'),
     ]
 
     operations = [
