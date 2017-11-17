@@ -1,7 +1,11 @@
+from time import time
+
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse_lazy
 
+from allauth.account.models import EmailAddress
+from django_otp.plugins.otp_totp.models import TOTPDevice
 from wagtail.wagtailcore.models import Site
 
 from directory.models import SCAN_URL
@@ -19,8 +23,31 @@ class ScanViewTest(TestCase):
 
     def test_create_url(self):
         User = get_user_model()
-        user = User.objects.create_user(username='username', email='email@email.com', is_active=True)
-        self.client.force_login(user)
+        name = 'username'
+        email = 'email@email.com'
+        password = 'whatever'
+        user = User.objects.create_user(username=name, email=email, is_active=True, password=password)
+        EmailAddress.objects.create(user=user, email=email, verified=True)
+        device = TOTPDevice.objects.create(
+            user=user,
+            confirmed=True,
+            key='2a2bbba1092ffdd25a328ad1a0a5f5d61d7aacc4',
+            step=30,
+            t0=int(time() - (30 * 3)),
+            digits=6,
+            tolerance=0,
+            drift=0,
+        )
+        self.client.post(
+            reverse_lazy('account_login'),
+            {'login': email, 'password': password},
+        )
+        self.client.post(
+            reverse_lazy('two-factor-authenticate'),
+            # The token below corresponds to the parameters on the
+            # device just created.
+            {'otp_device': device.id, 'otp_token': '154567'},
+        )
         response = self.client.get(reverse_lazy('dashboard'))
         expected_create_url = '{}{}'.format(self.directory.url, SCAN_URL)
         self.assertEqual(
