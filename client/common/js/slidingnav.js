@@ -22,11 +22,13 @@ class SlidingNav {
 			navEl.classList.add('sliding-nav--is-active')
 			triggerEl.classList.add('is-active')
 			overlayEl.classList.add('shade--is-active')
+			window.addEventListener('resize', this.toggleSlide)
 		} else {
 			document.body.classList.remove('no-scroll')
 			navEl.classList.remove('sliding-nav--is-active')
 			triggerEl.classList.remove('is-active')
 			overlayEl.classList.remove('shade--is-active')
+			window.removeEventListener('resize', this.toggleSlide)
 		}
 	}
 }
