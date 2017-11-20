@@ -60,14 +60,6 @@ class SecuredropPageTest(TestCase):
         )
         self.assertIn(securedrop1.title, securedrop1.__str__())
 
-    def test_returns_latest_live_result(self):
-        sd = SecuredropPageFactory()
-        ResultFactory(live=False, securedrop=sd).save()
-        ResultFactory(live=False, securedrop=sd).save()
-        r3 = ResultFactory(live=True, securedrop=sd)
-        r3.save()
-        self.assertEqual(r3, sd.get_live_result())
-
 
 class ResultTest(TestCase):
     def setUp(self):
@@ -132,7 +124,7 @@ class ResultTest(TestCase):
         result2 = Result(live=True, hsts=False, hsts_max_age=True,
                          securedrop=self.securedrop)
         result2.save()
-        most_recent = self.securedrop.results.latest()
+        most_recent = self.securedrop.get_latest_result()
         self.assertEqual(most_recent.grade, 'C')
 
     def test_result_string_representation(self):

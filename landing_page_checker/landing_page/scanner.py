@@ -47,7 +47,7 @@ def scan(securedrop):
         )
 
     return Result(
-        securedrop=securedrop,
+        landing_page_domain=securedrop.landing_page_domain,
         live=pshtt_results['Live'],
         http_status_200_ok=validate_200_ok(no_redirects_page),
         forces_https=pshtt_results['Strictly Forces HTTPS'],
@@ -87,7 +87,7 @@ def bulk_scan(securedrops):
 
         # Before we save, let's get the most recent scan before saving
         try:
-            prior_result = securedrop.results.latest()
+            prior_result = securedrop.get_latest_result()
         except Result.DoesNotExist:
             current_result.save()
             continue

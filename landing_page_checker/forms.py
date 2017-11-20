@@ -1,4 +1,11 @@
+from landing_page_checker.models import SecuredropPage, SecuredropOwner
+from django.contrib.auth import get_user_model
 from django import forms
+from django.core.exceptions import ValidationError
+from wagtail.wagtailimages import get_image_model
+from django.utils.translation import ugettext_lazy as _
+
+from autocomplete.widgets import Autocomplete
 
 
 class LandingPageForm(forms.Form):
@@ -7,3 +14,139 @@ class LandingPageForm(forms.Form):
         'class': 'form-control input-lg',
         'placeholder': 'https://example.com/securedrop'
     })
+
+
+class SecuredropPageForm(forms.ModelForm):
+    error_css_class = 'basic-form__error'
+    required_css_class = 'basic-form__required'
+
+    add_owner = forms.EmailField(required=False)
+    remove_owners = forms.ModelMultipleChoiceField(queryset=SecuredropOwner.objects.none(), required=False)
+    organization_logo = forms.FileField(required=False)
+
+    def __init__(self, directory_page, user=None, *args, **kwargs):
+        super(SecuredropPageForm, self).__init__(*args, **kwargs)
+
+        self.directory_page = directory_page
+        self.user = user
+
+        if 'remove_owners' in self.fields:
+            owners_qs = self.instance.owners.exclude(owner=user)
+            if owners_qs:
+                self.fields['remove_owners'].queryset = owners_qs
+            else:
+                del self.fields['remove_owners']
+
+    def clean_title(self):
+        data = self.cleaned_data['title']
+
+        pages = SecuredropPage.objects.filter(title=data)
+        if self.instance.pk:
+            pages = pages.exclude(pk=self.instance.pk)
+
+        if pages.exists():
+            raise ValidationError('Securedrop page with this Organization name already exists.')
+
+        return data
+
+    def clean_add_owner(self):
+        User = get_user_model()
+        add_owner_email = self.cleaned_data['add_owner']
+
+        if not add_owner_email:
+            return None
+
+        try:
+            add_owner = User.objects.get(email=add_owner_email)
+        except User.DoesNotExist:
+            raise ValidationError(_("That user does not exist"), code='invalid')
+        return add_owner
+
+    def clean_organization_logo(self):
+        WagtailImage = get_image_model()
+        organization_logo_file = self.cleaned_data['organization_logo']
+
+        if organization_logo_file == self.instance.organization_logo.pk:
+            return self.instance.organization_logo
+
+        if not organization_logo_file:
+            return None
+
+        try:
+            organization_logo = WagtailImage.objects.create(
+                title='{} logo'.format(self.cleaned_data['title']),
+                file=organization_logo_file,
+            )
+        except Exception:
+            raise ValidationError('That image could not be saved')
+
+        return organization_logo
+
+    def save(self, commit=True):
+        # Get the unsaved instance
+        instance = super(SecuredropPageForm, self).save(commit=False)
+
+        instance.live = False
+
+        if self.cleaned_data.get('remove_owners'):
+            self.cleaned_data['remove_owners'].delete()
+
+        if commit:
+            if not instance.pk:
+                self.directory_page.add_child(instance=instance)
+
+            instance.save()
+            self.save_m2m()
+
+            # Add owner
+            new_owner = self.cleaned_data.get('add_owner')
+            if new_owner:
+                SecuredropOwner.objects.create(
+                    owner=new_owner,
+                    page=instance,
+                )
+
+            # Editing user is always an owner
+            if self.user:
+                SecuredropOwner.objects.get_or_create(
+                    owner=self.user,
+                    page=instance,
+                )
+
+        return instance
+
+    class Meta:
+        model = SecuredropPage
+        fields = [
+            'title',
+            'landing_page_domain',
+            'organization_description',
+            'onion_address',
+            'add_owner',
+            'remove_owners',
+            'organization_logo',
+            'languages',
+            'topics',
+            'countries',
+        ]
+        labels = {
+            'onion_address': _('Tor address'),
+            'title': _('Organization name')
+        }
+        widgets = {
+            'languages': type(
+                '_Autocomplete',
+                (Autocomplete,),
+                dict(page_type='directory.Language', can_create=True, is_single=False, api_base='/autocomplete/')
+            ),
+            'topics': type(
+                '_Autocomplete',
+                (Autocomplete,),
+                dict(page_type='directory.Topic', can_create=True, is_single=False, api_base='/autocomplete/')
+            ),
+            'countries': type(
+                '_Autocomplete',
+                (Autocomplete,),
+                dict(page_type='directory.Country', can_create=True, is_single=False, api_base='/autocomplete/')
+            ),
+        }

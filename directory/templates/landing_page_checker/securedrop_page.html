@@ -19,7 +19,7 @@
 		<h1 class="instance-title__header">
 			{{ page.title }}
 			{% if page.editable %}
-				<a href="{% url 'securedrop_detail' page.slug %}" class="instance-title__edit-link">
+				<a href="{% url 'securedroppage_edit' page.pk %}" class="instance-title__edit-link">
 					{% trans "Edit" %} {% include "common/chevron-right.svg" with class="instance-title__chevron" %}
 				</a>
 			{% endif %}

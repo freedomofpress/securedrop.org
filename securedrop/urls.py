@@ -26,9 +26,9 @@ urlpatterns = [
 
     url(r'^github/', include('github.urls')),
     # Include the allauth and 2FA urls from their respective packages.
+    url(r'^accounts/', include(account_urls)),
     url(r'^accounts/', include('allauth_2fa.urls')),
     url(r'^accounts/', include('allauth.urls')),
-    url(r'', include(account_urls)),
     url(r'^500/$', TemplateView.as_view(template_name="500.html")),
     url(r'^404/$', TemplateView.as_view(template_name="404.html")),
     url(r'^403/$', TemplateView.as_view(template_name="403.html")),
