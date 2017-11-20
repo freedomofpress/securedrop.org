@@ -27,10 +27,6 @@ def index_all_topics():
 
         searchable_content = [topic_details['title']]
 
-        # TODO: This only gets the most recent 20 posts on the topic, because
-        # I could not figure out how to do better with the discourse API. If
-        # there's a way to get all of them, update the API with the appropriate
-        # methods and use them here.
         topic_posts = topic_details['post_stream']['posts']
         post_ids = set(topic_details['post_stream']['stream'])
         for post in topic_posts:
