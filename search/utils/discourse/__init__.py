@@ -42,9 +42,14 @@ def index_all_topics():
             ]
 
         if post_ids:
-            remaining_posts = client.posts_for_topic(topic['id'], list(post_ids))
-            print('remaining posts', post_ids)
-            print(remaining_posts)
+            extra_topic_posts = client.posts_for_topic(topic['id'], list(post_ids))
+            remaining_posts = extra_topic_posts['post_stream']['posts']
+            for post in remaining_posts:
+                searchable_content = searchable_content + [
+                    post['name'],
+                    post['username'],
+                    strip_tags(post['cooked']),
+                ]
         # Create or update the document
         document_key = KEY_FORMAT.format(topic['id'])
 
