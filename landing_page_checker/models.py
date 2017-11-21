@@ -109,6 +109,10 @@ class SecuredropPage(MetadataPageMixin, Page):
             self.editable = False
         return super(SecuredropPage, self).serve(request)
 
+    def get_live_result(self):
+        # Used in template to get the latest live result.
+        return self.results.filter(live=True).latest()
+
     def get_search_content(self):
         search_content = get_search_content_by_fields(self, self.search_fields_pgsql)
 
