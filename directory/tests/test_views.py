@@ -89,7 +89,10 @@ class ScanViewTest(TestCase):
                 'g-recaptcha-response': 'PASSED',
             }
         )
-        self.assertIsInstance(response.context['submission_form'], SecuredropPageForm)
+        submission_form = response.context['submission_form']
+        self.assertIsInstance(submission_form, SecuredropPageForm)
+        self.assertNotIn('add_owner', submission_form.fields)
+        self.assertNotIn('remove_owner', submission_form.fields)
         self.assertNotContains(
             response,
             '<a href="/accounts/login/">Log in</a> to add your Securedrop instance to the directory.',

@@ -201,18 +201,10 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
                 )
                 result = scanner.scan(instance)
                 result.save()
-                form_class = modelform_factory(
-                    model=SecuredropPage,
-                    form=SecuredropPageForm,
-                    exclude=[
-                        'add_owner',
-                        'remove_owners',
-                    ],
-                )
                 context = {
                     'landing_page_domain': data['url'],
                     'result': result,
-                    'submission_form': form_class(
+                    'submission_form': SecuredropPageForm(
                         directory_page=self,
                         user=request.user if request.user.is_authenticated else None,
                         initial={

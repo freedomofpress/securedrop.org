@@ -20,8 +20,6 @@ class SecuredropPageForm(forms.ModelForm):
     error_css_class = 'basic-form__error'
     required_css_class = 'basic-form__required'
 
-    add_owner = forms.EmailField(required=False)
-    remove_owners = forms.ModelMultipleChoiceField(queryset=SecuredropOwner.objects.none(), required=False)
     organization_logo = forms.FileField(required=False)
 
     def __init__(self, directory_page, user=None, *args, **kwargs):
@@ -29,13 +27,6 @@ class SecuredropPageForm(forms.ModelForm):
 
         self.directory_page = directory_page
         self.user = user
-
-        if 'remove_owners' in self.fields:
-            owners_qs = self.instance.owners.exclude(owner=user)
-            if owners_qs:
-                self.fields['remove_owners'].queryset = owners_qs
-            else:
-                del self.fields['remove_owners']
 
     def clean_title(self):
         data = self.cleaned_data['title']
@@ -48,19 +39,6 @@ class SecuredropPageForm(forms.ModelForm):
             raise ValidationError('Securedrop page with this Organization name already exists.')
 
         return data
-
-    def clean_add_owner(self):
-        User = get_user_model()
-        add_owner_email = self.cleaned_data['add_owner']
-
-        if not add_owner_email:
-            return None
-
-        try:
-            add_owner = User.objects.get(email=add_owner_email)
-        except User.DoesNotExist:
-            raise ValidationError(_("That user does not exist"), code='invalid')
-        return add_owner
 
     def clean_organization_logo(self):
         WagtailImage = get_image_model()
@@ -88,23 +66,12 @@ class SecuredropPageForm(forms.ModelForm):
 
         instance.live = False
 
-        if self.cleaned_data.get('remove_owners'):
-            self.cleaned_data['remove_owners'].delete()
-
         if commit:
             if not instance.pk:
                 self.directory_page.add_child(instance=instance)
 
             instance.save()
             self.save_m2m()
-
-            # Add owner
-            new_owner = self.cleaned_data.get('add_owner')
-            if new_owner:
-                SecuredropOwner.objects.create(
-                    owner=new_owner,
-                    page=instance,
-                )
 
             # Editing user is always an owner
             if self.user:
@@ -122,8 +89,6 @@ class SecuredropPageForm(forms.ModelForm):
             'landing_page_domain',
             'organization_description',
             'onion_address',
-            'add_owner',
-            'remove_owners',
             'organization_logo',
             'languages',
             'topics',
@@ -150,3 +115,64 @@ class SecuredropPageForm(forms.ModelForm):
                 dict(page_type='directory.Country', can_create=True, is_single=False, api_base='/autocomplete/')
             ),
         }
+
+
+class SecuredropPageOwnerForm(SecuredropPageForm):
+    add_owner = forms.EmailField(required=False)
+    remove_owners = forms.ModelMultipleChoiceField(queryset=SecuredropOwner.objects.none(), required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(SecuredropPageOwnerForm, self).__init__(*args, **kwargs)
+
+        owners_qs = self.instance.owners.all()
+        if self.user:
+            owners_qs = owners_qs.exclude(owner=self.user)
+
+        if owners_qs:
+            self.fields['remove_owners'].queryset = owners_qs
+        else:
+            del self.fields['remove_owners']
+
+    def clean_add_owner(self):
+        User = get_user_model()
+        add_owner_email = self.cleaned_data['add_owner']
+
+        if not add_owner_email:
+            return None
+
+        try:
+            add_owner = User.objects.get(email=add_owner_email)
+        except User.DoesNotExist:
+            raise ValidationError(_("That user does not exist"), code='invalid')
+        return add_owner
+
+    def save(self, commit=True):
+        instance = super(SecuredropPageOwnerForm, self).save(commit)
+
+        if commit:
+            if self.cleaned_data.get('remove_owners'):
+                self.cleaned_data['remove_owners'].delete()
+
+            # Add owner
+            new_owner = self.cleaned_data.get('add_owner')
+            if new_owner:
+                SecuredropOwner.objects.create(
+                    owner=new_owner,
+                    page=instance,
+                )
+
+        return instance
+
+    class Meta(SecuredropPageForm.Meta):
+        fields = [
+            'title',
+            'landing_page_domain',
+            'organization_description',
+            'onion_address',
+            'add_owner',
+            'remove_owners',
+            'organization_logo',
+            'languages',
+            'topics',
+            'countries',
+        ]
