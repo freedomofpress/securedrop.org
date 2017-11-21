@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.core.exceptions import PermissionDenied
 from django.core.mail import send_mail
-from django.db import transaction
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView, UpdateView
@@ -23,7 +22,6 @@ class SecuredropDetailView(DetailView):
     template_name = 'securedrop_detail.html'
 
 
-@method_decorator(transaction.atomic, name='dispatch')
 @method_decorator(otp_required(redirect_field_name=None), name='dispatch')
 class SecuredropEditView(UpdateView):
     template_name = 'landing_page_checker/securedroppage_form.html'
