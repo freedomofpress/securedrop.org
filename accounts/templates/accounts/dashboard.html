@@ -29,7 +29,7 @@
 	<h2>{% trans "Edit instances" %}</h2>
 	<ul class="dashboard__list">
 		{% for instance in object_list %}
-			<li><a href="{% url 'securedroppage_edit' instance.pk %}">{{ instance.title }}</a></li>
+			<li><a href="{% url 'securedroppage_edit' instance.slug %}">{{ instance.title }}</a></li>
 		{% empty %}
 			<li>{% trans "You do not own any Securedrop instances" %}</li>
 		{% endfor %}

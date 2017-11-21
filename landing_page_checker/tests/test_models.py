@@ -129,8 +129,8 @@ class ResultTest(TestCase):
 
     def test_result_string_representation(self):
         result1 = Result(live=True, hsts=True, hsts_max_age=True,
-                         securedrop=self.securedrop)
-        self.assertIn(result1.securedrop.title, result1.__str__())
+                         securedrop=self.securedrop, landing_page_domain=self.securedrop.landing_page_domain)
+        self.assertIn(result1.landing_page_domain, result1.__str__())
 
     def test_is_equal_to_compares_only_scan_attributes__same_result(self):
         """Test is_equal_to does not compare pk, _state, etc."""

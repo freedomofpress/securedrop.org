@@ -33,7 +33,7 @@ class SecuredropEditView(UpdateView):
     def get_object(self):
         self.directory_page = DirectoryPage.objects.first()
 
-        if 'pk' in self.kwargs:
+        if 'slug' in self.kwargs:
             obj = super(SecuredropEditView, self).get_object()
 
             if not obj.owners.filter(owner=self.request.user).exists():

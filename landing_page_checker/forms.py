@@ -66,7 +66,7 @@ class SecuredropPageForm(forms.ModelForm):
         WagtailImage = get_image_model()
         organization_logo_file = self.cleaned_data['organization_logo']
 
-        if organization_logo_file == self.instance.organization_logo.pk:
+        if organization_logo_file == self.instance.organization_logo_id:
             return self.instance.organization_logo
 
         if not organization_logo_file:
