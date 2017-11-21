@@ -2,7 +2,7 @@ from django.core.exceptions import ValidationError
 from django.test import TestCase
 
 from landing_page_checker.models import SecuredropPage, Result
-from landing_page_checker.tests.factories import SecuredropPageFactory, ResultFactory
+from landing_page_checker.tests.factories import SecuredropPageFactory
 
 
 class SecuredropPageTest(TestCase):
@@ -59,6 +59,25 @@ class SecuredropPageTest(TestCase):
             title='Freedom of the Press Foundation',
         )
         self.assertIn(securedrop1.title, securedrop1.__str__())
+
+    def test_save_associates_results(self):
+        landing_page_domain = 'https://www.something.org'
+        result = Result(
+            live=True,
+            hsts=True,
+            hsts_max_age=True,
+            securedrop=None,
+            landing_page_domain=landing_page_domain,
+        )
+        result.save()
+
+        securedrop = SecuredropPageFactory(
+            landing_page_domain=landing_page_domain,
+            onion_address='https://notreal.onion',
+        )
+        securedrop.save()
+        result.refresh_from_db()
+        self.assertEqual(result.securedrop, securedrop)
 
 
 class ResultTest(TestCase):
@@ -119,12 +138,13 @@ class ResultTest(TestCase):
 
     def test_securedrop_can_get_most_recent_scan(self):
         result1 = Result(live=True, hsts=True, hsts_max_age=True,
-                         securedrop=self.securedrop)
+                         securedrop=self.securedrop, landing_page_domain=self.securedrop.landing_page_domain)
         result1.save()
         result2 = Result(live=True, hsts=False, hsts_max_age=True,
-                         securedrop=self.securedrop)
+                         securedrop=self.securedrop, landing_page_domain=self.securedrop.landing_page_domain)
         result2.save()
-        most_recent = self.securedrop.get_latest_result()
+        securedrop = SecuredropPage.objects.get(id=self.securedrop.pk)
+        most_recent = securedrop.results.latest()
         self.assertEqual(most_recent.grade, 'C')
 
     def test_result_string_representation(self):
@@ -144,3 +164,14 @@ class ResultTest(TestCase):
         result1 = Result(live=True, hsts=True, hsts_max_age=True, securedrop=self.securedrop)
         result2 = Result(live=False, securedrop=self.securedrop)
         self.assertFalse(result1.is_equal_to(result2))
+
+    def test_save_associates_results(self):
+        result = Result(
+            live=True,
+            hsts=True,
+            hsts_max_age=True,
+            securedrop=None,
+            landing_page_domain=self.securedrop.landing_page_domain,
+        )
+        result.save()
+        self.assertEqual(result.securedrop, self.securedrop)

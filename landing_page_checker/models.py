@@ -96,7 +96,7 @@ class SecuredropPage(MetadataPageMixin, Page):
         AutocompleteFieldPanel('countries', 'directory.Country'),
         AutocompleteFieldPanel('topics', 'directory.Topic'),
         InlinePanel('owners', label='Owners'),
-        # InlinePanel('results', label='Results'),
+        InlinePanel('results', label='Results'),
     ]
 
     search_fields_pgsql = ['title', 'landing_page_domain', 'onion_address', 'organization_description']
@@ -109,9 +109,6 @@ class SecuredropPage(MetadataPageMixin, Page):
             self.editable = False
         return super(SecuredropPage, self).serve(request)
 
-    def get_latest_result(self):
-        return self.results.latest()
-
     def get_search_content(self):
         search_content = get_search_content_by_fields(self, self.search_fields_pgsql)
 
@@ -120,6 +117,10 @@ class SecuredropPage(MetadataPageMixin, Page):
             search_content += " ".join(titles) + ' '
 
         return search_content
+
+    def save(self, *args, **kwargs):
+        super(SecuredropPage, self).save(*args, **kwargs)
+        self.results = Result.objects.filter(landing_page_domain=self.landing_page_domain)
 
 
 class Result(models.Model):
@@ -132,6 +133,7 @@ class Result(models.Model):
         related_name='results',
         blank=True,
         null=True,
+        on_delete=models.SET_NULL,
     )
     landing_page_domain = models.URLField(
         'Landing page domain name',
@@ -279,4 +281,5 @@ class Result(models.Model):
 
     def save(self, *args, **kwargs):
         self.compute_grade()
+        self.securedrop = SecuredropPage.objects.filter(landing_page_domain=self.landing_page_domain).first()
         super(Result, self).save(*args, **kwargs)
