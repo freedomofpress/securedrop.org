@@ -38,7 +38,7 @@ class SecuredropPageFormTest(TestCase):
                 'title': self.securedrop_page.title,
                 'landing_page_domain': self.securedrop_page.landing_page_domain + 'm',
                 'onion_address': self.securedrop_page.onion_address + 'm.onion',
-                'languages_accepted': 'null',
+                'languages': 'null',
                 'topics': 'null',
                 'countries': 'null',
             },
@@ -57,16 +57,14 @@ class SecuredropPageFormTest(TestCase):
                 'title': self.securedrop_page.title,
                 'landing_page_domain': self.securedrop_page.landing_page_domain + 'm',
                 'onion_address': self.securedrop_page.onion_address + 'm.onion',
-                'languages_accepted': 'null',
+                'languages': 'null',
                 'topics': 'null',
                 'countries': 'null',
             },
             instance=self.securedrop_page,
         )
 
-        self.assertFalse(form.is_valid())
-        self.assertEqual(list(form.errors.keys()), ['title'])
-        self.assertEqual(list(form.errors['title']), ['Securedrop page with this Organization name already exists.'])
+        self.assertTrue(form.is_valid())
 
     def test_validate_unique_title__valid__different_instance(self):
         # A form without a duplicate title should validate fine.
@@ -76,7 +74,7 @@ class SecuredropPageFormTest(TestCase):
                 'title': self.securedrop_page.title + 'm',
                 'landing_page_domain': self.securedrop_page.landing_page_domain + 'm',
                 'onion_address': self.securedrop_page.onion_address + 'm.onion',
-                'languages_accepted': 'null',
+                'languages': 'null',
                 'topics': 'null',
                 'countries': 'null',
             },

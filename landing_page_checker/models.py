@@ -110,9 +110,7 @@ class SecuredropPage(MetadataPageMixin, Page):
         return super(SecuredropPage, self).serve(request)
 
     def get_latest_result(self):
-        return Result.objects.filter(
-            landing_page_domain=self.landing_page_domain,
-        ).latest()
+        return self.results.latest()
 
     def get_search_content(self):
         search_content = get_search_content_by_fields(self, self.search_fields_pgsql)

@@ -68,12 +68,12 @@ class FormViewTest(TestCase):
                 'title': 'Page title',
                 'landing_page_domain': 'https://domain.com',
                 'onion_address': 'https://domain.com/domain.onion',
-                'languages_accepted': 'null',
+                'languages': 'null',
                 'topics': 'null',
                 'countries': 'null',
             }
         )
-        self.assertRedirects(response, '{}{}'.format(self.directory.url, 'thanks/'))
+        self.assertRedirects(response, reverse('dashboard'))
         self.assertEqual(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].to, [recipient.email])
         self.assertIn('{}/admin/pages/{}/edit/'.format(
@@ -93,7 +93,7 @@ class FormViewTest(TestCase):
                 'title': 'Page title',
                 'landing_page_domain': 'https://domain.com',
                 'onion_address': 'https://domain.com/domain.onion',
-                'languages_accepted': 'null',
+                'languages': 'null',
                 'topics': 'null',
                 'countries': 'null',
             },
@@ -113,7 +113,7 @@ class FormViewTest(TestCase):
                 'title': 'Page title',
                 'landing_page_domain': 'https://domain.com',
                 'onion_address': 'https://domain.com/domain.onion',
-                'languages_accepted': 'null',
+                'languages': 'null',
                 'topics': 'null',
                 'countries': 'null',
             },
