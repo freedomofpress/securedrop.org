@@ -74,6 +74,17 @@ class DiscourseClient(object):
     def topic(self, topic_id):
         return self._get('/t/{}.json'.format(topic_id))
 
+    def posts_for_topic(self, topic_id, post_ids):
+        """Returns the posts for the given IDs within the given topic"""
+        path = '/t/{topic_id}/posts.json?{post_ids}'.format(
+            topic_id=topic_id,
+            post_ids=''.join(
+                'post_ids[]={}&'.format(str(i))
+                for i in post_ids
+            )[:-1]
+        )
+        return self._get(path)
+
     def all_topics(self):
         """
         Convenience method to paginate through all of the latest endpoint to

@@ -22,18 +22,56 @@ TOPIC_DETAILS = {
     'post_stream': {
         'posts': [
             {
+                'id': 1,
                 'name': 'Person 1',
                 'username': 'username1',
                 'cooked': '<p>first content</p>',
             },
             {
+                'id': 2,
                 'name': 'Person 2',
                 'username': 'username2',
                 'cooked': '<p>second content</p>',
             },
         ],
+        'stream': [1, 2],
     },
     'title': 'Example post title',
+}
+
+TOPIC_DETAILS_WITH_EXTRAS = {
+    'post_stream': {
+        'posts': [
+            {
+                'id': 1,
+                'name': 'Person 1',
+                'username': 'username1',
+                'cooked': '<p>first content</p>',
+            },
+            {
+                'id': 2,
+                'name': 'Person 2',
+                'username': 'username2',
+                'cooked': '<p>second content</p>',
+            },
+        ],
+        'stream': [1, 2, 3],
+    },
+    'title': 'Example post title',
+}
+
+EXTRA_TOPIC_POSTS = {
+    'post_stream': {
+        'posts': [
+            {
+                'id': 3,
+                'name': 'Person 3',
+                'username': 'username3',
+                'cooked': '<p>third content</p>',
+            },
+        ],
+        'stream': [1, 2, 3],
+    },
 }
 
 
@@ -78,3 +116,32 @@ class IndexTopicsTestCase(TestCase):
     def test_created_document_has_created_at_metadata(self):
         # the discourse api returns this data as a string
         self.assertEqual(self.document.data['created_at'], '2000-01-01 00:00:00')
+
+
+@override_settings(DISCOURSE_HOST='example.com')
+class IndexTopicsWithExtrasTestCase(TestCase):
+    @mock.patch.multiple(DiscourseClient, all_topics=DEFAULT, topic=DEFAULT, posts_for_topic=DEFAULT)
+    def setUp(self, all_topics, topic, posts_for_topic):
+        all_topics.return_value = TOPICS_RESPONSE
+        topic.return_value = TOPIC_DETAILS_WITH_EXTRAS
+        posts_for_topic.return_value = EXTRA_TOPIC_POSTS
+        index_all_topics()
+        self.document = SearchDocument.objects.get(key='discourse-topic-0')
+
+    def test_created_document_content_should_be_stripped_posts_with_extras(self):
+        posts_plus_extras = TOPIC_DETAILS['post_stream']['posts'] + EXTRA_TOPIC_POSTS['post_stream']['posts']
+        list_of_fields = [
+            [
+                post['name'],
+                post['username'],
+                strip_tags(post['cooked'])
+            ] for post in posts_plus_extras
+        ]
+
+        self.assertEqual(
+            self.document.search_content,
+            TOPIC_DETAILS['title'] + '\n' +
+            '\n'.join(
+                itertools.chain(*list_of_fields)
+            )
+        )
