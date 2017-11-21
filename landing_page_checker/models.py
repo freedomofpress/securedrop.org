@@ -31,13 +31,13 @@ class SecuredropOwner(models.Model):
 
 class SecuredropPage(MetadataPageMixin, Page):
     landing_page_domain = models.URLField(
-        'Landing Page Domain Name',
+        'Landing page domain name',
         max_length=255,
         unique=True
     )
 
     onion_address = models.CharField(
-        'SecureDrop Onion Address',
+        'SecureDrop onion address',
         max_length=255,
         unique=True,
         validators=[RegexValidator(regex=r'\.onion$', message="Enter a valid .onion address.")]
@@ -67,7 +67,7 @@ class SecuredropPage(MetadataPageMixin, Page):
     languages = ParentalManyToManyField(
         'directory.Language',
         blank=True,
-        verbose_name='Languages Accepted',
+        verbose_name='Languages accepted',
         related_name='languages'
     )
 
@@ -81,7 +81,7 @@ class SecuredropPage(MetadataPageMixin, Page):
     topics = ParentalManyToManyField(
         'directory.Topic',
         blank=True,
-        verbose_name='Preferred Topics',
+        verbose_name='Preferred topics',
         related_name='topics'
     )
 
@@ -110,8 +110,8 @@ class SecuredropPage(MetadataPageMixin, Page):
         return super(SecuredropPage, self).serve(request)
 
     def get_live_result(self):
-        # because results are ordered by date, returning the first one should be effective
-        return Result.objects.filter(securedrop=self, live=True).first()
+        # Used in template to get the latest live result.
+        return self.results.filter(live=True).latest()
 
     def get_search_content(self):
         search_content = get_search_content_by_fields(self, self.search_fields_pgsql)
@@ -122,13 +122,28 @@ class SecuredropPage(MetadataPageMixin, Page):
 
         return search_content
 
+    def save(self, *args, **kwargs):
+        super(SecuredropPage, self).save(*args, **kwargs)
+        self.results = Result.objects.filter(landing_page_domain=self.landing_page_domain)
+
 
 class Result(models.Model):
     # This is different from STN's Scan object in that each scan here will not
     # produce a new Result row. If multiple consecutive scans have the same
     # result, then we only insert that result once and set the result_last_seen
     # to the date of the last scan.
-    securedrop = ParentalKey('landing_page_checker.SecuredropPage', related_name='results')
+    securedrop = ParentalKey(
+        'landing_page_checker.SecuredropPage',
+        related_name='results',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
+    landing_page_domain = models.URLField(
+        'Landing page domain name',
+        max_length=255,
+        db_index=True,
+    )
     live = models.BooleanField()
 
     # In order to save a scan result when it is different from the last scan
@@ -226,7 +241,7 @@ class Result(models.Model):
         return self_values_to_compare == other_values_to_compare
 
     def __str__(self):
-        return 'Scan result for {}'.format(self.securedrop.title)
+        return 'Scan result for {}'.format(self.landing_page_domain)
 
     def compute_grade(self):
         if self.live is False:
@@ -269,5 +284,6 @@ class Result(models.Model):
             self.grade = 'A'
 
     def save(self, *args, **kwargs):
-            self.compute_grade()
-            super(Result, self).save(*args, **kwargs)
+        self.compute_grade()
+        self.securedrop = SecuredropPage.objects.filter(landing_page_domain=self.landing_page_domain).first()
+        super(Result, self).save(*args, **kwargs)

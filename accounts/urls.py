@@ -1,10 +1,13 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.conf.urls import url
-from accounts.views import SecuredropList, SecuredropView, UpdateUserForm
+
+from accounts.views import DashboardView, UpdateUserForm
+from landing_page_checker.views import SecuredropEditView
 
 urlpatterns = [
-    url(r'accounts/instances/(?P<slug>[-\w]+)/', SecuredropView.as_view(), name='securedrop_detail'),
-    url(r'accounts/instances', SecuredropList.as_view(), name='dashboard'),
-    url(r'accounts/change_name/(?P<pk>[-\w]+)/', UpdateUserForm.as_view(), name='account_change_name')
+    url(r'^dashboard$', DashboardView.as_view(), name='dashboard'),
+    url(r'^change_name/(?P<pk>[-\w]+)/', UpdateUserForm.as_view(), name='account_change_name'),
+    url(r'^instances/add/$', SecuredropEditView.as_view(), name='securedroppage_add'),
+    url(r'^instances/(?P<slug>[\w-]+)/$', SecuredropEditView.as_view(), name='securedroppage_edit'),
 ]

@@ -62,11 +62,33 @@ class SecuredropPageTest(TestCase):
 
     def test_returns_latest_live_result(self):
         sd = SecuredropPageFactory()
-        ResultFactory(live=False, securedrop=sd).save()
-        ResultFactory(live=False, securedrop=sd).save()
-        r3 = ResultFactory(live=True, securedrop=sd)
+        ResultFactory(live=False, securedrop=sd, landing_page_domain=sd.landing_page_domain).save()
+        ResultFactory(live=False, securedrop=sd, landing_page_domain=sd.landing_page_domain).save()
+        r3 = ResultFactory(live=True, securedrop=sd, landing_page_domain=sd.landing_page_domain)
         r3.save()
+
+        sd = SecuredropPage.objects.get(pk=sd.pk)
+
         self.assertEqual(r3, sd.get_live_result())
+
+    def test_save_associates_results(self):
+        landing_page_domain = 'https://www.something.org'
+        result = Result(
+            live=True,
+            hsts=True,
+            hsts_max_age=True,
+            securedrop=None,
+            landing_page_domain=landing_page_domain,
+        )
+        result.save()
+
+        securedrop = SecuredropPageFactory(
+            landing_page_domain=landing_page_domain,
+            onion_address='https://notreal.onion',
+        )
+        securedrop.save()
+        result.refresh_from_db()
+        self.assertEqual(result.securedrop, securedrop)
 
 
 class ResultTest(TestCase):
@@ -127,18 +149,19 @@ class ResultTest(TestCase):
 
     def test_securedrop_can_get_most_recent_scan(self):
         result1 = Result(live=True, hsts=True, hsts_max_age=True,
-                         securedrop=self.securedrop)
+                         securedrop=self.securedrop, landing_page_domain=self.securedrop.landing_page_domain)
         result1.save()
         result2 = Result(live=True, hsts=False, hsts_max_age=True,
-                         securedrop=self.securedrop)
+                         securedrop=self.securedrop, landing_page_domain=self.securedrop.landing_page_domain)
         result2.save()
-        most_recent = self.securedrop.results.latest()
+        securedrop = SecuredropPage.objects.get(id=self.securedrop.pk)
+        most_recent = securedrop.results.latest()
         self.assertEqual(most_recent.grade, 'C')
 
     def test_result_string_representation(self):
         result1 = Result(live=True, hsts=True, hsts_max_age=True,
-                         securedrop=self.securedrop)
-        self.assertIn(result1.securedrop.title, result1.__str__())
+                         securedrop=self.securedrop, landing_page_domain=self.securedrop.landing_page_domain)
+        self.assertIn(result1.landing_page_domain, result1.__str__())
 
     def test_is_equal_to_compares_only_scan_attributes__same_result(self):
         """Test is_equal_to does not compare pk, _state, etc."""
@@ -152,3 +175,14 @@ class ResultTest(TestCase):
         result1 = Result(live=True, hsts=True, hsts_max_age=True, securedrop=self.securedrop)
         result2 = Result(live=False, securedrop=self.securedrop)
         self.assertFalse(result1.is_equal_to(result2))
+
+    def test_save_associates_results(self):
+        result = Result(
+            live=True,
+            hsts=True,
+            hsts_max_age=True,
+            securedrop=None,
+            landing_page_domain=self.securedrop.landing_page_domain,
+        )
+        result.save()
+        self.assertEqual(result.securedrop, self.securedrop)
