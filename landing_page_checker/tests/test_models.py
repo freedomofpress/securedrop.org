@@ -66,6 +66,9 @@ class SecuredropPageTest(TestCase):
         ResultFactory(live=False, securedrop=sd, landing_page_domain=sd.landing_page_domain).save()
         r3 = ResultFactory(live=True, securedrop=sd, landing_page_domain=sd.landing_page_domain)
         r3.save()
+
+        sd = SecuredropPage.objects.get(pk=sd.pk)
+
         self.assertEqual(r3, sd.get_live_result())
 
     def test_save_associates_results(self):
