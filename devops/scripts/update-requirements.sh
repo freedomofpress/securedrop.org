@@ -7,7 +7,9 @@ if [ ! -f devops/.compile-venv/bin/activate ]; then
 fi
 
 source devops/.compile-venv/bin/activate
-pip install pip-tools
+pip install pip-tools safety
 
 pip-compile --output-file requirements.txt requirements.in
-pip-compile --output-file dev-requirements.txt dev-requirements.in
+pip-compile --output-file dev-requirements.txt dev-requirements.ini
+safety check --full-report -r requirements.txt
+safety check --full-report -r dev-requirements.txt

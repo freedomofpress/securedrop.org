@@ -15,6 +15,12 @@ jobs:
             pip install -r devops/requirements.txt
 
       - run:
+          name: Check Python dependencies for CVEs
+          command: |
+            . ~/.venv/bin/activate
+            make safety
+
+      - run:
           name: Flake8 linting
           command: |
             . ~/.venv/bin/activate
