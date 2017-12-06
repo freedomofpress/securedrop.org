@@ -7,6 +7,7 @@
 -e git+https://github.com/freedomofpress/django-logging.git@Remove_Elastic#egg=django-logging-json
 asn1crypto==0.22.0        # via cryptography
 beautifulsoup4==4.6.0     # via pytablereader, wagtail
+bleach==2.0.0
 certifi==2017.7.27.1      # via requests
 cffi==1.10.0              # via cryptography
 chardet==3.0.4            # via requests
