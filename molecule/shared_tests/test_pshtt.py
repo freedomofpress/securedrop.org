@@ -27,7 +27,7 @@ def test_pshtt_installed(host):
     pshtt_binary = host.file(PSHTT_CLI_PATH)
     assert pshtt_binary.exists
     assert host.check_output(pshtt_binary.path + " --version") \
-        == "v0.0.1"
+        == "0.3.0"
 
 
 @pytest.mark.parametrize('domain', PSHTT_DOMAINS)
