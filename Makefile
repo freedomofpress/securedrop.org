@@ -71,11 +71,11 @@ update-pip-dependencies: ## Uses pip-compile to update requirements.txt
 # be resolved differently.
 	docker run -v "$(DIR):/code" -it quay.io/freedomofpress/ci-python \
 		bash -c 'pip install pip-tools && \
-		pip-compile --generate-hashes --no-header --output-file /code/requirements.txt /code/requirements.in && \
-		pip-compile --generate-hashes --no-header --output-file /code/dev-requirements.txt /code/requirements.in /code/dev-requirements.in'
+		pip-compile --no-header --output-file /code/requirements.txt /code/requirements.in && \
+		pip-compile --no-header --output-file /code/dev-requirements.txt /code/requirements.in /code/dev-requirements.in'
 
 # Update the developer-focused reqs for local dev, testing, and CI.
-	pip-compile --generate-hashes --no-header --output-file devops/requirements.txt devops/requirements.in
+	pip-compile --no-header --output-file devops/requirements.txt devops/requirements.in
 
 .PHONY: flake8
 flake8: ## Runs flake8 against code-base
