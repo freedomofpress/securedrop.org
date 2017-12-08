@@ -63,9 +63,19 @@ dev-save-db: ## Save a snapshot of the database for the current git branch
 dev-restore-db: ## Restore the most recent database snapshot for the current git branch
 	./devops/scripts/restoredb.sh
 
-.PHONY: update-requirements
-update-requirements: ## Update requirements files after a new requirement is added to requirements.in or dev-requirements.in
-	./devops/scripts/update-requirements.sh
+
+.PHONY: update-pip-dependencies
+update-pip-dependencies: ## Uses pip-compile to update requirements.txt
+# It is critical that we run pip-compile via the same Python version
+# that we're generating requirements for, otherwise the versions may
+# be resolved differently.
+	docker run -v "$(DIR):/code" -it quay.io/freedomofpress/ci-python \
+		bash -c 'pip install pip-tools && \
+		pip-compile --no-header --output-file /code/requirements.txt /code/requirements.in && \
+		pip-compile --no-header --output-file /code/dev-requirements.txt /code/requirements.in /code/dev-requirements.in'
+
+# Update the developer-focused reqs for local dev, testing, and CI.
+	pip-compile --no-header --output-file devops/requirements.txt devops/requirements.in
 
 .PHONY: flake8
 flake8: ## Runs flake8 against code-base
