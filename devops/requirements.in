@@ -1,5 +1,4 @@
 ansible>=2.3
-bleach
 docker
 molecule
 pip-tools
