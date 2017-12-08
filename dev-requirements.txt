@@ -5,10 +5,9 @@
 #    pip-compile --output-file dev-requirements.txt dev-requirements.in
 #
 -e git+https://github.com/freedomofpress/django-logging.git@Remove_Elastic#egg=django-logging-json
-appnope==0.1.0            # via ipython
 asn1crypto==0.22.0
 beautifulsoup4==4.6.0
-bleach==2.0.0
+bleach==2.1
 certifi==2017.7.27.1
 cffi==1.10.0
 chardet==3.0.4
@@ -18,7 +17,7 @@ dataproperty==0.25.6
 decorator==4.1.2          # via ipython, traitlets
 defusedxml==0.5.0
 django-allauth-2fa==0.4.4
-django-allauth==0.33.0
+django-allauth==0.34.0
 django-anymail[mailgun]==1.2
 django-debug-toolbar==1.8
 django-modelcluster==3.1
@@ -28,12 +27,12 @@ django-settings-export==1.2.1
 django-taggit==0.22.1
 django-treebeard==4.1.2
 django-webpack-loader==0.5.0
-django==1.11.4
+django==1.11.5
 djangorestframework==3.6.4
 docopt==0.6.2
 dominate==2.3.1
+dparse==0.2.1
 elasticsearch==5.4.0
-enum34==1.1.6
 factory-boy==2.9.2
 faker==0.7.18
 feedparser==5.2.1
@@ -41,7 +40,6 @@ first==2.0.1
 gunicorn==19.7.1
 html5lib==0.999999999
 idna==2.6
-ipaddress==1.0.18
 ipdb==0.10.3
 ipython-genutils==0.2.0   # via traitlets
 ipython==6.2.1            # via ipdb
@@ -55,6 +53,7 @@ multidict==3.1.3
 nassl==0.17.0
 oauthlib==2.0.5
 olefile==0.44
+packaging==16.8
 parso==0.1.0              # via jedi
 path.py==10.4
 pathvalidate==0.16.1
@@ -81,6 +80,7 @@ qrcode==5.3
 requests-cache==0.4.13
 requests-oauthlib==0.8.0
 requests==2.18.4
+safety==1.6.1
 simplegeneric==0.8.1      # via ipython
 simplesqlite==0.15.0
 six==1.10.0
