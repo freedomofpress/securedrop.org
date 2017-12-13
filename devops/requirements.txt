@@ -6,7 +6,6 @@ asn1crypto==0.22.0        # via cryptography
 backports.ssl-match-hostname==3.5.0.1  # via docker
 bcrypt==3.1.3             # via paramiko
 binaryornot==0.4.4        # via cookiecutter
-bleach==2.1.2
 certifi==2017.7.27.1      # via requests
 cffi==1.10.0              # via bcrypt, cryptography, pynacl
 chardet==3.0.4            # via binaryornot, requests
@@ -25,7 +24,6 @@ first==2.0.1              # via pip-tools
 flake8==3.3.0             # via molecule
 future==0.16.0            # via cookiecutter
 git-url-parse==1.0.1      # via python-gilt
-html5lib==1.0.1           # via bleach
 idna==2.6                 # via cryptography, requests
 ipaddress==1.0.18         # via cryptography, docker
 jinja2-time==0.2.0        # via cookiecutter
@@ -59,12 +57,11 @@ pyyaml==3.12              # via ansible, ansible-lint, dparse, molecule, python-
 requests==2.18.4          # via docker, safety
 safety==1.6.1
 sh==1.12.14               # via molecule, python-gilt
-six==1.10.0               # via ansible-lint, bcrypt, bleach, click-completion, cryptography, docker, docker-pycreds, dparse, fasteners, git-url-parse, html5lib, packaging, pip-tools, pynacl, python-dateutil, testinfra, websocket-client
+six==1.10.0               # via ansible-lint, bcrypt, click-completion, cryptography, docker, docker-pycreds, dparse, fasteners, git-url-parse, packaging, pip-tools, pynacl, python-dateutil, testinfra, websocket-client
 tabulate==0.7.7           # via molecule
 testinfra==1.6.3          # via molecule
 tree-format==0.1.1        # via molecule
 urllib3==1.22             # via requests
-webencodings==0.5.1       # via html5lib
 websocket-client==0.44.0  # via docker
 whichcraft==0.4.1         # via cookiecutter
 yamllint==1.8.1           # via molecule
