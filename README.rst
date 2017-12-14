@@ -78,9 +78,22 @@ to populate the database with development data using ``make dev-createdevdata``.
 Updating Requirements
 +++++++++++++++++++++
 
-New requirements should be added to ``requirements.in`` or ``dev-requirements.in``.
-After adding the requirement(s) there, run ``make dev-update-requirements`` to
-properly compile the requirements files.
+New requirements should be added to ``*requirements.in`` files, for use with ``pip-compile``.
+There are three Python requirements files:
+
+* ``requirements.in`` production application dependencies
+* ``dev-requirements.in`` development container additions (e.g. debug toolbar)
+* ``deveops/requirements.in`` local testing and CI requirements (e.g. molecule, safety)
+
+Add the desired dependency to the appropriate ``.in`` file, then run:
+
+.. code:: bash
+
+    make update-pip-dependencies
+
+All requirements files will be regenerated based on compatible versions. Multiple ``.in``
+files can be merged into a single ``.txt`` file, for use with ``pip``. The Makefile
+target handles the merging of multiple files.
 
 Resetting database
 ++++++++++++++++++
