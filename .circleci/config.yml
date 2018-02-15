@@ -19,6 +19,12 @@ jobs:
           command: |
             . ~/.venv/bin/activate
             make safety
+            
+      - run:
+          name: Static code analysis for vulnerabilities
+          command: |
+            . ~/.venv/bin/activate
+            make bandit
 
       - run:
           name: Flake8 linting
