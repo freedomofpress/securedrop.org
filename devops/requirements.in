@@ -1,6 +1,6 @@
-ansible>=2.3
+ansible>=2.4
 bandit
 docker
 molecule
-pip-tools
+pip-tools>=1.11.0
 safety
