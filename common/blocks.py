@@ -101,7 +101,7 @@ class CodeBlock(blocks.StructBlock):
             cssclass=' '.join(css_classes),
             noclasses=False,
         )
-        return mark_safe(highlight(src, lexer, formatter))
+        return mark_safe(highlight(src, lexer, formatter))  # nosec
 
     class Meta:
         icon = 'code'

@@ -17,14 +17,14 @@ class BaseReadOnlyPanel(EditHandler):
 
     def render_as_object(self):
         template = "common/edit_handlers/read_only_object.html"
-        return mark_safe(render_to_string(template, {
+        return mark_safe(render_to_string(template, {  # nosec
             'label': self.label,
             'value': self.get_value(),
         }))
 
     def render_as_field(self):
         template = "common/edit_handlers/read_only_field.html"
-        return mark_safe(render_to_string(template, {
+        return mark_safe(render_to_string(template, {  # nosec
             'label': self.label,
             'value': self.get_value(),
         }))

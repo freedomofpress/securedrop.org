@@ -97,7 +97,7 @@ safety: ## Runs `safety check` to check python dependencies for vulnerabilities
 
 .PHONY: bandit
 bandit: ## Runs `bandit` static code analysis tool for security bugs
-	bandit --recursive . -lll --exclude devops,node_modules,.molecule,.venv
+	bandit --recursive . -ll --exclude devops,node_modules,molecule,.venv
 
 # Explaination of the below shell command should it ever break.
 # 1. Set the field separator to ": ##" and any make targets that might appear between : and ##
