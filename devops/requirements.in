@@ -5,4 +5,4 @@ bandit
 docker<3.0
 molecule
 pip-tools>=1.11.0
-safety
+safety>=1.7.0
