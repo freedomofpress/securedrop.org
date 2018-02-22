@@ -34,6 +34,7 @@ html5lib==0.999999999     # via bleach, wagtail
 idna==2.6                 # via cryptography, requests
 logbook==1.1.0            # via dataproperty, pytablewriter, simplesqlite, tabledata
 lxml==4.1.1
+markdown2==2.3.5
 mbstrdecoder==0.2.2       # via pytablewriter, simplesqlite, typepy
 multidict==3.3.2          # via yarl
 nassl==1.0.1
