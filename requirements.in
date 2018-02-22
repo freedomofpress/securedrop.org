@@ -11,7 +11,6 @@ factory_boy
 feedparser
 gunicorn
 lxml
-pip-tools
 pshtt==0.3.0
 psycopg2
 pygments
