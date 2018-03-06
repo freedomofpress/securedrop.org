@@ -36,3 +36,6 @@ test-results
 
 # developer node image building
 .node_complete
+
+# bandit static anaylis results
+results.txt

@@ -87,12 +87,18 @@ clean: ## clean out local developer assets
 
 .PHONY: safety
 safety: ## Runs `safety check` to check python dependencies for vulnerabilities
+# Using `--stdin` because `-r` was showing inscrutable errors
 	@for req_file in `find . -type f -name '*requirements.txt'`; do \
 		echo "Checking file $$req_file" \
-		&& safety check --full-report -r $$req_file \
+		&& safety check --full-report --stdin < $$req_file \
 		&& echo -e '\n' \
 		|| exit 1; \
 	done
+
+.PHONY: bandit
+bandit: ## Runs `bandit` static code analysis tool for security bugs
+	bandit --recursive . -ll --exclude devops,node_modules,molecule,.venv
+
 # Explaination of the below shell command should it ever break.
 # 1. Set the field separator to ": ##" and any make targets that might appear between : and ##
 # 2. Use sed-like syntax to remove the make targets

@@ -1,9 +1,10 @@
-ansible-lint==3.4.13      # via molecule
-ansible==2.3.2.0
+ansible-lint==3.4.19      # via molecule
+ansible==2.4.3.0
 anyconfig==0.9.1          # via molecule
 arrow==0.10.0             # via jinja2-time
 asn1crypto==0.22.0        # via cryptography
 backports.ssl-match-hostname==3.5.0.1  # via docker
+bandit==1.4.0
 bcrypt==3.1.3             # via paramiko
 binaryornot==0.4.4        # via cookiecutter
 certifi==2017.7.27.1      # via requests
@@ -14,7 +15,7 @@ click==6.7                # via click-completion, cookiecutter, git-url-parse, m
 colorama==0.3.7           # via molecule, python-gilt
 configparser==3.5.0       # via flake8
 cookiecutter==1.5.1       # via molecule
-cryptography==2.0.3       # via paramiko
+cryptography==2.0.3       # via ansible, paramiko
 docker-pycreds==0.2.1     # via docker
 docker==2.5.1
 dparse==0.2.1             # via safety
@@ -24,6 +25,8 @@ first==2.0.1              # via pip-tools
 flake8==3.3.0             # via molecule
 future==0.16.0            # via cookiecutter
 git-url-parse==1.0.1      # via python-gilt
+gitdb2==2.0.3             # via gitpython
+gitpython==2.1.8          # via bandit
 idna==2.6                 # via cryptography, requests
 ipaddress==1.0.18         # via cryptography, docker
 jinja2-time==0.2.0        # via cookiecutter
@@ -31,14 +34,14 @@ jinja2==2.9.6             # via ansible, click-completion, cookiecutter, jinja2-
 markupsafe==1.0           # via jinja2
 marshmallow==2.13.5       # via molecule
 mccabe==0.6.1             # via flake8
-molecule==2.0.4
+molecule==2.8.2
 monotonic==1.3            # via fasteners
 packaging==16.8           # via dparse, safety
 paramiko==2.2.1           # via ansible
 pathspec==0.5.3           # via yamllint
-pbr==3.0.1                # via git-url-parse, molecule, python-gilt
+pbr==3.0.1                # via git-url-parse, molecule, python-gilt, stevedore
 pexpect==4.2.1            # via molecule
-pip-tools==1.9.0
+pip-tools==1.11.0
 poyo==0.4.1               # via cookiecutter
 psutil==5.2.2             # via molecule
 ptyprocess==0.5.2         # via pexpect
@@ -46,21 +49,22 @@ py==1.4.34                # via pytest
 pyasn1==0.3.4             # via paramiko
 pycodestyle==2.3.1        # via flake8
 pycparser==2.18           # via cffi
-pycrypto==2.6.1           # via ansible
 pyflakes==1.5.0           # via flake8
 pynacl==1.1.2             # via paramiko
 pyparsing==2.2.0          # via packaging
 pytest==3.2.2             # via testinfra
 python-dateutil==2.6.1    # via arrow
 python-gilt==1.1.0        # via molecule
-pyyaml==3.12              # via ansible, ansible-lint, dparse, molecule, python-gilt, yamllint
+pyyaml==3.12              # via ansible, ansible-lint, bandit, dparse, molecule, python-gilt, yamllint
 requests==2.18.4          # via docker, safety
-safety==1.6.1
+safety==1.7.0
 sh==1.12.14               # via molecule, python-gilt
-six==1.10.0               # via ansible-lint, bcrypt, click-completion, cryptography, docker, docker-pycreds, dparse, fasteners, git-url-parse, packaging, pip-tools, pynacl, python-dateutil, testinfra, websocket-client
+six==1.10.0               # via ansible-lint, bandit, bcrypt, click-completion, cryptography, docker, docker-pycreds, dparse, fasteners, git-url-parse, packaging, pip-tools, pynacl, python-dateutil, stevedore, testinfra, websocket-client
+smmap2==2.0.3             # via gitdb2
+stevedore==1.28.0         # via bandit
 tabulate==0.7.7           # via molecule
-testinfra==1.6.3          # via molecule
-tree-format==0.1.1        # via molecule
+testinfra==1.7.1          # via molecule
+tree-format==0.1.2        # via molecule
 urllib3==1.22             # via requests
 websocket-client==0.44.0  # via docker
 whichcraft==0.4.1         # via cookiecutter

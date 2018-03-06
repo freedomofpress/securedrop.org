@@ -2,7 +2,7 @@
 -e git+https://github.com/nabla-c0d3/sslyze.git@ef357c2e76b6ba66f23db5fb1f95c7e8a6c13b9d#egg=pshtt-dependency-hell
 bleach
 Django==1.11.5
-django-anymail[mailgun]
+django-anymail[mailgun]>=1.4
 django-modelcluster
 django-recaptcha
 django-settings-export
@@ -11,7 +11,7 @@ factory_boy
 feedparser
 gunicorn
 lxml
-pip-tools
+markdown2>=2.3.5
 pshtt==0.3.0
 psycopg2
 pygments
