@@ -2,12 +2,14 @@ from django.core.validators import MaxValueValidator
 from django.db import models
 from django.shortcuts import render
 from django.urls import reverse
+from django.utils.decorators import method_decorator
 
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
 from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailcore.models import Page
 
+from common.decorators import directory_management_required
 from common.models.mixins import MetadataPageMixin
 from common.utils import paginate, DEFAULT_PAGE_KEY
 from search.utils import get_search_content_by_fields
@@ -188,6 +190,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
         return context
 
     @route(SCAN_URL)
+    @method_decorator(directory_management_required)
     def scan_view(self, request):
         if request.method == 'POST':
             form = ScannerForm(request.POST)

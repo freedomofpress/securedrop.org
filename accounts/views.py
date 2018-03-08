@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 from django_otp.decorators import otp_required
 
+from common.decorators import directory_management_required
 from directory.models import DirectoryPage, SCAN_URL
 from landing_page_checker.models import SecuredropPage
 
@@ -14,6 +15,7 @@ from landing_page_checker.models import SecuredropPage
 # the step where we set the 'allauth_2fa_user_id' field on the session
 # (see MyAccountAdapter).
 @method_decorator(otp_required(redirect_field_name=None), name='dispatch')
+@method_decorator(directory_management_required, name='dispatch')
 class DashboardView(ListView):
     model = SecuredropPage
     template_name = 'accounts/dashboard.html'
@@ -36,6 +38,7 @@ class DashboardView(ListView):
 
 
 @method_decorator(otp_required, name='dispatch')
+@method_decorator(directory_management_required, name='dispatch')
 class UpdateUserForm(UpdateView):
     model = get_user_model()
     template_name = 'accounts/change_name.html'
