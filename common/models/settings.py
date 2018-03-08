@@ -236,11 +236,13 @@ class DirectorySettings(BaseSetting):
 
     panels = [
         FieldPanel('new_instance_alert_group'),
-        FieldPanel('landing_page_link_text'),
-        FieldPanel('compare_onion_address_text'),
-        FieldPanel('grade_text'),
-        FieldPanel('security_warning'),
-        FieldPanel('no_results_text'),
+        MultiFieldPanel([
+            FieldPanel('landing_page_link_text'),
+            FieldPanel('compare_onion_address_text'),
+            FieldPanel('grade_text'),
+            FieldPanel('security_warning'),
+            FieldPanel('no_results_text'),
+        ], 'Messages'),
         MultiFieldPanel([
             FieldPanel('allow_directory_management'),
             FieldPanel('show_scan_results'),
