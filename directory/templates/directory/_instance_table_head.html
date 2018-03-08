@@ -1,0 +1,22 @@
+{% load wagtailcore_tags i18n %}
+
+<thead class="instance-table__head">
+	<tr>
+		<th colspan="3" class="instance-table__title">
+			{% trans "Organization" %}
+		</th>
+		{% if settings.common.DirectorySettings.show_scan_results %}
+			<th class="instance-table__title instance-table__title--security">
+				{% trans "Security" %}
+				{% if page.faq_link %}
+					<a class="instance-table__faq-link" href="{% pageurl page.faq_link %}">
+						{% include "common/question-circle.svg" with class="instance-table__question-circle" %}
+						<div class="sr-only">
+							{% trans "More information about security grades" %)
+						</div>
+					</a>
+				{% endif %}
+			</th>
+		{% endif %}
+	</tr>
+</thead>

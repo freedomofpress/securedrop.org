@@ -1,5 +1,5 @@
 {% extends "layout/_layout_equal_columns.html"%}
-{% load wagtailcore_tags wagtailimages_tags result_tags i18n %}
+{% load wagtailcore_tags wagtailimages_tags wagtailsettings_tags result_tags i18n %}
 {% load render_bundle from webpack_loader %}
 
 {% block header_classes %}
@@ -45,16 +45,21 @@
 {% endblock column_one %}
 
 {% block column_two %}
-	<div class="security_grade">
-		<div class="security_grade__text">{{ settings.common.DirectorySettings.grade_text }}:</div> <div class="security_grade__grade
-		security_grade__grade--{{ page.results.latest.grade }}">{{ page.results.latest.grade }}</div>
-	</div>
-
-	{% result_groups page.get_live_result False settings.common.DirectorySettings.no_results_text %}
-
-	<div class="row">
-		<a href="{% pageurl page.get_parent %}" class="btn btn-sm btn-primary"/>{% trans "Back to SecureDrop Directory" %}</a>
-	</div>
+	{% if settings.common.DirectorySettings.show_scan_results %}
+		<div class="security_grade">
+			<div class="security_grade__text">
+				{{ settings.common.DirectorySettings.grade_text }}:
+			</div>
+			<div class="security_grade__grade security_grade__grade--{{ page.results.latest.grade }}">
+				{{ page.results.latest.grade }}
+			</div>
+		</div>
+		{% result_groups page.get_live_result False settings.common.DirectorySettings.no_results_text %}
+	{% endif %}
+	<a href="{% pageurl page.get_parent %}" class="instance-directory-button"/>
+		{% trans "Back to SecureDrop Directory" %}
+		{% include "common/chevron-right.svg" with class="instance-directory-button__chevron" %}
+	</a>
 {% endblock column_two %}
 
 {% block js %}
