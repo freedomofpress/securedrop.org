@@ -223,13 +223,28 @@ class DirectorySettings(BaseSetting):
         help_text='Text displayed when there are no results for a results group.'
     )
 
+    # Feature flags
+    allow_directory_management = models.BooleanField(
+        default=False,
+        help_text='Allow directory instance submission/management by '
+                  'site visitors'
+    )
+    show_scan_results = models.BooleanField(
+        default=False,
+        help_text='Show directory instance scan results on public site'
+    )
+
     panels = [
         FieldPanel('new_instance_alert_group'),
         FieldPanel('landing_page_link_text'),
         FieldPanel('compare_onion_address_text'),
         FieldPanel('grade_text'),
         FieldPanel('security_warning'),
-        FieldPanel('no_results_text')
+        FieldPanel('no_results_text'),
+        MultiFieldPanel([
+            FieldPanel('allow_directory_management'),
+            FieldPanel('show_scan_results'),
+        ], 'Feature Flags'),
     ]
 
     class Meta:
