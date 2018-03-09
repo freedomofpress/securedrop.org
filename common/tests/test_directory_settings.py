@@ -2,6 +2,7 @@ import re
 
 from bs4 import BeautifulSoup
 
+from django.core.urlresolvers import reverse
 from django.test import TestCase
 
 from wagtail.wagtailcore.models import Site
@@ -96,3 +97,37 @@ class DirectorySettingsTestCase(TestCase):
         scan_links = soup.find_all(href=re.compile(scan_url_re))
 
         self.assertTrue(len(scan_links) > 0)
+
+    def test_management_disabled_causes_404s(self):
+        """
+        Test that all the relevant paths return 404s is directory management is
+        disabled. A test for when directory management is enabled is not
+        included here, since the tests for proper behavior there is included
+        in the apps that define those views.
+        """
+
+        self.directory_settings.allow_directory_management = False
+        self.directory_settings.save()
+
+        self.assertEqual(
+            self.client.get(reverse('dashboard')).status_code,
+            404
+        )
+        self.assertEqual(
+            self.client.get(reverse('securedroppage_add')).status_code,
+            404
+        )
+        self.assertEqual(
+            self.client.get(reverse(
+                'securedroppage_edit',
+                args=[self.securedrop_page.slug]
+            )).status_code,
+            404
+        )
+        self.assertEqual(
+            self.client.get('{}{}'.format(
+                self.directory.url,
+                self.directory.reverse_subpage('scan_view')
+            )).status_code,
+            404
+        )

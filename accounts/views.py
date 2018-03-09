@@ -10,12 +10,12 @@ from directory.models import DirectoryPage, SCAN_URL
 from landing_page_checker.models import SecuredropPage
 
 
+@method_decorator(directory_management_required, name='dispatch')
 # Setting redirect_field_name to None will cancel redirecting, but I
 # think it's necessary here to prevent that redirection from skipping
 # the step where we set the 'allauth_2fa_user_id' field on the session
 # (see MyAccountAdapter).
 @method_decorator(otp_required(redirect_field_name=None), name='dispatch')
-@method_decorator(directory_management_required, name='dispatch')
 class DashboardView(ListView):
     model = SecuredropPage
     template_name = 'accounts/dashboard.html'
@@ -37,8 +37,8 @@ class DashboardView(ListView):
         return None
 
 
-@method_decorator(otp_required, name='dispatch')
 @method_decorator(directory_management_required, name='dispatch')
+@method_decorator(otp_required, name='dispatch')
 class UpdateUserForm(UpdateView):
     model = get_user_model()
     template_name = 'accounts/change_name.html'
