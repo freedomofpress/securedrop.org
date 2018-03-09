@@ -13,6 +13,6 @@ def directory_management_required(func):
         directory_settings = DirectorySettings.for_site(request.site)
         if not directory_settings.allow_directory_management:
             raise Http404
-        func(*args, **kwargs)
+        return func(request, *args, **kwargs)
 
     return inner
