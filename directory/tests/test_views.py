@@ -9,6 +9,10 @@ from wagtail.wagtailcore.models import Site
 from allauth.account.models import EmailAddress
 from django_otp.plugins.otp_totp.models import TOTPDevice
 
+from common.tests.utils import (
+    turn_on_instance_management,
+    turn_on_instance_scanning,
+)
 from directory.forms import ScannerForm
 from directory.models.pages import SCAN_URL
 from directory.tests.factories import DirectoryPageFactory
@@ -18,6 +22,9 @@ from landing_page_checker.forms import SecuredropPageForm
 class ScanViewTest(TestCase):
     @classmethod
     def setUpTestData(cls):
+        turn_on_instance_management()
+        turn_on_instance_scanning()
+
         cls.directory = DirectoryPageFactory(
             parent=Site.objects.get().root_page,
             scanner_form_text='Scanner form',
