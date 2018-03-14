@@ -1,33 +1,33 @@
 from bs4 import BeautifulSoup
-import json
 import requests
 import re
-import subprocess
+
+from typing import Iterable, Dict, TYPE_CHECKING
+
+from pshtt.pshtt import inspect_domains
 
 from django.utils import timezone
 
 from landing_page_checker.models import Result
 
+if TYPE_CHECKING:
+    from landing_page_checker.models import SecuredropPage  # noqa: F401
 
-def clean_url(url):
+
+def url_to_domain(url: str) -> str:
+    # Split off the protocol
     if len(url.split('//')) > 1:
-        return url.split('//')[1]
-    else:
-        return url
+        url = url.split('//')[1]
+    # Split off any subpath
+    url = url.split('/')[0]
+    return url
 
 
-def scan(securedrop):
+def scan(securedrop: 'SecuredropPage') -> None:
     """Scan a single site"""
+    return bulk_scan([securedrop])
 
-    try:
-        pshtt_results = pshtt(securedrop.landing_page_domain)
-    except:  # noqa: E722
-        return Result(
-            securedrop=securedrop,
-            live=pshtt_results['Live'],
-            http_status_200_ok=False,
-        )
-
+def pshtt_data_to_result(securedrop: 'SecuredropPage', pshtt_results: Dict) -> Result:
     try:
         page, soup = request_and_scrape_page(securedrop.landing_page_domain)
 
@@ -81,10 +81,15 @@ def scan(securedrop):
     )
 
 
-def bulk_scan(securedrops):
-    for securedrop in securedrops:
-        current_result = scan(securedrop)
+def bulk_scan(securedrops: Iterable) -> None:
+    domains = [url_to_domain(sd.landing_page_domain) for sd in securedrops]
 
+    # TODO: Running the line of code this way relies on securedrops and
+    # inspect_domains having a consistent order. Can we rely on that?
+    results = zip(securedrops, inspect_domains(domains, {'timeout': 10}))
+
+    for securedrop, result_data in results:
+        current_result = pshtt_data_to_result(securedrop, result_data)
         # Before we save, let's get the most recent scan before saving
         try:
             prior_result = securedrop.results.latest()
@@ -99,28 +104,6 @@ def bulk_scan(securedrops):
         else:
             # Then let's add this new scan result to the database
             current_result.save()
-
-
-def pshtt(url):
-    # Function adapted from Secure The News https://securethe.news
-    domain = clean_url(url).split('/')[0]
-
-    pshtt_cmd = ['pshtt', '--json', '--timeout', '10', domain]
-
-    p = subprocess.Popen(
-        pshtt_cmd,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        universal_newlines=True)
-    stdout, stderr = p.communicate()
-
-    try:
-        pshtt_results = json.loads(stdout)[0]
-    except ValueError:
-        pshtt_results = {}
-        pshtt_results['Live'] = False
-
-    return pshtt_results
 
 
 def request_and_scrape_page(domain, allow_redirects=True):
