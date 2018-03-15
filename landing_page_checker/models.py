@@ -2,10 +2,11 @@ from __future__ import unicode_literals
 
 from django.conf import settings
 from django.db import models
+from django.db.models import Func, F, Value
 from modelcluster.fields import ParentalManyToManyField, ParentalKey
 from django.core.validators import RegexValidator
 
-from wagtail.wagtailcore.models import Page
+from wagtail.wagtailcore.models import Page, PageManager, PageQuerySet
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
@@ -29,7 +30,45 @@ class SecuredropOwner(models.Model):
         return self.owner.email
 
 
+class SecuredropPageQuerySet(PageQuerySet):
+    def with_domain_annotation(self):
+        """
+        Return the queryset with a `domain` field annotated on containing the
+        domain as extracted from the `landing_page_domain` field
+        """
+
+        # Assuming all landing_page_domains include http:// or https:// as a
+        # protocol (as enforced by URLField logic) we can count on the domain
+        # being the third token when splitting on '/'
+        return self.annotate(
+            domain=Func(
+                F('landing_page_domain'),
+                Value('/'),
+                Value(3),
+                function='SPLIT_PART'
+            )
+        )
+
+
+class SecuredropPageManager(PageManager):
+    """
+    This thin manager class is necessary for Wagtail 1.12.
+    (See: https://github.com/wagtail/wagtail/pull/3557) After upgrading past
+    Wagtail 1.13, this can be replaced with the following line of code:
+
+        SecuredropPageManager = PageManager.from_queryset(SecuredropPageQuerySet)
+    """
+
+    def get_queryset(self):
+        return SecuredropPageQuerySet(self.model)
+
+
+SecuredropPageManager = SecuredropPageManager.from_queryset(SecuredropPageQuerySet)
+
+
 class SecuredropPage(MetadataPageMixin, Page):
+    objects = SecuredropPageManager()
+
     landing_page_domain = models.URLField(
         'Landing page domain name',
         max_length=255,
