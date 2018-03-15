@@ -89,6 +89,11 @@ def bulk_scan(securedrops: 'SecuredropPageQuerySet') -> None:
         securedrop = securedrops.get(domain=result_data['Domain'])
         current_result = pshtt_data_to_result(securedrop, result_data)
 
+        # These are usually handled by Result.save, but since we're doing a
+        # bulk save, we need to do them here first
+        current_result.compute_grade()
+        current_result.securedrop = securedrop
+
         # Before we save, let's get the most recent scan before saving
         try:
             prior_result = securedrop.results.latest()
