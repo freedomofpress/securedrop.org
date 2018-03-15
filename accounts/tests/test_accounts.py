@@ -8,12 +8,17 @@ from django.core.urlresolvers import reverse
 from django_otp.plugins.otp_totp.models import TOTPDevice
 from wagtail.wagtailcore.models import Site
 
+from common.tests.utils import turn_on_instance_management
 from directory.tests.factories import DirectoryPageFactory
 from landing_page_checker.tests.factories import SecuredropPageFactory
 from landing_page_checker.models import SecuredropOwner
 
 
 class UnauthenticatedTest(TestCase):
+    @classmethod
+    def setUpTestData(self):
+        turn_on_instance_management()
+
     def setUp(self):
         self.client = Client()
 
@@ -36,6 +41,10 @@ class UnauthenticatedTest(TestCase):
 
 
 class AuthenticatedTest(TestCase):
+    @classmethod
+    def setUpTestData(self):
+        turn_on_instance_management()
+
     def setUp(self):
         User = get_user_model()
         self.client = Client()
@@ -72,6 +81,10 @@ class AuthenticatedTest(TestCase):
 
 
 class VerifiedTest(TestCase):
+    @classmethod
+    def setUpTestData(self):
+        turn_on_instance_management()
+
     def setUp(self):
         User = get_user_model()
         self.client = Client()

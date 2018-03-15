@@ -5,10 +5,12 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 from django_otp.decorators import otp_required
 
+from common.decorators import directory_management_required
 from directory.models import DirectoryPage, SCAN_URL
 from landing_page_checker.models import SecuredropPage
 
 
+@method_decorator(directory_management_required, name='dispatch')
 # Setting redirect_field_name to None will cancel redirecting, but I
 # think it's necessary here to prevent that redirection from skipping
 # the step where we set the 'allauth_2fa_user_id' field on the session
@@ -35,6 +37,7 @@ class DashboardView(ListView):
         return None
 
 
+@method_decorator(directory_management_required, name='dispatch')
 @method_decorator(otp_required, name='dispatch')
 class UpdateUserForm(UpdateView):
     model = get_user_model()

@@ -10,6 +10,10 @@ from wagtail.wagtailcore.models import Site
 from allauth.account.models import EmailAddress
 from django_otp.plugins.otp_totp.models import TOTPDevice
 
+from common.tests.utils import (
+    turn_on_instance_management,
+    turn_on_instance_scanning,
+)
 from common.models.settings import DirectorySettings
 from directory.tests.factories import DirectoryPageFactory
 from landing_page_checker.models import SecuredropPage
@@ -18,6 +22,9 @@ from landing_page_checker.models import SecuredropPage
 class FormViewTest(TestCase):
     @classmethod
     def setUpTestData(cls):
+        turn_on_instance_management()
+        turn_on_instance_scanning()
+
         cls.site = Site.objects.get()
         cls.directory = DirectoryPageFactory(
             parent=cls.site.root_page,
