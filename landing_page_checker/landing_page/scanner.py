@@ -2,17 +2,19 @@ from bs4 import BeautifulSoup
 import requests
 import re
 
-from typing import Iterable, Dict, TYPE_CHECKING
+from typing import Dict, TYPE_CHECKING
 
 from pshtt.pshtt import inspect_domains
 
 from django.utils import timezone
 
 from landing_page_checker.models import Result
-from landing_page_checker.utils import url_to_domain
 
 if TYPE_CHECKING:
-    from landing_page_checker.models import SecuredropPage  # noqa: F401
+    from landing_page_checker.models import (  # noqa: F401
+        SecuredropPage,
+        SecuredropPageQuerySet,
+    )
 
 
 def scan(securedrop: 'SecuredropPage') -> None:
@@ -73,20 +75,25 @@ def pshtt_data_to_result(securedrop: 'SecuredropPage', pshtt_results: Dict) -> R
     )
 
 
-def bulk_scan(securedrops: Iterable) -> None:
-    domains = [url_to_domain(sd.landing_page_domain) for sd in securedrops]
+def bulk_scan(securedrops: 'SecuredropPageQuerySet') -> None:
+    # Ensure that we have the domain annotation present
+    securedrops = securedrops.with_domain_annotation()
+    domains = securedrops.values_list('domain', flat=True)
 
-    # TODO: Running the line of code this way relies on securedrops and
-    # inspect_domains having a consistent order. Can we rely on that?
-    results = zip(securedrops, inspect_domains(domains, {'timeout': 10}))
+    # Send the domains to pshtt. This will trigger HTTP requests for each domain
+    # and can take some time!
+    results = inspect_domains(domains, {'timeout': 10})
 
-    for securedrop, result_data in results:
+    results_to_be_written = []
+    for result_data in results:
+        securedrop = securedrops.get(domain=result_data['Domain'])
         current_result = pshtt_data_to_result(securedrop, result_data)
+
         # Before we save, let's get the most recent scan before saving
         try:
             prior_result = securedrop.results.latest()
         except Result.DoesNotExist:
-            current_result.save()
+            results_to_be_written.append(current_result)
             continue
 
         if prior_result.is_equal_to(current_result):
@@ -95,7 +102,10 @@ def bulk_scan(securedrops: Iterable) -> None:
             prior_result.save()
         else:
             # Then let's add this new scan result to the database
-            current_result.save()
+            results_to_be_written.append(current_result)
+
+    # Write new results to the db in a batch
+    Result.objects.bulk_create(results_to_be_written)
 
 
 def request_and_scrape_page(domain, allow_redirects=True):
