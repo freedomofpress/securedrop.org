@@ -32,11 +32,6 @@ class ScannerTest(TestCase):
         self.assertTrue(result.live)
 
     @vcr.use_cassette(os.path.join(VCR_DIR, 'scrape-securedrop-dot-org.yaml'))
-    def test_clean_url_successfully_strips_off_protocol_identifier(self):
-        url = 'https://securedrop.org'
-        self.assertEqual(scanner.clean_url(url), 'securedrop.org')
-
-    @vcr.use_cassette(os.path.join(VCR_DIR, 'scrape-securedrop-dot-org.yaml'))
     def test_request_gets_page_if_protocol_identifier_present(self):
         url = 'https://securedrop.org'
         page, soup = scanner.request_and_scrape_page(url)
