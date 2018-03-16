@@ -186,3 +186,16 @@ class ResultTest(TestCase):
         )
         result.save()
         self.assertEqual(result.securedrop, self.securedrop)
+
+
+class SecuredropQuerySetTestCase(TestCase):
+    def test_domain_annotation(self):
+        SecuredropPageFactory.create(
+            landing_page_domain="https://securedrop.org/subpath"
+        )
+        securedrop_page_qs = SecuredropPage.objects.with_domain_annotation()
+
+        self.assertEqual(
+            securedrop_page_qs.values_list('domain', flat=True)[0],
+            'securedrop.org'
+        )
