@@ -1,0 +1,23 @@
+[[source]]
+
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+
+[dev-packages]
+
+
+
+[packages]
+
+ansible = "*"
+# Bug with ansible and docker 3.0+
+# https://github.com/ansible/ansible/issues/35612
+docker = "<3.0"
+molecule = "*"
+
+
+[requires]
+
+python_version = "2.7"

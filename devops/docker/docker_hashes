@@ -1,0 +1,2 @@
+export PYTHON2_HASH="sha256:4b5ca81bafcf09fe9f0f64fb67cee46ec296371682b1ff2915cad40ad2326927"
+export PIPENV_VER=11.8.0

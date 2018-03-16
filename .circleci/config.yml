@@ -19,7 +19,7 @@ jobs:
           command: |
             . ~/.venv/bin/activate
             make safety
-            
+
       - run:
           name: Static code analysis for vulnerabilities
           command: |

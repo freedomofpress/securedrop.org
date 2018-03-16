@@ -64,18 +64,18 @@ dev-restore-db: ## Restore the most recent database snapshot for the current git
 	./devops/scripts/restoredb.sh
 
 
-.PHONY: update-pip-dependencies
-update-pip-dependencies: ## Uses pip-compile to update requirements.txt
-# It is critical that we run pip-compile via the same Python version
-# that we're generating requirements for, otherwise the versions may
-# be resolved differently.
-	docker run -v "$(DIR):/code" -it quay.io/freedomofpress/ci-python \
-		bash -c 'pip install pip-tools && \
-		pip-compile --no-header --output-file /code/requirements.txt /code/requirements.in && \
-		pip-compile --no-header --output-file /code/dev-requirements.txt /code/requirements.in /code/dev-requirements.in'
+.PHONY: update-ci-dependencies
+update-ci-dependencies: ## Uses pipenv to update pegged ci reqs
+	./devops/scripts/build-pipenv-py2.sh && \
+	docker run -v "$(DIR)/devops:/code" -w /code -it fpf.local/pip_env:2 \
+		"pipenv lock"
 
-# Update the developer-focused reqs for local dev, testing, and CI.
-	pip-compile --no-header --output-file devops/requirements.txt devops/requirements.in
+.PHONY: update-py-dependencies
+update-py-dependencies: ## Uses pipenv to update pegged python reqs
+	./devops/scripts/build-pipenv-py3.sh && \
+	docker run -v "$(DIR):/code" -w /code -it fpf.local/pip_env:3 \
+		"pipenv lock && pyenv lock -r"
+
 
 .PHONY: flake8
 flake8: ## Runs flake8 against code-base
