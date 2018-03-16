@@ -42,15 +42,3 @@ class ScannerTest(TestCase):
         url = 'securedrop.org'
         page, soup = scanner.request_and_scrape_page(url)
         self.assertIn('SecureDrop Directory', str(page.content))
-
-    @vcr.use_cassette(os.path.join(VCR_DIR, 'pshtt-result-securedrop-dot-org.yaml'))
-    def test_pshtt_command_outputs_formatted_json(self):
-        url = 'securedrop.org'
-        pshtt_results = scanner.pshtt(url)
-        self.assertTrue(pshtt_results['HSTS'])
-
-    @vcr.use_cassette(os.path.join(VCR_DIR, 'pshtt-result-site-not-live.yaml'))
-    def test_pshtt_command___live_is_false__if__site_not_live(self):
-        url = 'www.notarealsiteeeeeeee.com'
-        pshtt_results = scanner.pshtt(url)
-        self.assertFalse(pshtt_results['Live'])
