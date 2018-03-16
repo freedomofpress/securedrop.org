@@ -8,20 +8,14 @@ from pshtt.pshtt import inspect_domains
 
 from django.utils import timezone
 
-from landing_page_checker.models import Result
+from landing_page_checker.models import Result, SecuredropPage
+from landing_page_checker.utils import url_to_domain
 
 if TYPE_CHECKING:
-    from landing_page_checker.models import (  # noqa: F401
-        SecuredropPage,
-        SecuredropPageQuerySet,
-    )
+    from landing_page_checker.models import SecuredropPageQuerySet  # noqa: F401
 
 
-def scan(securedrop: 'SecuredropPage') -> None:
-    """Scan a single site"""
-    return bulk_scan([securedrop])
-
-def pshtt_data_to_result(securedrop: 'SecuredropPage', pshtt_results: Dict) -> Result:
+def pshtt_data_to_result(securedrop: SecuredropPage, pshtt_results: Dict) -> Result:
     try:
         page, soup = request_and_scrape_page(securedrop.landing_page_domain)
 
@@ -75,7 +69,33 @@ def pshtt_data_to_result(securedrop: 'SecuredropPage', pshtt_results: Dict) -> R
     )
 
 
+def scan(securedrop: SecuredropPage, commit=False) -> Result:
+    """
+    Scan a single site. This method accepts a SecuredropPage instance which
+    may or may not be saved to the database. You can optionally pass True form
+    the commit argument, which will save the result to the database. In that
+    case, the passed SecuredropPage *must* already be in the database.
+    """
+
+    securedrop_domain = url_to_domain(securedrop.landing_page_domain)
+    pshtt_results = inspect_domains([securedrop_domain], {'timeout': 10})
+    result = pshtt_data_to_result(securedrop, pshtt_results[0])
+
+    if commit:
+        result.securedrop = securedrop
+        result.save()
+
+    return result
+
+
 def bulk_scan(securedrops: 'SecuredropPageQuerySet') -> None:
+    """
+    This method takes a queryset and scans the securedrop pages. Unlike the
+    scan method that takes a single SecureDrop instance, this method requires
+    a SecuredropPageQueryset of SecureDrop instances that are in the database
+    and always commits the results back to the database.
+    """
+
     # Ensure that we have the domain annotation present
     securedrops = securedrops.with_domain_annotation()
     domains = securedrops.values_list('domain', flat=True)
@@ -110,7 +130,7 @@ def bulk_scan(securedrops: 'SecuredropPageQuerySet') -> None:
             results_to_be_written.append(current_result)
 
     # Write new results to the db in a batch
-    Result.objects.bulk_create(results_to_be_written)
+    return Result.objects.bulk_create(results_to_be_written)
 
 
 def request_and_scrape_page(domain, allow_redirects=True):
