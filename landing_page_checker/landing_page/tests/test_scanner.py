@@ -1,9 +1,14 @@
 import os
+from unittest import mock
 
 from django.test import TestCase
 import vcr
 
 from landing_page_checker.landing_page import scanner
+from landing_page_checker.landing_page.tests.utils import (
+    NON_EXISTENT_URL,
+    requests_get_mock,
+)
 from landing_page_checker.models import SecuredropPage
 
 
@@ -11,11 +16,19 @@ VCR_DIR = os.path.join(os.path.dirname(__file__), 'scans_vcr')
 
 
 class ScannerTest(TestCase):
+    @mock.patch(
+        'landing_page_checker.landing_page.scanner.requests.get',
+        new=requests_get_mock
+    )
+    @mock.patch(
+        'pshtt.pshtt.requests.get',
+        new=requests_get_mock
+    )
     @vcr.use_cassette(os.path.join(VCR_DIR, 'full-scan-site-not-live.yaml'))
     def test_scan_returns_result_if_site_not_live(self):
         securedrop = SecuredropPage(
             title='Freedom of the Press Foundation',
-            landing_page_domain='notarealsite.party',
+            landing_page_domain=NON_EXISTENT_URL,
             onion_address='notreal.onion'
         )
         result = scanner.scan(securedrop)
@@ -25,7 +38,7 @@ class ScannerTest(TestCase):
     def test_scan_returns_result_if_site_live(self):
         securedrop = SecuredropPage(
             title='Freedom of the Press Foundation',
-            landing_page_domain='securedrop.org',
+            landing_page_domain='https://securedrop.org',
             onion_address='notreal.onion'
         )
         result = scanner.scan(securedrop)
