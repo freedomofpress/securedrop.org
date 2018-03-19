@@ -72,7 +72,7 @@ def pshtt_data_to_result(securedrop: SecuredropPage, pshtt_results: Dict) -> Res
 def scan(securedrop: SecuredropPage, commit=False) -> Result:
     """
     Scan a single site. This method accepts a SecuredropPage instance which
-    may or may not be saved to the database. You can optionally pass True form
+    may or may not be saved to the database. You can optionally pass True for
     the commit argument, which will save the result to the database. In that
     case, the passed SecuredropPage *must* already be in the database.
     """
