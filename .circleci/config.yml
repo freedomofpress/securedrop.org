@@ -19,18 +19,16 @@ jobs:
           command: |
             . ~/.venv/bin/activate
             make safety
-            
+
       - run:
           name: Static code analysis for vulnerabilities
           command: |
-            . ~/.venv/bin/activate
             make bandit
 
       - run:
           name: Flake8 linting
           command: |
-            . ~/.venv/bin/activate
-            flake8
+            make flake8
 
       - run:
           name: Ensure Django service stands up
