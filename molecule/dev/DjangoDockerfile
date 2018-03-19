@@ -5,6 +5,7 @@ RUN apt-get update && apt-get install -y gcc libssl-dev paxctl \
 RUN adduser gcorn
 COPY dev-requirements.txt /requirements.txt
 RUN pip install -r /requirements.txt
+RUN paxctl -cm /usr/local/bin/python3.4
 
 EXPOSE 8000
 USER gcorn
