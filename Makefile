@@ -77,9 +77,18 @@ update-pip-dependencies: ## Uses pip-compile to update requirements.txt
 # Update the developer-focused reqs for local dev, testing, and CI.
 	pip-compile --no-header --output-file devops/requirements.txt devops/requirements.in
 
+
 .PHONY: flake8
-flake8: ## Runs flake8 against code-base
-	./devops/scripts/run-command-in-venv.sh flake8
+flake8: ## Runs flake8 linting in Python3 container.
+	@docker run -v $(PWD):/code -w /code --name fpf_www_flake8 --rm \
+		quay.io/freedomofpress/ci-python \
+		bash -c "pip install -q flake8 && flake8"
+
+.PHONY: bandit
+bandit: ## Runs bandit static code analysis in Python3 container.
+	@docker run -v $(PWD):/code -w /code --name fpf_www_flake8 --rm \
+		quay.io/freedomofpress/ci-python \
+		bash -c "pip install -q bandit && bandit --recursive . -ll --exclude devops,node_modules,molecule,.venv"
 
 .PHONY: clean
 clean: ## clean out local developer assets
@@ -94,10 +103,6 @@ safety: ## Runs `safety check` to check python dependencies for vulnerabilities
 		&& echo -e '\n' \
 		|| exit 1; \
 	done
-
-.PHONY: bandit
-bandit: ## Runs `bandit` static code analysis tool for security bugs
-	bandit --recursive . -ll --exclude devops,node_modules,molecule,.venv
 
 # Explaination of the below shell command should it ever break.
 # 1. Set the field separator to ": ##" and any make targets that might appear between : and ##

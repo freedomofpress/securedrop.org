@@ -14,6 +14,6 @@ def get_menu(slug):
             'link_page',
             'link_document',
         )
-    except:  # Pokemon Exception Handling
+    except:  # noqa: E722 Pokemon Exception Handling
         return None
     return items

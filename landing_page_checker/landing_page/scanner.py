@@ -21,7 +21,7 @@ def scan(securedrop):
 
     try:
         pshtt_results = pshtt(securedrop.landing_page_domain)
-    except:
+    except:  # noqa: E722
         return Result(
             securedrop=securedrop,
             live=pshtt_results['Live'],
