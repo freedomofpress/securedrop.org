@@ -102,10 +102,6 @@
 {% endblock main %}
 
 {% block sidebar %}
-	<section class="source-warning">
-		{% include "common/info-circle.svg" with class="source-warning__info-icon" %}
-		<span class="source_warning__text">{{ page.source_warning|richtext }}</span>
-	</section>
 	{% if settings.common.DirectorySettings.allow_directory_management %}
 		<section class="submit-instance">
 			<h2 class="submit-instance__title">

@@ -24,15 +24,52 @@
 				</a>
 			{% endif %}
 		</h1>
-		<a class="instance-title__landing-page" href="{{page.landing_page_domain}}">{{settings.common.DirectorySettings.landing_page_link_text}}{% include "common/chevron-right.svg" with class="instance-title__chevron" %}</a>
-		<div class="instance-title__onion">
-			{{settings.common.DirectorySettings.compare_onion_address_text}} <span class='instance-title__onion-address'>{{page.onion_address}}</span>
-		</div>
 	</div>
 {% endblock top %}
 
 
 {% block column_one %}
+	<div class="instance-instructions">
+
+		<h1 class="instance-instructions__title">{% trans "Planning to submit information?" %}</h1>
+
+		{% blocktrans with organization=page.title onion=page.onion_address %}
+			<p>
+				If you intend to submit information to {{ organization }}’s SecureDrop,
+				we recommend that you compare the .onion address provided on the
+				organization’s landing page to this one
+				<span class="instance-instructions__onion-address">{{ onion }}</span>
+				and verify that the addresses match before continuing.
+				This provides a strong layer of defense against certain types of attacks
+				that might try to trick you into visiting a malicious SecureDrop instance
+				masquerading as a legitimate one.
+			</p>
+			<p>
+				If you encounter a mismatch, please contact us at
+				securedrop@freedom.press (GPG). This could be evidence of an attempted
+				attack, or it could be a simple failure to communicate between an
+				organization running SecureDrop and Freedom of the Press Foundation.
+				In either case, we will investigate the matter and establish a path to
+				resolution.
+			</p>
+		{% endblocktrans %}
+
+		<a href="{{ page.landing_page_domain }}" class="instance-instructions__landing-page-button">
+			<div class="instance-instructions__landing-page-button-text">
+				{% blocktrans with title=page.title %}
+					{{ title }}’s landing page
+				{% endblocktrans %}
+			</div>
+			<div class="instance-instructions__landing-page-button-url">
+				{{ page.landing_page_domain }}
+			</div>
+			{% include "common/chevron-right.svg" with class="instance-instructions__landing-page-button-chevron" %}
+		</a>
+
+	</div>
+{% endblock column_one %}
+
+{% block column_two %}
 	<div class="instance-description">
 		{{ page.organization_description|richtext }}
 	</div>
@@ -42,9 +79,6 @@
 			{{ settings.common.DirectorySettings.security_warning|richtext }}
 		</div>
 	{% endif %}
-{% endblock column_one %}
-
-{% block column_two %}
 	{% if settings.common.DirectorySettings.show_scan_results %}
 		<div class="security_grade">
 			<div class="security_grade__text">
