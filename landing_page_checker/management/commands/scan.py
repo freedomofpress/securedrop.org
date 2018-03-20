@@ -2,6 +2,7 @@ from django.core.management import BaseCommand, CommandError
 
 from landing_page_checker.models import SecuredropPage
 from landing_page_checker.landing_page.scanner import bulk_scan
+from landing_page_checker.utils import url_to_domain
 
 
 class Command(BaseCommand):
@@ -24,28 +25,23 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         if options['securedrops']:
-            securedrops = []
-            for domain_name in options['securedrops']:
-                try:
-                    # Handle full URL
-                    securedrop = SecuredropPage.objects.get(
-                        landing_page_domain=domain_name
-                    )
-                    securedrops.append(securedrop)
-                except SecuredropPage.DoesNotExist:
-                    # Also handle if it's just the domain
-                    try:
-                        securedrop = SecuredropPage.objects.get(
-                            landing_page_domain='https://{}'.format(domain_name)
-                        )
-                        securedrops.append(securedrop)
-                    except SecuredropPage.DoesNotExist:
-                        msg = "Landing page '{}' does not exist".format(
-                            'https://{}'.format(domain_name)
-                        )
-                        raise CommandError(msg)
-        else:
-            securedrops = SecuredropPage.objects.all()
+            requested_domains = [url_to_domain(x) for x in options['securedrops']]
+            securedrop_pages = SecuredropPage.objects.with_domain_annotation()\
+                .filter(domain__in=requested_domains)
 
-        bulk_scan(securedrops)
+            # Check that all the domains provided to the command are in the
+            # database. If they are not, raise an error.
+            retrieved_domains = list(
+                securedrop_pages.values_list('domain', flat=True)
+            )
+            for requested_domain in requested_domains:
+                if requested_domain not in retrieved_domains:
+                    msg = "Landing page '{}' does not exist".format(
+                        'https://{}'.format(requested_domain)
+                    )
+                    raise CommandError(msg)
+        else:
+            securedrop_pages = SecuredropPage.objects.all()
+
+        bulk_scan(securedrop_pages)
         self.stdout.write('Scanning complete! Results added to database.')

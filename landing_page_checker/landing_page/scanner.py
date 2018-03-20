@@ -1,33 +1,26 @@
 from bs4 import BeautifulSoup
-import json
 import requests
 import re
-import subprocess
+
+from typing import Dict, TYPE_CHECKING
+
+from pshtt.pshtt import inspect_domains
 
 from django.utils import timezone
 
-from landing_page_checker.models import Result
+from landing_page_checker.models import Result, SecuredropPage
+from landing_page_checker.utils import url_to_domain
+
+if TYPE_CHECKING:
+    from landing_page_checker.models import SecuredropPageQuerySet  # noqa: F401
 
 
-def clean_url(url):
-    if len(url.split('//')) > 1:
-        return url.split('//')[1]
-    else:
-        return url
-
-
-def scan(securedrop):
-    """Scan a single site"""
-
-    try:
-        pshtt_results = pshtt(securedrop.landing_page_domain)
-    except:  # noqa: E722
-        return Result(
-            securedrop=securedrop,
-            live=pshtt_results['Live'],
-            http_status_200_ok=False,
-        )
-
+def pshtt_data_to_result(securedrop: SecuredropPage, pshtt_results: Dict) -> Result:
+    """
+    Takes a SecuredropPage and a dictionary of pshtt results for that domain,
+    scans the page itself and then combines those results into an unsaved
+    Result object
+    """
     try:
         page, soup = request_and_scrape_page(securedrop.landing_page_domain)
 
@@ -81,15 +74,56 @@ def scan(securedrop):
     )
 
 
-def bulk_scan(securedrops):
-    for securedrop in securedrops:
-        current_result = scan(securedrop)
+def scan(securedrop: SecuredropPage, commit=False) -> Result:
+    """
+    Scan a single site. This method accepts a SecuredropPage instance which
+    may or may not be saved to the database. You can optionally pass True for
+    the commit argument, which will save the result to the database. In that
+    case, the passed SecuredropPage *must* already be in the database.
+    """
+
+    securedrop_domain = url_to_domain(securedrop.landing_page_domain)
+    pshtt_results = inspect_domains([securedrop_domain], {'timeout': 10})
+    result = pshtt_data_to_result(securedrop, pshtt_results[0])
+
+    if commit:
+        result.securedrop = securedrop
+        result.save()
+
+    return result
+
+
+def bulk_scan(securedrops: 'SecuredropPageQuerySet') -> None:
+    """
+    This method takes a queryset and scans the securedrop pages. Unlike the
+    scan method that takes a single SecureDrop instance, this method requires
+    a SecuredropPageQueryset of SecureDrop instances that are in the database
+    and always commits the results back to the database.
+    """
+
+    # Ensure that we have the domain annotation present
+    securedrops = securedrops.with_domain_annotation()
+    domains = securedrops.values_list('domain', flat=True)
+
+    # Send the domains to pshtt. This will trigger HTTP requests for each domain
+    # and can take some time!
+    results = inspect_domains(domains, {'timeout': 10})
+
+    results_to_be_written = []
+    for result_data in results:
+        securedrop = securedrops.get(domain=result_data['Domain'])
+        current_result = pshtt_data_to_result(securedrop, result_data)
+
+        # These are usually handled by Result.save, but since we're doing a
+        # bulk save, we need to do them here first
+        current_result.compute_grade()
+        current_result.securedrop = securedrop
 
         # Before we save, let's get the most recent scan before saving
         try:
             prior_result = securedrop.results.latest()
         except Result.DoesNotExist:
-            current_result.save()
+            results_to_be_written.append(current_result)
             continue
 
         if prior_result.is_equal_to(current_result):
@@ -98,37 +132,19 @@ def bulk_scan(securedrops):
             prior_result.save()
         else:
             # Then let's add this new scan result to the database
-            current_result.save()
+            results_to_be_written.append(current_result)
+
+    # Write new results to the db in a batch
+    return Result.objects.bulk_create(results_to_be_written)
 
 
-def pshtt(url):
-    # Function adapted from Secure The News https://securethe.news
-    domain = clean_url(url).split('/')[0]
-
-    pshtt_cmd = ['pshtt', '--json', '--timeout', '10', domain]
-
-    p = subprocess.Popen(
-        pshtt_cmd,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        universal_newlines=True)
-    stdout, stderr = p.communicate()
-
+def request_and_scrape_page(url, allow_redirects=True):
+    """Scrape and parse the HTML of a page into a BeautifulSoup"""
     try:
-        pshtt_results = json.loads(stdout)[0]
-    except ValueError:
-        pshtt_results = {}
-        pshtt_results['Live'] = False
-
-    return pshtt_results
-
-
-def request_and_scrape_page(domain, allow_redirects=True):
-    try:
-        page = requests.get(domain, allow_redirects=allow_redirects)
+        page = requests.get(url, allow_redirects=allow_redirects)
         soup = BeautifulSoup(page.content, "lxml")
     except requests.exceptions.MissingSchema:
-        page = requests.get('https://{}'.format(domain), allow_redirects=allow_redirects)
+        page = requests.get('https://{}'.format(url), allow_redirects=allow_redirects)
         soup = BeautifulSoup(page.content, "lxml")
 
     return page, soup
