@@ -20,3 +20,9 @@ class ZxcvbnValidator(object):
             if not messages:
                 messages = 'Use a stronger password.'
             raise ValidationError(messages)
+
+    def get_help_text(self):
+        return (
+            'Passwords must be strong. Avoid common passwords, names, '
+            'english words, dates, sequences, and l33t speak.'
+        )
