@@ -16,6 +16,11 @@ if TYPE_CHECKING:
 
 
 def pshtt_data_to_result(securedrop: SecuredropPage, pshtt_results: Dict) -> Result:
+    """
+    Takes a SecuredropPage and a dictionary of pshtt results for that domain,
+    scans the page itself and then combines those results into an unsaved
+    Result object
+    """
     try:
         page, soup = request_and_scrape_page(securedrop.landing_page_domain)
 
@@ -133,12 +138,13 @@ def bulk_scan(securedrops: 'SecuredropPageQuerySet') -> None:
     return Result.objects.bulk_create(results_to_be_written)
 
 
-def request_and_scrape_page(domain, allow_redirects=True):
+def request_and_scrape_page(url, allow_redirects=True):
+    """Scrape and parse the HTML of a page into a BeautifulSoup"""
     try:
-        page = requests.get(domain, allow_redirects=allow_redirects)
+        page = requests.get(url, allow_redirects=allow_redirects)
         soup = BeautifulSoup(page.content, "lxml")
     except requests.exceptions.MissingSchema:
-        page = requests.get('https://{}'.format(domain), allow_redirects=allow_redirects)
+        page = requests.get('https://{}'.format(url), allow_redirects=allow_redirects)
         soup = BeautifulSoup(page.content, "lxml")
 
     return page, soup
