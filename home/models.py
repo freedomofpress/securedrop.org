@@ -129,13 +129,15 @@ class HomepageFeature(Orderable):
     page = ParentalKey('home.HomePage', related_name='features')
     feature = models.ForeignKey(
         'marketing.FeaturePage',
-        related_name='+',
-        unique=True
+        related_name='+'
     )
 
     panels = [
         PageChooserPanel('feature')
     ]
+
+    class Meta:
+        unique_together = (('page', 'feature'),)
 
 
 class HomePageInstances(Orderable):
