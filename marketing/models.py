@@ -115,13 +115,15 @@ class OrderedFeatures(Orderable):
     )
     feature = models.ForeignKey(
         'marketing.FeaturePage',
-        related_name='marketing_order',
-        unique=True
+        related_name='marketing_order'
     )
 
     panels = [
         PageChooserPanel('feature')
     ]
+
+    class Meta:
+        unique_together = (('page', 'feature'),)
 
 
 class FeaturePage(MetadataPageMixin, Page):
