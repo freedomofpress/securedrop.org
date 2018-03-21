@@ -5,6 +5,7 @@ from django.db import models
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
 from wagtail.wagtailcore.fields import RichTextField
+from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 
@@ -195,12 +196,26 @@ class SocialSharingSEOSettings(BaseSetting):
 @register_setting(icon='form')
 class DirectorySettings(BaseSetting):
 
-    # Misc Settings
+    # Contact
     new_instance_alert_group = models.OneToOneField(
         Group,
         blank=True,
         null=True,
         help_text='Users in this group will get an email alert when a new SecureDrop instance is submitted',
+    )
+    contact_email = models.EmailField(
+        default='securedrop@freedom.press',
+        help_text='People should contact this email address about inaccuracies '
+                  'or potential attacks in the directory'
+    )
+    contact_gpg = models.ForeignKey(
+        'wagtaildocs.Document',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name='Contact email GPG',
+        help_text='Public key for email communication'
     )
 
     # Messages
@@ -225,7 +240,6 @@ class DirectorySettings(BaseSetting):
     )
 
     panels = [
-        FieldPanel('new_instance_alert_group'),
         MultiFieldPanel([
             FieldPanel('grade_text'),
             FieldPanel('no_results_text'),
@@ -234,6 +248,11 @@ class DirectorySettings(BaseSetting):
             FieldPanel('allow_directory_management'),
             FieldPanel('show_scan_results'),
         ], 'Feature Flags'),
+        MultiFieldPanel([
+            FieldPanel('new_instance_alert_group'),
+            FieldPanel('contact_email'),
+            DocumentChooserPanel('contact_gpg'),
+        ], 'Contact'),
     ]
 
     class Meta:
