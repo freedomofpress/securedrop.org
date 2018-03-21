@@ -70,15 +70,13 @@
 {% endblock column_one %}
 
 {% block column_two %}
+
 	<div class="instance-description">
 		{{ page.organization_description|richtext }}
 	</div>
+
 	{% include "directory/_tag-list.html" with directory=page.get_parent %}
-	{% if settings.common.DirectorySettings.security_warning %}
-		<div class="security-warning">
-			{{ settings.common.DirectorySettings.security_warning|richtext }}
-		</div>
-	{% endif %}
+
 	{% if settings.common.DirectorySettings.show_scan_results %}
 		<div class="security_grade">
 			<div class="security_grade__text">
@@ -90,10 +88,12 @@
 		</div>
 		{% result_groups page.get_live_result False settings.common.DirectorySettings.no_results_text %}
 	{% endif %}
+
 	<a href="{% pageurl page.get_parent %}" class="instance-directory-button"/>
 		{% trans "Back to SecureDrop Directory" %}
 		{% include "common/chevron-right.svg" with class="instance-directory-button__chevron" %}
 	</a>
+
 {% endblock column_two %}
 
 {% block js %}

@@ -194,29 +194,19 @@ class SocialSharingSEOSettings(BaseSetting):
 
 @register_setting(icon='form')
 class DirectorySettings(BaseSetting):
+
+    # Misc Settings
     new_instance_alert_group = models.OneToOneField(
         Group,
         blank=True,
         null=True,
         help_text='Users in this group will get an email alert when a new SecureDrop instance is submitted',
     )
-    landing_page_link_text = models.CharField(
-        max_length=255,
-        default='Securedrop landing page'
-    )
-    compare_onion_address_text = models.CharField(
-        max_length=255,
-        default='Check this address against the one on the landing page:',
-        help_text='Text displayed immedieately before the onion address.'
-    )
+
+    # Messages
     grade_text = models.CharField(
         max_length=100,
         default='Security Grade'
-    )
-    security_warning = RichTextField(
-        blank=True,
-        null=True,
-        help_text="Warning displayed for sources on instance pages."
     )
     no_results_text = RichTextField(
         default='Results could not be calculated.',
@@ -237,10 +227,7 @@ class DirectorySettings(BaseSetting):
     panels = [
         FieldPanel('new_instance_alert_group'),
         MultiFieldPanel([
-            FieldPanel('landing_page_link_text'),
-            FieldPanel('compare_onion_address_text'),
             FieldPanel('grade_text'),
-            FieldPanel('security_warning'),
             FieldPanel('no_results_text'),
         ], 'Messages'),
         MultiFieldPanel([
