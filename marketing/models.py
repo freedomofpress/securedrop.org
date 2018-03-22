@@ -115,13 +115,15 @@ class OrderedFeatures(Orderable):
     )
     feature = models.ForeignKey(
         'marketing.FeaturePage',
-        related_name='marketing_order',
-        unique=True
+        related_name='marketing_orders'
     )
 
     panels = [
         PageChooserPanel('feature')
     ]
+
+    class Meta:
+        unique_together = (('page', 'feature'),)
 
 
 class FeaturePage(MetadataPageMixin, Page):
@@ -158,7 +160,7 @@ class FeaturePage(MetadataPageMixin, Page):
         return get_search_content_by_fields(self, self.search_fields_pgsql)
 
     def sort_order(self):
-        return self.marketing_order.get(page=self.get_parent()).sort_order
+        return self.marketing_orders.get(page=self.get_parent()).sort_order
 
     def next(self):
         ordered_feature = OrderedFeatures.objects.filter(
