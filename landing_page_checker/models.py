@@ -146,6 +146,7 @@ class SecuredropPage(MetadataPageMixin, Page):
             self.editable = True
         else:
             self.editable = False
+
         return super(SecuredropPage, self).serve(request)
 
     def get_live_result(self):

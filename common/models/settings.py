@@ -5,6 +5,7 @@ from django.db import models
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
 from wagtail.wagtailcore.fields import RichTextField
+from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
 
@@ -194,29 +195,33 @@ class SocialSharingSEOSettings(BaseSetting):
 
 @register_setting(icon='form')
 class DirectorySettings(BaseSetting):
+
+    # Contact
     new_instance_alert_group = models.OneToOneField(
         Group,
         blank=True,
         null=True,
         help_text='Users in this group will get an email alert when a new SecureDrop instance is submitted',
     )
-    landing_page_link_text = models.CharField(
-        max_length=255,
-        default='Securedrop landing page'
+    contact_email = models.EmailField(
+        default='securedrop@freedom.press',
+        help_text='People should contact this email address about inaccuracies '
+                  'or potential attacks in the directory'
     )
-    compare_onion_address_text = models.CharField(
-        max_length=255,
-        default='Check this address against the one on the landing page:',
-        help_text='Text displayed immedieately before the onion address.'
+    contact_gpg = models.ForeignKey(
+        'wagtaildocs.Document',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+        verbose_name='Contact email GPG',
+        help_text='Public key for email communication'
     )
+
+    # Messages
     grade_text = models.CharField(
         max_length=100,
         default='Security Grade'
-    )
-    security_warning = RichTextField(
-        blank=True,
-        null=True,
-        help_text="Warning displayed for sources on instance pages."
     )
     no_results_text = RichTextField(
         default='Results could not be calculated.',
@@ -235,18 +240,19 @@ class DirectorySettings(BaseSetting):
     )
 
     panels = [
-        FieldPanel('new_instance_alert_group'),
         MultiFieldPanel([
-            FieldPanel('landing_page_link_text'),
-            FieldPanel('compare_onion_address_text'),
             FieldPanel('grade_text'),
-            FieldPanel('security_warning'),
             FieldPanel('no_results_text'),
         ], 'Messages'),
         MultiFieldPanel([
             FieldPanel('allow_directory_management'),
             FieldPanel('show_scan_results'),
         ], 'Feature Flags'),
+        MultiFieldPanel([
+            FieldPanel('new_instance_alert_group'),
+            FieldPanel('contact_email'),
+            DocumentChooserPanel('contact_gpg'),
+        ], 'Contact'),
     ]
 
     class Meta:

@@ -24,27 +24,81 @@
 				</a>
 			{% endif %}
 		</h1>
-		<a class="instance-title__landing-page" href="{{page.landing_page_domain}}">{{settings.common.DirectorySettings.landing_page_link_text}}{% include "common/chevron-right.svg" with class="instance-title__chevron" %}</a>
-		<div class="instance-title__onion">
-			{{settings.common.DirectorySettings.compare_onion_address_text}} <span class='instance-title__onion-address'>{{page.onion_address}}</span>
-		</div>
 	</div>
 {% endblock top %}
 
 
 {% block column_one %}
-	<div class="instance-description">
-		{{ page.organization_description|richtext }}
+	<div class="instance-instructions">
+
+		<h1 class="instance-instructions__title">{% trans "Planning to submit information?" %}</h1>
+
+		<p>
+			{% blocktrans with organization=page.title onion=page.onion_address %}
+				If you intend to submit information to {{ organization }}’s SecureDrop,
+				we recommend that you compare the .onion address provided on the
+				organization’s landing page to this one
+				<span class="instance-instructions__onion-address">{{ onion }}</span>
+				and verify that the addresses match before continuing.
+				This provides a strong layer of defense against certain types of attacks
+				that might try to trick you into visiting a malicious SecureDrop instance
+				masquerading as a legitimate one.
+			{% endblocktrans %}
+		</p>
+		<p>
+
+			{% if settings.common.DirectorySettings.contact_gpg %}
+				{% blocktrans with contact_email=settings.common.DirectorySettings.contact_email contact_email_escaped=settings.common.DirectorySettings.contact_email|escape contact_gpg=settings.common.DirectorySettings.contact_gpg.url %}
+					If you encounter a mismatch, please contact us at
+					<a href="mailto:{{ contact_email_escaped }}">{{ contact_email }}</a>
+					(<a href="{{ contact_gpg }}">GPG</a>).
+				{% endblocktrans %}
+			{% else %}
+				{% comment %}
+					Honestly, this probably should not be allowed, but since we can't
+					set a default GPG key in the database, since it's a file, I've
+					accounted for the possibility that one isn't set at least for dev
+					environments.
+				{% endcomment %}
+				{% blocktrans with contact_email=settings.common.DirectorySettings.contact_email contact_email_escaped=settings.common.DirectorySettings.contact_email|escape %}
+					If you encounter a mismatch, please contact us at
+					<a href="mailto:{{ contact_email_escaped }}">{{ contact_email }}</a>.
+				{% endblocktrans %}
+			{% endif %}
+
+			{% blocktrans %}
+				This could be evidence of an attempted attack, or it could be a simple
+				failure to communicate between an organization running SecureDrop and
+				Freedom of the Press Foundation.
+				In either case, we will investigate the matter and establish a path to
+				resolution.
+			{% endblocktrans %}
+
+		</p>
+
+		<a href="{{ page.landing_page_domain }}" class="instance-instructions__landing-page-button">
+			<div class="instance-instructions__landing-page-button-text">
+				{% blocktrans with title=page.title %}
+					{{ title }}’s landing page
+				{% endblocktrans %}
+			</div>
+			<div class="instance-instructions__landing-page-button-url">
+				{{ page.landing_page_domain }}
+			</div>
+			{% include "common/chevron-right.svg" with class="instance-instructions__landing-page-button-chevron" %}
+		</a>
+
 	</div>
-	{% include "directory/_tag-list.html" with directory=page.get_parent %}
-	{% if settings.common.DirectorySettings.security_warning %}
-		<div class="security-warning">
-			{{ settings.common.DirectorySettings.security_warning|richtext }}
-		</div>
-	{% endif %}
 {% endblock column_one %}
 
 {% block column_two %}
+
+	<div class="instance-description">
+		{{ page.organization_description|richtext }}
+	</div>
+
+	{% include "directory/_tag-list.html" with directory=page.get_parent %}
+
 	{% if settings.common.DirectorySettings.show_scan_results %}
 		<div class="security_grade">
 			<div class="security_grade__text">
@@ -56,10 +110,12 @@
 		</div>
 		{% result_groups page.get_live_result False settings.common.DirectorySettings.no_results_text %}
 	{% endif %}
+
 	<a href="{% pageurl page.get_parent %}" class="instance-directory-button"/>
 		{% trans "Back to SecureDrop Directory" %}
 		{% include "common/chevron-right.svg" with class="instance-directory-button__chevron" %}
 	</a>
+
 {% endblock column_two %}
 
 {% block js %}
