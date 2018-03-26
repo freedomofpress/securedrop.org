@@ -39,3 +39,6 @@ test-results
 
 # bandit static anaylis results
 results.txt
+
+# ignore Visual Studio Code
+.vscode

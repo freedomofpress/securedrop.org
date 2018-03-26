@@ -280,3 +280,69 @@ ACCOUNT_SIGNUP_FORM_CLASS = 'accounts.forms.SignupForm'
 # Discourse API
 DISCOURSE_HOST = os.environ.get('DISCOURSE_HOST', '')
 DISCOURSE_API_KEY = os.environ.get('DISCOURSE_API_KEY', '')
+
+
+# Logging
+INSTALLED_APPS.append('django_logging')  # noqa: F405
+MIDDLEWARE.append(  # noqa: F405
+    'django_logging.middleware.DjangoLoggingMiddleware')
+DJANGO_LOGGING = {
+    "CONSOLE_LOG": False,
+    "SQL_LOG": False,
+    "DISABLE_EXISTING_LOGGERS": False,
+    "PROPOGATE": False,
+    "LOG_LEVEL": os.environ.get('DJANGO_LOG_LEVEL', 'info')
+}
+
+## Ensure base log directory exists
+LOG_DIR = os.path.join(BASE_DIR, 'logs')
+if not os.path.exists(LOG_DIR):
+    os.makedirs(LOG_DIR)
+DJANGO_OTHER_LOG = os.path.join(LOG_DIR, 'django-other.log')
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'rotate': {
+            'level': os.environ.get('DJANGO_LOG_LEVEL', 'info').upper(),
+            'class': 'logging.handlers.RotatingFileHandler',
+            'backupCount': 5,
+            'maxBytes': 10000000,
+            'filename': os.environ.get('DJANGO_LOGFILE', DJANGO_OTHER_LOG),
+            'formatter': 'django_builtin'
+        },
+        'null': {
+            'class': 'logging.NullHandler',
+        }
+    },
+    'formatters': {
+        'django_builtin': {
+            '()': 'pythonjsonlogger.jsonlogger.JsonFormatter',
+            'format': '%(asctime)s %(levelname)s %(name)s %(module)s %(message)s'
+        }
+    },
+    'loggers': {
+        'django.template': {
+            'handlers': ['rotate'],
+            'propagate': False,
+        },
+        'django.db.backends': {
+            'handlers': ['rotate'],
+            'propagate': False,
+        },
+        'django.security': {
+            'handlers': ['rotate'],
+            'propagate': False,
+        },
+        # These are already handled by the django json logging library
+        'django.request': {
+            'handlers': ['null'],
+            'propagate': False,
+        },
+        '': {
+            'handlers': ['rotate'],
+            'propagate': False,
+        },
+    },
+}
