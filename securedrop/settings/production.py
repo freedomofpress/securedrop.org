@@ -65,42 +65,6 @@ try:
 except KeyError:
     pass
 
-# Django logging
-#   django-json logging needs some work, but its off by default so lets
-#   leave it in for now
-if os.environ.get('DJANGO_JSON_LOG', 'no').lower() in ['true', 'yes']:
-    INSTALLED_APPS.append('django_logging')  # noqa: F405
-    MIDDLEWARE.append(  # noqa: F405
-        'django_logging.middleware.DjangoLoggingMiddleware')
-    DJANGO_LOGGING = {
-        "CONSOLE_LOG": False,
-        "SQL_LOG": False,
-        "DISABLE_EXISTING_LOGGERS": True,
-        "LOG_LEVEL": os.environ.get('DJANGO_LOG_LEVEL', 'info')
-    }
-else:
-    LOGGING = {
-        'version': 1,
-        'disable_existing_loggers': False,
-        'handlers': {
-            'rotate': {
-                'level': os.environ.get('DJANGO_LOG_LEVEL', 'info').upper(),
-                'class': 'logging.handlers.RotatingFileHandler',
-                'backupCount': 5,
-                'maxBytes': 10000000,
-                'filename': os.environ.get('DJANGO_LOGFILE',
-                                           '/var/log/securedrop/django.log')
-            },
-        },
-        'loggers': {
-            '': {
-                'handlers': ['rotate'],
-                'level': os.environ.get('DJANGO_LOG_LEVEL', 'info').upper(),
-                'propagate': True,
-            },
-        },
-    }
-
 # Cloudflare caching
 #
 if os.environ.get('CLOUDFLARE_TOKEN') and os.environ.get('CLOUDFLARE_EMAIL'):
