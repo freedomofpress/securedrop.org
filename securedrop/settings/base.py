@@ -298,7 +298,7 @@ DJANGO_LOGGING = {
 LOG_DIR = os.path.join(BASE_DIR, 'logs')
 if not os.path.exists(LOG_DIR):
     os.makedirs(LOG_DIR)
-DJANGO_OTHER_LOG = os.path.join(LOG_DIR,'django-other.log')
+DJANGO_OTHER_LOG = os.path.join(LOG_DIR, 'django-other.log')
 
 LOGGING = {
     'version': 1,
@@ -309,7 +309,7 @@ LOGGING = {
             'class': 'logging.handlers.RotatingFileHandler',
             'backupCount': 5,
             'maxBytes': 10000000,
-            'filename': os.environ.get('DJANGO_LOGFILE', DJANGO_OTHER_LOG)
+            'filename': os.environ.get('DJANGO_LOGFILE', DJANGO_OTHER_LOG),
             'formatter': 'django_builtin'
         },
         'null': {
