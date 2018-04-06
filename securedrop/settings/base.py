@@ -109,6 +109,9 @@ MIDDLEWARE = [
     # flow is reset if another page is loaded between login and successfully
     # entering two-factor credentials.
     'allauth_2fa.middleware.AllauthTwoFactorMiddleware',
+
+    # Middleware for content security policy
+    'csp.middleware.CSPMiddleware',
 ]
 
 ROOT_URLCONF = 'securedrop.urls'
@@ -346,3 +349,35 @@ LOGGING = {
         },
     },
 }
+
+# Content Security Policy
+# script:
+# unsafe-eval for client/common/js/common.js:645 and /client/tor/js/torEntry.js:89
+# jquery for wagtail/django debug
+# All for inline scripts in wagtail (admin) login page line 44 and 92
+# style:
+# #1 through #8needed for inline style for svg in sliding-nav:
+# #9 and #10 hashes needed for inline style for modernizr on admin page
+# #11 needed for wagtail admin
+
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_SCRIPT_SRC = (
+    "'self'",
+    'http://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js',
+    "'unsafe-eval'",
+)
+CSP_STYLE_SRC = (
+    "'self'",
+    "'sha256-kRJHclfjr7e5UYWHxtr0Bzdv2BiUtaSbDQe69HgEqXM='",
+    "'sha256-cMOfJ1K7bmWDFQ9IoI+B6fO37u9xMiBgP1rpm79IayM='",
+    "'sha256-Pf5JUUfhnnTVCCmSWFJ3qi/1j67vD2TeYvr7T6LxfqY='",
+    "'sha256-aJumNcjgS5IN0N559UWLFNCtnIIo3CqO862elt0w1A0='",
+    "'sha256-Rg1ua3eExI+in3cF/PWaHTHMjpiLQz/jTlIXr2kBY38='",
+    "'sha256-Zbh/ZO0Ff1YEynn0zSl56u5itxZmwkCVF3PgnnOm8u4='",
+    "'sha256-4ieA95gpQdpg9JDmuID1CQF8dJ/U0JnDqE4GQecAIdg='",
+    "'sha256-LAw02AamnUpPKuSLFUcg9Kh2SLuqSmaXiiV45Y21f84='",
+)
+CSP_IMG_SRC = ("'self'",)
+CSP_FRAME_SRC = ("'self'",)
+CSP_CONNECT_SRC = ("'self'",)
+CSP_EXCLUDE_URL_PREFIXES = ("/admin", )
