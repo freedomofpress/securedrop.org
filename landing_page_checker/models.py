@@ -78,7 +78,6 @@ class SecuredropPage(MetadataPageMixin, Page):
     onion_address = models.CharField(
         'SecureDrop onion address',
         max_length=255,
-        unique=True,
         validators=[RegexValidator(regex=r'\.onion$', message="Enter a valid .onion address.")]
     )
 
