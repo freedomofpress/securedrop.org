@@ -1,6 +1,5 @@
 from django.test import TestCase
 
-from blog.models import BlogPage, CategoryPage
 from blog.tests.factories import BlogPageFactory, BlogIndexPageFactory, CategoryPageFactory
 
 
@@ -9,9 +8,6 @@ class BlogIndexPageTest(TestCase):
         self.blog_index = BlogIndexPageFactory()
         self.live_post = BlogPageFactory(live=True, parent=self.blog_index)
         self.unpublished_post = BlogPageFactory(live=False, parent=self.blog_index)
-
-    def tearDown(self):
-        BlogPage.objects.all().delete()
 
     def test_get_posts_should_return_live_posts(self):
         posts = self.blog_index.get_posts()
@@ -22,6 +18,7 @@ class BlogIndexPageTest(TestCase):
         self.assertNotIn(self.unpublished_post, posts)
 
     def test_get_posts_returns_newest_post_first(self):
+        self.live_post.delete()  # not necessary for this test
         BlogPageFactory(publication_datetime='2018-01-01', parent=self.blog_index)
         first = BlogPageFactory(publication_datetime='2018-03-31', parent=self.blog_index)
         BlogPageFactory(publication_datetime='2018-03-01', parent=self.blog_index)
@@ -29,6 +26,7 @@ class BlogIndexPageTest(TestCase):
         self.assertEqual(first, posts.first())
 
     def test_get_posts_returns_oldest_post_last(self):
+        self.live_post.delete()  # not necessary for this test
         BlogPageFactory(publication_datetime='2018-01-01', parent=self.blog_index)
         BlogPageFactory(publication_datetime='2018-03-31', parent=self.blog_index)
         last = BlogPageFactory(publication_datetime='2015-03-31', parent=self.blog_index)
@@ -46,10 +44,6 @@ class CategoryPageTest(TestCase):
         self.other_category = CategoryPageFactory(parent=self.blog_index)
         self.category_post = BlogPageFactory(parent=self.blog_index, category=self.category)
         self.other_category_post = BlogPageFactory(parent=self.blog_index, category=self.other_category)
-
-    def tearDown(self):
-        CategoryPage.objects.all().delete()
-        BlogPage.objects.all().delete()
 
     def test_get_posts_should_return_live_posts(self):
         posts = self.category.get_posts()
@@ -73,6 +67,8 @@ class CategoryPageTest(TestCase):
         self.assertEqual(self.category.get_parent().title, post.get_parent().title)
 
     def test_get_posts_returns_newest_post_first(self):
+        self.live_post.delete()  # not necessary for this test
+        self.category_post.delete()  # not necessary for this test
         BlogPageFactory(publication_datetime='2018-01-01', parent=self.blog_index, category=self.category)
         first = BlogPageFactory(publication_datetime='2018-03-31', parent=self.blog_index, category=self.category)
         BlogPageFactory(publication_datetime='2018-03-01', parent=self.blog_index, category=self.category)
@@ -80,6 +76,8 @@ class CategoryPageTest(TestCase):
         self.assertEqual(first, posts.first())
 
     def test_get_posts_returns_oldest_post_last(self):
+        self.live_post.delete()  # not necessary for this test
+        self.category_post.delete()  # not necessary for this test
         BlogPageFactory(publication_datetime='2018-01-01', parent=self.blog_index, category=self.category)
         BlogPageFactory(publication_datetime='2018-03-31', parent=self.blog_index)
         last = BlogPageFactory(publication_datetime='2015-03-31', parent=self.blog_index, category=self.category)

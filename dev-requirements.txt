@@ -2,7 +2,7 @@
 -e git+https://github.com/nabla-c0d3/sslyze.git@ef357c2e76b6ba66f23db5fb1f95c7e8a6c13b9d#egg=pshtt-dependency-hell
 asn1crypto==0.23.0
 beautifulsoup4==4.6.0
-bleach==2.1.2
+bleach==2.1.3
 certifi==2017.11.5
 cffi==1.11.2
 chardet==3.0.4
