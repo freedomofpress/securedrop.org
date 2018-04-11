@@ -43,17 +43,6 @@ class SecuredropPageTest(TestCase):
                 landing_page_domain=landing_page_domain,
             )
 
-    def test_duplicate_onion_addresses_are_invalid(self):
-        onion_address = 'https://notreal.onion'
-
-        SecuredropPageFactory(
-            onion_address=onion_address,
-        )
-        with self.assertRaises(ValidationError):
-            SecuredropPageFactory(
-                onion_address=onion_address,
-            )
-
     def test_securedrop_string_representation(self):
         securedrop1 = SecuredropPageFactory(
             title='Freedom of the Press Foundation',
