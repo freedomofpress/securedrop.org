@@ -17,7 +17,7 @@ import modelcluster.fields
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('landing_page_checker', '0011_move_results_model'),
+        ('landing_page_checker', '0011_move_results'),
         ('directory', '0003_auto_20171120_2009'),
     ]
 
