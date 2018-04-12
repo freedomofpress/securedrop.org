@@ -4,7 +4,7 @@ from django.test import Client
 from django.test import TestCase
 from allauth.account.models import EmailAddress
 from directory.tests.factories import DirectoryPageFactory
-from landing_page_checker.models import SecuredropOwner
+from directory.models import SecuredropOwner
 from landing_page_checker.tests.factories import SecuredropPageFactory
 from wagtail.wagtailcore.models import Site
 

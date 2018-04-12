@@ -1,9 +1,8 @@
 from __future__ import unicode_literals
 
-from django.conf import settings
 from django.db import models
 from django.db.models import Func, F, Value
-from modelcluster.fields import ParentalManyToManyField, ParentalKey
+from modelcluster.fields import ParentalManyToManyField
 from django.core.validators import RegexValidator
 
 from wagtail.wagtailcore.models import Page, PageManager, PageQuerySet
@@ -14,20 +13,6 @@ from autocomplete.edit_handlers import AutocompleteFieldPanel
 from common.models.mixins import MetadataPageMixin
 from search.utils import get_search_content_by_fields
 from common.models.edit_handlers import ReadOnlyPanel
-
-
-class SecuredropOwner(models.Model):
-    page = ParentalKey(
-        'landing_page_checker.SecuredropPage',
-        related_name='owners'
-    )
-    owner = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        related_name='instances'
-    )
-
-    def __str__(self):
-        return self.owner.email
 
 
 class SecuredropPageQuerySet(PageQuerySet):

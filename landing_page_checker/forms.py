@@ -1,4 +1,5 @@
-from landing_page_checker.models import SecuredropPage, SecuredropOwner
+from directory.models import SecuredropOwner
+from landing_page_checker.models import SecuredropPage
 from django.contrib.auth import get_user_model
 from django import forms
 from django.core.exceptions import ValidationError

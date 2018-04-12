@@ -1,8 +1,23 @@
+from django.conf import settings
 from django.db import models
 from modelcluster.fields import ParentalKey
 
 from common.models.edit_handlers import ReadOnlyPanel
 from landing_page_checker.models import SecuredropPage
+
+
+class SecuredropOwner(models.Model):
+    page = ParentalKey(
+        'landing_page_checker.SecuredropPage',
+        related_name='owners'
+    )
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name='instances'
+    )
+
+    def __str__(self):
+        return self.owner.email
 
 
 class Result(models.Model):

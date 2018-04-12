@@ -11,7 +11,7 @@ from wagtail.wagtailcore.models import Site
 from common.tests.utils import turn_on_instance_management
 from directory.tests.factories import DirectoryPageFactory
 from landing_page_checker.tests.factories import SecuredropPageFactory
-from landing_page_checker.models import SecuredropOwner
+from directory.models import SecuredropOwner
 
 
 class UnauthenticatedTest(TestCase):
