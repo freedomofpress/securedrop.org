@@ -13,7 +13,7 @@ from common.decorators import directory_management_required
 from common.models.mixins import MetadataPageMixin
 from common.utils import paginate, DEFAULT_PAGE_KEY
 from search.utils import get_search_content_by_fields
-from directory.models import Language, Topic, Country
+from directory.models.taxonomy import Language, Topic, Country
 from directory.forms import ScannerForm
 from landing_page_checker.forms import SecuredropPageForm
 from landing_page_checker.landing_page import scanner
