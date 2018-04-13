@@ -11,6 +11,10 @@ class Migration(migrations.Migration):
         ('home', '0004_auto_20180321_2029'),
     ]
 
+    run_before = [
+        ('landing_page_checker', '0013_move_securedroppage'),
+    ]
+
     operations = [
         migrations.AlterField(
             model_name='homepageinstances',

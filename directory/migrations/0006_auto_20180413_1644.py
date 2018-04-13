@@ -11,6 +11,10 @@ class Migration(migrations.Migration):
         ('directory', '0005_securedropowner'),
     ]
 
+    run_before = [
+        ('landing_page_checker', '0013_move_securedroppage'),
+    ]
+
     operations = [
         migrations.AlterField(
             model_name='result',

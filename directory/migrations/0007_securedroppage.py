@@ -19,6 +19,7 @@ import wagtailmetadata.models
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('landing_page_checker', '0013_move_securedroppage'),
         ('wagtailcore', '0040_page_draft_title'),
         ('common', '0010_auto_20180321_1927'),
         ('directory', '0006_auto_20180413_1644'),
