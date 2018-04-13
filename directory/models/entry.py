@@ -14,7 +14,7 @@ from common.models.mixins import MetadataPageMixin
 from search.utils import get_search_content_by_fields
 
 
-class SecuredropPageQuerySet(PageQuerySet):
+class DirectoryEntryQuerySet(PageQuerySet):
     def with_domain_annotation(self):
         """
         Return the queryset with a `domain` field annotated on containing the
@@ -34,24 +34,24 @@ class SecuredropPageQuerySet(PageQuerySet):
         )
 
 
-class SecuredropPageManager(PageManager):
+class DirectoryEntryManager(PageManager):
     """
     This thin manager class is necessary for Wagtail 1.12.
     (See: https://github.com/wagtail/wagtail/pull/3557) After upgrading past
     Wagtail 1.13, this can be replaced with the following line of code:
 
-        SecuredropPageManager = PageManager.from_queryset(SecuredropPageQuerySet)
+        DirectoryEntryManager = PageManager.from_queryset(DirectoryEntryQuerySet)
     """
 
     def get_queryset(self):
-        return SecuredropPageQuerySet(self.model)
+        return DirectoryEntryQuerySet(self.model)
 
 
-SecuredropPageManager = SecuredropPageManager.from_queryset(SecuredropPageQuerySet)
+DirectoryEntryManager = DirectoryEntryManager.from_queryset(DirectoryEntryQuerySet)
 
 
-class SecuredropPage(MetadataPageMixin, Page):
-    objects = SecuredropPageManager()
+class DirectoryEntry(MetadataPageMixin, Page):
+    objects = DirectoryEntryManager()
 
     landing_page_domain = models.URLField(
         'Landing page domain name',
@@ -130,7 +130,7 @@ class SecuredropPage(MetadataPageMixin, Page):
         else:
             self.editable = False
 
-        return super(SecuredropPage, self).serve(request)
+        return super(DirectoryEntry, self).serve(request)
 
     def get_live_result(self):
         # Used in template to get the latest live result.
@@ -147,13 +147,13 @@ class SecuredropPage(MetadataPageMixin, Page):
 
     def save(self, *args, **kwargs):
         from directory.models import Result
-        super(SecuredropPage, self).save(*args, **kwargs)
+        super(DirectoryEntry, self).save(*args, **kwargs)
         self.results = Result.objects.filter(landing_page_domain=self.landing_page_domain)
 
 
 class SecuredropOwner(models.Model):
     page = ParentalKey(
-        SecuredropPage,
+        DirectoryEntry,
         related_name='owners'
     )
     owner = models.ForeignKey(
@@ -171,7 +171,7 @@ class Result(models.Model):
     # result, then we only insert that result once and set the result_last_seen
     # to the date of the last scan.
     securedrop = ParentalKey(
-        SecuredropPage,
+        DirectoryEntry,
         related_name='results',
         blank=True,
         null=True,
@@ -323,5 +323,5 @@ class Result(models.Model):
 
     def save(self, *args, **kwargs):
         self.compute_grade()
-        self.securedrop = SecuredropPage.objects.filter(landing_page_domain=self.landing_page_domain).first()
+        self.securedrop = DirectoryEntry.objects.filter(landing_page_domain=self.landing_page_domain).first()
         super(Result, self).save(*args, **kwargs)

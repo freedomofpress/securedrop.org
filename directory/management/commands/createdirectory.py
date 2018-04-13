@@ -2,7 +2,7 @@ from django.db import transaction
 from django.core.management.base import BaseCommand
 
 from directory.models import DirectoryPage
-from directory.tests.factories import DirectoryPageFactory, SecuredropPageFactory
+from directory.tests.factories import DirectoryPageFactory, DirectoryEntryFactory
 from home.models import HomePage
 
 
@@ -22,5 +22,5 @@ class Command(BaseCommand):
             directory = DirectoryPageFactory(parent=home_page, title="Directory")
             directory.save()
         for _ in range(number_of_instances):
-            instance = SecuredropPageFactory(parent=directory)
+            instance = DirectoryEntryFactory(parent=directory)
             instance.save()

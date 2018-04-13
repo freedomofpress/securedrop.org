@@ -8,16 +8,16 @@ from pshtt.pshtt import inspect_domains
 
 from django.utils import timezone
 
-from directory.models import Result, SecuredropPage
+from directory.models import Result, DirectoryEntry
 from landing_page_checker.utils import url_to_domain
 
 if TYPE_CHECKING:
-    from directory.models import SecuredropPageQuerySet  # noqa: F401
+    from directory.models import DirectoryEntryQuerySet  # noqa: F401
 
 
-def pshtt_data_to_result(securedrop: SecuredropPage, pshtt_results: Dict) -> Result:
+def pshtt_data_to_result(securedrop: DirectoryEntry, pshtt_results: Dict) -> Result:
     """
-    Takes a SecuredropPage and a dictionary of pshtt results for that domain,
+    Takes a DirectoryEntry and a dictionary of pshtt results for that domain,
     scans the page itself and then combines those results into an unsaved
     Result object
     """
@@ -74,12 +74,12 @@ def pshtt_data_to_result(securedrop: SecuredropPage, pshtt_results: Dict) -> Res
     )
 
 
-def scan(securedrop: SecuredropPage, commit=False) -> Result:
+def scan(securedrop: DirectoryEntry, commit=False) -> Result:
     """
-    Scan a single site. This method accepts a SecuredropPage instance which
+    Scan a single site. This method accepts a DirectoryEntry instance which
     may or may not be saved to the database. You can optionally pass True for
     the commit argument, which will save the result to the database. In that
-    case, the passed SecuredropPage *must* already be in the database.
+    case, the passed DirectoryEntry *must* already be in the database.
     """
 
     securedrop_domain = url_to_domain(securedrop.landing_page_domain)
@@ -93,11 +93,11 @@ def scan(securedrop: SecuredropPage, commit=False) -> Result:
     return result
 
 
-def bulk_scan(securedrops: 'SecuredropPageQuerySet') -> None:
+def bulk_scan(securedrops: 'DirectoryEntryQuerySet') -> None:
     """
     This method takes a queryset and scans the securedrop pages. Unlike the
     scan method that takes a single SecureDrop instance, this method requires
-    a SecuredropPageQueryset of SecureDrop instances that are in the database
+    a DirectoryEntryQueryset of SecureDrop instances that are in the database
     and always commits the results back to the database.
     """
 

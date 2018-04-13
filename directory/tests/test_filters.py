@@ -6,15 +6,15 @@ from directory.tests.factories import (
     LanguageFactory,
     CountryFactory,
     TopicFactory,
-    SecuredropPageFactory,
+    DirectoryEntryFactory,
 )
 
 
 class DirectoryFilterTest(TestCase):
     def setUp(self):
         self.directory = DirectoryPageFactory()
-        self.child = SecuredropPageFactory(parent=self.directory)
-        self.not_child = SecuredropPageFactory(parent=None)
+        self.child = DirectoryEntryFactory(parent=self.directory)
+        self.not_child = DirectoryEntryFactory(parent=None)
 
     def test_directory_returns_its_children(self):
         filtered_instances = self.directory.get_instances()
@@ -96,11 +96,11 @@ class DirectoryLanguageFilterTest(TestCase):
         spanish.save()
         chinese.save()
         # set up instances that are children of the directory and have those languages
-        self.spanish_instance = SecuredropPageFactory(parent=self.directory)
+        self.spanish_instance = DirectoryEntryFactory(parent=self.directory)
         self.spanish_instance.languages.add(spanish)
         self.spanish_instance.save()
 
-        self.chinese_instance = SecuredropPageFactory(parent=self.directory)
+        self.chinese_instance = DirectoryEntryFactory(parent=self.directory)
         self.chinese_instance.languages.add(chinese)
         self.chinese_instance.save()
         self.lang_filter = {'languages': spanish}
@@ -123,11 +123,11 @@ class DirectoryCountryFilterTest(TestCase):
         mexico.save()
         azerbaijan.save()
         # set up instances that are children of the directory and have those countries
-        self.mexico_instance = SecuredropPageFactory(parent=self.directory)
+        self.mexico_instance = DirectoryEntryFactory(parent=self.directory)
         self.mexico_instance.countries.add(mexico)
         self.mexico_instance.save()
 
-        self.azerbaijan_instance = SecuredropPageFactory(parent=self.directory)
+        self.azerbaijan_instance = DirectoryEntryFactory(parent=self.directory)
         self.azerbaijan_instance.countries.add(azerbaijan)
         self.azerbaijan_instance.save()
         self.country_filter = {'countries': mexico}
@@ -150,11 +150,11 @@ class DirectoryTopicFilterTest(TestCase):
         pf.save()
         irs.save()
         # set up instances that are children of the directory and have those topics
-        self.pf_instance = SecuredropPageFactory(parent=self.directory)
+        self.pf_instance = DirectoryEntryFactory(parent=self.directory)
         self.pf_instance.topics.add(pf)
         self.pf_instance.save()
 
-        self.irs_instance = SecuredropPageFactory(parent=self.directory)
+        self.irs_instance = DirectoryEntryFactory(parent=self.directory)
         self.irs_instance.topics.add(irs)
         self.irs_instance.save()
         self.topic_filter = {'topics': pf}
@@ -171,11 +171,11 @@ class DirectoryTopicFilterTest(TestCase):
 class DirectorySearchFilterTest(TestCase):
     def setUp(self):
         self.directory = DirectoryPageFactory()
-        self.best_instance = SecuredropPageFactory(
+        self.best_instance = DirectoryEntryFactory(
             title="Best Instansce",
             parent=self.directory
         )
-        self.worst_instance = SecuredropPageFactory(
+        self.worst_instance = DirectoryEntryFactory(
             title="Worst Instance",
             parent=self.directory
         )
@@ -209,17 +209,17 @@ class DirectoryMultipleFiltersTest(TestCase):
         pf.save()
         irs.save()
         # set up instances that are children of the directory and have multiple categories
-        self.sp_mx_instance = SecuredropPageFactory(parent=self.directory)
+        self.sp_mx_instance = DirectoryEntryFactory(parent=self.directory)
         self.sp_mx_instance.languages.add(spanish)
         self.sp_mx_instance.countries.add(mexico)
         self.sp_mx_instance.save()
 
-        self.az_pf_instance = SecuredropPageFactory(parent=self.directory)
+        self.az_pf_instance = DirectoryEntryFactory(parent=self.directory)
         self.az_pf_instance.countries.add(azerbaijan)
         self.az_pf_instance.topics.add(pf)
         self.az_pf_instance.save()
 
-        self.other_instance = SecuredropPageFactory(parent=self.directory)
+        self.other_instance = DirectoryEntryFactory(parent=self.directory)
         self.other_instance.languages.add(spanish)
         self.other_instance.topics.add(pf)
         self.other_instance.save()

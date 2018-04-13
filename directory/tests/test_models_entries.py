@@ -7,62 +7,62 @@ from django.test import Client, TestCase
 
 from wagtail.wagtailcore.models import Site
 
-from directory.models import SecuredropPage, Result, SecuredropOwner
-from directory.tests.factories import SecuredropPageFactory, ResultFactory, DirectoryPageFactory
+from directory.models import DirectoryEntry, Result, SecuredropOwner
+from directory.tests.factories import DirectoryEntryFactory, ResultFactory, DirectoryPageFactory
 
 
-class SecuredropPageTest(TestCase):
+class DirectoryEntryTest(TestCase):
     def test_securedrop_can_save_expected_urls(self):
-        securedrop = SecuredropPageFactory(
+        securedrop = DirectoryEntryFactory(
             landing_page_domain='https://www.something.org',
             onion_address='https://notreal.onion',
         )
         securedrop.save()
-        self.assertIn(securedrop, SecuredropPage.objects.all())
+        self.assertIn(securedrop, DirectoryEntry.objects.all())
 
     def test_securedrop_cannot_save_invalid_url(self):
         with self.assertRaises(ValidationError):
-            SecuredropPageFactory(
+            DirectoryEntryFactory(
                 landing_page_domain='something',
             )
 
     def test_securedrop_cannot_save_invalid_onion_address(self):
         with self.assertRaises(ValidationError):
-            SecuredropPageFactory(
+            DirectoryEntryFactory(
                 onion_address='https://notreal.com',
             )
 
     def test_securedrop_cannot_save_empty_urls(self):
         with self.assertRaises(ValidationError):
-            SecuredropPageFactory(
+            DirectoryEntryFactory(
                 landing_page_domain='',
             )
 
     def test_duplicate_landing_pages_are_invalid(self):
         landing_page_domain = 'https://www.freedom.press'
 
-        SecuredropPageFactory(
+        DirectoryEntryFactory(
             landing_page_domain=landing_page_domain,
         )
         with self.assertRaises(ValidationError):
-            SecuredropPageFactory(
+            DirectoryEntryFactory(
                 landing_page_domain=landing_page_domain,
             )
 
     def test_securedrop_string_representation(self):
-        securedrop1 = SecuredropPageFactory(
+        securedrop1 = DirectoryEntryFactory(
             title='Freedom of the Press Foundation',
         )
         self.assertIn(securedrop1.title, securedrop1.__str__())
 
     def test_returns_latest_live_result(self):
-        sd = SecuredropPageFactory()
+        sd = DirectoryEntryFactory()
         ResultFactory(live=False, securedrop=sd, landing_page_domain=sd.landing_page_domain).save()
         ResultFactory(live=False, securedrop=sd, landing_page_domain=sd.landing_page_domain).save()
         r3 = ResultFactory(live=True, securedrop=sd, landing_page_domain=sd.landing_page_domain)
         r3.save()
 
-        sd = SecuredropPage.objects.get(pk=sd.pk)
+        sd = DirectoryEntry.objects.get(pk=sd.pk)
 
         self.assertEqual(r3, sd.get_live_result())
 
@@ -77,7 +77,7 @@ class SecuredropPageTest(TestCase):
         )
         result.save()
 
-        securedrop = SecuredropPageFactory(
+        securedrop = DirectoryEntryFactory(
             landing_page_domain=landing_page_domain,
             onion_address='https://notreal.onion',
         )
@@ -88,7 +88,7 @@ class SecuredropPageTest(TestCase):
 
 class ResultTest(TestCase):
     def setUp(self):
-        self.securedrop = SecuredropPageFactory()
+        self.securedrop = DirectoryEntryFactory()
         self.securedrop.save()
 
     def test_grade_computed_on_save(self):
@@ -149,7 +149,7 @@ class ResultTest(TestCase):
         result2 = Result(live=True, hsts=False, hsts_max_age=True,
                          securedrop=self.securedrop, landing_page_domain=self.securedrop.landing_page_domain)
         result2.save()
-        securedrop = SecuredropPage.objects.get(id=self.securedrop.pk)
+        securedrop = DirectoryEntry.objects.get(id=self.securedrop.pk)
         most_recent = securedrop.results.latest()
         self.assertEqual(most_recent.grade, 'C')
 
@@ -185,10 +185,10 @@ class ResultTest(TestCase):
 
 class SecuredropQuerySetTestCase(TestCase):
     def test_domain_annotation(self):
-        SecuredropPageFactory.create(
+        DirectoryEntryFactory.create(
             landing_page_domain="https://securedrop.org/subpath"
         )
-        securedrop_page_qs = SecuredropPage.objects.with_domain_annotation()
+        securedrop_page_qs = DirectoryEntry.objects.with_domain_annotation()
 
         self.assertEqual(
             securedrop_page_qs.values_list('domain', flat=True)[0],
@@ -196,13 +196,13 @@ class SecuredropQuerySetTestCase(TestCase):
         )
 
 
-class SecuredropPageSearchTest(TestCase):
+class DirectoryEntrySearchTest(TestCase):
     def setUp(self):
         self.title = 'Awesome'
         self.landing_page_domain = 'https://landing.com'
         self.onion_address = 'something.onion'
         self.description = 'Amaze'
-        self.sd = SecuredropPageFactory(
+        self.sd = DirectoryEntryFactory(
             title=self.title,
             landing_page_domain=self.landing_page_domain,
             onion_address=self.onion_address,
@@ -235,7 +235,7 @@ class SecuredropPageSearchTest(TestCase):
         self.assertIn(country, self.search_content)
 
 
-class SecuredropPageAuthTest(TestCase):
+class DirectoryEntryAuthTest(TestCase):
     def setUp(self):
         User = get_user_model()
         self.client = Client()
@@ -249,9 +249,9 @@ class SecuredropPageAuthTest(TestCase):
         # Setup pages. Site is needed for valid urls.
         site = Site.objects.get()
         directory = DirectoryPageFactory(parent=site.root_page)
-        self.unowned_sd_page = SecuredropPageFactory(live=True, parent=directory)
+        self.unowned_sd_page = DirectoryEntryFactory(live=True, parent=directory)
         self.unowned_sd_page.save()
-        self.user_owned_sd_page = SecuredropPageFactory(live=True, parent=directory)
+        self.user_owned_sd_page = DirectoryEntryFactory(live=True, parent=directory)
         self.user_owned_sd_page.save()
         SecuredropOwner(owner=self.user, page=self.user_owned_sd_page).save()
 

@@ -14,9 +14,9 @@ from common.models.mixins import MetadataPageMixin
 from common.utils import paginate, DEFAULT_PAGE_KEY
 from search.utils import get_search_content_by_fields
 from directory.models.taxonomy import Language, Topic, Country
-from directory.models.entry import SecuredropPage
+from directory.models.entry import DirectoryEntry
 from directory.forms import ScannerForm
-from landing_page_checker.forms import SecuredropPageForm
+from landing_page_checker.forms import DirectoryEntryForm
 from landing_page_checker.landing_page import scanner
 
 
@@ -95,7 +95,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
         ), 'Organization details form'),
     ]
 
-    subpage_types = ['directory.SecuredropPage']
+    subpage_types = ['directory.DirectoryEntry']
 
     search_fields_pgsql = ['title', 'body', 'source_warning']
 
@@ -108,11 +108,11 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
         return search_content
 
     def get_instances(self, filters=None):
-        """Get `SecuredropPage` children of this page
+        """Get `DirectoryEntry` children of this page
 
         consistently filtered by visibility and `filters` parameter
         """
-        instances = SecuredropPage.objects.child_of(self).live()
+        instances = DirectoryEntry.objects.child_of(self).live()
         if filters:
             instances = instances.filter(**filters)
         return instances
@@ -198,7 +198,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
             if form.is_valid():
                 data = form.cleaned_data
 
-                instance = SecuredropPage(
+                instance = DirectoryEntry(
                     landing_page_domain=data['url'],
                 )
                 result = scanner.scan(instance)
@@ -206,7 +206,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
                 context = {
                     'landing_page_domain': data['url'],
                     'result': result,
-                    'submission_form': SecuredropPageForm(
+                    'submission_form': DirectoryEntryForm(
                         directory_page=self,
                         user=request.user if request.user.is_authenticated else None,
                         initial={

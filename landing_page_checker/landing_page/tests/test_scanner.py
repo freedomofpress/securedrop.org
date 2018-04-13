@@ -9,8 +9,8 @@ from landing_page_checker.landing_page.tests.utils import (
     NON_EXISTENT_URL,
     requests_get_mock,
 )
-from directory.models import SecuredropPage
-from directory.tests.factories import SecuredropPageFactory
+from directory.models import DirectoryEntry
+from directory.tests.factories import DirectoryEntryFactory
 
 
 VCR_DIR = os.path.join(os.path.dirname(__file__), 'scans_vcr')
@@ -43,7 +43,7 @@ class ScannerTest(TestCase):
         ConnectionError for a URL that does not exist without actually sending
         an HTTP request to that URL
         """
-        securedrop = SecuredropPage(
+        securedrop = DirectoryEntry(
             title='Freedom of the Press Foundation',
             landing_page_domain=NON_EXISTENT_URL,
             onion_address='notreal.onion'
@@ -57,7 +57,7 @@ class ScannerTest(TestCase):
         If a site can be connected to, scanner should return a result with
         result.live True
         """
-        securedrop = SecuredropPage(
+        securedrop = DirectoryEntry(
             title='Freedom of the Press Foundation',
             landing_page_domain='https://securedrop.org',
             onion_address='notreal.onion'
@@ -84,19 +84,19 @@ class ScannerTest(TestCase):
         """
         When scanner.scan is called with commit=True, the result of the scan
         should be newly saved to the database and associated with the
-        correct SecuredropPage
+        correct DirectoryEntry
         """
-        securedrop = SecuredropPageFactory.create(
+        securedrop = DirectoryEntryFactory.create(
             title='Freedom of the Press Foundation',
             landing_page_domain='https://securedrop.org',
             onion_address='notreal.onion'
         )
         self.assertEqual(
-            0, SecuredropPage.objects.get(pk=securedrop.pk).results.count()
+            0, DirectoryEntry.objects.get(pk=securedrop.pk).results.count()
         )
         scanner.scan(securedrop, commit=True)
         self.assertEqual(
-            1, SecuredropPage.objects.get(pk=securedrop.pk).results.count()
+            1, DirectoryEntry.objects.get(pk=securedrop.pk).results.count()
         )
 
     @vcr.use_cassette(os.path.join(VCR_DIR, 'full-scan-site-live.yaml'))
@@ -105,37 +105,37 @@ class ScannerTest(TestCase):
         When scanner.scan is called without commit=True, it should not save
         any results to the database
         """
-        securedrop = SecuredropPageFactory.create(
+        securedrop = DirectoryEntryFactory.create(
             title='Freedom of the Press Foundation',
             landing_page_domain='https://securedrop.org',
             onion_address='notreal.onion'
         )
         scanner.scan(securedrop)
         self.assertEqual(
-            0, SecuredropPage.objects.get(pk=securedrop.pk).results.count()
+            0, DirectoryEntry.objects.get(pk=securedrop.pk).results.count()
         )
 
     @vcr.use_cassette(os.path.join(VCR_DIR, 'bulk-scan.yaml'))
     def test_bulk_scan(self):
         """
         When scanner.bulk_scan is called, it should save all new results to the
-        database, associated with the correct SecuredropPages
+        database, associated with the correct DirectoryEntrys
         """
-        SecuredropPageFactory.create(
+        DirectoryEntryFactory.create(
             title='SecureDrop',
             landing_page_domain='https://securedrop.org',
             onion_address='notreal.onion'
         )
-        SecuredropPageFactory.create(
+        DirectoryEntryFactory.create(
             title='Freedom of the Press Foundation',
             landing_page_domain='https://freedom.press',
             onion_address='notreal-2.onion'
         )
 
-        securedrop_pages_qs = SecuredropPage.objects.all()
+        securedrop_pages_qs = DirectoryEntry.objects.all()
         scanner.bulk_scan(securedrop_pages_qs)
 
-        for page in SecuredropPage.objects.all():
+        for page in DirectoryEntry.objects.all():
             self.assertEqual(
                 1, page.results.count()
             )
@@ -161,31 +161,31 @@ class ScannerTest(TestCase):
         an HTTP request to that URL
         """
 
-        sd1 = SecuredropPageFactory.create(
+        sd1 = DirectoryEntryFactory.create(
             title='SecureDrop',
             landing_page_domain='https://securedrop.org',
             onion_address='notreal.onion'
         )
-        sd2 = SecuredropPageFactory.create(
+        sd2 = DirectoryEntryFactory.create(
             title='Freedom of the Press Foundation',
             landing_page_domain=NON_EXISTENT_URL,
             onion_address='notreal-2.onion'
         )
-        sd3 = SecuredropPageFactory.create(
+        sd3 = DirectoryEntryFactory.create(
             title='Freedom of the Press Foundation',
             landing_page_domain='https://freedom.press',
             onion_address='notreal-3.onion'
         )
 
-        securedrop_pages_qs = SecuredropPage.objects.all()
+        securedrop_pages_qs = DirectoryEntry.objects.all()
         scanner.bulk_scan(securedrop_pages_qs)
 
         self.assertTrue(
-            SecuredropPage.objects.get(pk=sd1.pk).results.all()[0].live
+            DirectoryEntry.objects.get(pk=sd1.pk).results.all()[0].live
         )
         self.assertFalse(
-            SecuredropPage.objects.get(pk=sd2.pk).results.all()[0].live
+            DirectoryEntry.objects.get(pk=sd2.pk).results.all()[0].live
         )
         self.assertTrue(
-            SecuredropPage.objects.get(pk=sd3.pk).results.all()[0].live
+            DirectoryEntry.objects.get(pk=sd3.pk).results.all()[0].live
         )

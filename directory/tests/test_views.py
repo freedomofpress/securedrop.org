@@ -16,7 +16,7 @@ from common.tests.utils import (
 from directory.forms import ScannerForm
 from directory.models.pages import SCAN_URL
 from directory.tests.factories import DirectoryPageFactory
-from landing_page_checker.forms import SecuredropPageForm
+from landing_page_checker.forms import DirectoryEntryForm
 
 
 class ScanViewTest(TestCase):
@@ -41,7 +41,7 @@ class ScanViewTest(TestCase):
         del os.environ['RECAPTCHA_TESTING']
         super(ScanViewTest, cls).tearDownClass()
 
-    @mock.patch('directory.models.pages.SecuredropPageForm.as_p', return_value='')
+    @mock.patch('directory.models.pages.DirectoryEntryForm.as_p', return_value='')
     @mock.patch('directory.models.pages.scanner')
     def test_unauthenticated_scan(self, scanner, directory_form_as_p):
         response = self.client.post(
@@ -51,7 +51,7 @@ class ScanViewTest(TestCase):
                 'g-recaptcha-response': 'PASSED',
             }
         )
-        self.assertIsInstance(response.context['submission_form'], SecuredropPageForm)
+        self.assertIsInstance(response.context['submission_form'], DirectoryEntryForm)
         self.assertContains(
             response,
             '<a href="/accounts/login/">Log in</a> to add your Securedrop instance to the directory.',
@@ -61,7 +61,7 @@ class ScanViewTest(TestCase):
         self.assertTemplateUsed(response, 'directory/_submission_form.html')
         directory_form_as_p.assert_not_called()
 
-    @mock.patch('directory.models.pages.SecuredropPageForm.as_p', return_value='')
+    @mock.patch('directory.models.pages.DirectoryEntryForm.as_p', return_value='')
     @mock.patch('directory.models.pages.scanner')
     def test_verified_scan(self, scanner, directory_form_as_p):
         User = get_user_model()
@@ -97,7 +97,7 @@ class ScanViewTest(TestCase):
             }
         )
         submission_form = response.context['submission_form']
-        self.assertIsInstance(submission_form, SecuredropPageForm)
+        self.assertIsInstance(submission_form, DirectoryEntryForm)
         self.assertNotIn('add_owner', submission_form.fields)
         self.assertNotIn('remove_owner', submission_form.fields)
         self.assertNotContains(

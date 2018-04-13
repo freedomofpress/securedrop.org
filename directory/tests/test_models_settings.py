@@ -10,7 +10,7 @@ from wagtail.wagtailcore.models import Site
 from directory.models import DirectorySettings
 from directory.tests.factories import (
     DirectoryPageFactory,
-    SecuredropPageFactory,
+    DirectoryEntryFactory,
     ResultFactory,
 )
 
@@ -21,7 +21,7 @@ class DirectorySettingsTestCase(TestCase):
         site = Site.objects.get(is_default_site=True)
         self.directory_settings = DirectorySettings.for_site(site)
         self.directory = DirectoryPageFactory(parent=site.root_page)
-        self.securedrop_page = SecuredropPageFactory(parent=self.directory)
+        self.securedrop_page = DirectoryEntryFactory(parent=self.directory)
         self.result = ResultFactory(securedrop=self.securedrop_page)
 
     def test_scan_disabled_hides_directory_scan_results(self):

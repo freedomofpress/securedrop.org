@@ -8,17 +8,17 @@ from django_otp.decorators import otp_required
 
 from directory.decorators import directory_management_required
 from directory.models.settings import DirectorySettings
-from directory.models import DirectoryPage, SecuredropPage
-from landing_page_checker.forms import SecuredropPageOwnerForm
+from directory.models import DirectoryPage, DirectoryEntry
+from landing_page_checker.forms import DirectoryEntryOwnerForm
 
 
 class SecuredropListView(ListView):
-    model = SecuredropPage
+    model = DirectoryEntry
     template_name = 'home.html'
 
 
 class SecuredropDetailView(DetailView):
-    model = SecuredropPage
+    model = DirectoryEntry
     template_name = 'securedrop_detail.html'
 
 
@@ -26,8 +26,8 @@ class SecuredropDetailView(DetailView):
 @method_decorator(otp_required(redirect_field_name=None), name='dispatch')
 class SecuredropEditView(UpdateView):
     template_name = 'landing_page_checker/securedroppage_form.html'
-    form_class = SecuredropPageOwnerForm
-    model = SecuredropPage
+    form_class = DirectoryEntryOwnerForm
+    model = DirectoryEntry
 
     def get_object(self):
         self.directory_page = DirectoryPage.objects.first()

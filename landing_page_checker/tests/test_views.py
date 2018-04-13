@@ -16,7 +16,7 @@ from common.tests.utils import (
 )
 from directory.models.settings import DirectorySettings
 from directory.tests.factories import DirectoryPageFactory
-from directory.models import SecuredropPage
+from directory.models import DirectoryEntry
 
 
 class FormViewTest(TestCase):
@@ -85,7 +85,7 @@ class FormViewTest(TestCase):
         self.assertEqual(mail.outbox[0].to, [recipient.email])
         self.assertIn('{}/admin/pages/{}/edit/'.format(
             self.site.root_url,
-            SecuredropPage.objects.get().id,
+            DirectoryEntry.objects.get().id,
         ), mail.outbox[0].body)
 
     @mock.patch('directory.models.pages.scanner')

@@ -1,4 +1,4 @@
-from directory.models import SecuredropOwner, SecuredropPage
+from directory.models import SecuredropOwner, DirectoryEntry
 from django.contrib.auth import get_user_model
 from django import forms
 from django.core.exceptions import ValidationError
@@ -16,14 +16,14 @@ class LandingPageForm(forms.Form):
     })
 
 
-class SecuredropPageForm(forms.ModelForm):
+class DirectoryEntryForm(forms.ModelForm):
     error_css_class = 'basic-form__error'
     required_css_class = 'basic-form__required'
 
     organization_logo = forms.FileField(required=False)
 
     def __init__(self, directory_page, user=None, *args, **kwargs):
-        super(SecuredropPageForm, self).__init__(*args, **kwargs)
+        super(DirectoryEntryForm, self).__init__(*args, **kwargs)
 
         self.directory_page = directory_page
         self.user = user
@@ -31,7 +31,7 @@ class SecuredropPageForm(forms.ModelForm):
     def clean_title(self):
         data = self.cleaned_data['title']
 
-        pages = SecuredropPage.objects.filter(title=data)
+        pages = DirectoryEntry.objects.filter(title=data)
         if self.instance.pk:
             pages = pages.exclude(pk=self.instance.pk)
 
@@ -62,7 +62,7 @@ class SecuredropPageForm(forms.ModelForm):
 
     def save(self, commit=True):
         # Get the unsaved instance
-        instance = super(SecuredropPageForm, self).save(commit=False)
+        instance = super(DirectoryEntryForm, self).save(commit=False)
 
         instance.live = False
 
@@ -83,7 +83,7 @@ class SecuredropPageForm(forms.ModelForm):
         return instance
 
     class Meta:
-        model = SecuredropPage
+        model = DirectoryEntry
         fields = [
             'title',
             'landing_page_domain',
@@ -117,12 +117,12 @@ class SecuredropPageForm(forms.ModelForm):
         }
 
 
-class SecuredropPageOwnerForm(SecuredropPageForm):
+class DirectoryEntryOwnerForm(DirectoryEntryForm):
     add_owner = forms.EmailField(required=False)
     remove_owners = forms.ModelMultipleChoiceField(queryset=SecuredropOwner.objects.none(), required=False)
 
     def __init__(self, *args, **kwargs):
-        super(SecuredropPageOwnerForm, self).__init__(*args, **kwargs)
+        super(DirectoryEntryOwnerForm, self).__init__(*args, **kwargs)
 
         owners_qs = self.instance.owners.all()
         if self.user:
@@ -147,7 +147,7 @@ class SecuredropPageOwnerForm(SecuredropPageForm):
         return add_owner
 
     def save(self, commit=True):
-        instance = super(SecuredropPageOwnerForm, self).save(commit)
+        instance = super(DirectoryEntryOwnerForm, self).save(commit)
 
         if commit:
             if self.cleaned_data.get('remove_owners'):
@@ -163,7 +163,7 @@ class SecuredropPageOwnerForm(SecuredropPageForm):
 
         return instance
 
-    class Meta(SecuredropPageForm.Meta):
+    class Meta(DirectoryEntryForm.Meta):
         fields = [
             'title',
             'landing_page_domain',

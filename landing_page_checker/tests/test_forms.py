@@ -1,8 +1,8 @@
 from django.test import TestCase
 
 from directory.tests.factories import DirectoryPageFactory
-from landing_page_checker.forms import LandingPageForm, SecuredropPageForm
-from directory.tests.factories import SecuredropPageFactory
+from landing_page_checker.forms import LandingPageForm, DirectoryEntryForm
+from directory.tests.factories import DirectoryEntryFactory
 
 
 class LandingPageFormTest(TestCase):
@@ -23,16 +23,16 @@ class LandingPageFormTest(TestCase):
         self.assertFalse(form.is_valid())
 
 
-class SecuredropPageFormTest(TestCase):
+class DirectoryEntryFormTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.directory = DirectoryPageFactory()
-        cls.securedrop_page = SecuredropPageFactory(parent=cls.directory)
+        cls.securedrop_page = DirectoryEntryFactory(parent=cls.directory)
 
     def test_validate_unique_title__invalid(self):
         # Make a form that has just a duplicate title, then verify that it
         # causes a validation error.
-        form = SecuredropPageForm(
+        form = DirectoryEntryForm(
             directory_page=self.directory,
             data={
                 'title': self.securedrop_page.title,
@@ -51,7 +51,7 @@ class SecuredropPageFormTest(TestCase):
     def test_validate_unique_title__valid__same_instance(self):
         # Make a form that has just a duplicate title, then verify that it
         # causes a validation error.
-        form = SecuredropPageForm(
+        form = DirectoryEntryForm(
             directory_page=self.directory,
             data={
                 'title': self.securedrop_page.title,
@@ -68,7 +68,7 @@ class SecuredropPageFormTest(TestCase):
 
     def test_validate_unique_title__valid__different_instance(self):
         # A form without a duplicate title should validate fine.
-        form = SecuredropPageForm(
+        form = DirectoryEntryForm(
             directory_page=self.directory,
             data={
                 'title': self.securedrop_page.title + 'm',
