@@ -7,11 +7,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-<<<<<<< HEAD
-        ('landing_page_checker', '0011_move_results_model'),
-=======
         ('landing_page_checker', '0011_move_results'),
->>>>>>> Move SecuredropOwner to directory app
     ]
 
     database_operations = [

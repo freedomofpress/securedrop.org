@@ -117,6 +117,8 @@ class SecuredropPage(MetadataPageMixin, Page):
         AutocompleteFieldPanel('languages', 'directory.Language'),
         AutocompleteFieldPanel('countries', 'directory.Country'),
         AutocompleteFieldPanel('topics', 'directory.Topic'),
+        InlinePanel('owners', label='Owners'),
+        InlinePanel('results', label='Results'),
     ]
 
     search_fields_pgsql = ['title', 'landing_page_domain', 'onion_address', 'organization_description']
@@ -150,7 +152,10 @@ class SecuredropPage(MetadataPageMixin, Page):
 
 
 class SecuredropOwner(models.Model):
-    page = models.PositiveIntegerField()
+    page = ParentalKey(
+        SecuredropPage,
+        related_name='owners'
+    )
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         related_name='instances'
@@ -165,9 +170,12 @@ class Result(models.Model):
     # produce a new Result row. If multiple consecutive scans have the same
     # result, then we only insert that result once and set the result_last_seen
     # to the date of the last scan.
-    securedrop = models.PositiveIntegerField(
+    securedrop = ParentalKey(
+        SecuredropPage,
+        related_name='results',
         blank=True,
         null=True,
+        on_delete=models.SET_NULL
     )
     landing_page_domain = models.URLField(
         'Landing page domain name',
