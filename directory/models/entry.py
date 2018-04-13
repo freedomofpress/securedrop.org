@@ -18,15 +18,15 @@ class DirectoryEntryQuerySet(PageQuerySet):
     def with_domain_annotation(self):
         """
         Return the queryset with a `domain` field annotated on containing the
-        domain as extracted from the `landing_page_domain` field
+        domain as extracted from the `landing_page_url` field
         """
 
-        # Assuming all landing_page_domains include http:// or https:// as a
+        # Assuming all landing_page_urls include http:// or https:// as a
         # protocol (as enforced by URLField logic) we can count on the domain
         # being the third token when splitting on '/'
         return self.annotate(
             domain=Func(
-                F('landing_page_domain'),
+                F('landing_page_url'),
                 Value('/'),
                 Value(3),
                 function='SPLIT_PART'
@@ -53,8 +53,8 @@ DirectoryEntryManager = DirectoryEntryManager.from_queryset(DirectoryEntryQueryS
 class DirectoryEntry(MetadataPageMixin, Page):
     objects = DirectoryEntryManager()
 
-    landing_page_domain = models.URLField(
-        'Landing page domain name',
+    landing_page_url = models.URLField(
+        'Landing page URL',
         max_length=255,
         unique=True
     )
@@ -109,7 +109,7 @@ class DirectoryEntry(MetadataPageMixin, Page):
 
     content_panels = Page.content_panels + [
         ReadOnlyPanel('added', label='Date Added'),
-        FieldPanel('landing_page_domain'),
+        FieldPanel('landing_page_url'),
         FieldPanel('onion_address'),
         FieldPanel('organization_description'),
         ImageChooserPanel('organization_logo'),
@@ -121,7 +121,7 @@ class DirectoryEntry(MetadataPageMixin, Page):
         InlinePanel('results', label='Results'),
     ]
 
-    search_fields_pgsql = ['title', 'landing_page_domain', 'onion_address', 'organization_description']
+    search_fields_pgsql = ['title', 'landing_page_url', 'onion_address', 'organization_description']
 
     def serve(self, request):
         owners = [sd_owner.owner for sd_owner in self.owners.all()]
@@ -148,7 +148,7 @@ class DirectoryEntry(MetadataPageMixin, Page):
     def save(self, *args, **kwargs):
         from directory.models import Result
         super(DirectoryEntry, self).save(*args, **kwargs)
-        self.results = Result.objects.filter(landing_page_domain=self.landing_page_domain)
+        self.results = Result.objects.filter(landing_page_url=self.landing_page_url)
 
 
 class SecuredropOwner(models.Model):
@@ -177,8 +177,8 @@ class Result(models.Model):
         null=True,
         on_delete=models.SET_NULL
     )
-    landing_page_domain = models.URLField(
-        'Landing page domain name',
+    landing_page_url = models.URLField(
+        'Landing page URL',
         max_length=255,
         db_index=True,
     )
@@ -279,7 +279,7 @@ class Result(models.Model):
         return self_values_to_compare == other_values_to_compare
 
     def __str__(self):
-        return 'Scan result for {}'.format(self.landing_page_domain)
+        return 'Scan result for {}'.format(self.landing_page_url)
 
     def compute_grade(self):
         if self.live is False:
@@ -323,5 +323,5 @@ class Result(models.Model):
 
     def save(self, *args, **kwargs):
         self.compute_grade()
-        self.securedrop = DirectoryEntry.objects.filter(landing_page_domain=self.landing_page_domain).first()
+        self.securedrop = DirectoryEntry.objects.filter(landing_page_url=self.landing_page_url).first()
         super(Result, self).save(*args, **kwargs)

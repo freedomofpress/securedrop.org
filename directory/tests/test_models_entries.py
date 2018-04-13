@@ -14,7 +14,7 @@ from directory.tests.factories import DirectoryEntryFactory, ResultFactory, Dire
 class DirectoryEntryTest(TestCase):
     def test_securedrop_can_save_expected_urls(self):
         securedrop = DirectoryEntryFactory(
-            landing_page_domain='https://www.something.org',
+            landing_page_url='https://www.something.org',
             onion_address='https://notreal.onion',
         )
         securedrop.save()
@@ -23,7 +23,7 @@ class DirectoryEntryTest(TestCase):
     def test_securedrop_cannot_save_invalid_url(self):
         with self.assertRaises(ValidationError):
             DirectoryEntryFactory(
-                landing_page_domain='something',
+                landing_page_url='something',
             )
 
     def test_securedrop_cannot_save_invalid_onion_address(self):
@@ -35,18 +35,18 @@ class DirectoryEntryTest(TestCase):
     def test_securedrop_cannot_save_empty_urls(self):
         with self.assertRaises(ValidationError):
             DirectoryEntryFactory(
-                landing_page_domain='',
+                landing_page_url='',
             )
 
     def test_duplicate_landing_pages_are_invalid(self):
-        landing_page_domain = 'https://www.freedom.press'
+        landing_page_url = 'https://www.freedom.press'
 
         DirectoryEntryFactory(
-            landing_page_domain=landing_page_domain,
+            landing_page_url=landing_page_url,
         )
         with self.assertRaises(ValidationError):
             DirectoryEntryFactory(
-                landing_page_domain=landing_page_domain,
+                landing_page_url=landing_page_url,
             )
 
     def test_securedrop_string_representation(self):
@@ -57,9 +57,9 @@ class DirectoryEntryTest(TestCase):
 
     def test_returns_latest_live_result(self):
         sd = DirectoryEntryFactory()
-        ResultFactory(live=False, securedrop=sd, landing_page_domain=sd.landing_page_domain).save()
-        ResultFactory(live=False, securedrop=sd, landing_page_domain=sd.landing_page_domain).save()
-        r3 = ResultFactory(live=True, securedrop=sd, landing_page_domain=sd.landing_page_domain)
+        ResultFactory(live=False, securedrop=sd, landing_page_url=sd.landing_page_url).save()
+        ResultFactory(live=False, securedrop=sd, landing_page_url=sd.landing_page_url).save()
+        r3 = ResultFactory(live=True, securedrop=sd, landing_page_url=sd.landing_page_url)
         r3.save()
 
         sd = DirectoryEntry.objects.get(pk=sd.pk)
@@ -67,18 +67,18 @@ class DirectoryEntryTest(TestCase):
         self.assertEqual(r3, sd.get_live_result())
 
     def test_save_associates_results(self):
-        landing_page_domain = 'https://www.something.org'
+        landing_page_url = 'https://www.something.org'
         result = Result(
             live=True,
             hsts=True,
             hsts_max_age=True,
             securedrop=None,
-            landing_page_domain=landing_page_domain,
+            landing_page_url=landing_page_url,
         )
         result.save()
 
         securedrop = DirectoryEntryFactory(
-            landing_page_domain=landing_page_domain,
+            landing_page_url=landing_page_url,
             onion_address='https://notreal.onion',
         )
         securedrop.save()
@@ -144,10 +144,10 @@ class ResultTest(TestCase):
 
     def test_securedrop_can_get_most_recent_scan(self):
         result1 = Result(live=True, hsts=True, hsts_max_age=True,
-                         securedrop=self.securedrop, landing_page_domain=self.securedrop.landing_page_domain)
+                         securedrop=self.securedrop, landing_page_url=self.securedrop.landing_page_url)
         result1.save()
         result2 = Result(live=True, hsts=False, hsts_max_age=True,
-                         securedrop=self.securedrop, landing_page_domain=self.securedrop.landing_page_domain)
+                         securedrop=self.securedrop, landing_page_url=self.securedrop.landing_page_url)
         result2.save()
         securedrop = DirectoryEntry.objects.get(id=self.securedrop.pk)
         most_recent = securedrop.results.latest()
@@ -155,8 +155,8 @@ class ResultTest(TestCase):
 
     def test_result_string_representation(self):
         result1 = Result(live=True, hsts=True, hsts_max_age=True,
-                         securedrop=self.securedrop, landing_page_domain=self.securedrop.landing_page_domain)
-        self.assertIn(result1.landing_page_domain, result1.__str__())
+                         securedrop=self.securedrop, landing_page_url=self.securedrop.landing_page_url)
+        self.assertIn(result1.landing_page_url, result1.__str__())
 
     def test_is_equal_to_compares_only_scan_attributes__same_result(self):
         """Test is_equal_to does not compare pk, _state, etc."""
@@ -177,7 +177,7 @@ class ResultTest(TestCase):
             hsts=True,
             hsts_max_age=True,
             securedrop=None,
-            landing_page_domain=self.securedrop.landing_page_domain,
+            landing_page_url=self.securedrop.landing_page_url,
         )
         result.save()
         self.assertEqual(result.securedrop, self.securedrop)
@@ -186,7 +186,7 @@ class ResultTest(TestCase):
 class SecuredropQuerySetTestCase(TestCase):
     def test_domain_annotation(self):
         DirectoryEntryFactory.create(
-            landing_page_domain="https://securedrop.org/subpath"
+            landing_page_url="https://securedrop.org/subpath"
         )
         securedrop_page_qs = DirectoryEntry.objects.with_domain_annotation()
 
@@ -199,12 +199,12 @@ class SecuredropQuerySetTestCase(TestCase):
 class DirectoryEntrySearchTest(TestCase):
     def setUp(self):
         self.title = 'Awesome'
-        self.landing_page_domain = 'https://landing.com'
+        self.landing_page_url = 'https://landing.com'
         self.onion_address = 'something.onion'
         self.description = 'Amaze'
         self.sd = DirectoryEntryFactory(
             title=self.title,
-            landing_page_domain=self.landing_page_domain,
+            landing_page_url=self.landing_page_url,
             onion_address=self.onion_address,
             organization_description=self.description
         )
@@ -213,8 +213,8 @@ class DirectoryEntrySearchTest(TestCase):
     def test_get_search_content_indexes_title(self):
         self.assertIn(self.title, self.search_content)
 
-    def test_get_search_content_indexes_landing_page_domain(self):
-        self.assertIn(self.landing_page_domain, self.search_content)
+    def test_get_search_content_indexes_landing_page_url(self):
+        self.assertIn(self.landing_page_url, self.search_content)
 
     def test_get_search_content_indexes_onion_address(self):
         self.assertIn(self.onion_address, self.search_content)

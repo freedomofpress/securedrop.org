@@ -22,12 +22,12 @@ def pshtt_data_to_result(securedrop: DirectoryEntry, pshtt_results: Dict) -> Res
     Result object
     """
     try:
-        page, soup = request_and_scrape_page(securedrop.landing_page_domain)
+        page, soup = request_and_scrape_page(securedrop.landing_page_url)
 
         # In order to check the HTTP status code and redirect status, we must
         # pass
         no_redirects_page, _ = request_and_scrape_page(
-            securedrop.landing_page_domain, allow_redirects=False
+            securedrop.landing_page_url, allow_redirects=False
         )
     except requests.exceptions.RequestException:
         # Connection timed out, an invalid HTTP response was returned, or
@@ -40,7 +40,7 @@ def pshtt_data_to_result(securedrop: DirectoryEntry, pshtt_results: Dict) -> Res
         )
 
     return Result(
-        landing_page_domain=securedrop.landing_page_domain,
+        landing_page_url=securedrop.landing_page_url,
         live=pshtt_results['Live'],
         http_status_200_ok=validate_200_ok(no_redirects_page),
         forces_https=pshtt_results['Strictly Forces HTTPS'],
@@ -48,7 +48,7 @@ def pshtt_data_to_result(securedrop: DirectoryEntry, pshtt_results: Dict) -> Res
         hsts_max_age=validate_hsts_max_age(pshtt_results['HSTS Max Age']),
         hsts_entire_domain=validate_hsts_entire_domain(pshtt_results['HSTS Entire Domain']),
         hsts_preloaded=pshtt_results['HSTS Preloaded'],
-        subdomain=validate_subdomain(securedrop.landing_page_domain),
+        subdomain=validate_subdomain(securedrop.landing_page_url),
         no_cookies=validate_no_cookies(page),
         safe_onion_address=validate_onion_address_not_in_href(soup),
         no_cdn=validate_not_using_cdn(page),
@@ -82,7 +82,7 @@ def scan(securedrop: DirectoryEntry, commit=False) -> Result:
     case, the passed DirectoryEntry *must* already be in the database.
     """
 
-    securedrop_domain = url_to_domain(securedrop.landing_page_domain)
+    securedrop_domain = url_to_domain(securedrop.landing_page_url)
     pshtt_results = inspect_domains([securedrop_domain], {'timeout': 10})
     result = pshtt_data_to_result(securedrop, pshtt_results[0])
 

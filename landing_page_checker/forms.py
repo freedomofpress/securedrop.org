@@ -86,7 +86,7 @@ class DirectoryEntryForm(forms.ModelForm):
         model = DirectoryEntry
         fields = [
             'title',
-            'landing_page_domain',
+            'landing_page_url',
             'organization_description',
             'onion_address',
             'organization_logo',
@@ -166,7 +166,7 @@ class DirectoryEntryOwnerForm(DirectoryEntryForm):
     class Meta(DirectoryEntryForm.Meta):
         fields = [
             'title',
-            'landing_page_domain',
+            'landing_page_url',
             'organization_description',
             'onion_address',
             'add_owner',

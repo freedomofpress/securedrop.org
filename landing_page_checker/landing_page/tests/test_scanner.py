@@ -45,7 +45,7 @@ class ScannerTest(TestCase):
         """
         securedrop = DirectoryEntry(
             title='Freedom of the Press Foundation',
-            landing_page_domain=NON_EXISTENT_URL,
+            landing_page_url=NON_EXISTENT_URL,
             onion_address='notreal.onion'
         )
         result = scanner.scan(securedrop)
@@ -59,7 +59,7 @@ class ScannerTest(TestCase):
         """
         securedrop = DirectoryEntry(
             title='Freedom of the Press Foundation',
-            landing_page_domain='https://securedrop.org',
+            landing_page_url='https://securedrop.org',
             onion_address='notreal.onion'
         )
         result = scanner.scan(securedrop)
@@ -88,7 +88,7 @@ class ScannerTest(TestCase):
         """
         securedrop = DirectoryEntryFactory.create(
             title='Freedom of the Press Foundation',
-            landing_page_domain='https://securedrop.org',
+            landing_page_url='https://securedrop.org',
             onion_address='notreal.onion'
         )
         self.assertEqual(
@@ -107,7 +107,7 @@ class ScannerTest(TestCase):
         """
         securedrop = DirectoryEntryFactory.create(
             title='Freedom of the Press Foundation',
-            landing_page_domain='https://securedrop.org',
+            landing_page_url='https://securedrop.org',
             onion_address='notreal.onion'
         )
         scanner.scan(securedrop)
@@ -123,12 +123,12 @@ class ScannerTest(TestCase):
         """
         DirectoryEntryFactory.create(
             title='SecureDrop',
-            landing_page_domain='https://securedrop.org',
+            landing_page_url='https://securedrop.org',
             onion_address='notreal.onion'
         )
         DirectoryEntryFactory.create(
             title='Freedom of the Press Foundation',
-            landing_page_domain='https://freedom.press',
+            landing_page_url='https://freedom.press',
             onion_address='notreal-2.onion'
         )
 
@@ -163,17 +163,17 @@ class ScannerTest(TestCase):
 
         sd1 = DirectoryEntryFactory.create(
             title='SecureDrop',
-            landing_page_domain='https://securedrop.org',
+            landing_page_url='https://securedrop.org',
             onion_address='notreal.onion'
         )
         sd2 = DirectoryEntryFactory.create(
             title='Freedom of the Press Foundation',
-            landing_page_domain=NON_EXISTENT_URL,
+            landing_page_url=NON_EXISTENT_URL,
             onion_address='notreal-2.onion'
         )
         sd3 = DirectoryEntryFactory.create(
             title='Freedom of the Press Foundation',
-            landing_page_domain='https://freedom.press',
+            landing_page_url='https://freedom.press',
             onion_address='notreal-3.onion'
         )
 

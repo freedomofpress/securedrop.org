@@ -199,18 +199,18 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
                 data = form.cleaned_data
 
                 instance = DirectoryEntry(
-                    landing_page_domain=data['url'],
+                    landing_page_url=data['url'],
                 )
                 result = scanner.scan(instance)
                 result.save()
                 context = {
-                    'landing_page_domain': data['url'],
+                    'landing_page_url': data['url'],
                     'result': result,
                     'submission_form': DirectoryEntryForm(
                         directory_page=self,
                         user=request.user if request.user.is_authenticated else None,
                         initial={
-                            'landing_page_domain': data['url'],
+                            'landing_page_url': data['url'],
                         },
                     ),
                     'submission_url': reverse('securedroppage_add'),

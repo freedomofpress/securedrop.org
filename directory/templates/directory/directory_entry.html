@@ -76,14 +76,14 @@
 
 		</p>
 
-		<a href="{{ page.landing_page_domain }}" class="instance-instructions__landing-page-button">
+		<a href="{{ page.landing_page_url }}" class="instance-instructions__landing-page-button">
 			<div class="instance-instructions__landing-page-button-text">
 				{% blocktrans with title=page.title %}
 					{{ title }}’s landing page
 				{% endblocktrans %}
 			</div>
 			<div class="instance-instructions__landing-page-button-url">
-				{{ page.landing_page_domain }}
+				{{ page.landing_page_url }}
 			</div>
 			{% include "common/chevron-right.svg" with class="instance-instructions__landing-page-button-chevron" %}
 		</a>

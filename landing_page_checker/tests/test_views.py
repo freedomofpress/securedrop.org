@@ -73,7 +73,7 @@ class FormViewTest(TestCase):
             reverse('securedroppage_add'),
             {
                 'title': 'Page title',
-                'landing_page_domain': 'https://domain.com',
+                'landing_page_url': 'https://domain.com',
                 'onion_address': 'https://domain.com/domain.onion',
                 'languages': 'null',
                 'topics': 'null',
@@ -98,7 +98,7 @@ class FormViewTest(TestCase):
             reverse('securedroppage_add'),
             {
                 'title': 'Page title',
-                'landing_page_domain': 'https://domain.com',
+                'landing_page_url': 'https://domain.com',
                 'onion_address': 'https://domain.com/domain.onion',
                 'languages': 'null',
                 'topics': 'null',
@@ -118,7 +118,7 @@ class FormViewTest(TestCase):
             reverse('securedroppage_add'),
             {
                 'title': 'Page title',
-                'landing_page_domain': 'https://domain.com',
+                'landing_page_url': 'https://domain.com',
                 'onion_address': 'https://domain.com/domain.onion',
                 'languages': 'null',
                 'topics': 'null',

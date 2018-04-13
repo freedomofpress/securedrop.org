@@ -36,7 +36,7 @@ class DirectoryEntryFormTest(TestCase):
             directory_page=self.directory,
             data={
                 'title': self.securedrop_page.title,
-                'landing_page_domain': self.securedrop_page.landing_page_domain + 'm',
+                'landing_page_url': self.securedrop_page.landing_page_url + 'm',
                 'onion_address': self.securedrop_page.onion_address + 'm.onion',
                 'languages': 'null',
                 'topics': 'null',
@@ -55,7 +55,7 @@ class DirectoryEntryFormTest(TestCase):
             directory_page=self.directory,
             data={
                 'title': self.securedrop_page.title,
-                'landing_page_domain': self.securedrop_page.landing_page_domain + 'm',
+                'landing_page_url': self.securedrop_page.landing_page_url + 'm',
                 'onion_address': self.securedrop_page.onion_address + 'm.onion',
                 'languages': 'null',
                 'topics': 'null',
@@ -72,7 +72,7 @@ class DirectoryEntryFormTest(TestCase):
             directory_page=self.directory,
             data={
                 'title': self.securedrop_page.title + 'm',
-                'landing_page_domain': self.securedrop_page.landing_page_domain + 'm',
+                'landing_page_url': self.securedrop_page.landing_page_url + 'm',
                 'onion_address': self.securedrop_page.onion_address + 'm.onion',
                 'languages': 'null',
                 'topics': 'null',
