@@ -9,7 +9,7 @@ from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailcore.models import Page
 
-from common.decorators import directory_management_required
+from directory.decorators import directory_management_required
 from common.models.mixins import MetadataPageMixin
 from common.utils import paginate, DEFAULT_PAGE_KEY
 from search.utils import get_search_content_by_fields

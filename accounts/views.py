@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 from django_otp.decorators import otp_required
 
-from common.decorators import directory_management_required
+from directory.decorators import directory_management_required
 from directory.models import DirectoryPage, SCAN_URL, SecuredropPage
 
 
