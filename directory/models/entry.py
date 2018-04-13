@@ -7,10 +7,7 @@ from landing_page_checker.models import SecuredropPage
 
 
 class SecuredropOwner(models.Model):
-    page = ParentalKey(
-        'landing_page_checker.SecuredropPage',
-        related_name='owners'
-    )
+    page = models.PositiveIntegerField()
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         related_name='instances'
@@ -25,12 +22,9 @@ class Result(models.Model):
     # produce a new Result row. If multiple consecutive scans have the same
     # result, then we only insert that result once and set the result_last_seen
     # to the date of the last scan.
-    securedrop = ParentalKey(
-        'landing_page_checker.SecuredropPage',
-        related_name='results',
+    securedrop = models.PositiveIntegerField(
         blank=True,
         null=True,
-        on_delete=models.SET_NULL,
     )
     landing_page_domain = models.URLField(
         'Landing page domain name',

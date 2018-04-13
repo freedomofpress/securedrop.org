@@ -118,8 +118,6 @@ class SecuredropPage(MetadataPageMixin, Page):
         AutocompleteFieldPanel('languages', 'directory.Language'),
         AutocompleteFieldPanel('countries', 'directory.Country'),
         AutocompleteFieldPanel('topics', 'directory.Topic'),
-        InlinePanel('owners', label='Owners'),
-        InlinePanel('results', label='Results'),
     ]
 
     search_fields_pgsql = ['title', 'landing_page_domain', 'onion_address', 'organization_description']
