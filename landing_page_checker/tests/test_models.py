@@ -1,7 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
-from landing_page_checker.models import SecuredropPage, Result
+from directory.models import SecuredropPage, Result
 from landing_page_checker.tests.factories import SecuredropPageFactory, ResultFactory
 
 

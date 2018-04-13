@@ -16,7 +16,7 @@ from common.tests.utils import (
 )
 from common.models.settings import DirectorySettings
 from directory.tests.factories import DirectoryPageFactory
-from landing_page_checker.models import SecuredropPage
+from directory.models import SecuredropPage
 
 
 class FormViewTest(TestCase):

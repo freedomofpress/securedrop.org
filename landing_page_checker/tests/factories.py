@@ -4,7 +4,7 @@ import string
 import factory
 
 import wagtail_factories
-from landing_page_checker.models import SecuredropPage, Result
+from directory.models import SecuredropPage, Result
 from directory.tests.factories import LanguageFactory, CountryFactory, TopicFactory
 
 

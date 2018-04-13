@@ -9,7 +9,7 @@ from landing_page_checker.landing_page.tests.utils import (
     NON_EXISTENT_URL,
     requests_get_mock,
 )
-from landing_page_checker.models import SecuredropPage
+from directory.models import SecuredropPage
 from landing_page_checker.tests.factories import SecuredropPageFactory
 
 

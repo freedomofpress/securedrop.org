@@ -8,12 +8,11 @@ from pshtt.pshtt import inspect_domains
 
 from django.utils import timezone
 
-from directory.models import Result
-from landing_page_checker.models import SecuredropPage
+from directory.models import Result, SecuredropPage
 from landing_page_checker.utils import url_to_domain
 
 if TYPE_CHECKING:
-    from landing_page_checker.models import SecuredropPageQuerySet  # noqa: F401
+    from directory.models import SecuredropPageQuerySet  # noqa: F401
 
 
 def pshtt_data_to_result(securedrop: SecuredropPage, pshtt_results: Dict) -> Result:

@@ -14,10 +14,10 @@ from common.models.mixins import MetadataPageMixin
 from common.utils import paginate, DEFAULT_PAGE_KEY
 from search.utils import get_search_content_by_fields
 from directory.models.taxonomy import Language, Topic, Country
+from directory.models.entry import SecuredropPage
 from directory.forms import ScannerForm
 from landing_page_checker.forms import SecuredropPageForm
 from landing_page_checker.landing_page import scanner
-from landing_page_checker.models import SecuredropPage
 
 
 SCAN_URL = 'scan/'
@@ -95,7 +95,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
         ), 'Organization details form'),
     ]
 
-    subpage_types = ['landing_page_checker.SecuredropPage']
+    subpage_types = ['directory.SecuredropPage']
 
     search_fields_pgsql = ['title', 'body', 'source_warning']
 

@@ -6,8 +6,7 @@ from django.urls import reverse_lazy
 from django_otp.decorators import otp_required
 
 from common.decorators import directory_management_required
-from directory.models import DirectoryPage, SCAN_URL
-from landing_page_checker.models import SecuredropPage
+from directory.models import DirectoryPage, SCAN_URL, SecuredropPage
 
 
 @method_decorator(directory_management_required, name='dispatch')
