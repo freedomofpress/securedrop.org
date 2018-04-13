@@ -2,9 +2,8 @@ from django.db import transaction
 from django.core.management.base import BaseCommand
 
 from directory.models import DirectoryPage
-from directory.tests.factories import DirectoryPageFactory
+from directory.tests.factories import DirectoryPageFactory, SecuredropPageFactory
 from home.models import HomePage
-from landing_page_checker.tests.factories import SecuredropPageFactory
 
 
 class Command(BaseCommand):

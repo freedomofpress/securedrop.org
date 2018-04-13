@@ -8,8 +8,8 @@ from django.test import TestCase
 from wagtail.wagtailcore.models import Site
 
 from directory.models import DirectorySettings
-from directory.tests.factories import DirectoryPageFactory
-from landing_page_checker.tests.factories import (
+from directory.tests.factories import (
+    DirectoryPageFactory,
     SecuredropPageFactory,
     ResultFactory,
 )

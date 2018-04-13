@@ -222,7 +222,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
 
                 return render(
                     request,
-                    'landing_page_checker/result.html',
+                    'directory/result.html',
                     context,
                 )
 

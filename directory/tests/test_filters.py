@@ -1,9 +1,13 @@
 from django.test import TestCase
 from django.http import QueryDict
 
-from directory.tests.factories import DirectoryPageFactory, LanguageFactory, CountryFactory, TopicFactory
-
-from landing_page_checker.tests.factories import SecuredropPageFactory
+from directory.tests.factories import (
+    DirectoryPageFactory,
+    LanguageFactory,
+    CountryFactory,
+    TopicFactory,
+    SecuredropPageFactory,
+)
 
 
 class DirectoryFilterTest(TestCase):

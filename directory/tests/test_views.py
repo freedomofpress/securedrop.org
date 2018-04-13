@@ -57,7 +57,7 @@ class ScanViewTest(TestCase):
             '<a href="/accounts/login/">Log in</a> to add your Securedrop instance to the directory.',
             status_code=200,
         )
-        self.assertTemplateUsed(response, 'landing_page_checker/result.html')
+        self.assertTemplateUsed(response, 'directory/result.html')
         self.assertTemplateUsed(response, 'directory/_submission_form.html')
         directory_form_as_p.assert_not_called()
 
@@ -105,7 +105,7 @@ class ScanViewTest(TestCase):
             '<a href="/accounts/login/">Log in</a> to add your Securedrop instance to the directory.',
             status_code=200,
         )
-        self.assertTemplateUsed(response, 'landing_page_checker/result.html')
+        self.assertTemplateUsed(response, 'directory/result.html')
         self.assertTemplateUsed(response, 'directory/_submission_form.html')
         directory_form_as_p.assert_called_once()
         self.assertEqual(response.context['form_text'], self.directory.org_details_form_text)
@@ -117,5 +117,5 @@ class ScanViewTest(TestCase):
         self.assertIsInstance(response.context['form'], ScannerForm)
         self.assertTemplateUsed(response, 'directory/scanner_form.html')
         self.assertTemplateUsed(response, 'captcha/widget_nocaptcha.html')
-        self.assertTemplateNotUsed(response, 'landing_page_checker/result.html')
+        self.assertTemplateNotUsed(response, 'directory/result.html')
         self.assertEqual(response.context['text'], self.directory.scanner_form_text)

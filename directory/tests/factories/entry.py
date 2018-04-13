@@ -5,8 +5,11 @@ import factory
 
 import wagtail_factories
 from directory.models import SecuredropPage, Result
-from directory.tests.factories import LanguageFactory, CountryFactory, TopicFactory
-
+from directory.tests.factories.taxonomy import (
+    LanguageFactory,
+    CountryFactory,
+    TopicFactory,
+)
 
 def random_onion_address():
     return 'https://' + ''.join(

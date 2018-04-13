@@ -10,7 +10,7 @@ from landing_page_checker.landing_page.tests.utils import (
     requests_get_mock,
 )
 from directory.models import SecuredropPage
-from landing_page_checker.tests.factories import SecuredropPageFactory
+from directory.tests.factories import SecuredropPageFactory
 
 
 VCR_DIR = os.path.join(os.path.dirname(__file__), 'scans_vcr')

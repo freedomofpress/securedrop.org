@@ -60,7 +60,7 @@
 					accounted for the possibility that one isn't set at least for dev
 					environments.
 				{% endcomment %}
-				{% blocktrans with contact_email=settings.common.DirectorySettings.contact_email contact_email_escaped=settings.common.DirectorySettings.contact_email|escape %}
+				{% blocktrans with contact_email=settings.directory.DirectorySettings.contact_email contact_email_escaped=settings.common.DirectorySettings.contact_email|escape %}
 					If you encounter a mismatch, please contact us at
 					<a href="mailto:{{ contact_email_escaped }}">{{ contact_email }}</a>.
 				{% endblocktrans %}
@@ -99,7 +99,7 @@
 
 	{% include "directory/_tag-list.html" with directory=page.get_parent %}
 
-	{% if settings.common.DirectorySettings.show_scan_results %}
+	{% if settings.directory.DirectorySettings.show_scan_results %}
 		<div class="security_grade">
 			<div class="security_grade__text">
 				{{ settings.common.DirectorySettings.grade_text }}:

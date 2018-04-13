@@ -2,7 +2,7 @@ from django.test import TestCase
 
 from directory.tests.factories import DirectoryPageFactory
 from landing_page_checker.forms import LandingPageForm, SecuredropPageForm
-from landing_page_checker.tests.factories import SecuredropPageFactory
+from directory.tests.factories import SecuredropPageFactory
 
 
 class LandingPageFormTest(TestCase):
