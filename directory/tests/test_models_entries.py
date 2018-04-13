@@ -1,8 +1,14 @@
-from django.core.exceptions import ValidationError
-from django.test import TestCase
+from allauth.account.models import EmailAddress
 
-from directory.models import SecuredropPage, Result
-from landing_page_checker.tests.factories import SecuredropPageFactory, ResultFactory
+from django.core.exceptions import ValidationError
+from django.core.urlresolvers import reverse_lazy
+from django.contrib.auth import get_user_model
+from django.test import Client, TestCase
+
+from wagtail.wagtailcore.models import Site
+
+from directory.models import SecuredropPage, Result, SecuredropOwner
+from directory.tests.factories import SecuredropPageFactory, ResultFactory, DirectoryPageFactory
 
 
 class SecuredropPageTest(TestCase):
@@ -188,3 +194,78 @@ class SecuredropQuerySetTestCase(TestCase):
             securedrop_page_qs.values_list('domain', flat=True)[0],
             'securedrop.org'
         )
+
+
+class SecuredropPageSearchTest(TestCase):
+    def setUp(self):
+        self.title = 'Awesome'
+        self.landing_page_domain = 'https://landing.com'
+        self.onion_address = 'something.onion'
+        self.description = 'Amaze'
+        self.sd = SecuredropPageFactory(
+            title=self.title,
+            landing_page_domain=self.landing_page_domain,
+            onion_address=self.onion_address,
+            organization_description=self.description
+        )
+        self.search_content = self.sd.get_search_content()
+
+    def test_get_search_content_indexes_title(self):
+        self.assertIn(self.title, self.search_content)
+
+    def test_get_search_content_indexes_landing_page_domain(self):
+        self.assertIn(self.landing_page_domain, self.search_content)
+
+    def test_get_search_content_indexes_onion_address(self):
+        self.assertIn(self.onion_address, self.search_content)
+
+    def test_get_search_content_indexes_description(self):
+        self.assertIn(self.onion_address, self.search_content)
+
+    def test_get_search_content_indexes_languages(self):
+        language = self.sd.languages.first().title
+        self.assertIn(language, self.search_content)
+
+    def test_get_search_content_indexes_topics(self):
+        topic = self.sd.topics.first().title
+        self.assertIn(topic, self.search_content)
+
+    def test_get_search_content_indexes_countries(self):
+        country = self.sd.countries.first().title
+        self.assertIn(country, self.search_content)
+
+
+class SecuredropPageAuthTest(TestCase):
+    def setUp(self):
+        User = get_user_model()
+        self.client = Client()
+        self.username = "Rachel"
+        self.email = "r@r.com"
+        self.password = "rachel"
+        self.user = User.objects.create_user(username=self.username, email=self.email, password=self.password, is_active=True)
+        self.user.save()
+        # Create a verified email address object for this user via allauth
+        EmailAddress.objects.create(user=self.user, email=self.email, verified=True)
+        # Setup pages. Site is needed for valid urls.
+        site = Site.objects.get()
+        directory = DirectoryPageFactory(parent=site.root_page)
+        self.unowned_sd_page = SecuredropPageFactory(live=True, parent=directory)
+        self.unowned_sd_page.save()
+        self.user_owned_sd_page = SecuredropPageFactory(live=True, parent=directory)
+        self.user_owned_sd_page.save()
+        SecuredropOwner(owner=self.user, page=self.user_owned_sd_page).save()
+
+    def test_logged_in_user_should_see_edit_on_owned_pages(self):
+        # Login
+        self.client.post(reverse_lazy('account_login'), {'login': self.email, 'password': self.password})
+        response = self.client.get(self.user_owned_sd_page.url)
+        self.assertTrue(response.context['page'].editable)
+
+    def test_logged_out_user_should_not_see_edit(self):
+        response = self.client.get(self.user_owned_sd_page.url)
+        self.assertFalse(response.context['page'].editable)
+
+    def test_logged_in_user_should_not_see_edit_on_unowned_pages(self):
+        self.client.post(reverse_lazy('account_login'), {'login': self.email, 'password': self.password})
+        response = self.client.get(self.unowned_sd_page.url)
+        self.assertFalse(response.context['page'].editable)
