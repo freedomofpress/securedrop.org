@@ -7,7 +7,7 @@ from django.test import TestCase
 
 from wagtail.wagtailcore.models import Site
 
-from common.models import DirectorySettings
+from directory.models import DirectorySettings
 from directory.tests.factories import DirectoryPageFactory
 from landing_page_checker.tests.factories import (
     SecuredropPageFactory,

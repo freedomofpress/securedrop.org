@@ -14,7 +14,7 @@ from common.tests.utils import (
     turn_on_instance_management,
     turn_on_instance_scanning,
 )
-from common.models.settings import DirectorySettings
+from directory.models.settings import DirectorySettings
 from directory.tests.factories import DirectoryPageFactory
 from directory.models import SecuredropPage
 

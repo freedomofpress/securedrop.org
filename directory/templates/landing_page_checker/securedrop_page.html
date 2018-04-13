@@ -47,8 +47,8 @@
 		</p>
 		<p>
 
-			{% if settings.common.DirectorySettings.contact_gpg %}
-				{% blocktrans with contact_email=settings.common.DirectorySettings.contact_email contact_email_escaped=settings.common.DirectorySettings.contact_email|escape contact_gpg=settings.common.DirectorySettings.contact_gpg.url %}
+			{% if settings.directory.DirectorySettings.contact_gpg %}
+				{% blocktrans with contact_email=settings.directory.DirectorySettings.contact_email contact_email_escaped=settings.common.DirectorySettings.contact_email|escape contact_gpg=settings.common.DirectorySettings.contact_gpg.url %}
 					If you encounter a mismatch, please contact us at
 					<a href="mailto:{{ contact_email_escaped }}">{{ contact_email }}</a>
 					(<a href="{{ contact_gpg }}">GPG</a>).

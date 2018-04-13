@@ -7,7 +7,7 @@ from django.views.generic import DetailView, ListView, UpdateView
 from django_otp.decorators import otp_required
 
 from common.decorators import directory_management_required
-from common.models.settings import DirectorySettings
+from directory.models.settings import DirectorySettings
 from directory.models import DirectoryPage, SecuredropPage
 from landing_page_checker.forms import SecuredropPageOwnerForm
 

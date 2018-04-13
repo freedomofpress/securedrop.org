@@ -33,10 +33,10 @@
 
 {% block column_two %}
 <div class="security_grade">
-		<div class="security_grade__text">{{ settings.common.DirectorySettings.grade_text }}:</div> <div class="security_grade__grade security_grade__grade--{{ result.grade }}">{{ result.grade }}</div>
+		<div class="security_grade__text">{{ settings.directory.DirectorySettings.grade_text }}:</div> <div class="security_grade__grade security_grade__grade--{{ result.grade }}">{{ result.grade }}</div>
 </div>
 
-{% result_groups result True settings.common.DirectorySettings.no_results_text%}
+{% result_groups result True settings.directory.DirectorySettings.no_results_text%}
 
 <div class="row">
 
