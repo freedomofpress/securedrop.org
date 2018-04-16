@@ -21,7 +21,7 @@
 		{% endif %}
 		{% include "directory/_tag-list.html" with page=instance.specific directory=page %}
 	</td>
-	{% if settings.common.DirectorySettings.show_scan_results %}
+	{% if settings.directory.DirectorySettings.show_scan_results %}
 		<td class="instance-table__grade-column">
 			<div class="instance-table__grade instance-table__grade--{{instance.specific.results.latest.grade}}">
 				{{instance.specific.results.latest.grade}}

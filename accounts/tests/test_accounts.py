@@ -9,9 +9,8 @@ from django_otp.plugins.otp_totp.models import TOTPDevice
 from wagtail.wagtailcore.models import Site
 
 from common.tests.utils import turn_on_instance_management
-from directory.tests.factories import DirectoryPageFactory
-from landing_page_checker.tests.factories import SecuredropPageFactory
-from landing_page_checker.models import SecuredropOwner
+from directory.tests.factories import DirectoryPageFactory, DirectoryEntryFactory
+from directory.models import SecuredropOwner
 
 
 class UnauthenticatedTest(TestCase):
@@ -22,7 +21,7 @@ class UnauthenticatedTest(TestCase):
     def setUp(self):
         self.client = Client()
 
-        self.unowned_sd_page = SecuredropPageFactory()
+        self.unowned_sd_page = DirectoryEntryFactory()
 
     def test_unauthenticated_is_redirected_to_login_dashboard(self):
         response = self.client.get(reverse('dashboard'), follow=True)
@@ -56,9 +55,9 @@ class AuthenticatedTest(TestCase):
         # Create a verified email address object for this user via allauth
         EmailAddress.objects.create(user=self.user, email=self.email, verified=True)
 
-        self.unowned_sd_page = SecuredropPageFactory()
+        self.unowned_sd_page = DirectoryEntryFactory()
         self.unowned_sd_page.save()
-        self.user_owned_sd_page = SecuredropPageFactory()
+        self.user_owned_sd_page = DirectoryEntryFactory()
         self.user_owned_sd_page.save()
         SecuredropOwner(owner=self.user, page=self.user_owned_sd_page).save()
         # Login
@@ -98,9 +97,9 @@ class VerifiedTest(TestCase):
             parent=self.site.root_page,
         )
 
-        self.unowned_sd_page = SecuredropPageFactory()
+        self.unowned_sd_page = DirectoryEntryFactory()
         self.unowned_sd_page.save()
-        self.user_owned_sd_page = SecuredropPageFactory()
+        self.user_owned_sd_page = DirectoryEntryFactory()
         self.user_owned_sd_page.save()
         SecuredropOwner(owner=self.user, page=self.user_owned_sd_page).save()
 

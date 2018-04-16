@@ -1,6 +1,6 @@
 from django.http import Http404
 
-from common.models import DirectorySettings
+from directory.models.settings import DirectorySettings
 
 
 def directory_management_required(func):

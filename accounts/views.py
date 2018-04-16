@@ -5,9 +5,8 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 from django_otp.decorators import otp_required
 
-from common.decorators import directory_management_required
-from directory.models import DirectoryPage, SCAN_URL
-from landing_page_checker.models import SecuredropPage
+from directory.decorators import directory_management_required
+from directory.models import DirectoryPage, SCAN_URL, DirectoryEntry
 
 
 @method_decorator(directory_management_required, name='dispatch')
@@ -17,7 +16,7 @@ from landing_page_checker.models import SecuredropPage
 # (see MyAccountAdapter).
 @method_decorator(otp_required(redirect_field_name=None), name='dispatch')
 class DashboardView(ListView):
-    model = SecuredropPage
+    model = DirectoryEntry
     template_name = 'accounts/dashboard.html'
 
     def get_queryset(self, **kwargs):

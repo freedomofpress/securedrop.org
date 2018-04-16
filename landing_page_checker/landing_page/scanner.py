@@ -8,26 +8,26 @@ from pshtt.pshtt import inspect_domains
 
 from django.utils import timezone
 
-from landing_page_checker.models import Result, SecuredropPage
+from directory.models import Result, DirectoryEntry
 from landing_page_checker.utils import url_to_domain
 
 if TYPE_CHECKING:
-    from landing_page_checker.models import SecuredropPageQuerySet  # noqa: F401
+    from directory.models import DirectoryEntryQuerySet  # noqa: F401
 
 
-def pshtt_data_to_result(securedrop: SecuredropPage, pshtt_results: Dict) -> Result:
+def pshtt_data_to_result(securedrop: DirectoryEntry, pshtt_results: Dict) -> Result:
     """
-    Takes a SecuredropPage and a dictionary of pshtt results for that domain,
+    Takes a DirectoryEntry and a dictionary of pshtt results for that domain,
     scans the page itself and then combines those results into an unsaved
     Result object
     """
     try:
-        page, soup = request_and_scrape_page(securedrop.landing_page_domain)
+        page, soup = request_and_scrape_page(securedrop.landing_page_url)
 
         # In order to check the HTTP status code and redirect status, we must
         # pass
         no_redirects_page, _ = request_and_scrape_page(
-            securedrop.landing_page_domain, allow_redirects=False
+            securedrop.landing_page_url, allow_redirects=False
         )
     except requests.exceptions.RequestException:
         # Connection timed out, an invalid HTTP response was returned, or
@@ -40,7 +40,7 @@ def pshtt_data_to_result(securedrop: SecuredropPage, pshtt_results: Dict) -> Res
         )
 
     return Result(
-        landing_page_domain=securedrop.landing_page_domain,
+        landing_page_url=securedrop.landing_page_url,
         live=pshtt_results['Live'],
         http_status_200_ok=validate_200_ok(no_redirects_page),
         forces_https=pshtt_results['Strictly Forces HTTPS'],
@@ -48,7 +48,7 @@ def pshtt_data_to_result(securedrop: SecuredropPage, pshtt_results: Dict) -> Res
         hsts_max_age=validate_hsts_max_age(pshtt_results['HSTS Max Age']),
         hsts_entire_domain=validate_hsts_entire_domain(pshtt_results['HSTS Entire Domain']),
         hsts_preloaded=pshtt_results['HSTS Preloaded'],
-        subdomain=validate_subdomain(securedrop.landing_page_domain),
+        subdomain=validate_subdomain(securedrop.landing_page_url),
         no_cookies=validate_no_cookies(page),
         safe_onion_address=validate_onion_address_not_in_href(soup),
         no_cdn=validate_not_using_cdn(page),
@@ -74,15 +74,15 @@ def pshtt_data_to_result(securedrop: SecuredropPage, pshtt_results: Dict) -> Res
     )
 
 
-def scan(securedrop: SecuredropPage, commit=False) -> Result:
+def scan(securedrop: DirectoryEntry, commit=False) -> Result:
     """
-    Scan a single site. This method accepts a SecuredropPage instance which
+    Scan a single site. This method accepts a DirectoryEntry instance which
     may or may not be saved to the database. You can optionally pass True for
     the commit argument, which will save the result to the database. In that
-    case, the passed SecuredropPage *must* already be in the database.
+    case, the passed DirectoryEntry *must* already be in the database.
     """
 
-    securedrop_domain = url_to_domain(securedrop.landing_page_domain)
+    securedrop_domain = url_to_domain(securedrop.landing_page_url)
     pshtt_results = inspect_domains([securedrop_domain], {'timeout': 10})
     result = pshtt_data_to_result(securedrop, pshtt_results[0])
 
@@ -93,11 +93,11 @@ def scan(securedrop: SecuredropPage, commit=False) -> Result:
     return result
 
 
-def bulk_scan(securedrops: 'SecuredropPageQuerySet') -> None:
+def bulk_scan(securedrops: 'DirectoryEntryQuerySet') -> None:
     """
     This method takes a queryset and scans the securedrop pages. Unlike the
     scan method that takes a single SecureDrop instance, this method requires
-    a SecuredropPageQueryset of SecureDrop instances that are in the database
+    a DirectoryEntryQueryset of SecureDrop instances that are in the database
     and always commits the results back to the database.
     """
 

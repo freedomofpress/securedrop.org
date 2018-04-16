@@ -1,48 +1,32 @@
-from __future__ import unicode_literals
-
 from django.conf import settings
+from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models import Func, F, Value
-from modelcluster.fields import ParentalManyToManyField, ParentalKey
-from django.core.validators import RegexValidator
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
 
 from wagtail.wagtailcore.models import Page, PageManager, PageQuerySet
 from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 from autocomplete.edit_handlers import AutocompleteFieldPanel
+from common.models.edit_handlers import ReadOnlyPanel
 from common.models.mixins import MetadataPageMixin
 from search.utils import get_search_content_by_fields
-from common.models.edit_handlers import ReadOnlyPanel
 
 
-class SecuredropOwner(models.Model):
-    page = ParentalKey(
-        'landing_page_checker.SecuredropPage',
-        related_name='owners'
-    )
-    owner = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        related_name='instances'
-    )
-
-    def __str__(self):
-        return self.owner.email
-
-
-class SecuredropPageQuerySet(PageQuerySet):
+class DirectoryEntryQuerySet(PageQuerySet):
     def with_domain_annotation(self):
         """
         Return the queryset with a `domain` field annotated on containing the
-        domain as extracted from the `landing_page_domain` field
+        domain as extracted from the `landing_page_url` field
         """
 
-        # Assuming all landing_page_domains include http:// or https:// as a
+        # Assuming all landing_page_urls include http:// or https:// as a
         # protocol (as enforced by URLField logic) we can count on the domain
         # being the third token when splitting on '/'
         return self.annotate(
             domain=Func(
-                F('landing_page_domain'),
+                F('landing_page_url'),
                 Value('/'),
                 Value(3),
                 function='SPLIT_PART'
@@ -50,27 +34,27 @@ class SecuredropPageQuerySet(PageQuerySet):
         )
 
 
-class SecuredropPageManager(PageManager):
+class DirectoryEntryManager(PageManager):
     """
     This thin manager class is necessary for Wagtail 1.12.
     (See: https://github.com/wagtail/wagtail/pull/3557) After upgrading past
     Wagtail 1.13, this can be replaced with the following line of code:
 
-        SecuredropPageManager = PageManager.from_queryset(SecuredropPageQuerySet)
+        DirectoryEntryManager = PageManager.from_queryset(DirectoryEntryQuerySet)
     """
 
     def get_queryset(self):
-        return SecuredropPageQuerySet(self.model)
+        return DirectoryEntryQuerySet(self.model)
 
 
-SecuredropPageManager = SecuredropPageManager.from_queryset(SecuredropPageQuerySet)
+DirectoryEntryManager = DirectoryEntryManager.from_queryset(DirectoryEntryQuerySet)
 
 
-class SecuredropPage(MetadataPageMixin, Page):
-    objects = SecuredropPageManager()
+class DirectoryEntry(MetadataPageMixin, Page):
+    objects = DirectoryEntryManager()
 
-    landing_page_domain = models.URLField(
-        'Landing page domain name',
+    landing_page_url = models.URLField(
+        'Landing page URL',
         max_length=255,
         unique=True
     )
@@ -125,7 +109,7 @@ class SecuredropPage(MetadataPageMixin, Page):
 
     content_panels = Page.content_panels + [
         ReadOnlyPanel('added', label='Date Added'),
-        FieldPanel('landing_page_domain'),
+        FieldPanel('landing_page_url'),
         FieldPanel('onion_address'),
         FieldPanel('organization_description'),
         ImageChooserPanel('organization_logo'),
@@ -137,7 +121,7 @@ class SecuredropPage(MetadataPageMixin, Page):
         InlinePanel('results', label='Results'),
     ]
 
-    search_fields_pgsql = ['title', 'landing_page_domain', 'onion_address', 'organization_description']
+    search_fields_pgsql = ['title', 'landing_page_url', 'onion_address', 'organization_description']
 
     def serve(self, request):
         owners = [sd_owner.owner for sd_owner in self.owners.all()]
@@ -146,7 +130,7 @@ class SecuredropPage(MetadataPageMixin, Page):
         else:
             self.editable = False
 
-        return super(SecuredropPage, self).serve(request)
+        return super(DirectoryEntry, self).serve(request)
 
     def get_live_result(self):
         # Used in template to get the latest live result.
@@ -162,8 +146,23 @@ class SecuredropPage(MetadataPageMixin, Page):
         return search_content
 
     def save(self, *args, **kwargs):
-        super(SecuredropPage, self).save(*args, **kwargs)
-        self.results = Result.objects.filter(landing_page_domain=self.landing_page_domain)
+        from directory.models import Result
+        super(DirectoryEntry, self).save(*args, **kwargs)
+        self.results = Result.objects.filter(landing_page_url=self.landing_page_url)
+
+
+class SecuredropOwner(models.Model):
+    page = ParentalKey(
+        DirectoryEntry,
+        related_name='owners'
+    )
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        related_name='instances'
+    )
+
+    def __str__(self):
+        return self.owner.email
 
 
 class Result(models.Model):
@@ -172,14 +171,14 @@ class Result(models.Model):
     # result, then we only insert that result once and set the result_last_seen
     # to the date of the last scan.
     securedrop = ParentalKey(
-        'landing_page_checker.SecuredropPage',
+        DirectoryEntry,
         related_name='results',
         blank=True,
         null=True,
-        on_delete=models.SET_NULL,
+        on_delete=models.SET_NULL
     )
-    landing_page_domain = models.URLField(
-        'Landing page domain name',
+    landing_page_url = models.URLField(
+        'Landing page URL',
         max_length=255,
         db_index=True,
     )
@@ -280,7 +279,7 @@ class Result(models.Model):
         return self_values_to_compare == other_values_to_compare
 
     def __str__(self):
-        return 'Scan result for {}'.format(self.landing_page_domain)
+        return 'Scan result for {}'.format(self.landing_page_url)
 
     def compute_grade(self):
         if self.live is False:
@@ -324,5 +323,5 @@ class Result(models.Model):
 
     def save(self, *args, **kwargs):
         self.compute_grade()
-        self.securedrop = SecuredropPage.objects.filter(landing_page_domain=self.landing_page_domain).first()
+        self.securedrop = DirectoryEntry.objects.filter(landing_page_url=self.landing_page_url).first()
         super(Result, self).save(*args, **kwargs)

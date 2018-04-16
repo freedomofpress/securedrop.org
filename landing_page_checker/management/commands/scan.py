@@ -1,6 +1,6 @@
 from django.core.management import BaseCommand, CommandError
 
-from landing_page_checker.models import SecuredropPage
+from directory.models import DirectoryEntry
 from landing_page_checker.landing_page.scanner import bulk_scan
 from landing_page_checker.utils import url_to_domain
 
@@ -26,7 +26,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         if options['securedrops']:
             requested_domains = [url_to_domain(x) for x in options['securedrops']]
-            securedrop_pages = SecuredropPage.objects.with_domain_annotation()\
+            securedrop_pages = DirectoryEntry.objects.with_domain_annotation()\
                 .filter(domain__in=requested_domains)
 
             # Check that all the domains provided to the command are in the
@@ -41,7 +41,7 @@ class Command(BaseCommand):
                     )
                     raise CommandError(msg)
         else:
-            securedrop_pages = SecuredropPage.objects.all()
+            securedrop_pages = DirectoryEntry.objects.all()
 
         bulk_scan(securedrop_pages)
         self.stdout.write('Scanning complete! Results added to database.')

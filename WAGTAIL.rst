@@ -45,7 +45,7 @@ These are settings for social media and search engine optimization, including a 
 
 Directory Settings
 ++++++++++++++++++
-These are settings that are used on the Securedrop instance pages (SecuredropPage) that users and admins can create. The text in these settings will show up on every Securedrop page.
+These are settings that are used on the Securedrop instance pages (DirectoryEntry) that users and admins can create. The text in these settings will show up on every Securedrop page.
 
 You can also change which user group will receive alerts when securedrop instances are submitted.
 

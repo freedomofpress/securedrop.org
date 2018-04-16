@@ -9,15 +9,15 @@ from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
 from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailcore.models import Page
 
-from common.decorators import directory_management_required
+from directory.decorators import directory_management_required
 from common.models.mixins import MetadataPageMixin
 from common.utils import paginate, DEFAULT_PAGE_KEY
 from search.utils import get_search_content_by_fields
-from directory.models import Language, Topic, Country
+from directory.models.taxonomy import Language, Topic, Country
+from directory.models.entry import DirectoryEntry
 from directory.forms import ScannerForm
-from landing_page_checker.forms import SecuredropPageForm
+from landing_page_checker.forms import DirectoryEntryForm
 from landing_page_checker.landing_page import scanner
-from landing_page_checker.models import SecuredropPage
 
 
 SCAN_URL = 'scan/'
@@ -95,7 +95,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
         ), 'Organization details form'),
     ]
 
-    subpage_types = ['landing_page_checker.SecuredropPage']
+    subpage_types = ['directory.DirectoryEntry']
 
     search_fields_pgsql = ['title', 'body', 'source_warning']
 
@@ -108,11 +108,11 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
         return search_content
 
     def get_instances(self, filters=None):
-        """Get `SecuredropPage` children of this page
+        """Get `DirectoryEntry` children of this page
 
         consistently filtered by visibility and `filters` parameter
         """
-        instances = SecuredropPage.objects.child_of(self).live()
+        instances = DirectoryEntry.objects.child_of(self).live()
         if filters:
             instances = instances.filter(**filters)
         return instances
@@ -198,19 +198,19 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
             if form.is_valid():
                 data = form.cleaned_data
 
-                instance = SecuredropPage(
-                    landing_page_domain=data['url'],
+                instance = DirectoryEntry(
+                    landing_page_url=data['url'],
                 )
                 result = scanner.scan(instance)
                 result.save()
                 context = {
-                    'landing_page_domain': data['url'],
+                    'landing_page_url': data['url'],
                     'result': result,
-                    'submission_form': SecuredropPageForm(
+                    'submission_form': DirectoryEntryForm(
                         directory_page=self,
                         user=request.user if request.user.is_authenticated else None,
                         initial={
-                            'landing_page_domain': data['url'],
+                            'landing_page_url': data['url'],
                         },
                     ),
                     'submission_url': reverse('securedroppage_add'),
@@ -222,7 +222,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
 
                 return render(
                     request,
-                    'landing_page_checker/result.html',
+                    'directory/result.html',
                     context,
                 )
 

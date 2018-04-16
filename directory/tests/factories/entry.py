@@ -4,8 +4,12 @@ import string
 import factory
 
 import wagtail_factories
-from landing_page_checker.models import SecuredropPage, Result
-from directory.tests.factories import LanguageFactory, CountryFactory, TopicFactory
+from directory.models import DirectoryEntry, Result
+from directory.tests.factories.taxonomy import (
+    LanguageFactory,
+    CountryFactory,
+    TopicFactory,
+)
 
 
 def random_onion_address():
@@ -15,12 +19,12 @@ def random_onion_address():
     ) + '.onion'
 
 
-class SecuredropPageFactory(wagtail_factories.PageFactory):
+class DirectoryEntryFactory(wagtail_factories.PageFactory):
     class Meta:
-        model = SecuredropPage
+        model = DirectoryEntry
 
     title = factory.Faker('sentence', nb_words=3)
-    landing_page_domain = factory.Faker('uri')
+    landing_page_url = factory.Faker('uri')
     onion_address = factory.LazyFunction(random_onion_address)
     parent = None
 

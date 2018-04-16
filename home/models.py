@@ -143,11 +143,11 @@ class HomepageFeature(Orderable):
 class HomePageInstances(Orderable):
     page = ParentalKey('home.HomePage', related_name='instances')
     instance = models.ForeignKey(
-        'landing_page_checker.SecuredropPage',
+        'directory.DirectoryEntry',
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
-        related_name='+',
+        related_name='+'
     )
 
     panels = [

@@ -1,6 +1,6 @@
 from wagtail.wagtailcore.models import Site
 
-from common.models import DirectorySettings
+from directory.models import DirectorySettings
 
 
 def turn_on_instance_scanning():

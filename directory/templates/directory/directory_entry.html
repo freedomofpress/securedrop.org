@@ -47,8 +47,8 @@
 		</p>
 		<p>
 
-			{% if settings.common.DirectorySettings.contact_gpg %}
-				{% blocktrans with contact_email=settings.common.DirectorySettings.contact_email contact_email_escaped=settings.common.DirectorySettings.contact_email|escape contact_gpg=settings.common.DirectorySettings.contact_gpg.url %}
+			{% if settings.directory.DirectorySettings.contact_gpg %}
+				{% blocktrans with contact_email=settings.directory.DirectorySettings.contact_email contact_email_escaped=settings.common.DirectorySettings.contact_email|escape contact_gpg=settings.common.DirectorySettings.contact_gpg.url %}
 					If you encounter a mismatch, please contact us at
 					<a href="mailto:{{ contact_email_escaped }}">{{ contact_email }}</a>
 					(<a href="{{ contact_gpg }}">GPG</a>).
@@ -60,7 +60,7 @@
 					accounted for the possibility that one isn't set at least for dev
 					environments.
 				{% endcomment %}
-				{% blocktrans with contact_email=settings.common.DirectorySettings.contact_email contact_email_escaped=settings.common.DirectorySettings.contact_email|escape %}
+				{% blocktrans with contact_email=settings.directory.DirectorySettings.contact_email contact_email_escaped=settings.common.DirectorySettings.contact_email|escape %}
 					If you encounter a mismatch, please contact us at
 					<a href="mailto:{{ contact_email_escaped }}">{{ contact_email }}</a>.
 				{% endblocktrans %}
@@ -76,14 +76,14 @@
 
 		</p>
 
-		<a href="{{ page.landing_page_domain }}" class="instance-instructions__landing-page-button">
+		<a href="{{ page.landing_page_url }}" class="instance-instructions__landing-page-button">
 			<div class="instance-instructions__landing-page-button-text">
 				{% blocktrans with title=page.title %}
 					{{ title }}’s landing page
 				{% endblocktrans %}
 			</div>
 			<div class="instance-instructions__landing-page-button-url">
-				{{ page.landing_page_domain }}
+				{{ page.landing_page_url }}
 			</div>
 			{% include "common/chevron-right.svg" with class="instance-instructions__landing-page-button-chevron" %}
 		</a>
@@ -99,7 +99,7 @@
 
 	{% include "directory/_tag-list.html" with directory=page.get_parent %}
 
-	{% if settings.common.DirectorySettings.show_scan_results %}
+	{% if settings.directory.DirectorySettings.show_scan_results %}
 		<div class="security_grade">
 			<div class="security_grade__text">
 				{{ settings.common.DirectorySettings.grade_text }}:
