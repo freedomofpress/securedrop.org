@@ -353,7 +353,6 @@ LOGGING = {
 # Content Security Policy
 # script:
 # unsafe-eval for client/common/js/common.js:645 and /client/tor/js/torEntry.js:89
-# jquery for wagtail/django debug
 # All for inline scripts in wagtail (admin) login page line 44 and 92
 # style:
 # #1 through #8needed for inline style for svg in sliding-nav:
@@ -363,7 +362,6 @@ LOGGING = {
 CSP_DEFAULT_SRC = ("'self'",)
 CSP_SCRIPT_SRC = (
     "'self'",
-    'http://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js',
     "'unsafe-eval'",
 )
 CSP_STYLE_SRC = (
