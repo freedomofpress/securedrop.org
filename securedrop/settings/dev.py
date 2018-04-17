@@ -18,16 +18,7 @@ except ImportError:
     pass
 
 if settings.DEBUG:
-    # Fix for https://github.com/jazzband/django-debug-toolbar/issues/950
     DEBUG_TOOLBAR_CONFIG = {
-        'SKIP_TEMPLATE_PREFIXES': (
-            'django/forms/widgets/',
-            'admin/widgets/',
-        ),
-        'DISABLE_PANELS': {
-            'debug_toolbar.panels.redirects.RedirectsPanel',
-            'debug_toolbar.panels.redirects.TemplatesPanel'
-        },
         'JQUERY_URL': STATIC_URL + 'debug/jquery.js',  # noqa: F405
     }
 
