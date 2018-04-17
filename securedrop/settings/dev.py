@@ -18,22 +18,15 @@ except ImportError:
     pass
 
 if settings.DEBUG:
-    # Fix for https://github.com/jazzband/django-debug-toolbar/issues/950
     DEBUG_TOOLBAR_CONFIG = {
-        'SKIP_TEMPLATE_PREFIXES': (
-            'django/forms/widgets/',
-            'admin/widgets/',
-        ),
-        'DISABLE_PANELS': {
-            'debug_toolbar.panels.redirects.RedirectsPanel',
-            'debug_toolbar.panels.redirects.TemplatesPanel'
-        },
+        'JQUERY_URL': STATIC_URL + 'debug/jquery.js',  # noqa: F405
     }
 
     # Obtain the default gateway from docker, needed for
     # debug toolbar whitelisting
     docker_gw = subprocess.check_output('ip r | head -n 1', shell=True)
     INSTALLED_APPS.append('debug_toolbar')  # noqa: F405
+    INSTALLED_APPS.append('debug')  # noqa: F405
     # Needs to be injected relatively early in the MIDDLEWARE list
     MIDDLEWARE.insert(4, 'debug_toolbar.middleware.DebugToolbarMiddleware')  # noqa: F405
     INTERNAL_IPS = [docker_gw.split()[2].decode("utf-8")]

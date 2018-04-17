@@ -1,4 +1,4 @@
 -r requirements.txt
-django-debug-toolbar
+django-debug-toolbar>=1.9
 flake8
 ipdb
