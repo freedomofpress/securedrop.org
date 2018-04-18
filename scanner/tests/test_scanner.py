@@ -36,8 +36,8 @@ class ScannerTest(TestCase):
     @vcr.use_cassette(os.path.join(VCR_DIR, 'full-scan-site-not-live.yaml'))
     def test_scan_returns_result_if_site_not_live(self):
         """
-        If a site cannot be connected to, scanner should return a Result with
-        result.live False
+        If a site cannot be connected to, scanner should return a ScanResult
+        with result.live False
 
         In addition to vcrpy, this test mocks requests.get to simulate a
         ConnectionError for a URL that does not exist without actually sending

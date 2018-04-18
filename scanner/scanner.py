@@ -8,18 +8,18 @@ from pshtt.pshtt import inspect_domains
 
 from django.utils import timezone
 
-from directory.models import Result, DirectoryEntry
+from directory.models import ScanResult, DirectoryEntry
 from scanner.utils import url_to_domain
 
 if TYPE_CHECKING:
     from directory.models import DirectoryEntryQuerySet  # noqa: F401
 
 
-def pshtt_data_to_result(securedrop: DirectoryEntry, pshtt_results: Dict) -> Result:
+def pshtt_data_to_result(securedrop: DirectoryEntry, pshtt_results: Dict) -> ScanResult:
     """
     Takes a DirectoryEntry and a dictionary of pshtt results for that domain,
     scans the page itself and then combines those results into an unsaved
-    Result object
+    ScanResult object
     """
     try:
         page, soup = request_and_scrape_page(securedrop.landing_page_url)
@@ -33,13 +33,13 @@ def pshtt_data_to_result(securedrop: DirectoryEntry, pshtt_results: Dict) -> Res
         # Connection timed out, an invalid HTTP response was returned, or
         # a network problem occurred.
         # Catch the base class exception for these cases.
-        return Result(
+        return ScanResult(
             securedrop=securedrop,
             live=pshtt_results['Live'],
             http_status_200_ok=False,
         )
 
-    return Result(
+    return ScanResult(
         landing_page_url=securedrop.landing_page_url,
         live=pshtt_results['Live'],
         http_status_200_ok=validate_200_ok(no_redirects_page),
@@ -74,7 +74,7 @@ def pshtt_data_to_result(securedrop: DirectoryEntry, pshtt_results: Dict) -> Res
     )
 
 
-def scan(securedrop: DirectoryEntry, commit=False) -> Result:
+def scan(securedrop: DirectoryEntry, commit=False) -> ScanResult:
     """
     Scan a single site. This method accepts a DirectoryEntry instance which
     may or may not be saved to the database. You can optionally pass True for
@@ -122,7 +122,7 @@ def bulk_scan(securedrops: 'DirectoryEntryQuerySet') -> None:
         # Before we save, let's get the most recent scan before saving
         try:
             prior_result = securedrop.results.latest()
-        except Result.DoesNotExist:
+        except ScanResult.DoesNotExist:
             results_to_be_written.append(current_result)
             continue
 
@@ -135,7 +135,7 @@ def bulk_scan(securedrops: 'DirectoryEntryQuerySet') -> None:
             results_to_be_written.append(current_result)
 
     # Write new results to the db in a batch
-    return Result.objects.bulk_create(results_to_be_written)
+    return ScanResult.objects.bulk_create(results_to_be_written)
 
 
 def request_and_scrape_page(url, allow_redirects=True):

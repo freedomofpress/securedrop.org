@@ -4,7 +4,7 @@ import string
 import factory
 
 import wagtail_factories
-from directory.models import DirectoryEntry, Result
+from directory.models import DirectoryEntry, ScanResult
 from directory.tests.factories.taxonomy import (
     LanguageFactory,
     CountryFactory,
@@ -71,6 +71,6 @@ class DirectoryEntryFactory(wagtail_factories.PageFactory):
             self._prefetched_objects_cache = {'topics': topics}
 
 
-class ResultFactory(factory.Factory):
+class ScanResultFactory(factory.Factory):
     class Meta:
-        model = Result
+        model = ScanResult

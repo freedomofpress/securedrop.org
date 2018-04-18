@@ -11,7 +11,7 @@ from directory.models import DirectorySettings
 from directory.tests.factories import (
     DirectoryPageFactory,
     DirectoryEntryFactory,
-    ResultFactory,
+    ScanResultFactory,
 )
 
 
@@ -22,7 +22,7 @@ class DirectorySettingsTestCase(TestCase):
         self.directory_settings = DirectorySettings.for_site(site)
         self.directory = DirectoryPageFactory(parent=site.root_page)
         self.securedrop_page = DirectoryEntryFactory(parent=self.directory)
-        self.result = ResultFactory(securedrop=self.securedrop_page)
+        self.result = ScanResultFactory(securedrop=self.securedrop_page)
 
     def test_scan_disabled_hides_directory_scan_results(self):
         self.directory_settings.show_scan_results = False

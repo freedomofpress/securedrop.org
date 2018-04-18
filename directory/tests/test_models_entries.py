@@ -7,8 +7,8 @@ from django.test import Client, TestCase
 
 from wagtail.wagtailcore.models import Site
 
-from directory.models import DirectoryEntry, Result, SecuredropOwner
-from directory.tests.factories import DirectoryEntryFactory, ResultFactory, DirectoryPageFactory
+from directory.models import DirectoryEntry, ScanResult, SecuredropOwner
+from directory.tests.factories import DirectoryEntryFactory, ScanResultFactory, DirectoryPageFactory
 
 
 class DirectoryEntryTest(TestCase):
@@ -57,9 +57,9 @@ class DirectoryEntryTest(TestCase):
 
     def test_returns_latest_live_result(self):
         sd = DirectoryEntryFactory()
-        ResultFactory(live=False, securedrop=sd, landing_page_url=sd.landing_page_url).save()
-        ResultFactory(live=False, securedrop=sd, landing_page_url=sd.landing_page_url).save()
-        r3 = ResultFactory(live=True, securedrop=sd, landing_page_url=sd.landing_page_url)
+        ScanResultFactory(live=False, securedrop=sd, landing_page_url=sd.landing_page_url).save()
+        ScanResultFactory(live=False, securedrop=sd, landing_page_url=sd.landing_page_url).save()
+        r3 = ScanResultFactory(live=True, securedrop=sd, landing_page_url=sd.landing_page_url)
         r3.save()
 
         sd = DirectoryEntry.objects.get(pk=sd.pk)
@@ -68,7 +68,7 @@ class DirectoryEntryTest(TestCase):
 
     def test_save_associates_results(self):
         landing_page_url = 'https://www.something.org'
-        result = Result(
+        result = ScanResult(
             live=True,
             hsts=True,
             hsts_max_age=True,
@@ -86,93 +86,93 @@ class DirectoryEntryTest(TestCase):
         self.assertEqual(result.securedrop, securedrop)
 
 
-class ResultTest(TestCase):
+class ScanResultTest(TestCase):
     def setUp(self):
         self.securedrop = DirectoryEntryFactory()
         self.securedrop.save()
 
     def test_grade_computed_on_save(self):
-        result = Result(live=True, hsts=True, hsts_max_age=True,
-                        securedrop=self.securedrop)
+        result = ScanResult(live=True, hsts=True, hsts_max_age=True,
+                            securedrop=self.securedrop)
         self.assertEqual(result.grade, '?')
         result.save()
         self.assertEqual(result.grade, 'A')
 
     def test_an_instance_using_cookies_gets_an_F(self):
-        result = Result(live=True, no_cookies=False, securedrop=self.securedrop)
+        result = ScanResult(live=True, no_cookies=False, securedrop=self.securedrop)
         result.save()
         self.assertEqual(result.grade, 'F')
 
     def test_an_instance_using_a_cdn_gets_a_D(self):
-        result = Result(live=True, no_cdn=False, securedrop=self.securedrop)
+        result = ScanResult(live=True, no_cdn=False, securedrop=self.securedrop)
         result.save()
         self.assertEqual(result.grade, 'D')
 
     def test_an_instance_using_a_subdomain_gets_a_D(self):
-        result = Result(live=True, subdomain=True, securedrop=self.securedrop)
+        result = ScanResult(live=True, subdomain=True, securedrop=self.securedrop)
         result.save()
         self.assertEqual(result.grade, 'D')
 
     def test_an_instance_showing_server_software_in_headers_gets_a_D(self):
-        result = Result(live=True, no_server_info=False,
-                        securedrop=self.securedrop)
+        result = ScanResult(live=True, no_server_info=False,
+                            securedrop=self.securedrop)
         result.save()
         self.assertEqual(result.grade, 'D')
 
     def test_an_instance_showing_server_version_in_headers_gets_a_D(self):
-        result = Result(live=True, no_server_version=False,
-                        securedrop=self.securedrop)
+        result = ScanResult(live=True, no_server_version=False,
+                            securedrop=self.securedrop)
         result.save()
         self.assertEqual(result.grade, 'D')
 
     def test_an_instance_with_expires_not_set_gets_a_C(self):
-        result = Result(live=True, expires_set=False,
-                        securedrop=self.securedrop)
+        result = ScanResult(live=True, expires_set=False,
+                            securedrop=self.securedrop)
         result.save()
         self.assertEqual(result.grade, 'C')
 
     def test_an_instance_with_cache_control_nostore_not_set_gets_a_B(self):
-        result = Result(live=True, cache_control_nostore_set=False,
-                        hsts_max_age=True, securedrop=self.securedrop)
+        result = ScanResult(live=True, cache_control_nostore_set=False,
+                            hsts_max_age=True, securedrop=self.securedrop)
         result.save()
         self.assertEqual(result.grade, 'B')
 
     def test_a_down_instance_gets_a_null_grade(self):
-        result = Result(live=False, securedrop=self.securedrop)
+        result = ScanResult(live=False, securedrop=self.securedrop)
         result.save()
         self.assertEqual(result.grade, '?')
 
     def test_securedrop_can_get_most_recent_scan(self):
-        result1 = Result(live=True, hsts=True, hsts_max_age=True,
-                         securedrop=self.securedrop, landing_page_url=self.securedrop.landing_page_url)
+        result1 = ScanResult(live=True, hsts=True, hsts_max_age=True,
+                             securedrop=self.securedrop, landing_page_url=self.securedrop.landing_page_url)
         result1.save()
-        result2 = Result(live=True, hsts=False, hsts_max_age=True,
-                         securedrop=self.securedrop, landing_page_url=self.securedrop.landing_page_url)
+        result2 = ScanResult(live=True, hsts=False, hsts_max_age=True,
+                             securedrop=self.securedrop, landing_page_url=self.securedrop.landing_page_url)
         result2.save()
         securedrop = DirectoryEntry.objects.get(id=self.securedrop.pk)
         most_recent = securedrop.results.latest()
         self.assertEqual(most_recent.grade, 'C')
 
     def test_result_string_representation(self):
-        result1 = Result(live=True, hsts=True, hsts_max_age=True,
-                         securedrop=self.securedrop, landing_page_url=self.securedrop.landing_page_url)
+        result1 = ScanResult(live=True, hsts=True, hsts_max_age=True,
+                             securedrop=self.securedrop, landing_page_url=self.securedrop.landing_page_url)
         self.assertIn(result1.landing_page_url, result1.__str__())
 
     def test_is_equal_to_compares_only_scan_attributes__same_result(self):
         """Test is_equal_to does not compare pk, _state, etc."""
-        result1 = Result(live=True, hsts=True, hsts_max_age=True,
-                         securedrop=self.securedrop)
-        result2 = Result(live=True, hsts=True, hsts_max_age=True,
-                         securedrop=self.securedrop)
+        result1 = ScanResult(live=True, hsts=True, hsts_max_age=True,
+                             securedrop=self.securedrop)
+        result2 = ScanResult(live=True, hsts=True, hsts_max_age=True,
+                             securedrop=self.securedrop)
         self.assertTrue(result1.is_equal_to(result2))
 
     def test_is_equal_to_compares_only_scan_attributes__new_result(self):
-        result1 = Result(live=True, hsts=True, hsts_max_age=True, securedrop=self.securedrop)
-        result2 = Result(live=False, securedrop=self.securedrop)
+        result1 = ScanResult(live=True, hsts=True, hsts_max_age=True, securedrop=self.securedrop)
+        result2 = ScanResult(live=False, securedrop=self.securedrop)
         self.assertFalse(result1.is_equal_to(result2))
 
     def test_save_associates_results(self):
-        result = Result(
+        result = ScanResult(
             live=True,
             hsts=True,
             hsts_max_age=True,

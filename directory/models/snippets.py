@@ -11,6 +11,11 @@ from wagtail.wagtailsnippets.models import register_snippet
 
 @register_snippet
 class ResultGroup(ClusterableModel):
+    """
+    A model that defines how fields on ScanResults are organized when they are
+    displayed
+    """
+
     name = models.CharField(
         max_length=255,
         help_text="Will be displayed as the group heading."
@@ -26,9 +31,13 @@ class ResultGroup(ClusterableModel):
 
 
 class ResultState(Orderable):
+    """
+    Represents a field on a ScanResult. Lets Wagtail admins define how
+    success and failure states for those fields are displayed
+    """
     name = models.CharField(
         max_length=255,
-        help_text="Must be a field in the directory.Result model."
+        help_text="Must be a field in the directory.ScanResult model."
     )
     result_group = ParentalKey(ResultGroup, related_name='result_states')
     success_text = RichTextField()
