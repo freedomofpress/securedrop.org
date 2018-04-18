@@ -28,7 +28,7 @@ class ResultGroup(ClusterableModel):
 class ResultState(Orderable):
     name = models.CharField(
         max_length=255,
-        help_text="Must be a field in the landing_page_checker.Result model."
+        help_text="Must be a field in the directory.Result model."
     )
     result_group = ParentalKey(ResultGroup, related_name='result_states')
     success_text = RichTextField()

@@ -16,7 +16,7 @@ from search.utils import get_search_content_by_fields
 from directory.models.taxonomy import Language, Topic, Country
 from directory.models.entry import DirectoryEntry
 from directory.forms import ScannerForm
-from landing_page_checker.forms import DirectoryEntryForm
+from accounts.forms.directory_management import DirectoryEntryForm
 from scanner import scanner
 
 

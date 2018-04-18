@@ -2,8 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.conf.urls import url
 
-from accounts.views import DashboardView, UpdateUserForm
-from landing_page_checker.views import SecuredropEditView
+from accounts.views import DashboardView, UpdateUserForm, SecuredropEditView
 
 urlpatterns = [
     url(r'^dashboard$', DashboardView.as_view(), name='dashboard'),

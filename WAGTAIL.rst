@@ -75,8 +75,6 @@ Menus are groups of links used throughout the site. The Main Menu is displayed o
 
 Result Groups
 +++++++++++++
-Result Groups are used to display results from scanning a Securedrop landing page. The title of each group is displayed as a header. Each ``result state`` in a result group must have the exact name of a field in the Result model (in the ``landing_page_checker`` app).
+Result Groups are used to display results from scanning a Securedrop landing page. The title of each group is displayed as a header. Each ``result state`` in a result group must have the exact name of a field in the Result model (in the ``directory`` app).
 
 These result states three types of text. A success text, displayed if the corresponding field on the Result model is ``True``; a failure text, displayed if the corresponding field on a model is ``False``; and a fix text, which is displayed immediately after a user scans their page and shows them what to do to pass that test. Result states also contain an 'is warning' field, which will cause the failure text to display with a yellow flag if checked, or a red x if left unchecked.
-
-

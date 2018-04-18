@@ -9,7 +9,7 @@ from pshtt.pshtt import inspect_domains
 from django.utils import timezone
 
 from directory.models import Result, DirectoryEntry
-from landing_page_checker.utils import url_to_domain
+from scanner.utils import url_to_domain
 
 if TYPE_CHECKING:
     from directory.models import DirectoryEntryQuerySet  # noqa: F401

@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from landing_page_checker.utils import url_to_domain
+from scanner.utils import url_to_domain
 
 
 class URLToDomainTestCase(TestCase):

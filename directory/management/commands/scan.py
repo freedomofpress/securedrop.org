@@ -2,7 +2,7 @@ from django.core.management import BaseCommand, CommandError
 
 from directory.models import DirectoryEntry
 from scanner.scanner import bulk_scan
-from landing_page_checker.utils import url_to_domain
+from scanner.utils import url_to_domain
 
 
 class Command(BaseCommand):
