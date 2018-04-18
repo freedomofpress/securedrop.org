@@ -17,7 +17,7 @@ from directory.models.taxonomy import Language, Topic, Country
 from directory.models.entry import DirectoryEntry
 from directory.forms import ScannerForm
 from landing_page_checker.forms import DirectoryEntryForm
-from landing_page_checker.landing_page import scanner
+from scanner import scanner
 
 
 SCAN_URL = 'scan/'

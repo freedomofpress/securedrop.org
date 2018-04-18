@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'home',
     'marketing',
     'menus',
+    'scanner',
     'search',
     'simple',
     'forms',

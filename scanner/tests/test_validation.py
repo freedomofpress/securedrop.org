@@ -3,7 +3,7 @@ from unittest import mock
 
 from django.test import TestCase
 
-from landing_page_checker.landing_page import scanner
+from scanner import scanner
 
 
 class VerificationUtilityTest(TestCase):
