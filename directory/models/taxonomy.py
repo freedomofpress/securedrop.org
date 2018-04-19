@@ -2,7 +2,7 @@ from django.db import models
 from modelcluster.models import ClusterableModel
 
 
-class BaseItem(ClusterableModel):
+class AbstractBaseItem(ClusterableModel):
     @classmethod
     def autocomplete_create(kls, value):
         return kls.objects.create(title=value)
@@ -12,17 +12,20 @@ class BaseItem(ClusterableModel):
         unique=True,
     )
 
+    class Meta:
+        abstract = True
+
     def __str__(self):
         return self.title
 
 
-class Language(BaseItem):
+class Language(AbstractBaseItem):
     pass
 
 
-class Country(BaseItem):
+class Country(AbstractBaseItem):
     pass
 
 
-class Topic(BaseItem):
+class Topic(AbstractBaseItem):
     pass
