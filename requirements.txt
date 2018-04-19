@@ -13,6 +13,7 @@ defusedxml==0.5.0         # via python3-openid
 django-allauth-2fa==0.4.4
 django-allauth==0.34.0
 django-anymail[mailgun]==1.4
+django-csp==3.4
 django-modelcluster==3.1
 django-otp==0.4.1.1       # via django-allauth-2fa
 django-recaptcha==1.3.1
