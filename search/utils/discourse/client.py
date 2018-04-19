@@ -1,4 +1,5 @@
 import logging
+import time
 
 import requests
 
@@ -15,12 +16,14 @@ class DiscourseClient(object):
 
     """
 
-    def __init__(self, host, api_key, secure=True):
+    def __init__(self, host: str, api_key: str, secure=True):
         self._host = host
         self._api_key = api_key
         self._secure = secure
+        # number of seconds to wait after receiving HTTP 429 Too Many Requests
+        self._sleep_time = 30
 
-    def _request(self, method, path, data={}, retries=3):
+    def _request(self, method: str, path: str, data={}, retries=3) -> dict:
 
         request_url = '{protocol}{host}{path}'.format(
             protocol='https://' if self._secure else 'http://',
@@ -35,46 +38,41 @@ class DiscourseClient(object):
 
         while retries > 0:
             try:
+                logger.debug('DiscourseClient requesting {} {} with {}'.format(
+                    method, request_url, data_
+                ))
                 r = requests.request(method, request_url, data=data_)
-                try:
-                    r.raise_for_status()
-                    return r.json()
-                except requests.exceptions.HTTPError as e:
-                    return self._handle_http_error(e, method, request_url)
+                r.raise_for_status()
             except (requests.exceptions.ConnectionError,
                     requests.exceptions.Timeout) as e:
                 retries -= 1
                 if not retries:
-                    self._handle_connection_error(e, method, request_url)
-                    return False
+                    raise
+                continue
+            except requests.exceptions.HTTPError as e:
+                retries -= 1
+                if not retries:
+                    raise
+                if e.response is not None and e.response.status_code == 429:
+                    # If we get Too Many Requests, let the server cool off
+                    logger.debug(
+                        'DiscourseClient received response 429. '
+                        'Sleeping for {} seconds'.format(self._sleep_time)
+                    )
+                    time.sleep(30)
+                continue
+            return r.json()
 
-    def _handle_http_error(self, error, method, url):
-        logger.error(
-            'Error making %r request to Discourse URL %r: %s',
-            method,
-            url,
-            error,
-        )
-        return False
-
-    def _handle_connection_error(self, error, method, url):
-        logger.error(
-            'Connection failed on %r request to Discourse URL %r: %s',
-            method,
-            url,
-            error,
-        )
-
-    def _get(self, *args, **kwargs):
+    def _get(self, *args, **kwargs) -> dict:
         return self._request('GET', *args, **kwargs)
 
-    def latest(self, page=0):
+    def latest(self, page=0) -> dict:
         return self._get('/latest.json', data={'page': page})
 
-    def topic(self, topic_id):
+    def topic(self, topic_id: int) -> dict:
         return self._get('/t/{}.json'.format(topic_id))
 
-    def posts_for_topic(self, topic_id, post_ids):
+    def posts_for_topic(self, topic_id: int, post_ids: int) -> dict:
         """Returns the posts for the given IDs within the given topic"""
         path = '/t/{topic_id}/posts.json?{post_ids}'.format(
             topic_id=topic_id,
@@ -85,7 +83,7 @@ class DiscourseClient(object):
         )
         return self._get(path)
 
-    def all_topics(self):
+    def all_topics(self) -> list:
         """
         Convenience method to paginate through all of the latest endpoint to
         return a complete list of topics. Results in multiple API requests.
