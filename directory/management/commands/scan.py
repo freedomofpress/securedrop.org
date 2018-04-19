@@ -1,8 +1,8 @@
 from django.core.management import BaseCommand, CommandError
 
 from directory.models import DirectoryEntry
-from landing_page_checker.landing_page.scanner import bulk_scan
-from landing_page_checker.utils import url_to_domain
+from scanner.scanner import bulk_scan
+from scanner.utils import url_to_domain
 
 
 class Command(BaseCommand):

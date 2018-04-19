@@ -36,11 +36,12 @@ INSTALLED_APPS = [
     'home',
     'marketing',
     'menus',
+    'scanner',
     'search',
     'simple',
     'forms',
     'github',
-    'landing_page_checker',
+    'landing_page_checker',  # only for migration history--empty app, otherwise
     'directory',
 
     'captcha',

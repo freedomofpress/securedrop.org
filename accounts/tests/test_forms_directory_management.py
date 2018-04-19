@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from directory.tests.factories import DirectoryPageFactory
-from landing_page_checker.forms import LandingPageForm, DirectoryEntryForm
+from accounts.forms.directory_management import LandingPageForm, DirectoryEntryForm
 from directory.tests.factories import DirectoryEntryFactory
 
 

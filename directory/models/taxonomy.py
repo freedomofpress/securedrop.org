@@ -1,8 +1,12 @@
 from django.db import models
+
 from modelcluster.models import ClusterableModel
 
+from wagtail.wagtailadmin.edit_handlers import FieldPanel
+from wagtail.wagtailsnippets.models import register_snippet
 
-class BaseItem(ClusterableModel):
+
+class AbstractBaseItem(ClusterableModel):
     @classmethod
     def autocomplete_create(kls, value):
         return kls.objects.create(title=value)
@@ -12,17 +16,30 @@ class BaseItem(ClusterableModel):
         unique=True,
     )
 
+    panels = [
+        FieldPanel('title'),
+    ]
+
+    class Meta:
+        abstract = True
+
     def __str__(self):
         return self.title
 
 
-class Language(BaseItem):
+@register_snippet
+class Language(AbstractBaseItem):
     pass
 
 
-class Country(BaseItem):
+@register_snippet
+class Country(AbstractBaseItem):
     pass
 
+    class Meta:
+        verbose_name_plural = 'Countries'
 
-class Topic(BaseItem):
+
+@register_snippet
+class Topic(AbstractBaseItem):
     pass

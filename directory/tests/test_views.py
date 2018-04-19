@@ -16,7 +16,7 @@ from common.tests.utils import (
 from directory.forms import ScannerForm
 from directory.models.pages import SCAN_URL
 from directory.tests.factories import DirectoryPageFactory
-from landing_page_checker.forms import DirectoryEntryForm
+from accounts.forms.directory_management import DirectoryEntryForm
 
 
 class ScanViewTest(TestCase):

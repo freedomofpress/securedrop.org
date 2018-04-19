@@ -146,9 +146,9 @@ class DirectoryEntry(MetadataPageMixin, Page):
         return search_content
 
     def save(self, *args, **kwargs):
-        from directory.models import Result
+        from directory.models import ScanResult
         super(DirectoryEntry, self).save(*args, **kwargs)
-        self.results = Result.objects.filter(landing_page_url=self.landing_page_url)
+        self.results = ScanResult.objects.filter(landing_page_url=self.landing_page_url)
 
 
 class SecuredropOwner(models.Model):
@@ -165,9 +165,9 @@ class SecuredropOwner(models.Model):
         return self.owner.email
 
 
-class Result(models.Model):
+class ScanResult(models.Model):
     # This is different from STN's Scan object in that each scan here will not
-    # produce a new Result row. If multiple consecutive scans have the same
+    # produce a new ScanResult row. If multiple consecutive scans have the same
     # result, then we only insert that result once and set the result_last_seen
     # to the date of the last scan.
     securedrop = ParentalKey(
@@ -324,4 +324,4 @@ class Result(models.Model):
     def save(self, *args, **kwargs):
         self.compute_grade()
         self.securedrop = DirectoryEntry.objects.filter(landing_page_url=self.landing_page_url).first()
-        super(Result, self).save(*args, **kwargs)
+        super(ScanResult, self).save(*args, **kwargs)
