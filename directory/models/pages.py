@@ -60,6 +60,19 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
     )
     scanner_form_title = models.CharField(max_length=100, default="Scan")
     scanner_form_text = RichTextField(null=True, blank=True)
+    directory_submission_form = models.ForeignKey(
+        'wagtailcore.Page',
+        help_text=(
+            'If directory self-management tools are enabled in Directory '
+            'Settings, this will have no effect. Otherwise this should be '
+            'a link to a FormPage where SecureDrop admins can submit their '
+            'instance to the directory'
+        ),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+'
+    )
     org_details_form_title = models.CharField(max_length=100, default="Enter organization details")
     org_details_form_text = RichTextField(null=True, blank=True)
 
@@ -72,6 +85,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
                 FieldPanel('source_warning'),
                 FieldPanel('submit_title'),
                 FieldPanel('submit_body'),
+                PageChooserPanel('directory_submission_form', 'forms.FormPage'),
                 FieldPanel('submit_button_text'),
                 FieldPanel('manage_instances_text'),
             ],
@@ -95,7 +109,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
         ), 'Organization details form'),
     ]
 
-    subpage_types = ['directory.DirectoryEntry']
+    subpage_types = ['directory.DirectoryEntry', 'forms.FormPage']
 
     search_fields_pgsql = ['title', 'body', 'source_warning']
 
