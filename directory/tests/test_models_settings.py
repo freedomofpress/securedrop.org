@@ -98,6 +98,28 @@ class DirectorySettingsTestCase(TestCase):
 
         self.assertTrue(len(scan_links) > 0)
 
+    def test_management_enabled_shows_footer_login(self):
+        self.directory_settings.allow_directory_management = True
+        self.directory_settings.save()
+        response = self.client.get(self.directory.url)
+        soup = BeautifulSoup(response.content, 'html.parser')
+        login_links = soup.find_all(
+            class_='footer-main__admin-link',
+            href=reverse('account_login')
+        )
+        self.assertTrue(len(login_links) > 0)
+
+    def test_management_disabled_hides_footer_login(self):
+        self.directory_settings.allow_directory_management = False
+        self.directory_settings.save()
+        response = self.client.get(self.directory.url)
+        soup = BeautifulSoup(response.content, 'html.parser')
+        login_links = soup.find_all(
+            class_='footer-main__admin-link',
+            href=reverse('account_login')
+        )
+        self.assertEqual(len(login_links), 0)
+
     def test_management_disabled_causes_404s(self):
         """
         Test that all the relevant paths return 404s is directory management is
