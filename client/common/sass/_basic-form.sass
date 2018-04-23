@@ -19,15 +19,17 @@
 .basic-form__label-title
 	font-weight: $sans-bold
 
-.basic-form__label-title--required::after
-	content: '*'
-
 .basic-form__label-help-text
 	color: $gray50--text
 
 .basic-form__field--textinput,
 .basic-form__field--urlinput,
 .basic-form__field--emailinput,
+.basic-form__field--numberinput,
+.basic-form__field--passwordinput,
+.basic-form__field--dateinput,
+.basic-form__field--datetimeinput,
+.basic-form__field--timeinput,
 .basic-form__field--textarea
 	& > input, & > textarea
 		border: 1px solid $gray20--text
@@ -39,7 +41,12 @@
 
 .basic-form__field--textinput,
 .basic-form__field--urlinput,
-.basic-form__field--emailinput
+.basic-form__field--emailinput,
+.basic-form__field--numberinput,
+.basic-form__field--passwordinput,
+.basic-form__field--dateinput,
+.basic-form__field--datetimeinput,
+.basic-form__field--timeinput,
 	& > input
 		width: 100%
 		@media (min-width: 480px)
@@ -49,11 +56,13 @@
 	width: 100%
 
 .basic-form__field--radioselect,
+.basic-form__field--nullbooleanselect,
 .basic-form__field--checkboxselectmultiple
 	& > ul
 		margin: 1rem 0 0 0
 		padding: 0
 		> li
+			margin-bottom: .25rem
 			list-style-type: none
 
 .basic-form__group--checkboxinput
@@ -70,9 +79,10 @@
 
 .basic-form__label-title--checkboxinput
 	font-weight: normal
-
-.basic-form__label
 	flex-grow: 1
+
+.basic-form__label--checkboxinput
+	margin-bottom: 0
 
 .basic-form__field--checkboxinput
 	width: 30px
