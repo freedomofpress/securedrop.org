@@ -44,8 +44,6 @@ INSTALLED_APPS = [
     'landing_page_checker',  # only for migration history--empty app, otherwise
     'directory',
 
-    'captcha',
-
     'wagtail.contrib.settings',
     'wagtail.contrib.wagtailroutablepage',
     'wagtail.contrib.modeladmin',
@@ -236,10 +234,6 @@ PIWIK_SITE_ID = '0'
 SETTINGS_EXPORT = [
     'PIWIK_SITE_ID',
 ]
-
-RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY', '')
-RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY', '')
-NOCAPTCHA = True
 
 # django-taggit
 TAGGIT_CASE_INSENSITIVE = True

@@ -104,7 +104,3 @@ SECURE_PROXY_SSL_HEADER = ('X-Forwarded-Proto', 'https')
 
 if GITHUB_HOOK_SECRET_KEY == b'default':  # noqa: F405
     logger.critical('GITHUB_HOOK_SECRET_KEY has a value of "default". It has likely not been set.')
-
-if os.environ.get('RECAPTCHA_PUBLIC_KEY'):
-    RECAPTCHA_PUBLIC_KEY = os.environ['RECAPTCHA_PUBLIC_KEY']
-    RECAPTCHA_PRIVATE_KEY = os.environ['RECAPTCHA_PRIVATE_KEY']
