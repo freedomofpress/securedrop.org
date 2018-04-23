@@ -5,8 +5,7 @@ from wagtail.wagtailadmin.edit_handlers import (
     InlinePanel, MultiFieldPanel
 )
 from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtailforms.models import AbstractFormField
-from wagtailcaptcha.models import WagtailCaptchaEmailForm
+from wagtail.wagtailforms.models import AbstractFormField, AbstractEmailForm
 
 from common.models import MetadataPageMixin
 
@@ -15,7 +14,7 @@ class FormField(AbstractFormField):
     page = ParentalKey('FormPage', related_name='form_fields')
 
 
-class FormPage(MetadataPageMixin, WagtailCaptchaEmailForm):
+class FormPage(MetadataPageMixin, AbstractEmailForm):
     intro = RichTextField(blank=True)
     warning = RichTextField(blank=True, help_text='A warning for sources not to submit documents via this form.')
     thank_you_text = RichTextField(blank=True)
@@ -25,7 +24,7 @@ class FormPage(MetadataPageMixin, WagtailCaptchaEmailForm):
         null=True,
     )
 
-    content_panels = WagtailCaptchaEmailForm.content_panels + [
+    content_panels = [
         FieldPanel('intro', classname="full"),
         FieldPanel('warning', classname="full"),
         InlinePanel('form_fields', label="Form fields"),

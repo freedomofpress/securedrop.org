@@ -4,7 +4,6 @@ bleach>=2.1.3
 Django>=1.11.11<2
 django-anymail[mailgun]>=1.4
 django-modelcluster
-django-recaptcha
 django-settings-export
 django-webpack-loader
 factory_boy
@@ -18,7 +17,6 @@ pygments
 python-json-logger
 vcrpy
 wagtail<1.13
-wagtail-django-recaptcha
 wagtail-factories
 wagtail-metadata
 unittest-xml-reporting

@@ -1,6 +1,5 @@
 from time import time
 from unittest import mock
-import os
 
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse_lazy
@@ -31,16 +30,6 @@ class ScanViewTest(TestCase):
             org_details_form_text='Org form text'
         )
 
-    @classmethod
-    def setUpClass(cls):
-        os.environ['RECAPTCHA_TESTING'] = 'True'
-        super(ScanViewTest, cls).setUpClass()
-
-    @classmethod
-    def tearDownClass(cls):
-        del os.environ['RECAPTCHA_TESTING']
-        super(ScanViewTest, cls).tearDownClass()
-
     @mock.patch('directory.models.pages.DirectoryEntryForm.as_p', return_value='')
     @mock.patch('directory.models.pages.scanner')
     def test_unauthenticated_scan(self, scanner, directory_form_as_p):
@@ -48,7 +37,6 @@ class ScanViewTest(TestCase):
             '{}{}'.format(self.directory.url, SCAN_URL),
             {
                 'url': 'https://littleweaverweb.com',
-                'g-recaptcha-response': 'PASSED',
             }
         )
         self.assertIsInstance(response.context['submission_form'], DirectoryEntryForm)
@@ -93,7 +81,6 @@ class ScanViewTest(TestCase):
             '{}{}'.format(self.directory.url, SCAN_URL),
             {
                 'url': 'https://littleweaverweb.com',
-                'g-recaptcha-response': 'PASSED',
             }
         )
         submission_form = response.context['submission_form']
@@ -116,6 +103,5 @@ class ScanViewTest(TestCase):
         )
         self.assertIsInstance(response.context['form'], ScannerForm)
         self.assertTemplateUsed(response, 'directory/scanner_form.html')
-        self.assertTemplateUsed(response, 'captcha/widget_nocaptcha.html')
         self.assertTemplateNotUsed(response, 'directory/result.html')
         self.assertEqual(response.context['text'], self.directory.scanner_form_text)
