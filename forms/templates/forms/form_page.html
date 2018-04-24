@@ -1,5 +1,5 @@
 {% extends "layout/_layout_one_column.html" %}
-{% load wagtailcore_tags  %}
+{% load wagtailcore_tags widget_type %}
 
 {% block page_title_text %}{{ page.title }}{% endblock %}
 
@@ -11,7 +11,31 @@
 		</div>
 		<form class="basic-form" action="{% pageurl page %}" method="POST">
 			{% csrf_token %}
-			{{ form.as_p }}
+			{% for field in form.hidden_fields %}
+				{{ hidden }}
+			{% endfor %}
+			{% for field in form.visible_fields %}
+				{% with css_modifier=field.field|widget_type %}
+					<div class="basic-form__group basic-form__group--{{ css_modifier }}">
+						<label class="basic-form__label basic-form__label--{{ css_modifier }}" for="{{ field.id_for_label }}">
+							<div class="basic-form__label-title basic-form__label-title--{{ css_modifier }}">
+								{{ field.label }}
+								{% if field.field.required %}
+									<span class="basic-form__label-required" title="Required">*</span>
+								{% endif %}
+							</div>
+							{% if field.help_text %}
+								<div class="basic-form__label-help-text">
+									{{ field.help_text|safe }}
+								</div>
+							{% endif %}
+						</label>
+						<div class="basic-form__field basic-form__field--{{ css_modifier }}">
+							{{ field }}
+						</div>
+					</div>
+				{% endwith %}
+			{% endfor %}
 			<button
 			  class="basic-form__submit"
 				type="submit"

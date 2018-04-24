@@ -5,8 +5,19 @@
 	+sd-gradient($red,darken($red,15))
 	color: $white
 	padding: 1rem 1rem
-	+p-remove-first-and-last-margin
 	margin-bottom: 2rem
+
+	// Break BEM here with descendent selectors because rich text block
+	// doesn't let us add classes
+	+p-remove-first-and-last-margin
+	a
+		color: $white
+		text-decoration: none
+		font-weight: $sans-bold
+		border-bottom: 1px solid rgba($white, 0.6)
+		transition: border 150ms linear
+		&:hover
+			border-bottom: 1px solid $white
 
 .form-page__intro
 	font-size: $embiggened-font-size

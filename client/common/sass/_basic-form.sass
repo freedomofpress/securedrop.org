@@ -1,27 +1,101 @@
-.basic-form
-	+basic-form
+// We break BEM throughout this file by using descendent selectorys so that we
+// can let Django continue to be responsible for widget rendering (and not add
+// classes to inputs ourselves)
 
-	.helptext
-		display: block
-		font-size: 0.9em
-		margin-top: 0.5rem
+.basic-form__group
+	margin-top: 1rem
+	border-top: 1px solid $gray10
+	padding-top: 1rem
 
-.basic-form--hidden
-	display: none
+	&:first-child
+		margin-top: 0
+		padding-top: 0
+		border-top: 0
+
+.basic-form__label
+	display: block
+	margin-bottom: .5rem
+
+.basic-form__label-title
+	font-weight: $sans-bold
+
+.basic-form__label-help-text
+	color: $gray50--text
+
+.basic-form__field--textinput,
+.basic-form__field--urlinput,
+.basic-form__field--emailinput,
+.basic-form__field--numberinput,
+.basic-form__field--passwordinput,
+.basic-form__field--dateinput,
+.basic-form__field--datetimeinput,
+.basic-form__field--timeinput,
+.basic-form__field--textarea
+	& > input, & > textarea
+		border: 1px solid $gray20--text
+		padding: 0.5em 0.75em
+		font-size: inherit
+		border-radius: 4px
+		&:focus
+			border: 1px solid $blue
+
+.basic-form__field--textinput,
+.basic-form__field--urlinput,
+.basic-form__field--emailinput,
+.basic-form__field--numberinput,
+.basic-form__field--passwordinput,
+.basic-form__field--dateinput,
+.basic-form__field--datetimeinput,
+.basic-form__field--timeinput,
+	& > input
+		width: 100%
+		@media (min-width: 480px)
+			width: 400px
+
+.basic-form__field--textarea > textarea
+	width: 100%
+
+.basic-form__field--radioselect,
+.basic-form__field--nullbooleanselect,
+.basic-form__field--checkboxselectmultiple
+	& > ul
+		margin: 1rem 0 0 0
+		padding: 0
+		> li
+			margin-bottom: .25rem
+			list-style-type: none
+
+.basic-form__group--checkboxinput
+	display: flex
+	width: 100%
+	flex-direction: row-reverse
+	justify-content: flex-end
+	align-items: flex-start
+
+.basic-form__group--checkboxinput + .basic-form__group--checkboxinput
+	// Tighten up the space between multiple consecutive checkboxes
+	padding-top: 0
+	border-top: 0
+
+.basic-form__label-title--checkboxinput
+	font-weight: normal
+	flex-grow: 1
+
+.basic-form__label--checkboxinput
+	margin-bottom: 0
+
+.basic-form__field--checkboxinput
+	width: 30px
+	margin: 0
+	flex-grow: 0
+	flex-shrink: 0
+	& > input
+		margin: 0
+		padding: 0
 
 .basic-form__submit
-	+button-small
+	margin-top: 1rem
+	padding: 1em 2em
+	+button-base
+	+button-transition
 	+button-solid--blue
-
-.basic-form__required > label::after
-	content: " *"
-	color: $red
-
-.basic-form__error
-	input[type="text"],
-	input[type="number"],
-	input[type="email"],
-	input[type="url"],
-	input[type="password"],
-	textarea
-		border-color: $red
