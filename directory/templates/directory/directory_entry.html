@@ -48,7 +48,7 @@
 		<p>
 
 			{% if settings.directory.DirectorySettings.contact_gpg %}
-				{% blocktrans with contact_email=settings.directory.DirectorySettings.contact_email contact_email_escaped=settings.common.DirectorySettings.contact_email|escape contact_gpg=settings.common.DirectorySettings.contact_gpg.url %}
+				{% blocktrans with contact_email=settings.directory.DirectorySettings.contact_email contact_email_escaped=settings.directory.DirectorySettings.contact_email|escape contact_gpg=settings.directory.DirectorySettings.contact_gpg.url %}
 					If you encounter a mismatch, please contact us at
 					<a href="mailto:{{ contact_email_escaped }}">{{ contact_email }}</a>
 					(<a href="{{ contact_gpg }}">GPG</a>).
@@ -60,7 +60,7 @@
 					accounted for the possibility that one isn't set at least for dev
 					environments.
 				{% endcomment %}
-				{% blocktrans with contact_email=settings.directory.DirectorySettings.contact_email contact_email_escaped=settings.common.DirectorySettings.contact_email|escape %}
+				{% blocktrans with contact_email=settings.directory.DirectorySettings.contact_email contact_email_escaped=settings.directory.DirectorySettings.contact_email|escape %}
 					If you encounter a mismatch, please contact us at
 					<a href="mailto:{{ contact_email_escaped }}">{{ contact_email }}</a>.
 				{% endblocktrans %}
@@ -102,13 +102,13 @@
 	{% if settings.directory.DirectorySettings.show_scan_results %}
 		<div class="security_grade">
 			<div class="security_grade__text">
-				{{ settings.common.DirectorySettings.grade_text }}:
+				{{ settings.directory.DirectorySettings.grade_text }}:
 			</div>
 			<div class="security_grade__grade security_grade__grade--{{ page.results.latest.grade }}">
 				{{ page.results.latest.grade }}
 			</div>
 		</div>
-		{% result_groups page.get_live_result False settings.common.DirectorySettings.no_results_text %}
+		{% result_groups page.get_live_result False settings.directory.DirectorySettings.no_results_text %}
 	{% endif %}
 
 	<a href="{% pageurl page.get_parent %}" class="instance-directory-button"/>
