@@ -247,3 +247,10 @@ class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
 
     def get_current_release(self):
         return Release.objects.order_by('-date').first()
+
+    def get_cached_paths(self):
+        yield self.url
+        yield self.url + self.reverse_subpage('feed')
+        page_count = self.get_posts().count() // self.per_page
+        for x in range(1, page_count + 2):
+            yield '{}?page={}'.format(self.url, x)
