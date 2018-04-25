@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'accounts',
     'autocomplete',
     'blog',
+    'cloudflare',
     'common',
     'home',
     'marketing',
