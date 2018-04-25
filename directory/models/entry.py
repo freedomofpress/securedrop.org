@@ -5,7 +5,11 @@ from django.db.models import Func, F, Value
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 
 from wagtail.wagtailcore.models import Page, PageManager, PageQuerySet
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
+from wagtail.wagtailadmin.edit_handlers import (
+    FieldPanel,
+    InlinePanel,
+    MultiFieldPanel,
+)
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 from autocomplete.edit_handlers import AutocompleteFieldPanel
@@ -84,6 +88,15 @@ class DirectoryEntry(MetadataPageMixin, Page):
         help_text='Optional second logo optimized to show up on dark backgrounds. For instances that are featured on the homepage.'
     )
 
+    organization_logo_is_title = models.BooleanField(
+        default=False,
+        help_text=(
+            'Logo will be displayed instead of the header on page. Recommended '
+            'primarily for logos containing the full organization name on a '
+            'white or transparent background'
+        )
+    )
+
     organization_description = models.CharField(max_length=95, blank=True, null=True, help_text="A micro description of your organization that will be displayed in the directory.")
 
     languages = ParentalManyToManyField(
@@ -112,8 +125,11 @@ class DirectoryEntry(MetadataPageMixin, Page):
         FieldPanel('landing_page_url'),
         FieldPanel('onion_address'),
         FieldPanel('organization_description'),
-        ImageChooserPanel('organization_logo'),
-        ImageChooserPanel('organization_logo_homepage'),
+        MultiFieldPanel([
+            ImageChooserPanel('organization_logo'),
+            ImageChooserPanel('organization_logo_homepage'),
+            FieldPanel('organization_logo_is_title'),
+        ], 'Logo'),
         AutocompleteFieldPanel('languages', 'directory.Language'),
         AutocompleteFieldPanel('countries', 'directory.Country'),
         AutocompleteFieldPanel('topics', 'directory.Topic'),

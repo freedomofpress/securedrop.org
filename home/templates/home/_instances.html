@@ -1,23 +1,27 @@
-{% load wagtailcore_tags wagtailimages_tags  %}
+{% load wagtailcore_tags wagtailimages_tags	%}
 {% for highlighted_instance in instances %}
-  <div class="instances__item">
-    {% if highlighted_instance.instance.organization_logo_homepage  %}
-      {% image highlighted_instance.instance.organization_logo_homepage width-144 class="instances__logo" %}
-    {% elif highlighted_instance.instance.organization_logo %}
-      {% image highlighted_instance.instance.organization_logo width-144 class="instances__logo" %}
-    {% else %}
-      {% include "common/_hexagon.svg" with class="instances__logo instances__logo--hexagon" category_slug="instance-table" %}
-    {% endif %}
-    <div>
-      <h3 class="instances__item-header">{{ highlighted_instance.instance.title }}</h3>
-      {% if highlighted_instance.instance.organization_description %}
-        <div class="instances__item-description">
-          {{ highlighted_instance.instance.organization_description|richtext|truncatewords_html:20 }}
-        </div>
-      {% endif %}
-      <a href="{% pageurl highlighted_instance.instance %}" class="instances__item-link">
-        {{ page.instance_link_default_text }}
-      </a>
-    </div>
-  </div>
+	<div class="instances__item">
+		{% if highlighted_instance.instance.organization_logo_homepage %}
+			{% image highlighted_instance.instance.organization_logo_homepage max-96x96 as logo_1x %}
+			{% image highlighted_instance.instance.organization_logo_homepage max-192x192 as logo_2x %}
+			<img class="instances__logo" {{ logo_1x.attrs }} srcset="{{ logo_1x.url }} 1x, {{ logo_2x.url }} 2x" />
+		{% elif highlighted_instance.instance.organization_logo %}
+			{% image highlighted_instance.instance.organization_logo max-96x96 as logo_1x %}
+			{% image highlighted_instance.instance.organization_logo max-192x192 as logo_2x %}
+			<img class="instances__logo" {{ logo_1x.attrs }} srcset="{{ logo_1x.url }} 1x, {{ logo_2x.url }} 2x" />
+		{% else %}
+			{% include "common/_hexagon.svg" with class="instances__logo instances__logo--hexagon" category_slug="instance-table" %}
+		{% endif %}
+		<div>
+			<h3 class="instances__item-header">{{ highlighted_instance.instance.title }}</h3>
+			{% if highlighted_instance.instance.organization_description %}
+				<div class="instances__item-description">
+					{{ highlighted_instance.instance.organization_description|richtext|truncatewords_html:20 }}
+				</div>
+			{% endif %}
+			<a href="{% pageurl highlighted_instance.instance %}" class="instances__item-link">
+				{{ page.instance_link_default_text }}
+			</a>
+		</div>
+	</div>
 {% endfor %}
