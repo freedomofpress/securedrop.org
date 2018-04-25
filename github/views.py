@@ -34,6 +34,12 @@ def validate_sha1_signature(request, secret):
 
 
 def handle_release_hook(release):
+    if 'rc' in release['tag_name']:
+        logger.info(
+            'Github release event received, but ignored because release {} is '
+            'release candidate'.format(release['tag_name'])
+        )
+        return False
     try:
         release = Release(
             tag_name=release['tag_name'],
