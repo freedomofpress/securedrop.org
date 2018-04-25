@@ -126,7 +126,8 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
 
         consistently filtered by visibility and `filters` parameter
         """
-        instances = DirectoryEntry.objects.child_of(self).live()
+        instances = DirectoryEntry.objects.child_of(self).live()\
+                                          .order_by('title')
         if filters:
             instances = instances.filter(**filters)
         return instances
