@@ -1,4 +1,5 @@
 from datetime import datetime, timezone
+from unittest import mock
 import os
 
 from django.test import TestCase, Client, override_settings
@@ -68,6 +69,27 @@ class TestReceiveHook(TestCase):
         self.assertEqual(
             release.date,
             datetime(2017, 8, 8, 21, 38, 21, tzinfo=timezone.utc)
+        )
+
+    @mock.patch('github.views.logger')
+    @override_settings(GITHUB_HOOK_SECRET_KEY=b'test')
+    def test_release_candidate(self, mock_logger):
+        """
+        A release with a `-rc` tag name should not trigger a new Release object
+        to be created
+        """
+        mock_logger.info = mock.Mock()
+
+        self._post_hook(
+            json_file_name='valid_release_hook__candidate.json',
+            secret=b'test',
+            payload_digest_func=lambda payload: payload,
+        )
+
+        self.assertFalse(Release.objects.all().exists())
+        mock_logger.info.assert_any_call(
+            'Github release event received, but ignored because release '
+            '0.6-rc2 is release candidate'
         )
 
     def test_blank_request_fails(self):
