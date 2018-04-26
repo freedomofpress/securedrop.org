@@ -1,4 +1,4 @@
-{% load static wagtailmetadata_tags wagtailsettings_tags common_tags %}
+{% load static wagtailmetadata_tags wagtailsettings_tags common_tags piwik %}
 {% load render_bundle from webpack_loader %}
 
 <!DOCTYPE html>
@@ -50,6 +50,7 @@
 	<body class="{% block body_class %}{% endblock %}">
 		{% block body %}
 		{% endblock %}
+		{% piwik %}
 	</body>
 
 	{% block js %}

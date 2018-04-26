@@ -12,6 +12,7 @@ dataproperty==0.29.1      # via pytablewriter, simplesqlite, tabledata
 defusedxml==0.5.0         # via python3-openid
 django-allauth-2fa==0.4.4
 django-allauth==0.34.0
+django-analytical==2.4.0
 django-anymail[mailgun]==1.4
 django-csp==3.4
 django-modelcluster==3.1
