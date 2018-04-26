@@ -1,6 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 
-from django.contrib.postgres.search import SearchQuery, SearchVector, SearchRank
+from django.contrib.postgres.search import SearchQuery, SearchRank
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.db.models import Func, F, TextField
 from django.shortcuts import render
@@ -14,7 +14,7 @@ def search(request):
 
     # Search
     if search_query:
-        vector = SearchVector('title', 'search_content')
+        vector = F('search_vector')
         query = SearchQuery(search_query)
         search_results = SearchDocument.objects.annotate(
             rank=SearchRank(vector, query),
