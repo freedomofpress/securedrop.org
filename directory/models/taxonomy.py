@@ -14,6 +14,7 @@ class AbstractBaseItem(ClusterableModel):
     title = models.CharField(
         max_length=255,
         unique=True,
+        db_index=True,
     )
 
     order_priority = models.IntegerField(
