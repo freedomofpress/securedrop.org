@@ -197,9 +197,9 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
         context['entries_filters'] = entry_filters
         context['paginator'] = paginator
         context['all_filters'] = {
-            'languages': Language.objects.all().order_by('title'),
-            'countries': Country.objects.all().order_by('title'),
-            'topics': Topic.objects.all().order_by('title'),
+            'languages': Language.objects.all(),
+            'countries': Country.objects.all(),
+            'topics': Topic.objects.all(),
         }
 
         return context
