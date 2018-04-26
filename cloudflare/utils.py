@@ -59,6 +59,8 @@ def _purge(backend: CloudflareBackend, data={}) -> None:
         logger.error("Couldn't purge from Cloudflare with data: %s. Cloudflare errors '%s'", string_data, error_messages)
         return
 
+    logger.info("Purged from CloudFlare with {}".format(json.dumps(data)))
+
 
 @_for_every_cloudflare_backend
 def purge_tags_from_cache(tags: Iterable, backend: CloudflareBackend) -> None:
