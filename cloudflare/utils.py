@@ -39,25 +39,28 @@ def _purge(backend: CloudflareBackend, data={}) -> None:
     )
 
     try:
-        response_json = response.json()
-    except ValueError:
-        if response.status_code != 200:
-            response.raise_for_status()
-        else:
-            logger.error("Couldn't purge from Cloudflare with data: %s. Unexpected JSON parse error.", string_data)
+        try:
+            response_json = response.json()
+        except ValueError:
+            if response.status_code != 200:
+                response.raise_for_status()
+            else:
+                logger.error("Couldn't purge from Cloudflare with data: %s. Unexpected JSON parse error.", string_data)
 
     except requests.exceptions.HTTPError as e:
-        logger.error("Couldn't purge from Cloudflare with data: %s. HTTPError: %d %s", string_data, e.response.status_code, e.message)
+        logger.error("Couldn't purge from Cloudflare with data: %s. HTTPError: %d %s", string_data, e.response.status_code, str(e))
         return
 
     except requests.exceptions.InvalidURL as e:
-        logger.error("Couldn't purge from Cloudflare with data: %s. URLError: %s", string_data, e.message)
+        logger.error("Couldn't purge from Cloudflare with data: %s. InvalidURL: %s", string_data, str(e))
         return
 
     if response_json['success'] is False:
         error_messages = ', '.join([str(err['message']) for err in response_json['errors']])
         logger.error("Couldn't purge from Cloudflare with data: %s. Cloudflare errors '%s'", string_data, error_messages)
         return
+
+    logger.info("Purged from CloudFlare with data: %s", string_data)
 
 
 @_for_every_cloudflare_backend
