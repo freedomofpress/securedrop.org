@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'wagtailmetadata',
     'webpack_loader',
     'taggit',
+    'analytical',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -358,6 +359,9 @@ CSP_DEFAULT_SRC = ("'self'",)
 CSP_SCRIPT_SRC = (
     "'self'",
     "'unsafe-eval'",
+    # Piwik/Matomo analytics inline code:
+    "'sha256-Ujy9USzNCsaDKHVACggM1NqXbQJ2ljlpMX9U4g2d5d0='",
+    "analytics.freedom.press",
 )
 CSP_STYLE_SRC = (
     "'self'",
@@ -370,7 +374,10 @@ CSP_STYLE_SRC = (
     "'sha256-4ieA95gpQdpg9JDmuID1CQF8dJ/U0JnDqE4GQecAIdg='",
     "'sha256-LAw02AamnUpPKuSLFUcg9Kh2SLuqSmaXiiV45Y21f84='",
 )
-CSP_IMG_SRC = ("'self'",)
+CSP_IMG_SRC = (
+    "'self'",
+    "analytics.freedom.press",
+)
 CSP_FRAME_SRC = ("'self'",)
 CSP_CONNECT_SRC = ("'self'",)
 CSP_EXCLUDE_URL_PREFIXES = ("/admin", )
