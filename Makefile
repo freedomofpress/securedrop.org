@@ -13,7 +13,7 @@ ci-tests: ## Runs testinfra against a pre-running CI container. Useful for debug
 
 .PHONY: dev-tests
 dev-tests: ## Run django tests against developer environment
-	docker exec sd_django /bin/bash -c "./manage.py test --noinput -k"
+	docker-compose run sd_django /bin/bash -c "./manage.py test --noinput -k"
 
 .PHONY: dev-go
 dev-go: ## Spin-up developer environment with three docker containers
@@ -25,27 +25,7 @@ dev-chownroot: ## Chown root owned files caused from previous root-run container
 
 .PHONY: dev-createdevdata
 dev-createdevdata: ## Inject development data into the postgresql database
-	docker exec sd_django /bin/bash -c "./manage.py createdevdata"
-
-.PHONY: dev-killapp
-dev-killapp: ## Kills all developer containers.
-	docker kill sd_node sd_postgresql sd_django
-
-.PHONY: dev-resetapp
-dev-resetapp: ## Purges django/node and starts them up. Doesnt touch postgres
-	molecule converge -s dev
-
-.PHONY: dev-attach-node
-dev-attach-node: ## Provide a read-only terminal to attach to node spin-up
-	docker attach --sig-proxy=false sd_node
-
-.PHONY: dev-attach-django
-dev-attach-django: ## Provide a read-only terminal to attach to django spin-up
-	docker attach --sig-proxy=false sd_django
-
-.PHONY: dev-attach-postgresql
-dev-attach-postgresql: ## Provide a read-only terminal to attach to django spin-up
-	docker attach --sig-proxy=false sd_postgresql
+	docker-compose run sd_django /bin/bash -c "./manage.py createdevdata"
 
 .PHONY: dev-sass-lint
 dev-sass-lint: ## Runs sass-lint utility over the code-base
@@ -53,7 +33,7 @@ dev-sass-lint: ## Runs sass-lint utility over the code-base
 
 .PHONY: dev-import-db
 dev-import-db: ## Imports a database dump from file named ./import.db
-	docker exec -it sd_postgresql bash -c "cat /django/import.db | sed 's/OWNER\ TO\ [a-z]*/OWNER\ TO\ postgres/g' | psql securedropdb -U postgres &> /dev/null"
+	docker-compose run sd_postgresql bash -c "cat /django/import.db | sed 's/OWNER\ TO\ [a-z]*/OWNER\ TO\ postgres/g' | psql securedropdb -U postgres &> /dev/null"
 
 .PHONY: dev-save-db
 dev-save-db: ## Save a snapshot of the database for the current git branch
