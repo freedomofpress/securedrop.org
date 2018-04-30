@@ -1,0 +1,59 @@
+---
+version: '3'
+networks:
+  app:
+services:
+  sd_postgresql:
+    image: postgres:9.3
+    ports:
+      - "5432"
+    volumes:
+      - ./:/django
+    environment:
+      POSTGRES_PASSWORD: securedroppassword
+      POSTGRES_USER: securedrop
+      POSTGRES_DB: securedropdb
+    user: postgres
+    networks:
+      app:
+        aliases:
+          - db
+
+  sd_node:
+    build:
+      context: .
+      dockerfile: devops/docker/NodeDockerfile
+    volumes:
+      - ./:/var/www/django
+    working_dir: /var/www/django
+    command: /bin/ash -c "npm install && touch .node_complete && npm run start"
+    user: node
+    networks:
+      - app
+
+  sd_django:
+    build:
+      context: ./
+      dockerfile: devops/docker/DjangoDockerfile
+    depends_on:
+      - sd_node
+      - sd_postgresql
+    environment:
+      DJANGO_DB_PASSWORD: securedroppassword
+      DJANGO_DB_USER: securedrop
+      DJANGO_DB_NAME: securedropdb
+      DJANGO_DB_PORT: 5432
+      DJANGO_DB_HOST: db
+      PGUSER: securedrop
+      PGPASSWORD: securedroppassword
+      PGHOST: db
+    working_dir: /var/www/django
+    volumes:
+      - ./:/var/www/django
+    command: django-start.sh
+    ports:
+      - "8000:8000"
+    networks:
+      app:
+        aliases:
+          - app

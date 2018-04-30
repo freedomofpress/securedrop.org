@@ -1,0 +1,17 @@
+FROM quay.io/freedomofpress/ci-python
+
+RUN apt-get update && apt-get install -y \
+        gcc libssl-dev paxctl curl postgresql-client\
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+COPY devops/docker/django-start.sh /usr/local/bin
+RUN  chmod +x /usr/local/bin/django-start.sh
+
+RUN adduser gcorn
+
+COPY dev-requirements.txt /requirements.txt
+RUN pip install -r /requirements.txt
+
+RUN paxctl -cm /usr/local/bin/python3.4
+
+EXPOSE 8000
+USER gcorn

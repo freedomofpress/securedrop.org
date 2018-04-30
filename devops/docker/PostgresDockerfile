@@ -1,0 +1,6 @@
+FROM postgres:9.3
+
+COPY postgres-start.sh /usr/local/bin
+RUN chmod +x /usr/local/bin/postgres-start.sh
+
+USER postgres
