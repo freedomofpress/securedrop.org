@@ -89,6 +89,12 @@ class BlogPage(MetadataPageMixin, Page):
 
     search_fields_pgsql = ['title', 'body', 'teaser_text', 'category']
 
+    class Meta:
+        indexes = [
+            models.Index(['publication_datetime']),
+            models.Index(['category']),
+        ]
+
     def get_meta_description(self):
         if self.teaser_text:
             return strip_tags(self.teaser_text)

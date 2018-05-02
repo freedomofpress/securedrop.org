@@ -52,3 +52,9 @@ class ResultState(Orderable):
         FieldPanel('is_warning'),
         FieldPanel('fix_text'),
     ]
+
+    class Meta:
+        indexes = [
+            models.Index(['result_group']),
+            models.Index(['sort_order']),
+        ]

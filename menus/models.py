@@ -22,6 +22,11 @@ class Menu(ClusterableModel):
         InlinePanel('menu_items', label="Menu Items"),
     ]
 
+    class Meta:
+        indexes = [
+            models.Index(['slug']),
+        ]
+
     def __str__(self):
         return self.name
 
@@ -46,6 +51,11 @@ class MenuItem(Orderable):
             FieldPanel('html_title'),
             FieldPanel('html_classes'),
         ), 'HTML')
+    ]
+
+    indexes = [
+        models.Index(['sort_order']),  # Defined in wagtail.models.Orderable
+        models.Index(['menu']),
     ]
 
     @property
