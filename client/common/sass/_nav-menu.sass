@@ -79,8 +79,14 @@ $nav-menu-item-padding: 0.5rem
 
 .nav-menu__search-icon
 	width: $nav-menu-search-width
-	height: auto
+	height: $nav-menu-search-width
 	position: relative
+	// Required to let clicks fall through to the link
+	pointer-events: none
 
 	*
 		fill: white
+
+	img
+		width: $nav-menu-search-width
+		height: auto
