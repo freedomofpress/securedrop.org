@@ -63,13 +63,18 @@
 					{% if current_release %}
 						<div class="updates__item">
 							<h2 class="updates__header">{% trans "Latest Release" %}</h2>
-							<h3 class="updates__tag">SecureDrop {{ current_release.tag_name }}</h3>
+							<h3 class="updates__tag">
+								<a href="{{ current_release.url }}" class="updates__link" title="SecureDrop {{ current_release.tag_name }} on GitHub">
+									SecureDrop {{ current_release.tag_name }}
+								</a>
+							</h3>
 							<div class="updates__date">{{ current_release.date|date:"E j, Y"}}</div>
 							<p>
 								<a href="{{ current_release.url }}" class="updates__link--secondary">GitHub</a>
 								{% if current_release.blog_page %}
 									| <a href="{% pageurl current_release.blog_page %}" class="updates__link--secondary">{% trans "Release notes" %}</a>
 								{% endif %}
+								| <a href="{{ page.docs_url }}" class="updates__link--secondary">Documentation</a>
 							</p>
 						</div>
 					{% endif %}
