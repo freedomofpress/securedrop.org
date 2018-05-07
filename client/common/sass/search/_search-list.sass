@@ -1,53 +1,60 @@
 .search-list
-  +list--unstyled
+	+list--unstyled
 
 .search-list__item
-  // As a flex-parent
-  display: flex
-  align-items: flex-start
-  margin-bottom: $layout-padding
+	// As a flex-parent
+	display: flex
+	align-items: flex-start
+	margin-bottom: $layout-padding
 
 .search-list__icon
-  width: 3rem
-  height: auto
-  padding-right: 1rem
-  flex-shrink: 0
-  flex-grow: 0
-  // line up the top of the icon with the title
-  margin-top: 0.5rem
+	width: 3rem
+	height: 4rem
+	padding-right: 1rem
+	flex-shrink: 0
+	flex-grow: 0
+	// line up the top of the icon with the title
+	margin-top: 0.5rem
 
 .search-list__icon--W
-  // line up the middle of the hexagon with the title
-  margin-top: -1px
-  fill: $slate
+	// optically adjust the hexagon position to bump just over the cap height
+	margin-top: 0.25rem
+	fill: $slate
 
 .search-item
-  align-self: stretch
-  flex-grow: 1
+	align-self: stretch
+	flex-grow: 1
 
 .search-item__header
-  display: flex
-  justify-content: space-between
+	display: flex
+	justify-content: space-between
+	align-items: flex-start
 
 .search-item__title
-  color: $link-color
+	color: $link-color
 
 .search-item__link
-  +link--no_underline($link-color, $link-hover-color)
+	+link--no_underline($link-color, $link-hover-color)
 
 .search-item__subtitle
-  text-transform: uppercase
-  color: $gray50--text
-  font-size: 17px
-  margin-top: 6px
+	text-transform: uppercase
+	letter-spacing: 0.05em
+	color: $gray50--text
+	font-size: 0.8rem
+	margin-top: 4px
+	padding: 2px 6px
+	margin-left: 0.5rem
+	white-space: nowrap
+	border: 1px solid $gray10--text
+	border-radius: 3px
 
 .search-item__description
-  .rich-text
-    +p-remove-first-and-last-margin
+	.rich-text
+		+p-remove-first-and-last-margin
 
-    &:before
-      content: ". . . "
+		&:before
+			content: ". . . "
 
 .no-results
-  margin-bottom: $layout-padding
-  font-size: $h2
+	margin-bottom: $layout-padding
+	font-size: $h2
