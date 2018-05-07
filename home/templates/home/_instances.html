@@ -1,6 +1,6 @@
 {% load wagtailcore_tags wagtailimages_tags	%}
 {% for highlighted_instance in instances %}
-	<div class="instances__item">
+	<a href="{% pageurl highlighted_instance.instance %}" class="instances__item">
 		{% if highlighted_instance.instance.organization_logo_homepage %}
 			{% image highlighted_instance.instance.organization_logo_homepage max-96x96 as logo_1x %}
 			{% image highlighted_instance.instance.organization_logo_homepage max-192x192 as logo_2x %}
@@ -19,9 +19,9 @@
 					{{ highlighted_instance.instance.organization_description|richtext|truncatewords_html:20 }}
 				</div>
 			{% endif %}
-			<a href="{% pageurl highlighted_instance.instance %}" class="instances__item-link">
+			<span href="" class="instances__item-link">
 				{{ page.instance_link_default_text }}
-			</a>
+			</span>
 		</div>
-	</div>
+	</a>
 {% endfor %}
