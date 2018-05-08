@@ -59,7 +59,9 @@
 							{% endfor %}
 							<li class="nav-menu__item--search">
 								<a class="nav-menu__link" href="/search">
-									{% include "common/_search_icon.svg" with class="nav-menu__search-icon" %}
+									<object class="nav-menu__search-icon" type="image/svg+xml" data="{% static 'images/search.svg' %}">
+										 <img src="{% static 'images/search.png' %}" alt="{% trans 'Search' %}">
+									</object>
 								</a>
 							</li>
 						</ul>

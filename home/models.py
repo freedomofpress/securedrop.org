@@ -7,6 +7,7 @@ from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, Page
 
 from common.models import MetadataPageMixin, Button
 from search.utils import get_search_content_by_fields
+from search.utils.documentation import READTHEDOCS_BASE
 from blog.models import BlogPage
 from github.models import Release
 
@@ -96,6 +97,9 @@ class HomePage(MetadataPageMixin, Page):
 
     def get_current_release(self):
         return Release.objects.order_by('-date').first()
+
+    def docs_url(self):
+        return READTHEDOCS_BASE
 
 
 class DescriptionButtons(Orderable, Button):

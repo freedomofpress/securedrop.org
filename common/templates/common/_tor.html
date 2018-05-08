@@ -7,10 +7,10 @@
 		{% if settings.common.TorAlertSettings.subtitle %}
 			<h2>{{ settings.common.TorAlertSettings.subtitle }}</h2>
 		{% endif %}
-		{% if settings.common.TorAlertSettings.body %}
-			{{ settings.common.TorAlertSettings.body|richtext }}
-		{% endif %}
 	</div>
+	{% if settings.common.TorAlertSettings.body %}
+		{{ settings.common.TorAlertSettings.body|richtext }}
+	{% endif %}
 	<button
 		id="js-use-tor-browser-close"
 		class="tor-warning__close-button"

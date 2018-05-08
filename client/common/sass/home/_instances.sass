@@ -48,7 +48,9 @@
 	padding: 0 1rem
 	margin-bottom: 2rem
 	display: flex
-	align-items: center
+	align-items: flex-start
+	text-decoration: none
+	color: inherit
 	+media-breakpoint-down(extra-small)
 		flex-basis: 100%
 		padding: 0
@@ -56,12 +58,17 @@
 		flex-direction: column
 		text-align: center
 		margin-bottom: 3rem
+	&:hover, &:active, &:focus
+		text-decoration: none
+		color: inherit
 
 .instances__logo
 	width: 6rem
 	margin-right: 2rem
 	flex-shrink: 0
 	flex-grow: 0
+	// Optically align logos with top of text
+	margin-top: .5rem
 	+media-breakpoint-between(extra-small,small)
 		width: 4rem
 		margin-right: 1rem
@@ -78,13 +85,22 @@
 	font-size: 1.5rem
 
 .instances__item-description
-	font-size: 0.8rem
-	font-style: italic
+	font-size: 0.9rem
+	font-weight: $sans-light
 
 .instances__item-link
-	display: block
-	margin-top: 0.5rem
-	+link--underline(inherit, $gray10)
+	+button-base
+	+button-transition
+	color: rgba($white, .9)
+	border: 1px solid rgba($white, .4)
+	background: transparent
+	margin-top: .5rem
+	font-weight: $sans-light
+	.instances__item:hover &
+		background-color: rgba($white, .2)
+		border: 1px solid rgba($white, .4)
+	padding: 0.08rem 0.4rem 0 0.4rem
+	font-size: 0.8rem
 
 .instances__button
 	+button-large
