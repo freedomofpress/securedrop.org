@@ -65,6 +65,32 @@ class ScannerTest(TestCase):
         result = scanner.scan(securedrop)
         self.assertTrue(result.live)
 
+    @vcr.use_cassette(os.path.join(VCR_DIR, 'scan-site-with-trackers.yaml'))
+    def test_scan_detects_presence_of_trackers(self):
+        """
+        If a site contains common trackers, result.no_analytics should be False
+        """
+        ap_site = DirectoryEntry(
+            title='AP',
+            landing_page_url='https://www.ap.org/en-us/',
+            onion_address='notreal.onion'
+        )
+        result = scanner.scan(ap_site)
+        self.assertFalse(result.no_analytics)
+
+    @vcr.use_cassette(os.path.join(VCR_DIR, 'scan-site-without-trackers.yaml'))
+    def test_scan_detects_absence_of_trackers(self):
+        """
+        If a site contains no known trackers, result.no_analytics should be True
+        """
+        fpf_site = DirectoryEntry(
+            title='FPF',
+            landing_page_url='https://freedom.press/',
+            onion_address='notreal.onion'
+        )
+        result = scanner.scan(fpf_site)
+        self.assertTrue(result.no_analytics)
+
     @vcr.use_cassette(os.path.join(VCR_DIR, 'scrape-securedrop-dot-org.yaml'))
     def test_request_gets_page_if_protocol_identifier_present(self):
         "request_and_scrape_page should handle a URL with a protocol"
