@@ -1,3 +1,6 @@
+.. image:: https://circleci.com/gh/freedomofpress/securedrop.org.svg?style=svg&circle-token=ae1bdad92b508cea5a86c6a84374af0ae3cf9706
+    :target: https://circleci.com/gh/freedomofpress/securedrop.org
+
 Development
 =============
 This README covers how to install and get started with development in this repository. Information for Wagtail editors can be found in the `Wagtail Editors Guide <WAGTAIL.rst>`_.
