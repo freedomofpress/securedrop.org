@@ -3,7 +3,7 @@ from __future__ import absolute_import, unicode_literals
 from django.conf import settings
 from django.conf.urls import include, url
 from django.contrib import admin
-from django.views.generic.base import TemplateView
+from django.views.generic import TemplateView, RedirectView
 
 from search import views as search_views
 from wagtail.wagtailadmin import urls as wagtailadmin_urls
@@ -30,7 +30,10 @@ urlpatterns = [
     url(r'^accounts/', include(account_urls)),
     url(r'^accounts/', include('allauth_2fa.urls')),
     url(r'^accounts/', include('allauth.urls')),
+
+    url(r'^api/$', RedirectView.as_view(url='/api/v1/')),
     url(r'^api/v1/', include(directory_api_router.urls)),
+
     url(r'^500/$', TemplateView.as_view(template_name="500.html")),
     url(r'^404/$', TemplateView.as_view(template_name="404.html")),
     url(r'^403/$', TemplateView.as_view(template_name="403.html")),
