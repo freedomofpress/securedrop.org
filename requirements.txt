@@ -17,12 +17,13 @@ django-anymail[mailgun]==1.4
 django-csp==3.4
 django-modelcluster==3.1
 django-otp==0.4.1.1       # via django-allauth-2fa
+django-rest-framework==0.1.0
 django-settings-export==1.2.1
 django-taggit==0.22.1     # via wagtail
 django-treebeard==4.1.2   # via wagtail
 django-webpack-loader==0.5.0
 django==1.11.11
-djangorestframework==3.6.4  # via wagtail
+djangorestframework==3.6.4  # via django-rest-framework, wagtail
 docopt==0.6.2             # via pshtt
 dominate==2.3.1           # via pytablewriter
 dparse==0.2.1             # via safety
