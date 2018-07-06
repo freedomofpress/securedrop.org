@@ -1,6 +1,5 @@
-from rest_framework.routers import DefaultRouter
-
 from .viewsets import DirectoryEntriesViewSet
+from .csp import CSPCompatibleRouter
 
-api_router = DefaultRouter('directoryapi')
+api_router = CSPCompatibleRouter('directoryapi')
 api_router.register('directory', DirectoryEntriesViewSet)
