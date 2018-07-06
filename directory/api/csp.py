@@ -1,7 +1,7 @@
 "CSP compatible variations on DRF classes"
 from functools import update_wrapper
 
-from csp.decorators import csp_update
+from csp.decorators import csp_update, csp_replace
 from django.utils.decorators import method_decorator
 from rest_framework.routers import DefaultRouter, APIRootView
 
@@ -9,23 +9,29 @@ from django.utils.decorators import classonlymethod
 from django.views.decorators.csrf import csrf_exempt
 
 
-CSP_ADDITIONS = {
-    'STYLE_SRC': (
-        # float: left
-        "'sha256-e+Z0n8P0IwqIce2RMye3/p5TaNb2k/QdJT4urKCsrwk='",
-        # clear: both
-        "'sha256-matwEc6givhWX0+jiSfM1+E5UMk8/UGLdl902bjFBmY='",
-    ),
-    'SCRIPT_SRC': (
-        # CSRF token
-        "'sha256-a3wLtSeBIB9qdbDuQxqq0TbF1eJTelphcOjCUwNtUI4='",
-        # ajax form
-        "'sha256-IYBrMxCTJ62EwagLTIRncEIpWwTmoXcXkqv3KZm/Wik='",
-    )
-}
+def csp_fixes(view):
+    CSP_REPLACEMENTS = {
+        'SCRIPT_SRC': (
+            "'self'",
+            "'unsafe-inline'",
+        ),
+    }
+
+    CSP_ADDITIONS = {
+        'STYLE_SRC': (
+            # float: left
+            "'sha256-e+Z0n8P0IwqIce2RMye3/p5TaNb2k/QdJT4urKCsrwk='",
+            # clear: both
+            "'sha256-matwEc6givhWX0+jiSfM1+E5UMk8/UGLdl902bjFBmY='",
+        ),
+    }
+
+    view = csp_replace(**CSP_REPLACEMENTS)(view)
+    view = csp_update(**CSP_ADDITIONS)(view)
+    return view
 
 
-csp_cbv_decorator = method_decorator(csp_update(**CSP_ADDITIONS), name='get')
+csp_cbv_decorator = method_decorator(csp_fixes, name='get')
 
 
 class CSPCompatibleRouter(DefaultRouter):
@@ -114,4 +120,4 @@ class CSPCompatibleViewSetMixin:
         view.cls = cls
         view.initkwargs = initkwargs
         view.actions = actions
-        return csp_update(**CSP_ADDITIONS)(csrf_exempt(view))
+        return csp_fixes(csrf_exempt(view))
