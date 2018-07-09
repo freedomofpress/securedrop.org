@@ -1,7 +1,7 @@
 ---
 version: 2
 jobs:
-  build:
+  safety_check:
     machine: true
     working_directory: ~/securedrop.org
     steps:
@@ -25,6 +25,19 @@ jobs:
           command: |
             make bandit
 
+  build:
+    machine: true
+    working_directory: ~/securedrop.org
+    steps:
+      - checkout
+
+      - run:
+          name: Install testing pre-reqs
+          command: |
+            virtualenv ~/.venv
+            . ~/.venv/bin/activate
+            pip install -r devops/requirements.txt
+
       - run:
           name: Flake8 linting
           command: |
@@ -38,3 +51,20 @@ jobs:
 
       - store_test_results:
           path: ~/securedrop.org/test-results
+
+workflows:
+  version: 2
+  freedomdotpress_ci:
+    jobs:
+      - safety_check
+      - build
+  nightly:
+    triggers:
+      - schedule:
+          cron: "0 0 * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - safety_check
