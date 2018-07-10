@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'webpack_loader',
     'taggit',
     'analytical',
+    'rest_framework',
 
     'django.contrib.admin',
     'django.contrib.auth',
