@@ -19,7 +19,6 @@ django-csp==3.4
 django-debug-toolbar==1.9.1
 django-modelcluster==3.1
 django-otp==0.4.1.1
-django-rest-framework==0.1.0
 django-settings-export==1.2.1
 django-taggit==0.22.1
 django-treebeard==4.1.2

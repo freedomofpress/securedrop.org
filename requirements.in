@@ -7,7 +7,7 @@ django-anymail[mailgun]>=1.4
 django-modelcluster
 django-settings-export
 django-webpack-loader
-django-rest-framework
+djangorestframework
 factory_boy
 feedparser
 gunicorn
