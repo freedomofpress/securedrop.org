@@ -3,6 +3,7 @@ bandit
 # Bug with ansible and docker 3.0+
 # https://github.com/ansible/ansible/issues/35612
 docker<3.0
-molecule>=2.13
+# Overly aggressive regex validation in Molecule>=2.12
+molecule<2.11
 pip-tools>=1.11.0
 safety>=1.7.0
