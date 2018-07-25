@@ -10,7 +10,7 @@ platforms:
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     published_ports:
-      - 443
+      - "443"
     groups:
       - django
 provisioner:
