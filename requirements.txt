@@ -7,7 +7,7 @@ certifi==2017.11.5        # via requests
 cffi==1.11.2              # via cryptography
 chardet==3.0.4            # via requests
 click==6.7                # via safety
-cryptography==2.1.4       # via pyopenssl
+cryptography==2.3         # via pyopenssl
 dataproperty==0.29.1      # via pytablewriter, simplesqlite, tabledata
 defusedxml==0.5.0         # via python3-openid
 django-allauth-2fa==0.4.4
