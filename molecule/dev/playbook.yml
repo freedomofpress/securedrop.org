@@ -48,10 +48,8 @@
       docker_container:
         name: sd_postgresql
         image: postgres:9.3
-        exposed_ports:
-          - 5432
-        published_ports:
-          - 5432
+        ports:
+          - "127.0.0.1:5432:5432"
         volumes:
           - ../../:/django
         state: started
@@ -125,10 +123,8 @@
         volumes:
           - ../../:/var/www/django
         state: started
-        exposed_ports:
-          - 8000
-        published_ports:
-          - "{{ django_port_publish | default('8000:8000') }}"
+        ports:
+          - "127.0.0.1:8000:8000"
         working_dir: /var/www/django
         interactive: true
         tty: true
