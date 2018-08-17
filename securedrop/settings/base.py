@@ -382,3 +382,4 @@ CSP_IMG_SRC = (
 CSP_FRAME_SRC = ("'self'",)
 CSP_CONNECT_SRC = ("'self'",)
 CSP_EXCLUDE_URL_PREFIXES = ("/admin", )
+CSP_REPORT_URI = ('https://freedomofpress.report-uri.com/r/d/csp/enforce')
