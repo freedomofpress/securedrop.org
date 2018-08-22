@@ -195,6 +195,32 @@ class SecuredropQuerySetTestCase(TestCase):
             'securedrop.org'
         )
 
+    def test_listed(self):
+        """
+        QuerySet method `listed` should return only listed DirectoryEntries
+        """
+        DirectoryEntryFactory.create(delisted='other')
+        DirectoryEntryFactory.create(delisted='other')
+        l1 = DirectoryEntryFactory.create()
+        l2 = DirectoryEntryFactory.create()
+        self.assertCountEqual(
+            DirectoryEntry.objects.listed(),
+            [l1, l2]
+        )
+
+    def test_delisted(self):
+        """
+        QuerySet method `delisted` should return only delisted DirectoryEntries
+        """
+        d1 = DirectoryEntryFactory.create(delisted='other')
+        d2 = DirectoryEntryFactory.create(delisted='other')
+        DirectoryEntryFactory.create()
+        DirectoryEntryFactory.create()
+        self.assertCountEqual(
+            DirectoryEntry.objects.delisted(),
+            [d1, d2]
+        )
+
 
 class DirectoryEntrySearchTest(TestCase):
     def setUp(self):

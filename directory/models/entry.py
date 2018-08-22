@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.core.validators import RegexValidator
 from django.db import models
-from django.db.models import Func, F, Value
+from django.db.models import Func, F, Q, Value
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 
 from wagtail.wagtailcore.models import Page, PageManager, PageQuerySet
@@ -19,6 +19,21 @@ from search.utils import get_search_content_by_fields
 
 
 class DirectoryEntryQuerySet(PageQuerySet):
+    def listed_q(self) -> Q:
+        return Q(delisted__isnull=True)
+
+    def listed(self) -> 'DirectoryEntryQuerySet':
+        """
+        Filters the queryset to contain entries that are not marked as delisted
+        """
+        return self.filter(self.listed_q())
+
+    def delisted(self) -> 'DirectoryEntryQuerySet':
+        """
+        Filters the queryset to contain entries that are marked as delisted
+        """
+        return self.exclude(self.listed_q())
+
     def with_domain_annotation(self):
         """
         Return the queryset with a `domain` field annotated on containing the
