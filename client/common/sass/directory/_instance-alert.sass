@@ -1,0 +1,26 @@
+$icon-width: 64px
+$icon-gutter: 10px
+$alert-padding-x: 10px
+$alert-padding-y: 15px
+
+$color: #9292A5
+
+.instance-alert
+	color: darken($color, 20%)
+	padding:  $alert-padding-y $alert-padding-x
+	border: 1px solid $color
+	padding-left: $icon-width + $icon-gutter + $alert-padding-x
+	border-radius: 4px
+
+.instance-alert__icon
+	float: left
+	margin-left: -$icon-width - $icon-gutter
+	width: $icon-width
+	height: auto
+
+.instance-alert__title
+	color: darken($color, 30%)
+	font-size: inherit
+	font-weight: bold
+	margin: 0 0 .25em 0
+	padding: 0

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="128px" height="128px" viewBox="0 0 128 128" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>Icons/No Good</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M81.6195636,15.123077 L0.47081533,96.2718254 L4.97379915e-14,96 L1.42108547e-14,32 L55.4256258,0 L81.6195636,15.123077 Z M109.822102,31.4058201 L110.851252,32 L110.851252,96 L55.4256258,128 L28.6733536,112.554568 L109.822102,31.4058201 Z" id="path-1"></path>
+        <polygon id="path-3" points="17.4852814 120.470563 9 111.985281 112.985281 8 121.470563 16.4852814"></polygon>
+    </defs>
+    <g id="Icons/No-Good" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Hex-With-Cutout" transform="translate(10.000000, 0.000000)">
+            <mask id="mask-2" fill="white">
+                <use xlink:href="#path-1"></use>
+            </mask>
+            <use id="Combined-Shape" fill="#D8D8D8" xlink:href="#path-1"></use>
+            <g id="Fills/Solid/Red" opacity="0.5" mask="url(#mask-2)" fill="#C71438">
+                <g transform="translate(-10.000000, 0.000000)" id="Rectangle">
+                    <rect x="0" y="0" width="128" height="128"></rect>
+                </g>
+            </g>
+        </g>
+        <g id="Cross-Bar">
+            <mask id="mask-4" fill="white">
+                <use xlink:href="#path-3"></use>
+            </mask>
+            <use id="Path" fill="#D8D8D8" xlink:href="#path-3"></use>
+            <g id="Fills/Solid/Red" mask="url(#mask-4)" fill="#C71438">
+                <rect id="Rectangle" x="0" y="0" width="128" height="128"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

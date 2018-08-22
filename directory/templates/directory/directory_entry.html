@@ -31,66 +31,11 @@
 
 
 {% block column_one %}
-	<div class="instance-instructions">
-
-		<h1 class="instance-instructions__title">{% trans "Planning to submit information?" %}</h1>
-
-		<p>
-			{% blocktrans with organization=page.title onion=page.onion_address %}
-				If you intend to submit information to {{ organization }}’s SecureDrop,
-				we recommend that you compare the .onion address provided on the
-				organization’s landing page to this one
-				<span class="instance-instructions__onion-address">{{ onion }}</span>
-				and verify that the addresses match before continuing.
-				This provides a strong layer of defense against certain types of attacks
-				that might try to trick you into visiting a malicious SecureDrop instance
-				masquerading as a legitimate one.
-			{% endblocktrans %}
-		</p>
-		<p>
-
-			{% if settings.directory.DirectorySettings.contact_gpg %}
-				{% blocktrans with contact_email=settings.directory.DirectorySettings.contact_email contact_email_escaped=settings.directory.DirectorySettings.contact_email|escape contact_gpg=settings.directory.DirectorySettings.contact_gpg.url %}
-					If you encounter a mismatch, please contact us at
-					<a href="mailto:{{ contact_email_escaped }}">{{ contact_email }}</a>
-					(<a href="{{ contact_gpg }}">GPG</a>).
-				{% endblocktrans %}
-			{% else %}
-				{% comment %}
-					Honestly, this probably should not be allowed, but since we can't
-					set a default GPG key in the database, since it's a file, I've
-					accounted for the possibility that one isn't set at least for dev
-					environments.
-				{% endcomment %}
-				{% blocktrans with contact_email=settings.directory.DirectorySettings.contact_email contact_email_escaped=settings.directory.DirectorySettings.contact_email|escape %}
-					If you encounter a mismatch, please contact us at
-					<a href="mailto:{{ contact_email_escaped }}">{{ contact_email }}</a>.
-				{% endblocktrans %}
-			{% endif %}
-
-			{% blocktrans %}
-				This could be evidence of an attempted attack, or it could be a simple
-				failure to communicate between an organization running SecureDrop and
-				Freedom of the Press Foundation.
-				In either case, we will investigate the matter and establish a path to
-				resolution.
-			{% endblocktrans %}
-
-		</p>
-
-		<a href="{{ page.landing_page_url }}" class="instance-instructions__landing-page-button">
-			<div class="instance-instructions__landing-page-button-text">
-				{% blocktrans with title=page.title %}
-					{{ title }}’s landing page
-				{% endblocktrans %}
-			</div>
-			<div class="instance-instructions__landing-page-button-url">
-				{{ page.landing_page_url }}
-			</div>
-			{% include "common/chevron-right.svg" with class="instance-instructions__landing-page-button-chevron" %}
-		</a>
-
-	</div>
+	{% if page.delisted != None %}
+		{% include "directory/_instance_alert.html" %}
+	{% else %}
+		{% include "directory/_instance_instructions.html" %}
+	{% endif %}
 {% endblock column_one %}
 
 {% block column_two %}
