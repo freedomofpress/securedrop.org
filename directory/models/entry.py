@@ -120,6 +120,21 @@ class DirectoryEntry(MetadataPageMixin, Page):
         related_name='topics'
     )
 
+    DELISTED_REASONS = (
+        ('other', 'Other'),
+    )
+
+    delisted = models.CharField(
+        max_length=10,
+        blank=True,
+        null=True,
+        choices=DELISTED_REASONS,
+        default=None,
+        help_text=('If set, entry will not show up in the directory, but the '
+                   'page will still be live. Should be used for SecureDrop '
+                   'instances that are under review for detected issues.')
+    )
+
     content_panels = Page.content_panels + [
         ReadOnlyPanel('added', label='Date Added'),
         FieldPanel('landing_page_url'),
@@ -135,6 +150,10 @@ class DirectoryEntry(MetadataPageMixin, Page):
         AutocompleteFieldPanel('topics', 'directory.Topic'),
         InlinePanel('owners', label='Owners'),
         InlinePanel('results', label='Results'),
+    ]
+
+    settings_panels = Page.settings_panels + [
+        FieldPanel('delisted'),
     ]
 
     search_fields_pgsql = ['title', 'landing_page_url', 'onion_address', 'organization_description']
