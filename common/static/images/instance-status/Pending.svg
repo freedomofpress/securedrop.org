@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="128px" height="128px" viewBox="0 0 128 128" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
+    <title>Icons/Pending</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M65,0 L120.425626,32 L120.425626,96 L65,128 L9.57437416,96 L9.57437416,32 L65,0 Z M64,73 C68.9705627,73 73,68.9705627 73,64 C73,59.0294373 68.9705627,55 64,55 C59.0294373,55 55,59.0294373 55,64 C55,68.9705627 59.0294373,73 64,73 Z M94,73 C98.9705627,73 103,68.9705627 103,64 C103,59.0294373 98.9705627,55 94,55 C89.0294373,55 85,59.0294373 85,64 C85,68.9705627 89.0294373,73 94,73 Z M34,73 C38.9705627,73 43,68.9705627 43,64 C43,59.0294373 38.9705627,55 34,55 C29.0294373,55 25,59.0294373 25,64 C25,68.9705627 29.0294373,73 34,73 Z" id="path-1"></path>
+    </defs>
+    <g id="Icons/Pending" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <use id="Polygon-3" fill="#D8D8D8" xlink:href="#path-1"></use>
+        <g id="Fills/Solid/Gray-Dark" mask="url(#mask-2)" fill="#9292A5">
+            <rect id="Rectangle" x="0" y="0" width="128" height="128"></rect>
+        </g>
+    </g>
+</svg>

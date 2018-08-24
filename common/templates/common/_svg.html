@@ -1,0 +1,15 @@
+{% load staticfiles %}
+
+{% comment %}
+SVG with fallback. Please provide the following context variables:
+
+svg -- staticfiles path to SVG file
+img -- staticfiles path to fallback image
+class -- html class names
+alt -- alt text for screen readers
+{% endcomment %}
+
+
+<object class="{{ class }}" type="image/svg+xml" data="{% static svg %}">
+	<img src="{% static img %}" alt="{{ alt }}">
+</object>

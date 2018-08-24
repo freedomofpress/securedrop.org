@@ -8,4 +8,4 @@ from .csp import CSPCompatibleViewSetMixin
 
 class DirectoryEntriesViewSet(CSPCompatibleViewSetMixin, ReadOnlyModelViewSet):
     serializer_class = DirectoryEntrySerializer
-    queryset = DirectoryEntry.objects.live()
+    queryset = DirectoryEntry.objects.listed().live()

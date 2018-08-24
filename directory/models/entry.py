@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.core.validators import RegexValidator
 from django.db import models
-from django.db.models import Func, F, Value
+from django.db.models import Func, F, Q, Value
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 
 from wagtail.wagtailcore.models import Page, PageManager, PageQuerySet
@@ -19,6 +19,21 @@ from search.utils import get_search_content_by_fields
 
 
 class DirectoryEntryQuerySet(PageQuerySet):
+    def listed_q(self) -> Q:
+        return Q(delisted__isnull=True)
+
+    def listed(self) -> 'DirectoryEntryQuerySet':
+        """
+        Filters the queryset to contain entries that are not marked as delisted
+        """
+        return self.filter(self.listed_q())
+
+    def delisted(self) -> 'DirectoryEntryQuerySet':
+        """
+        Filters the queryset to contain entries that are marked as delisted
+        """
+        return self.exclude(self.listed_q())
+
     def with_domain_annotation(self):
         """
         Return the queryset with a `domain` field annotated on containing the
@@ -120,6 +135,24 @@ class DirectoryEntry(MetadataPageMixin, Page):
         related_name='topics'
     )
 
+    DELISTED_REASONS = (
+        ('http', 'Mixed-content or no HTTPS'),
+        ('no200', 'Non-200 status response'),
+        ('down', 'Extended downtime (>1 week)'),
+        ('other', 'Other'),
+    )
+
+    delisted = models.CharField(
+        max_length=10,
+        blank=True,
+        null=True,
+        choices=DELISTED_REASONS,
+        default=None,
+        help_text=('If set, entry will not show up in the directory, but the '
+                   'page will still be live. Should be used for SecureDrop '
+                   'instances that are under review for detected issues.')
+    )
+
     content_panels = Page.content_panels + [
         ReadOnlyPanel('added', label='Date Added'),
         FieldPanel('landing_page_url'),
@@ -135,6 +168,10 @@ class DirectoryEntry(MetadataPageMixin, Page):
         AutocompleteFieldPanel('topics', 'directory.Topic'),
         InlinePanel('owners', label='Owners'),
         InlinePanel('results', label='Results'),
+    ]
+
+    settings_panels = Page.settings_panels + [
+        FieldPanel('delisted'),
     ]
 
     search_fields_pgsql = ['title', 'landing_page_url', 'onion_address', 'organization_description']
