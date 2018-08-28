@@ -270,6 +270,7 @@ class ScanResult(models.Model):
     cache_control_nostore_set = models.NullBooleanField()
     cache_control_private_set = models.NullBooleanField()
     expires_set = models.NullBooleanField()
+    no_referrer_policy_set = models.NullBooleanField()
 
     # Page content
     safe_onion_address = models.NullBooleanField()
