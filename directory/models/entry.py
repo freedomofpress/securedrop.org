@@ -176,6 +176,12 @@ class DirectoryEntry(MetadataPageMixin, Page):
 
     search_fields_pgsql = ['title', 'landing_page_url', 'onion_address', 'organization_description']
 
+    def get_context(self, request):
+        context = super(DirectoryEntry, self).get_context(request)
+        context['show_warnings'] = request.GET.get('warnings') == '1'
+
+        return context
+
     def serve(self, request):
         owners = [sd_owner.owner for sd_owner in self.owners.all()]
         if request.user in owners:
@@ -338,6 +344,18 @@ class ScanResult(models.Model):
 
     def __str__(self):
         return 'Scan result for {}'.format(self.landing_page_url)
+
+    def warning_level(self):
+        if (self.forces_https is False or
+            self.no_cookies is False or
+            self.http_no_redirect is False or
+            self.http_status_200_ok is False or
+            self.no_analytics is False):  # noqa: E129
+            return 'severe'
+        elif (self.subdomain is True or self.no_cdn is False):
+            return 'moderate'
+        else:
+            return 'none'
 
     def compute_grade(self):
         if self.live is False:

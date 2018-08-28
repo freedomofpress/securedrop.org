@@ -45,6 +45,35 @@
 
 	</p>
 
+	{% if show_warnings %}
+		{% if page.get_live_result.warning_level == 'moderate' %}
+			<div class="instance-alert">
+				{% include "common/_svg.html" with class="instance-alert__icon" svg="images/instance-status/Warning.svg" img="images/instance-status/Warning.png" alt="Moderate Warning Icon" %}
+				<h2 class="instance-alert__title">
+					{% trans "Caution" %}
+				</h2>
+				<div class="instance-alert__content">
+					{% blocktrans %}
+						We recommend only visiting this SecureDrop landing page <a href="https://www.torproject.org/download/download-easy.html.en">using the Tor browser</a>.
+					{% endblocktrans %}
+				</div>
+			</div>
+		{% elif page.get_live_result.warning_level == 'severe' %}
+			<div class="instance-alert">
+				{% include "common/_svg.html" with class="instance-alert__icon" svg="images/instance-status/Error.svg" img="images/instance-status/Error.png" alt="Severe Warning Icon" %}
+				<h2 class="instance-alert__title">
+					{% trans "Warning" %}
+				</h2>
+				<div class="instance-alert__content">
+					{% blocktrans %}
+						We strongly advise you to only visit this landing page <a href="https://www.torproject.org/">using the Tor browser</a>, with the <a href="https://safetydocs.example/">safety slider set to "safest"</a>.
+					{% endblocktrans %}
+				</div>
+			</div>
+		{% endif %}
+	{% endif %}
+	<br>
+
 	<a href="{{ page.landing_page_url }}" class="instance-instructions__landing-page-button">
 		<div class="instance-instructions__landing-page-button-text">
 			{% blocktrans with title=page.title %}
