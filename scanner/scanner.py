@@ -71,6 +71,7 @@ def pshtt_data_to_result(securedrop: DirectoryEntry, pshtt_results: Dict) -> Sca
         cache_control_notransform_set=validate_notransform(page),
         cache_control_nostore_set=validate_nostore(page),
         cache_control_private_set=validate_private(page),
+        no_referrer_policy_set=validate_no_referrer_policy(page),
     )
 
 
