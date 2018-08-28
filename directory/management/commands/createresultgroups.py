@@ -278,4 +278,12 @@ class Command(BaseCommand):
                 result_group=local_storage,
                 sort_order=1
             ),
+            ResultState(
+                name='no_referrer_policy_set',
+                success_text='<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy">Referrer-Policy</a> no-referrer header set properly.',
+                failure_text='<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy">Referrer-Policy</a> no-referrer header not set properly.',
+                is_warning=True,
+                result_group=server_security,
+                sort_order=9
+            ),
         ])
