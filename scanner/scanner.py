@@ -349,6 +349,10 @@ def validate_private(page):
     return validate_security_header(page, "Cache-Control", "private")
 
 
+def validate_no_referrer_policy(page):
+    return validate_security_header(page, "Referrer-Policy", "no-referrer")
+
+
 def validate_no_cookies(page):
     if len(page.cookies.keys()) > 0:
         return False
