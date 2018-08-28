@@ -279,7 +279,7 @@ class Command(BaseCommand):
                 sort_order=1
             ),
             ResultState(
-                name='no_referrer_policy_set',
+                name='referrer_policy_set_to_no_referrer',
                 success_text='<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy">Referrer-Policy</a> no-referrer header set properly.',
                 failure_text='<a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referrer-Policy">Referrer-Policy</a> no-referrer header not set properly.',
                 is_warning=True,
