@@ -309,6 +309,7 @@ class ScanResult(models.Model):
         ReadOnlyPanel("cache_control_nostore_set"),
         ReadOnlyPanel("cache_control_private_set"),
         ReadOnlyPanel("expires_set"),
+        ReadOnlyPanel("no_referrer_policy_set"),
         ReadOnlyPanel("safe_onion_address"),
         ReadOnlyPanel("no_cdn"),
         ReadOnlyPanel("no_analytics"),
