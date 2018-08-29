@@ -167,14 +167,30 @@ def validate_not_using_cdn(page):
 
 
 def validate_not_using_analytics(page):
-    """Right now this is just checking for Google Analytics
+    """Scan for common analytics scripts anywhere in the page
 
-    Documentation: https://support.google.com/analytics/answer/1032399?hl=en
+    Google Analytics: https://support.google.com/analytics/answer/1032399?hl=en
+
+    Chartbeat: http://support.chartbeat.com/docs/
+
+    Quantcast: https://quantcast.zendesk.com/hc/en-us/articles/115014888548--Implement-Quantcast-Tag-Directly-on-Your-Site
+
+    comScore: http://www.scorecardresearch.com/ (no public docs)
+
+    Krux Digital: https://whotracks.me/trackers/krux_digital.html#News%20and%20Portals
     """
-    if 'analytics.js' in str(page.content) or 'ga.js' in str(page.content):
-        return False
-    else:
-        return True
+    # Common scripts: Google Analytics, Quantcast, Chartbeat (two variants),
+    # comScore
+    analytics_scripts = ('ga.js', 'analytics.js', 'quant.js',
+                         'chartbeat.js', 'chartbeat_mab.js', 'beacon.js',
+                         'krxd.net')
+    page_str = str(page.content)
+    for script in analytics_scripts:
+        if script in page_str:
+            return False
+
+    # No recognized script in page body
+    return True
 
 
 def validate_security_header(page, header, expected_value):
