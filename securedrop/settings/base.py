@@ -382,4 +382,7 @@ CSP_IMG_SRC = (
 CSP_FRAME_SRC = ("'self'",)
 CSP_CONNECT_SRC = ("'self'",)
 CSP_EXCLUDE_URL_PREFIXES = ("/admin", )
-CSP_REPORT_URI = ('https://freedomofpress.report-uri.com/r/d/csp/enforce')
+
+# Report URI must be a string, not a tuple.
+CSP_REPORT_URI = os.environ.get('DJANGO_CSP_REPORT_URI',
+                                'https://freedomofpress.report-uri.com/r/d/csp/enforce')
