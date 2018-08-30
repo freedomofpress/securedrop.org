@@ -71,6 +71,7 @@ def pshtt_data_to_result(securedrop: DirectoryEntry, pshtt_results: Dict) -> Sca
         cache_control_notransform_set=validate_notransform(page),
         cache_control_nostore_set=validate_nostore(page),
         cache_control_private_set=validate_private(page),
+        referrer_policy_set_to_no_referrer=validate_no_referrer_policy(page),
     )
 
 
@@ -347,6 +348,10 @@ def validate_notransform(page):
 
 def validate_private(page):
     return validate_security_header(page, "Cache-Control", "private")
+
+
+def validate_no_referrer_policy(page):
+    return validate_security_header(page, "Referrer-Policy", "no-referrer")
 
 
 def validate_no_cookies(page):

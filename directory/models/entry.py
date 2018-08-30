@@ -270,6 +270,7 @@ class ScanResult(models.Model):
     cache_control_nostore_set = models.NullBooleanField()
     cache_control_private_set = models.NullBooleanField()
     expires_set = models.NullBooleanField()
+    referrer_policy_set_to_no_referrer = models.NullBooleanField()
 
     # Page content
     safe_onion_address = models.NullBooleanField()
@@ -308,6 +309,7 @@ class ScanResult(models.Model):
         ReadOnlyPanel("cache_control_nostore_set"),
         ReadOnlyPanel("cache_control_private_set"),
         ReadOnlyPanel("expires_set"),
+        ReadOnlyPanel("referrer_policy_set_to_no_referrer"),
         ReadOnlyPanel("safe_onion_address"),
         ReadOnlyPanel("no_cdn"),
         ReadOnlyPanel("no_analytics"),

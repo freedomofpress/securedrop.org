@@ -222,3 +222,13 @@ class VerificationUtilityTest(TestCase):
         page = mock.Mock()
         page.headers = {'Cache-Control': 'public'}
         self.assertFalse(scanner.validate_private(page))
+
+    def test_referrer_policy_no_referrer_set(self):
+        page = mock.Mock()
+        page.headers = {'Referrer-Policy': 'no-referrer'}
+        self.assertTrue(scanner.validate_no_referrer_policy(page))
+
+    def test_referrer_policy_no_referrer_not_set(self):
+        page = mock.Mock()
+        page.headers = {'Referrer-Policy': 'origin'}
+        self.assertFalse(scanner.validate_no_referrer_policy(page))
