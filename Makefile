@@ -105,6 +105,12 @@ safety: ## Runs `safety check` to check python dependencies for vulnerabilities
 			|| exit 1; \
 		done
 
+PHONY: zap
+zap: ## Runs the ZAP web application scanning to check the application for vulnerabilities
+# or misconfigurations
+	docker pull owasp/zap2docker-weekly
+	docker run -v $(DIR)/config:/zap/wrk/:ro -t owasp/zap2docker-weekly zap-baseline.py -c zap-baseline.conf -t http://172.17.0.4:8000
+	if [ $? -ne 1 ]; then exit 0; else exit 1; fi;
 # Explaination of the below shell command should it ever break.
 # 1. Set the field separator to ": ##" and any make targets that might appear between : and ##
 # 2. Use sed-like syntax to remove the make targets

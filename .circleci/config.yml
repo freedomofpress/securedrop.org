@@ -48,6 +48,10 @@ jobs:
           command: |
             . ~/.venv/bin/activate
             make ci-go
+      - run:
+          name: Run ZAP for web application security testing
+          command: |
+            make zap
 
       - store_test_results:
           path: ~/securedrop.org/test-results
