@@ -2,7 +2,11 @@ from django.db import transaction
 from django.core.management.base import BaseCommand
 
 from directory.models import DirectoryPage
-from directory.tests.factories import DirectoryPageFactory, DirectoryEntryFactory
+from directory.tests.factories import (
+    DirectoryPageFactory,
+    DirectoryEntryFactory,
+    ScanResultFactory,
+)
 from home.models import HomePage
 
 
@@ -21,6 +25,25 @@ class Command(BaseCommand):
         if not directory:
             directory = DirectoryPageFactory(parent=home_page, title="Directory")
             directory.save()
-        for _ in range(number_of_instances):
+        for i in range(number_of_instances):
             instance = DirectoryEntryFactory(parent=directory)
+            if i % 3 == 0:
+                scan = ScanResultFactory(
+                    securedrop=instance,
+                    landing_page_url=instance.landing_page_url,
+                    no_failures=True,
+                )
+            elif i % 3 == 1:
+                scan = ScanResultFactory(
+                    securedrop=instance,
+                    landing_page_url=instance.landing_page_url,
+                    severe_warning=True,
+                )
+            else:
+                scan = ScanResultFactory(
+                    securedrop=instance,
+                    landing_page_url=instance.landing_page_url,
+                    moderate_warning=True,
+                )
+            scan.save()
             instance.save()
