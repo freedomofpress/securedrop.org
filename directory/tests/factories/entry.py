@@ -1,5 +1,6 @@
 import random
 import string
+from datetime import datetime
 
 import factory
 
@@ -74,3 +75,47 @@ class DirectoryEntryFactory(wagtail_factories.PageFactory):
 class ScanResultFactory(factory.Factory):
     class Meta:
         model = ScanResult
+
+    class Params:
+        no_failures = factory.Trait(
+            live=True,
+            result_last_seen=datetime.today(),
+            forces_https=True,
+            hsts=True,
+            hsts_max_age=True,
+            hsts_entire_domain=True,
+            hsts_preloaded=True,
+            http_status_200_ok=True,
+            http_no_redirect=True,
+            expected_encoding=True,
+            no_server_info=True,
+            no_server_version=True,
+            csp_origin_only=True,
+            mime_sniffing_blocked=True,
+            noopen_download=True,
+            xss_protection=True,
+            clickjacking_protection=True,
+            good_cross_domain_policy=True,
+            http_1_0_caching_disabled=True,
+            cache_control_set=True,
+            cache_control_revalidate_set=True,
+            cache_control_nocache_set=True,
+            cache_control_notransform_set=True,
+            cache_control_nostore_set=True,
+            cache_control_private_set=True,
+            expires_set=True,
+            referrer_policy_set_to_no_referrer=True,
+            safe_onion_address=True,
+            no_cdn=True,
+            no_analytics=True,
+            subdomain=True,
+            no_cookies=True,
+        )
+        moderate_warning = factory.Trait(
+            no_failures=True,
+            hsts=False,
+        )
+        severe_warning = factory.Trait(
+            no_failures=True,
+            forces_https=False,
+        )
