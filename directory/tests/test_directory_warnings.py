@@ -16,8 +16,10 @@ class DirectoryNoWarningTest(TestCase):
         )
         self.result = ScanResultFactory(
             securedrop=self.entry,
+            landing_page_url=self.entry.landing_page_url,
             no_failures=True,
         )
+        self.result.save()
         self.entry.save()
 
         self.client = Client()
