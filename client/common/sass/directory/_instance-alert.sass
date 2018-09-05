@@ -6,11 +6,21 @@ $alert-padding-y: 15px
 $color: #9292A5
 
 .instance-alert
-	color: darken($color, 20%)
 	padding:  $alert-padding-y $alert-padding-x
-	border: 1px solid $color
 	padding-left: $icon-width + $icon-gutter + $alert-padding-x
 	border-radius: 4px
+
+.instance-alert-moderate
+	color: #BAA400
+	a
+		color: #BAA400
+		font-weight: bold
+
+.instance-alert-severe
+	color: $red
+	a
+		color: $red
+		font-weight: bold
 
 .instance-alert__icon
 	float: left
@@ -24,3 +34,7 @@ $color: #9292A5
 	font-weight: bold
 	margin: 0 0 .25em 0
 	padding: 0
+
+.instance-alert__content
+	p
+		margin-top: 0

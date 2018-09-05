@@ -15,6 +15,8 @@ from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from autocomplete.edit_handlers import AutocompleteFieldPanel
 from common.models.edit_handlers import ReadOnlyPanel
 from common.models.mixins import MetadataPageMixin
+from directory.strings import MODERATE_WARNINGS, SEVERE_WARNINGS
+from scanner.utils import url_to_domain
 from search.utils import get_search_content_by_fields
 
 
@@ -179,6 +181,8 @@ class DirectoryEntry(MetadataPageMixin, Page):
     def get_context(self, request):
         context = super(DirectoryEntry, self).get_context(request)
         context['show_warnings'] = request.GET.get('warnings') == '1'
+        if context['show_warnings']:
+            context['warning_level'] = self.get_live_result().warning_level
 
         return context
 
@@ -194,6 +198,27 @@ class DirectoryEntry(MetadataPageMixin, Page):
     def get_live_result(self):
         # Used in template to get the latest live result.
         return self.results.filter(live=True).latest()
+
+    def get_warnings(self):
+        result = self.get_live_result()
+        warnings = []
+        if result.warning_level() == 'moderate':
+            for i, (attribute, message) in enumerate(MODERATE_WARNINGS):
+                if attribute == 'subdomain' and result.subdomain is True:
+                    warnings.append(
+                        message.format(
+                            'This SecureDrop landing page',
+                            self,
+                            domain=url_to_domain(result.landing_page_url)
+                        )
+                    )
+                elif attribute != 'subdomain' and getattr(result, attribute) is False:
+                    warnings.append(message.format('This secure drop landing page', self))
+        elif result.warning_level() == 'severe':
+            for attribute, message in SEVERE_WARNINGS:
+                if getattr(result, attribute) is False:
+                    warnings.append(message.format('This secure drop landing page', self))
+        return warnings
 
     def get_search_content(self):
         search_content = get_search_content_by_fields(self, self.search_fields_pgsql)
