@@ -108,14 +108,14 @@ class ScanResultFactory(factory.Factory):
             safe_onion_address=True,
             no_cdn=True,
             no_analytics=True,
-            subdomain=True,
+            subdomain=False,
             no_cookies=True,
         )
         moderate_warning = factory.Trait(
             no_failures=True,
-            hsts=False,
+            safe_onion_address=False,
         )
         severe_warning = factory.Trait(
             no_failures=True,
-            forces_https=False,
+            no_cookies=False,
         )

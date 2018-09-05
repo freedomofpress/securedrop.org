@@ -346,13 +346,13 @@ class ScanResult(models.Model):
         return 'Scan result for {}'.format(self.landing_page_url)
 
     def warning_level(self):
-        if (self.forces_https is False or
-            self.no_cookies is False or
-            self.http_no_redirect is False or
-            self.http_status_200_ok is False or
+        if (self.no_cookies is False or
+            self.no_cdn is False or
             self.no_analytics is False):  # noqa: E129
             return 'severe'
-        elif (self.subdomain is True or self.no_cdn is False):
+        elif (self.subdomain is True or
+              self.referrer_policy_set_to_no_referrer is False or
+              self.safe_onion_address is False):
             return 'moderate'
         else:
             return 'none'
