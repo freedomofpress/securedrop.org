@@ -6,7 +6,6 @@ bleach==2.1.3
 certifi==2017.11.5        # via requests
 cffi==1.11.2              # via cryptography
 chardet==3.0.4            # via requests
-click==6.7                # via safety
 cryptography==2.3         # via pyopenssl
 dataproperty==0.29.1      # via pytablewriter, simplesqlite, tabledata
 defusedxml==0.5.0         # via python3-openid
@@ -25,7 +24,6 @@ django==1.11.15
 djangorestframework==3.6.4
 docopt==0.6.2             # via pshtt
 dominate==2.3.1           # via pytablewriter
-dparse==0.2.1             # via safety
 elasticsearch==6.0.0      # via pytablewriter
 factory-boy==2.9.2
 faker==0.8.7              # via factory-boy
@@ -41,7 +39,6 @@ multidict==3.3.2          # via yarl
 nassl==1.0.1
 oauthlib==2.0.6           # via requests-oauthlib
 olefile==0.44             # via pillow
-packaging==16.8           # via dparse, safety
 pathvalidate==0.16.2      # via pytablewriter, simplesqlite, tabledata
 pillow==4.3.0             # via wagtail
 pshtt==0.3.0
@@ -50,20 +47,18 @@ publicsuffix==1.1.0       # via pshtt
 pycparser==2.18           # via cffi
 pygments==2.2.0
 pyopenssl==17.5.0         # via pshtt
-pyparsing==2.2.0          # via packaging
 pytablewriter==0.27.1     # via pshtt
 python-dateutil==2.6.1    # via faker, typepy
 python-json-logger==0.1.8
 python3-openid==3.1.0     # via django-allauth
 pytz==2017.3              # via django, django-modelcluster, typepy
-pyyaml==3.12              # via dparse, vcrpy
+pyyaml==3.12              # via vcrpy
 qrcode==5.3               # via django-allauth-2fa
 requests-cache==0.4.13    # via pshtt
 requests-oauthlib==0.8.0  # via django-allauth
-requests==2.18.4          # via django-allauth, django-anymail, pshtt, requests-cache, requests-oauthlib, safety, wagtail
-safety==1.6.1
+requests==2.18.4          # via django-allauth, django-anymail, pshtt, requests-cache, requests-oauthlib, wagtail
 simplesqlite==0.19.0      # via pytablewriter
-six==1.11.0               # via bleach, cryptography, django-anymail, dparse, faker, html5lib, mbstrdecoder, packaging, pyopenssl, pytablewriter, python-dateutil, qrcode, simplesqlite, tabledata, typepy, unittest-xml-reporting, vcrpy
+six==1.11.0               # via bleach, cryptography, django-anymail, faker, html5lib, mbstrdecoder, pyopenssl, pytablewriter, python-dateutil, qrcode, simplesqlite, tabledata, typepy, unittest-xml-reporting, vcrpy
 tabledata==0.0.5          # via pytablewriter, simplesqlite
 text-unidecode==1.1       # via faker
 tls-parser==1.1.1
