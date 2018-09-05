@@ -207,7 +207,7 @@ class DirectoryEntry(MetadataPageMixin, Page):
     def save(self, *args, **kwargs):
         from directory.models import ScanResult
         super(DirectoryEntry, self).save(*args, **kwargs)
-        self.results = ScanResult.objects.filter(landing_page_url=self.landing_page_url)
+        ScanResult.objects.filter(landing_page_url=self.landing_page_url).update(securedrop=self)
 
 
 class SecuredropOwner(models.Model):
