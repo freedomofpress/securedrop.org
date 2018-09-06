@@ -158,6 +158,6 @@
       delay: 20
 
     - debug:
-        msg: |
+        msg: >-
           Webserver accessible at http://localhost:{{ www_port }}.
           Postgres accessible at localhost:{{ pg_port }}

@@ -41,12 +41,9 @@
 						{% block nav_logos %}
 							<a href="/" class="nav-menu__logos">
 								<span class="sr-only">{% trans "Home" %}</span>
-								<object class="nav-menu__logo" type="image/svg+xml" data="{% static 'images/_logo_solid_white.svg' %}">
-								  <img src="{% static 'images/logo_solid_white.png' %}" alt="White cube with keyhole (Securedrop logo)">
-								</object>
-								<object class="nav-menu__wordmark" type="image/svg+xml" data="{% static 'images/_site_title.svg' %}">
-									<img src="{% static 'images/site_title.png' %}" alt="Securedrop">
-								</object>
+								{% trans "White cube with keyhole (Securedrop logo)" as logo_alt_text %}
+								{% include "common/_svg.html" with class="nav-menu__logo" svg="images/_logo_solid_white.svg" img="images/logo_solid_white.png" alt=gray_hexagon_alt_text %}
+								{% include "common/_svg.html" with class="nav-menu__wordmark" svg="images/_site_title.svg" img="images/site_title.png" alt="Securedrop" %}
 							</a>
 						{% endblock nav_logos %}
 						<ul class="nav-menu__list">
@@ -59,9 +56,8 @@
 							{% endfor %}
 							<li class="nav-menu__item--search">
 								<a class="nav-menu__link" href="/search">
-									<object class="nav-menu__search-icon" type="image/svg+xml" data="{% static 'images/search.svg' %}">
-										 <img src="{% static 'images/search.png' %}" alt="{% trans 'Search' %}">
-									</object>
+									{% trans "Search" as search_alt_text %}
+									{% include "common/_svg.html" with class="nav-menu__search-icon" svg="images/search.svg" img="images/search.png" alt=search_alt_text %}
 								</a>
 							</li>
 						</ul>

@@ -34,20 +34,14 @@
 				{% for result in search_results %}
 					<li class="search-list__item">
 						{% if result.result_type == 'W' %}
-							<div class="sr-only">{% trans 'Gray hexagon' %}</div>
-							<object class="search-list__icon search-list__icon--W" type="image/svg+xml" data="{% static 'images/plain_hexagon.svg' %}">
-								 <img src="{% static 'images/slate_hexagon.png' %}" alt="{% trans 'Gray hexagon' %}">
-							</object>
+							{% trans "Gray hexagon" as gray_hexagon_alt_text %}
+							{% include "common/_svg.html" with class="search-list__icon search-list__icon--W" svg="images/plain_hexagon.svg" img="images/slate_hexagon.png" alt=gray_hexagon_alt_text %}
 						{% elif result.result_type == 'F' %}
-							<div class="sr-only">{% trans 'Dialogue box' %}</div>
-							<object class="search-list__icon search-list__icon--F" type="image/svg+xml" data="{% static 'images/forum.svg' %}">
-								 <img src="{% static 'images/forum.png' %}" alt="{% trans 'Dialogue box' %}">
-							</object>
+							{% trans "Speech bubble" as speech_bubble_alt_text %}
+							{% include "common/_svg.html" with class="search-list__icon search-list__icon--F" svg="images/forum.svg" img="images/forum.png" alt=speech_bubble_alt_text %}
 						{% elif result.result_type == 'D' %}
-							<div class="sr-only">{% trans 'Stack of three books' %}</div>
-							<object class="search-list__icon search-list__icon--D" type="image/svg+xml" data="{% static 'images/documentation.svg' %}">
-								 <img src="{% static 'images/documentation.png' %}" alt="{% trans 'Stack of three books' %}">
-							</object>
+							{% trans "Stack of books" as books_alt_text %}
+							{% include "common/_svg.html" with class="search-list__icon search-list__icon--D" svg="images/documentation.svg" img="images/documentation.png" alt=books_alt_text %}
 						{% endif %}
 						<div class="search-item">
 							<div class="search-item__header">
