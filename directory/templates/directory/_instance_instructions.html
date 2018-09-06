@@ -70,15 +70,19 @@
 	{% endif %}
 	<br>
 
-	<a href="{{ page.landing_page_url }}" class="instance-instructions__landing-page-button">
-		<div class="instance-instructions__landing-page-button-text">
+	<a href="{{ page.landing_page_url }}" class="instance-instructions__landing-page-button{% ifequal warning_level 'severe' %}--danger{% endifequal %}{% ifequal warning_level 'moderate' %}--warning{% endifequal %}">
+		<div class="instance-instructions__landing-page-button-text{% ifequal warning_level 'severe' %}--danger{% endifequal %}{% ifequal warning_level 'moderate' %}--warning{% endifequal %}">
 			{% blocktrans with title=page.title %}
 				{{ title }}’s landing page
 			{% endblocktrans %}
 		</div>
-		<div class="instance-instructions__landing-page-button-url">
+		<div class="instance-instructions__landing-page-button-url{% ifequal warning_level 'severe' %}--danger{% endifequal %}{% ifequal warning_level 'moderate' %}--warning{% endifequal %}">
 			{{ page.landing_page_url }}
 		</div>
-		{% include "common/chevron-right.svg" with class="instance-instructions__landing-page-button-chevron" %}
+		{% if warning_level == "moderate" %}
+			{% include "common/chevron-right.svg" with class="instance-instructions__landing-page-button-chevron--warning" %}
+		{% elif warning_level == "severe" %}
+			{% include "common/chevron-right.svg" with class="instance-instructions__landing-page-button-chevron--danger" %}
+		{% endif %}
 	</a>
 </div>
