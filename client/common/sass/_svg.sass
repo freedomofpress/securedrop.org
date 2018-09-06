@@ -1,0 +1,11 @@
+// CSS classes that conditionally show or hide SVGs and their fallbacks
+// depending on the likelihood that the visitor is on Tor Browser
+
+.svg
+	display: inline-block
+
+html.tor .svg__svg, html.no-js .svg__svg
+	display: none
+
+html.no-tor .svg__fallback
+	display: none

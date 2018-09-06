@@ -23,14 +23,10 @@
 
 {% block page_title %}
 	<div class="hero">
-		<object class="hero__logo" type="image/svg+xml" data="{% static 'images/_logo_transparent_white.svg' %}">
-			<img src="{% static 'images/logo_transparent_white.png' %}" alt="White cube with keyhole (Securedrop logo)">
-		</object>
+		{% include "common/_svg.html" with class="hero__logo" svg="images/_logo_transparent_white.svg" img="images/logo_transparent_white.png" alt="White cube with keyhole (Securedrop logo)" %}
 		<div class="hero__text">
 			<h1 class="sr-only">{{ self.get_site.site_name }}</h1>
-			<object class="hero__title" type="image/svg+xml" data="{% static 'images/_site_title.svg' %}">
-				<img src="{% static 'images/site_title.png' %}" alt="Securedrop">
-			</object>
+			{% include "common/_svg.html" with class="hero__title" svg="images/_site_title.svg" img="images/site_title.png" alt="Securedrop" %}
 			{% if page.description_header %}
 				<h2 class="hero__description-header">{{ page.description_header }}</h2>
 			{% endif %}

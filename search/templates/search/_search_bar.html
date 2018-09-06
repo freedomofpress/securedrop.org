@@ -2,9 +2,8 @@
 
 <div class="search-bar {{ class|default:'' }}">
 	<form action="{% url 'search' %}" class="search-bar__form" method="get">
-		<object class="search-bar__icon" type="image/svg+xml" data="{% static 'images/search.svg' %}">
-			 <img src="{% static 'images/search.png' %}" alt="{% trans 'Search' %}">
-		</object>
+		{% trans "Search" as search_alt_text %}
+		{% include "common/_svg.html" with class="search-bar__icon" svg="images/search.svg" img="images/search.png" alt=search_alt_text %}
 
 		<input
 			type="text"
