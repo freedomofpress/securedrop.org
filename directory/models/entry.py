@@ -172,6 +172,27 @@ class DirectoryEntry(MetadataPageMixin, Page):
                    'instances that are under review for detected issues.')
     )
 
+    WARNING_CHOICES = (
+        ('no_cookies', 'Use of Cookies'),
+        ('no_cdn', 'Use of CDN'),
+        ('no_analytics', 'Use of Analytics'),
+        ('subdomain', 'Subdomain'),
+        ('referrer_policy_set_to_no_referrer', 'Referer Policy'),
+        ('safe_onion_address', 'Links to Onion Addresses'),
+    )
+
+    warnings_ignored = ChoiceArrayField(
+        models.CharField(
+            max_length=50,
+            choices=WARNING_CHOICES,
+        ),
+        default=[],
+        blank=True,
+        help_text=('Landing page warnings that will not be shown to someone '
+                   'viewing this entry, even if they are in the scan results. '
+                   'Select multiples with shift or control click.'),
+    )
+
     content_panels = Page.content_panels + [
         ReadOnlyPanel('added', label='Date Added'),
         FieldPanel('landing_page_url'),
@@ -191,6 +212,7 @@ class DirectoryEntry(MetadataPageMixin, Page):
 
     settings_panels = Page.settings_panels + [
         FieldPanel('delisted'),
+        FieldPanel('warnings_ignored'),
     ]
 
     search_fields_pgsql = ['title', 'landing_page_url', 'onion_address', 'organization_description']
