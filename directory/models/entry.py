@@ -221,7 +221,7 @@ class DirectoryEntry(MetadataPageMixin, Page):
         context = super(DirectoryEntry, self).get_context(request)
         context['show_warnings'] = request.GET.get('warnings') == '1'
         if context['show_warnings']:
-            context['warning_level'] = self.get_live_result().warning_level
+            context['warning_level'] = self.get_live_result().warning_level(self.warnings_ignored)
 
         return context
 
@@ -241,8 +241,12 @@ class DirectoryEntry(MetadataPageMixin, Page):
     def get_warnings(self):
         result = self.get_live_result()
         warnings = []
-        if result.warning_level() == 'moderate':
+        warning_level = result.warning_level(self.warnings_ignored)
+
+        if warning_level == 'moderate':
             for i, (attribute, message) in enumerate(MODERATE_WARNINGS):
+                if attribute in self.warnings_ignored:
+                    continue
                 if attribute == 'subdomain' and result.subdomain is True:
                     warnings.append(
                         message.format(
@@ -253,8 +257,10 @@ class DirectoryEntry(MetadataPageMixin, Page):
                     )
                 elif attribute != 'subdomain' and getattr(result, attribute) is False:
                     warnings.append(message.format('This secure drop landing page', self))
-        elif result.warning_level() == 'severe':
+        elif warning_level == 'severe':
             for attribute, message in SEVERE_WARNINGS:
+                if attribute in self.warnings_ignored:
+                    continue
                 if getattr(result, attribute) is False:
                     warnings.append(message.format('This secure drop landing page', self))
         return warnings
@@ -409,17 +415,32 @@ class ScanResult(models.Model):
     def __str__(self):
         return 'Scan result for {}'.format(self.landing_page_url)
 
-    def warning_level(self):
-        if (self.no_cookies is False or
-            self.no_cdn is False or
-            self.no_analytics is False):  # noqa: E129
-            return 'severe'
-        elif (self.subdomain is True or
-              self.referrer_policy_set_to_no_referrer is False or
-              self.safe_onion_address is False):
-            return 'moderate'
-        else:
-            return 'none'
+    def warning_level(self, warnings_ignored=[]):
+        SEVERE_CONDITIONS = {
+            'no_cookies': False,
+            'no_cdn': False,
+            'no_analytics': False,
+        }
+
+        MODERATE_CONDITIONS = {
+            'subdomain': True,
+            'referrer_policy_set_to_no_referrer': False,
+            'safe_onion_address': False,
+        }
+
+        for attr, warn_condition in SEVERE_CONDITIONS.items():
+            if attr in warnings_ignored:
+                continue
+            if getattr(self, attr) is warn_condition:
+                return 'severe'
+
+        for attr, warn_condition in MODERATE_CONDITIONS.items():
+            if attr in warnings_ignored:
+                continue
+            if getattr(self, attr) is warn_condition:
+                return 'moderate'
+
+        return 'none'
 
     def compute_grade(self):
         if self.live is False:
