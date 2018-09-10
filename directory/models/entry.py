@@ -1,8 +1,10 @@
+from django import forms
 from django.conf import settings
 from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models import Func, F, Q, Value
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from django.contrib.postgres.fields import ArrayField
 
 from wagtail.wagtailcore.models import Page, PageManager, PageQuerySet
 from wagtail.wagtailadmin.edit_handlers import (
@@ -69,6 +71,21 @@ class DirectoryEntryManager(PageManager):
 
 
 DirectoryEntryManager = DirectoryEntryManager.from_queryset(DirectoryEntryQuerySet)
+
+
+class ChoiceArrayField(ArrayField):
+    """
+    A field that allows us to store an array of choices.
+
+    """
+
+    def formfield(self, **kwargs):
+        defaults = {
+            'form_class': forms.MultipleChoiceField,
+            'choices': self.base_field.choices,
+        }
+        defaults.update(kwargs)
+        return super(ArrayField, self).formfield(**defaults)
 
 
 class DirectoryEntry(MetadataPageMixin, Page):
