@@ -7,16 +7,19 @@ $color: #9292A5
 
 .instance-alert
 	padding:  $alert-padding-y $alert-padding-x
-	padding-left: $icon-width + $icon-gutter + $alert-padding-x
 	border-radius: 4px
 
-.instance-alert-moderate
-	color: #BAA400
+.instance-alert
+	+media-breakpoint-down(extra-small)
+		padding-left: ($icon-width/2) + $icon-gutter
+
+.instance-alert--moderate
+	color: darken(#BAA400, 10%)
 	a
-		color: #BAA400
+		color: darken(#BAA400, 10%)
 		font-weight: bold
 
-.instance-alert-severe
+.instance-alert--severe
 	color: $red
 	a
 		color: $red
@@ -27,6 +30,11 @@ $color: #9292A5
 	margin-left: -$icon-width - $icon-gutter
 	width: $icon-width
 	height: auto
+
+.instance-alert__icon
+	+media-breakpoint-down(extra-small)
+		margin-left: - ($icon-width/2) - $icon-gutter
+		width: $icon-width / 2
 
 .instance-alert__title
 	color: darken($color, 30%)

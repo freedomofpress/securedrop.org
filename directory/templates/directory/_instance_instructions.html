@@ -46,7 +46,7 @@
 	</p>
 
 	{% if show_warnings %}
-		<div class="instance-alert instance-alert-{{ warning_level }}">
+		<div class="instance-alert instance-alert--{{ warning_level }}">
 			{% if warning_level == "moderate" %}
 				{% include "common/_svg.html" with class="instance-alert__icon" svg="images/instance-status/Warning.svg" img="images/instance-status/Warning.png" alt="Moderate Warning Icon" %}
 			{% elif warning_level == 'severe' %}
