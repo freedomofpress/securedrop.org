@@ -203,6 +203,13 @@ def validate_security_header(page, header, expected_value):
         return False
 
 
+def validate_cache_control_header(page, expected_directive):
+    header = page.headers.get('Cache-Control', '')
+    directives = [directive.lower().strip() for directive in header.split(',')]
+
+    return expected_directive in directives
+
+
 def validate_no_redirects(page):
     if page.is_redirect:
         return False
@@ -331,23 +338,23 @@ def validate_cache_control_set(page):
 
 
 def validate_cache_must_revalidate(page):
-    return validate_security_header(page, "Cache-Control", "must-revalidate")
+    return validate_cache_control_header(page, 'must-revalidate')
 
 
 def validate_nocache(page):
-    return validate_security_header(page, "Cache-Control", "no-cache")
+    return validate_cache_control_header(page, 'no-cache')
 
 
 def validate_nostore(page):
-    return validate_security_header(page, "Cache-Control", "no-store")
+    return validate_cache_control_header(page, 'no-store')
 
 
 def validate_notransform(page):
-    return validate_security_header(page, "Cache-Control", "no-transform")
+    return validate_cache_control_header(page, 'no-transform')
 
 
 def validate_private(page):
-    return validate_security_header(page, "Cache-Control", "private")
+    return validate_cache_control_header(page, 'private')
 
 
 def validate_no_referrer_policy(page):

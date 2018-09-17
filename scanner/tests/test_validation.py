@@ -6,6 +6,52 @@ from django.test import TestCase
 from scanner import scanner
 
 
+class MultipleCacheControlDirectivesSuccess(TestCase):
+    def setUp(self):
+        self.page = mock.Mock()
+        self.page.headers = {
+            'Cache-Control': 'private, max-age=0, no-store, no-cache, must-revalidate, no-transform'
+        }
+
+    def test_cache_control_must_revalidate_set(self):
+        self.assertTrue(scanner.validate_cache_must_revalidate(self.page))
+
+    def test_cache_control_nocache_set(self):
+        self.assertTrue(scanner.validate_nocache(self.page))
+
+    def test_cache_control_notransform_set(self):
+        self.assertTrue(scanner.validate_notransform(self.page))
+
+    def test_cache_control_nostore_set(self):
+        self.assertTrue(scanner.validate_nostore(self.page))
+
+    def test_cache_cache_control_private_set(self):
+        self.assertTrue(scanner.validate_private(self.page))
+
+
+class MultipleCacheControlDirectivesFailure(TestCase):
+    def setUp(self):
+        self.page = mock.Mock()
+        self.page.headers = {
+            'Cache-Control': 'public, max-age=0, store, cache, must-not-revalidate, transform'
+        }
+
+    def test_cache_control_must_revalidate_set(self):
+        self.assertFalse(scanner.validate_cache_must_revalidate(self.page))
+
+    def test_cache_control_nocache_set(self):
+        self.assertFalse(scanner.validate_nocache(self.page))
+
+    def test_cache_control_notransform_set(self):
+        self.assertFalse(scanner.validate_notransform(self.page))
+
+    def test_cache_control_nostore_set(self):
+        self.assertFalse(scanner.validate_nostore(self.page))
+
+    def test_cache_cache_control_private_set(self):
+        self.assertFalse(scanner.validate_private(self.page))
+
+
 class VerificationUtilityTest(TestCase):
     def test_onion_link_is_in_href(self):
         test_html = "<a href='notavalidaddress.onion'>SecureDrop</a>"
