@@ -91,6 +91,30 @@ class ScanResultTest(TestCase):
         self.securedrop = DirectoryEntryFactory()
         self.securedrop.save()
 
+    def test_instance_on_subdomain_gets_moderate_warning(self):
+        result = ScanResultFactory(subdomain=True)
+        self.assertEqual(result.warning_level(), 'moderate')
+
+    def test_instance_with_incorrect_referrer_policy_gets_moderate_warning(self):
+        result = ScanResultFactory(referrer_policy_set_to_no_referrer=False)
+        self.assertEqual(result.warning_level(), 'moderate')
+
+    def test_instance_with_unsafe_onion_addresses_gets_moderate_warning(self):
+        result = ScanResultFactory(safe_onion_address=False)
+        self.assertEqual(result.warning_level(), 'moderate')
+
+    def test_instance_with_third_party_cookies_gets_severe_warning(self):
+        result = ScanResultFactory(no_cookies=False)
+        self.assertEqual(result.warning_level(), 'severe')
+
+    def test_instance_with_analytics_gets_severe_warning(self):
+        result = ScanResultFactory(no_analytics=False)
+        self.assertEqual(result.warning_level(), 'severe')
+
+    def test_instance_with_cdn_gets_severe_warning(self):
+        result = ScanResultFactory(no_cdn=False)
+        self.assertEqual(result.warning_level(), 'severe')
+
     def test_grade_computed_on_save(self):
         result = ScanResult(live=True, hsts=True, hsts_max_age=True,
                             securedrop=self.securedrop)

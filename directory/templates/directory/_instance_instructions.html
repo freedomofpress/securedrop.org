@@ -45,15 +45,43 @@
 
 	</p>
 
-	<a href="{{ page.landing_page_url }}" class="instance-instructions__landing-page-button">
-		<div class="instance-instructions__landing-page-button-text">
+	{% if show_warnings %}
+		<div class="instance-alert instance-alert--{{ warning_level }}">
+			{% if warning_level == "moderate" %}
+				{% include "common/_svg.html" with class="instance-alert__icon" svg="images/instance-status/Warning.svg" img="images/instance-status/Warning.png" alt="Moderate Warning Icon" %}
+			{% elif warning_level == 'severe' %}
+				{% include "common/_svg.html" with class="instance-alert__icon" svg="images/instance-status/Error.svg" img="images/instance-status/Error.png" alt="Severe Warning Icon" %}
+			{% endif %}
+			<div class="instance-alert__content">
+				{% for warning in page.get_warnings %}
+					<p>{{ warning }}</p>
+				{% endfor %}
+				{% if warning_level == 'severe' %}
+					{% blocktrans %}
+						<p>We strongly advise you to only visit this landing page <a href="https://www.torproject.org/">using the Tor browser</a>, with the <a href="https://safetydocs.example/">safety slider set to "safest"</a>.</p>
+					{% endblocktrans %}
+				{% elif warning_level == 'moderate' %}
+					{% blocktrans %}
+						<p>We recommend only visiting this SecureDrop landing page <a href="https://www.torproject.org/download/download-easy.html.en">using the Tor browser</a>.</p>
+					{% endblocktrans %}
+				{% endif %}
+			</div>
+		</div>
+	{% endif %}
+
+	<a href="{{ page.landing_page_url }}" class="instance-instructions__landing-page-button{% ifequal warning_level 'severe' %}--danger{% endifequal %}{% ifequal warning_level 'moderate' %}--warning{% endifequal %}">
+		<div class="instance-instructions__landing-page-button-text{% ifequal warning_level 'severe' %}--danger{% endifequal %}{% ifequal warning_level 'moderate' %}--warning{% endifequal %}">
 			{% blocktrans with title=page.title %}
 				{{ title }}’s landing page
 			{% endblocktrans %}
 		</div>
-		<div class="instance-instructions__landing-page-button-url">
+		<div class="instance-instructions__landing-page-button-url{% ifequal warning_level 'severe' %}--danger{% endifequal %}{% ifequal warning_level 'moderate' %}--warning{% endifequal %}">
 			{{ page.landing_page_url }}
 		</div>
-		{% include "common/chevron-right.svg" with class="instance-instructions__landing-page-button-chevron" %}
+		{% if warning_level == "moderate" %}
+			{% include "common/chevron-right.svg" with class="instance-instructions__landing-page-button-chevron--warning" %}
+		{% elif warning_level == "severe" %}
+			{% include "common/chevron-right.svg" with class="instance-instructions__landing-page-button-chevron--danger" %}
+		{% endif %}
 	</a>
 </div>

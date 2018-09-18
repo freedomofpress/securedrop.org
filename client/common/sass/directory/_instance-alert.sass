@@ -6,11 +6,24 @@ $alert-padding-y: 15px
 $color: #9292A5
 
 .instance-alert
-	color: darken($color, 20%)
 	padding:  $alert-padding-y $alert-padding-x
-	border: 1px solid $color
-	padding-left: $icon-width + $icon-gutter + $alert-padding-x
 	border-radius: 4px
+
+.instance-alert
+	+media-breakpoint-down(extra-small)
+		padding-left: ($icon-width/2) + $icon-gutter
+
+.instance-alert--moderate
+	color: darken(#BAA400, 10%)
+	a
+		color: darken(#BAA400, 10%)
+		font-weight: bold
+
+.instance-alert--severe
+	color: $red
+	a
+		color: $red
+		font-weight: bold
 
 .instance-alert__icon
 	float: left
@@ -18,9 +31,18 @@ $color: #9292A5
 	width: $icon-width
 	height: auto
 
+.instance-alert__icon
+	+media-breakpoint-down(extra-small)
+		margin-left: - ($icon-width/2) - $icon-gutter
+		width: $icon-width / 2
+
 .instance-alert__title
 	color: darken($color, 30%)
 	font-size: inherit
 	font-weight: bold
 	margin: 0 0 .25em 0
 	padding: 0
+
+.instance-alert__content
+	p
+		margin-top: 0

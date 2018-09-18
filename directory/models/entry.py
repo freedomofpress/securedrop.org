@@ -1,8 +1,10 @@
+from django import forms
 from django.conf import settings
 from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models import Func, F, Q, Value
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
+from django.contrib.postgres.fields import ArrayField
 
 from wagtail.wagtailcore.models import Page, PageManager, PageQuerySet
 from wagtail.wagtailadmin.edit_handlers import (
@@ -15,6 +17,8 @@ from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from autocomplete.edit_handlers import AutocompleteFieldPanel
 from common.models.edit_handlers import ReadOnlyPanel
 from common.models.mixins import MetadataPageMixin
+from directory.strings import MODERATE_WARNINGS, SEVERE_WARNINGS
+from scanner.utils import url_to_domain
 from search.utils import get_search_content_by_fields
 
 
@@ -67,6 +71,21 @@ class DirectoryEntryManager(PageManager):
 
 
 DirectoryEntryManager = DirectoryEntryManager.from_queryset(DirectoryEntryQuerySet)
+
+
+class ChoiceArrayField(ArrayField):
+    """
+    A field that allows us to store an array of choices.
+
+    """
+
+    def formfield(self, **kwargs):
+        defaults = {
+            'form_class': forms.MultipleChoiceField,
+            'choices': self.base_field.choices,
+        }
+        defaults.update(kwargs)
+        return super(ArrayField, self).formfield(**defaults)
 
 
 class DirectoryEntry(MetadataPageMixin, Page):
@@ -153,6 +172,27 @@ class DirectoryEntry(MetadataPageMixin, Page):
                    'instances that are under review for detected issues.')
     )
 
+    WARNING_CHOICES = (
+        ('no_cookies', 'Use of Cookies'),
+        ('no_cdn', 'Use of CDN'),
+        ('no_analytics', 'Use of Analytics'),
+        ('subdomain', 'Subdomain'),
+        ('referrer_policy_set_to_no_referrer', 'Referer Policy'),
+        ('safe_onion_address', 'Links to Onion Addresses'),
+    )
+
+    warnings_ignored = ChoiceArrayField(
+        models.CharField(
+            max_length=50,
+            choices=WARNING_CHOICES,
+        ),
+        default=[],
+        blank=True,
+        help_text=('Landing page warnings that will not be shown to someone '
+                   'viewing this entry, even if they are in the scan results. '
+                   'Select multiples with shift or control click.'),
+    )
+
     content_panels = Page.content_panels + [
         ReadOnlyPanel('added', label='Date Added'),
         FieldPanel('landing_page_url'),
@@ -172,9 +212,18 @@ class DirectoryEntry(MetadataPageMixin, Page):
 
     settings_panels = Page.settings_panels + [
         FieldPanel('delisted'),
+        FieldPanel('warnings_ignored'),
     ]
 
     search_fields_pgsql = ['title', 'landing_page_url', 'onion_address', 'organization_description']
+
+    def get_context(self, request):
+        context = super(DirectoryEntry, self).get_context(request)
+        context['show_warnings'] = request.GET.get('warnings') == '1'
+        if context['show_warnings']:
+            context['warning_level'] = self.get_live_result().warning_level(self.warnings_ignored)
+
+        return context
 
     def serve(self, request):
         owners = [sd_owner.owner for sd_owner in self.owners.all()]
@@ -189,6 +238,33 @@ class DirectoryEntry(MetadataPageMixin, Page):
         # Used in template to get the latest live result.
         return self.results.filter(live=True).latest()
 
+    def get_warnings(self):
+        result = self.get_live_result()
+        warnings = []
+        warning_level = result.warning_level(self.warnings_ignored)
+
+        if warning_level == 'moderate':
+            for i, (attribute, message) in enumerate(MODERATE_WARNINGS):
+                if attribute in self.warnings_ignored:
+                    continue
+                if attribute == 'subdomain' and result.subdomain is True:
+                    warnings.append(
+                        message.format(
+                            'This SecureDrop landing page',
+                            self,
+                            domain=url_to_domain(result.landing_page_url)
+                        )
+                    )
+                elif attribute != 'subdomain' and getattr(result, attribute) is False:
+                    warnings.append(message.format('This secure drop landing page', self))
+        elif warning_level == 'severe':
+            for attribute, message in SEVERE_WARNINGS:
+                if attribute in self.warnings_ignored:
+                    continue
+                if getattr(result, attribute) is False:
+                    warnings.append(message.format('This secure drop landing page', self))
+        return warnings
+
     def get_search_content(self):
         search_content = get_search_content_by_fields(self, self.search_fields_pgsql)
 
@@ -201,7 +277,7 @@ class DirectoryEntry(MetadataPageMixin, Page):
     def save(self, *args, **kwargs):
         from directory.models import ScanResult
         super(DirectoryEntry, self).save(*args, **kwargs)
-        self.results = ScanResult.objects.filter(landing_page_url=self.landing_page_url)
+        ScanResult.objects.filter(landing_page_url=self.landing_page_url).update(securedrop=self)
 
 
 class SecuredropOwner(models.Model):
@@ -338,6 +414,33 @@ class ScanResult(models.Model):
 
     def __str__(self):
         return 'Scan result for {}'.format(self.landing_page_url)
+
+    def warning_level(self, warnings_ignored=[]):
+        SEVERE_CONDITIONS = {
+            'no_cookies': False,
+            'no_cdn': False,
+            'no_analytics': False,
+        }
+
+        MODERATE_CONDITIONS = {
+            'subdomain': True,
+            'referrer_policy_set_to_no_referrer': False,
+            'safe_onion_address': False,
+        }
+
+        for attr, warn_condition in SEVERE_CONDITIONS.items():
+            if attr in warnings_ignored:
+                continue
+            if getattr(self, attr) is warn_condition:
+                return 'severe'
+
+        for attr, warn_condition in MODERATE_CONDITIONS.items():
+            if attr in warnings_ignored:
+                continue
+            if getattr(self, attr) is warn_condition:
+                return 'moderate'
+
+        return 'none'
 
     def compute_grade(self):
         if self.live is False:
