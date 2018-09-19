@@ -313,6 +313,13 @@ class ScanResult(models.Model):
         max_length=255,
         db_index=True,
     )
+    redirect_target = models.URLField(
+        'Final destination of redirects from the landing page url',
+        null=True,
+        blank=True,
+        max_length=255,
+    )
+
     live = models.BooleanField()
 
     # In order to save a scan result when it is different from the last scan
