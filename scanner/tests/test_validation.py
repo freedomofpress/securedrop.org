@@ -296,3 +296,18 @@ class VerificationUtilityTest(TestCase):
         page = mock.Mock()
         page.headers = {'Referrer-Policy': 'origin'}
         self.assertFalse(scanner.validate_no_referrer_policy(page))
+
+    def test_validate_utf_8_encoding(self):
+        page = mock.Mock()
+        page.encoding = 'utf-8'
+        self.assertTrue(scanner.validate_encoding(page))
+
+    def test_validate_iso_8859_1_encoding(self):
+        page = mock.Mock()
+        page.encoding = 'iso-8859-1'
+        self.assertTrue(scanner.validate_encoding(page))
+
+    def test_do_not_validate_no_encoding(self):
+        page = mock.Mock()
+        page.encoding = None
+        self.assertFalse(scanner.validate_encoding(page))
