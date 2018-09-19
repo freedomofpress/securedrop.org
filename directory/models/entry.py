@@ -336,6 +336,7 @@ class ScanResult(models.Model):
     # Basic checks
     http_status_200_ok = models.NullBooleanField()
     http_no_redirect = models.NullBooleanField()
+    no_cross_domain_redirects = models.NullBooleanField()
     expected_encoding = models.NullBooleanField()
 
     # Security headers
