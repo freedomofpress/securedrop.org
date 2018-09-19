@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import re
 
-from typing import Dict, TYPE_CHECKING
+from typing import TYPE_CHECKING
 
 from pshtt.pshtt import inspect_domains
 import tldextract
@@ -16,80 +16,50 @@ if TYPE_CHECKING:
     from directory.models import DirectoryEntryQuerySet  # noqa: F401
 
 
-def pshtt_data_to_result(securedrop: DirectoryEntry, pshtt_results: Dict) -> ScanResult:
-    """
-    Takes a DirectoryEntry and a dictionary of pshtt results for that domain,
-    scans the page itself and then combines those results into an unsaved
-    ScanResult object
-    """
+def perform_scan(url: str) -> ScanResult:
     try:
-        page, soup = request_and_scrape_page(securedrop.landing_page_url)
+        page, soup = request_and_scrape_page(url)
 
-        # In order to check the HTTP status code and redirect status, we must
-        # pass
-        no_redirects_page, _ = request_and_scrape_page(
-            securedrop.landing_page_url, allow_redirects=False
-        )
     except requests.exceptions.RequestException:
         # Connection timed out, an invalid HTTP response was returned, or
         # a network problem occurred.
         # Catch the base class exception for these cases.
         return ScanResult(
-            securedrop=securedrop,
-            live=pshtt_results['Live'],
+            live=False,
             http_status_200_ok=False,
         )
 
-    return ScanResult(
-        landing_page_url=securedrop.landing_page_url,
-        live=pshtt_results['Live'],
-        http_status_200_ok=validate_200_ok(no_redirects_page),
-        forces_https=bool(pshtt_results['Strictly Forces HTTPS']),
-        hsts=pshtt_results['HSTS'],
-        hsts_max_age=validate_hsts_max_age(pshtt_results['HSTS Max Age']),
-        hsts_entire_domain=validate_hsts_entire_domain(pshtt_results['HSTS Entire Domain']),
-        hsts_preloaded=pshtt_results['HSTS Preloaded'],
-        subdomain=validate_subdomain(securedrop.landing_page_url),
-        no_cookies=validate_no_cookies(page),
-        safe_onion_address=validate_onion_address_not_in_href(soup),
-        no_cdn=validate_not_using_cdn(page),
-        http_no_redirect=validate_no_redirects(no_redirects_page),
-        expected_encoding=validate_encoding(page),
-        no_analytics=validate_not_using_analytics(page),
-        no_server_info=validate_server_software(page),
-        no_server_version=validate_server_version(page),
-        csp_origin_only=validate_csp(page),
-        mime_sniffing_blocked=validate_no_sniff(page),
-        noopen_download=validate_download_options(page),
-        xss_protection=validate_xss_protection(page),
-        clickjacking_protection=validate_clickjacking_protection(page),
-        good_cross_domain_policy=validate_cross_domain_policy(page),
-        http_1_0_caching_disabled=validate_pragma(page),
-        expires_set=validate_expires(page),
-        cache_control_set=validate_cache_control_set(page),
-        cache_control_revalidate_set=validate_cache_must_revalidate(page),
-        cache_control_nocache_set=validate_nocache(page),
-        cache_control_notransform_set=validate_notransform(page),
-        cache_control_nostore_set=validate_nostore(page),
-        cache_control_private_set=validate_private(page),
-        referrer_policy_set_to_no_referrer=validate_no_referrer_policy(page),
-    )
+    scan_data = {
+        'live': False,
+        'landing_page_url': url,
+    }
+    http_response_data = parse_page_data(page)
+    scan_data.update(http_response_data)
+
+    content_data = parse_soup_data(soup)
+    scan_data.update(content_data)
+
+    if http_response_data['no_cross_domain_redirects'] is False:
+        return ScanResult(**scan_data)
+
+    pshtt_results = inspect_domains([url_to_domain(page.url)], {'timeout': 10})
+
+    https_data = parse_pshtt_data(pshtt_results[0])
+    scan_data.update(https_data)
+
+    return ScanResult(**scan_data)
 
 
-def scan(securedrop: DirectoryEntry, commit=False) -> ScanResult:
+def scan(entry: DirectoryEntry, commit=False) -> ScanResult:
     """
     Scan a single site. This method accepts a DirectoryEntry instance which
     may or may not be saved to the database. You can optionally pass True for
     the commit argument, which will save the result to the database. In that
     case, the passed DirectoryEntry *must* already be in the database.
     """
-
-    securedrop_domain = url_to_domain(securedrop.landing_page_url)
-    pshtt_results = inspect_domains([securedrop_domain], {'timeout': 10})
-    result = pshtt_data_to_result(securedrop, pshtt_results[0])
+    result = perform_scan(entry.landing_page_url)
 
     if commit:
-        result.securedrop = securedrop
         result.save()
 
     return result
@@ -105,25 +75,18 @@ def bulk_scan(securedrops: 'DirectoryEntryQuerySet') -> None:
 
     # Ensure that we have the domain annotation present
     securedrops = securedrops.with_domain_annotation()
-    domains = securedrops.values_list('domain', flat=True)
-
-    # Send the domains to pshtt. This will trigger HTTP requests for each domain
-    # and can take some time!
-    results = inspect_domains(domains, {'timeout': 10})
 
     results_to_be_written = []
-    for result_data in results:
-        securedrop = securedrops.get(domain=result_data['Domain'])
-        current_result = pshtt_data_to_result(securedrop, result_data)
+    for entry in securedrops:
+        current_result = perform_scan(entry.landing_page_url)
 
         # These are usually handled by Result.save, but since we're doing a
         # bulk save, we need to do them here first
-        current_result.compute_grade()
-        current_result.securedrop = securedrop
+        current_result.securedrop = entry
 
         # Before we save, let's get the most recent scan before saving
         try:
-            prior_result = securedrop.results.latest()
+            prior_result = entry.results.latest()
         except ScanResult.DoesNotExist:
             results_to_be_written.append(current_result)
             continue
@@ -150,6 +113,61 @@ def request_and_scrape_page(url, allow_redirects=True):
         soup = BeautifulSoup(page.content, "lxml")
 
     return page, soup
+
+
+def parse_page_data(page):
+    http_response_data = {
+        'no_cross_domain_redirects': True,
+        'http_status_200_ok': validate_200_ok(page),
+        'no_cookies': validate_no_cookies(page),
+        'no_cdn': validate_not_using_cdn(page),
+        'expected_encoding': validate_encoding(page),
+        'no_analytics': validate_not_using_analytics(page),
+        'no_server_info': validate_server_software(page),
+        'no_server_version': validate_server_version(page),
+        'csp_origin_only': validate_csp(page),
+        'mime_sniffing_blocked': validate_no_sniff(page),
+        'noopen_download': validate_download_options(page),
+        'xss_protection': validate_xss_protection(page),
+        'clickjacking_protection': validate_clickjacking_protection(page),
+        'good_cross_domain_policy': validate_cross_domain_policy(page),
+        'http_1_0_caching_disabled': validate_pragma(page),
+        'expires_set': validate_expires(page),
+        'cache_control_set': validate_cache_control_set(page),
+        'cache_control_revalidate_set': validate_cache_must_revalidate(page),
+        'cache_control_nocache_set': validate_nocache(page),
+        'cache_control_notransform_set': validate_notransform(page),
+        'cache_control_nostore_set': validate_nostore(page),
+        'cache_control_private_set': validate_private(page),
+        'referrer_policy_set_to_no_referrer': validate_no_referrer_policy(page),
+    }
+    if page.history:
+        http_response_data['redirect_target'] = page.url
+
+        target_domain = url_to_domain(page.url)
+        for response in page.history:
+            if url_to_domain(response.url) != target_domain:
+                http_response_data['no_cross_domain_redirects'] = False
+                break
+
+    return http_response_data
+
+
+def parse_soup_data(soup):
+    return {
+        'safe_onion_address': validate_onion_address_not_in_href(soup),
+    }
+
+
+def parse_pshtt_data(pshtt_data):
+    return {
+        'live': pshtt_data['Live'],
+        'forces_https': bool(pshtt_data['Strictly Forces HTTPS']),
+        'hsts': pshtt_data['HSTS'],
+        'hsts_max_age': validate_hsts_max_age(pshtt_data['HSTS Max Age']),
+        'hsts_entire_domain': validate_hsts_entire_domain(pshtt_data['HSTS Entire Domain']),
+        'hsts_preloaded': pshtt_data['HSTS Preloaded'],
+    }
 
 
 def validate_subdomain(url):

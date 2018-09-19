@@ -65,6 +65,51 @@ class ScannerTest(TestCase):
         result = scanner.scan(securedrop)
         self.assertTrue(result.live)
 
+    @vcr.use_cassette(os.path.join(VCR_DIR, 'full-scan-site-live.yaml'))
+    def test_scan_result_attributes(self):
+        """
+        If the site can be connected to, scanner should return a result with
+        all its attributes set
+
+        """
+        securedrop = DirectoryEntry(
+            title='Freedom of the Press Foundation',
+            landing_page_url='https://securedrop.org',
+            onion_address='notreal.onion'
+        )
+        result = scanner.scan(securedrop)
+
+        self.assertTrue(result.forces_https)
+        self.assertTrue(result.http_status_200_ok)
+        self.assertTrue(result.hsts)
+        self.assertFalse(result.hsts_max_age)
+        self.assertTrue(result.hsts_entire_domain)
+        self.assertTrue(result.hsts_preloaded)
+        self.assertFalse(result.subdomain)
+        self.assertTrue(result.no_cookies)
+        self.assertTrue(result.safe_onion_address)
+        self.assertFalse(result.no_cdn)
+        self.assertIsNone(result.http_no_redirect)
+        self.assertTrue(result.expected_encoding)
+        self.assertTrue(result.no_analytics)
+        self.assertTrue(result.no_server_info)
+        self.assertTrue(result.no_server_version)
+        self.assertFalse(result.csp_origin_only)
+        self.assertFalse(result.mime_sniffing_blocked)
+        self.assertFalse(result.noopen_download)
+        self.assertFalse(result.xss_protection)
+        self.assertFalse(result.clickjacking_protection)
+        self.assertFalse(result.good_cross_domain_policy)
+        self.assertFalse(result.http_1_0_caching_disabled)
+        self.assertFalse(result.expires_set)
+        self.assertTrue(result.cache_control_set)
+        self.assertTrue(result.cache_control_revalidate_set)
+        self.assertTrue(result.cache_control_nocache_set)
+        self.assertIs(result.cache_control_notransform_set, False)
+        self.assertIs(result.cache_control_nostore_set, False)
+        self.assertIs(result.cache_control_private_set, False)
+        self.assertIs(result.referrer_policy_set_to_no_referrer, False)
+
     @vcr.use_cassette(os.path.join(VCR_DIR, 'scan-site-with-trackers.yaml'))
     def test_scan_detects_presence_of_trackers(self):
         """
@@ -227,3 +272,63 @@ class ScannerTest(TestCase):
         )
         r = scanner.scan(entry, commit=True)
         self.assertIsNotNone(r.forces_https)
+
+
+class ScannerRedirectionSuccess(TestCase):
+    @vcr.use_cassette(os.path.join(VCR_DIR, 'scan-with-good-redirection.yaml'))
+    def test_redirect_target_saved(self):
+        entry = DirectoryEntryFactory.create(
+            title='SecureDrop',
+            landing_page_url='https://httpbin.org/redirect/3',
+            onion_address='notreal.onion',
+        )
+
+        result = scanner.scan(entry)
+        self.assertEqual(result.redirect_target, 'https://httpbin.org/get')
+
+    @vcr.use_cassette(os.path.join(VCR_DIR, 'scan-with-permanent-redirection.yaml'))
+    def test_permanent_redirect_target_saved(self):
+        entry = DirectoryEntryFactory.create(
+            title='SecureDrop',
+            landing_page_url='https://httpbin.org/redirect-to?status_code=301&url=https%3A%2F%2Fhttpbin.org%2Fget',
+            onion_address='notreal.onion',
+        )
+
+        result = scanner.scan(entry)
+        self.assertEqual(result.redirect_target, 'https://httpbin.org/get')
+
+    @vcr.use_cassette(os.path.join(VCR_DIR, 'scan-with-no-redirection.yaml'))
+    def test_redirect_target_not_saved_if_not_redirect(self):
+        entry = DirectoryEntryFactory.create(
+            title='SecureDrop',
+            landing_page_url='https://securedrop.org',
+            onion_address='notreal.onion',
+        )
+
+        result = scanner.scan(entry)
+        self.assertIsNone(result.redirect_target)
+
+    @vcr.use_cassette(os.path.join(VCR_DIR, 'scan-with-redirection-not-found.yaml'))
+    def test_redirection_not_200(self):
+        entry = DirectoryEntryFactory.create(
+            title='SecureDrop',
+            landing_page_url='https://httpbin.org/redirect-to?url=https%3A%2F%2Fhttpbin.org%2Fstatus%2F404',
+            onion_address='notreal.onion',
+        )
+
+        result = scanner.scan(entry)
+        self.assertEqual(result.redirect_target, 'https://httpbin.org/status/404')
+        self.assertFalse(result.http_status_200_ok)
+
+
+class ScannerCrossDomainRedirect(TestCase):
+    @vcr.use_cassette(os.path.join(VCR_DIR, 'scan-with-cross-domain-redirection.yaml'))
+    def test_cross_domain_redirect_detected_and_saved(self):
+        entry = DirectoryEntryFactory.create(
+            title='SecureDrop',
+            landing_page_url='https://httpbin.org/redirect-to?url=http%3A%2F%2Fwww.google.com&status_code=302',
+            onion_address='notreal.onion',
+        )
+
+        r = scanner.scan(entry)
+        self.assertFalse(r.no_cross_domain_redirects)
