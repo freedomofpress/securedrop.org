@@ -89,7 +89,7 @@ class ScannerTest(TestCase):
         self.assertTrue(result.no_cookies)
         self.assertTrue(result.safe_onion_address)
         self.assertFalse(result.no_cdn)
-        self.assertIsNone(result.http_no_redirect)
+        self.assertTrue(result.no_cross_domain_redirects)
         self.assertTrue(result.expected_encoding)
         self.assertTrue(result.no_analytics)
         self.assertTrue(result.no_server_info)

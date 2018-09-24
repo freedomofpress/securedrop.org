@@ -335,7 +335,6 @@ class ScanResult(models.Model):
 
     # Basic checks
     http_status_200_ok = models.NullBooleanField()
-    http_no_redirect = models.NullBooleanField()
     no_cross_domain_redirects = models.NullBooleanField()
     expected_encoding = models.NullBooleanField()
 
@@ -377,7 +376,7 @@ class ScanResult(models.Model):
         ReadOnlyPanel("hsts_entire_domain"),
         ReadOnlyPanel("hsts_preloaded"),
         ReadOnlyPanel("http_status_200_ok"),
-        ReadOnlyPanel("http_no_redirect"),
+        ReadOnlyPanel("no_cross_domain_redirects"),
         ReadOnlyPanel("expected_encoding"),
         ReadOnlyPanel("no_server_info"),
         ReadOnlyPanel("no_server_version"),
@@ -458,7 +457,6 @@ class ScanResult(models.Model):
 
         if (self.forces_https is False or
             self.no_cookies is False or
-            self.http_no_redirect is False or
             self.http_status_200_ok is False or
             self.no_analytics is False):  # noqa: E129
             self.grade = 'F'

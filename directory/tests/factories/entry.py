@@ -86,7 +86,7 @@ class ScanResultFactory(factory.Factory):
             hsts_entire_domain=True,
             hsts_preloaded=True,
             http_status_200_ok=True,
-            http_no_redirect=True,
+            no_cross_domain_redirects=True,
             expected_encoding=True,
             no_server_info=True,
             no_server_version=True,
