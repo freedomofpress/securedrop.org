@@ -215,3 +215,15 @@ class ScannerTest(TestCase):
         self.assertTrue(
             DirectoryEntry.objects.get(pk=sd3.pk).results.all()[0].live
         )
+
+    @vcr.use_cassette(os.path.join(VCR_DIR, 'scrape-sourceanonyme.yaml'))
+    def test_forces_https_should_not_be_none(self):
+        domain = 'https://sourceanonyme.radio-canada.ca'
+
+        entry = DirectoryEntryFactory.create(
+            title='Source Anonyme',
+            landing_page_url=domain,
+            onion_address='notreal.onion'
+        )
+        r = scanner.scan(entry, commit=True)
+        self.assertIsNotNone(r.forces_https)

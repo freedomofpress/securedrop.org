@@ -43,7 +43,7 @@ def pshtt_data_to_result(securedrop: DirectoryEntry, pshtt_results: Dict) -> Sca
         landing_page_url=securedrop.landing_page_url,
         live=pshtt_results['Live'],
         http_status_200_ok=validate_200_ok(no_redirects_page),
-        forces_https=pshtt_results['Strictly Forces HTTPS'],
+        forces_https=bool(pshtt_results['Strictly Forces HTTPS']),
         hsts=pshtt_results['HSTS'],
         hsts_max_age=validate_hsts_max_age(pshtt_results['HSTS Max Age']),
         hsts_entire_domain=validate_hsts_entire_domain(pshtt_results['HSTS Entire Domain']),
