@@ -221,7 +221,10 @@ class DirectoryEntry(MetadataPageMixin, Page):
         context = super(DirectoryEntry, self).get_context(request)
         context['show_warnings'] = request.GET.get('warnings') == '1'
         if context['show_warnings']:
-            context['warning_level'] = self.get_live_result().warning_level(self.warnings_ignored)
+            try:
+                context['warning_level'] = self.get_live_result().warning_level(self.warnings_ignored)
+            except ScanResult.DoesNotExist:
+                del context['show_warnings']
 
         return context
 
