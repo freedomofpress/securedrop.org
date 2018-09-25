@@ -117,5 +117,5 @@ class ScanResultFactory(factory.Factory):
         )
         severe_warning = factory.Trait(
             no_failures=True,
-            no_cookies=False,
+            no_analytics=False,
         )
