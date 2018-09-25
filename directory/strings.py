@@ -1,5 +1,4 @@
 SEVERE_WARNINGS = [
-    ('no_cookies', '{} uses cookies.'),
     ('no_cdn', '{} uses a CDN.'),
     ('no_analytics', '{} uses analytics.'),
 ]

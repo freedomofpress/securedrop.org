@@ -103,9 +103,9 @@ class ScanResultTest(TestCase):
         result = ScanResultFactory(safe_onion_address=False)
         self.assertEqual(result.warning_level(), 'moderate')
 
-    def test_instance_with_third_party_cookies_gets_severe_warning(self):
+    def test_instance_with_third_party_cookies_gets_no_warning(self):
         result = ScanResultFactory(no_cookies=False)
-        self.assertEqual(result.warning_level(), 'severe')
+        self.assertEqual(result.warning_level(), 'none')
 
     def test_instance_with_analytics_gets_severe_warning(self):
         result = ScanResultFactory(no_analytics=False)

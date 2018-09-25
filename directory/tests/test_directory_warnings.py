@@ -143,31 +143,12 @@ class DirectorySevereWarningTest(TestCase):
         )
 
     def test_warning_message_suppressed_if_page_ignores_all_triggered_warnings(self):
-        self.entry.warnings_ignored = ['no_cookies']
+        self.entry.warnings_ignored = ['no_analytics']
         self.entry.save()
         self.entry.refresh_from_db()
         response = self.client.get(self.entry.url, {'warnings': '1'})
         self.assertNotContains(
             response,
             'We strongly advise you to only visit this landing page <a href="https://www.torproject.org/">using the Tor browser</a>, with the <a href="https://safetydocs.example/">safety slider set to "safest"</a>.',
-            status_code=200,
-        )
-
-    def test_single_warning_message_suppressed_if_page_ignores_that_warning(self):
-        self.result.no_analytics = False
-        self.result.save()
-        self.entry.warnings_ignored = ['no_analytics']
-        self.entry.save()
-
-        response = self.client.get(self.entry.url, {'warnings': '1'})
-        self.assertContains(
-            response,
-            'uses cookies',
-            status_code=200,
-        )
-
-        self.assertNotContains(
-            response,
-            'uses analytics',
             status_code=200,
         )

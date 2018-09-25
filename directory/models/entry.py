@@ -173,7 +173,6 @@ class DirectoryEntry(MetadataPageMixin, Page):
     )
 
     WARNING_CHOICES = (
-        ('no_cookies', 'Use of Cookies'),
         ('no_cdn', 'Use of CDN'),
         ('no_analytics', 'Use of Analytics'),
         ('subdomain', 'Subdomain'),
@@ -420,7 +419,6 @@ class ScanResult(models.Model):
 
     def warning_level(self, warnings_ignored=[]):
         SEVERE_CONDITIONS = {
-            'no_cookies': False,
             'no_cdn': False,
             'no_analytics': False,
         }
