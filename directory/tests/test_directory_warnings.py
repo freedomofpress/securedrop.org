@@ -8,6 +8,18 @@ from directory.tests.factories import (
 )
 
 
+class DirectoryNoResultsTest(TestCase):
+    def setUp(self):
+        site = Site.objects.get()
+        self.entry = DirectoryEntryFactory(
+            parent=DirectoryPageFactory(parent=site.root_page)
+        )
+
+    def test_warnings_if_no_scan_results_exist(self):
+        response = self.client.get(self.entry.url, {'warnings': '1'})
+        self.assertEqual(response.status_code, 200)
+
+
 class DirectoryNoWarningTest(TestCase):
     def setUp(self):
         site = Site.objects.get()
