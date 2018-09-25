@@ -85,23 +85,23 @@ class ScannerTest(TestCase):
         self.assertFalse(result.hsts_max_age)
         self.assertTrue(result.hsts_entire_domain)
         self.assertTrue(result.hsts_preloaded)
-        self.assertFalse(result.subdomain)
+        self.assertIs(result.subdomain, False)
         self.assertTrue(result.no_cookies)
         self.assertTrue(result.safe_onion_address)
-        self.assertFalse(result.no_cdn)
+        self.assertIs(result.no_cdn, False)
         self.assertTrue(result.no_cross_domain_redirects)
         self.assertTrue(result.expected_encoding)
         self.assertTrue(result.no_analytics)
         self.assertTrue(result.no_server_info)
         self.assertTrue(result.no_server_version)
-        self.assertFalse(result.csp_origin_only)
-        self.assertFalse(result.mime_sniffing_blocked)
-        self.assertFalse(result.noopen_download)
-        self.assertFalse(result.xss_protection)
-        self.assertFalse(result.clickjacking_protection)
-        self.assertFalse(result.good_cross_domain_policy)
-        self.assertFalse(result.http_1_0_caching_disabled)
-        self.assertFalse(result.expires_set)
+        self.assertIs(result.csp_origin_only, False)
+        self.assertIs(result.mime_sniffing_blocked, False)
+        self.assertIs(result.noopen_download, False)
+        self.assertIs(result.xss_protection, False)
+        self.assertIs(result.clickjacking_protection, False)
+        self.assertIs(result.good_cross_domain_policy, False)
+        self.assertIs(result.http_1_0_caching_disabled, False)
+        self.assertIs(result.expires_set, False)
         self.assertTrue(result.cache_control_set)
         self.assertTrue(result.cache_control_revalidate_set)
         self.assertTrue(result.cache_control_nocache_set)
@@ -319,6 +319,18 @@ class ScannerRedirectionSuccess(TestCase):
         result = scanner.scan(entry)
         self.assertEqual(result.redirect_target, 'https://httpbin.org/status/404')
         self.assertFalse(result.http_status_200_ok)
+
+
+class ScannerSubdomainRedirect(TestCase):
+    @vcr.use_cassette(os.path.join(VCR_DIR, 'scan-with-subdomain-redirection.yaml'))
+    def test_redirect_from_subdomain(self):
+        entry = DirectoryEntryFactory.create(
+            title='SecureDrop',
+            landing_page_url='http://health.nytimes.com',
+            onion_address='notreal.onion',
+        )
+        r = scanner.scan(entry)
+        self.assertTrue(r.subdomain)
 
 
 class ScannerCrossDomainRedirect(TestCase):

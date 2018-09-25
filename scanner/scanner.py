@@ -118,6 +118,7 @@ def request_and_scrape_page(url, allow_redirects=True):
 def parse_page_data(page):
     http_response_data = {
         'no_cross_domain_redirects': True,
+        'subdomain': validate_subdomain(page.url),
         'http_status_200_ok': validate_200_ok(page),
         'no_cookies': validate_no_cookies(page),
         'no_cdn': validate_not_using_cdn(page),
@@ -146,9 +147,10 @@ def parse_page_data(page):
 
         target_domain = url_to_domain(page.url)
         for response in page.history:
+            if validate_subdomain(response.url):
+                http_response_data['subdomain'] = True
             if url_to_domain(response.url) != target_domain:
                 http_response_data['no_cross_domain_redirects'] = False
-                break
 
     return http_response_data
 
