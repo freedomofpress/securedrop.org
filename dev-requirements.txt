@@ -70,6 +70,7 @@ pytz==2017.3
 pyyaml==3.12
 qrcode==5.3
 requests-cache==0.4.13
+requests-file==1.4.3
 requests-oauthlib==0.8.0
 requests==2.18.4
 simplegeneric==0.8.1      # via ipython
@@ -78,6 +79,7 @@ six==1.11.0
 sqlparse==0.2.3           # via django-debug-toolbar
 tabledata==0.0.5
 text-unidecode==1.1
+tldextract==2.2.0
 tls-parser==1.1.1
 toml==0.9.3.1
 traitlets==4.3.2          # via ipython
