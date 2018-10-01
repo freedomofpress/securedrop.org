@@ -78,6 +78,24 @@ class VerificationUtilityTest(TestCase):
     def test_www_url_does_not_have_subdomain(self):
         self.assertFalse(scanner.validate_subdomain('https://www.example.com/securedrop'))
 
+    def test_second_level_domain_in_country_code_does_not_have_subdomain(self):
+        self.assertFalse(scanner.validate_subdomain('https://bbc.co.uk/securedrop'))
+
+    def test_www_url_with_country_code_does_not_have_subdomain(self):
+        self.assertFalse(scanner.validate_subdomain('https://www.example.co.uk'))
+
+    def test_second_level_domain_in_country_code_does_have_subdomain(self):
+        self.assertTrue(scanner.validate_subdomain('https://tips.bbc.co.uk'))
+
+    def test_url_first_level_domain_in_country_code_does_not_have_subdomain(self):
+        self.assertFalse(scanner.validate_subdomain('https://example.no'))
+
+    def test_url_first_level_domain_in_country_code_does_have_subdomain(self):
+        self.assertTrue(scanner.validate_subdomain('https://subdomain.example.no'))
+
+    def test_url_with_file_extension_does_not_have_subdomain(self):
+        self.assertFalse(scanner.validate_subdomain('https://example.org/tips.html'))
+
     def test_server_header_software_present_nginx(self):
         page = mock.Mock()
         page.headers = {'Server': 'nginx/1.6.3'}

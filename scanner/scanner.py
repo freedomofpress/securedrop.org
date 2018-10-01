@@ -5,6 +5,7 @@ import re
 from typing import Dict, TYPE_CHECKING
 
 from pshtt.pshtt import inspect_domains
+import tldextract
 
 from django.utils import timezone
 
@@ -153,10 +154,8 @@ def request_and_scrape_page(url, allow_redirects=True):
 
 def validate_subdomain(url):
     """Is the landing page on a subdomain"""
-    if len(url.split('.')) > 2 and url.split('.')[0] != 'https://www':
-        return True
-    else:
-        return False
+    parsed_domain = tldextract.extract(url)
+    return parsed_domain.subdomain not in ('', 'www')
 
 
 def validate_not_using_cdn(page):
