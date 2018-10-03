@@ -258,13 +258,13 @@ class DirectoryEntry(MetadataPageMixin, Page):
                         )
                     )
                 elif attribute != 'subdomain' and getattr(result, attribute) is False:
-                    warnings.append(message.format('This secure drop landing page', self))
+                    warnings.append(message.format('This SecureDrop landing page', self))
         elif warning_level == 'severe':
             for attribute, message in SEVERE_WARNINGS:
                 if attribute in self.warnings_ignored:
                     continue
                 if getattr(result, attribute) is False:
-                    warnings.append(message.format('This secure drop landing page', self))
+                    warnings.append(message.format('This SecureDrop landing page', self))
         return warnings
 
     def get_search_content(self):
