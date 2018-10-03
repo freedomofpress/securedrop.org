@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import re
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Tuple, Dict
 
 from pshtt.pshtt import inspect_domains
 import tldextract
@@ -103,7 +103,8 @@ def bulk_scan(securedrops: 'DirectoryEntryQuerySet') -> None:
     return ScanResult.objects.bulk_create(results_to_be_written)
 
 
-def request_and_scrape_page(url, allow_redirects=True):
+def request_and_scrape_page(url: str, allow_redirects: bool=True) -> Tuple[requests.models.Response,
+                                                                           BeautifulSoup]:
     """Scrape and parse the HTML of a page into a BeautifulSoup"""
     try:
         page = requests.get(url, allow_redirects=allow_redirects)
@@ -115,7 +116,7 @@ def request_and_scrape_page(url, allow_redirects=True):
     return page, soup
 
 
-def parse_page_data(page):
+def parse_page_data(page: requests.models.Response) -> Dict[str, bool]:
     http_response_data = {
         'no_cross_domain_redirects': True,
         'subdomain': validate_subdomain(page.url),
@@ -155,13 +156,13 @@ def parse_page_data(page):
     return http_response_data
 
 
-def parse_soup_data(soup):
+def parse_soup_data(soup: BeautifulSoup) -> Dict[str, bool]:
     return {
         'safe_onion_address': validate_onion_address_not_in_href(soup),
     }
 
 
-def parse_pshtt_data(pshtt_data):
+def parse_pshtt_data(pshtt_data: dict) -> Dict[str, bool]:
     return {
         'live': pshtt_data['Live'],
         'forces_https': bool(pshtt_data['Strictly Forces HTTPS']),
