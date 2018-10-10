@@ -331,6 +331,7 @@ class ScannerSubdomainRedirect(TestCase):
         )
         r = scanner.scan(entry)
         self.assertTrue(r.subdomain)
+        self.assertTrue(r.no_cross_domain_redirects)
 
 
 class ScannerCrossDomainRedirect(TestCase):
