@@ -30,7 +30,7 @@ faker==0.8.7              # via factory-boy
 feedparser==5.2.1
 gunicorn==19.7.1
 html5lib==0.999999999     # via bleach, wagtail
-idna==2.6                 # via cryptography, requests
+idna==2.6                 # via cryptography, requests, tldextract
 logbook==1.1.0            # via dataproperty, pytablewriter, simplesqlite, tabledata
 lxml==4.1.1
 markdown2==2.3.5
@@ -55,12 +55,14 @@ pytz==2017.3              # via django, django-modelcluster, typepy
 pyyaml==3.12              # via vcrpy
 qrcode==5.3               # via django-allauth-2fa
 requests-cache==0.4.13    # via pshtt
+requests-file==1.4.3      # via tldextract
 requests-oauthlib==0.8.0  # via django-allauth
-requests==2.18.4          # via django-allauth, django-anymail, pshtt, requests-cache, requests-oauthlib, wagtail
+requests==2.18.4          # via django-allauth, django-anymail, pshtt, requests-cache, requests-file, requests-oauthlib, tldextract, wagtail
 simplesqlite==0.19.0      # via pytablewriter
-six==1.11.0               # via bleach, cryptography, django-anymail, faker, html5lib, mbstrdecoder, pyopenssl, pytablewriter, python-dateutil, qrcode, simplesqlite, tabledata, typepy, unittest-xml-reporting, vcrpy
+six==1.11.0               # via bleach, cryptography, django-anymail, faker, html5lib, mbstrdecoder, pyopenssl, pytablewriter, python-dateutil, qrcode, requests-file, simplesqlite, tabledata, typepy, unittest-xml-reporting, vcrpy
 tabledata==0.0.5          # via pytablewriter, simplesqlite
 text-unidecode==1.1       # via faker
+tldextract==2.2.0
 tls-parser==1.1.1
 toml==0.9.3.1             # via pytablewriter
 typepy==0.0.20            # via dataproperty, pytablewriter, simplesqlite, tabledata

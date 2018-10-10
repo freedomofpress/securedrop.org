@@ -17,6 +17,7 @@ pshtt==0.3.0
 psycopg2
 pygments
 python-json-logger
+tldextract
 vcrpy
 wagtail<1.13
 wagtail-factories
