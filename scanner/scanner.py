@@ -146,11 +146,10 @@ def parse_page_data(page: requests.models.Response) -> Dict[str, bool]:
     if page.history:
         http_response_data['redirect_target'] = page.url
 
-        target_domain = url_to_domain(page.url)
         for response in page.history:
             if validate_subdomain(response.url):
                 http_response_data['subdomain'] = True
-            if url_to_domain(response.url) != target_domain:
+            if not same_domain(response.url, page.url):
                 http_response_data['no_cross_domain_redirects'] = False
 
     return http_response_data
@@ -171,6 +170,14 @@ def parse_pshtt_data(pshtt_data: dict) -> Dict[str, bool]:
         'hsts_entire_domain': validate_hsts_entire_domain(pshtt_data['HSTS Entire Domain']),
         'hsts_preloaded': pshtt_data['HSTS Preloaded'],
     }
+
+
+def same_domain(url1: str, url2: str) -> bool:
+    parsed_url1 = tldextract.extract(url1)
+    parsed_url2 = tldextract.extract(url2)
+
+    return (parsed_url1.domain == parsed_url2.domain and
+            parsed_url1.suffix == parsed_url2.suffix)
 
 
 def validate_subdomain(url):

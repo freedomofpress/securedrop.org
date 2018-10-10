@@ -311,3 +311,12 @@ class VerificationUtilityTest(TestCase):
         page = mock.Mock()
         page.encoding = None
         self.assertFalse(scanner.validate_encoding(page))
+
+    def test_urls_on_same_domain(self):
+        self.assertTrue(
+            scanner.same_domain(
+                'http://www.example.com',
+                'http://example.com',
+            )
+        )
+        self.assertFalse(scanner.same_domain('www.a1.com', 'www.a2.com'))
