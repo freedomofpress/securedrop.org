@@ -50,14 +50,6 @@ class Command(BaseCommand):
                 sort_order=2
             ),
             ResultState(
-                name='http_no_redirect',
-                success_text='Landing page does not redirect.',
-                failure_text='Landing page should not redirect.',
-                is_warning=False,
-                result_group=basic,
-                sort_order=3
-            ),
-            ResultState(
                 name='expected_encoding',
                 success_text='Expected encoding found on landing page.',
                 failure_text='Unexpected encoding found on landing page.',

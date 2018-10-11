@@ -1,0 +1,45 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [python-requests/2.18.4]
+    method: GET
+    uri: https://httpbin.org/redirect-to?url=https%3A%2F%2Fwww.httpbin.org%2Fstatus%2F200
+  response:
+    body: {string: ''}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Origin: ['*']
+      Connection: [keep-alive]
+      Content-Length: ['0']
+      Content-Type: [text/html; charset=utf-8]
+      Date: ['Wed, 19 Sep 2018 18:48:47 GMT']
+      Location: ['https://www.httpbin.org/status/200']
+      Server: [gunicorn/19.9.0]
+      Via: [1.1 vegur]
+    status: {code: 302, message: FOUND}
+- request:
+    body: null
+    headers:
+      Accept: ['*/*']
+      Accept-Encoding: ['gzip, deflate']
+      Connection: [keep-alive]
+      User-Agent: [python-requests/2.18.4]
+    method: GET
+    uri: https://www.httpbin.org/status/200
+  response:
+    body: {string: ''}
+    headers:
+      Access-Control-Allow-Credentials: ['true']
+      Access-Control-Allow-Origin: ['*']
+      Connection: [keep-alive]
+      Content-Length: ['0']
+      Content-Type: [text/html; charset=utf-8]
+      Date: ['Wed, 19 Sep 2018 18:48:47 GMT']
+      Server: [gunicorn/19.9.0]
+      Via: [1.1 vegur]
+    status: {code: 200, message: OK}
+version: 1
