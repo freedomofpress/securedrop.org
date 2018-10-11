@@ -103,7 +103,7 @@ class DirectoryModerateWarningTest(TestCase):
 
         self.assertNotContains(
             response,
-            'contains clickable onion addresses',
+            'includes a clickable link to a Tor Onion Service',
             status_code=200,
         )
 
@@ -129,7 +129,7 @@ class DirectorySevereWarningTest(TestCase):
         response = self.client.get(self.entry.url, {'warnings': '1'})
         self.assertContains(
             response,
-            'We strongly advise you to only visit this landing page <a href="https://www.torproject.org/">using the Tor browser</a>, with the <a href="https://safetydocs.example/">safety slider set to "safest"</a>.',
+            'We strongly advise you to only visit this landing page <a href="https://www.torproject.org/download/download-easy.html.en">using the Tor browser</a>, with the <a href="https://tb-manual.torproject.org/en-US/security-slider.html">security slider</a> set to "safest".',
             status_code=200,
         )
 
@@ -138,7 +138,7 @@ class DirectorySevereWarningTest(TestCase):
         response = self.client.get(self.entry.url)
         self.assertNotContains(
             response,
-            'We strongly advise you to only visit this landing page <a href="https://www.torproject.org/">using the Tor browser</a>, with the <a href="https://safetydocs.example/">safety slider set to "safest"</a>.',
+            'We strongly advise you to only visit this landing page <a href="https://www.torproject.org/download/download-easy.html.en">using the Tor browser</a>, with the <a href="https://tb-manual.torproject.org/en-US/security-slider.html">security slider</a> set to "safest".',
             status_code=200,
         )
 
@@ -149,6 +149,6 @@ class DirectorySevereWarningTest(TestCase):
         response = self.client.get(self.entry.url, {'warnings': '1'})
         self.assertNotContains(
             response,
-            'We strongly advise you to only visit this landing page <a href="https://www.torproject.org/">using the Tor browser</a>, with the <a href="https://safetydocs.example/">safety slider set to "safest"</a>.',
+            'We strongly advise you to only visit this landing page <a href="https://www.torproject.org/download/download-easy.html.en">using the Tor browser</a>, with the <a href="https://tb-manual.torproject.org/en-US/security-slider.html">security slider</a> set to "safest".',
             status_code=200,
         )
