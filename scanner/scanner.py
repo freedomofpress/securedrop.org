@@ -80,8 +80,8 @@ def bulk_scan(securedrops: 'DirectoryEntryQuerySet') -> None:
     for entry in securedrops:
         current_result = perform_scan(entry.landing_page_url)
 
-        # These are usually handled by Result.save, but since we're doing a
-        # bulk save, we need to do them here first
+        # This is usually handled by Result.save, but since we're doing a
+        # bulk save, we need to do it here
         current_result.securedrop = entry
 
         # Before we save, let's get the most recent scan before saving
