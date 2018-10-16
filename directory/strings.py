@@ -1,5 +1,6 @@
 SEVERE_WARNINGS = [
     ('no_cdn', '{} uses a CDN.'),
+    ('no_cross_domain_assets', '{} uses assets hosted on a separate domain. Visiting this SecureDrop landing page may directly reveal information about your browsing behavior to third parties beyond the organization that operates the SecureDrop instance.'),
     ('no_analytics', '{} uses analytics. Visiting this SecureDrop landing page may directly reveal information about your browsing behavior to third parties beyond the organization that operates the SecureDrop instance.'),
 ]
 
