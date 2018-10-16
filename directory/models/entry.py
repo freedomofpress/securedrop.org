@@ -363,6 +363,8 @@ class ScanResult(models.Model):
     no_analytics = models.NullBooleanField()
     subdomain = models.NullBooleanField()
     no_cookies = models.NullBooleanField()
+    no_cross_domain_assets = models.NullBooleanField()
+    cross_domain_asset_summary = models.TextField(default='', blank=True)
 
     grade = models.CharField(max_length=2, editable=False, default='?')
 
