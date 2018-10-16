@@ -112,7 +112,9 @@ class ScannerTest(TestCase):
         self.assertIs(result.no_cross_domain_assets, False)
         self.assertEqual(
             result.cross_domain_asset_summary,
-            'image at //analytics.freedom.press/piwik.php?idsite=3\n',
+            """image at //analytics.freedom.press/piwik.php?idsite=3
+embedded-js at analytics.freedom.press/
+""",
         )
 
     @vcr.use_cassette(os.path.join(VCR_DIR, 'scan-site-with-trackers.yaml'))
@@ -140,8 +142,11 @@ class ScannerTest(TestCase):
         )
         result = scanner.scan(ap_site)
         self.assertIs(result.no_cross_domain_assets, False)
-        expected_summary = """external-js at //searchg2-assets.crownpeak.net/crownpeak.searchg2-1.0.2.min.js
+        expected_summary = """embedded-js at https://www.googletagmanager.com/gtm.js?id=
+external-js at //searchg2-assets.crownpeak.net/crownpeak.searchg2-1.0.2.min.js
 external-js at https://cdn.cookielaw.org/langswitch/ead3872f-33b9-4b16-a7f2-4ea8137893d3.js
+embedded-js at pardot.com/pd.js
+embedded-js at https://www.google-analytics.com/analytics.js
 iframe at https://www.googletagmanager.com/ns.html?id=GTM-TSGB826
 """
         self.assertEqual(result.cross_domain_asset_summary, expected_summary)

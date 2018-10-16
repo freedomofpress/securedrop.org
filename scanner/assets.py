@@ -6,6 +6,8 @@ import tinycss2
 from typing import List
 from bs4 import BeautifulSoup
 
+from scanner.utils import extract_strings, extract_urls
+
 
 Asset = namedtuple('Asset', ['url', 'source'])
 
@@ -23,6 +25,10 @@ def extract_assets(soup: BeautifulSoup, url: str) -> List[Asset]:
     for script in scripts:
         if 'src' in script.attrs:
             assets.append(Asset(url=script.attrs['src'], source='external-js'))
+        else:
+            for text in extract_strings(script.get_text()):
+                for url in extract_urls(text):
+                    assets.append(Asset(url=url, source='embedded-js'))
 
     iframe_tags = soup.find_all('iframe')
     for tag in iframe_tags:

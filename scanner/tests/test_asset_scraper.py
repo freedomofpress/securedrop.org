@@ -32,6 +32,16 @@ class AssetExtractionTestCase(TestCase):
         self.assertEqual([Asset(url='script.js', source='external-js')],
                          extract_assets(soup, self.test_url))
 
+    def test_should_extract_embedded_scripts_with_urls(self):
+        html = """
+        <html><head><script>var url = 'http://www.example.org';</script></head><body></body></html>
+        """
+        soup = BeautifulSoup(html, "lxml")
+        self.assertEqual(
+            extract_assets(soup, self.test_url),
+            [Asset(url='http://www.example.org', source='embedded-js')],
+        )
+
     def test_should_extract_urls_from_iframes(self):
         html = """
         <html><body><iframe src="https://www.example.org/embed.html"></iframe></body></html>
