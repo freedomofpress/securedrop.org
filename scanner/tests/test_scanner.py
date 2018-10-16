@@ -109,6 +109,11 @@ class ScannerTest(TestCase):
         self.assertIs(result.cache_control_nostore_set, False)
         self.assertIs(result.cache_control_private_set, False)
         self.assertIs(result.referrer_policy_set_to_no_referrer, False)
+        self.assertIs(result.no_cross_domain_assets, False)
+        self.assertEqual(
+            result.cross_domain_asset_summary,
+            'image at //analytics.freedom.press/piwik.php?idsite=3\n',
+        )
 
     @vcr.use_cassette(os.path.join(VCR_DIR, 'scan-site-with-trackers.yaml'))
     def test_scan_detects_presence_of_trackers(self):
@@ -122,6 +127,24 @@ class ScannerTest(TestCase):
         )
         result = scanner.scan(ap_site)
         self.assertFalse(result.no_analytics)
+
+    @vcr.use_cassette(os.path.join(VCR_DIR, 'scan-site-with-trackers.yaml'))
+    def test_scan_detects_presence_of_cross_domain_assets(self):
+        """
+        If a site contains cross-domain assets, result.no_cross_domain_assets should be False
+        """
+        ap_site = DirectoryEntry(
+            title='AP',
+            landing_page_url='https://www.ap.org/en-us/',
+            onion_address='notreal.onion'
+        )
+        result = scanner.scan(ap_site)
+        self.assertIs(result.no_cross_domain_assets, False)
+        expected_summary = """external-js at //searchg2-assets.crownpeak.net/crownpeak.searchg2-1.0.2.min.js
+external-js at https://cdn.cookielaw.org/langswitch/ead3872f-33b9-4b16-a7f2-4ea8137893d3.js
+iframe at https://www.googletagmanager.com/ns.html?id=GTM-TSGB826
+"""
+        self.assertEqual(result.cross_domain_asset_summary, expected_summary)
 
     @vcr.use_cassette(os.path.join(VCR_DIR, 'scan-site-without-trackers.yaml'))
     def test_scan_detects_absence_of_trackers(self):
