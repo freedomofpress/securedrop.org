@@ -430,6 +430,7 @@ class ScanResult(models.Model):
         SEVERE_CONDITIONS = {
             'no_cdn': False,
             'no_analytics': False,
+            'no_cross_domain_assets': False,
         }
 
         MODERATE_CONDITIONS = {
