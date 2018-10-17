@@ -20,17 +20,31 @@ class AssetExtractionTestCase(TestCase):
         """
         soup = BeautifulSoup(html, "lxml")
 
-        self.assertEqual([Asset(url='image.jpg', source='image')],
-                         extract_assets(soup, self.test_url))
+        self.assertEqual([
+            Asset(
+                resource='image.jpg',
+                kind='img-src',
+                initiator=self.test_url,
+            )],
+            extract_assets(soup, self.test_url))
 
-    def test_should_extract_external_scripts(self):
+    @mock.patch('scanner.assets.requests')
+    def test_should_extract_external_scripts(self, mock_requests):
+        mock_requests.get.return_value = mock.Mock(
+            text=''
+        )
         html = """
         <html><head><script src="script.js"></head><body></body></html>
         """
         soup = BeautifulSoup(html, "lxml")
 
-        self.assertEqual([Asset(url='script.js', source='external-js')],
-                         extract_assets(soup, self.test_url))
+        self.assertEqual([
+            Asset(
+                resource='script.js',
+                kind='script-src',
+                initiator=self.test_url
+            )],
+            extract_assets(soup, self.test_url))
 
     def test_should_extract_embedded_scripts_with_urls(self):
         html = """
@@ -39,7 +53,11 @@ class AssetExtractionTestCase(TestCase):
         soup = BeautifulSoup(html, "lxml")
         self.assertEqual(
             extract_assets(soup, self.test_url),
-            [Asset(url='http://www.example.org', source='embedded-js')],
+            [Asset(
+                resource='http://www.example.org',
+                kind='script-embed',
+                initiator=self.test_url
+            )],
         )
 
     def test_should_extract_urls_from_iframes(self):
@@ -50,8 +68,9 @@ class AssetExtractionTestCase(TestCase):
 
         self.assertEqual([
             Asset(
-                url='https://www.example.org/embed.html',
-                source='iframe'
+                resource='https://www.example.org/embed.html',
+                kind='iframe-src',
+                initiator=self.test_url,
             )],
             extract_assets(soup, self.test_url)
         )
@@ -61,9 +80,17 @@ class AssetExtractionTestCase(TestCase):
         html = """
         <html><head><link href="/media/example.css" rel="stylesheet"></head><body></body></html>
         """
+
         soup = BeautifulSoup(html, "lxml")
-        self.assertEqual([Asset(url='/media/example.css', source='css-link')],
-                         extract_assets(soup, self.test_url))
+
+        self.assertEqual([
+            Asset(
+                resource='/media/example.css',
+                kind='style-href',
+                initiator=self.test_url
+            )],
+            extract_assets(soup, self.test_url)
+        )
 
     def test_should_extract_urls_in_embedded_css(self):
         html = """<html><head><style>
@@ -71,11 +98,14 @@ class AssetExtractionTestCase(TestCase):
           background-image: url("https://example.org/files/example.png");
         }
         </style></head><body></body></html>"""
+
         soup = BeautifulSoup(html, "lxml")
+
         self.assertEqual([
             Asset(
-                url='https://example.org/files/example.png',
-                source='css-embedded'
+                resource='https://example.org/files/example.png',
+                kind='style-embed',
+                initiator=self.test_url,
             )],
             extract_assets(soup, self.test_url)
         )
@@ -86,8 +116,9 @@ class AssetExtractionTestCase(TestCase):
         soup = BeautifulSoup(html, "lxml")
         self.assertEqual([
             Asset(
-                url='https://example.org/files/example.png',
-                source='css-inline'
+                resource='https://example.org/files/example.png',
+                kind='style-resource-inline',
+                initiator=self.test_url,
             )],
             extract_assets(soup, self.test_url)
         )
@@ -102,9 +133,43 @@ class AssetExtractionTestCase(TestCase):
         soup = BeautifulSoup(html, "lxml")
         self.assertEqual(
             set(extract_assets(soup, self.test_url)), {
-                Asset(url='https://example.org/styles.css', source='css-link'),
-                Asset(url='https://example.org/example.png', source='css-link'),
+                Asset(
+                    resource='https://example.org/styles.css',
+                    kind='style-href',
+                    initiator=self.test_url,
+                ),
+                Asset(
+                    resource='https://example.org/example.png',
+                    kind='style-resource',
+                    initiator='https://example.org/styles.css',
+                ),
             }
+        )
+
+    @mock.patch('scanner.assets.requests')
+    def test_should_extract_urls_in_external_js(self, mock_requests):
+        mock_requests.get.return_value = mock.Mock(
+            text="""function makeRequest() { $.getJSON('http://example.org/', function(data) {}); }"""
+        )
+
+        html = """
+        <html><head><script src="file.js""></head><body></body></html>
+        """
+        soup = BeautifulSoup(html, "lxml")
+        self.assertEqual(
+            [
+                Asset(
+                    resource='file.js',
+                    kind='script-src',
+                    initiator=self.test_url,
+                ),
+                Asset(
+                    resource='http://example.org/',
+                    kind='script-resource',
+                    initiator='file.js',
+                ),
+            ],
+            extract_assets(soup, self.test_url)
         )
 
     @skip

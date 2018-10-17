@@ -168,14 +168,14 @@ def parse_assets(assets, landing_page_url: str) -> Dict[str, bool]:
 
     for asset in assets:
         # ignore subdomain attribute
-        (_, asset_domain, asset_suffix) = tldextract.extract(asset.url)
+        (_, asset_domain, asset_suffix) = tldextract.extract(asset.resource)
         if not (asset_domain and asset_suffix):
             # we've extracted something that probably is not a real domain
             continue
 
         if (asset_domain != landing_page_domain or asset_suffix != landing_page_suffix):
             no_cross_domain_assets = False
-            summary += '{0.source} at {0.url}\n'.format(asset)
+            summary += '{0.resource} ({0.kind}) from {0.initiator}\n'.format(asset)
     return {
         'no_cross_domain_assets': no_cross_domain_assets,
         'cross_domain_asset_summary': summary,

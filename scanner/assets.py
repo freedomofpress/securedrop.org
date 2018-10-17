@@ -9,57 +9,76 @@ from bs4 import BeautifulSoup
 from scanner.utils import extract_strings, extract_urls
 
 
-Asset = namedtuple('Asset', ['url', 'source'])
+Asset = namedtuple('Asset', ['resource', 'kind', 'initiator'])
 
 
-def extract_assets(soup: BeautifulSoup, url: str) -> List[Asset]:
-    site_url = urllib.parse.urlparse(url)
+def extract_assets(soup: BeautifulSoup, site_url: str) -> List[Asset]:
     assets = []
 
     images = soup.find_all('img')
     for image in images:
         if 'src' in image.attrs:
-            assets.append(Asset(url=image.attrs['src'], source='image'))
+            assets.append(
+                Asset(
+                    resource=image.attrs['src'],
+                    kind='img-src',
+                    initiator=site_url
+                )
+            )
 
     scripts = soup.find_all('script')
     for script in scripts:
         if 'src' in script.attrs:
-            assets.append(Asset(url=script.attrs['src'], source='external-js'))
+            # externally loaded js
+            assets.append(
+                Asset(
+                    resource=script.attrs['src'],
+                    kind='script-src',
+                    initiator=site_url,
+                )
+            )
+
+            response = fetch_asset(script.attrs['src'], site_url)
+            # assets in content from external js
+            for text in extract_strings(response.text):
+                for url in extract_urls(text):
+                    assets.append(Asset(resource=url, kind='script-resource', initiator=script.attrs['src']))
+        # js embedded in <script> tags
         else:
             for text in extract_strings(script.get_text()):
                 for url in extract_urls(text):
-                    assets.append(Asset(url=url, source='embedded-js'))
+                    assets.append(
+                        Asset(resource=url, kind='script-embed', initiator=site_url)
+                    )
 
     iframe_tags = soup.find_all('iframe')
     for tag in iframe_tags:
         if tag.has_attr('src'):
-            assets.append(Asset(url=tag.attrs['src'], source='iframe'))
+            assets.append(Asset(resource=tag.attrs['src'], kind='iframe-src', initiator=site_url))
 
     stylesheet_links = soup.find_all('link', rel='stylesheet')
     for link in stylesheet_links:
         if link.attrs.get('href'):
-            link_target = urllib.parse.urlparse(link.attrs['href'])
-            if not link_target.scheme:
-                link_target = link_target._replace(scheme=site_url.scheme)
-            if not link_target.netloc:
-                link_target = link_target._replace(netloc=site_url.netloc)
-
-            response = requests.get(link_target.geturl())
+            response = fetch_asset(link.attrs['href'], site_url)
+            # assets in content from stylesheet link
             for url in urls_from_css(response.text):
-                assets.append(Asset(url=url, source='css-link'))
+                assets.append(Asset(resource=url, kind='style-resource', initiator=link.attrs['href']))
 
-            assets.append(Asset(url=link.attrs['href'], source='css-link'))
+            # stylesheet link
+            assets.append(Asset(resource=link.attrs['href'], kind='style-href', initiator=site_url))
 
+    # css embedded in <style> tags
     style_tags = soup.find_all('style')
     for tag in style_tags:
         for item in tag.contents:
             if isinstance(item, str):
                 for url in urls_from_css(item):
-                    assets.append(Asset(url=url, source='css-embedded'))
+                    assets.append(Asset(resource=url, kind='style-embed', initiator=site_url))
 
+    # inline styles
     for tag in soup.select('[style]'):
         for url in urls_from_css_declarations(tag.attrs['style']):
-            assets.append(Asset(url=url, source='css-inline'))
+            assets.append(Asset(resource=url, kind='style-resource-inline', initiator=site_url))
 
     return assets
 
@@ -102,3 +121,15 @@ def descendants(nodes):
         if content:
             to_crawl.extend(content)
     return children
+
+
+def fetch_asset(asset_url: str, site_url: str) -> requests.models.Response:
+    site_url = urllib.parse.urlparse(site_url)
+    asset_url = urllib.parse.urlparse(asset_url)
+
+    if not asset_url.scheme:
+        asset_url = asset_url._replace(scheme=site_url.scheme)
+    if not asset_url.netloc:
+        asset_url = asset_url._replace(netloc=site_url.netloc)
+
+    return requests.get(asset_url.geturl())
