@@ -1,6 +1,8 @@
 from bs4 import BeautifulSoup
 import requests
 import re
+import itertools
+import operator
 
 from typing import TYPE_CHECKING, Tuple, Dict
 
@@ -166,6 +168,8 @@ def parse_assets(assets, landing_page_url: str) -> Dict[str, bool]:
     summary = ''
     no_cross_domain_assets = True
 
+    third_party_assets = []
+
     for asset in assets:
         # ignore subdomain attribute
         (_, asset_domain, asset_suffix) = tldextract.extract(asset.resource)
@@ -174,8 +178,21 @@ def parse_assets(assets, landing_page_url: str) -> Dict[str, bool]:
             continue
 
         if (asset_domain != landing_page_domain or asset_suffix != landing_page_suffix):
-            no_cross_domain_assets = False
-            summary += '{0.resource} ({0.kind}) from {0.initiator}\n'.format(asset)
+            third_party_assets.append(asset)
+
+    if third_party_assets:
+        no_cross_domain_assets = False
+
+        by_initiator = operator.attrgetter('initiator')
+        by_kind = operator.attrgetter('kind')
+
+        sorted_assets = sorted(third_party_assets, key=by_initiator)
+
+        for initiator, assets in itertools.groupby(sorted_assets, by_initiator):
+            summary += initiator + '\n'
+            for asset in sorted(assets, key=by_kind):
+                summary += '  * ({0.kind}) {0.resource}\n'.format(asset)
+
     return {
         'no_cross_domain_assets': no_cross_domain_assets,
         'cross_domain_asset_summary': summary,
