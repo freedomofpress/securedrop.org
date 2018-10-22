@@ -5,7 +5,9 @@
 
 {% block main %}
 	<div class="form-page">
-		<div class="form-page__warning">{{ page.warning|richtext }}</div>
+		{% if page.warning %}
+			<div class="form-page__warning">{{ page.warning|richtext }}</div>
+		{% endif %}
 		<div class="form-page__intro">
 			{{ page.intro|richtext }}
 		</div>
