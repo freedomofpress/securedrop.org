@@ -38,16 +38,22 @@ class IndexPagesTestCase(TestCase):
 
     def test_should_update_pages_if_they_already_exist(self):
         url = 'https://example.com'
-        page = mock.Mock(content='<div role="main">new content</div>')
+        page = mock.Mock(content='<div role="main">frabjous content</div>')
         SearchDocumentFactory(
             url=url,
             search_content='old content',
             key=url,
         )
         index_documentation_page(url, page)
+
         self.assertEqual(
             SearchDocument.objects.get(key=url).search_content,
-            'new content',
+            'frabjous content',
+        )
+
+        self.assertEqual(
+            SearchDocument.objects.filter(search_vector='frabjous').count(),
+            1,
         )
 
 
@@ -64,4 +70,4 @@ class UpdateDocumentationIndexTestCase(TestCase):
             self.assertNotEqual(doc.title, '')
             self.assertEqual(doc.result_type, 'D')
             self.assertEqual(doc.key, url)
-            self.assertNotEqual(doc.search_content, '')
+            self.assertNotEqual(doc.search_vector, '')

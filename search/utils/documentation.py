@@ -1,6 +1,7 @@
 from urllib.parse import urljoin
 
 import requests
+from django.db.models import Func, Value
 from bs4 import BeautifulSoup
 
 from search.models import SearchDocument
@@ -44,6 +45,7 @@ def index_documentation_page(url, page):
             'title': title,
             'url': url,
             'search_content': search_content,
+            'search_vector': Func(Value(search_content + " " + title), function='to_tsvector'),
             'data': {},
             'result_type': 'D',
         },

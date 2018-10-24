@@ -2,6 +2,7 @@ from urllib.parse import urlparse, urljoin
 
 from django.conf import settings
 from django.db import transaction
+from django.db.models import Func, Value
 from django.utils.html import strip_tags
 
 from search.models import SearchDocument
@@ -62,6 +63,7 @@ def index_all_topics():
                 'title': topic_details['title'],
                 'url': url,
                 'search_content': '\n'.join(searchable_content),
+                'search_vector': Func(Value(' '.join(searchable_content)), function='to_tsvector'),
                 'data': {
                     'posts_count': topic['posts_count'],
                     'created_at': topic['created_at'],
