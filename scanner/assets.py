@@ -1,4 +1,5 @@
 from collections import deque, namedtuple
+import re
 import urllib.parse
 
 import requests
@@ -25,6 +26,16 @@ def extract_assets(soup: BeautifulSoup, site_url: str) -> List[Asset]:
                     initiator=site_url
                 )
             )
+        if 'srcset' in image.attrs:
+            srcset = parse_srcset(image.attrs['srcset'])
+            for url in srcset:
+                assets.append(
+                    Asset(
+                        resource=url,
+                        kind='img-srcset',
+                        initiator=site_url
+                    )
+                )
 
     scripts = soup.find_all('script')
     for script in scripts:
@@ -133,3 +144,19 @@ def fetch_asset(asset_url: str, site_url: str) -> requests.models.Response:
         asset_url = asset_url._replace(netloc=site_url.netloc)
 
     return requests.get(asset_url.geturl())
+
+
+def parse_srcset(srcset: str) -> List[str]:
+    """Extract URLs from a srcset attribute"""
+    srcset = srcset.strip()
+    if not srcset:
+        return []
+    urls = []
+    for source in srcset.split(','):
+        stripped_source = source.strip()
+        if ' ' in stripped_source:
+            url, _ = re.split(r'\ +', source.strip(), maxsplit=1)
+        else:
+            url = stripped_source
+        urls.append(url)
+    return urls

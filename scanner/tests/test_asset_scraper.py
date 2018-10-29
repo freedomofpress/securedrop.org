@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 from scanner.assets import (
     Asset,
     extract_assets,
+    parse_srcset,
     urls_from_css,
     urls_from_css_declarations,
 )
@@ -27,6 +28,32 @@ class AssetExtractionTestCase(TestCase):
                 initiator=self.test_url,
             )],
             extract_assets(soup, self.test_url))
+
+    def test_should_extract_images_from_srcset(self):
+        html = """
+        <html><body><img srcset="image-320w.jpg 320w,
+             image-480w.jpg 480w,
+             image-800w.jpg 800w"></body></html>
+        """
+        soup = BeautifulSoup(html, "lxml")
+        self.assertEqual([
+            Asset(
+                resource='image-320w.jpg',
+                kind='img-srcset',
+                initiator=self.test_url,
+            ),
+            Asset(
+                resource='image-480w.jpg',
+                kind='img-srcset',
+                initiator=self.test_url,
+            ),
+            Asset(
+                resource='image-800w.jpg',
+                kind='img-srcset',
+                initiator=self.test_url,
+            ),
+        ],
+        extract_assets(soup, self.test_url))
 
     @mock.patch('scanner.assets.requests')
     def test_should_extract_external_scripts(self, mock_requests):
@@ -228,3 +255,26 @@ class TestCssUrlExtraction(TestCase):
         """
         self.assertEqual(urls_from_css(css),
                          ['http://www.example.com/redball.png'])
+
+
+class TestSrcSetExtraction(TestCase):
+    def test_should_extract_nothing_from_empty_srcset(self):
+        self.assertEqual(parse_srcset(''), [])
+
+    def test_should_extract_urls_from_srcset(self):
+        self.assertEqual(
+            parse_srcset('image-1x.png 1x, image-2x.png 2x'),
+            ['image-1x.png', 'image-2x.png']
+        )
+
+    def test_should_extract_urls_with_extra_whitespace(self):
+        self.assertEqual(
+            parse_srcset('image-1x.png  1x, image-2x.png  2x'),
+            ['image-1x.png', 'image-2x.png']
+        )
+
+    def test_should_extract_urls_with_no_sizes(self):
+        self.assertEqual(
+            parse_srcset('image-1x.png, image-2x.png'),
+            ['image-1x.png', 'image-2x.png']
+        )
