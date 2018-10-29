@@ -139,7 +139,30 @@ class ScannerTest(TestCase):
         result = scanner.scan(ap_site)
 
         self.assertIs(result.no_cross_domain_assets, False)
-        self.assertIsNotNone(result.cross_domain_asset_summary)
+        expected_urls = (
+            'https://www.googletagmanager.com/ns.html?id=GTM-TSGB826',
+            'https://www.googletagmanager.com/gtm.js?id=',
+            'pardot.com/pd.js',
+            'https://www.google-analytics.com/analytics.js',
+            '//searchg2-assets.crownpeak.net/crownpeak.searchg2-1.0.2.min.js',
+            'https://cdn.cookielaw.org/langswitch/ead3872f-33b9-4b16-a7f2-4ea8137893d3.js',
+            'www.crownpeak.com',
+            'searchg2.crownpeak.net/',
+            'http://www.w3.org/2000/svg',
+            'click.bs.carousel.data',
+            'item.active',
+            'click.bs.collapse.data',
+            'element.id',
+            'click.bs.modal.data',
+            'hidden.bs.tab',
+            'shown.bs.tab',
+            'bs.tab',
+            'hide.bs.tab',
+            'show.bs.tab',
+            'click.bs.tab.data',
+        )
+        for url in expected_urls:
+            self.assertIn(url, result.cross_domain_asset_summary)
 
     @vcr.use_cassette(os.path.join(VCR_DIR, 'scan-site-without-trackers.yaml'))
     def test_scan_detects_absence_of_trackers(self):
