@@ -61,7 +61,7 @@ class AssetExtractionTestCase(TestCase):
         <source src="video.webm" type="video/webm">
         <source src="video.ogg" type="video/ogg">
         <source src="video.mov" type="video/quicktime">
-        </video>
+        </video></body></html>
         """
         soup = BeautifulSoup(html, "lxml")
         self.assertEqual([
@@ -78,6 +78,54 @@ class AssetExtractionTestCase(TestCase):
             Asset(
                 resource='video.mov',
                 kind='source-src',
+                initiator=self.test_url,
+            ),
+        ],
+        extract_assets(soup, self.test_url))
+
+    def test_should_extract_urls_from_embeds(self):
+        html = """<html><body><embed type="video/quicktime" src="movie.mov" width="640" height="480"></body></html>
+        """
+        soup = BeautifulSoup(html, "lxml")
+        self.assertEqual([
+            Asset(
+                resource='movie.mov',
+                kind='embed-src',
+                initiator=self.test_url,
+            ),
+        ],
+        extract_assets(soup, self.test_url))
+
+    def test_should_extract_urls_from_video(self):
+        html = """<html><body>
+        <video controls
+               src="https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4"
+               poster="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217"
+               width="620"></body></html>
+        """
+        soup = BeautifulSoup(html, "lxml")
+        self.assertEqual([
+            Asset(
+                resource='https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4',
+                kind='video-src',
+                initiator=self.test_url,
+            ),
+            Asset(
+                resource='https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217',
+                kind='video-poster',
+                initiator=self.test_url,
+            ),
+        ],
+        extract_assets(soup, self.test_url))
+
+    def test_should_extract_urls_from_audio(self):
+        html = """<html><body><audio src="audio.wav"></body></html>
+        """
+        soup = BeautifulSoup(html, "lxml")
+        self.assertEqual([
+            Asset(
+                resource='audio.wav',
+                kind='audio-src',
                 initiator=self.test_url,
             ),
         ],

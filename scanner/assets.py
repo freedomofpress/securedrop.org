@@ -37,16 +37,36 @@ def extract_assets(soup: BeautifulSoup, site_url: str) -> List[Asset]:
                     )
                 )
 
-    sources = soup.find_all('source')
-    for source in sources:
-        if 'src' in source.attrs:
+    for video in soup.find_all('video'):
+        if 'src' in video.attrs:
             assets.append(
                 Asset(
-                    resource=source.attrs['src'],
-                    kind='source-src',
-                    initiator=site_url
+                    resource=video.attrs['src'],
+                    kind='video-src',
+                    initiator=site_url,
                 )
             )
+        if 'poster' in video.attrs:
+            assets.append(
+                Asset(
+                    resource=video.attrs['poster'],
+                    kind='video-poster',
+                    initiator=site_url,
+                )
+            )
+
+    # scan all simple tags that only have resources referenced in the
+    # "src" attribute.
+    for tag_name in ('source', 'audio', 'embed'):
+        for tag in soup.find_all(tag_name):
+            if 'src' in tag.attrs:
+                assets.append(
+                    Asset(
+                        resource=tag.attrs['src'],
+                        kind='{}-src'.format(tag_name),
+                        initiator=site_url
+                    )
+                )
 
     scripts = soup.find_all('script')
     for script in scripts:
