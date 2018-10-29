@@ -55,6 +55,34 @@ class AssetExtractionTestCase(TestCase):
         ],
         extract_assets(soup, self.test_url))
 
+    def test_should_extract_urls_from_sources(self):
+        html = """<html><body>
+        <video>
+        <source src="video.webm" type="video/webm">
+        <source src="video.ogg" type="video/ogg">
+        <source src="video.mov" type="video/quicktime">
+        </video>
+        """
+        soup = BeautifulSoup(html, "lxml")
+        self.assertEqual([
+            Asset(
+                resource='video.webm',
+                kind='source-src',
+                initiator=self.test_url,
+            ),
+            Asset(
+                resource='video.ogg',
+                kind='source-src',
+                initiator=self.test_url,
+            ),
+            Asset(
+                resource='video.mov',
+                kind='source-src',
+                initiator=self.test_url,
+            ),
+        ],
+        extract_assets(soup, self.test_url))
+
     @mock.patch('scanner.assets.requests')
     def test_should_extract_external_scripts(self, mock_requests):
         mock_requests.get.return_value = mock.Mock(

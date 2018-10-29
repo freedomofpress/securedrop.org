@@ -37,6 +37,17 @@ def extract_assets(soup: BeautifulSoup, site_url: str) -> List[Asset]:
                     )
                 )
 
+    sources = soup.find_all('source')
+    for source in sources:
+        if 'src' in source.attrs:
+            assets.append(
+                Asset(
+                    resource=source.attrs['src'],
+                    kind='source-src',
+                    initiator=site_url
+                )
+            )
+
     scripts = soup.find_all('script')
     for script in scripts:
         if 'src' in script.attrs:
