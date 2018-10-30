@@ -44,7 +44,7 @@ class DiscourseClient(object):
                 r = requests.request(method, request_url, data=data_)
                 r.raise_for_status()
             except (requests.exceptions.ConnectionError,
-                    requests.exceptions.Timeout) as e:
+                    requests.exceptions.Timeout):
                 retries -= 1
                 if not retries:
                     raise

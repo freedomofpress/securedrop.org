@@ -103,8 +103,7 @@ def bulk_scan(securedrops: 'DirectoryEntryQuerySet') -> None:
     return ScanResult.objects.bulk_create(results_to_be_written)
 
 
-def request_and_scrape_page(url: str, allow_redirects: bool=True) -> Tuple[requests.models.Response,
-                                                                           BeautifulSoup]:
+def request_and_scrape_page(url: str, allow_redirects: bool = True) -> Tuple[requests.models.Response, BeautifulSoup]:
     """Scrape and parse the HTML of a page into a BeautifulSoup"""
     try:
         page = requests.get(url, allow_redirects=allow_redirects)
