@@ -1,5 +1,5 @@
-import json
 from django.test import TestCase
+from wagtail.wagtailcore.rich_text import RichText
 
 from home.tests.factories import HomePageFactory
 
@@ -12,9 +12,7 @@ class TestHomepage(TestCase):
         self.instances_header = 'Instances'
         self.home = HomePageFactory(
             title=self.title,
-            description=json.dumps([
-                {'type': 'rich_text', 'value': self.description}
-            ]),
+            description=RichText(self.description),
             features_header=self.features_header,
             instances_header=self.instances_header,
         )

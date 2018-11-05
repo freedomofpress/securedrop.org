@@ -1,7 +1,7 @@
-import json
 from django.test import TestCase
 
 from directory.tests.factories import DirectoryPageFactory
+from wagtail.wagtailcore.rich_text import RichText
 
 
 class TestDirectoryPage(TestCase):
@@ -11,9 +11,7 @@ class TestDirectoryPage(TestCase):
         self.source_warning = 'Alert'
         self.directory = DirectoryPageFactory(
             title=self.title,
-            body=json.dumps([
-                {'type': 'rich_text', 'value': self.body}
-            ]),
+            body=RichText(self.body),
             source_warning=self.source_warning
         )
         self.search_content = self.directory.get_search_content()
