@@ -1,4 +1,4 @@
-from unittest import TestCase, skip, mock
+from unittest import TestCase, mock
 
 from bs4 import BeautifulSoup
 
@@ -261,10 +261,6 @@ class AssetExtractionTestCase(TestCase):
             ],
             extract_assets(soup, self.test_url),
         )
-
-    @skip
-    def test_should_extract_urls_from_embedded_js(self):
-        pass
 
 
 class TestCssUrlExtractionFromDeclarations(TestCase):
