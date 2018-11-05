@@ -98,14 +98,14 @@ class MarketingIndexPage(MetadataPageMixin, Page):
     search_fields_pgsql = ['title', 'body', 'subheader']
 
     def get_search_content(self):
-        search_content = get_search_content_by_fields(self, self.search_fields_pgsql)
+        search_elements = get_search_content_by_fields(self, self.search_fields_pgsql)
 
         for feature in self.features.all():
-            search_content += feature.feature.title + ' '
-            search_content += feature.feature.teaser_title + ' '
-            search_content += feature.feature.teaser_description + ' '
+            search_elements.append(feature.feature.title)
+            search_elements.append(feature.feature.teaser_title)
+            search_elements.append(feature.feature.teaser_description)
 
-        return search_content
+        return search_elements
 
 
 class OrderedFeatures(Orderable):

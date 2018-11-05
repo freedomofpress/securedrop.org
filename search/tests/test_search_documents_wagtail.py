@@ -109,5 +109,5 @@ class WagtailTestCase(TestCase):
             SearchDocument.objects.get(
                 key=KEY_FORMAT.format(blog_index.pk)
             ).search_content,
-            blog_index.get_search_content()
+            blog_index.get_search_content().as_string(),
         )

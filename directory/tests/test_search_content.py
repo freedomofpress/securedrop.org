@@ -17,10 +17,10 @@ class TestDirectoryPage(TestCase):
         self.search_content = self.directory.get_search_content()
 
     def test_get_search_content_indexes_title(self):
-        self.assertIn(self.title, self.search_content)
+        self.assertIn(self.title, self.search_content.text)
 
     def test_get_search_content_indexes_body(self):
-        self.assertIn(self.body, self.search_content)
+        self.assertIn(self.body, self.search_content.text)
 
     def test_get_search_content_indexes_source_warning(self):
-        self.assertIn(self.source_warning, self.search_content)
+        self.assertIn(self.source_warning, self.search_content.text)

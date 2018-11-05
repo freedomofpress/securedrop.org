@@ -261,28 +261,28 @@ class DirectoryEntrySearchTest(TestCase):
         self.search_content = self.sd.get_search_content()
 
     def test_get_search_content_indexes_title(self):
-        self.assertIn(self.title, self.search_content)
+        self.assertIn(self.title, self.search_content.text)
 
     def test_get_search_content_indexes_landing_page_url(self):
-        self.assertIn(self.landing_page_url, self.search_content)
+        self.assertIn(self.landing_page_url, self.search_content.text)
 
     def test_get_search_content_indexes_onion_address(self):
-        self.assertIn(self.onion_address, self.search_content)
+        self.assertIn(self.onion_address, self.search_content.text)
 
     def test_get_search_content_indexes_description(self):
-        self.assertIn(self.onion_address, self.search_content)
+        self.assertIn(self.onion_address, self.search_content.text)
 
     def test_get_search_content_indexes_languages(self):
         language = self.sd.languages.first().title
-        self.assertIn(language, self.search_content)
+        self.assertIn(language, self.search_content.text)
 
     def test_get_search_content_indexes_topics(self):
         topic = self.sd.topics.first().title
-        self.assertIn(topic, self.search_content)
+        self.assertIn(topic, self.search_content.text)
 
     def test_get_search_content_indexes_countries(self):
         country = self.sd.countries.first().title
-        self.assertIn(country, self.search_content)
+        self.assertIn(country, self.search_content.text)
 
 
 class DirectoryEntryAuthTest(TestCase):

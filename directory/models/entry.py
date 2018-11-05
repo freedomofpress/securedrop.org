@@ -268,13 +268,13 @@ class DirectoryEntry(MetadataPageMixin, Page):
         return warnings
 
     def get_search_content(self):
-        search_content = get_search_content_by_fields(self, self.search_fields_pgsql)
+        search_elements = get_search_content_by_fields(self, self.search_fields_pgsql)
 
         for field in ['languages', 'countries', 'topics']:
-            titles = [item.title for item in getattr(self, field).all()]
-            search_content += " ".join(titles) + ' '
+            for item in getattr(self, field).all():
+                search_elements.append(item.title)
 
-        return search_content
+        return search_elements
 
     def save(self, *args, **kwargs):
         from directory.models import ScanResult

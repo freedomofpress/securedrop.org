@@ -1,6 +1,5 @@
-from django.db.models import Func, Value
-
 from search.models import SearchDocument
+from search.utils.search_elements import SearchElements
 
 
 KEY_FORMAT = 'wagtail-page-{}'
@@ -26,7 +25,7 @@ def index_wagtail_page(page):
         return
 
     # Get search content from page instance
-    search_content = page.get_search_content() if hasattr(page, 'get_search_content') else ''
+    search_elements = page.get_search_content() if hasattr(page, 'get_search_content') else SearchElements()
 
     # Create a new SearchDocument
     document_key = KEY_FORMAT.format(page.pk)
@@ -34,8 +33,8 @@ def index_wagtail_page(page):
         {
             'title': page.title,
             'url': page.full_url,
-            'search_content': search_content,
-            'search_vector': Func(Value(search_content), function='to_tsvector'),
+            'search_content': search_elements.as_string(),
+            'search_vector': search_elements.as_search_vector(),
             'data': {},
             'result_type': 'W',
             'key': document_key,

@@ -82,15 +82,15 @@ class HomePage(MetadataPageMixin, Page):
     ]
 
     def get_search_content(self):
-        search_content = get_search_content_by_fields(self, self.search_fields_pgsql)
+        search_elements = get_search_content_by_fields(self, self.search_fields_pgsql)
 
         for hp_feature in self.features.all():
-            search_content += hp_feature.feature.title + ' '
+            search_elements.append(hp_feature.feature.title)
 
         for hp_instance in self.instances.all():
-            search_content += hp_instance.instance.title + ' '
+            search_elements.append(hp_instance.instance.title)
 
-        return search_content
+        return search_elements
 
     def get_latest_blog(self):
         return BlogPage.objects.live().order_by('-publication_datetime').first()
