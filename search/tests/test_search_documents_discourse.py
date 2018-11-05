@@ -36,7 +36,7 @@ TOPIC_DETAILS = {
         ],
         'stream': [1, 2],
     },
-    'title': 'Example post title',
+    'title': 'Example post title: Hedgehogs',
 }
 
 TOPIC_DETAILS_WITH_EXTRAS = {
@@ -57,7 +57,7 @@ TOPIC_DETAILS_WITH_EXTRAS = {
         ],
         'stream': [1, 2, 3],
     },
-    'title': 'Example post title',
+    'title': 'Example post title: Hedgehogs',
 }
 
 EXTRA_TOPIC_POSTS = {
@@ -83,6 +83,12 @@ class IndexTopicsTestCase(TestCase):
         topic.return_value = TOPIC_DETAILS
         index_all_topics()
         self.document = SearchDocument.objects.get(key='discourse-topic-0')
+
+    def test_posts_are_searchable_by_topic_title(self):
+        self.assertEqual(
+            SearchDocument.objects.filter(search_vector='hedgehogs').count(),
+            1,
+        )
 
     def test_posts_are_searchable_by_content(self):
         self.assertEqual(
