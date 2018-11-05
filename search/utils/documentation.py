@@ -1,10 +1,10 @@
 from urllib.parse import urljoin
 
 import requests
-from django.db.models import Func, Value
 from bs4 import BeautifulSoup
 
 from search.models import SearchDocument
+from search.utils.search_elements import SearchElements
 
 
 READTHEDOCS_BASE = 'https://docs.securedrop.org/en/stable/'
@@ -31,12 +31,15 @@ def index_documentation_page(url, page):
     """Parse a documentation page and update a search document for it"""
     soup = BeautifulSoup(page.content, 'html.parser')
 
+    search_elements = SearchElements()
+
     try:
-        search_content = ''.join(soup.select('div[role=main]')[0].strings)
+        search_elements.append(''.join(soup.select('div[role=main]')[0].strings))
     except IndexError:
-        search_content = ''
+        search_elements.append('')
     if soup.title:
         title = soup.title.string
+        search_elements.append(title)
     else:
         title = url
 
@@ -44,8 +47,8 @@ def index_documentation_page(url, page):
         {
             'title': title,
             'url': url,
-            'search_content': search_content,
-            'search_vector': Func(Value(search_content + " " + title), function='to_tsvector'),
+            'search_content': search_elements.as_string(),
+            'search_vector': search_elements.as_search_vector(),
             'data': {},
             'result_type': 'D',
         },
