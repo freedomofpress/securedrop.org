@@ -69,7 +69,7 @@ pytest==3.7.1             # via testinfra
 python-dateutil==2.7.3    # via arrow
 python-gilt==1.1.0        # via molecule
 pyyaml==3.12              # via ansible, ansible-lint, bandit, dparse, molecule, python-gilt, yamllint
-requests==2.19.1          # via docker, safety
+requests==2.20.0          # via docker, safety
 safety==1.8.4
 scandir==1.8              # via pathlib2
 sh==1.12.14               # via molecule, python-gilt
