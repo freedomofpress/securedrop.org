@@ -57,7 +57,7 @@ qrcode==5.3               # via django-allauth-2fa
 requests-cache==0.4.13    # via pshtt
 requests-file==1.4.3      # via tldextract
 requests-oauthlib==0.8.0  # via django-allauth
-requests==2.18.4          # via django-allauth, django-anymail, pshtt, requests-cache, requests-file, requests-oauthlib, tldextract, wagtail
+requests==2.20.0
 simplesqlite==0.19.0      # via pytablewriter
 six==1.11.0               # via bleach, cryptography, django-anymail, faker, html5lib, mbstrdecoder, pyopenssl, pytablewriter, python-dateutil, qrcode, requests-file, simplesqlite, tabledata, typepy, unittest-xml-reporting, vcrpy
 tabledata==0.0.5          # via pytablewriter, simplesqlite

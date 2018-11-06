@@ -2,7 +2,7 @@ import pytest
 import json
 import os
 
-PSHTT_CLI_PATH = os.environ['pshtt_location']
+PSHTT_CLI_PATH = os.environ['PSHTT_LOCATION']
 PSHTT_DOMAINS = [
     'freedom.press'
 ]
