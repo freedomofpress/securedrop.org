@@ -7,16 +7,10 @@
     # Required to install pshtt
     LC_ALL: "en_US.UTF-8"
   pre_tasks:
-    - name: Check for existence of grsec kernel
-      stat:
-        path: /proc/sys/kernel/grsecurity/
-      register: check_grsec_kernel_results
-
     - name: Make sure paxctld is started
       service:
         name: paxctld
         state: started
-      when: check_grsec_kernel_results.stat.exists
 
     - name: Create postgres DB
       postgresql_db:
@@ -38,7 +32,6 @@
         # pre-installed. Not needed in prod.
         - template1
 
-  tasks:
     # The paxtld flags should be added to the CI base image.
     - name: Layout pax config
       lineinfile:
@@ -52,10 +45,13 @@
         - "/home/gcorn/securedrop-alpha/pip m"
         - "/usr/bin/python m"
         - "/usr/bin/python3 m"
-      when: check_grsec_kernel_results.stat.exists
+        - "/home/gcorn/securedrop-alpha/lib/python3.4/site-packages/nassl/_nassl.cpython-34m.so"
+        - "/home/gcorn/securedrop-beta/lib/python3.4/site-packages/nassl/_nassl.cpython-34m.so"
+        - "/lib/x86_64-linux-gnu/ld-2.19.so"
       notify: Restart paxctld
       register: grsec_config_results
 
+  tasks:
     - debug:
         msg: "You can hit the www interface at https://localhost:{{ lookup('pipe', 'docker port debian_jessie_sd.org_ci 443 | cut -d\":\" -f 2') }}"
 
