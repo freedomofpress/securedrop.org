@@ -41,3 +41,5 @@ verifier:
     PSHTT_LOCATION: /home/gcorn/securedrop-alpha/bin/pshtt
   lint:
     name: flake8
+  options:
+    p: no:cacheprovider no:stepwise
