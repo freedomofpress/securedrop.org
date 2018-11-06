@@ -38,6 +38,6 @@ verifier:
   additional_files_or_dirs:
     - ../shared_tests
   env:
-    pshtt_location: /home/gcorn/securedrop-alpha/bin/pshtt
+    PSHTT_LOCATION: /home/gcorn/securedrop-alpha/bin/pshtt
   lint:
     name: flake8

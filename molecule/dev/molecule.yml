@@ -23,6 +23,6 @@ verifier:
     connection: docker
     hosts: sd_django
   env:
-    pshtt_location: /usr/local/bin/pshtt
+    PSHTT_LOCATION: /usr/local/bin/pshtt
   lint:
     name: flake8
