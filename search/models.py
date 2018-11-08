@@ -1,5 +1,5 @@
 from django.contrib.postgres.fields import HStoreField
-from django.contrib.postgres.search import SearchVectorField, SearchVector
+from django.contrib.postgres.search import SearchVectorField
 
 from django.db import models
 
@@ -25,14 +25,3 @@ class SearchDocument(models.Model):
         indexes = [
             GinIndex(fields=['search_vector'])
         ]
-
-    def save(self, *args, **kwargs):
-        """
-        Update the search vector every time we save. We need to make sure to
-        save the instance first before attempting to update the vector
-        """
-        super(SearchDocument, self).save(*args, **kwargs)
-        if 'update_fields' not in kwargs or 'search_vector' not in kwargs['update_fields']:
-            instance = self._meta.default_manager.get(pk=self.pk)
-            instance.search_vector = SearchVector('title', 'search_content')
-            instance.save(update_fields=['search_vector'])

@@ -211,12 +211,12 @@ class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
     search_fields_pgsql = ['title', 'body']
 
     def get_search_content(self):
-        search_content = get_search_content_by_fields(self, self.search_fields_pgsql)
+        search_elements = get_search_content_by_fields(self, self.search_fields_pgsql)
 
         for blog_page in self.get_posts():
-            search_content += blog_page.title + ' '
+            search_elements.append(blog_page.title)
 
-        return search_content
+        return search_elements
 
     @route(r'^feed/$')
     def feed(self, request):

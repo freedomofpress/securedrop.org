@@ -9,6 +9,8 @@ from search.utils.wagtail import (
     index_wagtail_page,
     delete_wagtail_page,
 )
+from wagtail.wagtailcore.rich_text import RichText
+
 from search.models import SearchDocument
 
 
@@ -91,11 +93,21 @@ class WagtailTestCase(TestCase):
             )
 
     def test_indexed_page_should_have_correct_content(self):
-        blog_index = BlogIndexPageFactory(parent=self.page, title="News", body="Some content")
+        blog_index = BlogIndexPageFactory(
+            parent=self.page,
+            title="News",
+            body=[('rich_text', RichText('hello world'))],
+        )
         index_wagtail_page(blog_index)
+
+        self.assertEqual(
+            SearchDocument.objects.filter(search_vector='hello').count(),
+            1
+        )
+
         self.assertEqual(
             SearchDocument.objects.get(
                 key=KEY_FORMAT.format(blog_index.pk)
             ).search_content,
-            blog_index.get_search_content()
+            blog_index.get_search_content().as_string(),
         )

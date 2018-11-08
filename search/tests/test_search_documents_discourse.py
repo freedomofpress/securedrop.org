@@ -36,7 +36,7 @@ TOPIC_DETAILS = {
         ],
         'stream': [1, 2],
     },
-    'title': 'Example post title',
+    'title': 'Example post title: Hedgehogs',
 }
 
 TOPIC_DETAILS_WITH_EXTRAS = {
@@ -57,7 +57,7 @@ TOPIC_DETAILS_WITH_EXTRAS = {
         ],
         'stream': [1, 2, 3],
     },
-    'title': 'Example post title',
+    'title': 'Example post title: Hedgehogs',
 }
 
 EXTRA_TOPIC_POSTS = {
@@ -83,6 +83,30 @@ class IndexTopicsTestCase(TestCase):
         topic.return_value = TOPIC_DETAILS
         index_all_topics()
         self.document = SearchDocument.objects.get(key='discourse-topic-0')
+
+    def test_posts_are_searchable_by_topic_title(self):
+        self.assertEqual(
+            SearchDocument.objects.filter(search_vector='hedgehogs').count(),
+            1,
+        )
+
+    def test_posts_are_searchable_by_content(self):
+        self.assertEqual(
+            SearchDocument.objects.filter(search_vector='second').count(),
+            1,
+        )
+
+    def test_posts_are_searchable_by_username(self):
+        self.assertEqual(
+            SearchDocument.objects.filter(search_vector='username2').count(),
+            1,
+        )
+
+    def test_posts_are_searchable_by_name(self):
+        self.assertEqual(
+            SearchDocument.objects.filter(search_vector='Person 1').count(),
+            1,
+        )
 
     def test_created_document_title_should_be_post_title(self):
         self.assertEqual(self.document.title, TOPIC_DETAILS['title'])
@@ -127,6 +151,12 @@ class IndexTopicsWithExtrasTestCase(TestCase):
         posts_for_topic.return_value = EXTRA_TOPIC_POSTS
         index_all_topics()
         self.document = SearchDocument.objects.get(key='discourse-topic-0')
+
+    def test_created_document_should_be_searchable_by_extras(self):
+        self.assertEqual(
+            SearchDocument.objects.filter(search_vector='third').count(),
+            1,
+        )
 
     def test_created_document_content_should_be_stripped_posts_with_extras(self):
         posts_plus_extras = TOPIC_DETAILS['post_stream']['posts'] + EXTRA_TOPIC_POSTS['post_stream']['posts']

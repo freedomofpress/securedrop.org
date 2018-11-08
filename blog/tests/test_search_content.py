@@ -19,13 +19,13 @@ class TestBlogIndex(TestCase):
         self.search_content = self.blog_index.get_search_content()
 
     def test_get_search_content_indexes_title(self):
-        self.assertIn(self.title, self.search_content)
+        self.assertIn(self.title, self.search_content.text)
 
     def test_get_search_content_indexes_body(self):
-        self.assertIn(self.body, self.search_content)
+        self.assertIn(self.body, self.search_content.text)
 
     def test_get_search_content_index_blog_page_titles(self):
-        self.assertIn(self.blog_title, self.search_content)
+        self.assertIn(self.blog_title, self.search_content.text)
 
 
 class TestBlogPage(TestCase):
@@ -45,13 +45,13 @@ class TestBlogPage(TestCase):
         self.search_content = self.blog.get_search_content()
 
     def test_get_search_content_indexes_title(self):
-        self.assertIn(self.title, self.search_content)
+        self.assertIn(self.title, self.search_content.as_string())
 
     def test_get_search_content_indexes_body(self):
-        self.assertIn(self.body, self.search_content)
+        self.assertIn(self.body, self.search_content.as_string())
 
     def test_get_search_content_indexes_category_page_title(self):
-        self.assertIn(self.blog.category.title, self.search_content)
+        self.assertIn(self.blog.category.title, self.search_content.as_string())
 
     def test_get_search_content_indexes_teaser_text(self):
-        self.assertIn(self.teaser_text, self.search_content)
+        self.assertIn(self.teaser_text, self.search_content.as_string())

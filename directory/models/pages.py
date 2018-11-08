@@ -114,12 +114,12 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
     search_fields_pgsql = ['title', 'body', 'source_warning']
 
     def get_search_content(self):
-        search_content = get_search_content_by_fields(self, self.search_fields_pgsql)
+        search_elements = get_search_content_by_fields(self, self.search_fields_pgsql)
 
         for instance in self.get_instances():
-            search_content += instance.title + ' '
+            search_elements.append(instance.title)
 
-        return search_content
+        return search_elements
 
     def get_instances(self, filters=None):
         """Get `DirectoryEntry` children of this page
