@@ -18,6 +18,7 @@ psycopg2
 pygments
 python-json-logger
 tldextract
+tinycss2
 vcrpy
 wagtail<1.13
 wagtail-factories

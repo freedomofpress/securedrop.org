@@ -109,6 +109,8 @@ class ScannerTest(TestCase):
         self.assertIs(result.cache_control_nostore_set, False)
         self.assertIs(result.cache_control_private_set, False)
         self.assertIs(result.referrer_policy_set_to_no_referrer, False)
+        self.assertIs(result.no_cross_domain_assets, False)
+        self.assertNotEqual(result.cross_domain_asset_summary, '')
 
     @vcr.use_cassette(os.path.join(VCR_DIR, 'scan-site-with-trackers.yaml'))
     def test_scan_detects_presence_of_trackers(self):
@@ -122,6 +124,45 @@ class ScannerTest(TestCase):
         )
         result = scanner.scan(ap_site)
         self.assertFalse(result.no_analytics)
+
+    @vcr.use_cassette(os.path.join(VCR_DIR, 'scan-site-with-trackers.yaml'))
+    def test_scan_detects_presence_of_cross_domain_assets(self):
+        """
+        If a site contains cross-domain assets, result.no_cross_domain_assets should be False
+        """
+        ap_site = DirectoryEntry(
+            title='AP',
+            landing_page_url='https://www.ap.org/en-us/',
+            onion_address='notreal.onion'
+        )
+
+        result = scanner.scan(ap_site)
+
+        self.assertIs(result.no_cross_domain_assets, False)
+        expected_urls = (
+            'https://www.googletagmanager.com/ns.html?id=GTM-TSGB826',
+            'https://www.googletagmanager.com/gtm.js?id=',
+            'pardot.com/pd.js',
+            'https://www.google-analytics.com/analytics.js',
+            '//searchg2-assets.crownpeak.net/crownpeak.searchg2-1.0.2.min.js',
+            'https://cdn.cookielaw.org/langswitch/ead3872f-33b9-4b16-a7f2-4ea8137893d3.js',
+            'www.crownpeak.com',
+            'searchg2.crownpeak.net/',
+            'http://www.w3.org/2000/svg',
+            'click.bs.carousel.data',
+            'item.active',
+            'click.bs.collapse.data',
+            'element.id',
+            'click.bs.modal.data',
+            'hidden.bs.tab',
+            'shown.bs.tab',
+            'bs.tab',
+            'hide.bs.tab',
+            'show.bs.tab',
+            'click.bs.tab.data',
+        )
+        for url in expected_urls:
+            self.assertIn(url, result.cross_domain_asset_summary)
 
     @vcr.use_cassette(os.path.join(VCR_DIR, 'scan-site-without-trackers.yaml'))
     def test_scan_detects_absence_of_trackers(self):

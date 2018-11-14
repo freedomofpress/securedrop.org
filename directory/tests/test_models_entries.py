@@ -115,6 +115,10 @@ class ScanResultTest(TestCase):
         result = ScanResultFactory(no_cdn=False)
         self.assertEqual(result.warning_level(), 'severe')
 
+    def test_instance_with_cross_domain_assets_gets_severe_warning(self):
+        result = ScanResultFactory(no_cross_domain_assets=False)
+        self.assertEqual(result.warning_level(), 'severe')
+
     def test_grade_computed_on_save(self):
         result = ScanResult(live=True, hsts=True, hsts_max_age=True,
                             securedrop=self.securedrop)

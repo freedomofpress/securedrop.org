@@ -79,6 +79,7 @@ six==1.11.0
 sqlparse==0.2.3           # via django-debug-toolbar
 tabledata==0.0.5
 text-unidecode==1.1
+tinycss2==0.6.1
 tldextract==2.2.0
 tls-parser==1.1.1
 toml==0.9.3.1

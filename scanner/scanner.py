@@ -1,6 +1,8 @@
 from bs4 import BeautifulSoup
 import requests
 import re
+import itertools
+import operator
 
 from typing import TYPE_CHECKING, Tuple, Dict
 
@@ -11,6 +13,7 @@ from django.utils import timezone
 
 from directory.models import ScanResult, DirectoryEntry
 from scanner.utils import url_to_domain
+from scanner.assets import extract_assets
 
 if TYPE_CHECKING:
     from directory.models import DirectoryEntryQuerySet  # noqa: F401
@@ -41,6 +44,10 @@ def perform_scan(url: str) -> ScanResult:
 
     if http_response_data['no_cross_domain_redirects'] is False:
         return ScanResult(**scan_data)
+
+    assets = extract_assets(soup, url)
+    asset_results = parse_assets(assets, url)
+    scan_data.update(asset_results)
 
     pshtt_results = inspect_domains([url_to_domain(page.url)], {'timeout': 10})
 
@@ -152,6 +159,44 @@ def parse_page_data(page: requests.models.Response) -> Dict[str, bool]:
                 http_response_data['no_cross_domain_redirects'] = False
 
     return http_response_data
+
+
+def parse_assets(assets, landing_page_url: str) -> Dict[str, bool]:
+    # ignore subdomain attribute
+    (_, landing_page_domain, landing_page_suffix) = tldextract.extract(landing_page_url)
+
+    summary = ''
+    no_cross_domain_assets = True
+
+    third_party_assets = []
+
+    for asset in assets:
+        # ignore subdomain attribute
+        (_, asset_domain, asset_suffix) = tldextract.extract(asset.resource)
+        if not (asset_domain and asset_suffix):
+            # we've extracted something that probably is not a real domain
+            continue
+
+        if (asset_domain != landing_page_domain or asset_suffix != landing_page_suffix):
+            third_party_assets.append(asset)
+
+    if third_party_assets:
+        no_cross_domain_assets = False
+
+        by_initiator = operator.attrgetter('initiator')
+        by_kind = operator.attrgetter('kind')
+
+        sorted_assets = sorted(third_party_assets, key=by_initiator)
+
+        for initiator, assets in itertools.groupby(sorted_assets, by_initiator):
+            summary += initiator + '\n'
+            for asset in sorted(assets, key=by_kind):
+                summary += '  * ({0.kind}) {0.resource}\n'.format(asset)
+
+    return {
+        'no_cross_domain_assets': no_cross_domain_assets,
+        'cross_domain_asset_summary': summary,
+    }
 
 
 def parse_soup_data(soup: BeautifulSoup) -> Dict[str, bool]:
