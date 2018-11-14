@@ -25,6 +25,10 @@ document.documentElement.classList.add(is_likely_tor_browser() ? 'tor' : 'no-tor
 
 // Warn about using Javascript and not using Tor Browser
 document.addEventListener("DOMContentLoaded", () => {
+	if (sessionStorage.getItem('torWarningDismissed') === '1') {
+		return
+	}
+
 	const useTorBrowser = document.getElementById('js-use-tor-browser')
 	const instances = document.getElementById('js-instances')
 	const body = document.body
@@ -60,6 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			if(instances) {
 				instances.classList.remove('instances--tor-warning')
 			}
+			sessionStorage.setItem('torWarningDismissed', '1')
 		})
 	} else {
 		// If the user is not using Tor Browser, we want to encourage them to do so.
@@ -78,6 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			if(instances) {
 				instances.classList.remove('instances--tor-warning')
 			}
+			sessionStorage.setItem('torWarningDismissed', '1')
 		})
 	}
 });
