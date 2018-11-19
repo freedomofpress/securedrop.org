@@ -4,7 +4,7 @@ import re
 import itertools
 import operator
 
-from typing import TYPE_CHECKING, Tuple, Dict
+from typing import TYPE_CHECKING, Tuple, Dict, List
 
 from pshtt.pshtt import inspect_domains
 import tldextract
@@ -13,7 +13,7 @@ from django.utils import timezone
 
 from directory.models import ScanResult, DirectoryEntry
 from scanner.utils import url_to_domain
-from scanner.assets import extract_assets
+from scanner.assets import extract_assets, Asset
 
 if TYPE_CHECKING:
     from directory.models import DirectoryEntryQuerySet  # noqa: F401
@@ -166,9 +166,11 @@ def parse_assets(assets, landing_page_url: str) -> Dict[str, bool]:
     (_, landing_page_domain, landing_page_suffix) = tldextract.extract(landing_page_url)
 
     summary = ''
+    ignored_summary = ''
     no_cross_domain_assets = True
 
     third_party_assets = []
+    ignored_assets = []
 
     for asset in assets:
         # ignore subdomain attribute
@@ -178,25 +180,40 @@ def parse_assets(assets, landing_page_url: str) -> Dict[str, bool]:
             continue
 
         if (asset_domain != landing_page_domain or asset_suffix != landing_page_suffix):
+            # Ignore 'script-resource' and 'script-embed' assets, these
+            # are causing a lot of false positives
+            if asset.kind in ('script-resource', 'script-embed'):
+                ignored_assets.append(asset)
+                continue
             third_party_assets.append(asset)
+
+    if ignored_assets:
+        ignored_summary = summarize_assets(ignored_assets)
 
     if third_party_assets:
         no_cross_domain_assets = False
-
-        by_initiator = operator.attrgetter('initiator')
-        by_kind = operator.attrgetter('kind')
-
-        sorted_assets = sorted(third_party_assets, key=by_initiator)
-
-        for initiator, assets in itertools.groupby(sorted_assets, by_initiator):
-            summary += initiator + '\n'
-            for asset in sorted(assets, key=by_kind):
-                summary += '  * ({0.kind}) {0.resource}\n'.format(asset)
+        summary = summarize_assets(third_party_assets)
 
     return {
+        'ignored_cross_domain_assets': ignored_summary,
         'no_cross_domain_assets': no_cross_domain_assets,
         'cross_domain_asset_summary': summary,
     }
+
+
+def summarize_assets(assets: List[Asset]) -> str:
+    summary = ''
+
+    by_initiator = operator.attrgetter('initiator')
+    by_kind = operator.attrgetter('kind')
+
+    sorted_assets = sorted(assets, key=by_initiator)
+
+    for initiator, assets in itertools.groupby(sorted_assets, by_initiator):
+        summary += initiator + '\n'
+        for asset in sorted(assets, key=by_kind):
+            summary += '  * ({0.kind}) {0.resource}\n'.format(asset)
+    return summary
 
 
 def parse_soup_data(soup: BeautifulSoup) -> Dict[str, bool]:
