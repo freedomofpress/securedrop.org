@@ -1,7 +1,7 @@
 from django.core.management import BaseCommand, CommandError
 
 from directory.models import DirectoryEntry
-from scanner.scanner import bulk_scan
+from directory.utils import bulk_scan
 from scanner.utils import url_to_domain
 
 

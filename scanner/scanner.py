@@ -4,14 +4,11 @@ import re
 import itertools
 import operator
 
-from typing import TYPE_CHECKING, Tuple, Dict, List
+from typing import TYPE_CHECKING, Tuple, Dict, List, Union
 
 from pshtt.pshtt import inspect_domains
 import tldextract
 
-from django.utils import timezone
-
-from directory.models import ScanResult, DirectoryEntry
 from scanner.utils import url_to_domain
 from scanner.assets import extract_assets, Asset
 
@@ -19,7 +16,7 @@ if TYPE_CHECKING:
     from directory.models import DirectoryEntryQuerySet  # noqa: F401
 
 
-def perform_scan(url: str) -> ScanResult:
+def perform_scan(url: str) -> Dict[str, Union[bool, str]]:
     try:
         page, soup = request_and_scrape_page(url)
 
@@ -27,10 +24,11 @@ def perform_scan(url: str) -> ScanResult:
         # Connection timed out, an invalid HTTP response was returned, or
         # a network problem occurred.
         # Catch the base class exception for these cases.
-        return ScanResult(
-            live=False,
-            http_status_200_ok=False,
-        )
+        return {
+            'live': False,
+            'http_status_200_ok': False,
+            # TODO: add this: 'landing_page_url': url,
+        }
 
     scan_data = {
         'live': False,
@@ -43,7 +41,7 @@ def perform_scan(url: str) -> ScanResult:
     scan_data.update(content_data)
 
     if http_response_data['no_cross_domain_redirects'] is False:
-        return ScanResult(**scan_data)
+        return scan_data
 
     assets = extract_assets(soup, url)
     asset_results = parse_assets(assets, url)
@@ -54,60 +52,7 @@ def perform_scan(url: str) -> ScanResult:
     https_data = parse_pshtt_data(pshtt_results[0])
     scan_data.update(https_data)
 
-    return ScanResult(**scan_data)
-
-
-def scan(entry: DirectoryEntry, commit=False) -> ScanResult:
-    """
-    Scan a single site. This method accepts a DirectoryEntry instance which
-    may or may not be saved to the database. You can optionally pass True for
-    the commit argument, which will save the result to the database. In that
-    case, the passed DirectoryEntry *must* already be in the database.
-    """
-    result = perform_scan(entry.landing_page_url)
-
-    if commit:
-        result.save()
-
-    return result
-
-
-def bulk_scan(securedrops: 'DirectoryEntryQuerySet') -> None:
-    """
-    This method takes a queryset and scans the securedrop pages. Unlike the
-    scan method that takes a single SecureDrop instance, this method requires
-    a DirectoryEntryQueryset of SecureDrop instances that are in the database
-    and always commits the results back to the database.
-    """
-
-    # Ensure that we have the domain annotation present
-    securedrops = securedrops.with_domain_annotation()
-
-    results_to_be_written = []
-    for entry in securedrops:
-        current_result = perform_scan(entry.landing_page_url)
-
-        # This is usually handled by Result.save, but since we're doing a
-        # bulk save, we need to do it here
-        current_result.securedrop = entry
-
-        # Before we save, let's get the most recent scan before saving
-        try:
-            prior_result = entry.results.latest()
-        except ScanResult.DoesNotExist:
-            results_to_be_written.append(current_result)
-            continue
-
-        if prior_result.is_equal_to(current_result):
-            # Then let's not waste a row in the database
-            prior_result.result_last_seen = timezone.now()
-            prior_result.save()
-        else:
-            # Then let's add this new scan result to the database
-            results_to_be_written.append(current_result)
-
-    # Write new results to the db in a batch
-    return ScanResult.objects.bulk_create(results_to_be_written)
+    return scan_data
 
 
 def request_and_scrape_page(url: str, allow_redirects: bool = True) -> Tuple[requests.models.Response, BeautifulSoup]:

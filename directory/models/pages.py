@@ -10,6 +10,7 @@ from wagtail.wagtailcore.fields import RichTextField
 from wagtail.wagtailcore.models import Page
 
 from directory.decorators import directory_management_required
+from directory.utils import scan
 from common.models.mixins import MetadataPageMixin
 from common.utils import paginate, DEFAULT_PAGE_KEY
 from search.utils import get_search_content_by_fields
@@ -17,7 +18,6 @@ from directory.models.taxonomy import Language, Topic, Country
 from directory.models.entry import DirectoryEntry
 from directory.forms import ScannerForm
 from accounts.forms.directory_management import DirectoryEntryForm
-from scanner import scanner
 
 
 SCAN_URL = 'scan/'
@@ -216,8 +216,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
                 instance = DirectoryEntry(
                     landing_page_url=data['url'],
                 )
-                result = scanner.scan(instance)
-                result.save()
+                result = scan(instance, commit=True)
                 context = {
                     'landing_page_url': data['url'],
                     'result': result,
