@@ -53,14 +53,14 @@
 				{% include "common/_svg.html" with class="instance-alert__icon" svg="images/instance-status/Error.svg" img="images/instance-status/Error.png" alt="Severe Warning Icon" %}
 			{% endif %}
 			<div class="instance-alert__content">
-				{% for warning in page.get_warnings %}
+				{% for warning in warning_messages %}
 					<p>{{ warning|safe }}</p>
 				{% endfor %}
-				{% if warning_level == 'severe' %}
+				{% if highest_warning_level.is_severe %}
 					{% blocktrans %}
 						<p>We strongly advise you to only visit this landing page <a href="https://www.torproject.org/download/download-easy.html.en">using the Tor browser</a>, with the <a href="https://tb-manual.torproject.org/en-US/security-slider.html">security slider</a> set to "safest".</p>
 					{% endblocktrans %}
-				{% elif warning_level == 'moderate' %}
+				{% elif highest_warning_level.is_moderate %}
 					{% blocktrans %}
 						<p>We recommend only visiting this SecureDrop landing page <a href="https://www.torproject.org/download/download-easy.html.en">using the Tor browser</a>.</p>
 					{% endblocktrans %}

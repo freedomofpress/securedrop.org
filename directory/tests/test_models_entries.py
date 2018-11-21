@@ -7,6 +7,7 @@ from django.test import Client, TestCase
 
 from wagtail.wagtailcore.models import Site
 
+from directory.warnings import WarningLevel
 from directory.models import DirectoryEntry, ScanResult, SecuredropOwner
 from directory.tests.factories import DirectoryEntryFactory, ScanResultFactory, DirectoryPageFactory
 
@@ -92,32 +93,32 @@ class ScanResultTest(TestCase):
         self.securedrop.save()
 
     def test_instance_on_subdomain_gets_moderate_warning(self):
-        result = ScanResultFactory(subdomain=True)
-        self.assertEqual(result.warning_level(), 'moderate')
+        result = ScanResultFactory(no_failures=True, subdomain=True)
+        self.assertEqual(self.securedrop.get_warnings(result)[0].level, WarningLevel.MODERATE)
 
     def test_instance_with_incorrect_referrer_policy_gets_moderate_warning(self):
-        result = ScanResultFactory(referrer_policy_set_to_no_referrer=False)
-        self.assertEqual(result.warning_level(), 'moderate')
+        result = ScanResultFactory(no_failures=True, referrer_policy_set_to_no_referrer=False)
+        self.assertEqual(self.securedrop.get_warnings(result)[0].level, WarningLevel.MODERATE)
 
     def test_instance_with_unsafe_onion_addresses_gets_moderate_warning(self):
-        result = ScanResultFactory(safe_onion_address=False)
-        self.assertEqual(result.warning_level(), 'moderate')
+        result = ScanResultFactory(no_failures=True, safe_onion_address=False)
+        self.assertEqual(self.securedrop.get_warnings(result)[0].level, WarningLevel.MODERATE)
 
     def test_instance_with_third_party_cookies_gets_no_warning(self):
-        result = ScanResultFactory(no_cookies=False)
-        self.assertEqual(result.warning_level(), 'none')
+        result = ScanResultFactory(no_failures=True, no_cookies=False)
+        self.assertEqual(self.securedrop.get_warnings(result), [])
 
     def test_instance_with_analytics_gets_severe_warning(self):
-        result = ScanResultFactory(no_analytics=False)
-        self.assertEqual(result.warning_level(), 'severe')
+        result = ScanResultFactory(no_failures=True, no_analytics=False)
+        self.assertEqual(self.securedrop.get_warnings(result)[0].level, WarningLevel.SEVERE)
 
     def test_instance_with_cdn_gets_severe_warning(self):
-        result = ScanResultFactory(no_cdn=False)
-        self.assertEqual(result.warning_level(), 'severe')
+        result = ScanResultFactory(no_failures=True, no_cdn=False)
+        self.assertEqual(self.securedrop.get_warnings(result)[0].level, WarningLevel.SEVERE)
 
     def test_instance_with_cross_domain_assets_gets_severe_warning(self):
-        result = ScanResultFactory(no_cross_domain_assets=False)
-        self.assertEqual(result.warning_level(), 'severe')
+        result = ScanResultFactory(no_failures=True, no_cross_domain_assets=False)
+        self.assertEqual(self.securedrop.get_warnings(result)[0].level, WarningLevel.SEVERE)
 
     def test_grade_computed_on_save(self):
         result = ScanResult(live=True, hsts=True, hsts_max_age=True,
