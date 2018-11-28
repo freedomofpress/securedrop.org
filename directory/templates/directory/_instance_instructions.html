@@ -46,10 +46,10 @@
 	</p>
 
 	{% if show_warnings %}
-		<div class="instance-alert instance-alert--{{ warning_level }}">
-			{% if warning_level == "moderate" %}
+		<div class="instance-alert instance-alert--{% if highest_warning_level.is_moderate %}moderate{% endif %}{% if highest_warning_level.is_severe %}severe{% endif %}">
+			{% if highest_warning_level.is_moderate %}
 				{% include "common/_svg.html" with class="instance-alert__icon" svg="images/instance-status/Warning.svg" img="images/instance-status/Warning.png" alt="Moderate Warning Icon" %}
-			{% elif warning_level == 'severe' %}
+			{% elif highest_warning_level.is_severe %}
 				{% include "common/_svg.html" with class="instance-alert__icon" svg="images/instance-status/Error.svg" img="images/instance-status/Error.png" alt="Severe Warning Icon" %}
 			{% endif %}
 			<div class="instance-alert__content">
@@ -69,18 +69,18 @@
 		</div>
 	{% endif %}
 
-	<a href="{{ page.landing_page_url }}" class="instance-instructions__landing-page-button{% ifequal warning_level 'severe' %}--danger{% endifequal %}{% ifequal warning_level 'moderate' %}--warning{% endifequal %}">
-		<div class="instance-instructions__landing-page-button-text{% ifequal warning_level 'severe' %}--danger{% endifequal %}{% ifequal warning_level 'moderate' %}--warning{% endifequal %}">
+	<a href="{{ page.landing_page_url }}" class="instance-instructions__landing-page-button{% if highest_warning_level.is_severe %}--danger{% endif %}{% if highest_warning_level.is_moderate %}--warning{% endif %}">
+		<div class="instance-instructions__landing-page-button-text{% if highest_warning_level.is_severe %}--danger{% endif %}{% if highest_warning_level.is_moderate %}--warning{% endif %}">
 			{% blocktrans with title=page.title %}
 				{{ title }}’s landing page
 			{% endblocktrans %}
 		</div>
-		<div class="instance-instructions__landing-page-button-url{% ifequal warning_level 'severe' %}--danger{% endifequal %}{% ifequal warning_level 'moderate' %}--warning{% endifequal %}">
+		<div class="instance-instructions__landing-page-button-url{% if highest_warning_level.is_severe %}--danger{% endif %}{% if highest_warning_level.is_moderate %}--warning{% endif %}">
 			{{ page.landing_page_url }}
 		</div>
-		{% if warning_level == "moderate" %}
+		{% if highest_warning_level.is_moderate %}
 			{% include "common/chevron-right.svg" with class="instance-instructions__landing-page-button-chevron--warning" %}
-		{% elif warning_level == "severe" %}
+		{% elif highest_warning_level.is_severe %}
 			{% include "common/chevron-right.svg" with class="instance-instructions__landing-page-button-chevron--danger" %}
 		{% endif %}
 	</a>
