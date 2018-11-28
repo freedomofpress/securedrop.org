@@ -180,6 +180,15 @@ class DirectoryEntry(MetadataPageMixin, Page):
         ('safe_onion_address', 'Links to Onion Addresses'),
     )
 
+    permitted_domains_for_assets = ArrayField(
+        models.TextField(),
+        blank=True,
+        default=[],
+        help_text=('Comma-separated list of additional domains that will not trigger '
+                   'the cross domain asset warning for this landing page.  '
+                   'Subdomains on domains in this list are ignored.  For example, '
+                   'adding "news.bbc.co.uk" permits all assets from "bbc.co.uk".'),
+    )
     warnings_ignored = ChoiceArrayField(
         models.CharField(
             max_length=50,
@@ -212,6 +221,7 @@ class DirectoryEntry(MetadataPageMixin, Page):
     settings_panels = Page.settings_panels + [
         FieldPanel('delisted'),
         FieldPanel('warnings_ignored'),
+        FieldPanel('permitted_domains_for_assets'),
     ]
 
     search_fields_pgsql = ['title', 'landing_page_url', 'onion_address', 'organization_description']
