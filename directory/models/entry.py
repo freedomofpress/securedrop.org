@@ -17,7 +17,7 @@ from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 from autocomplete.edit_handlers import AutocompleteFieldPanel
 from common.models.edit_handlers import ReadOnlyPanel
 from common.models.mixins import MetadataPageMixin
-from directory.strings import MODERATE_WARNINGS, SEVERE_WARNINGS
+from directory.warnings import WARNINGS, TestResult, WarningLevel
 from scanner.utils import url_to_domain
 from search.utils import get_search_content_by_fields
 
@@ -174,7 +174,7 @@ class DirectoryEntry(MetadataPageMixin, Page):
 
     WARNING_CHOICES = (
         ('no_cdn', 'Use of CDN'),
-        ('no_analytics', 'Use of Analytics'),
+        ('no_third_party_assets', 'Use of analytics or third party assets'),
         ('subdomain', 'Subdomain'),
         ('referrer_policy_set_to_no_referrer', 'Referer Policy'),
         ('safe_onion_address', 'Links to Onion Addresses'),
@@ -221,10 +221,25 @@ class DirectoryEntry(MetadataPageMixin, Page):
         context['show_warnings'] = request.GET.get('warnings') == '1'
         if context['show_warnings']:
             try:
-                context['warning_level'] = self.get_live_result().warning_level(self.warnings_ignored)
+                result = self.get_live_result()
             except ScanResult.DoesNotExist:
                 del context['show_warnings']
+                return context
 
+            messages = []
+            context['highest_warning_level'] = WarningLevel.NONE
+            warnings = self.get_warnings(result)
+            for warning in warnings:
+                if warning.level.value > context['highest_warning_level'].value:
+                    context['highest_warning_level'] = warning.level
+
+                messages.append(
+                    warning.message.format(
+                        'This SecureDrop landing page',
+                        domain=url_to_domain(result.landing_page_url),
+                    )
+                )
+            context['warning_messages'] = messages
         return context
 
     def serve(self, request):
@@ -240,31 +255,14 @@ class DirectoryEntry(MetadataPageMixin, Page):
         # Used in template to get the latest live result.
         return self.results.filter(live=True).latest()
 
-    def get_warnings(self):
-        result = self.get_live_result()
+    def get_warnings(self, result):
         warnings = []
-        warning_level = result.warning_level(self.warnings_ignored)
 
-        if warning_level == 'moderate':
-            for i, (attribute, message) in enumerate(MODERATE_WARNINGS):
-                if attribute in self.warnings_ignored:
-                    continue
-                if attribute == 'subdomain' and result.subdomain is True:
-                    warnings.append(
-                        message.format(
-                            'This SecureDrop landing page',
-                            self,
-                            domain=url_to_domain(result.landing_page_url)
-                        )
-                    )
-                elif attribute != 'subdomain' and getattr(result, attribute) is False:
-                    warnings.append(message.format('This SecureDrop landing page', self))
-        elif warning_level == 'severe':
-            for attribute, message in SEVERE_WARNINGS:
-                if attribute in self.warnings_ignored:
-                    continue
-                if getattr(result, attribute) is False:
-                    warnings.append(message.format('This SecureDrop landing page', self))
+        for warning in WARNINGS:
+            if warning.name in self.warnings_ignored:
+                continue
+            if warning.test(result) == TestResult.FAIL:
+                warnings.append(warning)
         return warnings
 
     def get_search_content(self):
@@ -426,33 +424,6 @@ class ScanResult(models.Model):
 
     def __str__(self):
         return 'Scan result for {}'.format(self.landing_page_url)
-
-    def warning_level(self, warnings_ignored=[]):
-        SEVERE_CONDITIONS = {
-            'no_cdn': False,
-            'no_analytics': False,
-            'no_cross_domain_assets': False,
-        }
-
-        MODERATE_CONDITIONS = {
-            'subdomain': True,
-            'referrer_policy_set_to_no_referrer': False,
-            'safe_onion_address': False,
-        }
-
-        for attr, warn_condition in SEVERE_CONDITIONS.items():
-            if attr in warnings_ignored:
-                continue
-            if getattr(self, attr) is warn_condition:
-                return 'severe'
-
-        for attr, warn_condition in MODERATE_CONDITIONS.items():
-            if attr in warnings_ignored:
-                continue
-            if getattr(self, attr) is warn_condition:
-                return 'moderate'
-
-        return 'none'
 
     def compute_grade(self):
         if self.live is False:

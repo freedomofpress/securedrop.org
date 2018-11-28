@@ -143,7 +143,7 @@ class DirectorySevereWarningTest(TestCase):
         )
 
     def test_warning_message_suppressed_if_page_ignores_all_triggered_warnings(self):
-        self.entry.warnings_ignored = ['no_analytics']
+        self.entry.warnings_ignored = ['no_third_party_assets']
         self.entry.save()
         self.entry.refresh_from_db()
         response = self.client.get(self.entry.url, {'warnings': '1'})
