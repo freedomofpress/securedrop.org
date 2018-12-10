@@ -19,7 +19,7 @@ if TYPE_CHECKING:
     from directory.models import DirectoryEntryQuerySet  # noqa: F401
 
 
-def perform_scan(url: str) -> ScanResult:
+def perform_scan(url: str, permitted_domains: List[str]) -> ScanResult:
     try:
         page, soup = request_and_scrape_page(url)
 
@@ -46,7 +46,7 @@ def perform_scan(url: str) -> ScanResult:
         return ScanResult(**scan_data)
 
     assets = extract_assets(soup, url)
-    asset_results = parse_assets(assets, url)
+    asset_results = parse_assets(assets, [tldextract.extract(url).registered_domain] + permitted_domains)
     scan_data.update(asset_results)
 
     pshtt_results = inspect_domains([url_to_domain(page.url)], {'timeout': 10})
@@ -64,7 +64,11 @@ def scan(entry: DirectoryEntry, commit=False) -> ScanResult:
     the commit argument, which will save the result to the database. In that
     case, the passed DirectoryEntry *must* already be in the database.
     """
-    result = perform_scan(entry.landing_page_url)
+    permitted_domains = [
+        tldextract.extract(d).registered_domain
+        for d in entry.permitted_domains_for_assets
+    ]
+    result = perform_scan(entry.landing_page_url, permitted_domains)
 
     if commit:
         result.save()
@@ -85,7 +89,11 @@ def bulk_scan(securedrops: 'DirectoryEntryQuerySet') -> None:
 
     results_to_be_written = []
     for entry in securedrops:
-        current_result = perform_scan(entry.landing_page_url)
+        permitted_domains = [
+            tldextract.extract(d).registered_domain
+            for d in entry.permitted_domains_for_assets
+        ]
+        current_result = perform_scan(entry.landing_page_url, permitted_domains)
 
         # This is usually handled by Result.save, but since we're doing a
         # bulk save, we need to do it here
@@ -161,10 +169,7 @@ def parse_page_data(page: requests.models.Response) -> Dict[str, bool]:
     return http_response_data
 
 
-def parse_assets(assets, landing_page_url: str) -> Dict[str, bool]:
-    # ignore subdomain attribute
-    (_, landing_page_domain, landing_page_suffix) = tldextract.extract(landing_page_url)
-
+def parse_assets(assets, permitted_domains: List[str]) -> Dict[str, bool]:
     summary = ''
     ignored_summary = ''
     no_cross_domain_assets = True
@@ -174,18 +179,22 @@ def parse_assets(assets, landing_page_url: str) -> Dict[str, bool]:
 
     for asset in assets:
         # ignore subdomain attribute
-        (_, asset_domain, asset_suffix) = tldextract.extract(asset.resource)
+        extracted = tldextract.extract(asset.resource)
+        (_, asset_domain, asset_suffix) = extracted
         if not (asset_domain and asset_suffix):
             # we've extracted something that probably is not a real domain
             continue
 
-        if (asset_domain != landing_page_domain or asset_suffix != landing_page_suffix):
-            # Ignore 'script-resource' and 'script-embed' assets, these
-            # are causing a lot of false positives
-            if asset.kind in ('script-resource', 'script-embed'):
-                ignored_assets.append(asset)
-                continue
-            third_party_assets.append(asset)
+        if extracted.registered_domain in permitted_domains:
+            continue
+
+        # Ignore 'script-resource' and 'script-embed' assets, these
+        # are causing a lot of false positives
+        if asset.kind in ('script-resource', 'script-embed'):
+            ignored_assets.append(asset)
+            continue
+
+        third_party_assets.append(asset)
 
     if ignored_assets:
         ignored_summary = summarize_assets(ignored_assets)

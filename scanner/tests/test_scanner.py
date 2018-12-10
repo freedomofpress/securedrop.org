@@ -5,6 +5,7 @@ from django.test import TestCase
 import vcr
 
 from scanner import scanner
+from scanner.assets import Asset
 from scanner.tests.utils import (
     NON_EXISTENT_URL,
     requests_get_mock,
@@ -233,6 +234,28 @@ class ScannerTest(TestCase):
             0, DirectoryEntry.objects.get(pk=securedrop.pk).results.count()
         )
 
+    @vcr.use_cassette(os.path.join(VCR_DIR, 'full-scan-site-live.yaml'))
+    def test_scan_with_permitted_domains_with_subdomain(self):
+        securedrop = DirectoryEntryFactory.create(
+            title='Freedom of the Press Foundation',
+            landing_page_url='https://securedrop.org',
+            onion_address='notreal.onion',
+            permitted_domains_for_assets=['analytics.freedom.press'],
+        )
+        result = scanner.scan(securedrop)
+        self.assertEqual(result.no_cross_domain_assets, True)
+
+    @vcr.use_cassette(os.path.join(VCR_DIR, 'nytimes-tips.yaml'))
+    def test_scan_with_permitted_domain(self):
+        securedrop = DirectoryEntryFactory.create(
+            title='Freedom of the Press Foundation',
+            landing_page_url='https://www.nytimes.com/tips',
+            onion_address='notreal.onion',
+            permitted_domains_for_assets=['nyt.com'],
+        )
+        result = scanner.scan(securedrop)
+        self.assertEqual(result.no_cross_domain_assets, True)
+
     @vcr.use_cassette(os.path.join(VCR_DIR, 'bulk-scan.yaml'))
     def test_bulk_scan(self):
         """
@@ -392,3 +415,35 @@ class ScannerCrossDomainRedirect(TestCase):
 
         r = scanner.scan(entry)
         self.assertFalse(r.no_cross_domain_redirects)
+
+
+class AssetParsingTest(TestCase):
+    def test_should_skip_assets_from_non_domains(self):
+        assets = [
+            Asset(resource='not-a-domain', kind='img-src', initiator='z.com'),
+        ]
+
+        self.assertEqual(
+            scanner.parse_assets(assets, ['z.com', 'b.com']),
+            {
+                'ignored_cross_domain_assets': '',
+                'no_cross_domain_assets': True,
+                'cross_domain_asset_summary': '',
+            }
+        )
+
+    def test_should_skip_assets_on_permitted_domains(self):
+        assets = [
+            Asset(resource='http://a.com/a.gif', kind='img-src', initiator='z.com'),
+            Asset(resource='http://b.com/b.gif', kind='img-src', initiator='z.com'),
+            Asset(resource='http://z.com/z.gif', kind='img-src', initiator='z.com'),
+        ]
+
+        self.assertEqual(
+            scanner.parse_assets(assets, ['z.com', 'b.com']),
+            {
+                'ignored_cross_domain_assets': '',
+                'no_cross_domain_assets': False,
+                'cross_domain_asset_summary': """z.com\n  * (img-src) http://a.com/a.gif\n"""
+            }
+        )
