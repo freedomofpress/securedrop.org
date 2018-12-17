@@ -5,6 +5,15 @@ from typing import Set, List
 WEB_URL_REGEX = re.compile(r"""\b((?:https?:\/\/)?(?:[\da-z\.-]+)\.(?:[a-z\.]{2,6})(?:[\/\w\.-?]*)*\/?)""")
 
 
+# Request headers to be sent when the scanner makes requests to a
+# landing page or its assets.  Note that failure to include a
+# User-Agent header can sometimes result in false negatives or other
+# unexpected scan results.
+HEADERS = {
+    'User-Agent': 'SecureDrop Landing Page Scanner 0.1.0',
+}
+
+
 def url_to_domain(url: str) -> str:
     # Split off the protocol
     if len(url.split('//')) > 1:
