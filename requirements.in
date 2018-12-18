@@ -29,3 +29,4 @@ django-allauth-2fa
 django-csp
 zxcvbn-python
 requests>=2.20.0
+urllib3>=1.23
