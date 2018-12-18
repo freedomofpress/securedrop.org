@@ -45,13 +45,6 @@ def subdomain_test(scan_result):
         return TestResult.PASS
 
 
-def cdn_test(scan_result):
-    if scan_result.no_cdn:
-        return TestResult.PASS
-    else:
-        return TestResult.FAIL
-
-
 def third_party_asset_test(scan_result):
     if scan_result.no_analytics and scan_result.no_cross_domain_assets:
         return TestResult.PASS
@@ -60,13 +53,6 @@ def third_party_asset_test(scan_result):
 
 
 WARNINGS = [
-    Warning(
-        'no_cdn',
-        cdn_test,
-        WarningLevel.SEVERE,
-        '{} uses a CDN.'
-    ),
-
     Warning(
         'no_third_party_assets',
         third_party_asset_test,
