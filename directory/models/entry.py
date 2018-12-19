@@ -7,11 +7,13 @@ from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from django.contrib.postgres.fields import ArrayField
 
 from wagtail.wagtailcore.models import Page, PageManager, PageQuerySet
+from wagtail.wagtailcore import hooks
 from wagtail.wagtailadmin.edit_handlers import (
     FieldPanel,
     InlinePanel,
     MultiFieldPanel,
 )
+from wagtail.wagtailadmin import messages
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
 
 from autocomplete.edit_handlers import AutocompleteFieldPanel
@@ -288,6 +290,21 @@ class DirectoryEntry(MetadataPageMixin, Page):
         from directory.models import ScanResult
         super(DirectoryEntry, self).save(*args, **kwargs)
         ScanResult.objects.filter(landing_page_url=self.landing_page_url).update(securedrop=self)
+
+
+@hooks.register('after_edit_page')
+def scan_directory_entry_after_edit(request, page):
+    from scanner import scanner
+
+    if isinstance(page, DirectoryEntry):
+        try:
+            scanner.scan(page, commit=True)
+            messages.success(request, "Scan of '{}' complete.".format(page.title))
+        except Exception as e:
+            messages.error(
+                request,
+                "Error during scan of '{}': {!r}".format(page.title, e)
+            )
 
 
 class SecuredropOwner(models.Model):
