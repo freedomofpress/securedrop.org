@@ -112,9 +112,10 @@ class ScanResultTest(TestCase):
         result = ScanResultFactory(no_failures=True, no_analytics=False)
         self.assertEqual(self.securedrop.get_warnings(result)[0].level, WarningLevel.SEVERE)
 
-    def test_instance_with_cdn_gets_severe_warning(self):
+    def test_instance_with_cdn_gets_no_warning(self):
         result = ScanResultFactory(no_failures=True, no_cdn=False)
-        self.assertEqual(self.securedrop.get_warnings(result)[0].level, WarningLevel.SEVERE)
+
+        self.assertEqual(self.securedrop.get_warnings(result), [])
 
     def test_instance_with_cross_domain_assets_gets_severe_warning(self):
         result = ScanResultFactory(no_failures=True, no_cross_domain_assets=False)
