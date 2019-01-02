@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 from scanner.assets import (
     Asset,
     extract_assets,
+    fetch_asset,
     parse_srcset,
     urls_from_css,
     urls_from_css_declarations,
@@ -260,6 +261,19 @@ class AssetExtractionTestCase(TestCase):
                 ),
             ],
             extract_assets(soup, self.test_url),
+        )
+
+
+class TestAssetFetching(TestCase):
+    @mock.patch('scanner.assets.requests.get')
+    def test_should_send_headers_in_request_for_assets(self, requests_get):
+        asset_url = 'example.gif'
+        site_url = 'http://example.com'
+        fetch_asset(asset_url, site_url)
+
+        requests_get.assert_called_once_with(
+            'http://example.com/example.gif',
+            headers={'User-Agent': 'SecureDrop Landing Page Scanner 0.1.0'},
         )
 
 

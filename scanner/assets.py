@@ -7,6 +7,7 @@ import tinycss2
 from typing import List
 from bs4 import BeautifulSoup
 
+from scanner.utils import HEADERS
 from scanner.utils import extract_strings, extract_urls
 
 
@@ -174,7 +175,9 @@ def fetch_asset(asset_url: str, site_url: str) -> requests.models.Response:
     if not asset_url.netloc:
         asset_url = asset_url._replace(netloc=site_url.netloc)
 
-    return requests.get(asset_url.geturl())
+    # Note: headers include User-Agent which is required for correct
+    # scanning.
+    return requests.get(asset_url.geturl(), headers=HEADERS)
 
 
 def parse_srcset(srcset: str) -> List[str]:

@@ -12,7 +12,7 @@ import tldextract
 from django.utils import timezone
 
 from directory.models import ScanResult, DirectoryEntry
-from scanner.utils import url_to_domain
+from scanner.utils import url_to_domain, HEADERS
 from scanner.assets import extract_assets, Asset
 
 if TYPE_CHECKING:
@@ -120,11 +120,22 @@ def bulk_scan(securedrops: 'DirectoryEntryQuerySet') -> None:
 
 def request_and_scrape_page(url: str, allow_redirects: bool = True) -> Tuple[requests.models.Response, BeautifulSoup]:
     """Scrape and parse the HTML of a page into a BeautifulSoup"""
+
+    # Note: headers include User-Agent which is required for correct
+    # scanning.
     try:
-        page = requests.get(url, allow_redirects=allow_redirects)
+        page = requests.get(
+            url,
+            allow_redirects=allow_redirects,
+            headers=HEADERS,
+        )
         soup = BeautifulSoup(page.content, "lxml")
     except requests.exceptions.MissingSchema:
-        page = requests.get('https://{}'.format(url), allow_redirects=allow_redirects)
+        page = requests.get(
+            'https://{}'.format(url),
+            allow_redirects=allow_redirects,
+            headers=HEADERS,
+        )
         soup = BeautifulSoup(page.content, "lxml")
 
     return page, soup

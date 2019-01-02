@@ -343,6 +343,18 @@ class ScannerTest(TestCase):
         r = scanner.scan(entry, commit=True)
         self.assertIsNotNone(r.forces_https)
 
+    @mock.patch('scanner.scanner.requests.get')
+    def test_should_call_requests_with_correct_arguments(self, requests_get):
+        requests_get.return_value = mock.Mock(content='')
+        scanner.request_and_scrape_page(NON_EXISTENT_URL)
+        requests_get.assert_called_once_with(
+            NON_EXISTENT_URL,
+            allow_redirects=True,
+            headers={
+                'User-Agent': 'SecureDrop Landing Page Scanner 0.1.0',
+            },
+        )
+
 
 class ScannerRedirectionSuccess(TestCase):
     @vcr.use_cassette(os.path.join(VCR_DIR, 'scan-with-good-redirection.yaml'))
