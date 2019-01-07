@@ -52,6 +52,23 @@ class ScannerTest(TestCase):
         result = scanner.scan(securedrop)
         self.assertFalse(result.live)
 
+    @mock.patch('scanner.scanner.requests.get', new=requests_get_mock)
+    @mock.patch('pshtt.pshtt.requests.get', new=requests_get_mock)
+    @vcr.use_cassette(os.path.join(VCR_DIR, 'full-scan-site-not-live.yaml'))
+    def test_scan_returns_reurns_url_if_site_not_live(self):
+        """
+        If a site cannot be connected to, scanner should return a ScanResult
+        with the URL attribute set.
+
+        """
+        securedrop = DirectoryEntry(
+            title='Freedom of the Press Foundation',
+            landing_page_url=NON_EXISTENT_URL,
+            onion_address='notreal.onion'
+        )
+        result = scanner.scan(securedrop)
+        self.assertEqual(result.landing_page_url, NON_EXISTENT_URL)
+
     @vcr.use_cassette(os.path.join(VCR_DIR, 'full-scan-site-live.yaml'))
     def test_scan_returns_result_if_site_live(self):
         """

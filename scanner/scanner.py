@@ -20,6 +20,11 @@ if TYPE_CHECKING:
 
 
 def perform_scan(url: str, permitted_domains: List[str]) -> ScanResult:
+    scan_data = {
+        'live': False,
+        'landing_page_url': url,
+    }
+
     try:
         page, soup = request_and_scrape_page(url)
 
@@ -27,15 +32,9 @@ def perform_scan(url: str, permitted_domains: List[str]) -> ScanResult:
         # Connection timed out, an invalid HTTP response was returned, or
         # a network problem occurred.
         # Catch the base class exception for these cases.
-        return ScanResult(
-            live=False,
-            http_status_200_ok=False,
-        )
+        scan_data['http_status_200_ok'] = False
+        return ScanResult(**scan_data)
 
-    scan_data = {
-        'live': False,
-        'landing_page_url': url,
-    }
     http_response_data = parse_page_data(page)
     scan_data.update(http_response_data)
 
