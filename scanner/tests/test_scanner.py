@@ -445,6 +445,19 @@ class ScannerCrossDomainRedirect(TestCase):
         r = scanner.scan(entry)
         self.assertFalse(r.no_cross_domain_redirects)
 
+    @vcr.use_cassette(os.path.join(VCR_DIR, 'scan-with-cross-domain-redirection.yaml'))
+    def test_if_cross_domain_redirect_found_continue_to_scan(self):
+        """if a cross-domain redirect is found, then we should make a full scan
+of target domain"""
+        entry = DirectoryEntryFactory.create(
+            title='SecureDrop',
+            landing_page_url='https://httpbin.org/redirect-to?url=http%3A%2F%2Fwww.google.com&status_code=302',
+            onion_address='notreal.onion',
+        )
+        r = scanner.scan(entry)
+        self.assertTrue(r.live)
+        self.assertTrue(r.no_cross_domain_assets)
+
 
 class AssetParsingTest(TestCase):
     def test_should_skip_assets_from_non_domains(self):

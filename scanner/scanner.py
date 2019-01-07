@@ -41,9 +41,6 @@ def perform_scan(url: str, permitted_domains: List[str]) -> ScanResult:
     content_data = parse_soup_data(soup)
     scan_data.update(content_data)
 
-    if http_response_data['no_cross_domain_redirects'] is False:
-        return ScanResult(**scan_data)
-
     assets = extract_assets(soup, url)
     asset_results = parse_assets(assets, [tldextract.extract(url).registered_domain] + permitted_domains)
     scan_data.update(asset_results)
