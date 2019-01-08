@@ -52,6 +52,23 @@ class ScannerTest(TestCase):
         result = scanner.scan(securedrop)
         self.assertFalse(result.live)
 
+    @mock.patch('scanner.scanner.requests.get', new=requests_get_mock)
+    @mock.patch('pshtt.pshtt.requests.get', new=requests_get_mock)
+    @vcr.use_cassette(os.path.join(VCR_DIR, 'full-scan-site-not-live.yaml'))
+    def test_scan_returns_reurns_url_if_site_not_live(self):
+        """
+        If a site cannot be connected to, scanner should return a ScanResult
+        with the URL attribute set.
+
+        """
+        securedrop = DirectoryEntry(
+            title='Freedom of the Press Foundation',
+            landing_page_url=NON_EXISTENT_URL,
+            onion_address='notreal.onion'
+        )
+        result = scanner.scan(securedrop)
+        self.assertEqual(result.landing_page_url, NON_EXISTENT_URL)
+
     @vcr.use_cassette(os.path.join(VCR_DIR, 'full-scan-site-live.yaml'))
     def test_scan_returns_result_if_site_live(self):
         """
@@ -427,6 +444,19 @@ class ScannerCrossDomainRedirect(TestCase):
 
         r = scanner.scan(entry)
         self.assertFalse(r.no_cross_domain_redirects)
+
+    @vcr.use_cassette(os.path.join(VCR_DIR, 'scan-with-cross-domain-redirection.yaml'))
+    def test_if_cross_domain_redirect_found_continue_to_scan(self):
+        """if a cross-domain redirect is found, then we should make a full scan
+of target domain"""
+        entry = DirectoryEntryFactory.create(
+            title='SecureDrop',
+            landing_page_url='https://httpbin.org/redirect-to?url=http%3A%2F%2Fwww.google.com&status_code=302',
+            onion_address='notreal.onion',
+        )
+        r = scanner.scan(entry)
+        self.assertTrue(r.live)
+        self.assertTrue(r.no_cross_domain_assets)
 
 
 class AssetParsingTest(TestCase):
