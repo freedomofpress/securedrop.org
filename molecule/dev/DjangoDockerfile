@@ -1,7 +1,7 @@
-FROM quay.io/freedomofpress/ci-python
+FROM python:3.4-slim
 
 RUN apt-get update && apt-get install -y \
-        gcc libssl-dev paxctl curl \
+        gcc git libssl-dev paxctl curl \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN adduser gcorn
 COPY dev-requirements.txt /requirements.txt

@@ -69,7 +69,7 @@ update-pip-dependencies: ## Uses pip-compile to update requirements.txt
 # It is critical that we run pip-compile via the same Python version
 # that we're generating requirements for, otherwise the versions may
 # be resolved differently.
-	docker run -v "$(DIR):/code" -it quay.io/freedomofpress/ci-python \
+	docker run -v "$(DIR):/code" -it python:3.4-slim \
 		bash -c 'pip install pip-tools && \
 		pip-compile --no-header --output-file /code/requirements.txt /code/requirements.in && \
 		pip-compile --no-header --output-file /code/dev-requirements.txt /code/dev-requirements.in'
@@ -80,13 +80,13 @@ update-pip-dependencies: ## Uses pip-compile to update requirements.txt
 .PHONY: flake8
 flake8: ## Runs flake8 linting in Python3 container.
 	@docker run -v $(PWD):/code -w /code --name fpf_www_flake8 --rm \
-		quay.io/freedomofpress/ci-python \
+		python:3.4-slim \
 		bash -c "pip install -q flake8 && flake8"
 
 .PHONY: bandit
 bandit: ## Runs bandit static code analysis in Python3 container.
 	@docker run -it -v $(PWD):/code -w /code --name fpf_www_bandit --rm \
-		quay.io/freedomofpress/ci-python \
+		python:3.4-slim \
 		bash -c "pip install -q --upgrade bandit && bandit --recursive . -ll --exclude devops,node_modules,molecule,.venv"
 
 .PHONY: clean
