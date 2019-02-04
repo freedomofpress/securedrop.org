@@ -20,8 +20,8 @@ colorama==0.3.9           # via molecule, python-gilt
 configparser==3.5.0       # via flake8
 cookiecutter==1.6.0       # via molecule
 cryptography==2.3.1
-docker-pycreds==0.3.0     # via docker
-docker==2.7.0
+docker-pycreds==0.4.0     # via docker
+docker==3.7.0
 dparse==0.4.1             # via safety
 enum34==1.1.6             # via cryptography, flake8
 fasteners==0.14.1         # via python-gilt
