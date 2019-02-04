@@ -57,9 +57,7 @@ class BlogPage(MetadataPageMixin, Page):
     category = models.ForeignKey(
         # Likely a CategoryPage
         'wagtailcore.Page',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
+        on_delete=models.PROTECT,
         related_name='+',
     )
 
