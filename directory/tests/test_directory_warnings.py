@@ -16,7 +16,7 @@ class DirectoryNoResultsTest(TestCase):
         )
 
     def test_warnings_if_no_scan_results_exist(self):
-        response = self.client.get(self.entry.url, {'warnings': '1'})
+        response = self.client.get(self.entry.url)
         self.assertEqual(response.status_code, 200)
 
 
@@ -36,8 +36,8 @@ class DirectoryNoWarningTest(TestCase):
 
         self.client = Client()
 
-    def test_thing(self):
-        response = self.client.get(self.entry.url, {'warnings': '1'})
+    def test_page_request_should_succeed_if_no_warnings_on_result(self):
+        response = self.client.get(self.entry.url)
         self.assertEqual(response.status_code, 200)
 
 
@@ -58,19 +58,9 @@ class DirectoryModerateWarningTest(TestCase):
         self.client = Client()
 
     def test_warning_presence(self):
-        """warning should be displayed if warnings flag in request"""
-        response = self.client.get(self.entry.url, {'warnings': '1'})
-        self.assertContains(
-            response,
-            'We recommend only visiting this SecureDrop landing page <a href="https://www.torproject.org/download/download-easy.html.en">using the Tor browser</a>.',
-            status_code=200,
-        )
-
-    def test_warning_test_absence(self):
-        """warning should not be displayed if warnings flag not in request"""
+        """warning should always be displayed"""
         response = self.client.get(self.entry.url)
-
-        self.assertNotContains(
+        self.assertContains(
             response,
             'We recommend only visiting this SecureDrop landing page <a href="https://www.torproject.org/download/download-easy.html.en">using the Tor browser</a>.',
             status_code=200,
@@ -80,7 +70,7 @@ class DirectoryModerateWarningTest(TestCase):
         self.entry.warnings_ignored = ['safe_onion_address']
         self.entry.save()
 
-        response = self.client.get(self.entry.url, {'warnings': '1'})
+        response = self.client.get(self.entry.url)
 
         self.assertNotContains(
             response,
@@ -94,7 +84,7 @@ class DirectoryModerateWarningTest(TestCase):
         self.entry.warnings_ignored = ['safe_onion_address']
         self.entry.save()
 
-        response = self.client.get(self.entry.url, {'warnings': '1'})
+        response = self.client.get(self.entry.url)
         self.assertContains(
             response,
             'is hosted on a subdomain',
@@ -126,17 +116,8 @@ class DirectorySevereWarningTest(TestCase):
 
     def test_warning_presence(self):
         """warning should be displayed if warnings flag in request"""
-        response = self.client.get(self.entry.url, {'warnings': '1'})
-        self.assertContains(
-            response,
-            'We strongly advise you to only visit this landing page <a href="https://www.torproject.org/download/download-easy.html.en">using the Tor browser</a>, with the <a href="https://tb-manual.torproject.org/en-US/security-slider.html">security slider</a> set to "safest".',
-            status_code=200,
-        )
-
-    def test_warning_test_absence(self):
-        """warning should not be displayed if warnings flag not in request"""
         response = self.client.get(self.entry.url)
-        self.assertNotContains(
+        self.assertContains(
             response,
             'We strongly advise you to only visit this landing page <a href="https://www.torproject.org/download/download-easy.html.en">using the Tor browser</a>, with the <a href="https://tb-manual.torproject.org/en-US/security-slider.html">security slider</a> set to "safest".',
             status_code=200,
@@ -146,7 +127,7 @@ class DirectorySevereWarningTest(TestCase):
         self.entry.warnings_ignored = ['no_third_party_assets']
         self.entry.save()
         self.entry.refresh_from_db()
-        response = self.client.get(self.entry.url, {'warnings': '1'})
+        response = self.client.get(self.entry.url)
         self.assertNotContains(
             response,
             'We strongly advise you to only visit this landing page <a href="https://www.torproject.org/download/download-easy.html.en">using the Tor browser</a>, with the <a href="https://tb-manual.torproject.org/en-US/security-slider.html">security slider</a> set to "safest".',

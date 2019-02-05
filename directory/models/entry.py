@@ -230,28 +230,30 @@ class DirectoryEntry(MetadataPageMixin, Page):
 
     def get_context(self, request):
         context = super(DirectoryEntry, self).get_context(request)
-        context['show_warnings'] = request.GET.get('warnings') == '1'
-        if context['show_warnings']:
-            try:
-                result = self.get_live_result()
-            except ScanResult.DoesNotExist:
-                del context['show_warnings']
-                return context
 
-            messages = []
-            context['highest_warning_level'] = WarningLevel.NONE
-            warnings = self.get_warnings(result)
-            for warning in warnings:
-                if warning.level.value > context['highest_warning_level'].value:
-                    context['highest_warning_level'] = warning.level
+        try:
+            result = self.get_live_result()
+        except ScanResult.DoesNotExist:
+            return context
 
-                messages.append(
-                    warning.message.format(
-                        'This SecureDrop landing page',
-                        domain=url_to_domain(result.landing_page_url),
-                    )
+        if not result:
+            return context
+
+        context['show_warnings'] = True
+        messages = []
+        context['highest_warning_level'] = WarningLevel.NONE
+        warnings = self.get_warnings(result)
+        for warning in warnings:
+            if warning.level.value > context['highest_warning_level'].value:
+                context['highest_warning_level'] = warning.level
+
+            messages.append(
+                warning.message.format(
+                    'This SecureDrop landing page',
+                    domain=url_to_domain(result.landing_page_url),
                 )
-            context['warning_messages'] = messages
+            )
+        context['warning_messages'] = messages
         return context
 
     def serve(self, request):
@@ -265,7 +267,7 @@ class DirectoryEntry(MetadataPageMixin, Page):
 
     def get_live_result(self):
         # Used in template to get the latest live result.
-        return self.results.filter(live=True).latest()
+        return self.results.filter(live=True).order_by('-result_last_seen').first()
 
     def get_warnings(self, result):
         warnings = []
