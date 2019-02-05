@@ -265,7 +265,7 @@ class DirectoryEntry(MetadataPageMixin, Page):
 
     def get_live_result(self):
         # Used in template to get the latest live result.
-        return self.results.filter(live=True).latest()
+        return self.results.filter(live=True).order_by('-result_last_seen')[:1].get()
 
     def get_warnings(self, result):
         warnings = []
