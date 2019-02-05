@@ -230,14 +230,16 @@ class DirectoryEntry(MetadataPageMixin, Page):
 
     def get_context(self, request):
         context = super(DirectoryEntry, self).get_context(request)
-        context['show_warnings'] = True
 
         try:
             result = self.get_live_result()
         except ScanResult.DoesNotExist:
-            del context['show_warnings']
             return context
 
+        if not result:
+            return context
+
+        context['show_warnings'] = True
         messages = []
         context['highest_warning_level'] = WarningLevel.NONE
         warnings = self.get_warnings(result)
@@ -265,7 +267,7 @@ class DirectoryEntry(MetadataPageMixin, Page):
 
     def get_live_result(self):
         # Used in template to get the latest live result.
-        return self.results.filter(live=True).order_by('-result_last_seen')[:1].get()
+        return self.results.filter(live=True).order_by('-result_last_seen').first()
 
     def get_warnings(self, result):
         warnings = []
