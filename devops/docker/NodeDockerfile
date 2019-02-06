@@ -1,0 +1,9 @@
+ARG NODE_VER
+FROM node:${NODE_VER}
+
+# Make npm output less verbose
+ENV NPM_CONFIG_LOGLEVEL warn
+
+ARG USERID
+RUN adduser -D -g "" -u "${USERID}" docker_user || true
+USER ${USERID}

@@ -1,0 +1,25 @@
+FROM python:3.4-slim
+
+RUN apt-get update && apt-get install -y \
+    curl \
+    gcc \
+    git \
+    libssl-dev \
+    netcat \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+COPY devops/docker/django-start.sh /usr/local/bin
+RUN  chmod +x /usr/local/bin/django-start.sh
+
+COPY dev-requirements.txt /requirements.txt
+RUN pip install -r /requirements.txt
+
+ARG USERID
+RUN adduser --uid "${USERID}" --disabled-password --gecos "" gcorn || true
+
+RUN  mkdir /django-logs && \
+    chown -R "$(id -nu):" /django-logs
+
+EXPOSE 8000
+USER ${USERID}
+CMD django-start.sh

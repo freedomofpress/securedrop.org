@@ -2,6 +2,11 @@
 DIR := ${CURDIR}
 WHOAMI := ${USER}
 RAND_PORT := ${RAND_PORT}
+UID := $(shell id -u)
+
+.PHONY: dev-init
+dev-init: ## Initialize docker environment for developer workflow
+	echo UID=$(UID) > .env
 
 .PHONY: ci-go
 ci-go: ## Stands-up a prod like environment under one docker container
@@ -15,37 +20,9 @@ ci-tests: ## Runs testinfra against a pre-running CI container. Useful for debug
 dev-tests: ## Run django tests against developer environment
 	docker exec sd_django /bin/bash -c "./manage.py test --noinput -k"
 
-.PHONY: dev-go
-dev-go: ## Spin-up developer environment with three docker containers
-	./devops/scripts/dev.sh
-
-.PHONY: dev-chownroot
-dev-chownroot: ## Chown root owned files caused from previous root-run containers
-	sudo find $(DIR) -user root -exec chown -Rv $(WHOAMI):$(WHOAMI) '{}' \;
-
 .PHONY: dev-createdevdata
 dev-createdevdata: ## Inject development data into the postgresql database
-	docker exec sd_django /bin/bash -c "./manage.py createdevdata"
-
-.PHONY: dev-killapp
-dev-killapp: ## Kills all developer containers.
-	docker kill sd_node sd_postgresql sd_django
-
-.PHONY: dev-resetapp
-dev-resetapp: ## Purges django/node and starts them up. Doesnt touch postgres
-	molecule converge -s dev
-
-.PHONY: dev-attach-node
-dev-attach-node: ## Provide a read-only terminal to attach to node spin-up
-	docker attach --sig-proxy=false sd_node
-
-.PHONY: dev-attach-django
-dev-attach-django: ## Provide a read-only terminal to attach to django spin-up
-	docker attach --sig-proxy=false sd_django
-
-.PHONY: dev-attach-postgresql
-dev-attach-postgresql: ## Provide a read-only terminal to attach to django spin-up
-	docker attach --sig-proxy=false sd_postgresql
+	docker-compose exec django /bin/bash -c "./manage.py createdevdata"
 
 .PHONY: dev-sass-lint
 dev-sass-lint: ## Runs sass-lint utility over the code-base
