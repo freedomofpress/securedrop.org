@@ -8,17 +8,13 @@ UID := $(shell id -u)
 dev-init: ## Initialize docker environment for developer workflow
 	echo UID=$(UID) > .env
 
-.PHONY: ci-go
-ci-go: ## Stands-up a prod like environment under one docker container
-	@molecule test -s ci
-
 .PHONY: ci-tests
 ci-tests: ## Runs testinfra against a pre-running CI container. Useful for debug
 	@molecule verify -s ci
 
 .PHONY: dev-tests
 dev-tests: ## Run django tests against developer environment
-	docker exec sd_django /bin/bash -c "./manage.py test --noinput -k"
+	docker-compose exec django /bin/bash -c "./manage.py test --noinput -k"
 
 .PHONY: dev-createdevdata
 dev-createdevdata: ## Inject development data into the postgresql database
@@ -30,7 +26,7 @@ dev-sass-lint: ## Runs sass-lint utility over the code-base
 
 .PHONY: dev-import-db
 dev-import-db: ## Imports a database dump from file named ./import.db
-	docker exec -it sd_postgresql bash -c "cat /django/import.db | sed 's/OWNER\ TO\ [a-z]*/OWNER\ TO\ postgres/g' | psql securedropdb -U postgres &> /dev/null"
+	docker-compose exec -it postgresql bash -c "cat /django/import.db | sed 's/OWNER\ TO\ [a-z]*/OWNER\ TO\ postgres/g' | psql securedropdb -U postgres &> /dev/null"
 
 .PHONY: dev-save-db
 dev-save-db: ## Save a snapshot of the database for the current git branch

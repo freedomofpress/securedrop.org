@@ -9,6 +9,7 @@ services:
       - "127.0.0.1::5432"
     volumes:
       - ./devops/docker/postgres-scripts:/docker-entrypoint-initdb.d:ro
+      - ./:/django:ro
     environment:
       POSTGRES_PASSWORD: securedroppassword
       POSTGRES_USER: securedrop
