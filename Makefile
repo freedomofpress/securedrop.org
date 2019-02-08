@@ -3,6 +3,9 @@ DIR := ${CURDIR}
 WHOAMI := ${USER}
 RAND_PORT := ${RAND_PORT}
 UID := $(shell id -u)
+GIT_REV := $(shell git rev-parse HEAD | cut -c1-10)
+GIT_BR := $(shell git rev-parse --abbrev-ref HEAD)
+SD_IMAGE := quay.io/freedomofpress/securedrop.org
 
 .PHONY: dev-init
 dev-init: ## Initialize docker environment for developer workflow
@@ -77,6 +80,12 @@ safety: ## Runs `safety check` to check python dependencies for vulnerabilities
 			&& echo -e '\n' \
 			|| exit 1; \
 		done
+
+.PHONY: prod-push
+prod-push: ## Publishes prod container image to registry
+	docker tag $(SD_IMAGE):latest $(SD_IMAGE):$(GIT_REV)-$(GIT_BR)
+	docker push $(SD_IMAGE):latest
+	docker push $(SD_IMAGE):$(GIT_REV)-$(GIT_BR)
 
 # Explaination of the below shell command should it ever break.
 # 1. Set the field separator to ": ##" and any make targets that might appear between : and ##
