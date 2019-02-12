@@ -119,7 +119,7 @@ Note that build time for this container takes much longer than the developer env
 
 .. code:: bash
 
-    docker-compose -f prod-docker-compose.yaml
+    docker-compose -f prod-docker-compose.yaml up
 
 It is not run using live-code refresh so it's not a great dev environment but is good for replicating issues
 that would come up in production.
