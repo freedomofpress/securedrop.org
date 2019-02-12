@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from wagtail.wagtailimages.api.fields import ImageRenditionField
+from wagtail.images.api.fields import ImageRenditionField
 
 from directory.models.entry import DirectoryEntry
 

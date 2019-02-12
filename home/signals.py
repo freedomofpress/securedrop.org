@@ -1,6 +1,6 @@
 from django.db.models.signals import post_save, post_delete
 
-from wagtail.contrib.wagtailfrontendcache.utils import purge_page_from_cache
+from wagtail.contrib.frontend_cache.utils import purge_page_from_cache
 
 from home.models import HomePage
 from github.models import Release

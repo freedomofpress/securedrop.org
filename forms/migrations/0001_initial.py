@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 from django.db import migrations, models
 import django.db.models.deletion
 import modelcluster.fields
-import wagtail.wagtailcore.fields
+import wagtail.core.fields
 import wagtailmetadata.models
 
 
@@ -43,9 +43,9 @@ class Migration(migrations.Migration):
                 ('to_address', models.CharField(blank=True, help_text='Optional - form submissions will be emailed to these addresses. Separate multiple addresses by comma.', max_length=255, verbose_name='to address')),
                 ('from_address', models.CharField(blank=True, max_length=255, verbose_name='from address')),
                 ('subject', models.CharField(blank=True, max_length=255, verbose_name='subject')),
-                ('intro', wagtail.wagtailcore.fields.RichTextField(blank=True)),
-                ('warning', wagtail.wagtailcore.fields.RichTextField(blank=True, help_text='A warning for sources not to submit documents via this form.')),
-                ('thank_you_text', wagtail.wagtailcore.fields.RichTextField(blank=True)),
+                ('intro', wagtail.core.fields.RichTextField(blank=True)),
+                ('warning', wagtail.core.fields.RichTextField(blank=True, help_text='A warning for sources not to submit documents via this form.')),
+                ('thank_you_text', wagtail.core.fields.RichTextField(blank=True)),
                 ('button_text', models.CharField(blank=True, max_length=30, null=True)),
                 ('search_image', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='common.CustomImage')),
             ],

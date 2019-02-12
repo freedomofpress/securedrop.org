@@ -2,7 +2,7 @@ from common.models import SocialSharingSEOSettings, CustomImage
 from home.models import HomePage
 from home.tests.factories import HomePageFactory
 
-from wagtail.wagtailcore.models import Page, Site
+from wagtail.core.models import Page, Site
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User

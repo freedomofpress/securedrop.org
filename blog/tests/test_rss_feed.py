@@ -3,7 +3,7 @@ import feedparser
 from django.test import Client
 from blog.tests.factories import BlogIndexPageFactory, BlogPageFactory
 from home.tests.factories import HomePageFactory
-from wagtail.wagtailcore.models import Page, Site
+from wagtail.core.models import Page, Site
 
 
 class RSSTest(unittest.TestCase):

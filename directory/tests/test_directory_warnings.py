@@ -1,5 +1,5 @@
 from django.test import Client, TestCase
-from wagtail.wagtailcore.models import Site
+from wagtail.core.models import Site
 
 from directory.tests.factories import (
     DirectoryEntryFactory,

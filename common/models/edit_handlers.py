@@ -3,7 +3,7 @@ from django.forms.utils import pretty_name
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
-from wagtail.wagtailadmin.edit_handlers import EditHandler
+from wagtail.admin.edit_handlers import EditHandler
 
 
 class BaseReadOnlyPanel(EditHandler):
