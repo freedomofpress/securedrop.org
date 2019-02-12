@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
-from wagtail.wagtailcore.models import Site
+from wagtail.core.models import Site
 
 from directory.models import DirectorySettings
 from directory.tests.factories import (

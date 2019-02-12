@@ -3,12 +3,12 @@ from modelcluster.fields import ParentalKey
 
 from django.utils.html import strip_tags
 from django.template.defaultfilters import truncatewords
-from wagtail.wagtailadmin.edit_handlers import StreamFieldPanel, InlinePanel
-from wagtail.wagtailcore import blocks
-from wagtail.wagtailcore.models import Page, Orderable
-from wagtail.wagtailcore.fields import StreamField, RichTextField
-from wagtail.wagtailadmin.edit_handlers import FieldPanel
-from wagtail.wagtailsnippets.edit_handlers import SnippetChooserPanel
+from wagtail.admin.edit_handlers import StreamFieldPanel, InlinePanel
+from wagtail.core import blocks
+from wagtail.core.models import Page, Orderable
+from wagtail.core.fields import StreamField, RichTextField
+from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 from common.models import MetadataPageMixin
 from common.blocks import (

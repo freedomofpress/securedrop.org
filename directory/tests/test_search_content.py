@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from directory.tests.factories import DirectoryPageFactory
-from wagtail.wagtailcore.rich_text import RichText
+from wagtail.core.rich_text import RichText
 
 
 class TestDirectoryPage(TestCase):

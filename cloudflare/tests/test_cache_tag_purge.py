@@ -8,7 +8,7 @@ from cloudflare.utils import purge_tags_from_cache, purge_all_from_cache
 
 WAGTAILFRONTENDCACHE_SETTINGS = {
     'cloudflare': {
-        'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudflareBackend',
+        'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudflareBackend',
         'EMAIL': 'CLOUDFLARE_FAKE_EMAIL',
         'TOKEN': 'CLOUDFLARE_FAKE_TOKEN',
         'ZONEID': 'CLOUDFLARE_FAKE_ZONE',

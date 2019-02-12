@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from wagtail.wagtailcore.models import Page
+from wagtail.core.models import Page
 
 from blog.tests.factories import BlogIndexPageFactory
 from home.tests.factories import HomePageFactory
@@ -9,7 +9,7 @@ from search.utils.wagtail import (
     index_wagtail_page,
     delete_wagtail_page,
 )
-from wagtail.wagtailcore.rich_text import RichText
+from wagtail.core.rich_text import RichText
 
 from search.models import SearchDocument
 

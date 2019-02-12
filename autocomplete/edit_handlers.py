@@ -1,6 +1,6 @@
 from django.apps import apps
 
-from wagtail.wagtailadmin.edit_handlers import (
+from wagtail.admin.edit_handlers import (
     BaseFieldPanel,
     BaseChooserPanel,
 )

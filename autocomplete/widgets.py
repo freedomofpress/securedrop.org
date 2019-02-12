@@ -4,7 +4,7 @@ from django.apps import apps
 from django.forms import Widget
 from django.utils.html import format_html
 
-from wagtail.wagtailcore import hooks
+from wagtail.core import hooks
 from webpack_loader.utils import get_loader
 
 from .views import render_page

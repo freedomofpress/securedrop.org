@@ -1,7 +1,7 @@
 from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailcore.signals import page_published
+from wagtail.core.models import Page
+from wagtail.core.signals import page_published
 from wagtail.contrib.settings.models import BaseSetting
 
 from cloudflare.utils import purge_all_from_cache

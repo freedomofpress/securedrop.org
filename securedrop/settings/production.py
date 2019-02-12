@@ -52,7 +52,7 @@ try:
     else:
         WAGTAILSEARCH_BACKENDS = {
             'default': {
-                'BACKEND': 'wagtail.wagtailsearch.backends.elasticsearch2',
+                'BACKEND': 'wagtail.search.backends.elasticsearch2',
                 'URLS': [es_host],
                 'INDEX': 'wagtail',
                 'TIMEOUT': 5,
@@ -68,10 +68,10 @@ except KeyError:
 # Cloudflare caching
 #
 if os.environ.get('CLOUDFLARE_TOKEN') and os.environ.get('CLOUDFLARE_EMAIL'):
-    INSTALLED_APPS.append('wagtail.contrib.wagtailfrontendcache')  # noqa: F405
+    INSTALLED_APPS.append('wagtail.contrib.frontend_cache')  # noqa: F405
     WAGTAILFRONTENDCACHE = {
         'cloudflare': {
-            'BACKEND': 'wagtail.contrib.wagtailfrontendcache.backends.CloudflareBackend',
+            'BACKEND': 'wagtail.contrib.frontend_cache.backends.CloudflareBackend',
             'EMAIL': os.environ.get('CLOUDFLARE_EMAIL'),
             'TOKEN': os.environ.get('CLOUDFLARE_TOKEN'),
             'ZONEID': os.environ.get('CLOUDFLARE_ZONEID')

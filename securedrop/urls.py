@@ -6,9 +6,9 @@ from django.contrib import admin
 from django.views.generic import TemplateView, RedirectView
 
 from search import views as search_views
-from wagtail.wagtailadmin import urls as wagtailadmin_urls
-from wagtail.wagtailcore import urls as wagtail_urls
-from wagtail.wagtaildocs import urls as wagtaildocs_urls
+from wagtail.admin import urls as wagtailadmin_urls
+from wagtail.core import urls as wagtail_urls
+from wagtail.documents import urls as wagtaildocs_urls
 
 from accounts.urls import urlpatterns as account_urls
 from autocomplete.urls.public import urlpatterns as autocomplete_public_urls
