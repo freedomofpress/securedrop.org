@@ -2,7 +2,7 @@ from directory.models import SecuredropOwner, DirectoryEntry
 from django.contrib.auth import get_user_model
 from django import forms
 from django.core.exceptions import ValidationError
-from wagtail.wagtailimages import get_image_model
+from wagtail.images import get_image_model
 from django.utils.translation import ugettext_lazy as _
 
 from autocomplete.widgets import Autocomplete

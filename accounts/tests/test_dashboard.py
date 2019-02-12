@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse_lazy
 
 from allauth.account.models import EmailAddress
 from django_otp.plugins.otp_totp.models import TOTPDevice
-from wagtail.wagtailcore.models import Site
+from wagtail.core.models import Site
 
 from common.tests.utils import (
     turn_on_instance_management,

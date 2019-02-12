@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 from django.db import transaction
 
-from wagtail.wagtailcore.models import Page
+from wagtail.core.models import Page
 
 from search.models import SearchDocument
 from search.utils.wagtail import index_wagtail_pages

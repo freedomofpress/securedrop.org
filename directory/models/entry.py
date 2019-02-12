@@ -6,15 +6,15 @@ from django.db.models import Func, F, Q, Value
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from django.contrib.postgres.fields import ArrayField
 
-from wagtail.wagtailcore.models import Page, PageManager, PageQuerySet
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailadmin.edit_handlers import (
+from wagtail.core.models import Page, PageManager, PageQuerySet
+from wagtail.core import hooks
+from wagtail.admin.edit_handlers import (
     FieldPanel,
     InlinePanel,
     MultiFieldPanel,
 )
-from wagtail.wagtailadmin import messages
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+from wagtail.admin import messages
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 from autocomplete.edit_handlers import AutocompleteFieldPanel
 from common.models.edit_handlers import ReadOnlyPanel

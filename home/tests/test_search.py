@@ -1,5 +1,5 @@
 from django.test import TestCase
-from wagtail.wagtailcore.rich_text import RichText
+from wagtail.core.rich_text import RichText
 
 from home.tests.factories import HomePageFactory
 

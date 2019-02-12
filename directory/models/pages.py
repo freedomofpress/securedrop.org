@@ -4,10 +4,10 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.utils.decorators import method_decorator
 
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
-from wagtail.contrib.wagtailroutablepage.models import RoutablePageMixin, route
-from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtailcore.models import Page
+from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
+from wagtail.contrib.routable_page.models import RoutablePageMixin, route
+from wagtail.core.fields import RichTextField
+from wagtail.core.models import Page
 
 from directory.decorators import directory_management_required
 from common.models.mixins import MetadataPageMixin

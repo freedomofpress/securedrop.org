@@ -4,7 +4,7 @@ from unittest import mock
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse_lazy
 from django.test import TestCase
-from wagtail.wagtailcore.models import Site
+from wagtail.core.models import Site
 from allauth.account.models import EmailAddress
 from django_otp.plugins.otp_totp.models import TOTPDevice
 
