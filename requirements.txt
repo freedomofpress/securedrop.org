@@ -20,7 +20,7 @@ django-settings-export==1.2.1
 django-taggit==0.22.1     # via wagtail
 django-treebeard==4.1.2   # via wagtail
 django-webpack-loader==0.5.0
-django==1.11.18
+django==1.11.20
 djangorestframework==3.6.4
 docopt==0.6.2             # via pshtt
 dominate==2.3.5           # via pytablewriter
