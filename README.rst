@@ -33,14 +33,28 @@ The installation instructions below assume you have the following software on yo
 Local Development instructions
 ------------------------------
 
-Run the following commands to get up and running. This only has to be run once:
+After both pre-requisite tools are installed. You'll need to setup the
+environment. You can do this by entering this directory and typing the following
+(should only be a one-time event):
+
 
 .. code:: bash
 
+    pipenv install
     make dev-init
 
-From here on, when you want to play with the environment, you will be using
-``docker-compose``. Your friend here to understand all the nuances of ``docker-compose``
+That will install all the pip dependencies into a local virtualenv and map your
+userid to the docker-compose dev env. Anytime in the future you enter this directory
+you'll have to re-activate that env by:
+
+.. code:: bash
+
+    pipenv shell
+    # or
+    pipenv run $command $args
+
+When you want to play with the environment, you will be using
+``docker-compose``. Your guide to understand all the nuances of ``docker-compose``
 can be found in the `official docs <https://docs.docker.com/compose/reference/>`_. To start the
 environment, run the following your first run:
 
