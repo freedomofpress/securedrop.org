@@ -16,16 +16,17 @@ django-analytical==2.4.0
 django-anymail[mailgun]==1.4
 django-csp==3.4
 django-debug-toolbar==1.9.1
-django-modelcluster==3.1
+django-modelcluster==4.3
 django-otp==0.4.1.1
 django-settings-export==1.2.1
-django-taggit==0.22.1
-django-treebeard==4.1.2
+django-taggit==0.23.0
+django-treebeard==4.3
 django-webpack-loader==0.5.0
 django==1.11.20
-djangorestframework==3.6.4
+djangorestframework==3.9.1
 docopt==0.6.2
 dominate==2.3.5
+draftjs-exporter==2.0.0
 factory-boy==2.9.2
 faker==0.8.7
 feedparser==5.2.1
@@ -89,12 +90,12 @@ unittest-xml-reporting==2.1.0
 urllib3==1.24.1
 vcrpy==1.11.1
 wagtail-factories==0.3.0
-wagtail-metadata==0.3.1
-wagtail==1.12.3
+wagtail-metadata==2.0.1
+wagtail==2.0.2
 wcwidth==0.1.7            # via prompt-toolkit
 webencodings==0.5.1
 wget==3.2
-willow==0.4
+willow==1.1
 wrapt==1.10.11
 yarl==0.15.0
 zxcvbn-python==4.4.18
