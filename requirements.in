@@ -23,6 +23,7 @@ vcrpy
 wagtail>=2.0,<2.1
 wagtail-factories
 wagtail-metadata
+wagtail-autocomplete
 unittest-xml-reporting
 django-allauth==0.34.0
 django-allauth-2fa
