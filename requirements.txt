@@ -72,7 +72,7 @@ unittest-xml-reporting==2.1.0
 urllib3==1.24.1
 vcrpy==1.11.1
 wagtail-autocomplete==0.1.1
-wagtail-factories==0.3.0
+wagtail-factories==1.1.0
 wagtail-metadata==2.0.1
 wagtail==2.0.2
 webencodings==0.5.1       # via bleach, html5lib, tinycss2
