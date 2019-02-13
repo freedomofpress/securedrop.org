@@ -16,7 +16,7 @@ from wagtail.admin.edit_handlers import (
 from wagtail.admin import messages
 from wagtail.images.edit_handlers import ImageChooserPanel
 
-from autocomplete.edit_handlers import AutocompleteFieldPanel
+from wagtailautocomplete.edit_handlers import AutocompletePanel
 from common.models.edit_handlers import ReadOnlyPanel
 from common.models.mixins import MetadataPageMixin
 from directory.warnings import WARNINGS, TestResult, WarningLevel
@@ -204,7 +204,7 @@ class DirectoryEntry(MetadataPageMixin, Page):
     )
 
     content_panels = Page.content_panels + [
-        ReadOnlyPanel('added', label='Date Added'),
+        ReadOnlyPanel('added', heading='Date Added'),
         FieldPanel('landing_page_url'),
         FieldPanel('onion_address'),
         FieldPanel('organization_description'),
@@ -213,9 +213,9 @@ class DirectoryEntry(MetadataPageMixin, Page):
             ImageChooserPanel('organization_logo_homepage'),
             FieldPanel('organization_logo_is_title'),
         ], 'Logo'),
-        AutocompleteFieldPanel('languages', 'directory.Language'),
-        AutocompleteFieldPanel('countries', 'directory.Country'),
-        AutocompleteFieldPanel('topics', 'directory.Topic'),
+        AutocompletePanel('languages', 'directory.Language', is_single=False),
+        AutocompletePanel('countries', 'directory.Country', is_single=False),
+        AutocompletePanel('topics', 'directory.Topic', is_single=False),
         InlinePanel('owners', label='Owners'),
         InlinePanel('results', label='Results'),
     ]

@@ -30,7 +30,6 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 INSTALLED_APPS = [
     'accounts',
-    'autocomplete',
     'blog',
     'cloudflare',
     'common',
@@ -64,6 +63,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
 
     'wagtailmetadata',
+    'wagtailautocomplete',
     'webpack_loader',
     'taggit',
     'analytical',

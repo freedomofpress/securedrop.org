@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 from wagtail.images import get_image_model
 from django.utils.translation import ugettext_lazy as _
 
-from autocomplete.widgets import Autocomplete
+from wagtailautocomplete.widgets import Autocomplete
 
 
 class LandingPageForm(forms.Form):
