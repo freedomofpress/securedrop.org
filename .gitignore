@@ -43,3 +43,6 @@ results.txt
 
 # ignore Visual Studio Code
 .vscode
+
+# Docker-compose env file used for passing userid
+.env

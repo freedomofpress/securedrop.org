@@ -13,4 +13,4 @@ if [ ! -d "$FOLDER" ]; then
   mkdir $FOLDER
 fi
 
-docker exec sd_postgresql pg_dump -U $OWNER --format=custom $DBNAME > $FOLDER/$DUMPFILE
+docker-compose exec postgresql pg_dump -U $OWNER --format=custom $DBNAME > $FOLDER/$DUMPFILE

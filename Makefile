@@ -2,10 +2,14 @@
 DIR := ${CURDIR}
 WHOAMI := ${USER}
 RAND_PORT := ${RAND_PORT}
+UID := $(shell id -u)
+GIT_REV := $(shell git rev-parse HEAD | cut -c1-10)
+GIT_BR := $(shell git rev-parse --abbrev-ref HEAD)
+SD_IMAGE := quay.io/freedomofpress/securedrop.org
 
-.PHONY: ci-go
-ci-go: ## Stands-up a prod like environment under one docker container
-	@molecule test -s ci
+.PHONY: dev-init
+dev-init: ## Initialize docker environment for developer workflow
+	echo UID=$(UID) > .env
 
 .PHONY: ci-tests
 ci-tests: ## Runs testinfra against a pre-running CI container. Useful for debug
@@ -13,39 +17,11 @@ ci-tests: ## Runs testinfra against a pre-running CI container. Useful for debug
 
 .PHONY: dev-tests
 dev-tests: ## Run django tests against developer environment
-	docker exec sd_django /bin/bash -c "./manage.py test --noinput -k"
-
-.PHONY: dev-go
-dev-go: ## Spin-up developer environment with three docker containers
-	./devops/scripts/dev.sh
-
-.PHONY: dev-chownroot
-dev-chownroot: ## Chown root owned files caused from previous root-run containers
-	sudo find $(DIR) -user root -exec chown -Rv $(WHOAMI):$(WHOAMI) '{}' \;
+	docker-compose exec django /bin/bash -c "./manage.py test --noinput -k"
 
 .PHONY: dev-createdevdata
 dev-createdevdata: ## Inject development data into the postgresql database
-	docker exec sd_django /bin/bash -c "./manage.py createdevdata"
-
-.PHONY: dev-killapp
-dev-killapp: ## Kills all developer containers.
-	docker kill sd_node sd_postgresql sd_django
-
-.PHONY: dev-resetapp
-dev-resetapp: ## Purges django/node and starts them up. Doesnt touch postgres
-	molecule converge -s dev
-
-.PHONY: dev-attach-node
-dev-attach-node: ## Provide a read-only terminal to attach to node spin-up
-	docker attach --sig-proxy=false sd_node
-
-.PHONY: dev-attach-django
-dev-attach-django: ## Provide a read-only terminal to attach to django spin-up
-	docker attach --sig-proxy=false sd_django
-
-.PHONY: dev-attach-postgresql
-dev-attach-postgresql: ## Provide a read-only terminal to attach to django spin-up
-	docker attach --sig-proxy=false sd_postgresql
+	docker-compose exec django /bin/bash -c "./manage.py createdevdata"
 
 .PHONY: dev-sass-lint
 dev-sass-lint: ## Runs sass-lint utility over the code-base
@@ -53,7 +29,7 @@ dev-sass-lint: ## Runs sass-lint utility over the code-base
 
 .PHONY: dev-import-db
 dev-import-db: ## Imports a database dump from file named ./import.db
-	docker exec -it sd_postgresql bash -c "cat /django/import.db | sed 's/OWNER\ TO\ [a-z]*/OWNER\ TO\ postgres/g' | psql securedropdb -U postgres &> /dev/null"
+	docker-compose exec -it postgresql bash -c "cat /django/import.db | sed 's/OWNER\ TO\ [a-z]*/OWNER\ TO\ postgres/g' | psql securedropdb -U postgres &> /dev/null"
 
 .PHONY: dev-save-db
 dev-save-db: ## Save a snapshot of the database for the current git branch
@@ -69,12 +45,10 @@ update-pip-dependencies: ## Uses pip-compile to update requirements.txt
 # It is critical that we run pip-compile via the same Python version
 # that we're generating requirements for, otherwise the versions may
 # be resolved differently.
-	docker run -v "$(DIR):/code" -it python:3.4-slim \
-		bash -c 'pip install pip-tools && \
-		pip-compile --no-header --output-file /code/requirements.txt /code/requirements.in && \
-		pip-compile --no-header --output-file /code/dev-requirements.txt /code/dev-requirements.in'
-# Update the developer-focused reqs for local dev, testing, and CI.
-	pip-compile --no-header --output-file devops/requirements.txt devops/requirements.in
+	docker run -v "$(DIR):/code" -w /code -it python:3.4-slim \
+		bash -c 'pip install pip-tools && apt-get update && apt-get install git -y && \
+		pip-compile --no-header --output-file requirements.txt requirements.in && \
+		pip-compile --no-header --output-file dev-requirements.txt dev-requirements.in'
 
 
 .PHONY: flake8
@@ -100,12 +74,16 @@ safety: ## Runs `safety check` to check python dependencies for vulnerabilities
 	pip install --upgrade safety && \
 		for req_file in `find . -type f -name '*requirements.txt'`; do \
 			echo "Checking file $$req_file" \
-			&& safety check \
-				-i 36783 \
-				--full-report --stdin < $$req_file \
+			&& safety check --full-report --stdin < $$req_file \
 			&& echo -e '\n' \
 			|| exit 1; \
 		done
+
+.PHONY: prod-push
+prod-push: ## Publishes prod container image to registry
+	docker tag $(SD_IMAGE):latest $(SD_IMAGE):$(GIT_REV)-$(GIT_BR)
+	docker push $(SD_IMAGE):latest
+	docker push $(SD_IMAGE):$(GIT_REV)-$(GIT_BR)
 
 # Explaination of the below shell command should it ever break.
 # 1. Set the field separator to ": ##" and any make targets that might appear between : and ##

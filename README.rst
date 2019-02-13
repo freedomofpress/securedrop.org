@@ -7,15 +7,11 @@ This README covers how to install and get started with development in this repos
 
 Table of Contents
 -----------------
-* Prerequisites_
-* `OpenSSL Installation Note`_
+* `Prerequisites`_
 * `Local Development instructions`_
    * `Updating Requirements`_
-   * `Resetting database`_
-   * `Attaching to running containers`_
 * `Advanced actions against the database`_
    * `Database import`_
-   * `Connect to postgresql service from host`_
    * `Mimic CI and production environment`_
    * `Database snapshots`_
 * `Other commands`_
@@ -31,52 +27,46 @@ Prerequisites
 
 The installation instructions below assume you have the following software on your machine:
 
-* `virtualenv <http://www.virtualenv.org/en/latest/virtualenv.html#installation>`_
+* `pipenv <https://docs.pipenv.org/#install-pipenv-today>`_
 * `docker <https://docs.docker.com/engine/installation/>`_
-* `openssl <https://www.openssl.org/>`_ (required for ``cryptography``)*
-
-OpenSSL Installation Note
--------------------------
-
-If installing OpenSSL with Homebrew on macOS 10.7+, you will want to set
-the following env vars in your shell profile (see this `GitHub comment <https://github.com/pyca/cryptography/issues/2692#issuecomment-272773481>`_):
-
-.. code:: bash
-
-    export LDFLAGS="-L/usr/local/opt/openssl/lib"
-    export CPPFLAGS="-I/usr/local/opt/openssl/include"
-    export PKG_CONFIG_PATH="/usr/local/opt/openssl/lib/pkgconfig"
 
 Local Development instructions
 ------------------------------
 
-Clone the Git repository from ``git@github.com:freedomofpress/securedrop.org.git``.
+After both pre-requisite tools are installed. You'll need to setup the
+environment. You can do this by entering this directory and typing the following
+(should only be a one-time event):
 
-Run the following commands to get up and running:
-
-.. code:: bash
-
-    make dev-go
-
-or if you want to randomize the django port (to avoid potential port conflict on
-your host):
 
 .. code:: bash
 
-    RAND_PORT=yes make dev-go
+    pipenv install
+    make dev-init
 
-Whoa? That's it!? Not so fast. It takes a few minutes to kick off (which happens
-in the background); in order to monitor progress use the following two commands
-(ctrl-c will exit each without killing the container):
+That will install all the pip dependencies into a local virtualenv and map your
+userid to the docker-compose dev env. Anytime in the future you enter this directory
+you'll have to re-activate that env by:
 
 .. code:: bash
 
-    make dev-attach-node #attach a shell to the node process
-    make dev-attach-django #attach a shell to the python process
+    pipenv shell
+    # or
+    pipenv run $command $args
+
+When you want to play with the environment, you will be using
+``docker-compose``. Your guide to understand all the nuances of ``docker-compose``
+can be found in the `official docs <https://docs.docker.com/compose/reference/>`_. To start the
+environment, run the following your first run:
+
+.. code:: bash
+
+    # Starts up the environment
+    docker-compose up
+
+    # Inject development data (only needs to be run once)
+    make dev-createdevdata
 
 You should be able to hit the web server interface at http://localhost:8000.
-You can also directly access the database (see further below). Note that you'll need
-to populate the database with development data using ``make dev-createdevdata``.
 
 Updating Requirements
 +++++++++++++++++++++
@@ -86,7 +76,6 @@ There are three Python requirements files:
 
 * ``requirements.in`` production application dependencies
 * ``dev-requirements.in`` development container additions (e.g. debug toolbar)
-* ``deveops/requirements.in`` local testing and CI requirements (e.g. molecule, safety)
 
 Add the desired dependency to the appropriate ``.in`` file, then run:
 
@@ -98,36 +87,8 @@ All requirements files will be regenerated based on compatible versions. Multipl
 files can be merged into a single ``.txt`` file, for use with ``pip``. The Makefile
 target handles the merging of multiple files.
 
-Resetting database
-++++++++++++++++++
-
-The containers are ephemeral so if you need to reset and start over, kill
-the containers and build them back up.
-
-.. code:: bash
-
-    docker rm -f sd_node sd_postgresql sd_django
-    make dev-go
-
-If you want to just burn and restart node/django WHILE keeping the postgresql db
-intact, you can run:
-
-.. code:: bash
-    make dev-killapp
-    make dev-go
-
-Attaching to running containers
-+++++++++++++++++++++++++++++++
-
-So there are two ways to attach, the first is to attach to an actual running
-process using the ``make`` commands listed under installation. The second, is to
-connect to a container but land in a shell to run arbitrary commands. The
-available containers are - ``django``, ``node``, and ``postgresql``. To connect to one
-and get a bash shell (for example the postgresql container):
-
-.. code:: bash
-
-    docker exec -it sd_postgresql bash
+The developer environment dependencies are handled via ``pipenv`` and documentation for that
+project can be found `here <https://pipenv.readthedocs.io/en/latest/>`_.
 
 Advanced actions against the database
 -------------------------------------
@@ -136,7 +97,7 @@ Database import
 +++++++++++++++
 
 Drop a postgres database dump into the root of the repo and rename it to
-``import.db``. To import it into a running dev session (ensure ``make dev-go`` has
+``import.db``. To import it into a running dev session (ensure ``docker-compose up`` has
 already been started) run ``make dev-import-db``. Note that this will not pull in
 images that are referenced from an external site backup.
 
@@ -145,26 +106,23 @@ Connect to postgresql service from host
 +++++++++++++++++++++++++++++++++++++++
 
 The postgresql service is exposed to your host on a port that will be displayed
-to you in the output of ``make dev-go``. If you have a GUI
+to you in the output of ``docker-compose port postgresql 5432``. If you have a GUI
 database manipulation application you'd like to utilize point it to ``localhost``
 with the correct port, username ``securedrop``, password ``securedroppassword``, dbname ``securedropdb``
 
-
-Mimic CI and production environment
+Mimic production environment
 +++++++++++++++++++++++++++++++++++
 
 You can mimic a production environment where django is deployed with gunicorn,
-reverse nginx proxy, and debug mode off using the following command:
+a reverse nginx proxy, and debug mode off using the `ci-docker-compose.yaml` file.
+Note that build time for this container takes much longer than the developer environment:
 
 .. code:: bash
 
-    make ci-go
+    docker-compose -f prod-docker-compose.yaml up
 
-This is the same command that is run during CI. It is not run using live-code
-refresh so it's not a great dev environment but is good for replicating issues
-that would come up in production. Note that you'll have to ensure you have the
-requirements installed that are in `devops/requirements.txt` or source
-`devops/.venv` (if you've already run `make dev-go` at least once).
+It is not run using live-code refresh so it's not a great dev environment but is good for replicating issues
+that would come up in production.
 
 Database snapshots
 ++++++++++++++++++
@@ -211,7 +169,7 @@ Management commands
 
 Management commands in this repo are modularized. Running ``createdevdata`` will
 run all of these commands, but they can also be run indvidually. All commands
-listed should be prefaced by ``docker exec sd_django ./manage.py``. Most of
+listed should be prefaced by ``docker-compose exec django ./manage.py``. Most of
 these commands are meant to be used once at the beginning of development.
 They should not be run in production as many of them create fake data.
 

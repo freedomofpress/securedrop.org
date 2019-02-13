@@ -1,0 +1,6 @@
+node_modules
+client/build/
+media/
+molecule
+.git
+**/*.pyc
