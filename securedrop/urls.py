@@ -11,9 +11,16 @@ from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
 from accounts.urls import urlpatterns as account_urls
-from autocomplete.urls.public import urlpatterns as autocomplete_public_urls
-from autocomplete.urls.admin import urlpatterns as autocomplete_admin_urls
+from wagtailautocomplete.urls.admin import urlpatterns as autocomplete_admin_urls
+from wagtailautocomplete.views import objects, search, create
 from directory.api import api_router as directory_api_router
+
+
+autocomplete_public_urls = [
+    url(r'^objects/', objects),
+    url(r'^search/', search),
+    url(r'^create/', create),
+]
 
 
 urlpatterns = [
