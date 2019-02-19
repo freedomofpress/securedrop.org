@@ -9,7 +9,7 @@ chardet==3.0.4            # via mbstrdecoder, requests
 cryptography==2.3         # via pyopenssl
 dataproperty==0.36.0      # via pytablewriter, tabledata
 defusedxml==0.5.0         # via python3-openid
-django-allauth-2fa==0.4.4
+django-allauth-2fa==0.6
 django-allauth==0.34.0
 django-analytical==2.4.0
 django-anymail[mailgun]==1.4
