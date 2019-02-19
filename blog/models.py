@@ -89,8 +89,8 @@ class BlogPage(MetadataPageMixin, Page):
 
     class Meta:
         indexes = [
-            models.Index(['publication_datetime']),
-            models.Index(['category']),
+            models.Index(fields=['publication_datetime']),
+            models.Index(fields=['category']),
         ]
 
     def get_meta_description(self):

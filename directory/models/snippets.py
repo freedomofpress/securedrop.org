@@ -55,6 +55,6 @@ class ResultState(Orderable):
 
     class Meta:
         indexes = [
-            models.Index(['result_group']),
-            models.Index(['sort_order']),
+            models.Index(fields=['result_group']),
+            models.Index(fields=['sort_order']),
         ]
