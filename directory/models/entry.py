@@ -316,7 +316,8 @@ class SecuredropOwner(models.Model):
     )
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        related_name='instances'
+        related_name='instances',
+        on_delete=models.CASCADE,
     )
 
     def __str__(self):
