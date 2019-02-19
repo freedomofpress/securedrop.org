@@ -1,7 +1,7 @@
 from allauth.account.models import EmailAddress
 
 from django.core.exceptions import ValidationError
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model
 from django.test import Client, TestCase
 
