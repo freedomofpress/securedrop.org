@@ -436,7 +436,7 @@ class ScanResult(models.Model):
     class Meta:
         get_latest_by = 'result_last_seen'
         indexes = [
-            models.Index(['result_last_seen']),
+            models.Index(fields=['result_last_seen']),
         ]
 
     def is_equal_to(self, other):
