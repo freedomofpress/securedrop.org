@@ -133,6 +133,7 @@ class HomepageFeature(Orderable):
     page = ParentalKey('home.HomePage', related_name='features')
     feature = models.ForeignKey(
         'marketing.FeaturePage',
+        on_delete=models.CASCADE,
         related_name='+'
     )
 

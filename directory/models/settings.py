@@ -16,6 +16,7 @@ class DirectorySettings(BaseSetting):
         blank=True,
         null=True,
         help_text='Users in this group will get an email alert when a new SecureDrop instance is submitted',
+        on_delete=models.CASCADE,
     )
     contact_email = models.EmailField(
         default='securedrop@freedom.press',
