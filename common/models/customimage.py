@@ -19,7 +19,7 @@ class CustomRendition(AbstractRendition):
     """This class is required by Wagtail when using a custom image.
     """
 
-    image = models.ForeignKey(CustomImage, related_name='renditions')
+    image = models.ForeignKey(CustomImage, related_name='renditions', on_delete=models.CASCADE)
 
     class Meta:
         unique_together = (
