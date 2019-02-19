@@ -2,7 +2,7 @@ from time import time
 from unittest import mock
 
 from django.contrib.auth import get_user_model
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.test import TestCase
 from wagtail.core.models import Site
 from allauth.account.models import EmailAddress
