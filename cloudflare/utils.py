@@ -4,8 +4,8 @@ import json
 
 from typing import Iterable
 
-from wagtail.contrib.wagtailfrontendcache.utils import get_backends
-from wagtail.contrib.wagtailfrontendcache.backends import CloudflareBackend
+from wagtail.contrib.frontend_cache.utils import get_backends
+from wagtail.contrib.frontend_cache.backends import CloudflareBackend
 
 
 logger = logging.getLogger('wagtail.frontendcache')

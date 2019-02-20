@@ -1,5 +1,5 @@
-from wagtail.wagtailcore.models import Page
-from wagtail.wagtailcore.blocks.stream_block import StreamValue
+from wagtail.core.models import Page
+from wagtail.core.blocks.stream_block import StreamValue
 from django.utils.html import strip_tags
 
 from search.utils.search_elements import SearchElements

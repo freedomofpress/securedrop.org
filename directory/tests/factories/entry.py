@@ -27,7 +27,6 @@ class DirectoryEntryFactory(wagtail_factories.PageFactory):
     title = factory.Faker('sentence', nb_words=3)
     landing_page_url = factory.Faker('uri')
     onion_address = factory.LazyFunction(random_onion_address)
-    parent = None
 
     @factory.post_generation
     def languages(self, create, count):

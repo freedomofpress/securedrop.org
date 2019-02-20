@@ -1,11 +1,11 @@
 from django.db import models
 from modelcluster.fields import ParentalKey
-from wagtail.wagtailadmin.edit_handlers import (
+from wagtail.admin.edit_handlers import (
     FieldPanel, FieldRowPanel,
     InlinePanel, MultiFieldPanel
 )
-from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtailforms.models import AbstractFormField, AbstractEmailForm
+from wagtail.core.fields import RichTextField
+from wagtail.contrib.forms.models import AbstractFormField, AbstractEmailForm
 
 from common.models import MetadataPageMixin
 
