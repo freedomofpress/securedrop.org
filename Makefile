@@ -63,6 +63,10 @@ bandit: ## Runs bandit static code analysis in Python3 container.
 		python:3.4-slim \
 		bash -c "pip install -q --upgrade bandit && bandit --recursive . -ll --exclude devops,node_modules,molecule,.venv"
 
+.PHONY: npm-audit
+npm-audit: ## Checks NodeJS NPM dependencies for vulnerabilities
+	@docker-compose run node npm audit
+
 .PHONY: clean
 clean: ## clean out local developer assets
 	@rm -rvf ./node_modules
