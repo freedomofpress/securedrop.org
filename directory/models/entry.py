@@ -316,7 +316,8 @@ class SecuredropOwner(models.Model):
     )
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        related_name='instances'
+        related_name='instances',
+        on_delete=models.CASCADE,
     )
 
     def __str__(self):
@@ -435,7 +436,7 @@ class ScanResult(models.Model):
     class Meta:
         get_latest_by = 'result_last_seen'
         indexes = [
-            models.Index(['result_last_seen']),
+            models.Index(fields=['result_last_seen']),
         ]
 
     def is_equal_to(self, other):

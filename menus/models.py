@@ -24,7 +24,7 @@ class Menu(ClusterableModel):
 
     class Meta:
         indexes = [
-            models.Index(['slug']),
+            models.Index(fields=['slug']),
         ]
 
     def __str__(self):
@@ -54,8 +54,8 @@ class MenuItem(Orderable):
     ]
 
     indexes = [
-        models.Index(['sort_order']),  # Defined in wagtail.models.Orderable
-        models.Index(['menu']),
+        models.Index(fields=['sort_order']),  # Defined in wagtail.models.Orderable
+        models.Index(fields=['menu']),
     ]
 
     @property
