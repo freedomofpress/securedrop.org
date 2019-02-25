@@ -1,7 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.conf import settings
-from django.urls import path, re_path, include
+from django.urls import path, include
 from django.contrib import admin
 from django.views.generic import TemplateView, RedirectView
 
@@ -25,26 +25,26 @@ autocomplete_public_urls = [
 
 urlpatterns = [
     path('django-admin/', admin.site.urls),
-    re_path(r'^autocomplete/', include(autocomplete_public_urls)),
-    re_path(r'^admin/autocomplete/', include(autocomplete_admin_urls)),
-    re_path(r'^admin/', include(wagtailadmin_urls)),
-    re_path(r'^documents/', include(wagtaildocs_urls)),
+    path('autocomplete/', include(autocomplete_public_urls)),
+    path('admin/autocomplete/', include(autocomplete_admin_urls)),
+    path('admin/', include(wagtailadmin_urls)),
+    path('documents/', include(wagtaildocs_urls)),
 
-    re_path(r'^search/$', search_views.search, name='search'),
+    path('search/', search_views.search, name='search'),
 
-    re_path(r'^github/', include('github.urls')),
+    path('github/', include('github.urls')),
     # Include the allauth and 2FA urls from their respective packages.
-    re_path(r'^accounts/', include(account_urls)),
-    re_path(r'^accounts/', include('allauth_2fa.urls')),
-    re_path(r'^accounts/', include('allauth.urls')),
+    path('accounts/', include(account_urls)),
+    path('accounts/', include('allauth_2fa.urls')),
+    path('accounts/', include('allauth.urls')),
 
-    re_path(r'^api/$', RedirectView.as_view(url='/api/v1/')),
-    re_path(r'^api/v1/', include(directory_api_router.urls)),
+    path('api/', RedirectView.as_view(url='/api/v1/')),
+    path('api/v1/', include(directory_api_router.urls)),
 
-    re_path(r'^500/$', TemplateView.as_view(template_name="500.html")),
-    re_path(r'^404/$', TemplateView.as_view(template_name="404.html")),
-    re_path(r'^403/$', TemplateView.as_view(template_name="403.html")),
-    re_path(r'', include(wagtail_urls)),
+    path('500/', TemplateView.as_view(template_name="500.html")),
+    path('404/', TemplateView.as_view(template_name="404.html")),
+    path('403/', TemplateView.as_view(template_name="403.html")),
+    path(r'', include(wagtail_urls)),
 ]
 
 
@@ -61,7 +61,7 @@ if settings.DEBUG:
     try:
         import debug_toolbar
         urlpatterns = [
-            re_path(r'^__debug__/', include(debug_toolbar.urls))
+            path('__debug__/', include(debug_toolbar.urls))
         ] + urlpatterns
     except ImportError:
         pass
