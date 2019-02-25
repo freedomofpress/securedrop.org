@@ -92,7 +92,7 @@ vcrpy==1.11.1
 wagtail-autocomplete==0.1.1
 wagtail-factories==1.1.0
 wagtail-metadata==2.0.1
-wagtail==2.0.2
+wagtail==2.3
 wcwidth==0.1.7            # via prompt-toolkit
 webencodings==0.5.1
 wget==3.2
