@@ -22,7 +22,7 @@ django-settings-export==1.2.1
 django-taggit==0.23.0
 django-treebeard==4.3
 django-webpack-loader==0.5.0
-django==2.0.13
+django==2.1.7
 djangorestframework==3.9.1
 docopt==0.6.2
 dominate==2.3.5
@@ -84,7 +84,6 @@ tldextract==2.2.0
 tls-parser==1.1.1
 traitlets==4.3.2          # via ipython
 typepy[datetime]==0.3.0
-typing==3.6.4
 unidecode==0.4.21
 unittest-xml-reporting==2.1.0
 urllib3==1.24.1
