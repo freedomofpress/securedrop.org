@@ -1,7 +1,7 @@
 -e git+https://github.com/freedomofpress/django-logging.git@b7d0b7b542db6ac088dbf3d2e7b249df333d3082#egg=django-logging-json
 -e git+https://github.com/nabla-c0d3/sslyze.git@ef357c2e76b6ba66f23db5fb1f95c7e8a6c13b9d#egg=pshtt-dependency-hell
 bleach>=2.1.4
-Django>=2.0.13<2.1
+Django>=2.1,<2.2
 django-analytical>=2.4
 django-anymail[mailgun]>=1.4
 django-modelcluster
