@@ -16,10 +16,11 @@ def purge_cache_for_pages(sender, **kwargs):
     purge_all_from_cache()
 
 
-@receiver([pre_delete, post_save], sender=BaseSetting)
+@receiver([pre_delete, post_save])
 def purge_cache_for_settings(sender, **kwargs):
     """
     We're using the nuclear option for caching. Every time any Setting changes
     we flush the entire cache
     """
-    purge_all_from_cache()
+    if issubclass(sender, BaseSetting):
+        purge_all_from_cache()
