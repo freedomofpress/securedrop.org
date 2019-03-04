@@ -16,7 +16,7 @@ RUN cd /src-files && ( npm install && npm run build )
 
 LABEL MAINTAINER="Freedom of the Press Foundation"
 LABEL APP="securedrop.org"
-FROM python:3.4-slim
+FROM python:3.5-slim
 
 RUN apt-get update && apt-get install -y \
     curl \
