@@ -52,14 +52,14 @@ pytablewriter==0.36.1     # via pshtt
 python-dateutil==2.7.5    # via faker, typepy
 python-json-logger==0.1.8
 python3-openid==3.1.0     # via django-allauth
-pytz==2018.7              # via django, django-modelcluster, typepy
+pytz==2018.7              # via django, django-modelcluster, typepy, wagtail
 pyyaml==3.12              # via vcrpy
 qrcode==5.3               # via django-allauth-2fa
 requests-cache==0.4.13    # via pshtt
 requests-file==1.4.3      # via tldextract
 requests-oauthlib==0.8.0  # via django-allauth
 requests==2.20.0
-six==1.11.0               # via bleach, cryptography, django-anymail, faker, html5lib, mbstrdecoder, pyopenssl, pytablewriter, python-dateutil, qrcode, requests-file, tabledata, typepy, unittest-xml-reporting, vcrpy
+six==1.11.0               # via bleach, cryptography, django-anymail, faker, html5lib, mbstrdecoder, pyopenssl, pytablewriter, python-dateutil, qrcode, requests-file, tabledata, typepy, unittest-xml-reporting, vcrpy, wagtail
 tabledata==0.0.25         # via pytablewriter
 text-unidecode==1.1       # via faker
 tinycss2==0.6.1
@@ -74,7 +74,7 @@ vcrpy==1.11.1
 wagtail-autocomplete==0.1.1
 wagtail-factories==1.1.0
 wagtail-metadata==2.0.1
-wagtail==2.0.2
+wagtail==2.3
 webencodings==0.5.1       # via bleach, html5lib, tinycss2
 wget==3.2                 # via pshtt
 willow==1.1               # via wagtail
