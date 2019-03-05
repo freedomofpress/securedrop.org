@@ -1,4 +1,4 @@
-import datetime
+from datetime import datetime, timezone
 
 from unittest.mock import patch, call
 
@@ -19,7 +19,7 @@ class FrontendCacheTestCase(TestCase):
 
     def test_cache_purged_for_release(self, purge_mock):
         "Homepage cache should be purged when a new release is added"
-        Release.objects.create(date=datetime.datetime(2016, 1, 1, 0, 0, 0))
+        Release.objects.create(date=datetime(2016, 1, 1, 0, 0, 0, tzinfo=timezone.utc))
         purge_mock.assert_called_once_with(self.home_page)
 
     def test_cache_purged_for_blog_post(self, purge_mock):
@@ -27,7 +27,7 @@ class FrontendCacheTestCase(TestCase):
         blog_page = BlogPage(
             title='Yet another blog page',
             category=self.cat_page,
-            publication_datetime=datetime.datetime(2016, 1, 1, 0, 0, 0),
+            publication_datetime=datetime(2016, 1, 1, 0, 0, 0, tzinfo=timezone.utc),
         )
         self.cat_page.add_child(instance=blog_page)
         purge_mock.assert_called_once_with(self.home_page)
