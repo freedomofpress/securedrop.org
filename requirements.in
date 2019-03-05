@@ -25,7 +25,7 @@ wagtail-factories
 wagtail-metadata
 wagtail-autocomplete
 unittest-xml-reporting
-django-allauth==0.34.0
+django-allauth>=0.38
 django-allauth-2fa
 django-csp
 zxcvbn-python
