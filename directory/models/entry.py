@@ -185,7 +185,7 @@ class DirectoryEntry(MetadataPageMixin, Page):
     permitted_domains_for_assets = ArrayField(
         models.TextField(),
         blank=True,
-        default=[],
+        default=list,
         help_text=('Comma-separated list of additional domains that will not trigger '
                    'the cross domain asset warning for this landing page.  '
                    'Subdomains on domains in this list are ignored.  For example, '
@@ -196,7 +196,7 @@ class DirectoryEntry(MetadataPageMixin, Page):
             max_length=50,
             choices=WARNING_CHOICES,
         ),
-        default=[],
+        default=list,
         blank=True,
         help_text=('Landing page warnings that will not be shown to someone '
                    'viewing this entry, even if they are in the scan results. '
