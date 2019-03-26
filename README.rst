@@ -1,51 +1,53 @@
+SecureDrop.org
+==============
+
 .. image:: https://circleci.com/gh/freedomofpress/securedrop.org.svg?style=svg&circle-token=ae1bdad92b508cea5a86c6a84374af0ae3cf9706
     :target: https://circleci.com/gh/freedomofpress/securedrop.org
-
-Development
-=============
-This README covers how to install and get started with development in this repository. Information for Wagtail editors can be found in the `Wagtail Editors Guide <WAGTAIL.rst>`_.
 
 Table of Contents
 -----------------
 * `Prerequisites`_
-* `Local Development instructions`_
-   * `Updating Requirements`_
-* `Advanced actions against the database`_
-   * `Database import`_
-   * `Mimic CI and production environment`_
-   * `Database snapshots`_
-* `Other commands`_
-   * `Management commands`_
-* `Search`_
-   * `Wagtail`_
-   * `Documentation`_
-   * `Discourse`_
-
+* `Getting Started: The Quick Version`_
+* `Getting Started: The Unabridged Edition`_
+* `Management Commands`_
+* `Updating Requirements`_
+* `Advanced Actions Against the Database`_
+* `Other Commands`_
+* `Troubleshooting`_
 
 Prerequisites
 -------------
 
 The installation instructions below assume you have the following software on your machine:
 
-* `pipenv <https://docs.pipenv.org/#install-pipenv-today>`_
-* `docker <https://docs.docker.com/engine/installation/>`_
+* `Docker <https://www.docker.com/get-started>`_
+* `Pipenv <https://docs.pipenv.org/#install-pipenv-today>`_ (if not using Docker for Mac)
 
-Local Development instructions
-------------------------------
+Getting Started: The Quick Version
+----------------------------------
 
-After both pre-requisite tools are installed. You'll need to setup the
-environment. You can do this by entering this directory and typing the following
-(should only be a one-time event):
+To get started, run:
 
+.. code:: bash
+
+    make dev-init  # one-time command
+    docker-compose up  # long-running process to run application server, every time
+
+    # In a separate shell:
+    docker-compose exec django ./manage.py createdevdata  # one-time command
+
+Visit ``http://localhost:8000/`` to see the site or ``http://localhost:8000/admin/`` for the Wagtail admin.
+
+Getting Started: The Unabridged Edition
+---------------------------------------
+
+The development environment uses Docker Compose to run the application server, database, and webpack compilation processes. If you are using Docker for Mac, this comes preinstalled. You may skip the Pipenv related code. Otherwise, you can install it for this project using Pipenv:
 
 .. code:: bash
 
     pipenv install
-    make dev-init
 
-That will install all the pip dependencies into a local virtualenv and map your
-userid to the docker-compose dev env. Anytime in the future you enter this directory
-you'll have to re-activate that env by:
+When installed this way, you will need to activate the env before running all ``docker-compose`` commands with:
 
 .. code:: bash
 
@@ -53,29 +55,94 @@ you'll have to re-activate that env by:
     # or
     pipenv run $command $args
 
-When you want to play with the environment, you will be using
-``docker-compose``. Your guide to understand all the nuances of ``docker-compose``
-can be found in the `official docs <https://docs.docker.com/compose/reference/>`_. To start the
-environment, run the following your first run:
+These must be run from the project directory.
+
+Before development you *must* run this one-time command.
 
 .. code:: bash
 
-    # Starts up the environment
+    make dev-init
+
+To start the environment, run the following your first run:
+
+.. code:: bash
+
     docker-compose up
 
-    # Inject development data (only needs to be run once)
-    make dev-createdevdata
+This is how you start the server every time you are working on the project. This will start a long-running process. You can exit this process with ``ctl-c``. You may wish to open a second shell to run one-off commands while the server is running.
 
-You should be able to hit the web server interface at http://localhost:8000.
+To populate the project with data suitable for development and testing.
+
+.. code:: bash
+
+    docker-compose exec django ./manage.py createdevdata
+
+.. impotant:: Though your database will persist between *most* runs, it is recommended that you consider it ephemeral and do not use it to store data you don't wish to lose.
+
+You should be able to hit the web server interface at ``http://localhost:8000/``. You can access the Wagtail admin at ``http://localhost:8000/admin/``.
+
+To learn more about Docker Compose, see the `docker-compose CLI docs <https://docs.docker.com/compose/reference/overview/>`_
+
+Management Commands
+-------------------
+
+In addition to the management commands provided by `Django <https://docs.djangoproject.com/en/stable/ref/django-admin/>`_ and `Wagtail <http://docs.wagtail.io/en/stable/reference/management_commands.html>`_, the project has a set of its own custom management commands. All commands listed should be prefaced by ``docker-compose exec django ./manage.py``.
+
+Dev Data Commands
++++++++++++++++++
+
+These commands are meant to be used once at the beginning of development.
+They can be run individually or all at once using the ``createdevdata`` command.
+They should not be run in production as they create fake data.
+
+* ``createdevdata [--delete]``
+      Runs all of the other ``create*`` commands and
+      creates fake data. The ``delete`` flag deletes the current homepage and
+      creates a new one.
+* ``createblogdata <number_of_posts>``
+    Creates a blog index page and the indicated number of posts.
+* ``createdirectory <number_of_instances>``
+      Creates a directory page and theindicated number of SecureDrop instances.
+* ``createresultgroups [--delete]``
+      Creates the initial text for the scan results shown
+      on the details page of a securedrop instance. The ``delete`` flag
+      removes current result groups and result states.
+* ``createfootersettings``
+      Creates the initial default text, menus, and buttons for the footer.
+* ``createnavmenu [--delete]``
+      Creates the main nav menu and links it to the appropriate pages. Creates a
+      ``DirectoryPage``, ``BlogIndexPage``, and ``MarketingIndexPage`` if they
+      do not yet exist. The ``delete`` flag destroys the existing nav menu.
+* ``createsearchmenus [--delete]``
+      Creates default search menus. The ``delete`` flag destroys any
+      existing search menus.
+
+Scanner Commands
+++++++++++++++++
+
+* ``scan [securedrops]``
+      Scan one or more SecureDrop landing pages (specified by space-separated domain names) for security. By default, scans all pages in the directory.
+
+Search Commands
++++++++++++++++
+
+* ``update_docs_index [--rebuild]``
+    Crawl the SecureDrop documentation pages on ``https://docs.securedrop.org/en/stable/`` and update the corresponding ``SearchDocument`` entries.  Pass ``--rebuild`` to this command to delete existing entries for documentation pages before fetching new data, which is useful if out-of-date information or pages are in the index.  Rebuild is usually the behavior that you will want.  Note that this command depends on a particular arrangement and format of HTML and links on the above 3rd party web URL.  If these change in the future, then the command will potentially fail and report zero or only a few documents indexed.
+* ``update_wagtail_index [--rebuild]``
+    Crawl Wagtail pages and create ``SearchDocument``\ s for each one. This command should only be run once when the repo is initialized, as thereafter ``SearchDocument``\ s will be updated via ``get_search_content`` which is run when pages are created, updated, or deleted. Note that if pages are changed outside of the Wagtail interface, their search documents will not be updated and this command will need to be run again. Pass ``--rebuild`` to this command to delete existing entries for Wagtail pages before fetching new data, which is useful if out-of-date information or pages are in the index.
+* ``update_discourse_index [--rebuild]``
+    Crawl the SecureDrop forum pages on ``https://forum.securedrop.club/`` and update the corresponding ``SearchDocument`` entries.  Pass ``--rebuild`` to this command to delete existing entries for documentation pages before fetching new data, which is useful if out-of-date information or pages are in the index.  Rebuild is usually the behavior that you will want.
+
+    This command depends on two settings: ``DISCOURSE_HOST`` which should be set to the name of the Discourse server without the protocol (``forum.securedrop.club``) and ``DISCOURSE_API_KEY``. If you require these for development, acquire them securely from a Discourse forum administrator and stash them in ``securedrop/settings/local.py``.
 
 Updating Requirements
-+++++++++++++++++++++
+---------------------
 
 New requirements should be added to ``*requirements.in`` files, for use with ``pip-compile``.
-There are three Python requirements files:
+There are two Python requirements files:
 
 * ``requirements.in`` production application dependencies
-* ``dev-requirements.in`` development container additions (e.g. debug toolbar)
+* ``dev-requirements.in`` development container additions (e.g., debug toolbar)
 
 Add the desired dependency to the appropriate ``.in`` file, then run:
 
@@ -90,19 +157,18 @@ target handles the merging of multiple files.
 The developer environment dependencies are handled via ``pipenv`` and documentation for that
 project can be found `here <https://pipenv.readthedocs.io/en/latest/>`_.
 
-Advanced actions against the database
+Advanced Actions Against the Database
 -------------------------------------
 
 Database import
 +++++++++++++++
 
-Drop a postgres database dump into the root of the repo and rename it to
+Drop a Postgres database dump into the root of the repo and rename it to
 ``import.db``. To import it into a running dev session (ensure ``docker-compose up`` has
 already been started) run ``make dev-import-db``. Note that this will not pull in
 images that are referenced from an external site backup.
 
-
-Connect to postgresql service from host
+Connect to PostgreSQL service from host
 +++++++++++++++++++++++++++++++++++++++
 
 The postgresql service is exposed to your host on a port that will be displayed
@@ -157,75 +223,33 @@ helpful to restore your snapshot from master, so that the migrations
 for the new branch, which were presumably based off of master, will
 have a clean starting point.
 
-Other commands
+Other Commands
 --------------
 
 In order to ensure that all commands are run in the same environment, we have
 added a ``make flake8`` command that runs ``flake8`` in the docker environment,
 rather than on your local env.
 
-Management commands
-+++++++++++++++++++
+Troubleshooting
+---------------
 
-Management commands in this repo are modularized. Running ``createdevdata`` will
-run all of these commands, but they can also be run indvidually. All commands
-listed should be prefaced by ``docker-compose exec django ./manage.py``. Most of
-these commands are meant to be used once at the beginning of development.
-They should not be run in production as many of them create fake data.
+Docker Container Woes
++++++++++++++++++++++
 
+Sometimes when dependencies are changed or a Docker image needs to be updated for other reasons, the containers will need to be manually triggered to rebuild. These commands, listed in order of destructiveness can resolve most container issues:
 
-* ``createdevdata [--delete]``
-      Runs all of the other management commands and
-      creates fake data. The ``delete`` flag deletes the current homepage and
-      creates a new one.
-* ``createblogdata <number_of_posts>``
-    Creates a blog index page and the indicated number of posts.
-* ``createdirectory <number_of_instances>``
-      Creates a directory page and theindicated number of SecureDrop instances.
-* ``createresultgroups [--delete]``
-      Creates the initial text for the scan results shown
-      on the details page of a securedrop instance. The ``delete`` flag
-      removes current result groups and result states.
-* ``createfootersettings``
-      Creates the initial default text, menus, and buttons for the footer.
-* ``createnavmenu [--delete]``
-      Creates the main nav menu and links it to the appropriate pages. Creates a
-      ``DirectoryPage``, ``BlogIndexPage``, and ``MarketingIndexPage`` if they
-      do not yet exist. The ``delete`` flag destroys the existing nav menu.
-* ``createsearchmenus [--delete]``
-      Creates default search menus. The ``delete`` flag destroys any
-      existing search menus.
-* ``scan``
-      Scan one or all SecureDrop landing pages for security. By default, scans all pages in the directory.
+.. code:: shell
+    docker-compose up --build
 
-Search
-------
+Adding the ``--build`` flag tells Docker Compose to detect and update any images that require new changes. You can safely add the ``--build`` flag under most circumstances without adverse effects.
 
-Wagtail
-+++++++
-``get_search_content``
-  Method on each page that should return a string of the "searchable content" for that page type. This should generally include HTML-stripped versions of the page body, any tags, anything in the search description field, etc. It's okay for these all to be naively concatenated together. This value is used to provide words to the search engine and is never displayed.
+.. code:: shell
+    docker-compose up --build --force-recreate
 
-``update_wagtail_index [--rebuild]``
-  Crawl Wagtail pages and create ``SearchDocument``s for each one. This command should only be run once when the repo is initialized, as thereafter ``SearchDocument``s will be updated via ``get_search_content`` which is run when pages are created, updated, or deleted. Note that if pages are changed outside of the Wagtail interface, their search documents will not be updated and this command will need to be run again. Pass ``--rebuild`` to this command to delete existing entries for Wagtail pages before fetching new data, which is useful if out-of-date information or pages are in the index.
+Adding the ``--force-recreate`` flag tells Docker Compose to recreate all containers that are part of the application.
 
-Documentation
-+++++++++++++
-``update_docs_index [--rebuild]``
-  Crawl the SecureDrop documentation pages on ``https://docs.securedrop.org/en/stable/`` and update the corresponding `SearchDocument` entries.  Pass ``--rebuild`` to this command to delete existing entries for documentation pages before fetching new data, which is useful if out-of-date information or pages are in the index.  Rebuild is usually the behavior that you will want.  Note that this command depends on a particular arrangement and format of HTML and links on the above 3rd party web URL.  If these change in the future, then the command will potentially fail and report zero or only a few documents indexed.
+If neither of the above fix the issues you're encountering, ensure all docker containers are stopped (``ctl-c`` if containers are running in a shell, ``docker-compose kill`` if they are running detached) and run the following commands. These commands will remove all images ad containers and rebuild from scratch. Any data in your database will be wiped.
 
-Discourse
-+++++++++
-``update_discourse_index [--rebuild]``
-  Crawl the SecureDrop forum pages on ``https://forum.securedrop.club/`` and update the corresponding ``SearchDocument`` entries.  Pass ``--rebuild`` to this command to delete existing entries for documentation pages before fetching new data, which is useful if out-of-date information or pages are in the index.  Rebuild is usually the behavior that you will want.
-
-Note that this command depends on the Discourse API.  If the API changes in the future, then the command will potentially fail and report zero or only a few documents indexed.  It also means we depend on two settings: ``DISCOURSE_HOST`` which should be set to the name of the Discourse server without the protocol (``forum.securedrop.club``) and ``DISCOURSE_API_KEY``, the value of which must be obtained securely from someone who knows it.  For local development, I recommend placing these settings in ``settings/local.py``.
-
-Authentication and Authorization
---------------------------------
-
-The auth system for SecureDrop admins (not wagtail admins) relies on at least three packages.
-
- * `django-allauth <http://django-allauth.readthedocs.io/en/latest/index.html>`_ for basic functionality (account management forms, third-party auth providers, email verification, etc.)
-* `django-otp <https://django-otp-official.readthedocs.io/>`_ for One Time Password (OTP) functionality, which is the foundation of two-factor authentication (2FA).
-* `django-allauth-2fa <https://github.com/percipient/django-allauth-2fa>`_ to link the above two packages together.
+.. code:: shell
+    docker-compose rm
+    docker-compose up --build
