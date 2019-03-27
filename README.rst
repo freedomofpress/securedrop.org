@@ -239,11 +239,13 @@ Docker Container Woes
 Sometimes when dependencies are changed or a Docker image needs to be updated for other reasons, the containers will need to be manually triggered to rebuild. These commands, listed in order of destructiveness can resolve most container issues:
 
 .. code:: shell
+
     docker-compose up --build
 
 Adding the ``--build`` flag tells Docker Compose to detect and update any images that require new changes. You can safely add the ``--build`` flag under most circumstances without adverse effects.
 
 .. code:: shell
+
     docker-compose up --build --force-recreate
 
 Adding the ``--force-recreate`` flag tells Docker Compose to recreate all containers that are part of the application.
@@ -251,5 +253,6 @@ Adding the ``--force-recreate`` flag tells Docker Compose to recreate all contai
 If neither of the above fix the issues you're encountering, ensure all docker containers are stopped (``ctl-c`` if containers are running in a shell, ``docker-compose kill`` if they are running detached) and run the following commands. These commands will remove all images ad containers and rebuild from scratch. Any data in your database will be wiped.
 
 .. code:: shell
+
     docker-compose rm
     docker-compose up --build
