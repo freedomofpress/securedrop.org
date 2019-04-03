@@ -23,10 +23,6 @@ dev-tests: ## Run django tests against developer environment
 dev-createdevdata: ## Inject development data into the postgresql database
 	docker-compose exec django /bin/bash -c "./manage.py createdevdata"
 
-.PHONY: dev-sass-lint
-dev-sass-lint: ## Runs sass-lint utility over the code-base
-	./devops/scripts/dev-sasslint.sh
-
 .PHONY: dev-import-db
 dev-import-db: ## Imports a database dump from file named ./import.db
 	docker-compose exec -it postgresql bash -c "cat /django/import.db | sed 's/OWNER\ TO\ [a-z]*/OWNER\ TO\ postgres/g' | psql securedropdb -U postgres &> /dev/null"
