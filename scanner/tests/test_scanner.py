@@ -174,7 +174,6 @@ class ScannerTest(TestCase):
             'searchg2.crownpeak.net/',
             'http://www.w3.org/2000/svg',
             'click.bs.carousel.data',
-            'item.active',
             'click.bs.collapse.data',
             'element.id',
             'click.bs.modal.data',
