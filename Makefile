@@ -65,7 +65,11 @@ bandit: ## Runs bandit static code analysis in Python3 container.
 
 .PHONY: npm-audit
 npm-audit: ## Checks NodeJS NPM dependencies for vulnerabilities
-	@docker-compose run node npm audit
+	@docker-compose run node scripts/npm-audit.js
+
+.PHONY: ci-npm-audit
+ci-npm-audit:
+	@docker-compose run --entrypoint "/bin/ash -c" node "npm ci && scripts/npm-audit.js --xml > test-results/audit.xml"
 
 .PHONY: clean
 clean: ## clean out local developer assets
