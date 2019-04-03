@@ -2,7 +2,7 @@ var webpack       = require('webpack');
 var merge         = require('webpack-merge');
 var autoprefixer  = require('autoprefixer');
 var BundleTracker = require('webpack-bundle-tracker');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var MiniCssExtractPlugin = require('mini-css-extract-plugin');
 var path = require('path');
 
 var TARGET = process.env.npm_lifecycle_event;
@@ -46,8 +46,14 @@ var common = {
 					{
 						loader: 'babel-loader',
 						query: {
-							presets: ['react', 'es2015', 'stage-0', 'stage-1', 'stage-2'],
-							plugins: ['add-module-exports']
+							presets: [
+								'@babel/preset-react',
+								// Setting `modules` false, prevents babel from trying to use
+								// commonjs imports, which messes up our nice clean ES6 imports
+								// provided directly by Webpack:
+								// https://github.com/webpack/webpack/issues/4961#issuecomment-304938963
+								['@babel/preset-env', { modules: false }]
+							],
 						},
 					}
 				],
@@ -59,50 +65,36 @@ var common = {
 			},
 			{
 				test: /\.s[ca]ss$/,
-				use: ExtractTextPlugin.extract({
-					fallback: 'style-loader',
-					use: [
-						'css-loader',
-						'postcss-loader',
-						{
-							loader: 'sass-loader',
-							options: {
-								includePaths: [path.resolve(__dirname, 'node_modules/')],
-								data: sassData
-							}
+				use: [
+					MiniCssExtractPlugin.loader,
+					'css-loader',
+					'postcss-loader',
+					{
+						loader: 'sass-loader',
+						options: {
+							includePaths: [path.resolve(__dirname, 'node_modules/')],
+							data: sassData
 						}
-					]
-				}),
+					}
+				],
 			},
 			{
 				test: /\.css$/,
-				use: ExtractTextPlugin.extract({
-					fallback: 'style-loader',
-					use: [
-						'css-loader',
-						'postcss-loader'
-					]
-				})
+				use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
 			},
 			// Currently unused, but we'll want it if we install modernizr:
 			{
 				test: /\.modernizrrc$/,
-				use: ['modernizr']
+				use: ['modernizr-loader']
 			}
 		]
 	},
 
 	plugins: [
-		new ExtractTextPlugin({
-			filename: (getPath) => {
-				if (TARGET === 'build') {
-					return getPath('[name]-[hash].css');
-				} else {
-					return getPath('[name].css');
-				}
-			}
+		new MiniCssExtractPlugin({
+			filename: TARGET === 'build' ? '[name]-[hash].css' : '[name].css',
+			chunkFilename: TARGET === 'build' ? '[id]-[hash].css' : '[id].css'
 		}),
-
 		new BundleTracker({
 			path: target,
 			filename: './webpack-stats.json'
