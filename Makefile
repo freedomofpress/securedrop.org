@@ -65,6 +65,7 @@ npm-audit: ## Checks NodeJS NPM dependencies for vulnerabilities
 
 .PHONY: ci-npm-audit
 ci-npm-audit:
+	@mkdir -p test-results # Creates necessary test-results folder
 	@docker-compose run --entrypoint "/bin/ash -c" node "npm ci && scripts/npm-audit.js --xml > test-results/audit.xml"
 
 .PHONY: clean

@@ -46,7 +46,6 @@ jobs:
           name: Check node dependencies for vulnerabilities
           command: |
             pipenv run make dev-init
-            mkdir -p test-results
             pipenv run make ci-npm-audit
       - store_test_results:
           path: ~/freedom.press/test-results/
