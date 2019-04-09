@@ -23,10 +23,6 @@ dev-tests: ## Run django tests against developer environment
 dev-createdevdata: ## Inject development data into the postgresql database
 	docker-compose exec django /bin/bash -c "./manage.py createdevdata"
 
-.PHONY: dev-sass-lint
-dev-sass-lint: ## Runs sass-lint utility over the code-base
-	./devops/scripts/dev-sasslint.sh
-
 .PHONY: dev-import-db
 dev-import-db: ## Imports a database dump from file named ./import.db
 	docker-compose exec -it postgresql bash -c "cat /django/import.db | sed 's/OWNER\ TO\ [a-z]*/OWNER\ TO\ postgres/g' | psql securedropdb -U postgres &> /dev/null"
@@ -62,6 +58,15 @@ bandit: ## Runs bandit static code analysis in Python3 container.
 	@docker run -it -v $(PWD):/code -w /code --name fpf_www_bandit --rm \
 		python:3.4-slim \
 		bash -c "pip install -q --upgrade bandit && bandit --recursive . -ll --exclude devops,node_modules,molecule,.venv"
+
+.PHONY: npm-audit
+npm-audit: ## Checks NodeJS NPM dependencies for vulnerabilities
+	@docker-compose run node scripts/npm-audit.js
+
+.PHONY: ci-npm-audit
+ci-npm-audit:
+	@mkdir -p test-results # Creates necessary test-results folder
+	@docker-compose run --entrypoint "/bin/ash -c" node "npm ci && scripts/npm-audit.js --xml > test-results/audit.xml"
 
 .PHONY: clean
 clean: ## clean out local developer assets
