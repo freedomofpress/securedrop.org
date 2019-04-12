@@ -24,6 +24,7 @@
     "mini-css-extract-plugin": "^0.5.0",
     "modernizr-loader": "^1.0.1",
     "node-sass": "^4.11.0",
+    "npm-audit-plus": "^0.1.5",
     "postcss-loader": "^2.1.6",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
