@@ -41,6 +41,7 @@
     "element-dataset": "^2.2.6",
     "hamburgers": "^0.9.1",
     "invariant": "^2.2.2",
+    "js-yaml": "^3.13.1",
     "modernizr": "^3.7.1",
     "prop-types": "^15.5.10",
     "query-string": "^5.0.0",
