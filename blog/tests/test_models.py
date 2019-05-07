@@ -19,18 +19,18 @@ class BlogIndexPageTest(TestCase):
 
     def test_get_posts_returns_newest_post_first(self):
         self.live_post.delete()  # not necessary for this test
-        BlogPageFactory(publication_datetime='2018-01-01', parent=self.blog_index)
-        first = BlogPageFactory(publication_datetime='2018-03-31', parent=self.blog_index)
-        BlogPageFactory(publication_datetime='2018-03-01', parent=self.blog_index)
+        BlogPageFactory(publication_datetime='2018-01-01 00:00Z', parent=self.blog_index)
+        first = BlogPageFactory(publication_datetime='2018-03-31 00:00Z', parent=self.blog_index)
+        BlogPageFactory(publication_datetime='2018-03-01 00:00Z', parent=self.blog_index)
         posts = self.blog_index.get_posts()
         self.assertEqual(first, posts.first())
 
     def test_get_posts_returns_oldest_post_last(self):
         self.live_post.delete()  # not necessary for this test
-        BlogPageFactory(publication_datetime='2018-01-01', parent=self.blog_index)
-        BlogPageFactory(publication_datetime='2018-03-31', parent=self.blog_index)
-        last = BlogPageFactory(publication_datetime='2015-03-31', parent=self.blog_index)
-        BlogPageFactory(publication_datetime='2018-03-01', parent=self.blog_index)
+        BlogPageFactory(publication_datetime='2018-01-01 00:00Z', parent=self.blog_index)
+        BlogPageFactory(publication_datetime='2018-03-31 00:00Z', parent=self.blog_index)
+        last = BlogPageFactory(publication_datetime='2015-03-31 00:00Z', parent=self.blog_index)
+        BlogPageFactory(publication_datetime='2018-03-01 00:00Z', parent=self.blog_index)
         posts = self.blog_index.get_posts()
         self.assertEqual(last, posts.last())
 
@@ -69,18 +69,18 @@ class CategoryPageTest(TestCase):
     def test_get_posts_returns_newest_post_first(self):
         self.live_post.delete()  # not necessary for this test
         self.category_post.delete()  # not necessary for this test
-        BlogPageFactory(publication_datetime='2018-01-01', parent=self.blog_index, category=self.category)
-        first = BlogPageFactory(publication_datetime='2018-03-31', parent=self.blog_index, category=self.category)
-        BlogPageFactory(publication_datetime='2018-03-01', parent=self.blog_index, category=self.category)
+        BlogPageFactory(publication_datetime='2018-01-01 00:00Z', parent=self.blog_index, category=self.category)
+        first = BlogPageFactory(publication_datetime='2018-03-31 00:00Z', parent=self.blog_index, category=self.category)
+        BlogPageFactory(publication_datetime='2018-03-01 00:00Z', parent=self.blog_index, category=self.category)
         posts = self.category.get_posts()
         self.assertEqual(first, posts.first())
 
     def test_get_posts_returns_oldest_post_last(self):
         self.live_post.delete()  # not necessary for this test
         self.category_post.delete()  # not necessary for this test
-        BlogPageFactory(publication_datetime='2018-01-01', parent=self.blog_index, category=self.category)
-        BlogPageFactory(publication_datetime='2018-03-31', parent=self.blog_index)
-        last = BlogPageFactory(publication_datetime='2015-03-31', parent=self.blog_index, category=self.category)
-        BlogPageFactory(publication_datetime='2018-03-01', parent=self.blog_index, category=self.category)
+        BlogPageFactory(publication_datetime='2018-01-01 00:00Z', parent=self.blog_index, category=self.category)
+        BlogPageFactory(publication_datetime='2018-03-31 00:00Z', parent=self.blog_index)
+        last = BlogPageFactory(publication_datetime='2015-03-31 00:00Z', parent=self.blog_index, category=self.category)
+        BlogPageFactory(publication_datetime='2018-03-01 00:00Z', parent=self.blog_index, category=self.category)
         posts = self.category.get_posts()
         self.assertEqual(last, posts.last())

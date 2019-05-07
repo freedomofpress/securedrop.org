@@ -9,21 +9,22 @@ chardet==3.0.4            # via mbstrdecoder, requests
 cryptography==2.3         # via pyopenssl
 dataproperty==0.36.0      # via pytablewriter, tabledata
 defusedxml==0.5.0         # via python3-openid
-django-allauth-2fa==0.4.4
-django-allauth==0.34.0
+django-allauth-2fa==0.6
+django-allauth==0.39.1
 django-analytical==2.4.0
 django-anymail[mailgun]==1.4
 django-csp==3.4
-django-modelcluster==3.1
+django-modelcluster==4.3
 django-otp==0.4.1.1       # via django-allauth-2fa
 django-settings-export==1.2.1
-django-taggit==0.22.1     # via wagtail
-django-treebeard==4.1.2   # via wagtail
+django-taggit==0.23.0     # via wagtail
+django-treebeard==4.3     # via wagtail
 django-webpack-loader==0.5.0
-django==1.11.20
-djangorestframework==3.6.4
+django==2.1.7
+djangorestframework==3.9.1
 docopt==0.6.2             # via pshtt
 dominate==2.3.5           # via pytablewriter
+draftjs-exporter==2.0.0   # via wagtail
 factory-boy==2.9.2
 faker==0.8.7              # via factory-boy
 feedparser==5.2.1
@@ -51,31 +52,31 @@ pytablewriter==0.36.1     # via pshtt
 python-dateutil==2.7.5    # via faker, typepy
 python-json-logger==0.1.8
 python3-openid==3.1.0     # via django-allauth
-pytz==2018.7              # via django, django-modelcluster, typepy
+pytz==2018.7              # via django, django-modelcluster, typepy, wagtail
 pyyaml==3.12              # via vcrpy
 qrcode==5.3               # via django-allauth-2fa
 requests-cache==0.4.13    # via pshtt
 requests-file==1.4.3      # via tldextract
 requests-oauthlib==0.8.0  # via django-allauth
 requests==2.20.0
-six==1.11.0               # via bleach, cryptography, django-anymail, faker, html5lib, mbstrdecoder, pyopenssl, pytablewriter, python-dateutil, qrcode, requests-file, tabledata, typepy, unittest-xml-reporting, vcrpy
+six==1.11.0               # via bleach, cryptography, django-anymail, faker, html5lib, mbstrdecoder, pyopenssl, pytablewriter, python-dateutil, qrcode, requests-file, tabledata, typepy, unittest-xml-reporting, vcrpy, wagtail
 tabledata==0.0.25         # via pytablewriter
 text-unidecode==1.1       # via faker
 tinycss2==0.6.1
 tldextract==2.2.0
 tls-parser==1.1.1
 typepy[datetime]==0.3.0   # via dataproperty, pytablewriter, tabledata
-typing==3.6.4             # via nassl, tls-parser
 unidecode==0.4.21         # via wagtail
 unittest-xml-reporting==2.1.0
 urllib3==1.24.1
 vcrpy==1.11.1
-wagtail-factories==0.3.0
-wagtail-metadata==0.3.1
-wagtail==1.12.3
+wagtail-autocomplete==0.1.1
+wagtail-factories==1.1.0
+wagtail-metadata==2.0.1
+wagtail==2.3
 webencodings==0.5.1       # via bleach, html5lib, tinycss2
 wget==3.2                 # via pshtt
-willow==0.4               # via wagtail
+willow==1.1               # via wagtail
 wrapt==1.10.11            # via vcrpy
 yarl==0.15.0              # via vcrpy
 zxcvbn-python==4.4.18

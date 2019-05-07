@@ -1,5 +1,5 @@
 from django.urls import reverse
-from wagtail.wagtailcore.models import Site
+from wagtail.core.models import Site
 from django_otp import user_has_device
 from allauth_2fa.adapter import OTPAdapter
 try:

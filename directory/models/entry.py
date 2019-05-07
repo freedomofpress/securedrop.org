@@ -6,17 +6,17 @@ from django.db.models import Func, F, Q, Value
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from django.contrib.postgres.fields import ArrayField
 
-from wagtail.wagtailcore.models import Page, PageManager, PageQuerySet
-from wagtail.wagtailcore import hooks
-from wagtail.wagtailadmin.edit_handlers import (
+from wagtail.core.models import Page, PageManager, PageQuerySet
+from wagtail.core import hooks
+from wagtail.admin.edit_handlers import (
     FieldPanel,
     InlinePanel,
     MultiFieldPanel,
 )
-from wagtail.wagtailadmin import messages
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+from wagtail.admin import messages
+from wagtail.images.edit_handlers import ImageChooserPanel
 
-from autocomplete.edit_handlers import AutocompleteFieldPanel
+from wagtailautocomplete.edit_handlers import AutocompletePanel
 from common.models.edit_handlers import ReadOnlyPanel
 from common.models.mixins import MetadataPageMixin
 from directory.warnings import WARNINGS, TestResult, WarningLevel
@@ -185,7 +185,7 @@ class DirectoryEntry(MetadataPageMixin, Page):
     permitted_domains_for_assets = ArrayField(
         models.TextField(),
         blank=True,
-        default=[],
+        default=list,
         help_text=('Comma-separated list of additional domains that will not trigger '
                    'the cross domain asset warning for this landing page.  '
                    'Subdomains on domains in this list are ignored.  For example, '
@@ -196,7 +196,7 @@ class DirectoryEntry(MetadataPageMixin, Page):
             max_length=50,
             choices=WARNING_CHOICES,
         ),
-        default=[],
+        default=list,
         blank=True,
         help_text=('Landing page warnings that will not be shown to someone '
                    'viewing this entry, even if they are in the scan results. '
@@ -204,7 +204,7 @@ class DirectoryEntry(MetadataPageMixin, Page):
     )
 
     content_panels = Page.content_panels + [
-        ReadOnlyPanel('added', label='Date Added'),
+        ReadOnlyPanel('added', heading='Date Added'),
         FieldPanel('landing_page_url'),
         FieldPanel('onion_address'),
         FieldPanel('organization_description'),
@@ -213,9 +213,9 @@ class DirectoryEntry(MetadataPageMixin, Page):
             ImageChooserPanel('organization_logo_homepage'),
             FieldPanel('organization_logo_is_title'),
         ], 'Logo'),
-        AutocompleteFieldPanel('languages', 'directory.Language'),
-        AutocompleteFieldPanel('countries', 'directory.Country'),
-        AutocompleteFieldPanel('topics', 'directory.Topic'),
+        AutocompletePanel('languages', 'directory.Language', is_single=False),
+        AutocompletePanel('countries', 'directory.Country', is_single=False),
+        AutocompletePanel('topics', 'directory.Topic', is_single=False),
         InlinePanel('owners', label='Owners'),
         InlinePanel('results', label='Results'),
     ]
@@ -316,7 +316,8 @@ class SecuredropOwner(models.Model):
     )
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        related_name='instances'
+        related_name='instances',
+        on_delete=models.CASCADE,
     )
 
     def __str__(self):
@@ -435,7 +436,7 @@ class ScanResult(models.Model):
     class Meta:
         get_latest_by = 'result_last_seen'
         indexes = [
-            models.Index(['result_last_seen']),
+            models.Index(fields=['result_last_seen']),
         ]
 
     def is_equal_to(self, other):

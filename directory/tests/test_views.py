@@ -2,9 +2,9 @@ from time import time
 from unittest import mock
 
 from django.contrib.auth import get_user_model
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.test import TestCase
-from wagtail.wagtailcore.models import Site
+from wagtail.core.models import Site
 from allauth.account.models import EmailAddress
 from django_otp.plugins.otp_totp.models import TOTPDevice
 
@@ -66,6 +66,8 @@ class ScanViewTest(TestCase):
             tolerance=0,
             drift=0,
         )
+        directory_form_as_p.do_not_call_in_templates = False
+        directory_form_as_p.alters_data = False
 
         self.client.post(
             reverse_lazy('account_login'),
@@ -94,7 +96,7 @@ class ScanViewTest(TestCase):
         )
         self.assertTemplateUsed(response, 'directory/result.html')
         self.assertTemplateUsed(response, 'directory/_submission_form.html')
-        directory_form_as_p.assert_called_once()
+        self.assertEqual(directory_form_as_p.call_count, 1)
         self.assertEqual(response.context['form_text'], self.directory.org_details_form_text)
 
     def test_render_scan_form(self):

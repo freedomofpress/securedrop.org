@@ -5,9 +5,9 @@ from __future__ import unicode_literals
 import django.core.validators
 from django.db import migrations, models
 import django.db.models.deletion
-import wagtail.wagtailcore.fields
-import wagtail.wagtailimages.models
-import wagtail.wagtailsearch.index
+import wagtail.core.fields
+import wagtail.images.models
+import wagtail.search.index
 
 
 class Migration(migrations.Migration):
@@ -24,7 +24,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(default='Alert', max_length=100)),
-                ('body', wagtail.wagtailcore.fields.RichTextField(blank=True, null=True)),
+                ('body', wagtail.core.fields.RichTextField(blank=True, null=True)),
                 ('close_text', models.CharField(default='Close Alert', help_text='Text on the close button visible only to screenreaders.', max_length=100)),
                 ('display_alert', models.BooleanField(default=False)),
             ],
@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=255, verbose_name='title')),
-                ('file', models.ImageField(height_field='height', upload_to=wagtail.wagtailimages.models.get_upload_to, verbose_name='file', width_field='width')),
+                ('file', models.ImageField(height_field='height', upload_to=wagtail.images.models.get_upload_to, verbose_name='file', width_field='width')),
                 ('width', models.IntegerField(editable=False, verbose_name='width')),
                 ('height', models.IntegerField(editable=False, verbose_name='height')),
                 ('created_at', models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='created at')),
@@ -58,14 +58,14 @@ class Migration(migrations.Migration):
             options={
                 'abstract': False,
             },
-            bases=(wagtail.wagtailsearch.index.Indexed, models.Model),
+            bases=(wagtail.search.index.Indexed, models.Model),
         ),
         migrations.CreateModel(
             name='CustomRendition',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('filter_spec', models.CharField(db_index=True, max_length=255)),
-                ('file', models.ImageField(height_field='height', upload_to=wagtail.wagtailimages.models.get_rendition_upload_to, width_field='width')),
+                ('file', models.ImageField(height_field='height', upload_to=wagtail.images.models.get_rendition_upload_to, width_field='width')),
                 ('width', models.IntegerField(editable=False)),
                 ('height', models.IntegerField(editable=False)),
                 ('focal_point_key', models.CharField(blank=True, default='', editable=False, max_length=16)),
@@ -75,7 +75,7 @@ class Migration(migrations.Migration):
             name='FooterSettings',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', wagtail.wagtailcore.fields.RichTextField(blank=True, null=True)),
+                ('title', wagtail.core.fields.RichTextField(blank=True, null=True)),
                 ('release_key', models.CharField(default='Key is unavailable', max_length=255)),
                 ('release_key_description', models.CharField(default='SecureDrop Release Signing Key \n (Not for communication)', max_length=255)),
                 ('release_key_link', models.URLField(blank=True, null=True)),
@@ -108,10 +108,10 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(default='Have a document to share?', help_text='Displayed if user is not browsing with Tor.', max_length=255)),
                 ('subtitle', models.CharField(blank=True, default='Your security is compromised while using this browser.', max_length=255, null=True)),
-                ('body', wagtail.wagtailcore.fields.RichTextField(blank=True, help_text='Text explaining how and why to use Tor browser. Only displayed if user is not browsing with Tor.', null=True)),
+                ('body', wagtail.core.fields.RichTextField(blank=True, help_text='Text explaining how and why to use Tor browser. Only displayed if user is not browsing with Tor.', null=True)),
                 ('tor_settings_title', models.CharField(default='Your Tor security settings are too low.', help_text='This alert is only displayed if the user is browsing with Tor already.', max_length=255)),
                 ('tor_settings_subtitle', models.CharField(blank=True, default='These settings allow JavaScript to run which compromises your security.', max_length=255, null=True)),
-                ('tor_settings_body', wagtail.wagtailcore.fields.RichTextField(blank=True, help_text='Text explaining how and why to change Tor security settings.', null=True)),
+                ('tor_settings_body', wagtail.core.fields.RichTextField(blank=True, help_text='Text explaining how and why to change Tor security settings.', null=True)),
                 ('site', models.OneToOneField(editable=False, on_delete=django.db.models.deletion.CASCADE, to='wagtailcore.Site')),
             ],
             options={
@@ -122,11 +122,11 @@ class Migration(migrations.Migration):
             name='TwoFactorAuthSettings',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('signup_form_text', wagtail.wagtailcore.fields.RichTextField(blank=True, default='Note: two-factor authentication is required to use your account.  After you complete this form, you must also complete setup of a two-factor authentication device.', help_text='Message displayed on the signup page', null=True)),
-                ('authenticate_text', wagtail.wagtailcore.fields.RichTextField(blank=True, help_text='Message displayed on the 2FA authentication form, where the user must enter their token', null=True)),
-                ('setup_text', wagtail.wagtailcore.fields.RichTextField(blank=True, help_text='Message displayed on the 2FA setup form', null=True)),
-                ('backup_tokens_text', wagtail.wagtailcore.fields.RichTextField(blank=True, help_text='Message displayed on the 2FA backup tokens generation form', null=True)),
-                ('remove_text', wagtail.wagtailcore.fields.RichTextField(blank=True, help_text='Message displayed on the 2FA removal form', null=True)),
+                ('signup_form_text', wagtail.core.fields.RichTextField(blank=True, default='Note: two-factor authentication is required to use your account.  After you complete this form, you must also complete setup of a two-factor authentication device.', help_text='Message displayed on the signup page', null=True)),
+                ('authenticate_text', wagtail.core.fields.RichTextField(blank=True, help_text='Message displayed on the 2FA authentication form, where the user must enter their token', null=True)),
+                ('setup_text', wagtail.core.fields.RichTextField(blank=True, help_text='Message displayed on the 2FA setup form', null=True)),
+                ('backup_tokens_text', wagtail.core.fields.RichTextField(blank=True, help_text='Message displayed on the 2FA backup tokens generation form', null=True)),
+                ('remove_text', wagtail.core.fields.RichTextField(blank=True, help_text='Message displayed on the 2FA removal form', null=True)),
                 ('site', models.OneToOneField(editable=False, on_delete=django.db.models.deletion.CASCADE, to='wagtailcore.Site')),
             ],
             options={

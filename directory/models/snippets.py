@@ -3,10 +3,10 @@ from django.db import models
 from modelcluster.models import ClusterableModel
 from modelcluster.fields import ParentalKey
 
-from wagtail.wagtailcore.models import Orderable
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel
-from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtailsnippets.models import register_snippet
+from wagtail.core.models import Orderable
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
+from wagtail.core.fields import RichTextField
+from wagtail.snippets.models import register_snippet
 
 
 @register_snippet
@@ -55,6 +55,6 @@ class ResultState(Orderable):
 
     class Meta:
         indexes = [
-            models.Index(['result_group']),
-            models.Index(['sort_order']),
+            models.Index(fields=['result_group']),
+            models.Index(fields=['sort_order']),
         ]

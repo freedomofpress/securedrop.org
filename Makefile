@@ -41,22 +41,22 @@ update-pip-dependencies: ## Uses pip-compile to update requirements.txt
 # It is critical that we run pip-compile via the same Python version
 # that we're generating requirements for, otherwise the versions may
 # be resolved differently.
-	docker run -v "$(DIR):/code" -w /code -it python:3.4-slim \
+	docker run -v "$(DIR):/code" -w /code -it python:3.5-slim \
 		bash -c 'pip install pip-tools && apt-get update && apt-get install git -y && \
-		pip-compile --no-header --output-file requirements.txt requirements.in && \
-		pip-compile --no-header --output-file dev-requirements.txt dev-requirements.in'
+		pip-compile --verbose --no-header --output-file requirements.txt requirements.in && \
+		pip-compile --verbose --no-header --output-file dev-requirements.txt dev-requirements.in'
 
 
 .PHONY: flake8
 flake8: ## Runs flake8 linting in Python3 container.
 	@docker run -v $(PWD):/code -w /code --name fpf_www_flake8 --rm \
-		python:3.4-slim \
+		python:3.5-slim \
 		bash -c "pip install -q flake8 && flake8"
 
 .PHONY: bandit
 bandit: ## Runs bandit static code analysis in Python3 container.
 	@docker run -it -v $(PWD):/code -w /code --name fpf_www_bandit --rm \
-		python:3.4-slim \
+		python:3.5-slim \
 		bash -c "pip install -q --upgrade bandit && bandit --recursive . -ll --exclude devops,node_modules,molecule,.venv"
 
 .PHONY: npm-audit

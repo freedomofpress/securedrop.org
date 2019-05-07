@@ -1,11 +1,11 @@
 from allauth.account.models import EmailAddress
 
 from django.core.exceptions import ValidationError
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model
 from django.test import Client, TestCase
 
-from wagtail.wagtailcore.models import Site
+from wagtail.core.models import Site
 
 from directory.warnings import WarningLevel
 from directory.models import DirectoryEntry, ScanResult, SecuredropOwner

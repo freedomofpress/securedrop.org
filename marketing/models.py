@@ -12,11 +12,11 @@ from common.blocks import (
 )
 from search.utils import get_search_content_by_fields
 
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, InlinePanel, PageChooserPanel, StreamFieldPanel, MultiFieldPanel
-from wagtail.wagtailcore import blocks
-from wagtail.wagtailcore.fields import StreamField, RichTextField
-from wagtail.wagtailcore.models import Page, Orderable
-from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, PageChooserPanel, StreamFieldPanel, MultiFieldPanel
+from wagtail.core import blocks
+from wagtail.core.fields import StreamField, RichTextField
+from wagtail.core.models import Page, Orderable
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 
 class MarketingIndexPage(MetadataPageMixin, Page):
@@ -115,7 +115,8 @@ class OrderedFeatures(Orderable):
     )
     feature = models.ForeignKey(
         'marketing.FeaturePage',
-        related_name='marketing_orders'
+        related_name='marketing_orders',
+        on_delete=models.CASCADE,
     )
 
     panels = [

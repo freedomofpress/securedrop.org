@@ -4,9 +4,9 @@ from allauth.account.models import EmailAddress
 from django.test import TestCase
 from django.test import Client
 from django.contrib.auth import get_user_model
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django_otp.plugins.otp_totp.models import TOTPDevice
-from wagtail.wagtailcore.models import Site
+from wagtail.core.models import Site
 
 from common.tests.utils import turn_on_instance_management
 from directory.tests.factories import DirectoryPageFactory, DirectoryEntryFactory

@@ -1,7 +1,7 @@
 -e git+https://github.com/freedomofpress/django-logging.git@b7d0b7b542db6ac088dbf3d2e7b249df333d3082#egg=django-logging-json
 -e git+https://github.com/nabla-c0d3/sslyze.git@ef357c2e76b6ba66f23db5fb1f95c7e8a6c13b9d#egg=pshtt-dependency-hell
 bleach>=2.1.4
-Django>=1.11.20<2
+Django>=2.1,<2.2
 django-analytical>=2.4
 django-anymail[mailgun]>=1.4
 django-modelcluster
@@ -20,11 +20,12 @@ python-json-logger
 tldextract
 tinycss2
 vcrpy
-wagtail<1.13
+wagtail>=2.3,<2.4
 wagtail-factories
 wagtail-metadata
+wagtail-autocomplete
 unittest-xml-reporting
-django-allauth==0.34.0
+django-allauth>=0.38
 django-allauth-2fa
 django-csp
 zxcvbn-python

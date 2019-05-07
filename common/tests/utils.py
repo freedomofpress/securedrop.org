@@ -1,4 +1,4 @@
-from wagtail.wagtailcore.models import Site
+from wagtail.core.models import Site
 
 from directory.models import DirectorySettings
 

@@ -3,10 +3,10 @@ from django.db import models
 from modelcluster.models import ClusterableModel
 from modelcluster.fields import ParentalKey
 
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, PageChooserPanel, InlinePanel, MultiFieldPanel
-from wagtail.wagtailcore.models import Orderable
-from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
-from wagtail.wagtailsnippets.models import register_snippet
+from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel, InlinePanel, MultiFieldPanel
+from wagtail.core.models import Orderable
+from wagtail.documents.edit_handlers import DocumentChooserPanel
+from wagtail.snippets.models import register_snippet
 
 
 @register_snippet
@@ -24,7 +24,7 @@ class Menu(ClusterableModel):
 
     class Meta:
         indexes = [
-            models.Index(['slug']),
+            models.Index(fields=['slug']),
         ]
 
     def __str__(self):
@@ -54,8 +54,8 @@ class MenuItem(Orderable):
     ]
 
     indexes = [
-        models.Index(['sort_order']),  # Defined in wagtail.models.Orderable
-        models.Index(['menu']),
+        models.Index(fields=['sort_order']),  # Defined in wagtail.models.Orderable
+        models.Index(fields=['menu']),
     ]
 
     @property

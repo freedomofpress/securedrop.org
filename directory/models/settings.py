@@ -2,9 +2,9 @@ from django.contrib.auth.models import Group
 from django.db import models
 
 from wagtail.contrib.settings.models import BaseSetting, register_setting
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel
-from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
+from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
+from wagtail.core.fields import RichTextField
+from wagtail.documents.edit_handlers import DocumentChooserPanel
 
 
 @register_setting(icon='form')
@@ -16,6 +16,7 @@ class DirectorySettings(BaseSetting):
         blank=True,
         null=True,
         help_text='Users in this group will get an email alert when a new SecureDrop instance is submitted',
+        on_delete=models.CASCADE,
     )
     contact_email = models.EmailField(
         default='securedrop@freedom.press',

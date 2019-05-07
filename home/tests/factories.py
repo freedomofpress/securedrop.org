@@ -13,4 +13,3 @@ class HomePageFactory(wagtail_factories.PageFactory):
     description_header = factory.Faker('sentence', nb_words=4)
     description = factory.Faker('text')
     features_header = 'What SecureDrop Does'
-    parent = None

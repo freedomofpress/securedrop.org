@@ -1,7 +1,7 @@
 from django.db import models
 
-from wagtail.wagtailadmin.edit_handlers import FieldPanel
-from wagtail.wagtailsnippets.models import register_snippet
+from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.snippets.models import register_snippet
 
 
 @register_snippet

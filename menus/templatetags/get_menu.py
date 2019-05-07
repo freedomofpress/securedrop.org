@@ -5,7 +5,7 @@ from menus.models import MenuItem
 register = template.Library()
 
 
-@register.assignment_tag
+@register.simple_tag
 def get_menu(slug):
     try:
         items = MenuItem.objects.filter(
