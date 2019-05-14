@@ -83,6 +83,7 @@ jobs:
             pipenv run docker-compose -f prod-docker-compose.yaml up -d
             while ! curl --output /dev/null --silent --head --fail http://localhost:8080; do sleep 1 && echo -n .; done;
             pipenv run docker-compose -f prod-docker-compose.yaml exec django /bin/bash -c "./manage.py test --noinput -k"
+            pipenv run docker-compose -f prod-docker-compose.yaml exec django /bin/bash -c "./manage.py makemigrations --dry-run --check"
 
       - store_test_results:
           path: ~/securedrop.org/test-results
