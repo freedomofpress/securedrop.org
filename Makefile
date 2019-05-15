@@ -11,6 +11,10 @@ SD_IMAGE := quay.io/freedomofpress/securedrop.org
 dev-init: ## Initialize docker environment for developer workflow
 	echo UID=$(UID) > .env
 
+.PHONY: check-migrations
+check-migrations: ## Check for ungenerated migrations
+	docker-compose exec -T django /bin/bash -c "./manage.py makemigrations --dry-run --check"
+
 .PHONY: ci-tests
 ci-tests: ## Runs testinfra against a pre-running CI container. Useful for debug
 	@molecule verify -s ci
