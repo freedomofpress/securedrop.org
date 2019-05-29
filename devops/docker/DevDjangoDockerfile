@@ -17,8 +17,8 @@ RUN pip install -r /requirements.txt
 ARG USERID
 RUN adduser --uid "${USERID}" --disabled-password --gecos "" gcorn || true
 
-RUN  mkdir /django-logs && \
-    chown -R "$(id -nu):" /django-logs
+RUN  mkdir /django-logs /deploy && \
+    chown -R "${USERID}" /django-logs /deploy
 
 EXPOSE 8000
 USER ${USERID}

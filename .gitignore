@@ -46,3 +46,6 @@ results.txt
 
 # Docker-compose env file used for passing userid
 .env
+
+# Ignore files created to communicate system deployment info
+.versioninfo
