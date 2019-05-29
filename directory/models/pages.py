@@ -246,7 +246,10 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
 
         context = {
             'form': form,
-            'submit_url': '{base}{scan_url}'.format(base=self.url, scan_url=SCAN_URL),
+            'submit_url': '{base}{scan_url}'.format(
+                base=self.get_url(request=request),
+                scan_url=SCAN_URL,
+            ),
             'form_title': self.scanner_form_title,
         }
         if self.scanner_form_text:

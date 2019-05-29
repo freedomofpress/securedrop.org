@@ -112,7 +112,7 @@
 			</div>
 			<div class="submit-instance__buttons">
 				{% if settings.directory.DirectorySettings.allow_directory_management %}
-					<a href="{{page.url}}scan" class="submit-instance__button">
+					<a href="{% pageurl page %}scan" class="submit-instance__button">
 						{{ page.submit_button_text }}
 						{% include "common/chevron-right.svg" with class="submit-instance__button-icon" %}
 					</a>
