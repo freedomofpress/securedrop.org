@@ -53,7 +53,7 @@
 			<div class="updates__content">
 				<div class="updates__item">
 					<h2 class="updates__header">{% trans "Latest News" %}</h2>
-					<a href="{{ self.get_latest_blog.url }}" class="updates__link">{{ self.get_latest_blog }}</a>
+					<a href="{% pageurl self.get_latest_blog %}" class="updates__link">{{ self.get_latest_blog }}</a>
 				</div>
 				{% with current_release=page.get_current_release %}
 					{% if current_release %}
