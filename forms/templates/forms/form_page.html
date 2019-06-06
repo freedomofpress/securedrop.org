@@ -1,5 +1,6 @@
 {% extends "layout/_layout_one_column.html" %}
-{% load wagtailcore_tags widget_type %}
+{% load wagtailcore_tags wagtailimages_tags widget_type %}
+{% load field_extras from form_tags %}
 
 {% block page_title_text %}{{ page.title }}{% endblock %}
 
@@ -18,6 +19,7 @@
 			{% endfor %}
 			{% for field in form.visible_fields %}
 				{% with css_modifier=field.field|widget_type %}
+					{% field_extras field as extras %}
 					<div class="basic-form__group basic-form__group--{{ css_modifier }}">
 						<label class="basic-form__label basic-form__label--{{ css_modifier }}" for="{{ field.id_for_label }}">
 							<div class="basic-form__label-title basic-form__label-title--{{ css_modifier }}">
@@ -26,9 +28,15 @@
 									<span class="basic-form__label-required" title="Required">*</span>
 								{% endif %}
 							</div>
-							{% if field.help_text %}
+							{% if field.help_text or extras.image %}
 								<div class="basic-form__label-help-text">
 									{{ field.help_text|safe }}
+									{% if extras.image %}
+										<details>
+											<summary>Show Image</summary>
+											{% image extras.image max-960x950 %}
+										</details>
+									{% endif %}
 								</div>
 							{% endif %}
 						</label>

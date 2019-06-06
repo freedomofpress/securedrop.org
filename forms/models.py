@@ -6,12 +6,24 @@ from wagtail.admin.edit_handlers import (
 )
 from wagtail.core.fields import RichTextField
 from wagtail.contrib.forms.models import AbstractFormField, AbstractEmailForm
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 from common.models import MetadataPageMixin
 
 
 class FormField(AbstractFormField):
     page = ParentalKey('FormPage', related_name='form_fields')
+
+    image = models.ForeignKey(
+        'common.CustomImage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL
+    )
+
+    panels = AbstractFormField.panels + [
+        ImageChooserPanel('image'),
+    ]
 
 
 class FormPage(MetadataPageMixin, AbstractEmailForm):
