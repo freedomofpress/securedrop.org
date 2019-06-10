@@ -1,11 +1,11 @@
 {% extends "layout/_layout_one_column.html" %}
-{% load wagtailcore_tags %}
+{% load wagtailcore_tags common_tags %}
 
 {% block page_title_text %}{{ page.title }}{% endblock %}
 
 {% block main %}
 	<div class="form-page">
-		{% if page.warning %}
+		{% if not page.warning|richtext_isempty %}
 			<div class="form-page__warning">{{ page.warning|richtext }}</div>
 		{% endif %}
 		<div class="form-page__intro">
