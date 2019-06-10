@@ -27,3 +27,12 @@ def field_extras(context: 'Context', form_field: 'Field'):
         context['page'].form_fields.all()
     ).__next__()
     return field_obj
+
+
+@register.simple_tag
+def widget_type(field: 'Field') -> str:
+    """
+    Accepts a form field subclass and return a string value appropriate for a
+    CSS class.
+    """
+    return type(field.widget).__name__.lower()
