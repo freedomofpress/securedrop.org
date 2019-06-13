@@ -1,0 +1,65 @@
+@keyframes shimmer
+	0%
+		opacity: 1
+	100%
+		opacity: .5
+
+.lightbox
+	display: none
+	opacity: 0
+	transition: linear 250ms opacity
+
+.lightbox__overlay
+	position: fixed
+	top: 0
+	left: 0
+	right: 0
+	bottom: 0
+	z-index: 501
+
+	background-color: rgba(0, 0, 0, 0.8)
+
+	@media(max-width: 480px)
+		background-color: #FFF
+
+.lightbox__container
+	margin: 200px 200px 0 200px
+	background-color: #FFF
+	border-radius: 3px
+	padding: 10px
+	position: absolute
+	z-index: 502
+
+	@media(max-width: 768px)
+		margin: 10px 10px 0 10px
+
+	@media(max-width: 480px)
+		margin: 0
+
+	&::before
+		content: "\00D7 close"
+		display: block
+		text-align: right
+		color: #999
+		font-size: 12px
+		text-transform: uppercase
+		letter-spacing: 0.1em
+		cursor: pointer
+		margin-bottom: 5px
+
+	&:hover::before
+		color: #333
+
+.lightbox__image
+	display: block
+
+.lightbox--visible
+	display: block
+	opacity: 1
+
+.lightbox-link--loading
+	animation-name: shimmer
+	animation-duration: 500ms
+	animation-timing-function: ease-in
+	animation-direction: alternate
+	animation-iteration-count: infinite

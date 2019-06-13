@@ -1,5 +1,6 @@
-import classlist from 'classlist-polyfill'
+import 'classlist-polyfill'
 import 'element-dataset'
+import 'babel-polyfill'
 import axios from 'axios'
 
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
@@ -11,3 +12,4 @@ import '~/slidingnav'
 import '~/alert'
 import '~/passwords'
 import '~/scanner'
+import '~/lightbox'

@@ -27,7 +27,10 @@
 
 	{% if extras.image %}
 		<div class="basic-form__image">
-			{% image extras.image max-960x950 %}
+			{% image extras.image max-1500x1500 as full_image %}
+			<a class="js-lightbox" href="{{ full_image.url }}">
+				{% image extras.image max-600x600 %}
+			</a>
 		</div>
 	{% endif %}
 
