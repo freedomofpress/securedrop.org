@@ -31,7 +31,10 @@ class Lightbox {
 		this.elements.image.src = this._link.href
 		this.elements.lightbox.classList.add('lightbox')
 		this.elements.lightbox.setAttribute('hidden', true)
+		this.elements.lightbox.setAttribute('aria-hidden', true)
+		this.elements.lightbox.setAttribute('role', 'dialog')
 		this.elements.overlay.classList.add('lightbox__overlay')
+		this.elements.overlay.setAttribute('aria-hidden', true)
 		this.elements.image.classList.add('lightbox__image')
 		this.elements.container.classList.add('lightbox__container')
 
@@ -67,6 +70,7 @@ class Lightbox {
 		}
 
 		this.elements.lightbox.setAttribute('hidden', false)
+		this.elements.lightbox.setAttribute('aria-hidden', false)
 		this.elements.lightbox.classList.add('lightbox--visible')
 
 		/* Reposition and resize the image container
@@ -111,6 +115,7 @@ class Lightbox {
 
 	close(e) {
 		this.elements.lightbox.setAttribute('hidden', true)
+		this.elements.lightbox.setAttribute('aria-hidden', true)
 		this.elements.lightbox.classList.remove('lightbox--visible')
 		this.elements.container.style.removeProperty('width')
 		this.elements.container.style.removeProperty('top')
