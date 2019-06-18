@@ -4,6 +4,11 @@ class Lightbox {
 	constructor(link) {
 		this._link = link
 
+		this.options = {
+			lightboxPadding: 10, // must match value from CSS on the container
+			lightboxMargin: 20,
+		}
+
 		this.open = this.open.bind(this)
 		this.close = this.close.bind(this)
 		this.createLightboxElements = this.createLightboxElements.bind(this)
@@ -64,13 +69,52 @@ class Lightbox {
 		this.elements.lightbox.setAttribute('hidden', false)
 		this.elements.lightbox.classList.add('lightbox--visible')
 
-		// Reposition the image container
-		this.elements.container.style.top = window.scrollY + 'px'
+		/* Reposition and resize the image container
+		 * There's a lot of math here but it basically works like this:
+		 *
+		 * 1. The maximum image height is either the natural image height or the height of the screen,
+		 *    whichever is smaller
+		 * 2. The *actual* image width is either the width that is the correct aspect ratio for the
+		 *    height chosen in step one, the image's natural width, or the width of the screen,
+		 *    whichever is smallest
+		 * 3. The *actual* image height therefore is whatever matches the aspect ratio of the image
+		 *    width selected in step two
+		 *
+		 * Note that we only use the calculated width in the style and allow the browser to use the
+		 * natural aspect ratio of the image to automatically determine the height. We use the
+		 * calculated image height to center the image.
+		 */
+		const imageAspectRatio = this.elements.image.height / this.elements.image.width
+		const imageMaxHeight = Math.min(
+			this.elements.image.naturalHeight,
+			// Leave 140px for caption
+			window.innerHeight - 140 - this.options.lightboxPadding * 2 - this.options.lightboxMargin * 2
+		)
+		const imageWidth = Math.min(
+			this.elements.image.naturalWidth,
+			imageMaxHeight / imageAspectRatio,
+			window.innerWidth - this.options.lightboxPadding * 2 - this.options.lightboxMargin * 2
+		)
+		const imageHeight = imageWidth * imageAspectRatio
+		this.elements.container.style.width = imageWidth + 'px'
+		// Center
+		this.elements.container.style.top = ((
+			window.innerHeight
+			- imageHeight
+			- 140 // Leave 140px for caption
+		) / 2) + 'px'
+		this.elements.container.style.left = ((
+			window.innerWidth
+			- imageWidth
+		) / 2) + 'px'
 	}
 
 	close(e) {
 		this.elements.lightbox.setAttribute('hidden', true)
 		this.elements.lightbox.classList.remove('lightbox--visible')
+		this.elements.container.style.removeProperty('width')
+		this.elements.container.style.removeProperty('top')
+		this.elements.container.style.removeProperty('left')
 		this.unbindEscKey()
 		e.preventDefault()
 		e.stopPropagation()
