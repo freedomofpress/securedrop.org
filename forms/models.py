@@ -20,9 +20,20 @@ class FormField(AbstractFormField):
         blank=True,
         on_delete=models.SET_NULL
     )
+    image_caption = RichTextField(blank=True, null=True)
+    image_link_text = models.CharField(
+        blank=True,
+        null=True,
+        default='Show Image',
+        max_length=50
+    )
+    show_image_thumbnail = models.BooleanField(default=False)
 
     panels = AbstractFormField.panels + [
         ImageChooserPanel('image'),
+        FieldPanel('image_caption'),
+        FieldPanel('image_link_text'),
+        FieldPanel('show_image_thumbnail'),
     ]
 
 

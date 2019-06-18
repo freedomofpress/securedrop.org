@@ -3,6 +3,8 @@ import './lightbox.sass'
 class Lightbox {
 	constructor(link) {
 		this._link = link
+		this._caption = link.dataset.lightboxCaption
+		this._currentlyOpening = false
 
 		this.options = {
 			lightboxPadding: 10, // must match value from CSS on the container
@@ -23,8 +25,13 @@ class Lightbox {
 		this.elements = {
 			lightbox: document.createElement('div'),
 			overlay: document.createElement('div'),
-			container: document.createElement('div'),
+			container: document.createElement('figure'),
 			image: document.createElement('img'),
+			caption: null,
+		}
+
+		if (this._caption) {
+			this.elements.caption = document.createElement('figcaption')
 		}
 
 		// Attributes
@@ -37,6 +44,9 @@ class Lightbox {
 		this.elements.overlay.setAttribute('aria-hidden', true)
 		this.elements.image.classList.add('lightbox__image')
 		this.elements.container.classList.add('lightbox__container')
+		if (this.elements.caption) {
+			this.elements.caption.classList.add('lightbox__caption')
+		}
 
 		// DOM Tree
 		document.body.appendChild(this.elements.lightbox)
@@ -44,13 +54,17 @@ class Lightbox {
 		this.elements.lightbox.appendChild(this.elements.container)
 		this.elements.container.appendChild(this.elements.image)
 
+		if (this.elements.caption) {
+			this.elements.caption.innerHTML = this._caption
+			this.elements.container.appendChild(this.elements.caption)
+		}
+
 		// Events -- clicking anywhere should close the lightbox
 		this.elements.overlay.addEventListener('click', this.close)
 		this.elements.container.addEventListener('click', this.close)
 
 		await new Promise((resolve, reject) => {
 			this.elements.image.onload = resolve
-			setTimeout(3000, reject)
 		})
 
 		return this.elements.image
@@ -60,7 +74,12 @@ class Lightbox {
 		e.preventDefault()
 		e.stopPropagation()
 
+		// Prevent double-clicking errors
+		if (this._currentlyOpening) return
+
 		this.bindEscKey()
+
+		this._currentlyOpening = true
 
 		// If this is the first open, make sure to create the necessary elements
 		if (!('elements' in this)) {
@@ -106,11 +125,13 @@ class Lightbox {
 			window.innerHeight
 			- imageHeight
 			- 140 // Leave 140px for caption
-		) / 2) + 'px'
+		) / 2 + window.scrollY) + 'px'
 		this.elements.container.style.left = ((
 			window.innerWidth
 			- imageWidth
 		) / 2) + 'px'
+
+		this._currentlyOpening = false
 	}
 
 	close(e) {

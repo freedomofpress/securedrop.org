@@ -20,6 +20,9 @@
 	border-top: 1px solid $gray10
 	margin-right: 1rem
 
+	+media-breakpoint-down(extra-small)
+		width: 100%
+
 .basic-form__group-image
 	flex-shrink: 1
 
@@ -38,6 +41,26 @@
 
 .basic-form__image
 	display: block
+	margin: 0
+	img
+		display: block
+	// On mobile we show the link instead of the image
+	+media-breakpoint-down(extra-small)
+		display: none
+
+
+.basic-form__image-link--hide-on-desktop
+	display: none
+	+media-breakpoint-down(extra-small)
+		display: inline
+
+.basic-form__image-caption
+	font-size: 14px
+	color: $gray50--text
+	> .rich-text > :first-child
+		margin-top: 0.5rem
+	> .rich-text > :last-child
+		margin-bottom: 0
 
 .basic-form__field--textinput,
 .basic-form__field--urlinput,
