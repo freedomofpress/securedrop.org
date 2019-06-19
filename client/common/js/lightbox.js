@@ -52,12 +52,11 @@ class Lightbox {
 		document.body.appendChild(this.elements.lightbox)
 		this.elements.lightbox.appendChild(this.elements.overlay)
 		this.elements.lightbox.appendChild(this.elements.container)
-		this.elements.container.appendChild(this.elements.image)
-
 		if (this.elements.caption) {
 			this.elements.caption.innerHTML = this._caption
 			this.elements.container.appendChild(this.elements.caption)
 		}
+		this.elements.container.appendChild(this.elements.image)
 
 		// Events -- clicking anywhere should close the lightbox
 		this.elements.overlay.addEventListener('click', this.close)

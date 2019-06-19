@@ -1,3 +1,6 @@
+@import '../sass/base/variables'
+@import '../sass/base/mixins/breakpoints'
+
 @keyframes shimmer
 	0%
 		opacity: 1
@@ -28,24 +31,39 @@
 	z-index: 502
 
 	&::before
-		content: "\00D7 close"
-		display: block
-		text-align: right
-		color: #999
-		font-size: 12px
-		text-transform: uppercase
-		letter-spacing: 0.1em
+		$size: 30px
 		cursor: pointer
-		margin-bottom: 5px
+
+		display: block
+		position: absolute
+		top: -15px
+		right: -15px
+		height: 30px
+		width: 30px
+
+		box-shadow: 0 0 0 1px rgba(white, .5), 0 2px 8px rgba(black, .5)
+
+		content: "\00D7"
+		font-size: $size + 2px
+		line-height: $size
+		color: #FFF
+		background-color: #000
+		border-radius: $size / 2
+		text-align: center
 
 .lightbox__image
 	display: block
 
 .lightbox__caption
+	color: #333
+	padding: 10px 10px 0 10px
 	.rich-text > :first-child
-		margin-top: 0.5em
+		margin-top: 0
 	.rich-text > :last-child
-		margin-bottom: 0
+		margin-bottom: 0.5em
+
+	+media-breakpoint-down(extra-small)
+		font-size: 1rem
 
 .lightbox--visible
 	display: block
