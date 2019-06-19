@@ -6,12 +6,35 @@ from wagtail.admin.edit_handlers import (
 )
 from wagtail.core.fields import RichTextField
 from wagtail.contrib.forms.models import AbstractFormField, AbstractEmailForm
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 from common.models import MetadataPageMixin
 
 
 class FormField(AbstractFormField):
     page = ParentalKey('FormPage', related_name='form_fields')
+
+    image = models.ForeignKey(
+        'common.CustomImage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL
+    )
+    image_caption = RichTextField(blank=True, null=True)
+    image_link_text = models.CharField(
+        blank=True,
+        null=True,
+        default='Show Image',
+        max_length=50
+    )
+    show_image_thumbnail = models.BooleanField(default=False)
+
+    panels = AbstractFormField.panels + [
+        ImageChooserPanel('image'),
+        FieldPanel('image_caption'),
+        FieldPanel('image_link_text'),
+        FieldPanel('show_image_thumbnail'),
+    ]
 
 
 class FormPage(MetadataPageMixin, AbstractEmailForm):

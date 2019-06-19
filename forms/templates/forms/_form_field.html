@@ -1,0 +1,61 @@
+{% load wagtailimages_tags wagtailcore_tags %}
+{% load field_extras widget_type from form_tags %}
+{% load richtext_isempty from common_tags %}
+
+{% widget_type field.field as css_modifier %}
+{% field_extras field as extras %}
+
+<div class="basic-form__group basic-form__group--{{ css_modifier }}">
+
+	<div class="basic-form__group-main">
+		<label class="basic-form__label basic-form__label--{{ css_modifier }}" for="{{ field.id_for_label }}">
+			<div class="basic-form__label-title basic-form__label-title--{{ css_modifier }}">
+				{{ field.label }}
+				{% if field.field.required %}
+					<span class="basic-form__label-required" title="Required">*</span>
+				{% endif %}
+			</div>
+			{% if field.help_text or extras.image %}
+				<div class="basic-form__label-help-text">
+					{{ field.help_text|safe }}
+					{% if extras.image %}
+						{% image extras.image max-1500x1500 as full_image %}
+						<a
+							class="js-lightbox basic-form__image-link {% if extras.show_image_thumbnail %}basic-form__image-link--hide-on-desktop{% endif %}"
+							{% if not extras.image_caption|richtext_isempty %}
+								data-lightbox-caption="{{ extras.image_caption|richtext|force_escape }}"
+							{% endif %}
+							href="{{ full_image.url }}"
+						>
+							{{ extras.image_link_text|default:"Show Image" }}
+						</a>
+					{% endif %}
+				</div>
+			{% endif %}
+		</label>
+		<div class="basic-form__field basic-form__field--{{ css_modifier }}">
+			{{ field }}
+		</div>
+	</div>
+
+	{% if extras.image and extras.show_image_thumbnail %}
+		{% image extras.image max-1500x1500 as full_image %}
+		<figure class="basic-form__image">
+			<a
+				class="js-lightbox"
+				{% if not extras.image_caption|richtext_isempty %}
+					data-lightbox-caption="{{ extras.image_caption|richtext|force_escape }}"
+				{% endif %}
+				href="{{ full_image.url }}"
+			>
+				{% image extras.image max-600x600 %}
+			</a>
+			{% if not extras.image_caption|richtext_isempty %}
+				<figcaption class="basic-form__image-caption">
+					{{ extras.image_caption|richtext }}
+				</figcaption>
+			{% endif %}
+		</figure>
+	{% endif %}
+
+</div>

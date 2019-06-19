@@ -27,6 +27,23 @@ def richtext_inline(value):
     ))
 
 
+@register.filter
+def richtext_isempty(value):
+    """
+    Returns True if a value is an empty string, none, or a string containing
+    nothing but paragraph tags
+
+    This is a workaround for a resolution to
+    https://github.com/wagtail/wagtail/issues/4549
+    """
+
+    return any([
+        value is None,
+        value == '',
+        value == '<p></p>',
+    ])
+
+
 @register.simple_tag
 def query_transform(request, **kwargs):
     updated = request.GET.copy()
