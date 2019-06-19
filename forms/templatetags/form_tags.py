@@ -1,4 +1,3 @@
-from functools import partial
 from typing import TYPE_CHECKING
 
 from django import template
@@ -19,13 +18,13 @@ def field_extras(context: 'Context', form_field: 'Field'):
     manager at page.form_fields. Will search this manager for a FormField with
     the same name as the passed in Field
     """
-    field_obj = filter(
-        partial(
-            lambda ffield, mfield: ffield.name == mfield.clean_name,
-            form_field
-        ),
-        context['page'].form_fields.all()
-    ).__next__()
+    try:
+        field_obj = filter(
+            lambda mfield: form_field.name == mfield.clean_name,
+            context['page'].form_fields.all()
+        ).__next__()
+    except StopIteration:
+        raise ValueError('Form field {} not found in form'.format(form_field.name))
     return field_obj
 
 
