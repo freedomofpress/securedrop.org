@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_control
 from modelcluster.fields import ParentalKey
 from wagtail.admin.edit_handlers import (
     FieldPanel, FieldRowPanel,
@@ -37,6 +39,7 @@ class FormField(AbstractFormField):
     ]
 
 
+@method_decorator(cache_control(private=True), name='serve')
 class FormPage(MetadataPageMixin, AbstractEmailForm):
     intro = RichTextField(blank=True)
     warning = RichTextField(blank=True, help_text='A warning for sources not to submit documents via this form.')
