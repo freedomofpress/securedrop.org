@@ -1,11 +1,22 @@
 from django.core import mail
 from django.test import TestCase
-from foliage.contextmanagers import page_tree
+from wagtail.core.models import Site
 
 from forms.models import FormPage
 
 
 class EmailPageTestCase(TestCase):
+
+    @classmethod
+    def setUpTestData(kls):
+        site = Site.objects.get()
+        kls.form_page = FormPage(
+            title='Form',
+            from_address='sender@example.com',
+            to_address='receiver@example.com',
+            slug='form',
+        )
+        site.root_page.add_child(instance=kls.form_page)
 
     def test_no_auto_generated_header(self):
         """
@@ -14,16 +25,5 @@ class EmailPageTestCase(TestCase):
 
         See forms.utils.send_mail for details
         """
-
-        PAGE_TREE = (
-            FormPage(
-                title='Form',
-                from_address='sender@example.com',
-                to_address='receiver@example.com',
-                slug='form'
-            ),
-        )
-
-        with page_tree(PAGE_TREE):
-            self.client.post('/')  # Posting to a form page triggers an email
-            self.assertNotIn('Auto-Submitted', mail.outbox[0].extra_headers)
+        self.client.post(self.form_page.get_url())  # Posting to a form page triggers an email
+        self.assertNotIn('Auto-Submitted', mail.outbox[0].extra_headers)
