@@ -22,6 +22,7 @@ tinycss2
 vcrpy
 wagtail>=2.3,<2.4
 wagtail-factories
+wagtail-foliage
 wagtail-metadata
 wagtail-autocomplete
 unittest-xml-reporting

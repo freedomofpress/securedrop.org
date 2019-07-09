@@ -66,12 +66,14 @@ tinycss2==0.6.1
 tldextract==2.2.0
 tls-parser==1.1.1
 typepy[datetime]==0.3.0   # via dataproperty, pytablewriter, tabledata
+typing==3.7.4             # via wagtail-foliage
 unidecode==0.4.21         # via wagtail
 unittest-xml-reporting==2.1.0
 urllib3==1.24.1
 vcrpy==1.11.1
 wagtail-autocomplete==0.1.1
 wagtail-factories==1.1.0
+wagtail-foliage==0.1.1
 wagtail-metadata==2.0.1
 wagtail==2.3
 webencodings==0.5.1       # via bleach, html5lib, tinycss2
@@ -80,3 +82,6 @@ willow==1.1               # via wagtail
 wrapt==1.10.11            # via vcrpy
 yarl==0.15.0              # via vcrpy
 zxcvbn-python==4.4.18
+
+# The following packages are considered to be unsafe in a requirements file:
+# setuptools==41.0.1        # via dataproperty, html5lib, mbstrdecoder, msgfy, pathvalidate, pytablewriter, python-json-logger, tabledata, tldextract, typepy
