@@ -80,3 +80,6 @@ willow==1.1               # via wagtail
 wrapt==1.10.11            # via vcrpy
 yarl==0.15.0              # via vcrpy
 zxcvbn-python==4.4.18
+
+# The following packages are considered to be unsafe in a requirements file:
+# setuptools==41.0.1        # via dataproperty, html5lib, mbstrdecoder, msgfy, pathvalidate, pytablewriter, python-json-logger, tabledata, tldextract, typepy

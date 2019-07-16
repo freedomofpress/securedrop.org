@@ -99,3 +99,6 @@ willow==1.1
 wrapt==1.10.11
 yarl==0.15.0
 zxcvbn-python==4.4.18
+
+# The following packages are considered to be unsafe in a requirements file:
+# setuptools==41.0.1        # via dataproperty, html5lib, ipdb, ipython, mbstrdecoder, msgfy, pathvalidate, pytablewriter, python-json-logger, tabledata, tldextract, typepy

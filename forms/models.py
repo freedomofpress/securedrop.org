@@ -11,6 +11,7 @@ from wagtail.contrib.forms.models import AbstractFormField, AbstractEmailForm
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 from common.models import MetadataPageMixin
+from forms.utils import send_mail
 
 
 class FormField(AbstractFormField):
@@ -64,3 +65,22 @@ class FormPage(MetadataPageMixin, AbstractEmailForm):
             FieldPanel('subject'),
         ], "Email"),
     ]
+
+    def send_mail(self, form):
+        """
+        A modified clone of AbstractEmailForm.send_mail, which uses our own
+        send_mail function to avoid including an
+        'Auto-Submitted: auto-generated' header
+
+        See forms.utils.send_mail for details
+        """
+
+        addresses = [x.strip() for x in self.to_address.split(',')]
+        content = []
+        for field in form:
+            value = field.value()
+            if isinstance(value, list):
+                value = ', '.join(value)
+            content.append('{}: {}'.format(field.label, value))
+        content = '\n'.join(content)
+        send_mail(self.subject, content, addresses, self.from_address,)
