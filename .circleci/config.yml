@@ -1,20 +1,30 @@
 ---
+reuse-blerbs:
+  - &python_prereqs
+    run:
+      name: Install testing pre-reqs
+      command: |
+        # Set python to 3.5.2
+        pyenv global 3.5.2
+        pip install -U pip
+        pip install pipenv
+        pipenv install
+
 version: 2
 jobs:
   safety_check:
-    machine: true
+    machine:
+      image: ubuntu-1604:201903-01
     working_directory: ~/securedrop.org
     steps:
       - checkout
 
+      - *python_prereqs
+
       - run:
-          name: Install testing pre-reqs
+          name: Flake8 linting
           command: |
-            # Set python to 3.5.2
-            pyenv global 3.5.2
-            pip install -U pip
-            pip install pipenv
-            pipenv install
+            make flake8
 
       - run:
           name: Check Python dependencies for CVEs
@@ -29,64 +39,83 @@ jobs:
             pipenv run make bandit
 
   npm_audit:
-    machine: true
+    machine:
+      image: ubuntu-1604:201903-01
     working_directory: ~/freedom.press
     steps:
       - checkout
 
-      - run:
-          name: Install dependencies
-          command: |
-            # Set to native py3 on circleci image
-            pyenv global 3.5.2
-            pip install -U pip
-            pip install pipenv
-            pipenv install
+      - *python_prereqs
+
       - run:
           name: Check node dependencies for vulnerabilities
           command: |
             pipenv run make dev-init
             pipenv run make ci-npm-audit
+
       - store_test_results:
           path: ~/freedom.press/test-results/
 
-  build:
-    machine: true
+  build_dev:
+    machine:
+      image: ubuntu-1604:201903-01
     working_directory: ~/securedrop.org
     steps:
       - checkout
 
-      - run:
-          name: Install testing pre-reqs
-          command: |
-            # Set python to 3.5.2
-            pyenv global 3.5.2
-            pip install -U pip
-            pip install pipenv
-            pipenv install
+      - *python_prereqs
+
 
       - run:
-          name: Flake8 linting
+          name: Ensure we can run dev-env
           command: |
-            make flake8
+            make dev-init
+            pipenv run docker-compose up -d
+            while ! curl --output /dev/null --silent --head --fail http://localhost:8000; do sleep 1; done;
+            pipenv run make dev-tests
+            pipenv run make check-migrations
+          no_output_timeout: 5m
 
       - run:
-          name: BUILD and push containers
+          name: Yank docker logs
           command: |
-            pipenv run docker-compose -f prod-docker-compose.yaml build django
-            docker login -u "${QUAY_USER}" -p "${QUAY_PASS}" quay.io || true
-            make prod-push || true
+            mkdir -p ~/dockercomposelogs || true
+            pipenv run docker-compose logs > ~/dockercomposelogs/dev.log
+          when: always
 
-      - run:
-          name: Ensure we can run prod env
-          command: |
-            pipenv run docker-compose -f prod-docker-compose.yaml up -d
-            while ! curl --output /dev/null --silent --head --fail http://localhost:8080; do sleep 1 && echo -n .; done;
-            pipenv run docker-compose -f prod-docker-compose.yaml exec django /bin/bash -c "./manage.py test --noinput -k"
-            pipenv run docker-compose -f prod-docker-compose.yaml exec django /bin/bash -c "./manage.py makemigrations --dry-run --check"
+      - store_artifacts:
+          path: ~/dockercomposelogs
 
       - store_test_results:
           path: ~/securedrop.org/test-results
+
+  build_prod:
+    machine:
+      image: ubuntu-1604:201903-01
+    working_directory: ~/pressfreedom
+    steps:
+      - checkout
+
+      - *python_prereqs
+
+      - run:
+          name: Ensure we can run prod-env
+          command: |
+            pipenv run docker-compose -f prod-docker-compose.yaml build
+            pipenv run docker-compose -f prod-docker-compose.yaml up -d
+            while ! curl --output /dev/null --silent --head --fail http://$(docker-compose -f prod-docker-compose.yaml port nginx 8080); do sleep 1; done;
+            pipenv run docker-compose -f prod-docker-compose.yaml exec django /bin/bash -c "./manage.py createdevdata"
+          no_output_timeout: 5m
+
+      - run:
+          name: Yank docker logs
+          command: |
+            mkdir -p ~/dockercomposelogs || true
+            pipenv run docker-compose -f prod-docker-compose.yaml logs > ~/dockercomposelogs/prod.log
+          when: always
+
+      - store_artifacts:
+          path: ~/dockercomposelogs
 
 workflows:
   version: 2
@@ -94,7 +123,8 @@ workflows:
     jobs:
       - safety_check
       - npm_audit
-      - build
+      - build_dev
+      - build_prod
   nightly:
     triggers:
       - schedule:
