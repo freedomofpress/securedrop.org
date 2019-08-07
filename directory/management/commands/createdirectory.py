@@ -8,6 +8,7 @@ from directory.tests.factories import (
     ScanResultFactory,
 )
 from home.models import HomePage
+from home.tests.factories import HomePageInstancesFactory
 
 
 class Command(BaseCommand):
@@ -33,6 +34,7 @@ class Command(BaseCommand):
                     landing_page_url=instance.landing_page_url,
                     no_failures=True,
                 )
+                HomePageInstancesFactory(page=home_page, instance=instance)
             elif i % 3 == 1:
                 scan = ScanResultFactory(
                     securedrop=instance,
