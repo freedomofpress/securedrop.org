@@ -6,7 +6,8 @@ from factory import (
 )
 from wagtail_factories import PageFactory
 
-from home.models import HomePage, HomePageInstances
+from common.factories import ButtonFactory
+from home.models import HomePage, HomePageInstances, InstancesButton
 
 
 class HomePageFactory(PageFactory):
@@ -27,3 +28,10 @@ class HomePageInstancesFactory(DjangoModelFactory):
     sort_order = Sequence(int)
     page = SubFactory(HomePageFactory)
     instance = None
+
+
+class InstancesButtonFactory(ButtonFactory):
+    class Meta:
+        model = InstancesButton
+
+    page = SubFactory(HomePageFactory)

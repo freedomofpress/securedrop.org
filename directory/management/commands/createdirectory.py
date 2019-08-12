@@ -8,7 +8,7 @@ from directory.tests.factories import (
     ScanResultFactory,
 )
 from home.models import HomePage
-from home.tests.factories import HomePageInstancesFactory
+from home.tests.factories import HomePageInstancesFactory, InstancesButtonFactory
 
 
 class Command(BaseCommand):
@@ -26,6 +26,12 @@ class Command(BaseCommand):
         if not directory:
             directory = DirectoryPageFactory(parent=home_page, title="Directory")
             directory.save()
+
+        InstancesButtonFactory(
+            page=home_page,
+            link=directory,
+            text='See all SecureDrop instances in the directory',
+        )
         for i in range(number_of_instances):
             instance = DirectoryEntryFactory(parent=directory)
             if i % 3 == 0:
