@@ -33,7 +33,7 @@ class Command(BaseCommand):
             text='See all SecureDrop instances in the directory',
         )
         for i in range(number_of_instances):
-            instance = DirectoryEntryFactory(parent=directory)
+            instance = DirectoryEntryFactory(with_images=True, parent=directory)
             if i % 3 == 0:
                 scan = ScanResultFactory(
                     securedrop=instance,
