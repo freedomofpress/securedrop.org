@@ -3,9 +3,10 @@ from factory import (
     Faker,
     SubFactory,
 )
-from wagtail_factories import PageFactory
+from wagtail_factories import PageFactory, ImageFactory
 
-from common.models import Button
+from common.models import Button, CustomImage
+
 
 class ButtonFactory(DjangoModelFactory):
     class Meta:
@@ -13,3 +14,10 @@ class ButtonFactory(DjangoModelFactory):
 
     text = Faker('sentence', nb_words=3)
     link = SubFactory(PageFactory)
+
+
+class CustomImageFactory(ImageFactory):
+    attribution = Faker('name')
+
+    class Meta:
+        model = CustomImage
