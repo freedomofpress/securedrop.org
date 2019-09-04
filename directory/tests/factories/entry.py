@@ -3,8 +3,9 @@ import string
 from datetime import datetime
 
 import factory
-
 import wagtail_factories
+
+from common.models import CustomImage
 from directory.models import DirectoryEntry, ScanResult
 from directory.tests.factories.taxonomy import (
     LanguageFactory,
@@ -23,6 +24,13 @@ def random_onion_address():
 class DirectoryEntryFactory(wagtail_factories.PageFactory):
     class Meta:
         model = DirectoryEntry
+
+    class Params:
+        with_images = factory.Trait(
+            organization_logo=factory.Iterator(
+                CustomImage.objects.filter(collection__name='Icons')
+            )
+        )
 
     title = factory.Faker('sentence', nb_words=3)
     landing_page_url = factory.Faker('uri')

@@ -1,13 +1,13 @@
 import random
 
-
-from blog.models import BlogIndexPage, CategoryPage
-from blog.tests.factories import BlogPageFactory, BlogIndexPageFactory, CategoryPageFactory
-from home.models import HomePage
-
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import BaseCommand
 from django.db import transaction
+
+from blog.models import BlogIndexPage, CategoryPage
+from blog.tests.factories import BlogPageFactory, BlogIndexPageFactory, CategoryPageFactory
+from github.factories import ReleaseFactory
+from home.models import HomePage
 
 
 class Command(BaseCommand):
@@ -44,8 +44,14 @@ class Command(BaseCommand):
             categories.append(category_page)
 
         for x in range(number_of_posts):
+            category = random.choice(categories)
+
             blog_page = BlogPageFactory(
                 parent=blog_index_page,
-                category=random.choice(categories)
+                category=category,
             )
+            if category.title == 'Release Announcement':
+                release = ReleaseFactory()
+                blog_page.release = release
+
             blog_page.save()

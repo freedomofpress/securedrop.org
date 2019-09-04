@@ -1,15 +1,58 @@
-import factory
-import wagtail_factories
+from factory import (
+    Faker,
+    DjangoModelFactory,
+    Sequence,
+    SubFactory,
+)
+from wagtail_factories import PageFactory
 
-from home.models import HomePage
+from common.factories import ButtonFactory
+from home.models import (
+    FeaturesButton,
+    HomePage,
+    HomePageInstances,
+    HomepageFeature,
+    InstancesButton,
+)
 
 
-class HomePageFactory(wagtail_factories.PageFactory):
+class HomePageFactory(PageFactory):
     class Meta:
         model = HomePage
 
     title = 'SecureDrop'
     slug = 'home'
-    description_header = factory.Faker('sentence', nb_words=4)
-    description = factory.Faker('text')
+    description_header = Faker('sentence', nb_words=4)
+    description = Faker('text')
     features_header = 'What SecureDrop Does'
+
+
+class HomePageInstancesFactory(DjangoModelFactory):
+    class Meta:
+        model = HomePageInstances
+
+    sort_order = Sequence(int)
+    page = SubFactory(HomePageFactory)
+    instance = None
+
+
+class HomepageFeatureFactory(DjangoModelFactory):
+    class Meta:
+        model = HomepageFeature
+    sort_order = Sequence(int)
+    page = SubFactory(HomePageFactory)
+    feature = None
+
+
+class InstancesButtonFactory(ButtonFactory):
+    class Meta:
+        model = InstancesButton
+
+    page = SubFactory(HomePageFactory)
+
+
+class FeaturesButtonFactory(ButtonFactory):
+    class Meta:
+        model = FeaturesButton
+
+    page = SubFactory(HomePageFactory)
