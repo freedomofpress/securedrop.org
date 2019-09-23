@@ -61,6 +61,11 @@ class FiltersFromQueryDictTest(TestCase):
         filters = self.directory.filters_from_querydict(querydict)
         self.assertEqual({}, filters)
 
+    def test_invalid_topic_id_does_not_break_filters(self):
+        querydict = QueryDict('topic=1000000')
+        filters = self.directory.filters_from_querydict(querydict)
+        self.assertEqual({}, filters)
+
     def test_invalid_id_does_not_break_filters(self):
         querydict = QueryDict('language=100000')
         filters = self.directory.filters_from_querydict(querydict)
