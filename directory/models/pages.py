@@ -174,7 +174,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
                 filters['topics'] = Topic.objects.get(id=topic_id)
             except ValueError:
                 pass
-            except Country.DoesNotExist:
+            except Topic.DoesNotExist:
                 pass
 
         return filters
