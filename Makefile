@@ -46,9 +46,10 @@ update-pip-dependencies: ## Uses pip-compile to update requirements.txt
 # that we're generating requirements for, otherwise the versions may
 # be resolved differently.
 	docker run -v "$(DIR):/code" -w /code -it python:3.5-slim \
-		bash -c 'pip install pip-tools && apt-get update && apt-get install git -y && \
-		pip-compile --verbose --no-header --output-file requirements.txt requirements.in && \
-		pip-compile --verbose --no-header --output-file dev-requirements.txt dev-requirements.in'
+		bash -c 'apt-get update && apt-get install git python3-pip -y && \
+		pip install -r dev-requirements.txt && \
+		pip-compile --verbose --no-header --generate-hashes --allow-unsafe --output-file requirements.txt requirements.in && \
+		pip-compile --verbose --no-header --generate-hashes --allow-unsafe --output-file dev-requirements.txt dev-requirements.in'
 
 
 .PHONY: flake8

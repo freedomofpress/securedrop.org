@@ -1,5 +1,3 @@
--e git+https://github.com/freedomofpress/django-logging.git@b7d0b7b542db6ac088dbf3d2e7b249df333d3082#egg=django-logging-json
--e git+https://github.com/nabla-c0d3/sslyze.git@ef357c2e76b6ba66f23db5fb1f95c7e8a6c13b9d#egg=pshtt-dependency-hell
 asn1crypto==0.23.0        # via cryptography
 beautifulsoup4==4.6.0     # via wagtail
 bleach==3.0.2

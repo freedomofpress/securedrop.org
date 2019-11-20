@@ -12,6 +12,7 @@ COPY devops/docker/django-start.sh /usr/local/bin
 RUN  chmod +x /usr/local/bin/django-start.sh
 
 COPY dev-requirements.txt /requirements.txt
+RUN pip install -r /requirements-github.txt
 RUN pip install -r /requirements.txt
 
 ARG USERID
