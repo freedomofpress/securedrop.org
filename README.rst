@@ -135,27 +135,49 @@ Search Commands
 
     This command depends on two settings: ``DISCOURSE_HOST`` which should be set to the name of the Discourse server without the protocol (``forum.securedrop.club``) and ``DISCOURSE_API_KEY``. If you require these for development, acquire them securely from a Discourse forum administrator and stash them in ``securedrop/settings/local.py``.
 
-Updating Requirements
+Dependency Management
 ---------------------
+
+Adding new requirements
+~~~~~~~~~~~~~~~~~~~~~~~
 
 New requirements should be added to ``*requirements.in`` files, for use with ``pip-compile``.
 There are two Python requirements files:
 
 * ``requirements.in`` production application dependencies
-* ``dev-requirements.in`` development container additions (e.g., debug toolbar)
+* ``dev-requirements.in`` local testing and CI requirements
+* ``requirements-github.txt`` contains URLs and commit hashes for GitHub-hosted dependencies.
 
 Add the desired dependency to the appropriate ``.in`` file, then run:
 
 .. code:: bash
 
-    make update-pip-dependencies
+    make compile-pip-dependencies
 
 All requirements files will be regenerated based on compatible versions. Multiple ``.in``
 files can be merged into a single ``.txt`` file, for use with ``pip``. The Makefile
 target handles the merging of multiple files.
 
-The developer environment dependencies are handled via ``pipenv`` and documentation for that
-project can be found `here <https://pipenv.readthedocs.io/en/latest/>`_.
+This process is the same if a requirement needs to be changed (i.e. its version number restricted) or removed.  Make the appropriate change in the correct ``requirements.in`` file, then run the above command to compile the dependencies.
+
+Upgrading existing requirements
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+There are separate commands to upgrade a package without changing the ``requirements.in`` files.  The command
+
+.. code:: bash
+
+    make upgrade-pip PACKAGE=package-name
+
+will update the package named ``package-name`` to the latest version allowed by the constraints in ``requirements.in`` and compile a new ``dev-requirements.txt`` and ``requirements.txt`` based on that version.
+
+If the package appears only in ``dev-requirements.in``, then you must use this command:
+
+.. code:: bash
+
+    make upgrade-pip-dev PACKAGE=package-name
+
+which will update the package named ``package-name`` to the latest version allowed by the constraints in ``requirements.in`` and compile a new ``dev-requirements.txt``.
 
 Advanced Actions Against the Database
 -------------------------------------

@@ -38,7 +38,7 @@ COPY --from=node-assets /src-files/ /django/
 RUN find /django -path /django/node_modules -prune -o -print -exec chown gcorn: '{}' \;
 
 WORKDIR /django
-RUN pip install -r /django/requirements.txt
+RUN pip install --require-hashes -r /django/requirements.txt
 RUN pip install -r /django/requirements-github.txt
 
 
