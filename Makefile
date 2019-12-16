@@ -76,9 +76,7 @@ update-pip-dev: ## Uses pip-compile to update dev-requirements.txt for upgrading
 
 .PHONY: flake8
 flake8: ## Runs flake8 linting in Python3 container.
-	@docker run -v $(PWD):/code -w /code --name fpf_www_flake8 --rm \
-		python:3.5-slim \
-		bash -c "pip install -q flake8 && flake8"
+	@docker-compose run -T django /bin/bash -c "flake8"
 
 .PHONY: bandit
 bandit: ## Runs bandit static code analysis in Python3 container.
