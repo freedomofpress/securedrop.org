@@ -139,7 +139,7 @@ Dependency Management
 ---------------------
 
 Adding new requirements
-~~~~~~~~~~~~~~~~~~~~~~~
++++++++++++++++++++++++
 
 New requirements should be added to ``*requirements.in`` files, for use with ``pip-compile``.
 There are two Python requirements files:
@@ -161,7 +161,7 @@ target handles the merging of multiple files.
 This process is the same if a requirement needs to be changed (i.e. its version number restricted) or removed.  Make the appropriate change in the correct ``requirements.in`` file, then run the above command to compile the dependencies.
 
 Upgrading existing requirements
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++++++++++++++++++++++++++++++++
 
 There are separate commands to upgrade a package without changing the ``requirements.in`` files.  The command
 
