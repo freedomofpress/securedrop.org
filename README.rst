@@ -10,7 +10,7 @@ Table of Contents
 * `Getting Started: The Quick Version`_
 * `Getting Started: The Unabridged Edition`_
 * `Management Commands`_
-* `Updating Requirements`_
+* `Dependency Management`_
 * `Advanced Actions Against the Database`_
 * `Other Commands`_
 * `Troubleshooting`_
@@ -77,7 +77,7 @@ To populate the project with data suitable for development and testing.
 
     docker-compose exec django ./manage.py createdevdata
 
-.. impotant:: Though your database will persist between *most* runs, it is recommended that you consider it ephemeral and do not use it to store data you don't wish to lose.
+.. important:: Though your database will persist between *most* runs, it is recommended that you consider it ephemeral and do not use it to store data you don't wish to lose.
 
 You should be able to hit the web server interface at ``http://localhost:8000/``. You can access the Wagtail admin at ``http://localhost:8000/admin/``.
 
