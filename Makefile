@@ -40,22 +40,44 @@ dev-restore-db: ## Restore the most recent database snapshot for the current git
 	./devops/scripts/restoredb.sh
 
 
-.PHONY: update-pip-dependencies
-update-pip-dependencies: ## Uses pip-compile to update requirements.txt
+.PHONY: compile-pip-dependencies
+compile-pip-dependencies: ## Uses pip-compile to update requirements.txt
 # It is critical that we run pip-compile via the same Python version
 # that we're generating requirements for, otherwise the versions may
 # be resolved differently.
 	docker run -v "$(DIR):/code" -w /code -it python:3.5-slim \
-		bash -c 'pip install pip-tools && apt-get update && apt-get install git -y && \
-		pip-compile --verbose --no-header --output-file requirements.txt requirements.in && \
-		pip-compile --verbose --no-header --output-file dev-requirements.txt dev-requirements.in'
+		bash -c 'apt-get update && apt-get install git gcc -y && \
+    pip install --require-hashes -r pip-tools-requirements.txt && \
+		pip-compile --generate-hashes --no-header --output-file pip-tools-requirements.txt pip-tools-requirements.in && \
+		pip-compile --generate-hashes --no-header --output-file requirements.txt requirements.in && \
+		pip-compile --generate-hashes --no-header --allow-unsafe --output-file dev-requirements.txt dev-requirements.in'
+
+.PHONY: pip-update
+upgrade-pip: ## Uses pip-compile to update requirements.txt for upgrading a specific package
+# It is critical that we run pip-compile via the same Python version
+# that we're generating requirements for, otherwise the versions may
+# be resolved differently.
+	docker run -v "$(DIR):/code" -w /code -it python:3.5-slim \
+		bash -c 'apt-get update && apt-get install git gcc -y && \
+    pip install --require-hashes -r pip-tools-requirements.txt && \
+		pip-compile --generate-hashes --no-header --upgrade-package $(PACKAGE) --output-file requirements.txt requirements.in && \
+		pip-compile --generate-hashes --no-header --allow-unsafe --upgrade-package $(PACKAGE) --output-file dev-requirements.txt dev-requirements.in'
+
+
+.PHONY: pip-dev-update
+update-pip-dev: ## Uses pip-compile to update dev-requirements.txt for upgrading a specific package
+# It is critical that we run pip-compile via the same Python version
+# that we're generating requirements for, otherwise the versions may
+# be resolved differently.
+	docker run -v "$(DIR):/code" -w /code -it python:3.5-slim \
+		bash -c 'apt-get update && apt-get install git gcc -y && \
+    pip install --require-hashes -r pip-tools-requirements.txt && \
+		pip-compile --require-hashes --no-header --allow-unsafe --upgrade-package $(PACKAGE) --output-file dev-requirements.txt dev-requirements.in'
 
 
 .PHONY: flake8
 flake8: ## Runs flake8 linting in Python3 container.
-	@docker run -v $(PWD):/code -w /code --name fpf_www_flake8 --rm \
-		python:3.5-slim \
-		bash -c "pip install -q flake8 && flake8"
+	@docker-compose run -T django /bin/bash -c "flake8"
 
 .PHONY: bandit
 bandit: ## Runs bandit static code analysis in Python3 container.
