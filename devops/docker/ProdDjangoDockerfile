@@ -39,7 +39,6 @@ RUN find /django -path /django/node_modules -prune -o -print -exec chown gcorn: 
 
 WORKDIR /django
 RUN pip install --require-hashes -r /django/requirements.txt
-RUN pip install -r /django/requirements-github.txt
 
 
 # Really not used in production. Needed for mapped named volume
