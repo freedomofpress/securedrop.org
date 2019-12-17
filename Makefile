@@ -47,7 +47,8 @@ compile-pip-dependencies: ## Uses pip-compile to update requirements.txt
 # be resolved differently.
 	docker run -v "$(DIR):/code" -w /code -it python:3.5-slim \
 		bash -c 'apt-get update && apt-get install git gcc -y && \
-    pip install --require-hashes -r dev-requirements.txt && \
+    pip install --require-hashes -r pip-tools-requirements.txt && \
+		pip-compile --generate-hashes --no-header --output-file pip-tools-requirements.txt pip-tools-requirements.in && \
 		pip-compile --generate-hashes --no-header --output-file requirements.txt requirements.in && \
 		pip-compile --generate-hashes --no-header --allow-unsafe --output-file dev-requirements.txt dev-requirements.in'
 
@@ -58,7 +59,7 @@ upgrade-pip: ## Uses pip-compile to update requirements.txt for upgrading a spec
 # be resolved differently.
 	docker run -v "$(DIR):/code" -w /code -it python:3.5-slim \
 		bash -c 'apt-get update && apt-get install git gcc -y && \
-    pip install --require-hashes -r dev-requirements.txt && \
+    pip install --require-hashes -r pip-tools-requirements.txt && \
 		pip-compile --generate-hashes --no-header --upgrade-package $(PACKAGE) --output-file requirements.txt requirements.in && \
 		pip-compile --generate-hashes --no-header --allow-unsafe --upgrade-package $(PACKAGE) --output-file dev-requirements.txt dev-requirements.in'
 
@@ -70,7 +71,7 @@ update-pip-dev: ## Uses pip-compile to update dev-requirements.txt for upgrading
 # be resolved differently.
 	docker run -v "$(DIR):/code" -w /code -it python:3.5-slim \
 		bash -c 'apt-get update && apt-get install git gcc -y && \
-    pip install --require-hashes -r dev-requirements.txt && \
+    pip install --require-hashes -r pip-tools-requirements.txt && \
 		pip-compile --require-hashes --no-header --allow-unsafe --upgrade-package $(PACKAGE) --output-file dev-requirements.txt dev-requirements.in'
 
 
