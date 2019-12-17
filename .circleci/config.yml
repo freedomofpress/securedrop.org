@@ -22,11 +22,6 @@ jobs:
       - *python_prereqs
 
       - run:
-          name: Flake8 linting
-          command: |
-            make flake8
-
-      - run:
           name: Check Python dependencies for CVEs
           command: |
             pipenv install --selective-upgrade safety
@@ -72,6 +67,7 @@ jobs:
             make dev-init
             pipenv run docker-compose up -d
             while ! curl --output /dev/null --silent --head --fail http://localhost:8000; do sleep 1; done;
+            pipenv run make flake8
             pipenv run make dev-tests
             pipenv run make check-migrations
           no_output_timeout: 5m
