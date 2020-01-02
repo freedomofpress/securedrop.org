@@ -110,9 +110,9 @@ django-treebeard==4.3 \
 django-webpack-loader==0.5.0 \
     --hash=sha256:0a8536e36a30d719018cd4c5da6e9d2377771134e713c14e617bb484b4f0acce \
     --hash=sha256:7094bcd8cc40c9824e5b482ce8ff9e8ae09e1982e5d08e078e5fe2411fb40a03
-django==2.1.11 \
-    --hash=sha256:1a41831eace203fd1939edf899e07d7abd12ce9bafc3d9a5a63a24a8d1d12bd5 \
-    --hash=sha256:305b6c4fce9e03bb746e35780c2c4d52f29ea1669f15633cfd41bc8821c74c76
+django==2.2.9 \
+    --hash=sha256:662a1ff78792e3fd77f16f71b1f31149489434de4b62a74895bd5d6534e635a5 \
+    --hash=sha256:687c37153486cf26c3fdcbdd177ef16de38dc3463f094b5f9c9955d91f277b14
 djangorestframework==3.9.1 \
     --hash=sha256:79c6efbb2514bc50cf25906d7c0a5cfead714c7af667ff4bd110312cd380ae66 \
     --hash=sha256:a4138613b67e3a223be6c97f53b13d759c5b90d2b433bad670b8ebf95402075f
@@ -386,10 +386,9 @@ simplegeneric==0.8.1 \
 six==1.11.0 \
     --hash=sha256:70e8a77beed4562e7f14fe23a786b54f6296e34344c23bc42f07b15018ff98e9 \
     --hash=sha256:832dc0e10feb1aa2c68dcc57dbb658f1c7e65b9b61af69048abc87a2db00a0eb
-sqlparse==0.2.3 \
-    --hash=sha256:740a023ef38ce11bbb99a9d143856f56ef4ec5b0d7a853f58c02c65b035114c4 \
-    --hash=sha256:becd7cc7cebbdf311de8ceedfcf2bd2403297024418801947f8c953025beeff8 \
-    # via django-debug-toolbar
+sqlparse==0.3.0 \
+    --hash=sha256:40afe6b8d4b1117e7dff5504d7a8ce07d9a1b15aeeade8a2d10f130a834f8177 \
+    --hash=sha256:7c3dca29c022744e95b547e867cee89f4fce4373f3549ccd8797d8eb52cdb873
 sslyze==1.4.1 \
     --hash=sha256:a5d31150ec99e77d38110f2cbf8c5d5f3271c515e25285c9d9cd82f399129a30
 tabledata==0.9.1 \
