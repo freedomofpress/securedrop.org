@@ -122,8 +122,8 @@ djangorestframework==3.9.1 \
 docopt==0.6.2 \
     --hash=sha256:49b3a825280bd66b3aa83585ef59c4a8c82f2c8a522dbe754a8bc8d08c85c491 \
     # via pshtt
-draftjs-exporter==2.0.0 \
-    --hash=sha256:6d29c45ea12fef51fff65665a1c9c41fd5785b46f0d1ee70f2e61af7bfcfe77c \
+draftjs-exporter==2.1.7 \
+    --hash=sha256:5839cbc29d7bce2fb99837a404ca40c3a07313f2a20e2700de7ad6aa9a9a18fb \
     # via wagtail
 factory-boy==2.9.2 \
     --hash=sha256:340c602f6fed2d8dd160397f28f2c0219e937f0488460450e8e5bf2add020ed6 \
@@ -407,9 +407,9 @@ wagtail-factories==1.1.0 \
 wagtail-metadata==2.0.1 \
     --hash=sha256:1b710fcd6c96f2405db0d9f12ea3055a4532f3e4a43bcb2793700cde714841f1 \
     --hash=sha256:e3ef0776d3a429239dce4d164ac40c779f5d8ac958c630e0ab7442c25c54692e
-wagtail==2.3 \
-    --hash=sha256:6aec70968f4792bf5200e1ac667e9dfd00ddc39367a072bf83752dfcaf13dd51 \
-    --hash=sha256:aa9daf174ed83dc9d805fc958b7d34f6cfe840d053e929af105d9f7d154938dc
+wagtail==2.4 \
+    --hash=sha256:1dd069ef8b3a08728fa5304e45ee2a92ed49b8e235e9c8b677adfd2039cff1fd \
+    --hash=sha256:fa588695932178667f58347fb77cc85a34be963ccceafa818e0d7f9998c2cdf3
 webencodings==0.5.1 \
     --hash=sha256:a0af1213f3c2226497a97e2b3aa01a7e4bee4f403f95be16fc9acd2947514a78 \
     --hash=sha256:b36a1c245f2d304965eb4e0a82848379241dc04b865afcc4aab16748587e1923 \
