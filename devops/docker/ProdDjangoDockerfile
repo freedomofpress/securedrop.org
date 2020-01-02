@@ -1,8 +1,12 @@
 ARG NODE_VER
+ARG NPM_VER
 FROM node:${NODE_VER} AS node-assets
 
 # Make npm output less verbose
 ENV NPM_CONFIG_LOGLEVEL warn
+
+# Upgrade npm to speicifed version
+RUN npm install npm@${NPM_VER} -g
 
 # Oddly, node-sass requires both python and make to build bindings
 RUN apk add --no-cache paxctl python make g++
