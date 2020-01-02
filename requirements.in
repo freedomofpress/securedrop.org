@@ -19,7 +19,7 @@ python-json-logger
 tldextract
 tinycss2
 vcrpy
-wagtail>=2.4,<2.5
+wagtail>=2.5,<2.6
 wagtail-factories
 wagtail-metadata
 wagtail-autocomplete
