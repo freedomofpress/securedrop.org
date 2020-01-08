@@ -5,7 +5,7 @@ from django.core.mail import get_connection
 
 def send_mail(subject, message, recipient_list, from_email=None, **kwargs):
     """
-    Modified clone of wagtail.admin.utils,send_mail that omits the
+    Modified clone of wagtail.admin.utils.send_mail that omits the
     'Auto-Submitted: auto-generated' header
 
     This is motivated by the fact that Redmine discards messages containing

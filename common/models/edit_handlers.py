@@ -6,11 +6,11 @@ from wagtail.admin.edit_handlers import EditHandler
 
 
 class ReadOnlyPanel(EditHandler):
-    def __init__(self, attr, heading=None, classname='', help_text=''):
+    def __init__(self, attr, *args, **kwargs):
         self.attr = attr
-        self.heading = pretty_name(self.attr) if heading is None else heading
-        self.classname = classname
-        self.help_text = help_text
+        if 'heading' not in kwargs:
+            kwargs['heading'] = pretty_name(self.attr)
+        super().__init__(*args, **kwargs)
 
     def clone(self):
         return self.__class__(
