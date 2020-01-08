@@ -1,5 +1,5 @@
-// This user agent string matches Tor Browser 8 or Firefox Quantum (on desktop)
-const TBB_UA_REGEX = /Mozilla\/5\.0 \((Windows NT 6\.1|X11; Linux x86_64|Macintosh; Intel Mac OS X 10\.13|Windows NT 6\.1; Win64; x64); rv:[0-9]{2}\.0\) Gecko\/20100101 Firefox\/([0-9]{2})\.0/
+// This user agent string matches Tor Browser 9 or Firefox Quantum (on desktop)
+const TBB_UA_REGEX = /Mozilla\/5\.0 \((Windows NT 10\.0|X11; Linux x86_64|Macintosh; Intel Mac OS X 10\.14|Windows NT 10\.0; Win64; x64); rv:[0-9]{2}\.0\) Gecko\/20100101 Firefox\/([0-9]{2})\.0/
 
 
 const is_likely_tor_browser = function () {
@@ -9,8 +9,9 @@ const is_likely_tor_browser = function () {
 		// Tor Browser always reports a GMT timezone
 		new Date().getTimezoneOffset() == 0 &&
 		// Tor Browser always reports device dimensions being the same
-		// as window dimensions -- this is *very* unlikely to be true in any
-		// other desktop browser, given window chrome and toolbars
+		// as window dimensions -- this is only true in a browser that
+		// implements letterboxing, such as Firefox configured with
+		// privacy.resistFingerprinting=true
 		window.screen.width == window.innerWidth &&
 		window.screen.height == window.innerHeight
 	)
