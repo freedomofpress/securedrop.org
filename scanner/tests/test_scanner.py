@@ -1,7 +1,10 @@
 import os
+import re
 from unittest import mock
+from datetime import datetime
 
 from django.test import TestCase
+from django.utils.timezone import utc
 import vcr
 
 from scanner import scanner
@@ -15,6 +18,18 @@ from directory.tests.factories import DirectoryEntryFactory
 
 
 VCR_DIR = os.path.join(os.path.dirname(__file__), 'scans_vcr')
+
+
+def long_lasting_cookies(response):
+    """modify a HTTP response to extend cookie lifetime"""
+    if 'Set-Cookie' in response['headers']:
+        timestamp = datetime(2032, 10, 31, 13, 14, 15, tzinfo=utc)
+        updated_expiry = re.sub(r'(expires=)([\w, -:]+)', r'\1{}'.format(timestamp.strftime("%a, %d-%b-%y %H:%M:%S %Z")), response['headers']['Set-Cookie'][0])
+        response['headers']['Set-Cookie'] = [updated_expiry]
+    return response
+
+
+mod_vcr = vcr.VCR(before_record_response=long_lasting_cookies)
 
 
 class ScannerTest(TestCase):
@@ -34,7 +49,7 @@ class ScannerTest(TestCase):
         'pshtt.pshtt.requests.get',
         new=requests_get_mock
     )
-    @vcr.use_cassette(os.path.join(VCR_DIR, 'full-scan-site-not-live.yaml'))
+    @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'full-scan-site-not-live.yaml'))
     def test_scan_returns_result_if_site_not_live(self):
         """
         If a site cannot be connected to, scanner should return a ScanResult
@@ -54,7 +69,7 @@ class ScannerTest(TestCase):
 
     @mock.patch('scanner.scanner.requests.get', new=requests_get_mock)
     @mock.patch('pshtt.pshtt.requests.get', new=requests_get_mock)
-    @vcr.use_cassette(os.path.join(VCR_DIR, 'full-scan-site-not-live.yaml'))
+    @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'full-scan-site-not-live.yaml'))
     def test_scan_returns_reurns_url_if_site_not_live(self):
         """
         If a site cannot be connected to, scanner should return a ScanResult
@@ -69,7 +84,7 @@ class ScannerTest(TestCase):
         result = scanner.scan(securedrop)
         self.assertEqual(result.landing_page_url, NON_EXISTENT_URL)
 
-    @vcr.use_cassette(os.path.join(VCR_DIR, 'full-scan-site-live.yaml'))
+    @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'full-scan-site-live.yaml'))
     def test_scan_returns_result_if_site_live(self):
         """
         If a site can be connected to, scanner should return a result with
@@ -83,7 +98,7 @@ class ScannerTest(TestCase):
         result = scanner.scan(securedrop)
         self.assertTrue(result.live)
 
-    @vcr.use_cassette(os.path.join(VCR_DIR, 'full-scan-site-live.yaml'))
+    @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'full-scan-site-live.yaml'))
     def test_scan_result_attributes(self):
         """
         If the site can be connected to, scanner should return a result with
@@ -130,7 +145,7 @@ class ScannerTest(TestCase):
         self.assertIs(result.no_cross_domain_assets, False)
         self.assertNotEqual(result.cross_domain_asset_summary, '')
 
-    @vcr.use_cassette(os.path.join(VCR_DIR, 'scan-site-with-trackers.yaml'))
+    @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'scan-site-with-trackers.yaml'))
     def test_scan_detects_presence_of_trackers(self):
         """
         If a site contains common trackers, result.no_analytics should be False
@@ -143,7 +158,7 @@ class ScannerTest(TestCase):
         result = scanner.scan(ap_site)
         self.assertFalse(result.no_analytics)
 
-    @vcr.use_cassette(os.path.join(VCR_DIR, 'scan-site-with-trackers.yaml'))
+    @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'scan-site-with-trackers.yaml'))
     def test_scan_detects_presence_of_cross_domain_assets(self):
         """
         If a site contains cross-domain assets, result.no_cross_domain_assets should be False
@@ -187,7 +202,7 @@ class ScannerTest(TestCase):
         for url in ignored_urls:
             self.assertIn(url, result.ignored_cross_domain_assets)
 
-    @vcr.use_cassette(os.path.join(VCR_DIR, 'scan-site-without-trackers.yaml'))
+    @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'scan-site-without-trackers.yaml'))
     def test_scan_detects_absence_of_trackers(self):
         """
         If a site contains no known trackers, result.no_analytics should be True
@@ -200,21 +215,21 @@ class ScannerTest(TestCase):
         result = scanner.scan(fpf_site)
         self.assertTrue(result.no_analytics)
 
-    @vcr.use_cassette(os.path.join(VCR_DIR, 'scrape-securedrop-dot-org.yaml'))
+    @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'scrape-securedrop-dot-org.yaml'))
     def test_request_gets_page_if_protocol_identifier_present(self):
         "request_and_scrape_page should handle a URL with a protocol"
         url = 'https://securedrop.org'
         page, soup = scanner.request_and_scrape_page(url)
         self.assertIn('SecureDrop Directory', str(page.content))
 
-    @vcr.use_cassette(os.path.join(VCR_DIR, 'scrape-securedrop-dot-org.yaml'))
+    @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'scrape-securedrop-dot-org.yaml'))
     def test_request_gets_page_if_protocol_identifier_not_present(self):
         "request_and_scrape_page should handle a URL without a protocol"
         url = 'securedrop.org'
         page, soup = scanner.request_and_scrape_page(url)
         self.assertIn('SecureDrop Directory', str(page.content))
 
-    @vcr.use_cassette(os.path.join(VCR_DIR, 'full-scan-site-live.yaml'))
+    @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'full-scan-site-live.yaml'))
     def test_scan_and_commit(self):
         """
         When scanner.scan is called with commit=True, the result of the scan
@@ -234,7 +249,7 @@ class ScannerTest(TestCase):
             1, DirectoryEntry.objects.get(pk=securedrop.pk).results.count()
         )
 
-    @vcr.use_cassette(os.path.join(VCR_DIR, 'full-scan-site-live.yaml'))
+    @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'full-scan-site-live.yaml'))
     def test_scan_and_no_commit(self):
         """
         When scanner.scan is called without commit=True, it should not save
@@ -250,7 +265,7 @@ class ScannerTest(TestCase):
             0, DirectoryEntry.objects.get(pk=securedrop.pk).results.count()
         )
 
-    @vcr.use_cassette(os.path.join(VCR_DIR, 'full-scan-site-live.yaml'))
+    @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'full-scan-site-live.yaml'))
     def test_scan_with_permitted_domains_with_subdomain(self):
         securedrop = DirectoryEntryFactory.create(
             title='Freedom of the Press Foundation',
@@ -261,7 +276,7 @@ class ScannerTest(TestCase):
         result = scanner.scan(securedrop)
         self.assertEqual(result.no_cross_domain_assets, True)
 
-    @vcr.use_cassette(os.path.join(VCR_DIR, 'nytimes-tips.yaml'))
+    @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'nytimes-tips.yaml'))
     def test_scan_with_permitted_domain(self):
         securedrop = DirectoryEntryFactory.create(
             title='Freedom of the Press Foundation',
@@ -272,7 +287,7 @@ class ScannerTest(TestCase):
         result = scanner.scan(securedrop)
         self.assertEqual(result.no_cross_domain_assets, True)
 
-    @vcr.use_cassette(os.path.join(VCR_DIR, 'bulk-scan.yaml'))
+    @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'bulk-scan.yaml'))
     def test_bulk_scan(self):
         """
         When scanner.bulk_scan is called, it should save all new results to the
@@ -305,7 +320,7 @@ class ScannerTest(TestCase):
         'pshtt.pshtt.requests.get',
         new=requests_get_mock
     )
-    @vcr.use_cassette(os.path.join(VCR_DIR, 'bulk-scan-not-live.yaml'))
+    @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'bulk-scan-not-live.yaml'))
     def test_bulk_scan_not_live(self):
         """
         When scanner.bulk_scan is called, it should save all new results to the
@@ -347,7 +362,7 @@ class ScannerTest(TestCase):
             DirectoryEntry.objects.get(pk=sd3.pk).results.all()[0].live
         )
 
-    @vcr.use_cassette(os.path.join(VCR_DIR, 'scrape-sourceanonyme.yaml'))
+    @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'scrape-sourceanonyme.yaml'))
     def test_forces_https_should_not_be_none(self):
         domain = 'https://sourceanonyme.radio-canada.ca'
 
@@ -373,7 +388,7 @@ class ScannerTest(TestCase):
 
 
 class ScannerRedirectionSuccess(TestCase):
-    @vcr.use_cassette(os.path.join(VCR_DIR, 'scan-with-good-redirection.yaml'))
+    @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'scan-with-good-redirection.yaml'))
     def test_redirect_target_saved(self):
         entry = DirectoryEntryFactory.create(
             title='SecureDrop',
@@ -384,7 +399,7 @@ class ScannerRedirectionSuccess(TestCase):
         result = scanner.scan(entry)
         self.assertEqual(result.redirect_target, 'https://httpbin.org/get')
 
-    @vcr.use_cassette(os.path.join(VCR_DIR, 'scan-with-permanent-redirection.yaml'))
+    @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'scan-with-permanent-redirection.yaml'))
     def test_permanent_redirect_target_saved(self):
         entry = DirectoryEntryFactory.create(
             title='SecureDrop',
@@ -395,7 +410,7 @@ class ScannerRedirectionSuccess(TestCase):
         result = scanner.scan(entry)
         self.assertEqual(result.redirect_target, 'https://httpbin.org/get')
 
-    @vcr.use_cassette(os.path.join(VCR_DIR, 'scan-with-no-redirection.yaml'))
+    @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'scan-with-no-redirection.yaml'))
     def test_redirect_target_not_saved_if_not_redirect(self):
         entry = DirectoryEntryFactory.create(
             title='SecureDrop',
@@ -406,7 +421,7 @@ class ScannerRedirectionSuccess(TestCase):
         result = scanner.scan(entry)
         self.assertIsNone(result.redirect_target)
 
-    @vcr.use_cassette(os.path.join(VCR_DIR, 'scan-with-redirection-not-found.yaml'))
+    @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'scan-with-redirection-not-found.yaml'))
     def test_redirection_not_200(self):
         entry = DirectoryEntryFactory.create(
             title='SecureDrop',
@@ -420,7 +435,7 @@ class ScannerRedirectionSuccess(TestCase):
 
 
 class ScannerSubdomainRedirect(TestCase):
-    @vcr.use_cassette(os.path.join(VCR_DIR, 'scan-with-subdomain-redirection.yaml'))
+    @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'scan-with-subdomain-redirection.yaml'))
     def test_redirect_from_subdomain(self):
         entry = DirectoryEntryFactory.create(
             title='SecureDrop',
@@ -433,7 +448,7 @@ class ScannerSubdomainRedirect(TestCase):
 
 
 class ScannerCrossDomainRedirect(TestCase):
-    @vcr.use_cassette(os.path.join(VCR_DIR, 'scan-with-cross-domain-redirection.yaml'))
+    @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'scan-with-cross-domain-redirection.yaml'))
     def test_cross_domain_redirect_detected_and_saved(self):
         entry = DirectoryEntryFactory.create(
             title='SecureDrop',
@@ -444,7 +459,7 @@ class ScannerCrossDomainRedirect(TestCase):
         r = scanner.scan(entry)
         self.assertFalse(r.no_cross_domain_redirects)
 
-    @vcr.use_cassette(os.path.join(VCR_DIR, 'scan-with-cross-domain-redirection.yaml'))
+    @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'scan-with-cross-domain-redirection.yaml'))
     def test_if_cross_domain_redirect_found_continue_to_scan(self):
         """if a cross-domain redirect is found, then we should make a full scan
 of target domain"""
