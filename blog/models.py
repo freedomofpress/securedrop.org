@@ -32,7 +32,23 @@ class BlogPage(MetadataPageMixin, Page):
 
     body = StreamField(
         [
-            ('text', blocks.RichTextBlock()),
+            ('text', blocks.RichTextBlock(
+                features=[
+                    'bold',
+                    'italic',
+                    'h2',
+                    'h3',
+                    'h4',
+                    'ol',
+                    'ul',
+                    'hr',
+                    'embed',
+                    'link',
+                    'document-link',
+                    'image',
+                    'code',
+                ],
+            )),
             ('code', CodeBlock(label='Code Block')),
             ('image', AlignedImageBlock()),
             ('raw_html', blocks.RawHTMLBlock()),
