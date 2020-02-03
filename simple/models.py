@@ -63,7 +63,24 @@ class SimplePage(MetadataPageMixin, Page):
     subtitle = models.CharField(max_length=255, null=True, blank=True)
     body = StreamField(
         [
-            ('text', blocks.RichTextBlock()),
+
+            ('text', blocks.RichTextBlock(
+                features=[
+                    'bold',
+                    'italic',
+                    'h2',
+                    'h3',
+                    'h4',
+                    'ol',
+                    'ul',
+                    'hr',
+                    'embed',
+                    'link',
+                    'document-link',
+                    'image',
+                    'code',
+                ],
+            )),
             ('image', AlignedImageBlock()),
             ('raw_html', blocks.RawHTMLBlock()),
             ('blockquote', RichTextBlockQuoteBlock()),
@@ -103,7 +120,23 @@ class SimplePageWithMenuSidebar(MetadataPageMixin, BaseSidebarPageMixin, Page):
     subtitle = models.CharField(max_length=255, null=True, blank=True)
     body = StreamField(
         [
-            ('text', blocks.RichTextBlock()),
+            ('text', blocks.RichTextBlock(
+                features=[
+                    'bold',
+                    'italic',
+                    'h2',
+                    'h3',
+                    'h4',
+                    'ol',
+                    'ul',
+                    'hr',
+                    'embed',
+                    'link',
+                    'document-link',
+                    'image',
+                    'code',
+                ],
+            )),
             ('image', AlignedImageBlock()),
             ('raw_html', blocks.RawHTMLBlock()),
             ('blockquote', RichTextBlockQuoteBlock()),
@@ -145,7 +178,23 @@ class FAQPage(MetadataPageMixin, BaseSidebarPageMixin, Page):
     subtitle = models.CharField(max_length=255, null=True, blank=True)
     body = StreamField(
         [
-            ('text', blocks.RichTextBlock()),
+            ('text', blocks.RichTextBlock(
+                features=[
+                    'bold',
+                    'italic',
+                    'h2',
+                    'h3',
+                    'h4',
+                    'ol',
+                    'ul',
+                    'hr',
+                    'embed',
+                    'link',
+                    'document-link',
+                    'image',
+                    'code',
+                ],
+            )),
             ('image', AlignedImageBlock()),
             ('raw_html', blocks.RawHTMLBlock()),
             ('blockquote', RichTextBlockQuoteBlock()),
@@ -176,5 +225,5 @@ class FaqQuestion(Orderable):
     question = models.CharField(max_length=255)
     # features disables h1 use
     answer = RichTextField(
-        features=['h2', 'h3', 'bold', 'italic', 'link', 'embed', 'image', 'embed', 'document-link', 'ol', 'ul']
+        features=['h2', 'h3', 'bold', 'italic', 'link', 'embed', 'image', 'embed', 'document-link', 'ol', 'ul', 'code']
     )
