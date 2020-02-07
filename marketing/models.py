@@ -141,7 +141,7 @@ class FeaturePage(MetadataPageMixin, Page):
         help_text="A one sentence description displayed with the feature overview."
     )
     description = RichTextField(
-        features=['bold', 'italic', 'ol', 'ul', 'hr', 'link', 'document-link'],
+        features=['bold', 'italic', 'ol', 'ul', 'hr', 'link', 'document-link', 'code'],
         blank=True,
         null=True
     )
