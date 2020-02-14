@@ -52,7 +52,7 @@ compile-pip-dependencies: ## Uses pip-compile to update requirements.txt
 		pip-compile --generate-hashes --no-header --output-file requirements.txt requirements.in && \
 		pip-compile --generate-hashes --no-header --allow-unsafe --output-file dev-requirements.txt dev-requirements.in'
 
-.PHONY: pip-update
+.PHONY: upgrade-pip
 upgrade-pip: ## Uses pip-compile to update requirements.txt for upgrading a specific package
 # It is critical that we run pip-compile via the same Python version
 # that we're generating requirements for, otherwise the versions may
@@ -64,15 +64,15 @@ upgrade-pip: ## Uses pip-compile to update requirements.txt for upgrading a spec
 		pip-compile --generate-hashes --no-header --allow-unsafe --upgrade-package $(PACKAGE) --output-file dev-requirements.txt dev-requirements.in'
 
 
-.PHONY: pip-dev-update
-update-pip-dev: ## Uses pip-compile to update dev-requirements.txt for upgrading a specific package
+.PHONY: upgrade-pip-dev
+upgrade-pip-dev: ## Uses pip-compile to update dev-requirements.txt for upgrading a specific package
 # It is critical that we run pip-compile via the same Python version
 # that we're generating requirements for, otherwise the versions may
 # be resolved differently.
 	docker run -v "$(DIR):/code" -w /code -it python:3.5-slim \
 		bash -c 'apt-get update && apt-get install gcc -y && \
     pip install --require-hashes -r pip-tools-requirements.txt && \
-		pip-compile --require-hashes --no-header --allow-unsafe --upgrade-package $(PACKAGE) --output-file dev-requirements.txt dev-requirements.in'
+		pip-compile --generate-hashes --no-header --allow-unsafe --upgrade-package $(PACKAGE) --output-file dev-requirements.txt dev-requirements.in'
 
 
 .PHONY: flake8
