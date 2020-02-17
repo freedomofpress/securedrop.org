@@ -113,9 +113,9 @@ django-treebeard==4.3 \
 django-webpack-loader==0.5.0 \
     --hash=sha256:0a8536e36a30d719018cd4c5da6e9d2377771134e713c14e617bb484b4f0acce \
     --hash=sha256:7094bcd8cc40c9824e5b482ce8ff9e8ae09e1982e5d08e078e5fe2411fb40a03
-django==2.2.9 \
-    --hash=sha256:662a1ff78792e3fd77f16f71b1f31149489434de4b62a74895bd5d6534e635a5 \
-    --hash=sha256:687c37153486cf26c3fdcbdd177ef16de38dc3463f094b5f9c9955d91f277b14
+django==2.2.10 \
+    --hash=sha256:1226168be1b1c7efd0e66ee79b0e0b58b2caa7ed87717909cd8a57bb13a7079a \
+    --hash=sha256:9a4635813e2d498a3c01b10c701fe4a515d76dd290aaa792ccb65ca4ccb6b038
 djangorestframework==3.9.1 \
     --hash=sha256:79c6efbb2514bc50cf25906d7c0a5cfead714c7af667ff4bd110312cd380ae66 \
     --hash=sha256:a4138613b67e3a223be6c97f53b13d759c5b90d2b433bad670b8ebf95402075f
