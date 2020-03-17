@@ -69,7 +69,6 @@ jobs:
             while ! curl --output /dev/null --silent --head --fail http://localhost:8000; do sleep 1; done;
             pipenv run make flake8
             pipenv run make dev-tests
-            bash <(curl -s https://codecov.io/bash)
             pipenv run make check-migrations
           no_output_timeout: 5m
 
