@@ -23,8 +23,8 @@ ci-tests: ## Runs testinfra against a pre-running CI container. Useful for debug
 dev-tests: ## Run django tests against developer environment
 	docker-compose exec django /bin/bash -c \
 		"coverage run --source='.' ./manage.py test --noinput -k; \
-		coverage html --skip-empty --omit='*/migrations/*.py'; \
-		coverage report -m --fail-under=80 --skip-empty --omit='*/migrations/*.py'"
+		coverage html --skip-empty --omit='*/migrations/*.py,*/tests/*.py'; \
+		coverage report -m --fail-under=70 --skip-empty --omit='*/migrations/*.py,*/tests/*.py'"
 
 .PHONY: dev-createdevdata
 dev-createdevdata: ## Inject development data into the postgresql database
