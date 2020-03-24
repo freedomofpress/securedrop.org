@@ -1,5 +1,6 @@
 import bleach
 from django import template
+from django.urls import reverse
 from django.utils.html import mark_safe
 from wagtail.core.templatetags.wagtailcore_tags import richtext
 from wagtail.core.models import Site
@@ -66,3 +67,8 @@ def get_attr(obj, attribute):
 @register.simple_tag
 def get_site_name():
     return Site.objects.get(is_default_site=True).site_name
+
+
+@register.filter
+def document_view_url(value):
+    return reverse('view_document', args=[value.id, value.filename])
