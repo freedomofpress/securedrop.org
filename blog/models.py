@@ -17,6 +17,7 @@ from common.blocks import (
     Heading1,
     Heading2,
     Heading3,
+    InlinePDFBlock,
     AlignedImageBlock,
     AlignedEmbedBlock,
     RichTextBlockQuoteBlock,
@@ -61,6 +62,7 @@ class BlogPage(MetadataPageMixin, Page):
             ('heading_1', Heading1()),
             ('heading_2', Heading2()),
             ('heading_3', Heading3()),
+            ('inline_pdf', InlinePDFBlock()),
         ],
         blank=False
     )
