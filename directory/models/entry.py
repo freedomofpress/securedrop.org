@@ -115,6 +115,14 @@ class DirectoryEntry(MetadataPageMixin, Page):
         related_name='+',
     )
 
+    organization_logo_square = models.ForeignKey(
+        'common.CustomImage',
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+
     organization_logo_homepage = models.ForeignKey(
         'common.CustomImage',
         null=True,
@@ -210,6 +218,7 @@ class DirectoryEntry(MetadataPageMixin, Page):
         FieldPanel('organization_description'),
         MultiFieldPanel([
             ImageChooserPanel('organization_logo'),
+            ImageChooserPanel('organization_logo_square'),
             ImageChooserPanel('organization_logo_homepage'),
             FieldPanel('organization_logo_is_title'),
         ], 'Logo'),
