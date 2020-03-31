@@ -28,7 +28,7 @@
     "postcss-loader": "^2.1.6",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
-    "webpack": "^4.29.6",
+    "webpack": "^4.42.1",
     "webpack-bundle-tracker": "^0.4.1-beta",
     "webpack-cli": "^3.3.0",
     "webpack-merge": "^4.1.0"
@@ -43,7 +43,8 @@
     "hamburgers": "^0.9.1",
     "invariant": "^2.2.2",
     "js-yaml": "^3.13.1",
-    "modernizr": "^3.7.1",
+    "minimist": "^1.2.5",
+    "modernizr": "^3.9.1",
     "prop-types": "^15.5.10",
     "query-string": "^5.0.0",
     "react": "15.6.1",
