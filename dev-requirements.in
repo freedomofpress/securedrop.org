@@ -1,4 +1,5 @@
 -r requirements.txt
+coverage
 django-debug-toolbar>=1.9
 flake8
 ipdb
