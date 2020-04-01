@@ -78,6 +78,14 @@ upgrade-pip-dev: ## Uses pip-compile to update dev-requirements.txt for upgradin
 		pip-compile --generate-hashes --no-header --allow-unsafe --upgrade-package $(PACKAGE) --output-file dev-requirements.txt dev-requirements.in'
 
 
+.PHONY: upgrade-pip-tools
+upgrade-pip-tools: ## Update the version of pip-tools used for other pip-related make commands
+	docker run -v "$(DIR):/code" -w /code -it python:3.5-slim \
+		bash -c 'apt-get update && apt-get install gcc -y && \
+    pip install pip-tools && \
+		pip-compile --generate-hashes --no-header --allow-unsafe --upgrade-package pip-tools --output-file pip-tools-requirements.txt pip-tools-requirements.in'
+
+
 .PHONY: flake8
 flake8: ## Runs flake8 linting in Python3 container.
 	@docker-compose run -T django /bin/bash -c "flake8"
