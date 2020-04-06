@@ -31,8 +31,7 @@ var common = {
 		alias: {
 			'~': __dirname + '/client/common/js',
 			WagtailAutocomplete: path.resolve(__dirname, 'client/autocomplete/js/components'),
-			tor: __dirname + '/client/tor/js',
-			modernizr$: path.resolve(__dirname, '.modernizrrc')
+			tor: __dirname + '/client/tor/js'
 		},
 		extensions: ['.js', '.jsx'],
 		modules: ['node_modules']
@@ -82,11 +81,6 @@ var common = {
 				test: /\.css$/,
 				use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
 			},
-			// Currently unused, but we'll want it if we install modernizr:
-			{
-				test: /\.modernizrrc$/,
-				use: ['modernizr-loader']
-			}
 		]
 	},
 
