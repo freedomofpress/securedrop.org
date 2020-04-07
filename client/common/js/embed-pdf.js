@@ -2,7 +2,11 @@ import PDFObject from 'pdfobject';
 
 function embedPdf(el) {
 	var options = {
-		fallbackLink: '<p class="pdfobject-fallback"><strong>PDF Not Displayed</strong>: This browser does not support inline PDFs. Please download the PDF to view it: <a href="[url]">Download PDF</a>.</p>'
+		fallbackLink: `<a class="pdfobject-fallback" href="[url]">
+<svg class="pdfobject-fallback__icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8">
+    <path d="M0 0v8h7v-4h-4v-4h-3zm4 0v3h3l-3-3z" fill="white"></path>
+</svg>
+		<span>Download <strong>${el.dataset.fileTitle}</strong></span></a>`,
 	}
 	PDFObject.embed(el.dataset.fileUri, el, options)
 }
