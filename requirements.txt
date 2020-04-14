@@ -404,9 +404,9 @@ wagtail-metadata==2.0.1 \
     --hash=sha256:1b710fcd6c96f2405db0d9f12ea3055a4532f3e4a43bcb2793700cde714841f1 \
     --hash=sha256:e3ef0776d3a429239dce4d164ac40c779f5d8ac958c630e0ab7442c25c54692e \
     # via -r requirements.in
-wagtail==2.7 \
-    --hash=sha256:644784604a5ec2fbd28b49975c9478ae241ef16e89830b2b773de198be831d2d \
-    --hash=sha256:7c13bad090da20ae7be66af4954329319f6d0088235d85b6439163a143bd317a \
+wagtail==2.7.2 \
+    --hash=sha256:357cdb5733aeed18ae36c865eefd04484f545387331371d26a40b99affb1a327 \
+    --hash=sha256:e4d129ec3560cc4ee1fc9dae384c898938dded2bd7e7197376da8517be6b688b \
     # via -r requirements.in, wagtail-autocomplete, wagtail-factories, wagtail-metadata
 webencodings==0.5.1 \
     --hash=sha256:a0af1213f3c2226497a97e2b3aa01a7e4bee4f403f95be16fc9acd2947514a78 \
