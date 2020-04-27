@@ -1,9 +1,9 @@
 {% load static common_tags %}
 
-<div class="js-pdf" data-file-title="{{ self.document.title }}" data-file-uri="{{ self.document|document_view_url}}"></div>
+<div class="js-pdf" data-icon-uri="{% static "images/page.png" %}" data-file-title="{{ self.document.title }}" data-file-uri="{{ self.document|document_view_url}}"></div>
 <noscript>
 	<a class="pdfobject-fallback" href="{{ self.document.url }}">
-		<img class="pdfobject-fallback__icon" src="{% static "images/page.svg" %}" alt="Document Icon">
+		<img class="pdfobject-fallback__icon" src="{% static "images/page.png" %}" alt="Document Icon">
 		<span>Download <strong>{{ self.document.title }}</strong></span>
 	</a>
 </noscript>
