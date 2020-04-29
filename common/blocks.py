@@ -5,6 +5,7 @@ from pygments.formatters import get_formatter_by_name
 from pygments.lexers import get_lexer_by_name
 
 from wagtail.core import blocks
+from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
 
@@ -105,3 +106,12 @@ class CodeBlock(blocks.StructBlock):
 
     class Meta:
         icon = 'code'
+
+
+class InlinePDFBlock(blocks.StructBlock):
+    document = DocumentChooserBlock(required=True)
+
+    class Meta:
+        template = 'common/blocks/inline_pdf.html'
+        icon = 'doc-full'
+        label = 'Inline PDF'

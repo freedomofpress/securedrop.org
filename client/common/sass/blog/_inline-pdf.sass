@@ -1,0 +1,25 @@
+.pdfobject-container
+	margin-bottom: 1rem
+	display: block
+	width: 100%
+	// Height fallback
+	height: 600px
+	// Good height: PDF viewer will never be too big for your screen
+	height: 96vh
+
+.pdfobject
+	width: 100%
+	height: 100%
+
+.pdfobject-fallback
+	+button-large
+	+button-solid--blue
+	display: inline-block
+
+	span
+		vertical-align: middle
+
+.pdfobject-fallback__icon
+	height: 2.0em
+	margin-right: 0.5em
+	float: left
