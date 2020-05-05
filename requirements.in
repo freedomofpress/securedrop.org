@@ -11,7 +11,7 @@ factory_boy
 feedparser
 gunicorn
 lxml
-markdown2>=2.3.7
+markdown2>=2.3.8
 pshtt==0.3.0
 psycopg2
 pygments
