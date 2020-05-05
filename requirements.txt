@@ -192,9 +192,9 @@ lxml==4.1.1 \
     --hash=sha256:e7e41d383f19bab9d57f5f3b18d158655bcd682e7e723f441b9e183e1e35a6b5 \
     --hash=sha256:fa7320679ced5e25b20203d157280680fc84eb783b6cc650cb0c98e1858b7dd3 \
     # via -r requirements.in
-markdown2==2.3.7 \
-    --hash=sha256:7edaa8ecc2843b4404e1cb754a52d1d135ecf181b475d2f32bbc36a562ef407d \
-    --hash=sha256:e65d653173f754f616e0a9ccd4496e38e0fe7def285dd8b495a035b75974aa98 \
+markdown2==2.3.8 \
+    --hash=sha256:7ff88e00b396c02c8e1ecd8d176cfa418fb01fe81234dcea77803e7ce4f05dbe \
+    --hash=sha256:882d3607fc023cdea0ac2cd0e1147617fcb0361cb1133d3ff095417f995ff270 \
     # via -r requirements.in
 mbstrdecoder[all]==0.8.1 \
     --hash=sha256:936b9c7a122db40a9392ffb4789035eb5897d6ceccd459d1bd4375e0c60fc6cd \
@@ -404,9 +404,9 @@ wagtail-metadata==2.0.1 \
     --hash=sha256:1b710fcd6c96f2405db0d9f12ea3055a4532f3e4a43bcb2793700cde714841f1 \
     --hash=sha256:e3ef0776d3a429239dce4d164ac40c779f5d8ac958c630e0ab7442c25c54692e \
     # via -r requirements.in
-wagtail==2.7.2 \
-    --hash=sha256:357cdb5733aeed18ae36c865eefd04484f545387331371d26a40b99affb1a327 \
-    --hash=sha256:e4d129ec3560cc4ee1fc9dae384c898938dded2bd7e7197376da8517be6b688b \
+wagtail==2.7.3 \
+    --hash=sha256:0c0bdcf885ffa48bad6c4b2ac375ba63a7745aa4e0c638683eaa92642893da10 \
+    --hash=sha256:e4a9aaf0941ecb2ec3264f032b905d803b1c3d69470d7269c7f3743ef6eacea1 \
     # via -r requirements.in, wagtail-autocomplete, wagtail-factories, wagtail-metadata
 webencodings==0.5.1 \
     --hash=sha256:a0af1213f3c2226497a97e2b3aa01a7e4bee4f403f95be16fc9acd2947514a78 \

@@ -11,14 +11,14 @@ factory_boy
 feedparser
 gunicorn
 lxml
-markdown2>=2.3.7
+markdown2>=2.3.8
 pshtt==0.3.0
 psycopg2
 pygments
 python-json-logger
 tldextract
 tinycss2
-wagtail>=2.7.2,<2.8
+wagtail>=2.7.3,<2.8
 wagtail-factories
 wagtail-metadata
 wagtail-autocomplete
