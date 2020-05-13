@@ -1,5 +1,6 @@
 // This user agent string matches Tor Browser 9 or Firefox Quantum (on desktop)
-const TBB_UA_REGEX = /Mozilla\/5\.0 \((Windows NT 10\.0|X11; Linux x86_64|Macintosh; Intel Mac OS X 10\.14|Windows NT 10\.0; Win64; x64); rv:[0-9]{2}\.0\) Gecko\/20100101 Firefox\/([0-9]{2})\.0/
+const TBB_UA_REGEX = /Mozilla\/5\.0 \((Windows NT 10\.0|X11; Linux x86_64|Macintosh; Intel Mac OS X 10\.14|Windows NT 10\.0; Win64; x64|Android; Mobile); rv:[0-9]{2}\.0\) Gecko\/20100101 Firefox\/([0-9]{2})\.0/
+const MOBILE_TOR_UA_REGEX = /Mozilla\/5\.0 \(Android; Mobile; rv:[0-9]{2}\.0\) Gecko\/20100101 Firefox\/([0-9]{2})\.0/
 
 
 const is_likely_tor_browser = function () {
@@ -17,11 +18,18 @@ const is_likely_tor_browser = function () {
 	)
 }
 
+const is_likely_mobile_tor_browser = function () {
+	return (
+		window.navigator.userAgent.match(MOBILE_TOR_UA_REGEX) &&
+		new Date().getTimezoneOffset() == 0
+	)
+}
+
 
 // Adjust <html> element classes according to tor detection
 document.documentElement.classList.remove('no-js')
 document.documentElement.classList.add('js')
-document.documentElement.classList.add(is_likely_tor_browser() ? 'tor' : 'no-tor')
+document.documentElement.classList.add(is_likely_tor_browser() || is_likely_mobile_tor_browser() ? 'tor' : 'no-tor')
 
 
 // Warn about using Javascript and not using Tor Browser
@@ -34,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	const instances = document.getElementById('js-instances')
 	const body = document.body
 
-	if (is_likely_tor_browser()) {
+	if (is_likely_tor_browser() || is_likely_mobile_tor_browser()) {
 		/* If the source is using Tor Browser, we want to encourage them to turn Tor
 			Browser's Security Slider to "High", which enables various hardening
 			methods, including disabling Javascript. Since JS is disabled by turning
