@@ -112,6 +112,7 @@ MIDDLEWARE = [
 
     # Middleware for content security policy
     'csp.middleware.CSPMiddleware',
+    'common.middleware.OnionLocationMiddleware',
 ]
 
 ROOT_URLCONF = 'securedrop.urls'
