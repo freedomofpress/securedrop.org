@@ -44,7 +44,8 @@ class FooterSettings(BaseSetting):
         'SecureDrop Onion Address',
         max_length=255,
         default='secrdrop5wyphb5x.onion',
-        validators=[RegexValidator(regex=r'\.onion$', message="Enter a valid .onion address.")]
+        validators=[RegexValidator(regex=r'\.onion$', message="Enter a valid .onion address.")],
+        help_text='Address for the securedrop.org onion service. Displayed in the site footer and the Onion-Location header.',
     )
 
     panels = [
