@@ -115,6 +115,18 @@ MIDDLEWARE = [
     'common.middleware.OnionLocationMiddleware',
 ]
 
+
+# Set X-XSS-Protection
+SECURE_BROWSER_XSS_FILTER = True
+
+# Set X-Content-Type-Options
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Adjust HSTS
+SECURE_HSTS_SECONDS = 63072000
+SECURE_HSTS_PRELOAD = True
+
+
 ROOT_URLCONF = 'securedrop.urls'
 
 TEMPLATES = [
