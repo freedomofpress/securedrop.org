@@ -11,14 +11,15 @@ factory_boy
 feedparser
 gunicorn
 lxml
-markdown2>=2.3.8
+markdown2>2.3.8
+pillow>=6.2.3
 pshtt==0.3.0
 psycopg2
 pygments
 python-json-logger
 tldextract
 tinycss2
-wagtail>=2.7.3,<2.8
+wagtail>2.7.3,<2.8
 wagtail-factories
 wagtail-metadata
 wagtail-autocomplete
@@ -28,5 +29,4 @@ django-allauth-2fa
 django-csp
 zxcvbn-python
 requests>=2.20.0
-urllib3>=1.23
-sslyze==1.4.1
+urllib3>1.25.7
