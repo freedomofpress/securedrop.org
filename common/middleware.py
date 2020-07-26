@@ -7,8 +7,10 @@ class OnionLocationMiddleware(object):
 
     def __call__(self, request):
         response = self.get_response(request)
-
         footer_settings = FooterSettings.for_site(request.site)
-        if footer_settings.securedrop_onion_address:
-            response['Onion-Location'] = footer_settings.securedrop_onion_address
+        if (
+            footer_settings.securedrop_onion_address
+            and request.get_host() not in footer_settings.securedrop_onion_address
+        ):
+            response["Onion-Location"] = footer_settings.securedrop_onion_address
         return response
