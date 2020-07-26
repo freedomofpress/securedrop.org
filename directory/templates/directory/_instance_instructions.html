@@ -16,16 +16,16 @@
 	</p>
 	<p>
 
-		{% if settings.directory.DirectorySettings.contact_gpg %}
+		{% if settings.directory.DirectorySettings.report_error_page %}
+			{% blocktrans with report_error_page=settings.directory.DirectorySettings.report_error_page.url %}
+				If you encounter a mismatch, make sure to report an error
+				<a href="{{ report_error_page }}">here</a>.
+			{% endblocktrans %}
+		{% elif settings.directory.DirectorySettings.contact_gpg %}
 			{% blocktrans with contact_email=settings.directory.DirectorySettings.contact_email contact_email_escaped=settings.directory.DirectorySettings.contact_email|escape contact_gpg=settings.directory.DirectorySettings.contact_gpg.url %}
 				If you encounter a mismatch, please contact us at
 				<a href="mailto:{{ contact_email_escaped }}">{{ contact_email }}</a>
 				(<a href="{{ contact_gpg }}">GPG</a>).
-			{% endblocktrans %}
-		{% elif settings.directory.DirectorySettings.report_error_page %}
-			{% blocktrans with report_error_page=settings.directory.DirectorySettings.report_error_page.url %}
-				If you encounter a mismatch, make sure to report an error
-				<a href="{{ report_error_page }}">here</a>.
 			{% endblocktrans %}
 		{% else %}
 			{% comment %}
