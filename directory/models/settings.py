@@ -75,7 +75,7 @@ class DirectorySettings(BaseSetting):
         MultiFieldPanel([
             FieldPanel('new_instance_alert_group'),
             FieldPanel('contact_email'),
-            PageChooserPanel('report_error_page'),
+            PageChooserPanel('report_error_page', 'forms.FormPage'),
             DocumentChooserPanel('contact_gpg'),
         ], 'Contact'),
     ]
