@@ -159,12 +159,25 @@ WSGI_APPLICATION = 'securedrop.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 # Set the url as DATABASE_URL in the environment
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if 'DJANGO_DB_HOST' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ['DJANGO_DB_NAME'],
+            'USER': os.environ['DJANGO_DB_USER'],
+            'PASSWORD': os.environ['DJANGO_DB_PASSWORD'],
+            'HOST': os.environ['DJANGO_DB_HOST'],
+            'PORT': os.environ['DJANGO_DB_PORT'],
+            'CONN_MAX_AGE': os.environ.get('DJANGO_DB_MAX_AGE', 600)
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'sdo-build.sqlite3'),
+        }
+    }
 
 
 # Internationalization
