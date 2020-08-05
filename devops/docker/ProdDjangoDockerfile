@@ -64,5 +64,6 @@ RUN mkdir /deploy && \
 
 EXPOSE 8000
 USER ${USERID}
-RUN ./manage.py collectstatic -c --noinput
+# since no django env is specified, runs in dev; disable DEBUG
+RUN env DJANGO_DISABLE_DEBUG=1 ./manage.py collectstatic -c --noinput
 CMD django-start.sh

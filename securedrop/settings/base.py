@@ -224,8 +224,7 @@ WAGTAILIMAGES_IMAGE_MODEL = 'common.CustomImage'
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'http://example.com'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # Django-webpack configuration
 WEBPACK_LOADER = {

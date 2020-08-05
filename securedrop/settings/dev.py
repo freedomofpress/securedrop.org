@@ -9,6 +9,10 @@ from .base import *  # noqa: F403, F401
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '-hf!6+rx$-55pyf6tekfkers#7cfn-_d#4f6*vnr-+vz82lqz_'
 
+DEBUG = True
+if os.environ.get('DJANGO_DISABLE_DEBUG'):
+    DEBUG = False
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 

@@ -14,6 +14,10 @@ except ImportError:
     pass
 
 DEBUG = False
+# SECURITY WARNING: don't run with debug turned on in production!
+if os.environ.get('DJANGO_DEBUG_PROD'):
+    DEBUG = True
+
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(' ')
 
