@@ -64,4 +64,5 @@ RUN mkdir /deploy && \
 
 EXPOSE 8000
 USER ${USERID}
+RUN ./manage.py collectstatic -c --noinput
 CMD django-start.sh
