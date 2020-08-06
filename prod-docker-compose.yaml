@@ -34,7 +34,7 @@ services:
       - ${HOST_MEDIA_DIR:-sdorg-django-static}:/django-static
       - ${HOST_LOGS_DIR:-sdorg-django-logs}:/django-logs
     environment:
-      DJANGO_ALLOWED_HOSTS: app
+      DJANGO_ALLOWED_HOSTS: app localhost
       DJANGO_APP_NAME: securedrop
       DJANGO_COLLECT_STATIC: "yes"
       DJANGO_SETTINGS_MODULE: securedrop.settings.production
@@ -48,25 +48,12 @@ services:
       DJANGO_MEDIA_ROOT: /django-media
       DJANGO_LOG_PATH: /django-logs
       DEPLOY_ENV: prod
+    ports:
+      - "8000:8000"
     networks:
       app:
         aliases:
           - app
-
-  nginx:
-    image: nginx:1.14-alpine
-    volumes:
-      - ./devops/docker/nginx:/etc/nginx/conf.d/:ro
-      - ${HOST_STATIC_DIR:-sdorg-django-media}:/django-media:ro
-      - ${HOST_MEDIA_DIR:-sdorg-django-static}:/django-static:ro
-    depends_on:
-      - django
-    ports:
-      - "8080:8080"
-    networks:
-      app:
-        aliases:
-          - nginx
 
 volumes:
   sdorg-django-static:
