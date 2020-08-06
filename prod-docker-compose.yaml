@@ -25,7 +25,7 @@ services:
       dockerfile: devops/docker/ProdDjangoDockerfile
       args:
         USERID: 12345
-    image: quay.io/freedomofpress/securedrop.org
+    image: quay.io/freedomofpress/securedroporg
     depends_on:
       - postgresql
     working_dir: /django
