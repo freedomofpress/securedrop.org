@@ -108,6 +108,12 @@ class TorAlertSettings(BaseSetting):
         blank=True,
         null=True,
     )
+    mobile_subtitle = models.CharField(
+        max_length=255,
+        default="For security reasons we discourage use of mobile browser.",
+        blank=True,
+        null=True,
+    )
     body = RichTextField(
         blank=True,
         null=True,
@@ -134,6 +140,7 @@ class TorAlertSettings(BaseSetting):
             [
                 FieldPanel('title'),
                 FieldPanel('subtitle'),
+                FieldPanel('mobile_subtitle'),
                 FieldPanel('body'),
             ],
             "Tor Not Detected Alert",

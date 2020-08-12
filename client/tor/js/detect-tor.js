@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	const instances = document.getElementById('js-instances')
 	const body = document.body
 
-	if (is_likely_tor_browser() || is_likely_mobile_tor_browser()) {
+	if (is_likely_tor_browser()) {
 		/* If the source is using Tor Browser, we want to encourage them to turn Tor
 			Browser's Security Slider to "High", which enables various hardening
 			methods, including disabling Javascript. Since JS is disabled by turning

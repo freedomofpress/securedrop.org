@@ -5,7 +5,10 @@
 	<div>
 		<h1 class="tor-warning__title">{{ settings.common.TorAlertSettings.title }}</h1>
 		{% if settings.common.TorAlertSettings.subtitle %}
-			<h2>{{ settings.common.TorAlertSettings.subtitle }}</h2>
+			<h2 class="tor-desktop-subtitle">{{ settings.common.TorAlertSettings.subtitle }}</h2>
+		{% endif %}
+		{% if settings.common.TorAlertSettings.mobile_subtitle %}
+			<h2 class="tor-mobile-subtitle">{{ settings.common.TorAlertSettings.mobile_subtitle }}</h2>
 		{% endif %}
 	</div>
 	{% if settings.common.TorAlertSettings.body %}

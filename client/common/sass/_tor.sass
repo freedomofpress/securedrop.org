@@ -32,6 +32,7 @@
 		margin: 0
 		display: block
 		overflow: scroll
+		max-width: 90vw
 
 
 // This is an override of .tor-warning
@@ -43,6 +44,9 @@
 		padding: $layout-padding
 		position: relative
 		z-index: $z-tor-homepage
+
+	.tor-mobile-subtitle
+		display: none
 
 // This is an override of .tor-warning
 .tor-warning--hidden
@@ -75,3 +79,10 @@
 	+media-breakpoint-down(extra-small)
 		width: 2*$alert-button-width
 		height: 2*$alert-button-height
+
++media-breakpoint-down(extra-small)
+	.tor-mobile-subtitle
+		display: block
+
+	.tor-desktop-subtitle
+		display: none
