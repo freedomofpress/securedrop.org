@@ -25,6 +25,10 @@ const is_likely_mobile_tor_browser = function () {
 	)
 }
 
+const is_likely_mobile_browser = function () {
+	return window.navigator.userAgent.indexOf("Mobi") !== -1
+}
+
 
 // Adjust <html> element classes according to tor detection
 document.documentElement.classList.remove('no-js')
@@ -75,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 			sessionStorage.setItem('torWarningDismissed', '1')
 		})
-	} else if (is_likely_mobile_tor_browser()) {
+	} else if (is_likely_mobile_browser()) {
 		let torWarning = document.getElementById('js-tor-mobile-warning')
 		torWarning.classList.remove('tor-warning--hidden')
 		torWarning.setAttribute('aria-hidden', 'false')
