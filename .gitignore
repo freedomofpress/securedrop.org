@@ -51,3 +51,6 @@ results.txt
 
 # Ignore files created to communicate system deployment info
 .versioninfo
+
+# IDE
+.idea
