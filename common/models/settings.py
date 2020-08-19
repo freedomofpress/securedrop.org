@@ -129,6 +129,21 @@ class TorAlertSettings(BaseSetting):
         help_text="Text explaining how and why to change Tor security settings."
     )
 
+    mobile_title = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text='Title of alert box displayed to users of mobile browsers',
+    )
+    mobile_subtitle = models.CharField(
+        max_length=255,
+        blank=True,
+        help_text='Subtitle of alert box displayed to users of mobile browsers',
+    )
+    mobile_body = RichTextField(
+        blank=True,
+        help_text='Body text for the alert box displayed to users of mobile browsers',
+    )
+
     panels = [
         MultiFieldPanel(
             [
@@ -147,6 +162,15 @@ class TorAlertSettings(BaseSetting):
             ],
             "Tor Settings Too Low Alert",
             classname="collapsible"
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('mobile_title'),
+                FieldPanel('mobile_subtitle'),
+                FieldPanel('mobile_body'),
+            ],
+            'Tor Mobile Alert',
+            classname='collapsible',
         ),
     ]
 
