@@ -2,14 +2,14 @@
 DIR := ${CURDIR}
 WHOAMI := ${USER}
 RAND_PORT := ${RAND_PORT}
-UID := $(shell id -u)
+HOST_UID := $(shell id -u)
 GIT_REV := $(shell git rev-parse HEAD | cut -c1-10)
 GIT_BR := $(shell git rev-parse --abbrev-ref HEAD)
 SD_IMAGE := quay.io/freedomofpress/securedrop.org
 
 .PHONY: dev-init
 dev-init: ## Initialize docker environment for developer workflow
-	echo UID=$(UID) > .env
+	echo UID=$(HOST_UID) > .env
 
 .PHONY: check-migrations
 check-migrations: ## Check for ungenerated migrations

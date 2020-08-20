@@ -23,7 +23,8 @@ services:
     build:
       context: .
       dockerfile: devops/docker/ProdDjangoDockerfile
-      args: []
+      args:
+        USERID: 12345
     image: quay.io/freedomofpress/securedrop.org
     depends_on:
       - postgresql
