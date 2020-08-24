@@ -23,9 +23,7 @@ services:
     build:
       context: .
       dockerfile: devops/docker/ProdDjangoDockerfile
-      args:
-        NODE_VER: 10.17.0-alpine
-        NPM_VER: 6.13.4
+      args: []
     image: quay.io/freedomofpress/securedrop.org
     depends_on:
       - postgresql
