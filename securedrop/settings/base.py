@@ -98,9 +98,13 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+]
 
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+# Must be directly after SecurityMiddleware
+if os.environ.get('DJANGO_WHITENOISE'):
+    MIDDLEWARE.append('whitenoise.middleware.WhiteNoiseMiddleware')
 
+MIDDLEWARE.extend([
     'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 
@@ -116,7 +120,7 @@ MIDDLEWARE = [
     # Middleware for content security policy
     'csp.middleware.CSPMiddleware',
     'common.middleware.OnionLocationMiddleware',
-]
+])
 
 
 # Set X-XSS-Protection

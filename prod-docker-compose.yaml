@@ -48,6 +48,7 @@ services:
       DJANGO_MEDIA_ROOT: /django-media
       DJANGO_LOG_PATH: /django-logs
       DEPLOY_ENV: prod
+      DJANGO_WHITENOISE: 'True'
     ports:
       - "8000:8000"
     networks:
