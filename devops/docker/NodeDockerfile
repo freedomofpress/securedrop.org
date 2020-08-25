@@ -10,7 +10,7 @@ RUN apk add --no-cache paxctl python make g++
 RUN paxctl -cm /usr/local/bin/node
 
 ARG USERID
-RUN adduser -D -g "" -u "${USERID}" docker_user || true
+RUN getent passwd "${USERID?USERID must be supplied}" || adduser -D -g "" -u "${USERID}" sdo_node
 USER ${USERID}
 
 CMD npm install && touch .node_complete && npm run start

@@ -16,7 +16,7 @@ COPY dev-requirements.txt /requirements.txt
 RUN pip install --require-hashes -r /requirements.txt
 
 ARG USERID
-RUN adduser --uid "${USERID}" --disabled-password --gecos "" gcorn || true
+RUN getent passwd "${USERID?USERID must be supplied}" || adduser --uid "${USERID}" --disabled-password --gecos "" gcorn
 
 RUN  mkdir /django-logs /deploy && \
     chown -R "${USERID}" /django-logs /deploy

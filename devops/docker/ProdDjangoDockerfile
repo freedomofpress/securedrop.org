@@ -36,7 +36,8 @@ RUN apt-get update && apt-get install -y \
 COPY devops/docker/django-start.sh /usr/local/bin
 RUN  chmod +x /usr/local/bin/django-start.sh
 
-RUN adduser --disabled-password --gecos "" gcorn
+ARG USERID
+RUN getent passwd "${USERID?USERID must be supplied}" || adduser --uid "${USERID}" --disabled-password --gecos "" gcorn
 
 COPY --from=node-assets /src-files/ /django/
 # Unfortunately the chown flag in COPY is not
@@ -62,5 +63,5 @@ RUN mkdir /deploy && \
     /django/devops/scripts/version-file.sh
 
 EXPOSE 8000
-USER gcorn
+USER ${USERID}
 CMD django-start.sh
