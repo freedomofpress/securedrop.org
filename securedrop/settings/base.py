@@ -438,7 +438,7 @@ CSP_IMG_SRC = [
     "'self'",
     "analytics.freedom.press",
 ]
-CSP_OBJECT_SRC = ["'self'",]
+CSP_OBJECT_SRC = ["'self'"]
 
 # This will be used to evaluate Google Storage media support in staging
 if os.environ.get("DJANGO_CSP_IMG_HOSTS"):
