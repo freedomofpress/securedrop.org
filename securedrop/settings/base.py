@@ -98,7 +98,13 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+]
 
+# Must be directly after SecurityMiddleware
+if os.environ.get('DJANGO_WHITENOISE'):
+    MIDDLEWARE.append('whitenoise.middleware.WhiteNoiseMiddleware')
+
+MIDDLEWARE.extend([
     'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 
@@ -114,7 +120,7 @@ MIDDLEWARE = [
     # Middleware for content security policy
     'csp.middleware.CSPMiddleware',
     'common.middleware.OnionLocationMiddleware',
-]
+])
 
 
 # Set X-XSS-Protection
@@ -157,12 +163,25 @@ WSGI_APPLICATION = 'securedrop.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 # Set the url as DATABASE_URL in the environment
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if 'DJANGO_DB_HOST' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ['DJANGO_DB_NAME'],
+            'USER': os.environ['DJANGO_DB_USER'],
+            'PASSWORD': os.environ['DJANGO_DB_PASSWORD'],
+            'HOST': os.environ['DJANGO_DB_HOST'],
+            'PORT': os.environ['DJANGO_DB_PORT'],
+            'CONN_MAX_AGE': os.environ.get('DJANGO_DB_MAX_AGE', 600)
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'sdo-build.sqlite3'),
+        }
+    }
 
 
 # Internationalization
@@ -222,8 +241,7 @@ WAGTAILIMAGES_IMAGE_MODEL = 'common.CustomImage'
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'http://example.com'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # Django-webpack configuration
 WEBPACK_LOADER = {

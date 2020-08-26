@@ -104,7 +104,7 @@ jobs:
             pipenv run docker-compose -f prod-docker-compose.yaml build
             pipenv run docker-compose -f prod-docker-compose.yaml up -d
             echo "Polling with curl --silent until Django is up..."
-            while ! curl --output /dev/null --silent --head --fail http://$(docker-compose -f prod-docker-compose.yaml port nginx 8080); do sleep 5; done
+            while ! curl --output /dev/null --silent --head --fail http://localhost:8000; do sleep 5; done
             pipenv run docker-compose -f prod-docker-compose.yaml exec django /bin/bash -c "./manage.py createdevdata --no-download"
           no_output_timeout: 5m
 

@@ -14,12 +14,16 @@ except ImportError:
     pass
 
 DEBUG = False
+# SECURITY WARNING: don't run with debug turned on in production!
+if os.environ.get('DJANGO_DEBUG_PROD'):
+    DEBUG = True
+
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(' ')
 
 # Domain specific
 #
-BASE_URL = os.environ.get('DJANGO_BASE_URL', 'https://freedom.press')
+BASE_URL = os.environ.get('DJANGO_BASE_URL', 'https://securedrop.org')
 STATIC_URL = os.environ.get('DJANGO_STATIC_URL', '/static/')
 MEDIA_URL = os.environ.get('DJANGO_MEDIA_URL', '/media/')
 
