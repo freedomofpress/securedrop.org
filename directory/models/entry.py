@@ -379,6 +379,9 @@ class ScanResult(models.Model):
     no_cross_domain_redirects = models.NullBooleanField()
     expected_encoding = models.NullBooleanField()
 
+    # HTTP/2 support
+    http2 = models.BooleanField(default=False)
+
     # Security headers
     no_server_info = models.NullBooleanField()
     no_server_version = models.NullBooleanField()
