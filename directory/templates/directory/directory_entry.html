@@ -31,7 +31,9 @@
 
 
 {% block column_one %}
-	{% if page.delisted != None %}
+	{% if page.delisted == 'down' %}
+		{% include "directory/_instance_maintenance_alert.html" %}
+	{% elif page.delisted != None %}
 		{% include "directory/_instance_alert.html" %}
 	{% else %}
 		{% include "directory/_instance_instructions.html" %}

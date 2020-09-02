@@ -1,0 +1,13 @@
+{% load i18n %}
+
+<div class="instance-alert">
+	{% include "common/_svg.html" with class="instance-alert__icon" svg="images/instance-status/Pending.svg" img="images/instance-status/Pending.png" alt="Verification Pending Icon" %}
+	<h2 class="instance-alert__title">
+		{% trans "Instance Under Maintenance" %}
+	</h2>
+	<div class="instance-alert__content">
+		{% blocktrans %}
+			This instance is experiencing an extended service outage. We have temporarily removed it from the directory.
+		{% endblocktrans %}
+	</div>
+</div>

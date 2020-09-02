@@ -167,7 +167,7 @@ class DirectoryEntry(MetadataPageMixin, Page):
     DELISTED_REASONS = (
         ('http', 'Mixed-content or no HTTPS'),
         ('no200', 'Non-200 status response'),
-        ('down', 'Extended downtime (>1 week)'),
+        ('down', 'Extended downtime'),
         ('other', 'Other'),
     )
 
