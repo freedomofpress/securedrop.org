@@ -142,6 +142,10 @@ class DirectoryEntry(MetadataPageMixin, Page):
     )
 
     organization_description = models.CharField(max_length=95, blank=True, null=True, help_text="A micro description of your organization that will be displayed in the directory.")
+    organization_url = models.URLField(
+        blank=True,
+        help_text='The URL of the main website of the organization.',
+    )
 
     languages = ParentalManyToManyField(
         'directory.Language',
