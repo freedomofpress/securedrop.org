@@ -133,6 +133,6 @@ workflows:
           filters:
             branches:
               only:
-                - master
+                - develop
     jobs:
       - safety_check
