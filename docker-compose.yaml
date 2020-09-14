@@ -25,13 +25,10 @@ services:
       context: .
       dockerfile: devops/docker/NodeDockerfile
       args:
-        NODE_VER: 10.17.0-alpine
-        NPM_VER: 6.13.4
         USERID: ${UID:?err}
     volumes:
       - ./:/django
     working_dir: /django
-    command: /bin/ash -c "npm install && touch .node_complete && npm run start"
     user: ${UID:?err}
     networks:
       - app

@@ -25,6 +25,10 @@ const is_likely_mobile_tor_browser = function () {
 	)
 }
 
+const is_likely_mobile_browser = function () {
+	return window.navigator.userAgent.indexOf("Mobi") !== -1
+}
+
 
 // Adjust <html> element classes according to tor detection
 document.documentElement.classList.remove('no-js')
@@ -42,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	const instances = document.getElementById('js-instances')
 	const body = document.body
 
-	if (is_likely_tor_browser() || is_likely_mobile_tor_browser()) {
+	if (is_likely_tor_browser()) {
 		/* If the source is using Tor Browser, we want to encourage them to turn Tor
 			Browser's Security Slider to "High", which enables various hardening
 			methods, including disabling Javascript. Since JS is disabled by turning
@@ -64,6 +68,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
 		let torWarningClose = document.getElementById('js-tor-warning-close')
 		const closeUseTorBrowser = document.getElementById('js-tor-warning-close')
+
+		closeUseTorBrowser.addEventListener('click', () => {
+			torWarning.classList.add('tor-warning--hidden')
+			// hides warning for screen readers
+			torWarning.setAttribute('aria-hidden', 'true')
+			body.classList.remove('no-scroll')
+			if(instances) {
+				instances.classList.remove('instances--tor-warning')
+			}
+			sessionStorage.setItem('torWarningDismissed', '1')
+		})
+	} else if (is_likely_mobile_browser()) {
+		let torWarning = document.getElementById('js-tor-mobile-warning')
+		torWarning.classList.remove('tor-warning--hidden')
+		torWarning.setAttribute('aria-hidden', 'false')
+		//  hides the warning to use tor, since users already have it
+		useTorBrowser.classList.add('tor-warning--hidden')
+		useTorBrowser.setAttribute('aria-hidden', 'true')
+		// adds class to body that disables scrolling
+		body.classList.add('no-scroll')
+		// Tell instances and updates that there's a warning
+		// so that homepage styles are adjusted
+		if(instances) {
+			instances.classList.add('instances--tor-warning')
+		}
+
+		const closeUseTorBrowser = document.getElementById('js-tor-mobile-warning-close')
 
 		closeUseTorBrowser.addEventListener('click', () => {
 			torWarning.classList.add('tor-warning--hidden')

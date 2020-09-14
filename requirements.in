@@ -5,6 +5,7 @@ django-analytical>=2.4
 django-anymail[mailgun]>=1.4
 django-modelcluster
 django-settings-export
+django-storages[google]
 django-webpack-loader
 djangorestframework
 factory_boy
@@ -30,3 +31,4 @@ django-csp
 zxcvbn-python
 requests>=2.20.0
 urllib3>1.25.7
+whitenoise

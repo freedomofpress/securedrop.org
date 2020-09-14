@@ -14,12 +14,16 @@ except ImportError:
     pass
 
 DEBUG = False
+# SECURITY WARNING: don't run with debug turned on in production!
+if os.environ.get('DJANGO_DEBUG_PROD'):
+    DEBUG = True
+
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(' ')
 
 # Domain specific
 #
-BASE_URL = os.environ.get('DJANGO_BASE_URL', 'https://freedom.press')
+BASE_URL = os.environ.get('DJANGO_BASE_URL', 'https://securedrop.org')
 STATIC_URL = os.environ.get('DJANGO_STATIC_URL', '/static/')
 MEDIA_URL = os.environ.get('DJANGO_MEDIA_URL', '/media/')
 
@@ -40,7 +44,33 @@ DATABASES = {
 # Static and media files
 #
 STATIC_ROOT = os.environ['DJANGO_STATIC_ROOT']
-MEDIA_ROOT = os.environ['DJANGO_MEDIA_ROOT']
+
+if os.environ.get('GS_BUCKET_NAME'):
+    INSTALLED_APPS.append('storages')  # noqa: F405
+
+    GS_BUCKET_NAME = os.environ['GS_BUCKET_NAME']
+
+    if 'GS_CREDENTIALS' in os.environ:
+        from google.oauth2.service_account import Credentials
+        GS_CREDENTIALS = Credentials.from_service_account_file(os.environ['GS_CREDENTIALS'])
+    elif 'GOOGLE_APPLICATION_CREDENTIALS' in os.environ:
+        logging.warning('Defaulting to global GOOGLE_APPLICATION_CREDENTIALS')
+    else:
+        logging.warning(
+            'GS_CREDENTIALS or GOOGLE_APPLICATION_CREDENTIALS unset! ' +
+            'Falling back to credentials of the machine we are running on, ' +
+            'if it is a GCE instance. This is almost certainly not desired.'
+        )
+
+    GS_PROJECT_ID = os.environ.get('GS_PROJECT_ID')
+    GS_MEDIA_PATH = os.environ.get('GS_MEDIA_PATH', 'media')
+    GS_STATIC_PATH = os.environ.get('GS_STATIC_PATH', 'static')
+
+    DEFAULT_FILE_STORAGE = 'common.storage.MediaStorage'
+    if 'GS_STORE_STATIC' in os.environ:
+        STATICFILES_STORAGE = 'common.storage.StaticStorage'
+else:
+    MEDIA_ROOT = os.environ['DJANGO_MEDIA_ROOT']
 
 # Optional Elasticsearch backend - disabled by default
 #

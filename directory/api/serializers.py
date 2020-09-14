@@ -34,6 +34,7 @@ class DirectoryEntrySerializer(serializers.ModelSerializer):
             'onion_address',
             'organization_logo',
             'organization_description',
+            'organization_url',
             'languages',
             'topics',
             'countries',

@@ -15,6 +15,7 @@ from __future__ import absolute_import, unicode_literals
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
+import sys
 import logging
 logger = logging.getLogger(__name__)
 
@@ -97,7 +98,13 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+]
 
+# Must be directly after SecurityMiddleware
+if os.environ.get('DJANGO_WHITENOISE'):
+    MIDDLEWARE.append('whitenoise.middleware.WhiteNoiseMiddleware')
+
+MIDDLEWARE.extend([
     'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 
@@ -113,7 +120,19 @@ MIDDLEWARE = [
     # Middleware for content security policy
     'csp.middleware.CSPMiddleware',
     'common.middleware.OnionLocationMiddleware',
-]
+])
+
+
+# Set X-XSS-Protection
+SECURE_BROWSER_XSS_FILTER = True
+
+# Set X-Content-Type-Options
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Adjust HSTS
+SECURE_HSTS_SECONDS = 63072000
+SECURE_HSTS_PRELOAD = True
+
 
 ROOT_URLCONF = 'securedrop.urls'
 
@@ -144,12 +163,25 @@ WSGI_APPLICATION = 'securedrop.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 # Set the url as DATABASE_URL in the environment
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+if 'DJANGO_DB_HOST' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ['DJANGO_DB_NAME'],
+            'USER': os.environ['DJANGO_DB_USER'],
+            'PASSWORD': os.environ['DJANGO_DB_PASSWORD'],
+            'HOST': os.environ['DJANGO_DB_HOST'],
+            'PORT': os.environ['DJANGO_DB_PORT'],
+            'CONN_MAX_AGE': os.environ.get('DJANGO_DB_MAX_AGE', 600)
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'sdo-build.sqlite3'),
+        }
+    }
 
 
 # Internationalization
@@ -209,8 +241,7 @@ WAGTAILIMAGES_IMAGE_MODEL = 'common.CustomImage'
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'http://example.com'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # Django-webpack configuration
 WEBPACK_LOADER = {
@@ -286,36 +317,58 @@ DISCOURSE_API_KEY = os.environ.get('DISCOURSE_API_KEY', '')
 INSTALLED_APPS.append('django_logging')  # noqa: F405
 MIDDLEWARE.append(  # noqa: F405
     'django_logging.middleware.DjangoLoggingMiddleware')
+
+# this will be set in k8s and will take precedence over logfile
+console_log = bool(os.environ.get('DJANGO_LOG_CONSOLE'))
+
+log_level = os.environ.get('DJANGO_LOG_LEVEL', 'info').upper()
+log_dir = os.environ.get('DJANGO_LOG_PATH', os.path.join(BASE_DIR, 'logs'))
+
 DJANGO_LOGGING = {
-    "CONSOLE_LOG": False,
+    "CONSOLE_LOG": console_log,
     "SQL_LOG": False,
     "DISABLE_EXISTING_LOGGERS": False,
     "PROPOGATE": False,
-    "LOG_LEVEL": os.environ.get('DJANGO_LOG_LEVEL', 'info')
+    "LOG_LEVEL": log_level,
 }
 
-## Ensure base log directory exists
-LOG_DIR = os.path.join(BASE_DIR, 'logs')
-if not os.path.exists(LOG_DIR):
-    os.makedirs(LOG_DIR)
-DJANGO_OTHER_LOG = os.path.join(LOG_DIR, 'django-other.log')
+log_handlers = {}
+if console_log:
+    django_logfile = None
+    log_handlers['console'] = {
+        'level': log_level,
+        'class': 'logging.StreamHandler',
+        'formatter': 'django_builtin',
+        'stream': sys.stdout,
+    }
+else:
+    django_logfile = os.environ.get('DJANGO_LOGFILE')
+    if django_logfile is None:
+        if not os.path.exists(log_dir):
+            os.makedirs(log_dir)
+        django_logfile = os.path.join(log_dir, 'django-other.log')
+
+    log_handlers['rotate'] = {
+        'level': log_level,
+        'class': 'logging.handlers.RotatingFileHandler',
+        'backupCount': 5,
+        'maxBytes': 10000000,
+        'filename': django_logfile,
+        'formatter': 'django_builtin'
+    }
+
+# don't include null in this
+log_handler_names = log_handlers.keys()
+
+log_handlers['null'] = {
+    'class': 'logging.NullHandler',
+}
+
 
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
-    'handlers': {
-        'rotate': {
-            'level': os.environ.get('DJANGO_LOG_LEVEL', 'info').upper(),
-            'class': 'logging.handlers.RotatingFileHandler',
-            'backupCount': 5,
-            'maxBytes': 10000000,
-            'filename': os.environ.get('DJANGO_LOGFILE', DJANGO_OTHER_LOG),
-            'formatter': 'django_builtin'
-        },
-        'null': {
-            'class': 'logging.NullHandler',
-        }
-    },
+    'handlers': log_handlers,
     'formatters': {
         'django_builtin': {
             '()': 'pythonjsonlogger.jsonlogger.JsonFormatter',
@@ -324,15 +377,15 @@ LOGGING = {
     },
     'loggers': {
         'django.template': {
-            'handlers': ['rotate'],
+            'handlers': log_handler_names,
             'propagate': False,
         },
         'django.db.backends': {
-            'handlers': ['rotate'],
+            'handlers': log_handler_names,
             'propagate': False,
         },
         'django.security': {
-            'handlers': ['rotate'],
+            'handlers': log_handler_names,
             'propagate': False,
         },
         # These are already handled by the django json logging library
@@ -341,7 +394,7 @@ LOGGING = {
             'propagate': False,
         },
         '': {
-            'handlers': ['rotate'],
+            'handlers': log_handler_names,
             'propagate': False,
         },
     },
@@ -375,13 +428,26 @@ CSP_STYLE_SRC = (
     "'sha256-4ieA95gpQdpg9JDmuID1CQF8dJ/U0JnDqE4GQecAIdg='",
     "'sha256-LAw02AamnUpPKuSLFUcg9Kh2SLuqSmaXiiV45Y21f84='",
 )
-CSP_IMG_SRC = (
-    "'self'",
-    "analytics.freedom.press",
-)
 CSP_FRAME_SRC = ("'self'",)
 CSP_CONNECT_SRC = ("'self'",)
 CSP_EXCLUDE_URL_PREFIXES = ("/admin", )
+
+# Need to be lists for now so that CSP configuration can add to them.
+# This should be reverted after testing.
+CSP_IMG_SRC = [
+    "'self'",
+    "analytics.freedom.press",
+]
+CSP_OBJECT_SRC = ["'self'"]
+
+# This will be used to evaluate Google Storage media support in staging
+if os.environ.get("DJANGO_CSP_IMG_HOSTS"):
+    CSP_IMG_SRC.extend(os.environ["DJANGO_CSP_IMG_HOSTS"].split())
+
+# There are also PDF <embeds> in some news posts, so rather than adding to
+# default-src, set an explicit object-source
+if os.environ.get("DJANGO_CSP_OBJ_HOSTS"):
+    CSP_OBJECT_SRC.extend(os.environ["DJANGO_CSP_OBJ_HOSTS"].split())
 
 # Report URI must be a string, not a tuple.
 CSP_REPORT_URI = os.environ.get('DJANGO_CSP_REPORT_URI',

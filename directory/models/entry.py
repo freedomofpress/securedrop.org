@@ -142,6 +142,10 @@ class DirectoryEntry(MetadataPageMixin, Page):
     )
 
     organization_description = models.CharField(max_length=95, blank=True, null=True, help_text="A micro description of your organization that will be displayed in the directory.")
+    organization_url = models.URLField(
+        blank=True,
+        help_text='The URL of the main website of the organization.',
+    )
 
     languages = ParentalManyToManyField(
         'directory.Language',
@@ -167,7 +171,7 @@ class DirectoryEntry(MetadataPageMixin, Page):
     DELISTED_REASONS = (
         ('http', 'Mixed-content or no HTTPS'),
         ('no200', 'Non-200 status response'),
-        ('down', 'Extended downtime (>1 week)'),
+        ('down', 'Extended downtime'),
         ('other', 'Other'),
     )
 
@@ -374,6 +378,9 @@ class ScanResult(models.Model):
     http_status_200_ok = models.NullBooleanField()
     no_cross_domain_redirects = models.NullBooleanField()
     expected_encoding = models.NullBooleanField()
+
+    # HTTP/2 support
+    http2 = models.BooleanField(default=False)
 
     # Security headers
     no_server_info = models.NullBooleanField()

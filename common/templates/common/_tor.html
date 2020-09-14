@@ -41,3 +41,26 @@
 		{% include "common/_x.svg" with class="tor-warning__close-x"%}
 	</button>
 </div>
+
+{# This warning shows when you are using the mobiel version of the Tor browser #}
+<div id='js-tor-mobile-warning' class='tor-warning tor-warning--hidden {{ class }}' aria-hidden='true'>
+	<div>
+		{% if settings.common.TorAlertSettings.mobile_title %}
+			<h1 class="tor-warning__title">{{ settings.common.TorAlertSettings.mobile_title }}</h1>
+		{% endif %}
+		{% if settings.common.TorAlertSettings.mobile_subtitle %}
+			<h2>{{ settings.common.TorAlertSettings.mobile_subtitle }}</h2>
+		{% endif %}
+	</div>
+	{% if settings.common.TorAlertSettings.mobile_body %}
+		{{ settings.common.TorAlertSettings.mobile_body|richtext }}
+	{% endif %}
+	<button
+		id="js-tor-mobile-warning-close"
+			class="tor-warning__close-button"
+			aria-label="Close Warning"
+	>
+		<span class="sr-only">{{ alert.close_text }}</span>
+		{% include "common/_x.svg" with class="tor-warning__close-x"%}
+	</button>
+</div>

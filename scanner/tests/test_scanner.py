@@ -144,6 +144,7 @@ class ScannerTest(TestCase):
         self.assertIs(result.referrer_policy_set_to_no_referrer, False)
         self.assertIs(result.no_cross_domain_assets, False)
         self.assertNotEqual(result.cross_domain_asset_summary, '')
+        self.assertTrue(result.http2)
 
     @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'scan-site-with-trackers.yaml'))
     def test_scan_detects_presence_of_trackers(self):
