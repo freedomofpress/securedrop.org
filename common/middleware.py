@@ -1,3 +1,5 @@
+from urllib.parse import urljoin
+
 from common.models import FooterSettings
 
 
@@ -10,5 +12,5 @@ class OnionLocationMiddleware(object):
 
         footer_settings = FooterSettings.for_site(request.site)
         if footer_settings.securedrop_onion_address:
-            response['Onion-Location'] = footer_settings.securedrop_onion_address
+            response['Onion-Location'] = urljoin(footer_settings.securedrop_onion_address, request.path)
         return response
