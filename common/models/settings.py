@@ -43,7 +43,7 @@ class FooterSettings(BaseSetting):
     securedrop_onion_address = models.CharField(
         'SecureDrop Onion Address',
         max_length=255,
-        default='secrdrop5wyphb5x.onion',
+        default='http://secrdrop5wyphb5x.onion',
         validators=[
             RegexValidator(regex=r'\.onion$', message="Enter a valid .onion address."),
             URLValidator(schemes=['http', 'https'], message='Onion address must be a valid URL beginning with http or https'),
