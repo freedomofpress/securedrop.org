@@ -50,6 +50,9 @@ if os.environ.get('GS_BUCKET_NAME'):
 
     GS_BUCKET_NAME = os.environ['GS_BUCKET_NAME']
 
+    if 'GS_CUSTOM_ENDPOINT' in os.environ:
+        GS_CUSTOM_ENDPOINT = os.environ['GS_CUSTOM_ENDPOINT']
+
     if 'GS_CREDENTIALS' in os.environ:
         from google.oauth2.service_account import Credentials
         GS_CREDENTIALS = Credentials.from_service_account_file(os.environ['GS_CREDENTIALS'])
