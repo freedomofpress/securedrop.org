@@ -120,7 +120,6 @@ MIDDLEWARE.extend([
 
     # Middleware for content security policy
     'csp.middleware.CSPMiddleware',
-    'common.middleware.OnionLocationMiddleware',
 ])
 
 
