@@ -43,7 +43,7 @@ class FrontendCacheTestCase(TestCase):
 
         site = Site.objects.get(is_default_site=True)
         footer_settings = FooterSettings.for_site(site)
-        footer_settings.securedrop_onion_address = 'notanonion.onion'
+        footer_settings.release_key = 'securekey'
         with patch('common.signals.purge_all_from_cache') as purge_mock:
             footer_settings.save()
             self.assertEqual(purge_mock.call_count, 1)
