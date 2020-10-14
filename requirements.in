@@ -5,6 +5,7 @@ django-analytical>=2.4
 django-anymail[mailgun]>=1.4
 django-modelcluster
 django-settings-export
+django-storages[google]
 django-webpack-loader
 djangorestframework
 factory_boy

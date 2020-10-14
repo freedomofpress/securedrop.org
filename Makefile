@@ -116,7 +116,7 @@ safety: ## Runs `safety check` to check python dependencies for vulnerabilities
 	pip install --upgrade safety && \
 		for req_file in `find . -type f -name '*requirements.txt'`; do \
 			echo "Checking file $$req_file" \
-			&& safety check --full-report --stdin --ignore 38449 --ignore 38450 --ignore 38451 --ignore 38452 --ignore 38197 --ignore 38198 < $$req_file \
+			&& safety check --full-report --stdin --ignore 38197 < $$req_file \
 			&& echo -e '\n' \
 			|| exit 1; \
 		done

@@ -428,13 +428,26 @@ CSP_STYLE_SRC = (
     "'sha256-4ieA95gpQdpg9JDmuID1CQF8dJ/U0JnDqE4GQecAIdg='",
     "'sha256-LAw02AamnUpPKuSLFUcg9Kh2SLuqSmaXiiV45Y21f84='",
 )
-CSP_IMG_SRC = (
-    "'self'",
-    "analytics.freedom.press",
-)
 CSP_FRAME_SRC = ("'self'",)
 CSP_CONNECT_SRC = ("'self'",)
 CSP_EXCLUDE_URL_PREFIXES = ("/admin", )
+
+# Need to be lists for now so that CSP configuration can add to them.
+# This should be reverted after testing.
+CSP_IMG_SRC = [
+    "'self'",
+    "analytics.freedom.press",
+]
+CSP_OBJECT_SRC = ["'self'"]
+
+# This will be used to evaluate Google Storage media support in staging
+if os.environ.get("DJANGO_CSP_IMG_HOSTS"):
+    CSP_IMG_SRC.extend(os.environ["DJANGO_CSP_IMG_HOSTS"].split())
+
+# There are also PDF <embeds> in some news posts, so rather than adding to
+# default-src, set an explicit object-source
+if os.environ.get("DJANGO_CSP_OBJ_HOSTS"):
+    CSP_OBJECT_SRC.extend(os.environ["DJANGO_CSP_OBJ_HOSTS"].split())
 
 # Report URI must be a string, not a tuple.
 CSP_REPORT_URI = os.environ.get('DJANGO_CSP_REPORT_URI',

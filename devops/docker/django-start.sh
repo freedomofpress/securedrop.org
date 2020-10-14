@@ -16,7 +16,7 @@ wait_for_node() {
 
 wait_for_postgres() {
     echo "Waiting for postgres to start..."
-    until nc -z "${DJANGO_DB_HOST}" "${DJANGO_DB_PORT}"
+    until nc -z "${DJANGO_DB_HOST?}" "${DJANGO_DB_PORT?}"
     do
         sleep 2
     done
@@ -31,7 +31,7 @@ django_start() {
         ./devops/scripts/version-file.sh
         ./manage.py runserver 0.0.0.0:8000
     else
-        gunicorn -c /etc/gunicorn/gunicorn.py "${DJANGO_APP_NAME}.wsgi"
+        gunicorn -c /etc/gunicorn/gunicorn.py "${DJANGO_APP_NAME?}.wsgi"
     fi
 }
 

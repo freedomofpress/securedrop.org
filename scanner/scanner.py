@@ -14,6 +14,8 @@ from django.utils import timezone
 from directory.models import ScanResult, DirectoryEntry
 from scanner.utils import url_to_domain, HEADERS
 from scanner.assets import extract_assets, Asset
+from scanner.http2 import check_http2
+
 
 if TYPE_CHECKING:
     from directory.models import DirectoryEntryQuerySet  # noqa: F401
@@ -46,6 +48,13 @@ def perform_scan(url: str, permitted_domains: List[str]) -> ScanResult:
     scan_data.update(asset_results)
 
     pshtt_results = inspect_domains([url_to_domain(page.url)], {'timeout': 10})
+
+    canonical_url = pshtt_results[0].get('Canonical URL')
+    if canonical_url:
+        http2_data = check_http2(canonical_url)
+    else:
+        http2_data = {'http2': False}
+    scan_data.update(http2_data)
 
     https_data = parse_pshtt_data(pshtt_results[0])
     scan_data.update(https_data)
