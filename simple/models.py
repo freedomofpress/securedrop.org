@@ -18,6 +18,7 @@ from common.blocks import (
     AlignedImageBlock,
     AlignedEmbedBlock,
     RichTextBlockQuoteBlock,
+    VideoBlock,
 )
 from search.utils import get_search_content_by_fields
 
@@ -89,6 +90,7 @@ class SimplePage(MetadataPageMixin, Page):
                 template='common/blocks/list_block_columns.html'
             )),
             ('video', AlignedEmbedBlock()),
+            ('media_file', VideoBlock()),
             ('heading_1', Heading1()),
             ('heading_2', Heading2()),
             ('heading_3', Heading3()),
@@ -145,6 +147,7 @@ class SimplePageWithMenuSidebar(MetadataPageMixin, BaseSidebarPageMixin, Page):
                 template='common/blocks/list_block_columns.html'
             )),
             ('video', AlignedEmbedBlock()),
+            ('media_file', VideoBlock()),
             ('heading_1', Heading1()),
             ('heading_2', Heading2()),
             ('heading_3', Heading3()),
@@ -203,6 +206,7 @@ class FAQPage(MetadataPageMixin, BaseSidebarPageMixin, Page):
                 template='common/blocks/list_block_columns.html'
             )),
             ('video', AlignedEmbedBlock()),
+            ('media_file', VideoBlock()),
             ('heading_1', Heading1()),
             ('heading_2', Heading2()),
             ('heading_3', Heading3()),

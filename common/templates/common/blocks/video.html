@@ -1,0 +1,7 @@
+<video
+	class="page-video"
+	{% if self.muted_autoplay_and_loop %}autoplay muted loop playsinline{% else %}controls{% endif %}
+>
+	<source src="{{ self.media.file.url }}" type="video/mp4">
+	Your browser does not support the video tag.
+</video>

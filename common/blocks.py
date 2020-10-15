@@ -8,6 +8,7 @@ from wagtail.core import blocks
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
+from wagtailmedia.blocks import AbstractMediaChooserBlock
 
 
 class Heading1(blocks.StructBlock):
@@ -61,7 +62,7 @@ class AlignedEmbedBlock(blocks.StructBlock):
     class Meta:
         template = 'common/blocks/aligned_embed.html'
         icon = 'media'
-        label = 'Video'
+        label = 'Embed Video Link'
 
 
 class RichTextBlockQuoteBlock(blocks.StructBlock):
@@ -115,3 +116,21 @@ class InlinePDFBlock(blocks.StructBlock):
         template = 'common/blocks/inline_pdf.html'
         icon = 'doc-full'
         label = 'Inline PDF'
+
+
+class MediaBlock(AbstractMediaChooserBlock):
+    class Meta:
+        template = 'common/blocks/media.html'
+
+
+class VideoBlock(blocks.StructBlock):
+    class Meta:
+        template = 'common/blocks/video.html'
+        icon = 'media'
+        label = 'Video file'
+
+    media = MediaBlock()
+    muted_autoplay_and_loop = blocks.BooleanBlock(
+        required=False,
+        help_text='If checked, the media will start playing, without sound, when the page loads and loop when finished. Intended to allow videos to function as GIFs.'
+    )
