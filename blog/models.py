@@ -22,6 +22,7 @@ from common.blocks import (
     AlignedEmbedBlock,
     RichTextBlockQuoteBlock,
     CodeBlock,
+    VideoBlock,
 )
 from github.models import Release
 
@@ -59,6 +60,7 @@ class BlogPage(MetadataPageMixin, Page):
                 template='common/blocks/list_block_columns.html'
             )),
             ('video', AlignedEmbedBlock()),
+            ('media_file', VideoBlock()),
             ('heading_1', Heading1()),
             ('heading_2', Heading2()),
             ('heading_3', Heading3()),
