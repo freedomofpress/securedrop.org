@@ -133,6 +133,9 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 SECURE_HSTS_SECONDS = 63072000
 SECURE_HSTS_PRELOAD = True
 
+# Make the deployment's onion service name available to templates
+SECUREDROP_ONION_HOSTNAME = os.environ.get('DJANGO_ONION_HOSTNAME')
+
 
 ROOT_URLCONF = 'securedrop.urls'
 

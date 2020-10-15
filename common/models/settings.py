@@ -1,4 +1,4 @@
-from django.core.validators import RegexValidator, URLValidator
+from django.conf import settings
 from django.db import models
 
 from wagtail.contrib.settings.models import BaseSetting, register_setting
@@ -40,23 +40,12 @@ class FooterSettings(BaseSetting):
         on_delete=models.SET_NULL,
         related_name='+',
     )
-    securedrop_onion_address = models.CharField(
-        'SecureDrop Onion Address',
-        max_length=255,
-        default='secrdrop5wyphb5x.onion',
-        validators=[
-            RegexValidator(regex=r'\.onion$', message="Enter a valid .onion address."),
-            URLValidator(schemes=['http', 'https'], message='Onion address must be a valid URL beginning with http or https'),
-        ],
-        help_text='Address for the securedrop.org onion service. Displayed in the site footer and the Onion-Location header.  Must begin with http or https and end with .onion',
-    )
 
     panels = [
         FieldPanel('title'),
         SnippetChooserPanel('main_menu'),
         FieldPanel('donation_url'),
         PageChooserPanel('contribute_link'),
-        FieldPanel('securedrop_onion_address'),
         MultiFieldPanel(
             [
                 FieldPanel('release_key_description'),
@@ -78,6 +67,10 @@ class FooterSettings(BaseSetting):
 
     class Meta:
         verbose_name = 'Site Footer'
+
+    @property
+    def securedrop_onion_address(self):
+        return settings.SECUREDROP_ONION_HOSTNAME
 
 
 @register_setting(icon='warning')
