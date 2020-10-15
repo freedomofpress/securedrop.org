@@ -443,10 +443,12 @@ CSP_IMG_SRC = [
     "analytics.freedom.press",
 ]
 CSP_OBJECT_SRC = ["'self'"]
+CSP_MEDIA_SRC = ["'self'"]
 
 # This will be used to evaluate Google Storage media support in staging
 if os.environ.get("DJANGO_CSP_IMG_HOSTS"):
     CSP_IMG_SRC.extend(os.environ["DJANGO_CSP_IMG_HOSTS"].split())
+    CSP_MEDIA_SRC.extend(os.environ["DJANGO_CSP_IMG_HOSTS"].split())
 
 # There are also PDF <embeds> in some news posts, so rather than adding to
 # default-src, set an explicit object-source
