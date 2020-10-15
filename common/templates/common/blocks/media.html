@@ -1,5 +1,5 @@
 <div class="aligned-media__wrapper--full-width">
-	<video width="{{ self.width|default:"640" }}" height="{{ self.height|default:"480" }}" controls autoplay muted class="page-video">
+	<video width="{{ self.width|default:"640" }}" height="{{ self.height|default:"480" }}" controls autoplay muted playsinline class="page-video">
 		<source src="{{ self.file.url }}" type="video/mp4">
 		Your browser does not support the video tag.
 	</video>
