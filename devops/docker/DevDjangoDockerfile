@@ -1,12 +1,18 @@
-# sha256 as of 2020-07-20 for python:3.5-slim-buster
-FROM python@sha256:ddfc23014d1867f92809cf6c33c92b9df29c5185c31e497fc6d61960448c4d1b
+# sha256 as of 2020-10-21 for python:3.7-slim-buster
+FROM python@sha256:f998692f9efb6648e343561d81f96bc7af73860862b7c714396228fd31ac4ad4
 
 RUN apt-get update && apt-get install -y \
     curl \
     gcc \
+    build-essential \
     git \
+    libpq-dev \
+    libxml2-dev \
+    libxslt-dev \
     libssl-dev \
+    libz-dev \
     netcat \
+    python3-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY devops/docker/django-start.sh /usr/local/bin
