@@ -112,14 +112,7 @@ clean: ## clean out local developer assets
 .PHONY: safety
 safety: ## Runs `safety check` to check python dependencies for vulnerabilities
 # Upgrade safety to ensure we are using the latest version.
-# Using `--stdin` because `-r` was showing inscrutable errors
-	pip install --upgrade safety && \
-		for req_file in `find . -type f -name '*requirements.txt'`; do \
-			echo "Checking file $$req_file" \
-			&& safety check --full-report --stdin --ignore 38197 < $$req_file \
-			&& echo -e '\n' \
-			|| exit 1; \
-		done
+	pip install --upgrade safety && ./scripts/safety_check.py
 
 .PHONY: prod-push
 prod-push: ## Publishes prod container image to registry
