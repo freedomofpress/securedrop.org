@@ -47,7 +47,7 @@ def perform_scan(url: str, permitted_domains: List[str]) -> ScanResult:
     asset_results = parse_assets(assets, [tldextract.extract(page.url).registered_domain] + permitted_domains)
     scan_data.update(asset_results)
 
-    pshtt_results = inspect_domains([url_to_domain(page.url)], {'timeout': 10})
+    pshtt_results = list(inspect_domains([url_to_domain(page.url)], {'timeout': 10}))
 
     canonical_url = pshtt_results[0].get('Canonical URL')
     if canonical_url:

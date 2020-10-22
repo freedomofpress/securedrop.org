@@ -14,8 +14,9 @@ gunicorn
 lxml
 markdown2>2.3.8
 pillow>=6.2.3
-pshtt==0.3.0
+pshtt
 psycopg2
+pyopenssl==19.0.0
 pygments
 python-json-logger
 tldextract
