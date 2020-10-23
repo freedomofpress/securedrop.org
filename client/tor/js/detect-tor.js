@@ -31,8 +31,6 @@ const is_likely_mobile_browser = function () {
 
 
 // Adjust <html> element classes according to tor detection
-document.documentElement.classList.remove('no-js')
-document.documentElement.classList.add('js')
 document.documentElement.classList.add(is_likely_tor_browser() || is_likely_mobile_tor_browser() ? 'tor' : 'no-tor')
 
 
