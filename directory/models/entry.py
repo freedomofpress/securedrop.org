@@ -220,6 +220,7 @@ class DirectoryEntry(MetadataPageMixin, Page):
         FieldPanel('landing_page_url'),
         FieldPanel('onion_address'),
         FieldPanel('organization_description'),
+        FieldPanel('organization_url'),
         MultiFieldPanel([
             ImageChooserPanel('organization_logo'),
             ImageChooserPanel('organization_logo_square'),
