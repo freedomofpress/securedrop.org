@@ -66,6 +66,18 @@
 									{% endif %}
 								</div>
 							{% endif %}
+							{% if footer.twitter_url or footer.mastodon_url %}
+								<div class="footer-main__social-media">
+									{% if footer.mastodon_url %}
+										<a href="{{ footer.mastodon_url }}">{% include "common/_svg.html" with class="footer-main__social-icon" svg="images/mastodon.svg" img="images/mastodon.png" alt="Mastodon Profile" %}</a>
+										<!-- Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) -->
+									{% endif %}
+									{% if footer.twitter_url %}
+										<a href="{{ footer.twitter_url }}">{% include "common/_svg.html" with class="footer-main__social-icon" svg="images/twitter.svg" img="images/twitter.png" alt="Twitter Profile" %}</a>
+										<!-- Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) -->
+									{% endif %}
+								</div>
+							{% endif %}
 						</nav>
 						<div class="footer-main__release">
 							<div class="footer-main__release-key-description">{{ footer.release_key_description }}</div>
