@@ -40,6 +40,14 @@ class FooterSettings(BaseSetting):
         on_delete=models.SET_NULL,
         related_name='+',
     )
+    twitter_url = models.URLField(
+        blank=True,
+        help_text='Link to Twitter profile',
+    )
+    mastodon_url = models.URLField(
+        blank=True,
+        help_text='Link to Mastodon profile',
+    )
 
     panels = [
         FieldPanel('title'),
@@ -62,6 +70,14 @@ class FooterSettings(BaseSetting):
             ],
             "Support Footer Settings",
             classname="collapsible"
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel('twitter_url'),
+                FieldPanel('mastodon_url'),
+            ],
+            'Social Media',
+            classname='collapsible'
         ),
     ]
 
