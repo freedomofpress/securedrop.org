@@ -79,14 +79,16 @@ class DirectoryEntryFactory(wagtail_factories.PageFactory):
             self._prefetched_objects_cache = {'topics': topics}
 
 
-class ScanResultFactory(factory.Factory):
+class ScanResultFactory(factory.DjangoModelFactory):
     class Meta:
         model = ScanResult
+
+    result_last_seen = factory.LazyFunction(datetime.utcnow)
+    live = False
 
     class Params:
         no_failures = factory.Trait(
             live=True,
-            result_last_seen=datetime.today(),
             forces_https=True,
             hsts=True,
             hsts_max_age=True,
@@ -118,6 +120,7 @@ class ScanResultFactory(factory.Factory):
             no_analytics=True,
             subdomain=False,
             no_cookies=True,
+            http2=True,
         )
         moderate_warning = factory.Trait(
             no_failures=True,
