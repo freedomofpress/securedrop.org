@@ -117,12 +117,17 @@ $list-bottom-padding: 2rem
 		width: 100%
 
 .footer-main__social-icon
-	width: 64px
-	padding-right: 1em
+	margin-right: 1rem
+
+	img
+		width: 2rem
 
 .footer-main__social-media
+	display: flex
+
 	+media-breakpoint-down(extra-small)
 		padding-bottom: $list-bottom-padding/2
+		justify-content: center
 
 .footer-main__content
 	padding-left: $layout-padding
