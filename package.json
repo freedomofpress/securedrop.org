@@ -45,8 +45,6 @@
     "pdfobject": "^2.1.1",
     "prop-types": "^15.5.10",
     "query-string": "^5.0.0",
-    "react": "15.6.1",
-    "react-dom": "15.6.1",
     "terser-webpack-plugin": "^1.4.5",
     "zxcvbn": "^4.4.2"
   }

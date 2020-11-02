@@ -18,7 +18,6 @@ console.log('Using STATIC_URL', STATIC_URL);
 var common = {
 	entry: {
 		common: __dirname + '/client/common/js/common.js',
-		editor: __dirname + '/client/autocomplete/js/editor.js',
 		tor: __dirname + '/client/tor/js/torEntry.js',
 	},
 
