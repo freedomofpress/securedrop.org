@@ -129,10 +129,6 @@ SECURE_BROWSER_XSS_FILTER = True
 # Set X-Content-Type-Options
 SECURE_CONTENT_TYPE_NOSNIFF = True
 
-# Adjust HSTS
-SECURE_HSTS_SECONDS = 63072000
-SECURE_HSTS_PRELOAD = True
-
 # Make the deployment's onion service name available to templates
 SECUREDROP_ONION_HOSTNAME = os.environ.get('DJANGO_ONION_HOSTNAME')
 
