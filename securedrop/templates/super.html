@@ -1,4 +1,4 @@
-{% load static wagtailmetadata_tags wagtailsettings_tags common_tags piwik %}
+{% load static wagtailmetadata_tags wagtailsettings_tags common_tags csp %}
 {% load render_bundle from webpack_loader %}
 
 <!DOCTYPE html>
@@ -50,7 +50,22 @@
 	<body class="{% block body_class %}{% endblock %}">
 		{% block body %}
 		{% endblock %}
-		{% piwik %}
+		{% script type="application/javascript" async=False %}
+		<script type="text/javascript">
+			var _paq = _paq || [];
+
+			_paq.push(['trackPageView']);
+			_paq.push(['enableLinkTracking']);
+			(function() {
+				var u="https://{{ PIWIK_DOMAIN_PATH }}/";
+				_paq.push(['setTrackerUrl', u+'piwik.php']);
+				_paq.push(['setSiteId', {{ PIWIK_SITE_ID }}]);
+				var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+				g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+			})();
+		</script>
+		{% endscript %}
+		<noscript><p><img src="https://{{ PIWIK_DOMAIN_PATH }}/piwik.php?idsite={{ PIWIK_SITE_ID }}" style="border:0;" alt="" /></p></noscript>
 	</body>
 
 	{% block js %}

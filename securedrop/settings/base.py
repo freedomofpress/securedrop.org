@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     'webpack_loader',
     'taggit',
     'analytical',
+    'csp',
     'rest_framework',
     'wagtailmedia',
 
@@ -149,7 +150,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django_settings_export.settings_export',
-                'wagtail.contrib.settings.context_processors.settings'
+                'wagtail.contrib.settings.context_processors.settings',
+                'common.context_processors.analytics_variables',
             ],
         },
     },
@@ -412,9 +414,10 @@ CSP_DEFAULT_SRC = ("'self'",)
 CSP_SCRIPT_SRC = (
     "'self'",
     "'unsafe-eval'",
-    # Piwik/Matomo analytics inline code:
-    "'sha256-Ujy9USzNCsaDKHVACggM1NqXbQJ2ljlpMX9U4g2d5d0='",
     "analytics.freedom.press",
+)
+CSP_INCLUDE_NONCE_IN = (
+    'script-src',
 )
 CSP_STYLE_SRC = (
     "'self'",
