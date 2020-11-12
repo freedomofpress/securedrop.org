@@ -104,9 +104,9 @@ django-analytical==2.4.0 \
 django-anymail[mailgun]==1.4 \
     --hash=sha256:f534ab2ca82b6e1155d02d656db28d17d1f4e832f641b537539a4ebbcdee7e39 \
     # via -r requirements.in
-django-csp==3.4 \
-    --hash=sha256:04c0ccd4e1339e8f6af48c55c3347dc996fde2d22d79e8bf2f6b7a920412e408 \
-    --hash=sha256:096b634430d8ea81c3d9f216f87be890f3a975c17bb9a4631f6a1619ac09c91e \
+django-csp==3.7 \
+    --hash=sha256:01443a07723f9a479d498bd7bb63571aaa771e690f64bde515db6cdb76e8041a \
+    --hash=sha256:01eda02ad3f10261c74131cdc0b5a6a62b7c7ad4fd017fbefb7a14776e0a9727 \
     # via -r requirements.in
 https://github.com/freedomofpress/django-logging/zipball/b7d0b7b542db6ac088dbf3d2e7b249df333d3082 \
     --hash=sha256:7a9857fff2988572ee03ae0ea2dc17e389095663ff72e2ea3fad904a4023b0f4 \

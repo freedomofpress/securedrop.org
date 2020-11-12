@@ -28,7 +28,7 @@ wagtail-autocomplete
 unittest-xml-reporting
 django-allauth>=0.41
 django-allauth-2fa
-django-csp
+django-csp>=3.7
 zxcvbn-python
 requests>=2.20.0
 urllib3>1.25.7
