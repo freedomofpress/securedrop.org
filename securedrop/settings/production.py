@@ -116,12 +116,6 @@ if os.environ.get('CLOUDFLARE_TOKEN') and os.environ.get('CLOUDFLARE_EMAIL'):
 if os.environ.get('PIWIK_DOMAIN_PATH'):
     PIWIK_DOMAIN_PATH = os.environ.get('PIWIK_DOMAIN_PATH')
     PIWIK_SITE_ID = os.environ.get('PIWIK_SITE_ID', '5')
-    # Disable auto-identify because
-    # 1. we have a very small number of visitors who will be logged in and they
-    #    are all FPF staff and
-    # 2. auto-identify adjusts inline analytics code causing it to fail our
-    #    content security policy
-    ANALYTICAL_AUTO_IDENTIFY = False
 
 # Mailgun integration
 #

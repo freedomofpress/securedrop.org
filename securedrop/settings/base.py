@@ -67,7 +67,6 @@ INSTALLED_APPS = [
     'wagtailautocomplete',
     'webpack_loader',
     'taggit',
-    'analytical',
     'csp',
     'rest_framework',
     'wagtailmedia',
