@@ -50,22 +50,24 @@
 	<body class="{% block body_class %}{% endblock %}">
 		{% block body %}
 		{% endblock %}
-		{% script type="application/javascript" async=False %}
-		<script type="text/javascript">
-			var _paq = _paq || [];
+		{% if django_settings.PIWIK_DOMAIN_PATH and django_settings.PIWIK_SITE_ID %}
+			{% script type="application/javascript" async=False %}
+			<script type="text/javascript">
+			 var _paq = _paq || [];
 
-			_paq.push(['trackPageView']);
-			_paq.push(['enableLinkTracking']);
-			(function() {
-				var u="https://{{ PIWIK_DOMAIN_PATH }}/";
-				_paq.push(['setTrackerUrl', u+'piwik.php']);
-				_paq.push(['setSiteId', {{ PIWIK_SITE_ID }}]);
-				var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-				g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-			})();
-		</script>
+			 _paq.push(['trackPageView']);
+			 _paq.push(['enableLinkTracking']);
+			 (function() {
+				 var u="https://{{ django_settings.PIWIK_DOMAIN_PATH }}/";
+				 _paq.push(['setTrackerUrl', u+'piwik.php']);
+				 _paq.push(['setSiteId', {{ django_settings.PIWIK_SITE_ID }}]);
+				 var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+				 g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+			 })();
+			</script>
 		{% endscript %}
-		<noscript><p><img src="https://{{ PIWIK_DOMAIN_PATH }}/piwik.php?idsite={{ PIWIK_SITE_ID }}" style="border:0;" alt="" /></p></noscript>
+		<noscript><p><img src="https://{{ django_settings.PIWIK_DOMAIN_PATH }}/piwik.php?idsite={{ django_settings.PIWIK_SITE_ID }}" style="border:0;" alt="" /></p></noscript>
+		{% endif %}
 	</body>
 
 	{% block js %}

@@ -150,7 +150,6 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'django_settings_export.settings_export',
                 'wagtail.contrib.settings.context_processors.settings',
-                'common.context_processors.analytics_variables',
             ],
         },
     },
@@ -255,18 +254,18 @@ WEBPACK_LOADER = {
     }
 }
 
-# Sadly, we have to set these to real-looking (but invalid) values, or
-# django-analytical will raise AnalyticalException. It would be preferable to be
-# able to set these to None (or not be required to set them at all, which the
-# django-analytical docs incorrectly suggest is possible).
-PIWIK_DOMAIN_PATH = 'analytics.example.com'
-# Piwik Site ID's start at 1, so 0 is an invalid ID which can be used to
-# indicate to the template that the Piwik tracking code should not be rendered.
-PIWIK_SITE_ID = '0'
 
+# Disable analytics by default
+PIWIK_DOMAIN_PATH = None
+PIWIK_SITE_ID = None
+
+# Export analytics settings for use in site templates
 SETTINGS_EXPORT = [
     'PIWIK_SITE_ID',
+    'PIWIK_DOMAIN_PATH',
 ]
+# Prevent template variable name collision with wagtail settings
+SETTINGS_EXPORT_VARIABLE_NAME = 'django_settings'
 
 # django-taggit
 TAGGIT_CASE_INSENSITIVE = True
