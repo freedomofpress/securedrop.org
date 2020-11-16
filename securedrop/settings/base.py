@@ -67,7 +67,6 @@ INSTALLED_APPS = [
     'wagtailautocomplete',
     'webpack_loader',
     'taggit',
-    'csp',
     'rest_framework',
     'wagtailmedia',
 
@@ -254,15 +253,12 @@ WEBPACK_LOADER = {
     }
 }
 
-
 # Disable analytics by default
-PIWIK_DOMAIN_PATH = None
-PIWIK_SITE_ID = None
+ANALYTICS_ENABLED = False
 
 # Export analytics settings for use in site templates
 SETTINGS_EXPORT = [
-    'PIWIK_SITE_ID',
-    'PIWIK_DOMAIN_PATH',
+    'ANALYTICS_ENABLED',
 ]
 # Prevent template variable name collision with wagtail settings
 SETTINGS_EXPORT_VARIABLE_NAME = 'django_settings'
@@ -413,9 +409,6 @@ CSP_SCRIPT_SRC = (
     "'self'",
     "'unsafe-eval'",
     "analytics.freedom.press",
-)
-CSP_INCLUDE_NONCE_IN = (
-    'script-src',
 )
 CSP_STYLE_SRC = (
     "'self'",

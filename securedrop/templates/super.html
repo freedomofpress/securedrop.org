@@ -1,4 +1,4 @@
-{% load static wagtailmetadata_tags wagtailsettings_tags common_tags csp %}
+{% load static wagtailmetadata_tags wagtailsettings_tags common_tags %}
 {% load render_bundle from webpack_loader %}
 
 <!DOCTYPE html>
@@ -50,23 +50,11 @@
 	<body class="{% block body_class %}{% endblock %}">
 		{% block body %}
 		{% endblock %}
-		{% if django_settings.PIWIK_DOMAIN_PATH and django_settings.PIWIK_SITE_ID %}
-			{% script type="application/javascript" async=False %}
-			<script type="text/javascript">
-			 var _paq = _paq || [];
 
-			 _paq.push(['trackPageView']);
-			 _paq.push(['enableLinkTracking']);
-			 (function() {
-				 var u="https://{{ django_settings.PIWIK_DOMAIN_PATH }}/";
-				 _paq.push(['setTrackerUrl', u+'piwik.php']);
-				 _paq.push(['setSiteId', {{ django_settings.PIWIK_SITE_ID }}]);
-				 var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-				 g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-			 })();
-			</script>
-		{% endscript %}
-		<noscript><p><img src="https://{{ django_settings.PIWIK_DOMAIN_PATH }}/piwik.php?idsite={{ django_settings.PIWIK_SITE_ID }}" style="border:0;" alt="" /></p></noscript>
+		{% if django_settings.ANALYTICS_ENABLED %}
+			<script src="https://analytics.freedom.press/piwik.js" async defer></script>
+			<script type="text/javascript" src="{% static 'js/piwik.js' %}"></script>
+			<noscript><p><img src="https://analytics.freedom.press/piwik.php?idsite=3" style="border:0;" alt="" /></p></noscript>
 		{% endif %}
 	</body>
 
