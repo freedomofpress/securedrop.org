@@ -67,7 +67,6 @@ INSTALLED_APPS = [
     'wagtailautocomplete',
     'webpack_loader',
     'taggit',
-    'analytical',
     'rest_framework',
     'wagtailmedia',
 
@@ -149,7 +148,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django_settings_export.settings_export',
-                'wagtail.contrib.settings.context_processors.settings'
+                'wagtail.contrib.settings.context_processors.settings',
             ],
         },
     },
@@ -254,18 +253,15 @@ WEBPACK_LOADER = {
     }
 }
 
-# Sadly, we have to set these to real-looking (but invalid) values, or
-# django-analytical will raise AnalyticalException. It would be preferable to be
-# able to set these to None (or not be required to set them at all, which the
-# django-analytical docs incorrectly suggest is possible).
-PIWIK_DOMAIN_PATH = 'analytics.example.com'
-# Piwik Site ID's start at 1, so 0 is an invalid ID which can be used to
-# indicate to the template that the Piwik tracking code should not be rendered.
-PIWIK_SITE_ID = '0'
+# Disable analytics by default
+ANALYTICS_ENABLED = False
 
+# Export analytics settings for use in site templates
 SETTINGS_EXPORT = [
-    'PIWIK_SITE_ID',
+    'ANALYTICS_ENABLED',
 ]
+# Prevent template variable name collision with wagtail settings
+SETTINGS_EXPORT_VARIABLE_NAME = 'django_settings'
 
 # django-taggit
 TAGGIT_CASE_INSENSITIVE = True
@@ -412,8 +408,6 @@ CSP_DEFAULT_SRC = ("'self'",)
 CSP_SCRIPT_SRC = (
     "'self'",
     "'unsafe-eval'",
-    # Piwik/Matomo analytics inline code:
-    "'sha256-Ujy9USzNCsaDKHVACggM1NqXbQJ2ljlpMX9U4g2d5d0='",
     "analytics.freedom.press",
 )
 CSP_STYLE_SRC = (

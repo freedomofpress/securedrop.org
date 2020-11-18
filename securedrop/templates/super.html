@@ -1,4 +1,4 @@
-{% load static wagtailmetadata_tags wagtailsettings_tags common_tags piwik %}
+{% load static wagtailmetadata_tags wagtailsettings_tags common_tags %}
 {% load render_bundle from webpack_loader %}
 
 <!DOCTYPE html>
@@ -50,7 +50,12 @@
 	<body class="{% block body_class %}{% endblock %}">
 		{% block body %}
 		{% endblock %}
-		{% piwik %}
+
+		{% if django_settings.ANALYTICS_ENABLED %}
+			<script src="https://analytics.freedom.press/piwik.js" async defer></script>
+			<script type="text/javascript" src="{% static 'js/piwik.js' %}"></script>
+			<noscript><p><img src="https://analytics.freedom.press/piwik.php?idsite=3" style="border:0;" alt="" /></p></noscript>
+		{% endif %}
 	</body>
 
 	{% block js %}
