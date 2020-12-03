@@ -4,8 +4,11 @@
 .svg
 	display: inline-block
 
-html.tor .svg__svg, html.no-js .svg__svg
+
+// If JS is disabled, let's assume they're using Tor Browser on highest
+// security, which breaks svg rendering
+html.no-js .svg__svg
 	display: none
 
-html.no-tor .svg__fallback
+html.js .svg__fallback
 	display: none

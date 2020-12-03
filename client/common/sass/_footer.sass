@@ -116,6 +116,19 @@ $list-bottom-padding: 2rem
 		display: block
 		width: 100%
 
+.footer-main__social-icon
+	margin-right: 1rem
+
+	img
+		width: 2rem
+
+.footer-main__social-media
+	display: flex
+
+	+media-breakpoint-down(extra-small)
+		padding-bottom: $list-bottom-padding/2
+		justify-content: center
+
 .footer-main__content
 	padding-left: $layout-padding
 	// as a flex-child
@@ -155,7 +168,7 @@ $list-bottom-padding: 2rem
 
 .footer-main__nav-list
 	+list--unstyled
-	padding-bottom: $list-bottom-padding
+	padding-bottom: $list-bottom-padding/2
 	// as a flex-parent
 	display: flex
 	flex-flow: row wrap

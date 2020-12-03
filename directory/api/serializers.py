@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from wagtail.images.api.fields import ImageRenditionField
 
-from directory.models.entry import DirectoryEntry
+from directory.models.entry import DirectoryEntry, ScanResult
 
 
 class DirectoryEntrySerializer(serializers.ModelSerializer):
@@ -22,6 +22,7 @@ class DirectoryEntrySerializer(serializers.ModelSerializer):
         read_only=True,
         many=True
     )
+    latest_scan = serializers.SerializerMethodField()
 
     class Meta:
         model = DirectoryEntry
@@ -38,4 +39,23 @@ class DirectoryEntrySerializer(serializers.ModelSerializer):
             'languages',
             'topics',
             'countries',
+            'latest_scan',
         ]
+
+    def get_latest_scan(self, directory_entry):
+        latest = directory_entry.get_live_result()
+
+        if latest:
+            serializer_latest = ScanResultSerializer(instance=latest)
+            return serializer_latest.data
+
+
+class ScanResultSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ScanResult
+        exclude = (
+            'securedrop',
+            'id',
+            'cross_domain_asset_summary',
+            'ignored_cross_domain_assets',
+        )
