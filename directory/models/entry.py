@@ -231,7 +231,6 @@ class DirectoryEntry(MetadataPageMixin, Page):
         AutocompletePanel('countries', 'directory.Country', is_single=False),
         AutocompletePanel('topics', 'directory.Topic', is_single=False),
         InlinePanel('owners', label='Owners'),
-        InlinePanel('results', label='Results'),
     ]
 
     settings_panels = Page.settings_panels + [

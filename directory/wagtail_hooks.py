@@ -68,7 +68,7 @@ def add_scan_results_buttons(page, page_perms, is_parent=False):
 @hooks.register('add_scan_results_button')
 def add_bundle_stats_button(page, page_perms, is_parent=False):
     index_url = scanresult_modeladmin.url_helper.get_action_url('index')
-    results_url = index_url + '?securedrop__page_ptr_id__exact=' + str(page.pk)
+    results_url = f'{index_url}?securedrop__page_ptr_id__exact={page.pk}'
     latest = page.get_live_result()
     return [
         Button(
