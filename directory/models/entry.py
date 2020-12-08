@@ -12,6 +12,7 @@ from wagtail.admin.edit_handlers import (
     FieldPanel,
     InlinePanel,
     MultiFieldPanel,
+    HelpPanel,
 )
 from wagtail.admin import messages
 from wagtail.images.edit_handlers import ImageChooserPanel
@@ -231,7 +232,7 @@ class DirectoryEntry(MetadataPageMixin, Page):
         AutocompletePanel('countries', 'directory.Country', is_single=False),
         AutocompletePanel('topics', 'directory.Topic', is_single=False),
         InlinePanel('owners', label='Owners'),
-        InlinePanel('results', label='Results'),
+        HelpPanel(heading='Scans', template='directory/admin_scan_result_help.html')
     ]
 
     settings_panels = Page.settings_panels + [
