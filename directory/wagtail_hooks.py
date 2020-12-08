@@ -31,6 +31,7 @@ class ReadOnlyPermissionHelper(PermissionHelper):
 
 
 class ScanResultAdmin(ModelAdmin):
+    """ModelAdmin for viewing/searching ScanResults."""
     model = ScanResult
     menu_icon = 'folder-open-inverse'
     menu_order = 500
@@ -40,7 +41,7 @@ class ScanResultAdmin(ModelAdmin):
         'grade',
         'live',
     )
-    search_fields = ('landing_page_url',)
+    search_fields = ('landing_page_url', 'securedrop__title')
     permission_helper_class = ReadOnlyPermissionHelper
     inspect_view_enabled = True
 
@@ -67,6 +68,12 @@ def add_scan_results_buttons(page, page_perms, is_parent=False):
 
 @hooks.register('add_scan_results_button')
 def add_bundle_stats_button(page, page_perms, is_parent=False):
+    """Creates drop-down buttons that link to ScanResult model admin
+    sections for a given DirectoryEntry on the page listing area.  The
+    links go to the most recent live result, as well as the filtered
+    list of all results.
+
+    """
     index_url = scanresult_modeladmin.url_helper.get_action_url('index')
     results_url = f'{index_url}?securedrop__page_ptr_id__exact={page.pk}'
     latest = page.get_live_result()
