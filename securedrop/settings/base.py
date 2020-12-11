@@ -135,7 +135,7 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 
 
 # Make the deployment's onion service name available to templates
-SECUREDROP_ONION_HOSTNAME = os.environ.get('DJANGO_ONION_HOSTNAME')
+ONION_HOSTNAME = os.environ.get('DJANGO_ONION_HOSTNAME')
 
 
 ROOT_URLCONF = 'securedrop.urls'

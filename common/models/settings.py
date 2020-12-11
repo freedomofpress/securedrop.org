@@ -86,7 +86,7 @@ class FooterSettings(BaseSetting):
 
     @property
     def securedrop_onion_address(self):
-        return settings.SECUREDROP_ONION_HOSTNAME
+        return settings.ONION_HOSTNAME
 
 
 @register_setting(icon='warning')
