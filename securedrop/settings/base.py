@@ -161,7 +161,6 @@ WSGI_APPLICATION = 'securedrop.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-# Set the url as DATABASE_URL in the environment
 if 'DJANGO_DB_HOST' in os.environ:
     DATABASES = {
         'default': {
