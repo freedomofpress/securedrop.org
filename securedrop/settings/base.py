@@ -26,6 +26,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
+DEBUG = False
 
 # Application definition
 
@@ -238,8 +239,6 @@ WAGTAILIMAGES_IMAGE_MODEL = 'common.CustomImage'
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 BASE_URL = 'http://example.com'
-
-DEBUG = False
 
 # Django-webpack configuration
 WEBPACK_LOADER = {
