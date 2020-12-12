@@ -76,6 +76,9 @@ upgrade-pip-dev: ## Uses pip-compile to update dev-requirements.txt for upgradin
 		pip-compile --generate-hashes --no-header --allow-unsafe --upgrade-package $(PACKAGE) --output-file dev-requirements.txt dev-requirements.in'
 
 
+.PHONY: lint
+lint: flake8
+
 .PHONY: flake8
 flake8: ## Runs flake8 linting in Python3 container.
 	@docker-compose run -T django /bin/bash -c "flake8"
