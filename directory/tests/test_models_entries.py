@@ -17,6 +17,7 @@ class DirectoryEntryTest(TestCase):
         securedrop = DirectoryEntryFactory(
             landing_page_url='https://www.something.org',
             onion_address='https://notreal.onion',
+            onion_name='http://notreal.securedrop.tor.onion',
         )
         securedrop.save()
         self.assertIn(securedrop, DirectoryEntry.objects.all())
@@ -31,6 +32,12 @@ class DirectoryEntryTest(TestCase):
         with self.assertRaises(ValidationError):
             DirectoryEntryFactory(
                 onion_address='https://notreal.com',
+            )
+
+    def test_securedrop_cannot_save_invalid_onion_name(self):
+        with self.assertRaises(ValidationError):
+            DirectoryEntryFactory(
+                onion_name='https://notreal.com',
             )
 
     def test_securedrop_cannot_save_empty_urls(self):

@@ -21,6 +21,11 @@ def random_onion_address():
     ) + '.onion'
 
 
+def random_onion_name():
+    name = factory.Faker('sentence', nb_words=1)
+    return f'https://{name}.securedrop.tor.onion'
+
+
 class DirectoryEntryFactory(wagtail_factories.PageFactory):
     class Meta:
         model = DirectoryEntry
@@ -35,6 +40,7 @@ class DirectoryEntryFactory(wagtail_factories.PageFactory):
     title = factory.Faker('sentence', nb_words=3)
     landing_page_url = factory.Faker('uri')
     onion_address = factory.LazyFunction(random_onion_address)
+    onion_name = factory.LazyFunction(random_onion_name)
 
     @factory.post_generation
     def languages(self, create, count):

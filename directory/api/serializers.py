@@ -33,6 +33,7 @@ class DirectoryEntrySerializer(serializers.ModelSerializer):
             'first_published_at',
             'landing_page_url',
             'onion_address',
+            'onion_name',
             'organization_logo',
             'organization_description',
             'organization_url',
