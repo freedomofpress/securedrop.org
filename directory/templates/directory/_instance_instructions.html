@@ -4,21 +4,18 @@
 	<h1 class="instance-instructions__title">{% trans "Planning to submit information?" %}</h1>
 	<p>
 		{% blocktrans with organization=page.title onion=page.onion_address %}
-			If you intend to submit information to {{ organization }}’s SecureDrop,
-			we recommend that you compare the .onion address provided on the
-			organization’s landing page to this one
+			Be sure that the .onion address provided on {{ organization }}’s landing
+			page below matches
 			<span class="instance-instructions__onion-address">{{ onion }}</span>
 		{% endblocktrans %}
 		{% if page.onion_name %}
 			{% blocktrans with onion_name=page.onion_name %}
-				<br />[or <span class="instance-instructions__onion-address">{{ onion_name }}</span>]
+				or <span class="instance-instructions__onion-address">{{ onion_name }}</span>
 			{% endblocktrans %}
 		{% endif %}
 		{% blocktrans %}
-			and verify that the addresses match before continuing.
-			This provides a strong layer of defense against certain types of attacks
-			that might try to trick you into visiting a malicious SecureDrop instance
-			masquerading as a legitimate one. See our
+			before continuing. This helps ensure you are visiting a legitimate
+			SecureDrop instance. See our
 			<a href="https://docs.securedrop.org/en/stable/source.html">Source Guide</a>
 			for more information on SecureDrop usage and risks.
 		{% endblocktrans %}
