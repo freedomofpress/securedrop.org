@@ -5,6 +5,7 @@ from datetime import datetime
 import factory
 import wagtail_factories
 
+from faker import Faker
 from common.models import CustomImage
 from directory.models import DirectoryEntry, ScanResult
 from directory.tests.factories.taxonomy import (
@@ -22,7 +23,8 @@ def random_onion_address():
 
 
 def random_onion_name():
-    name = factory.Faker('sentence', nb_words=1)
+    fake = Faker()
+    name = fake.word()
     return f'https://{name}.securedrop.tor.onion'
 
 
