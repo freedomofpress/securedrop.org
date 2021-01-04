@@ -224,7 +224,11 @@ class DirectoryMultipleFiltersTest(TestCase):
         self.az_pf_instance.topics.add(pf)
         self.az_pf_instance.save()
 
-        self.other_instance = DirectoryEntryFactory(parent=self.directory)
+        self.other_instance = DirectoryEntryFactory(
+            parent=self.directory,
+            languages=0,
+            countries=0,
+        )
         self.other_instance.languages.add(spanish)
         self.other_instance.topics.add(pf)
         self.other_instance.save()
