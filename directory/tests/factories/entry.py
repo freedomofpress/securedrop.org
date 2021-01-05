@@ -5,6 +5,7 @@ from datetime import datetime
 import factory
 import wagtail_factories
 
+from faker import Faker
 from common.models import CustomImage
 from directory.models import DirectoryEntry, ScanResult
 from directory.tests.factories.taxonomy import (
@@ -21,6 +22,12 @@ def random_onion_address():
     ) + '.onion'
 
 
+def random_onion_name():
+    fake = Faker()
+    name = fake.word()
+    return f'https://{name}.securedrop.tor.onion'
+
+
 class DirectoryEntryFactory(wagtail_factories.PageFactory):
     class Meta:
         model = DirectoryEntry
@@ -35,6 +42,7 @@ class DirectoryEntryFactory(wagtail_factories.PageFactory):
     title = factory.Faker('sentence', nb_words=3)
     landing_page_url = factory.Faker('uri')
     onion_address = factory.LazyFunction(random_onion_address)
+    onion_name = factory.LazyFunction(random_onion_name)
 
     @factory.post_generation
     def languages(self, create, count):
