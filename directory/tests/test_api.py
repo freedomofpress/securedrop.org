@@ -32,6 +32,7 @@ class ApiTestCase(TestCase):
             'first_published_at': self.entry.first_published_at,
             'landing_page_url': self.entry.landing_page_url,
             'onion_address': self.entry.onion_address,
+            'onion_name': self.entry.onion_name,
             'organization_logo': self.entry.organization_logo,
             'organization_description': self.entry.organization_description,
             'organization_url': self.entry.organization_url,

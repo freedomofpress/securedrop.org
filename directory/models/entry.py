@@ -106,6 +106,20 @@ class DirectoryEntry(MetadataPageMixin, Page):
         validators=[RegexValidator(regex=r'\.onion$', message="Enter a valid .onion address.")]
     )
 
+    onion_name = models.CharField(
+        'SecureDrop onion name',
+        max_length=255,
+        null=True,
+        blank=True,
+        validators=[
+            RegexValidator(
+                regex=r'\.securedrop\.tor\.onion$',
+                message="Enter a valid onion name. The onion name should be in the format <name>.securedrop.tor.onion"
+            )
+        ],
+        help_text='Enter the human-readable onion name in the format <name>.securedrop.tor.onion'
+    )
+
     added = models.DateTimeField(auto_now_add=True)
 
     organization_logo = models.ForeignKey(
@@ -220,6 +234,7 @@ class DirectoryEntry(MetadataPageMixin, Page):
         ReadOnlyPanel('added', heading='Date Added'),
         FieldPanel('landing_page_url'),
         FieldPanel('onion_address'),
+        FieldPanel('onion_name'),
         FieldPanel('organization_description'),
         FieldPanel('organization_url'),
         MultiFieldPanel([

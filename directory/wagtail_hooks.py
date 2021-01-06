@@ -76,19 +76,23 @@ def add_bundle_stats_button(page, page_perms, is_parent=False):
     """
     index_url = scanresult_modeladmin.url_helper.get_action_url('index')
     results_url = f'{index_url}?securedrop__page_ptr_id__exact={page.pk}'
-    latest = page.get_live_result()
-    return [
+    buttons = [
         Button(
             'All Results',
             results_url,
             priority=10,
-        ),
-        Button(
-            'Latest Result',
-            scanresult_modeladmin.url_helper.get_action_url('inspect', latest.pk),
-            priority=20,
         )
     ]
+    latest = page.get_live_result()
+    if latest and latest.pk:
+        buttons.append(
+            Button(
+                'Latest Result',
+                scanresult_modeladmin.url_helper.get_action_url('inspect', latest.pk),
+                priority=20,
+            )
+        )
+    return buttons
 
 
 modeladmin_register(ScanResultAdmin)
