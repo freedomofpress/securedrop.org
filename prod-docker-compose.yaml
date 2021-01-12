@@ -32,12 +32,12 @@ services:
     volumes:
       - ${HOST_STATIC_DIR:-sdorg-django-media}:/django-media
       - ${HOST_MEDIA_DIR:-sdorg-django-static}:/django-static
-      - ${HOST_LOGS_DIR:-sdorg-django-logs}:/django-logs
     environment:
       DJANGO_ALLOWED_HOSTS: app localhost
       DJANGO_APP_NAME: securedrop
       DJANGO_COLLECT_STATIC: "yes"
       DJANGO_SETTINGS_MODULE: securedrop.settings.production
+      # Arbitrary key for this "prod-like" testing setup. Do not use in real life.
       DJANGO_SECRET_KEY: 64a235ef65834d8b42fa2802dd4290cf61c773c3f31332039ec5c48165f744da
       DJANGO_DB_PASSWORD: securedroppassword
       DJANGO_DB_USER: securedrop
@@ -46,7 +46,6 @@ services:
       DJANGO_DB_HOST: db
       DJANGO_STATIC_ROOT: /django-static
       DJANGO_MEDIA_ROOT: /django-media
-      DJANGO_LOG_PATH: /django-logs
       DEPLOY_ENV: prod
       DJANGO_WHITENOISE: 'True'
     ports:
@@ -59,4 +58,3 @@ services:
 volumes:
   sdorg-django-static:
   sdorg-django-media:
-  sdorg-django-logs:

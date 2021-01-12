@@ -50,7 +50,6 @@ services:
       DJANGO_DB_NAME: securedropdb
       DJANGO_DB_PORT: 5432
       DJANGO_DB_HOST: db
-      DJANGO_LOG_PATH: /django/logs
       DJANGO_XMLTEST_OUTPUT: "yes"
       DEPLOY_ENV: dev
       DJANGO_ONION_HOSTNAME: secrdrop5wyphb5x.onion

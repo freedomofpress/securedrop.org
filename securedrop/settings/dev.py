@@ -6,12 +6,19 @@ import struct
 from django.conf import settings
 from .base import *  # noqa: F403, F401
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '-hf!6+rx$-55pyf6tekfkers#7cfn-_d#4f6*vnr-+vz82lqz_'
 
-DEBUG = True
-if os.environ.get('DJANGO_DISABLE_DEBUG'):
-    DEBUG = False
+if not os.environ.get('DJANGO_DISABLE_DEBUG'):
+    DEBUG = True
+
+ALLOWED_HOSTS = ['*']
+WHITENOISE_AUTOREFRESH = True
+WHITENOISE_USE_FINDERS = True
+
+
+# The example SECRET_KEY below is used only in the local dev env.
+# In the production settings file, a custom env var is required
+# to run the application.
+SECRET_KEY = '-hf!6+rx$-55pyf6tekfkers#7cfn-_d#4f6*vnr-+vz82lqz_'
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
