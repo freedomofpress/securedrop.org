@@ -21,5 +21,5 @@
 			<stop offset="100%" stop-color="#000000"/>
 		</linearGradient>
 	</defs>
-	<polygon points="0 123.27 0 369.81 213.51 493.08 427.02 369.81 427.02 123.27 213.51 0 0 123.27" style="fill-rule: evenodd" fill="url(#{{category_slug}})"/>
+	<polygon points="0 123.27 0 369.81 213.51 493.08 427.02 369.81 427.02 123.27 213.51 0 0 123.27" fill-rule="evenodd" fill="url(#{{category_slug}})"/>
 </svg>
