@@ -1,5 +1,5 @@
-# sha256 as of 2020-06-30 for node:10-alpine
-FROM node@sha256:bafda8e474ba8973f146cb3fc2d531cf7fb7fec73ef4ca04aa38f26db520a883 AS node-assets
+# sha256 as of 2020-12-11 for 10-alpine
+FROM node@sha256:0d798a992de3fe3e080f49a8b862ce815cd99c110e707c24e711f8e2ea4b389e AS node-assets
 
 # Install npm, making output less verbose
 ARG NPM_VER=6.13.7
@@ -20,8 +20,8 @@ RUN cd /src-files && ( npm install && npm run build )
 LABEL MAINTAINER="Freedom of the Press Foundation"
 LABEL APP="securedrop.org"
 
-# sha256 as of 2020-10-21 for python:3.7-slim-buster
-FROM python@sha256:f998692f9efb6648e343561d81f96bc7af73860862b7c714396228fd31ac4ad4
+# sha256 as of 2020-12-11 for 3.7-slim-buster
+FROM python@sha256:563bd6daac518cf3345939c35515643bf66f2b41ca2cf8156783c3cf0f9a480b
 
 RUN apt-get update && apt-get install -y \
     curl \
