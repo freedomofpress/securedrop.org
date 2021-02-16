@@ -1,4 +1,5 @@
 from django.http import Http404
+from wagtail.core.models import Site
 
 from directory.models.settings import DirectorySettings
 
@@ -10,7 +11,7 @@ def directory_management_required(func):
     """
 
     def inner(request, *args, **kwargs):
-        directory_settings = DirectorySettings.for_site(request.site)
+        directory_settings = DirectorySettings.for_site(Site.find_for_request(request))
         if not directory_settings.allow_directory_management:
             raise Http404
         return func(request, *args, **kwargs)
