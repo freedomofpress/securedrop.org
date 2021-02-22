@@ -33,7 +33,7 @@ def _purge(backend: CloudflareBackend, data={}) -> None:
         json=data,
         headers={
             "X-Auth-Email": backend.cloudflare_email,
-            "X-Auth-Key": backend.cloudflare_token,
+            "X-Auth-Key": backend.cloudflare_api_key,
             "Content-Type": "application/json",
         },
     )
