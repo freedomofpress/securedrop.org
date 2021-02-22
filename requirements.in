@@ -20,7 +20,7 @@ pygments
 python-json-logger
 tldextract
 tinycss2
-wagtail>=2.11.3,<2.12
+wagtail>=2.11.5,<2.12
 wagtail-factories
 wagtail-metadata>=3.4.0
 wagtail-autocomplete>=0.6
