@@ -6,6 +6,7 @@ from wagtail.images import get_image_model
 from django.utils.translation import ugettext_lazy as _
 
 from wagtailautocomplete.widgets import Autocomplete
+from directory.models.taxonomy import Language, Topic, Country
 
 
 class LandingPageForm(forms.Form):
@@ -102,17 +103,17 @@ class DirectoryEntryForm(forms.ModelForm):
             'languages': type(
                 '_Autocomplete',
                 (Autocomplete,),
-                dict(page_type='directory.Language', can_create=True, is_single=False, api_base='/autocomplete/')
+                dict(target_model=Language, can_create=True, is_single=False, api_base='/autocomplete/')
             ),
             'topics': type(
                 '_Autocomplete',
                 (Autocomplete,),
-                dict(page_type='directory.Topic', can_create=True, is_single=False, api_base='/autocomplete/')
+                dict(target_model=Topic, can_create=True, is_single=False, api_base='/autocomplete/')
             ),
             'countries': type(
                 '_Autocomplete',
                 (Autocomplete,),
-                dict(page_type='directory.Country', can_create=True, is_single=False, api_base='/autocomplete/')
+                dict(target_model=Country, can_create=True, is_single=False, api_base='/autocomplete/')
             ),
         }
 

@@ -58,6 +58,8 @@ INSTALLED_APPS = [
     'wagtail.images',
     'wagtail.search',
     'wagtail.admin',
+    # See https://docs.wagtail.io/en/stable/reference/contrib/legacy_richtext.html#legacy-richtext
+    'wagtail.contrib.legacy.richtext',
     'wagtail.core',
 
     'allauth',
@@ -108,7 +110,6 @@ if os.environ.get('DJANGO_WHITENOISE'):
     MIDDLEWARE.append('whitenoise.middleware.WhiteNoiseMiddleware')
 
 MIDDLEWARE.extend([
-    'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
     'django_logging.middleware.DjangoLoggingMiddleware',
 
@@ -367,7 +368,7 @@ CSP_REPORT_URI = os.environ.get('DJANGO_CSP_REPORT_URI',
 
 log_level = os.environ.get("DJANGO_LOG_LEVEL", "info").upper()
 log_format = os.environ.get("DJANGO_LOG_FORMAT", "json")
-log_stdout = True
+log_stdout = False
 log_handler = {
     "formatter": log_format,
     "class": "logging.StreamHandler",
@@ -375,7 +376,7 @@ log_handler = {
     "level": log_level,
 }
 
-log_dir = os.environ.get("DJANGO_LOG_PATH")
+log_dir = os.environ.get("DJANGO_LOG_DIR")
 if log_dir:
     if not os.path.exists(log_dir):
         os.makedirs(log_dir)

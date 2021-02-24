@@ -5,6 +5,7 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import DetailView, ListView, UpdateView
 from django_otp.decorators import otp_required
+from wagtail.core.models import Site
 
 from directory.decorators import directory_management_required
 from directory.models.settings import DirectorySettings
@@ -54,8 +55,8 @@ class SecuredropEditView(UpdateView):
 
     def form_valid(self, form):
         response = super(SecuredropEditView, self).form_valid(form)
-
-        directory_settings = DirectorySettings.for_site(self.request.site)
+        site = Site.find_for_request(self.request)
+        directory_settings = DirectorySettings.for_site(site)
         if directory_settings.new_instance_alert_group:
             recipient_emails = directory_settings.new_instance_alert_group.user_set.values_list('email', flat=True)
             send_mail(
@@ -63,8 +64,8 @@ class SecuredropEditView(UpdateView):
                 recipient_list=recipient_emails,
                 subject='New Securedrop instance on directory',
                 message='A new Securedrop instance was added to {}. Moderate and approve here: {}{}'.format(
-                    self.request.site.site_name,
-                    self.request.site.root_url,
+                    site.site_name,
+                    site.root_url,
                     reverse('wagtailadmin_pages:edit', args=(self.object.pk,)),
                 ),
             )
