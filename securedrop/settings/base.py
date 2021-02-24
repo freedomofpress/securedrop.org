@@ -332,6 +332,12 @@ CSP_SCRIPT_SRC = (
 )
 CSP_STYLE_SRC = (
     "'self'",
+    "'sha256-ZdHxw9eWtnxUb3mk6tBS+gIiVUPE3pGM470keHPDFlE='",
+)
+CSP_STYLE_SRC_ATTR = (
+    "'self'",
+    "'unsafe-hashes'",
+    "'sha256-ZdHxw9eWtnxUb3mk6tBS+gIiVUPE3pGM470keHPDFlE='",
 )
 CSP_FRAME_SRC = ("'self'",)
 CSP_CONNECT_SRC = ("'self'",)
