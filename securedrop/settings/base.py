@@ -58,9 +58,9 @@ INSTALLED_APPS = [
     'wagtail.images',
     'wagtail.search',
     'wagtail.admin',
-    'wagtail.core',
     # See https://docs.wagtail.io/en/stable/reference/contrib/legacy_richtext.html#legacy-richtext
     'wagtail.contrib.legacy.richtext',
+    'wagtail.core',
 
     'allauth',
     'allauth.account',
