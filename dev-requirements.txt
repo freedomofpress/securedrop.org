@@ -228,9 +228,9 @@ django-webpack-loader==0.5.0 \
     --hash=sha256:0a8536e36a30d719018cd4c5da6e9d2377771134e713c14e617bb484b4f0acce \
     --hash=sha256:7094bcd8cc40c9824e5b482ce8ff9e8ae09e1982e5d08e078e5fe2411fb40a03
     # via -r requirements.txt
-django==2.2.14 \
-    --hash=sha256:edf0ecf6657713b0435b6757e6069466925cae70d634a3283c96b80c01e06191 \
-    --hash=sha256:f2250bd35d0f6c23e930c544629934144e5dd39a4c06092e1050c731c1712ba8
+django==2.2.19 \
+    --hash=sha256:30c235dec87e05667597e339f194c9fed6c855bda637266ceee891bf9093da43 \
+    --hash=sha256:e319a7164d6d30cb177b3fd74d02c52f1185c37304057bb76d74047889c605d9
     # via
     #   -r requirements.txt
     #   django-allauth
