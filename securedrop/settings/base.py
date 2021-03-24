@@ -340,7 +340,10 @@ CSP_STYLE_SRC_ATTR = (
     "'sha256-ZdHxw9eWtnxUb3mk6tBS+gIiVUPE3pGM470keHPDFlE='",
 )
 CSP_FRAME_SRC = ("'self'",)
-CSP_CONNECT_SRC = ("'self'",)
+CSP_CONNECT_SRC = (
+    "'self'",
+    "analytics.freedom.press",
+)
 CSP_EXCLUDE_URL_PREFIXES = ("/admin", )
 
 # Need to be lists for now so that CSP configuration can add to them.
