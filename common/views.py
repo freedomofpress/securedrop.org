@@ -2,6 +2,7 @@ import os
 
 from wagtail.documents.views import serve
 from django.http import HttpResponse
+from django.views.decorators.cache import never_cache
 
 
 DEPLOYINFO_PATH = os.environ.get('DJANGO_VERSION_FILE', '/deploy/version')
@@ -43,3 +44,9 @@ def view_document(request, document_id, document_filename):
 
     # Return the response
     return response
+
+
+@never_cache
+def health_ok(request):
+    """Lightweight health-check with a 200 response code."""
+    return HttpResponse("okay")
