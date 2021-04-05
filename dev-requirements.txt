@@ -348,9 +348,8 @@ googleapis-common-protos==1.52.0 \
     # via
     #   -r requirements.txt
     #   google-api-core
-gunicorn==19.7.1 \
-    --hash=sha256:75af03c99389535f218cc596c7de74df4763803f7b63eb09d77e92b3956b36c6 \
-    --hash=sha256:eee1169f0ca667be05db3351a0960765620dad53f53434262ff8901b68a1b622
+gunicorn==20.1.0 \
+    --hash=sha256:e0a968b5ba15f8a328fdfd7ab1fcb5af4470c28aaf7e55df02a99bc13138e6e8
     # via -r requirements.txt
 html5lib==0.999999999 \
     --hash=sha256:b8934484cf22f1db684c0fae27569a0db404d0208d20163fbf51cc537245d008 \
@@ -1007,6 +1006,7 @@ setuptools==51.0.0 \
     #   dataproperty
     #   google-api-core
     #   google-auth
+    #   gunicorn
     #   html5lib
     #   ipdb
     #   ipython
