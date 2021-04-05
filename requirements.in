@@ -10,7 +10,7 @@ djangorestframework
 factory_boy
 feedparser
 gunicorn>=20.1.0
-lxml
+lxml>=4.6.3
 pillow>=6.2.3
 pshtt
 psycopg2
