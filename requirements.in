@@ -9,9 +9,8 @@ django-webpack-loader
 djangorestframework
 factory_boy
 feedparser
-gunicorn
-lxml
-markdown2>2.3.8
+gunicorn>=20.1.0
+lxml>=4.6.3
 pillow>=6.2.3
 pshtt
 psycopg2
