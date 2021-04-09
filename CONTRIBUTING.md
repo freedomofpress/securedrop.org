@@ -8,4 +8,4 @@ To get started working with the code, clone the repo and follow the instructions
 
 SecureDrop has a public [Gitter channel](https://gitter.im/freedomofpress/securedrop) and a [public Discourse forum](https://forum.securedrop.org/) where you can discuss SecureDrop and SecureDrop.org.
 
-Please read the [Code of Conduct](https://github.com/freedomofpress/securedrop.org/blob/master/CODE_OF_CONDUCT.md) which guides behavior in SecureDrop and SecureDrop.org related spaces.
+Please read the [Code of Conduct](https://github.com/freedomofpress/.github/blob/main/CODE_OF_CONDUCT.md) which guides behavior in SecureDrop and SecureDrop.org related spaces.
