@@ -22,7 +22,7 @@
     "babel-plugin-add-module-exports": "^0.2.1",
     "css-loader": "^3.5.1",
     "mini-css-extract-plugin": "^0.5.0",
-    "node-sass": "^4.14.1",
+    "sass": "^1.32.8",
     "npm-audit-plus": "^0.1.7",
     "postcss-loader": "^2.1.6",
     "sass-loader": "^6.0.6",
