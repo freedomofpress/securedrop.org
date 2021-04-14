@@ -36,9 +36,6 @@
 						{% if result.result_type == 'W' %}
 							{% trans "Gray hexagon" as gray_hexagon_alt_text %}
 							{% include "common/_svg.html" with class="search-list__icon search-list__icon--W" svg="images/plain_hexagon.svg" img="images/slate_hexagon.png" alt=gray_hexagon_alt_text %}
-						{% elif result.result_type == 'F' %}
-							{% trans "Speech bubble" as speech_bubble_alt_text %}
-							{% include "common/_svg.html" with class="search-list__icon search-list__icon--F" svg="images/forum.svg" img="images/forum.png" alt=speech_bubble_alt_text %}
 						{% elif result.result_type == 'D' %}
 							{% trans "Stack of books" as books_alt_text %}
 							{% include "common/_svg.html" with class="search-list__icon search-list__icon--D" svg="images/documentation.svg" img="images/documentation.png" alt=books_alt_text %}
@@ -53,8 +50,6 @@
 								<h3 class="search-item__subtitle">
 									{% if result.result_type == 'W' %}
 										Securedrop.org
-									{% elif result.result_type == 'F' %}
-										{% trans "Support Forum" %}
 									{% elif result.result_type == 'D' %}
 										{% trans "Documentation" %}
 									{% endif %}

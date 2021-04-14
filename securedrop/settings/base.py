@@ -310,11 +310,6 @@ SOCIALACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_ADAPTER = 'accounts.users.adapter.MyAccountAdapter'
 ACCOUNT_SIGNUP_FORM_CLASS = 'accounts.forms.SignupForm'
 
-# Discourse API
-DISCOURSE_HOST = os.environ.get('DISCOURSE_HOST', '')
-DISCOURSE_API_KEY = os.environ.get('DISCOURSE_API_KEY', '')
-
-
 # Content Security Policy
 # script:
 # unsafe-eval for client/common/js/common.js:645 and /client/tor/js/torEntry.js:89
