@@ -10,8 +10,8 @@ process.env.BABEL_ENV = TARGET;
 
 var target = __dirname + '/build/static/bundles';
 
-var STATIC_URL = process.env.STATIC_URL || '/static/';
-var sassData = '$static-url: "' + STATIC_URL + '";';
+var STATIC_URL = process.env.STATIC_URL || '/common/static/';
+var sassData = '$static-url: "' + STATIC_URL + '"';
 console.log('Using STATIC_URL', STATIC_URL);
 
 
@@ -70,7 +70,7 @@ var common = {
 					{
 						loader: 'sass-loader',
 						options: {
-							includePaths: [path.resolve(__dirname, 'node_modules/')],
+							includePaths: [path.resolve(__dirname, 'node_modules/'), path.resolve(__dirname, 'common/static/fonts/')],
 							data: sassData
 						}
 					}
@@ -79,6 +79,18 @@ var common = {
 			{
 				test: /\.css$/,
 				use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader']
+			},
+			{
+				test: /\.(png|svg|jpg|gif)$/,
+				use: [
+					'file-loader',
+				],
+			},
+			{
+				test: /\.(woff|woff2|eot|ttf|otf)$/,
+				use: [
+					'file-loader',
+				],
 			},
 		]
 	},
