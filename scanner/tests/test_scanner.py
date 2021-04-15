@@ -1,3 +1,4 @@
+import collections
 import os
 import re
 from unittest import mock
@@ -433,6 +434,21 @@ class ScannerRedirectionSuccess(TestCase):
         result = scanner.scan(entry)
         self.assertEqual(result.redirect_target, 'https://httpbin.org/status/404')
         self.assertFalse(result.http_status_200_ok)
+
+    @mock.patch('scanner.scanner.tldextract')
+    @mock.patch('scanner.scanner.BeautifulSoup')
+    @mock.patch('scanner.scanner.requests')
+    @mock.patch('scanner.scanner.inspect_domains')
+    def test_scanner_omits_www_prefix_on_domains_domains_for_pshtt(self, mock_inspect_domains, mock_requests, mock_soup, mock_tldextract):
+        entry = DirectoryEntryFactory.create(
+            landing_page_url='https://www.example.com',
+        )
+
+        mock_requests.get.return_value = mock.MagicMock(url=entry.landing_page_url)
+        mock_inspect_domains.return_value = [collections.defaultdict(int)]
+
+        scanner.scan(entry)
+        mock_inspect_domains.assert_called_once_with(['example.com'], {'timeout': 10})
 
 
 class ScannerSubdomainRedirect(TestCase):
