@@ -181,9 +181,9 @@ django-csp==3.7 \
     --hash=sha256:01443a07723f9a479d498bd7bb63571aaa771e690f64bde515db6cdb76e8041a \
     --hash=sha256:01eda02ad3f10261c74131cdc0b5a6a62b7c7ad4fd017fbefb7a14776e0a9727
     # via -r requirements.txt
-django-debug-toolbar==1.9.1 \
-    --hash=sha256:4af2a4e1e932dadbda197b18585962d4fc20172b4e5a479490bc659fe998864d \
-    --hash=sha256:d9ea75659f76d8f1e3eb8f390b47fc5bad0908d949c34a8a3c4c87978eb40a0f
+django-debug-toolbar==3.2.1 \
+    --hash=sha256:a5ff2a54f24bf88286f9872836081078f4baa843dc3735ee88524e89f8821e33 \
+    --hash=sha256:e759e63e3fe2d3110e0e519639c166816368701eab4a47fed75d7de7018467b9
     # via -r dev-requirements.in
 django-filter==2.4.0 \
     --hash=sha256:84e9d5bb93f237e451db814ed422a3a625751cbc9968b484ecc74964a8696b06 \
@@ -228,9 +228,9 @@ django-webpack-loader==0.5.0 \
     --hash=sha256:0a8536e36a30d719018cd4c5da6e9d2377771134e713c14e617bb484b4f0acce \
     --hash=sha256:7094bcd8cc40c9824e5b482ce8ff9e8ae09e1982e5d08e078e5fe2411fb40a03
     # via -r requirements.txt
-django==2.2.19 \
-    --hash=sha256:30c235dec87e05667597e339f194c9fed6c855bda637266ceee891bf9093da43 \
-    --hash=sha256:e319a7164d6d30cb177b3fd74d02c52f1185c37304057bb76d74047889c605d9
+django==2.2.20 \
+    --hash=sha256:2484f115891ab1a0e9ae153602a641fbc15d7894c036d79fb78662c0965d7954 \
+    --hash=sha256:2569f9dc5f8e458a5e988b03d6b7a02bda59b006d6782f4ea0fd590ed7336a64
     # via
     #   -r requirements.txt
     #   django-allauth
