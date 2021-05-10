@@ -267,10 +267,9 @@ faker==4.14.0 \
     # via
     #   -r requirements.txt
     #   factory-boy
-feedparser==5.2.1 \
-    --hash=sha256:bd030652c2d08532c034c27fcd7c85868e7fa3cb2b17f230a44a6bbc92519bf9 \
-    --hash=sha256:cd2485472e41471632ed3029d44033ee420ad0b57111db95c240c9160a85831c \
-    --hash=sha256:ce875495c90ebd74b179855449040003a1beb40cd13d5f037a0654251e260b02
+feedparser==6.0.2 \
+    --hash=sha256:1b00a105425f492f3954fd346e5b524ca9cef3a4bbf95b8809470e9857aa1074 \
+    --hash=sha256:f596c4b34fb3e2dc7e6ac3a8191603841e8d5d267210064e94d4238737452ddd
     # via -r requirements.txt
 flake8==3.9.2 \
     --hash=sha256:07528381786f2a6237b061f6e96610a4167b226cb926e2aa2b6b1d78057c576b \
@@ -773,6 +772,11 @@ rsa==4.6 \
     # via
     #   -r requirements.txt
     #   google-auth
+sgmllib3k==1.0.0 \
+    --hash=sha256:7868fb1c8bfa764c1ac563d3cf369c381d1325d36124933a726f29fcdaa812e9
+    # via
+    #   -r requirements.txt
+    #   feedparser
 six==1.11.0 \
     --hash=sha256:70e8a77beed4562e7f14fe23a786b54f6296e34344c23bc42f07b15018ff98e9 \
     --hash=sha256:832dc0e10feb1aa2c68dcc57dbb658f1c7e65b9b61af69048abc87a2db00a0eb
