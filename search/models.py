@@ -8,7 +8,6 @@ from django.contrib.postgres.indexes import GinIndex
 
 class SearchDocument(models.Model):
     RESULT_TYPES = (
-        ('F', 'Forum'),
         ('D', 'Documentation'),
         ('W', 'Wagtail Page')
     )

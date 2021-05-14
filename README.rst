@@ -1,3 +1,8 @@
+.. note::
+
+   By contributing to this project, you agree to abide by our
+   `Code of Conduct <https://github.com/freedomofpress/.github/blob/main/CODE_OF_CONDUCT.md>`_.
+
 SecureDrop.org
 ==============
 
@@ -130,10 +135,6 @@ Search Commands
     Crawl the SecureDrop documentation pages on ``https://docs.securedrop.org/en/stable/`` and update the corresponding ``SearchDocument`` entries.  Pass ``--rebuild`` to this command to delete existing entries for documentation pages before fetching new data, which is useful if out-of-date information or pages are in the index.  Rebuild is usually the behavior that you will want.  Note that this command depends on a particular arrangement and format of HTML and links on the above 3rd party web URL.  If these change in the future, then the command will potentially fail and report zero or only a few documents indexed.
 * ``update_wagtail_index [--rebuild]``
     Crawl Wagtail pages and create ``SearchDocument``\ s for each one. This command should only be run once when the repo is initialized, as thereafter ``SearchDocument``\ s will be updated via ``get_search_content`` which is run when pages are created, updated, or deleted. Note that if pages are changed outside of the Wagtail interface, their search documents will not be updated and this command will need to be run again. Pass ``--rebuild`` to this command to delete existing entries for Wagtail pages before fetching new data, which is useful if out-of-date information or pages are in the index.
-* ``update_discourse_index [--rebuild]``
-    Crawl the SecureDrop forum pages on ``https://forum.securedrop.club/`` and update the corresponding ``SearchDocument`` entries.  Pass ``--rebuild`` to this command to delete existing entries for documentation pages before fetching new data, which is useful if out-of-date information or pages are in the index.  Rebuild is usually the behavior that you will want.
-
-    This command depends on two settings: ``DISCOURSE_HOST`` which should be set to the name of the Discourse server without the protocol (``forum.securedrop.club``) and ``DISCOURSE_API_KEY``. If you require these for development, acquire them securely from a Discourse forum administrator and stash them in ``securedrop/settings/local.py``.
 
 Dependency Management
 ---------------------
