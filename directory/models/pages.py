@@ -193,6 +193,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
             orphans=self.orphans
         )
 
+        context['search_value'] = request.GET.get('search', '')
         context['entries_page'] = entries
         context['entries_filters'] = entry_filters
         context['paginator'] = paginator
