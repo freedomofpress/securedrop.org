@@ -454,9 +454,9 @@ pyasn1==0.4.8 \
 pycparser==2.19 \
     --hash=sha256:a988718abfad80b6b157acce7bf130a30876d27603738ac39f140993246b25b3
     # via cffi
-pygments==2.2.0 \
-    --hash=sha256:78f3f434bcc5d6ee09020f92ba487f95ba50f1e3ef83ae96b9d5ffa1bab25c5d \
-    --hash=sha256:dbae1046def0efb574852fab9e90209b23f556367b5a320c0bcb871c77c3e8cc
+pygments==2.9.0 \
+    --hash=sha256:a18f47b506a429f6f4b9df81bb02beab9ca21d0a5fee38ed15aef65f0545519f \
+    --hash=sha256:d66e804411278594d764fc69ec36ec13d9ae9147193a1740cd34d272ca383b8e
     # via -r requirements.in
 pyopenssl==19.0.0 \
     --hash=sha256:aeca66338f6de19d1aa46ed634c3b9ae519a64b458f8468aec688e7e3c20f200 \
@@ -610,9 +610,9 @@ unittest-xml-reporting==2.1.0 \
     --hash=sha256:28ff367b13073e307ded09deb5351ec4037724c1fd28c9c351f4094723ae27c9 \
     --hash=sha256:9a6d3474bb86331152a798cf6d6d28c3ccee2a09c31ccbe30dbb061bf38ce60b
     # via -r requirements.in
-urllib3==1.25.9 \
-    --hash=sha256:3018294ebefce6572a474f0604c2021e33b3fd8006ecd11d62107a5d2a963527 \
-    --hash=sha256:88206b0eb87e6d677d424843ac5209e3fb9d0190d0ee169599165ec25e9d9115
+urllib3==1.25.11 \
+    --hash=sha256:8d7eaa5a82a1cac232164990f04874c594c9453ec55eef02eab885aa02fc17a2 \
+    --hash=sha256:f5321fbe4bf3fefa0efd0bfe7fb14e90909eb62a48ccda331726b4319897dd5e
     # via
     #   -r requirements.in
     #   requests
