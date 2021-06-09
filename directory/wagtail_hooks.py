@@ -1,8 +1,9 @@
+from django.utils.translation import ugettext as _
 from wagtail.admin.widgets import (
     ButtonWithDropdownFromHook,
     Button,
 )
-from wagtail.contrib.modeladmin.helpers import PermissionHelper
+from wagtail.contrib.modeladmin.helpers import PermissionHelper, ButtonHelper
 from wagtail.contrib.modeladmin.options import (
     ModelAdmin,
     modeladmin_register,
@@ -10,18 +11,18 @@ from wagtail.contrib.modeladmin.options import (
 from wagtail.core import hooks
 
 from .models import ScanResult, DirectoryEntry
+from .views import ManualScanView
 
 
-class ReadOnlyPermissionHelper(PermissionHelper):
+class CannotModifyPermissionHelper(PermissionHelper):
     """Permission helper for read-only ModelAdmins
-    Permission helper class that denies all permissions to modify,
-    delete, or create objects.
+
+    Permission helper class that denies all permissions to edit or
+    delete objects.
+
     """
     def user_can_list(self, user):
         return True
-
-    def user_can_create(self, user):
-        return False
 
     def user_can_edit_obj(self, user, obj):
         return False
@@ -30,19 +31,37 @@ class ReadOnlyPermissionHelper(PermissionHelper):
         return False
 
 
+class MyButtonHelper(ButtonHelper):
+    def add_button(self, classnames_add=None, classnames_exclude=None):
+        if classnames_add is None:
+            classnames_add = []
+        if classnames_exclude is None:
+            classnames_exclude = []
+        classnames = self.add_button_classnames + classnames_add
+        cn = self.finalise_classname(classnames, classnames_exclude)
+        return {
+            'url': self.url_helper.create_url,
+            'label': _('Perform a scan'),
+            'classname': cn,
+            'title': _('Perform a scan'),
+        }
+
+
 class ScanResultAdmin(ModelAdmin):
     """ModelAdmin for viewing/searching ScanResults."""
     model = ScanResult
+    button_helper_class = MyButtonHelper
+    create_view_class = ManualScanView
     menu_icon = 'folder-open-inverse'
     menu_order = 500
-    list_display = ('securedrop', 'result_last_seen', 'live', 'grade')
+    list_display = ('securedrop', 'landing_page_url', 'result_last_seen', 'live', 'grade')
     list_filter = (
         'result_last_seen',
         'grade',
         'live',
     )
     search_fields = ('landing_page_url', 'securedrop__title')
-    permission_helper_class = ReadOnlyPermissionHelper
+    permission_helper_class = CannotModifyPermissionHelper
     inspect_view_enabled = True
 
 
