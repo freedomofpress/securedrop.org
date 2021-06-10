@@ -372,7 +372,7 @@ CSP_REPORT_URI = os.environ.get('DJANGO_CSP_REPORT_URI',
 
 log_level = os.environ.get("DJANGO_LOG_LEVEL", "info").upper()
 log_format = os.environ.get("DJANGO_LOG_FORMAT", "json")
-log_stdout = False
+log_stdout = True
 log_handler = {
     "formatter": log_format,
     "class": "logging.StreamHandler",
