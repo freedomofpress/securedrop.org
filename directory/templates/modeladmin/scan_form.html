@@ -1,0 +1,46 @@
+{% extends "wagtailadmin/base.html" %}
+
+{% block titletag %}{{ view.get_meta_title }}{% endblock %}
+
+{% block content %}
+	{% block header %}
+		<header class="nice-padding hasform">
+			<div class="row">
+				<div class="left">
+					<div class="col">
+						{% block h1 %}<h1 {% if view.header_icon %}class="icon icon-{{ view.header_icon }}"{% endif %}>{{ view.get_page_title }}<span></span></h1>{% endblock %}
+					</div>
+				</div>
+			</div>
+		</header>
+	{% endblock %}
+
+	{% block content_main %}
+		<section class="nice-padding">
+			<h2>Manual Scan</h2>
+			<form action="" method="post">{% csrf_token %}
+				<ul class="fields">
+					{% for field in form %}
+						<li{% if field.field.required %} class="required"{% endif %}>
+							<div class="field char_field">
+								<label for="{{ field.html_id }}">
+									{{ field.label }}:
+								</label>
+								<div class="field-content">
+									<div class="input">
+										{{ field }}
+									</div>
+									{% if field.help_text %}
+										<p class="help">{{ field.help_text }}</p>
+									{% endif %}
+								</div>
+							</div>
+						</li>
+					{% endfor %}
+				</ul>
+				<input type="submit" value="Begin Scan" class="button" />
+			</form>
+		</section>
+	{% endblock content_main %}
+
+{% endblock content %}
