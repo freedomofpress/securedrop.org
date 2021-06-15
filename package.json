@@ -5,8 +5,8 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
-    "build": "webpack -p",
-    "start": "webpack -w -d --display-error-details",
+    "build": "webpack --mode production",
+    "start": "webpack watch --mode development --devtool eval-source-map",
     "js-lint": "eslint app/**/*.jsx",
     "sass-lint": "sass-lint -v"
   },
