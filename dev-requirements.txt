@@ -211,9 +211,9 @@ django-treebeard==4.3 \
     # via
     #   -r requirements.txt
     #   wagtail
-django-webpack-loader==0.5.0 \
-    --hash=sha256:0a8536e36a30d719018cd4c5da6e9d2377771134e713c14e617bb484b4f0acce \
-    --hash=sha256:7094bcd8cc40c9824e5b482ce8ff9e8ae09e1982e5d08e078e5fe2411fb40a03
+django-webpack-loader==1.0.0 \
+    --hash=sha256:2cee0ff147bd0f34e046c23835720d7e3eabddcba3bfab1853d9c4fd0df12565 \
+    --hash=sha256:9a768b03f33d0a6977aceb67ddd02eba7a9e3763ae30004ee512d90628ed5713
     # via -r requirements.txt
 django==2.2.24 \
     --hash=sha256:3339ff0e03dee13045aef6ae7b523edff75b6d726adf7a7a48f53d5a501f7db7 \
