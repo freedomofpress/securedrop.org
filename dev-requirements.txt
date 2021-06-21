@@ -900,9 +900,9 @@ wagtail-metadata==3.4.0 \
     --hash=sha256:4d94e3de715d5cb07cb05005f949428b8c68d33a5cd324b8eca10565ed5d0046 \
     --hash=sha256:a17b1b545446f092ec4074a1c5734931a1af0c68a9a56be1732158753df36746
     # via -r requirements.txt
-wagtail==2.11.7 \
-    --hash=sha256:5159b569eacd4460d1584899353bd0f4088d8c6672cd389c02f20504bf98139a \
-    --hash=sha256:530b01fc20829b1c954ae14fa1d47f8e908f1300ea6f3edcbfe7619660da3144
+wagtail==2.11.8 \
+    --hash=sha256:460c4da96ecb84f817b80cfb5f9907a5be215df2f271c7569d6f58bd72e3c126 \
+    --hash=sha256:4b280742a7a97401b4c10dbcf7336dc99e367b5b95c21b9b3560abc697a9a627
     # via
     #   -r requirements.txt
     #   wagtail-autocomplete
