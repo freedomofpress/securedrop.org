@@ -1,3 +1,4 @@
+import os
 from time import time
 from unittest import mock
 
@@ -5,6 +6,7 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 from django.test import TestCase
 from wagtail.core.models import Site
+from wagtail.tests.utils import WagtailPageTests
 from allauth.account.models import EmailAddress
 from django_otp.plugins.otp_totp.models import TOTPDevice
 
@@ -13,9 +15,15 @@ from common.tests.utils import (
     turn_on_instance_scanning,
 )
 from directory.forms import ScannerForm
+from directory.models import ScanResult
 from directory.models.pages import SCAN_URL
 from directory.tests.factories import DirectoryPageFactory
+from directory.wagtail_hooks import ScanResultAdmin
 from accounts.forms.directory_management import DirectoryEntryForm
+from scanner.tests.test_scanner import mod_vcr
+
+
+VCR_DIR = os.path.join(os.path.dirname(__file__), 'scans_vcr')
 
 
 class ScanViewTest(TestCase):
@@ -107,3 +115,33 @@ class ScanViewTest(TestCase):
         self.assertTemplateUsed(response, 'directory/scanner_form.html')
         self.assertTemplateNotUsed(response, 'directory/result.html')
         self.assertEqual(response.context['text'], self.directory.scanner_form_text)
+
+
+class ManualScanTests(WagtailPageTests):
+    def setUp(self):
+        super().setUp()
+
+        self.admin = ScanResultAdmin()
+        self.view_url = self.admin.url_helper.create_url
+
+    def test_getting_the_form_succeeds(self):
+        response = self.client.get(self.view_url)
+        self.assertEqual(response.status_code, 200)
+
+    @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'manual-scan.yaml'))
+    def test_creates_new_scan_result(self):
+        landing_page_url = 'https://www.nytimes.com/tips'
+
+        response = self.client.post(
+            self.view_url,
+            {'landing_page_url': landing_page_url},
+        )
+
+        result = ScanResult.objects.get(landing_page_url=landing_page_url)
+
+        self.assertEqual(response.status_code, 302)
+        expected_url = self.admin.url_helper.get_action_url(
+            'inspect',
+            result.pk,
+        )
+        self.assertEqual(response.url, expected_url)
