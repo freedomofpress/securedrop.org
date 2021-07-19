@@ -1,3 +1,5 @@
+import re
+
 from django import forms
 from django.conf import settings
 from django.core.validators import RegexValidator
@@ -104,6 +106,12 @@ class DirectoryEntry(MetadataPageMixin, Page):
         'SecureDrop onion address',
         max_length=255,
         validators=[RegexValidator(regex=r'\.onion$', message="Enter a valid .onion address.")]
+    )
+
+    https_preferred = models.BooleanField(
+        'HTTPS Preferred?',
+        default=False,
+        help_text='Check this box if the onion_address URL should preferrably be shown with https://'
     )
 
     onion_name = models.CharField(
@@ -233,7 +241,10 @@ class DirectoryEntry(MetadataPageMixin, Page):
     content_panels = Page.content_panels + [
         ReadOnlyPanel('added', heading='Date Added'),
         FieldPanel('landing_page_url'),
-        FieldPanel('onion_address'),
+        MultiFieldPanel([
+            FieldPanel('onion_address'),
+            FieldPanel('https_preferred'),
+        ], 'Onion Address'),
         FieldPanel('onion_name'),
         FieldPanel('organization_description'),
         FieldPanel('organization_url'),
@@ -285,6 +296,13 @@ class DirectoryEntry(MetadataPageMixin, Page):
             )
         context['warning_messages'] = messages
         return context
+
+    @property
+    def full_onion_address(self):
+        if self.https_preferred:
+            onion_domain = re.sub(r"https?:\/\/", "", self.onion_address)
+            return f"https://{onion_domain}"
+        return self.onion_address
 
     def serve(self, request):
         owners = [sd_owner.owner for sd_owner in self.owners.all()]
