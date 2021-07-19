@@ -34,6 +34,20 @@ class DirectoryEntryTest(TestCase):
                 onion_address='https://notreal.com',
             )
 
+    def test_https_preferred_onion_address(self):
+        onion_address = 'notreal.onion'
+        securedrop = DirectoryEntryFactory(
+            onion_address=onion_address,
+            https_preferred=False,
+        )
+        securedrop1 = DirectoryEntryFactory(
+            onion_address=onion_address,
+            https_preferred=True,
+        )
+
+        self.assertEqual(securedrop.full_onion_address, onion_address)
+        self.assertEqual(securedrop1.full_onion_address, f"https://{onion_address}")
+
     def test_securedrop_cannot_save_invalid_onion_name(self):
         with self.assertRaises(ValidationError):
             DirectoryEntryFactory(
