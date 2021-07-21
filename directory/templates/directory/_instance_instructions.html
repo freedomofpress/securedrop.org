@@ -3,7 +3,7 @@
 <div class="instance-instructions">
 	<h1 class="instance-instructions__title">{% trans "Planning to submit information?" %}</h1>
 	<p>
-		{% blocktrans with organization=page.title onion=page.onion_address %}
+		{% blocktrans with organization=page.title onion=page.full_onion_address %}
 			Be sure that the .onion address provided on {{ organization }}’s landing
 			page below matches
 			<span class="instance-instructions__onion-address">{{ onion }}</span>

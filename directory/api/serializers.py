@@ -7,6 +7,7 @@ from directory.models.entry import DirectoryEntry, ScanResult
 class DirectoryEntrySerializer(serializers.ModelSerializer):
     organization_logo = ImageRenditionField('max-1500x1500')
     directory_url = serializers.CharField(source='full_url')
+    onion_address = serializers.CharField(source='full_onion_address')
     languages = serializers.SlugRelatedField(
         slug_field='title',
         read_only=True,
