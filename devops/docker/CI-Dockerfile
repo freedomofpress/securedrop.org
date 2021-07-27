@@ -1,6 +1,5 @@
-# sha256 as of 2020-12-11 for stretch
-FROM debian@sha256:1dbc66ba61e22d1c4fe1b9d592b0e64c21dc8521f1ecb0bb841eb026830d2c91
-
+# sha256 as of 2021-07-22
+FROM debian:stretch@sha256:73ac83a515905726362515b1e1f00db1b8a4274103acf50d6c21073b1fbc0473
 
 ENV DOCKER_BUCKET get.docker.com
 ENV DOCKER_VER 17.05.0-ce
