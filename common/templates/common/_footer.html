@@ -41,7 +41,15 @@
 				{% trans "White cube with keyhole (Securedrop logo)" as logo_alt_text %}
 				{% include "common/_svg.html" with class="footer-main__logo" svg="images/logo_transparent-footer-HappyKeyhole2.svg" img="images/logo_transparent-HappyKeyhole-1x.png" alt=logo_alt_text %}
 				<div class="footer-main__content">
-					<h2 id="aria-footer-nav" class='footer-main__title'>{{ footer.title|richtext }}</h2>
+
+					<!--
+						It hurts me to make this change a little but wagtail legacy richtext always adds a div.
+						If we remove legacy richtext at some point also, there will be a p tag. What we technically
+						want is if we want only a link always in footer and no other usecase for richtext, then
+						just provide an option to add the link, instead of providing an entire richtext. That way,
+						we can move back to using h2. Right now this is the most valid solution, though not semantic :(
+					-->
+					<div role="heading" aria-level="1" id="aria-footer-nav" class='footer-main__title'>{{ footer.title|richtext }}</div>
 					<div class="footer-main__text-wrapper">
 						<nav class="footer-main__nav" aria-labelledby="aria-footer-nav">
 							<h3 class="sr-only">Footer navigation</h3>
