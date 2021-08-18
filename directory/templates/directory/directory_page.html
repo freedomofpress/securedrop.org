@@ -55,7 +55,7 @@
 				</div>
 				<div class="filters__wrapper--last">
 					<label class="sr-only" for="aria-topic">{% trans "Topic" %}</label>
-					<select name="topic" label="Topic" class="filters__field filters__field--select">
+					<select id="aria-topic" name="topic" label="Topic" class="filters__field filters__field--select">
 						<option {% if not entries_filters.topics %}selected{% endif %}  disabled>
 							{% trans "Topic" %}
 						</option>
