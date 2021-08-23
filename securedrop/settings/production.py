@@ -64,6 +64,7 @@ if os.environ.get('GS_BUCKET_NAME'):
     GS_PROJECT_ID = os.environ.get('GS_PROJECT_ID')
     GS_MEDIA_PATH = os.environ.get('GS_MEDIA_PATH', 'media')
     GS_STATIC_PATH = os.environ.get('GS_STATIC_PATH', 'static')
+    GS_FILE_OVERWRITE = os.environ.get('GS_FILE_OVERWRITE') == 'True'
 
     DEFAULT_FILE_STORAGE = 'common.storage.MediaStorage'
     if 'GS_STORE_STATIC' in os.environ:
