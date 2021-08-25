@@ -145,6 +145,7 @@ decorator==4.1.2 \
     --hash=sha256:7cb64d38cb8002971710c8899fbdfb859a23a364b7c99dab19d1f719c2ba16b5 \
     --hash=sha256:95a26b17806e284452bfd97fa20aa1e8cb4ee23542bda4dbac5e4562aa1642cd
     # via
+    #   ipdb
     #   ipython
     #   traitlets
 defusedxml==0.5.0 \
@@ -351,8 +352,8 @@ idna==2.6 \
     #   requests
     #   tldextract
     #   yarl
-ipdb==0.10.3 \
-    --hash=sha256:9ea256b4280fbe12840fb9dfc3ce498c6c6de03352eca293e4400b0dfbed2b28
+ipdb==0.13.9 \
+    --hash=sha256:951bd9a64731c444fd907a5ce268543020086a697f6be08f7cc2c9a752a278c5
     # via -r dev-requirements.in
 ipython==7.18.1 \
     --hash=sha256:2e22c1f74477b5106a6fb301c342ab8c64bb75d702e350f05a649e8cb40a0fb8 \
@@ -862,6 +863,10 @@ tls-parser==1.2.2 \
     # via
     #   -r requirements.txt
     #   sslyze
+toml==0.10.2 \
+    --hash=sha256:806143ae5bfb6a3c6e736a764057db0e6a0e05e338b5630894a5f779cabb4f9b \
+    --hash=sha256:b3bda1d108d5dd99f4a20d24d9c348e91c4db7ab1b749200bded2f839ccbe68f
+    # via ipdb
 traitlets==4.3.2 \
     --hash=sha256:9c4bd2d267b7153df9152698efb1050a5d84982d3384a37b2c1f7723ba3e7835 \
     --hash=sha256:c6cb5e6f57c5a9bdaa40fa71ce7b4af30298fbab9ece9815b5d995ab6217c7d9
