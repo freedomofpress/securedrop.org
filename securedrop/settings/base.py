@@ -84,8 +84,6 @@ INSTALLED_APPS = [
 
     'build',
 
-    'django_logging',
-
     # Configure the django-otp package.
     'django_otp',
     'django_otp.plugins.otp_totp',
@@ -111,7 +109,6 @@ if os.environ.get('DJANGO_WHITENOISE'):
 
 MIDDLEWARE.extend([
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
-    'django_logging.middleware.DjangoLoggingMiddleware',
 
     # Configure the django-otp package. Note this must be after the
     # AuthenticationMiddleware.
@@ -392,16 +389,6 @@ if log_dir:
         "maxBytes": 10000000,
         "level": log_level,
     }
-
-DJANGO_LOGGING = {
-    "LOG_LEVEL": log_level,
-    "CONSOLE_LOG": log_stdout,
-    "INDENT_CONSOLE_LOG": 0,
-    "DISABLE_EXISTING_LOGGERS": True,
-    "PROPOGATE": False,
-    "SQL_LOG": False,
-    "ENCODING": "utf-8",
-}
 
 LOGGING = {
     "version": 1,
