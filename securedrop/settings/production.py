@@ -2,6 +2,9 @@ from __future__ import absolute_import, unicode_literals
 
 import os
 import logging
+
+import structlog
+
 from .base import *  # noqa: F403,F401
 
 
@@ -16,6 +19,94 @@ except ImportError:
 
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(' ')
+
+
+MIDDLEWARE += [  # noqa: F405
+    'common.middleware.RequestLogMiddleware',
+]
+
+
+structlog.configure(
+    processors=[
+        structlog.contextvars.merge_contextvars,
+        structlog.stdlib.filter_by_level,
+        structlog.stdlib.add_logger_name,
+        structlog.stdlib.add_log_level,
+        structlog.stdlib.PositionalArgumentsFormatter(),
+        structlog.processors.StackInfoRenderer(),
+        structlog.processors.format_exc_info,
+        structlog.processors.UnicodeDecoder(),
+        structlog.stdlib.ProcessorFormatter.wrap_for_formatter,
+    ],
+    # Our "event_dict" is explicitly a dict
+    context_class=dict,
+    # Provides the logging.Logger for the underlaying log call
+    logger_factory=structlog.stdlib.LoggerFactory(),
+    # Provides predefined methods - log.debug(), log.info(), etc.
+    wrapper_class=structlog.stdlib.BoundLogger,
+    # Caching of our logger
+    cache_logger_on_first_use=True,
+)
+
+pre_chain = [
+    # Add the log level and a timestamp to the event_dict if the log entry
+    # is not from structlog.
+    structlog.stdlib.add_log_level,
+    structlog.stdlib.add_logger_name,
+]
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "json_console": {
+            "class": "logging.StreamHandler",
+            "formatter": "json_formatter",
+        },
+        "null": {"class": "logging.NullHandler"},
+    },
+    "formatters": {
+        "json_formatter": {
+            "()": structlog.stdlib.ProcessorFormatter,
+            "processor": structlog.processors.JSONRenderer(),
+            "foreign_pre_chain": pre_chain,
+        },
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["json_console"], "propagate": True,
+        },
+        "common.views": {
+            "handlers": ["json_console"], "propagate": False, "level": "DEBUG",
+        },
+        "request_log": {
+            "handlers": ["json_console"], "propagate": False, "level": "DEBUG",
+        },
+        "django.template": {
+            "handlers": ["json_console"], "propagate": False,
+        },
+        "django.db.backends": {
+            "handlers": ["json_console"], "propagate": False,
+        },
+        "django.security": {
+            "handlers": ["json_console"], "propagate": False,
+        },
+        # These are already handled by the django json logging library
+        "django.request": {
+            "handlers": ["null"],
+            "propagate": False,
+        },
+        # Log entries from runserver
+        "django.server": {
+            "handlers": ["null"], "propagate": False,
+        },
+        # Catchall
+        "": {
+            "handlers": ["json_console"], "propagate": False,
+        },
+    },
+}
+
 
 # Domain specific
 #
