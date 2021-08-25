@@ -43,7 +43,7 @@
 			<div class="filters">
 				<div class="filters__wrapper">
 					<label class="sr-only" for="aria-country">{% trans "Country" %}</label>
-					<select id="aria-country" name="country" label="Country" class="filters__field filters__field--select">
+					<select id="aria-country" name="country" class="filters__field filters__field--select">
 						<option {% if not entries_filters.countries %}selected{% endif %} disabled>
 							{% trans "Country" %}
 						</option>
@@ -55,7 +55,7 @@
 				</div>
 				<div class="filters__wrapper--last">
 					<label class="sr-only" for="aria-topic">{% trans "Topic" %}</label>
-					<select id="aria-topic" name="topic" label="Topic" class="filters__field filters__field--select">
+					<select id="aria-topic" name="topic" class="filters__field filters__field--select">
 						<option {% if not entries_filters.topics %}selected{% endif %}  disabled>
 							{% trans "Topic" %}
 						</option>
@@ -128,8 +128,8 @@
 					</a>
 				{% endif %}
 			</div>
-		{% endif %}
-	</section>
+		</section>
+	{% endif %}
 {% endblock sidebar %}
 
 {% block js %}

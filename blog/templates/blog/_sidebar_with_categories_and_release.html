@@ -27,7 +27,7 @@
 	{% if page.get_current_release %}
 		{% with current_release=page.get_current_release %}
 			<h4 class="release-preview__tag">SecureDrop {{ current_release.tag_name }}</h4>
-			<div class="release-preview__date">{{ current_release.date|date:"E j, Y"}}
+			<div class="release-preview__date">{{ current_release.date|date:"E j, Y"}}</div>
 			<div class="release-preview__links">
 				<a href="{{ current_release.url }}" class="release-preview__link">Github</a>
 				{% if current_release.blog_page %}
