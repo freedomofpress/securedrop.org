@@ -83,6 +83,10 @@ chardet==3.0.4 \
     #   -r requirements.txt
     #   mbstrdecoder
     #   requests
+colorama==0.4.4 \
+    --hash=sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b \
+    --hash=sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2
+    # via -r dev-requirements.in
 coverage==5.0.3 \
     --hash=sha256:15cf13a6896048d6d947bf7d222f36e4809ab926894beb748fc9caa14605d9c3 \
     --hash=sha256:1daa3eceed220f9fdb80d5ff950dd95112cd27f70d004c7918ca6dfc6c47054c \
@@ -145,6 +149,7 @@ decorator==4.1.2 \
     --hash=sha256:7cb64d38cb8002971710c8899fbdfb859a23a364b7c99dab19d1f719c2ba16b5 \
     --hash=sha256:95a26b17806e284452bfd97fa20aa1e8cb4ee23542bda4dbac5e4562aa1642cd
     # via
+    #   ipdb
     #   ipython
     #   traitlets
 defusedxml==0.5.0 \
@@ -164,7 +169,6 @@ django==2.2.24 \
     #   django-csp
     #   django-debug-toolbar
     #   django-filter
-    #   django-logging-json
     #   django-otp
     #   django-settings-export
     #   django-storages
@@ -197,9 +201,6 @@ django-filter==2.4.0 \
     # via
     #   -r requirements.txt
     #   wagtail
-https://github.com/freedomofpress/django-logging/zipball/15da352a0196c2ffdd9b5c47a08582f62b3c8e4a \
-    --hash=sha256:19a1802f994ec692ef8cd646c36768085bbc12055ad0ee7f68c23e80153fa6ac
-    # via -r requirements.txt
 django-modelcluster==5.1 \
     --hash=sha256:783d177f7bf5c8f30fe365c347b9a032920de371fe1c63d955d7b283684d4c08 \
     --hash=sha256:d4a0f90e85ae1a193f417e149b6b01d0b2a867dcf97f7fae1d34a4363a9d7baa
@@ -351,8 +352,8 @@ idna==2.6 \
     #   requests
     #   tldextract
     #   yarl
-ipdb==0.10.3 \
-    --hash=sha256:9ea256b4280fbe12840fb9dfc3ce498c6c6de03352eca293e4400b0dfbed2b28
+ipdb==0.13.9 \
+    --hash=sha256:951bd9a64731c444fd907a5ce268543020086a697f6be08f7cc2c9a752a278c5
     # via -r dev-requirements.in
 ipython==7.18.1 \
     --hash=sha256:2e22c1f74477b5106a6fb301c342ab8c64bb75d702e350f05a649e8cb40a0fb8 \
@@ -791,7 +792,6 @@ six==1.11.0 \
     #   -r requirements.txt
     #   bleach
     #   django-anymail
-    #   django-logging-json
     #   google-api-core
     #   google-auth
     #   google-resumable-media
@@ -824,6 +824,10 @@ sslyze==4.1.0 \
     # via
     #   -r requirements.txt
     #   pshtt
+structlog==21.1.0 \
+    --hash=sha256:62f06fc0ee32fb8580f0715eea66cb87271eb7efb0eaf9af6b639cba8981de47 \
+    --hash=sha256:d9d2d890532e8db83c6977a2a676fb1889922ff0c26ad4dc0ecac26f9fafbc57
+    # via -r requirements.txt
 tabledata==1.1.3 \
     --hash=sha256:59cc3b5f0c52ea142386b0653d3d48d2e976fe021154871982b4d234b82be747 \
     --hash=sha256:fa4c2db55cbb198ca5e21063ae743f418d3efbba94cd4844d2f759f994df76a2
@@ -862,6 +866,10 @@ tls-parser==1.2.2 \
     # via
     #   -r requirements.txt
     #   sslyze
+toml==0.10.2 \
+    --hash=sha256:806143ae5bfb6a3c6e736a764057db0e6a0e05e338b5630894a5f779cabb4f9b \
+    --hash=sha256:b3bda1d108d5dd99f4a20d24d9c348e91c4db7ab1b749200bded2f839ccbe68f
+    # via ipdb
 traitlets==4.3.2 \
     --hash=sha256:9c4bd2d267b7153df9152698efb1050a5d84982d3384a37b2c1f7723ba3e7835 \
     --hash=sha256:c6cb5e6f57c5a9bdaa40fa71ce7b4af30298fbab9ece9815b5d995ab6217c7d9
