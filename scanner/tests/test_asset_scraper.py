@@ -248,7 +248,7 @@ class AssetExtractionTestCase(TestCase):
         )
 
         html = """
-        <html><head><script src="file.js""></head><body></body></html>
+        <html><head><script src="file.js"></head><body></body></html>
         """
         soup = BeautifulSoup(html, "lxml")
         self.assertEqual(

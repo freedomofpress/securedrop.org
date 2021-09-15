@@ -10,15 +10,6 @@
 		{% block head %}
 			<meta charset="utf-8" />
 			<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-			<title>
-				{% block site_title %}
-					{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
-				{% endblock %}
-				{% block site_title_suffix %}
-					- {% get_site_name %}
-				{% endblock %}
-			</title>
-			<meta name="description" content="" />
 			<meta name="viewport" content="width=device-width, initial-scale=1" />
 			<link rel="icon" type="image/png" href="{% static 'favicon/favicon.png' %}">
 
@@ -29,6 +20,16 @@
 			{% block meta %}
 				{% if self %}
 					{% meta_tags %}
+				{% else %}
+					<title>
+						{% block site_title %}
+							{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
+						{% endblock %}
+						{% block site_title_suffix %}
+							- {% get_site_name %}
+						{% endblock %}
+					</title>
+					<meta name="description" content="" />
 				{% endif %}
 				{% get_settings %}
 				{% with seo_settings=settings.common.SocialSharingSEOSettings %}

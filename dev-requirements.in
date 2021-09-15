@@ -1,6 +1,7 @@
 -r requirements.txt
+colorama<1
 coverage
 django-debug-toolbar>=1.11.1
 flake8
-ipdb
+ipdb>=0.13.9
 vcrpy

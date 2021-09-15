@@ -6,12 +6,12 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 import hashlib
 import hmac
-import logging
+import structlog
 
 from github.models import Release
 
 
-logger = logging.getLogger(__name__)
+logger = structlog.get_logger(__name__)
 
 
 def validate_sha1_signature(request, secret):

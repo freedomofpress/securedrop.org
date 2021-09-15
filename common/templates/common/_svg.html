@@ -10,6 +10,6 @@ alt -- alt text for screen readers
 {% endcomment %}
 
 <div class="{{ class }} svg">
-	<img class="svg__svg" src="{% static svg %}" type="image/svg+xml">
+	<img class="svg__svg" src="{% static svg %}" alt="{{ alt }}">
 	<img class="svg__fallback" src="{% static img %}" alt="{{ alt }}">
 </div>
