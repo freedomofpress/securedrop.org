@@ -66,11 +66,11 @@
 							</h3>
 							<div class="updates__date">{{ current_release.date|date:"E j, Y"}}</div>
 							<p>
-								<a href="{{ current_release.url }}" class="updates__link--secondary">GitHub</a>
+								<a href="{{ current_release.url }}" class="updates__link--secondary" aria-label="{% trans 'Github link for SecureDrop' %} {{ current_release.tag_name }}">GitHub</a>
 								{% if current_release.blog_page %}
-									| <a href="{% pageurl current_release.blog_page %}" class="updates__link--secondary">{% trans "Release notes" %}</a>
+									| <a href="{% pageurl current_release.blog_page %}" class="updates__link--secondary" aria-label="{% trans 'Release notes for SecureDrop' %} {{ current_release.tag_name }}">{% trans "Release notes" %}</a>
 								{% endif %}
-								| <a href="{{ page.docs_url }}" class="updates__link--secondary">Documentation</a>
+								| <a href="{{ page.docs_url }}" class="updates__link--secondary" aria-label="{% trans 'Documentation about SecureDrop' %} {{ current_release.tag_name }}">Documentation</a>
 							</p>
 						</div>
 					{% endif %}

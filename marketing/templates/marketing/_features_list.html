@@ -3,7 +3,7 @@
 <div class="features-list">
 	{% for feature in features %}
 		<div class="features-list__item-wrapper">
-			<a class="features-list__item" href="{% pageurl feature.feature %}">
+			<a class="features-list__item" href="{% pageurl feature.feature %}" arial-label="{% trans 'Know more about the feature: ' %}{{ feature.feature.teaser_title }}">
 				<div class="features-list__item-content">
 					{% if feature.feature.icon %}
 						{% image feature.feature.icon max-200x200 class='features-list__item-image' %}

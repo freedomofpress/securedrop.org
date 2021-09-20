@@ -37,6 +37,7 @@
 					<a
 						href="{% pageurl page %}"
 						class="blog-tease__link"
+						aria-label="{% trans 'Read more about ' %}{{ page.title }}"
 					>{{ link_text }}{% include 'common/chevron-right.svg' with class="blog-tease__chevron" %}</a>
 			</div>
 		</div>
