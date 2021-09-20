@@ -5,6 +5,7 @@
 
 {% block body %}
 	{% wagtailuserbar %}
+	<a href="#title" class="skip-link">Skip to content</a>
 
 	{% block tor_warning %}
 		{% include 'common/_tor.html' %}
@@ -80,7 +81,7 @@
 
 				{% block page_title %}
 					<div class="header__title">
-						<h1 class="header__title-text">
+						<h1 id="title" class="header__title-text">
 							{% block page_title_text %}
 								{{ page.title }}
 							{% endblock %}

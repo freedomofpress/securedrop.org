@@ -15,7 +15,7 @@
 
 {% block top %}
 <div class="instance-title">
-		<h1 class="instance-title__header">{% trans "Scan Result" %}</h1>
+		<h1 id="title" class="instance-title__header">{% trans "Scan Result" %}</h1>
 		<a class="instance-title__landing-page" href="{{ landing_page_url }}">{{ landing_page_url }}{% include "common/chevron-right.svg" with class="instance-title__chevron" %}</a>
 </div>
 {% endblock top %}
