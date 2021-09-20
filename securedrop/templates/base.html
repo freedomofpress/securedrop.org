@@ -2,10 +2,11 @@
 
 {% load wagtailuserbar wagtailcore_tags get_menu i18n static %}
 {% load render_bundle from webpack_loader %}
+{% load i18n %}
 
 {% block body %}
 	{% wagtailuserbar %}
-	<a href="#title" class="skip-link">Skip to content</a>
+	<a href="#title" class="skip-link">{% trans "Skip to content" %}</a>
 
 	{% block tor_warning %}
 		{% include 'common/_tor.html' %}
