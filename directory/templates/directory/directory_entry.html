@@ -18,7 +18,7 @@
 				<img {{ image_1x.attrs }} srcset="{{ image_1x.url }} 1x, {{ image_2x.url }} 2x" />
 			</div>
 		{% endif %}
-		<h1 class="instance-title__header {% if page.organization_logo_is_title %}sr-only{% endif %}">
+		<h1 id="title" class="instance-title__header {% if page.organization_logo_is_title %}sr-only{% endif %}">
 			{{ page.title }}
 			{% if page.editable %}
 				<a href="{% url 'securedroppage_edit' page.slug %}" class="instance-title__edit-link">

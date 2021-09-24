@@ -29,9 +29,17 @@
 			<h4 class="release-preview__tag">SecureDrop {{ current_release.tag_name }}</h4>
 			<div class="release-preview__date">{{ current_release.date|date:"E j, Y"}}</div>
 			<div class="release-preview__links">
-				<a href="{{ current_release.url }}" class="release-preview__link">Github</a>
+				<a
+					href="{{ current_release.url }}"
+					class="release-preview__link"
+					aria-label="{% trans 'Github link for SecureDrop' %} {{ current_release.tag_name }}"
+					>Github</a>
 				{% if current_release.blog_page %}
-					<a href="{% pageurl current_release.blog_page %}" class="release-preview__link">{% trans "Release notes" %}</a>
+					<a
+						href="{% pageurl current_release.blog_page %}"
+						class="release-preview__link"
+						aria-label="{% trans 'Release notes for SecureDrop' %} {{ current_release.tag_name }}"
+						>{% trans "Release notes" %}</a>
 				{% endif %}
 			</div>
 		{% endwith%}

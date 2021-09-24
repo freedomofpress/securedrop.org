@@ -1,6 +1,7 @@
 {# This is used both on the blog index and the homepage sidebar. #}
 
 {% load wagtailcore_tags %}
+{% load i18n %}
 
 <div class="blog-tease">
 	<div class="blog-tease__hexagon-wrapper">
@@ -37,6 +38,7 @@
 					<a
 						href="{% pageurl page %}"
 						class="blog-tease__link"
+						aria-label="{% trans 'Read more about ' %}{{ page.title }}"
 					>{{ link_text }}{% include 'common/chevron-right.svg' with class="blog-tease__chevron" %}</a>
 			</div>
 		</div>
