@@ -60,6 +60,7 @@ def health_ok(request):
     """Lightweight health-check with a 200 response code."""
     return HttpResponse("okay", content_type="text/plain")
 
+
 def health_version(request):
     """Also a health check, but returns the commit short-hash."""
     version_short_text = read_version_info_file(VERSION_INFO_SHORT_PATH)
