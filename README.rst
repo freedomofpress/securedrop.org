@@ -28,6 +28,8 @@ The installation instructions below assume you have the following software on yo
 * `Docker <https://www.docker.com/get-started>`_
 * `Pipenv <https://docs.pipenv.org/#install-pipenv-today>`_ (if not using Docker for Mac)
 
+This is just a test for LGTM.
+
 Getting Started: The Quick Version
 ----------------------------------
 
