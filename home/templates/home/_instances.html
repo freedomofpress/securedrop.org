@@ -1,6 +1,6 @@
 {% load wagtailcore_tags wagtailimages_tags	%}
 {% for highlighted_instance in instances %}
-	<a href="{% pageurl highlighted_instance.instance %}" class="instances__item">
+	<a href="{% pageurl highlighted_instance.instance %}" class="instances__item" aria-label="{{ page.instance_link_default_text }}: {{ highlighted_instance.instance.title }}">
 		{% if highlighted_instance.instance.organization_logo_homepage %}
 			{% image highlighted_instance.instance.organization_logo_homepage max-96x96 as logo_1x %}
 			{% image highlighted_instance.instance.organization_logo_homepage max-192x192 as logo_2x %}

@@ -5,3 +5,28 @@
 	width: 1px
 	height: 1px
 	overflow: hidden
+
+.skip-link
+	position: absolute
+	background: #fff
+	padding: 1rem 2rem 0.75rem
+	border: 5px solid #dddde0
+	font-weight: 700
+	line-height: 1
+	z-index: 600
+
+	&:link,
+	&:visited
+		color: #000
+		text-decoration: none
+
+	&:not(:focus)
+		white-space: nowrap
+		width: 1px
+		height: 1px
+		overflow: hidden
+		border: 0
+		padding: 0
+		clip: rect(0 0 0 0)
+		clip-path: inset(50%)
+		margin: -1px

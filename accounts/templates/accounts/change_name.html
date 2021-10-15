@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-	<h1>{% trans "Change Name" %}</h1>
+	<h1 id="title">{% trans "Change Name" %}</h1>
 	<form action="" method="post" class="basic-form">
 		{% csrf_token %}
 		{{ form.as_p }}
