@@ -202,9 +202,44 @@ class AssetExtractionTestCase(TestCase):
             extract_assets(soup, self.test_url),
         )
 
+    def test_should_extract_string_urls_in_embedded_css(self):
+        html = """<html><head><style>
+        div {
+          background-image: url("https://example.org/files/example.png");
+        }
+        </style></head><body></body></html>"""
+
+        soup = BeautifulSoup(html, "lxml")
+
+        self.assertEqual(
+            [
+                Asset(
+                    resource='https://example.org/files/example.png',
+                    kind='style-embed',
+                    initiator=self.test_url,
+                )
+            ],
+            extract_assets(soup, self.test_url),
+        )
+
     def test_should_extract_urls_in_inline_css(self):
         html = """<html>
         <body style="background-image: url(https://example.org/files/example.png)"></body></html>"""
+        soup = BeautifulSoup(html, "lxml")
+        self.assertEqual(
+            [
+                Asset(
+                    resource='https://example.org/files/example.png',
+                    kind='style-resource-inline',
+                    initiator=self.test_url,
+                )
+            ],
+            extract_assets(soup, self.test_url),
+        )
+
+    def test_should_extract_string_urls_in_inline_css(self):
+        html = """<html>
+        <body style="background-image: url('https://example.org/files/example.png')"></body></html>"""
         soup = BeautifulSoup(html, "lxml")
         self.assertEqual(
             [
