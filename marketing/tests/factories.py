@@ -1,11 +1,11 @@
 from factory import (
     Faker,
-    DjangoModelFactory,
     Iterator,
     Sequence,
     SubFactory,
     Trait,
 )
+from factory.django import DjangoModelFactory
 from wagtail_factories import PageFactory
 
 from common.models import CustomImage
