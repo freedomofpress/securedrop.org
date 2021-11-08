@@ -167,7 +167,7 @@ There are separate commands to upgrade a package without changing the ``requirem
 
 .. code:: bash
 
-    make upgrade-pip PACKAGE=package-name
+    make pip-update PACKAGE=package-name
 
 will update the package named ``package-name`` to the latest version allowed by the constraints in ``requirements.in`` and compile a new ``dev-requirements.txt`` and ``requirements.txt`` based on that version.
 
@@ -175,7 +175,7 @@ If the package appears only in ``dev-requirements.in``, then you must use this c
 
 .. code:: bash
 
-    make upgrade-pip-dev PACKAGE=package-name
+    make pip-dev-update PACKAGE=package-name
 
 which will update the package named ``package-name`` to the latest version allowed by the constraints in ``requirements.in`` and compile a new ``dev-requirements.txt``.
 
