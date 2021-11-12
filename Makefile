@@ -84,7 +84,7 @@ pip-upgrade: ## Uses pip-compile to update all requirements that are not pinned
 		pip-compile --generate-hashes --no-header --allow-unsafe --upgrade --output-file requirements.txt requirements.in && \
 		pip-compile --generate-hashes --no-header --allow-unsafe --upgrade --output-file dev-requirements.txt dev-requirements.in'
 
-.PHONY: pip-dev-ugrade
+.PHONY: pip-dev-upgrade
 pip-dev-upgrade: ## Uses pip-compile to update all dev requirements that are not pinned
 # in dev-requirements.in
 	docker run -v "$(DIR):/code" -w /code -it python:3.9-slim \
