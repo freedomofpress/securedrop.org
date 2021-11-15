@@ -12,7 +12,7 @@ feedparser
 gunicorn>=20.1.0
 lxml>=4.6.3
 pillow>=8.3.2
-psycopg2>=2.8.4
+psycopg2>=2.8.4,<2.9
 pyopenssl==19.0.0
 pygments
 python-json-logger

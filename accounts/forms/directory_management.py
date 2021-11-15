@@ -100,20 +100,20 @@ class DirectoryEntryForm(forms.ModelForm):
             'title': _('Organization name')
         }
         widgets = {
-            'languages': type(
-                '_Autocomplete',
-                (Autocomplete,),
-                dict(target_model=Language, can_create=True, is_single=False, api_base='/autocomplete/')
+            'languages': Autocomplete(
+                target_model=Language,
+                can_create=True,
+                is_single=False
             ),
-            'topics': type(
-                '_Autocomplete',
-                (Autocomplete,),
-                dict(target_model=Topic, can_create=True, is_single=False, api_base='/autocomplete/')
+            'topics': Autocomplete(
+                target_model=Topic,
+                can_create=True,
+                is_single=False
             ),
-            'countries': type(
-                '_Autocomplete',
-                (Autocomplete,),
-                dict(target_model=Country, can_create=True, is_single=False, api_base='/autocomplete/')
+            'countries': Autocomplete(
+                target_model=Country,
+                can_create=True,
+                is_single=False
             ),
         }
 

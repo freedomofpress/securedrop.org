@@ -1,8 +1,8 @@
 from factory import (
-    DjangoModelFactory,
     Faker,
     SubFactory,
 )
+from factory.django import DjangoModelFactory
 from wagtail_factories import PageFactory, ImageFactory
 
 from common.models import Button, CustomImage

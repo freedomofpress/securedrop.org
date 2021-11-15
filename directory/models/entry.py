@@ -254,9 +254,9 @@ class DirectoryEntry(MetadataPageMixin, Page):
             ImageChooserPanel('organization_logo_homepage'),
             FieldPanel('organization_logo_is_title'),
         ], 'Logo'),
-        AutocompletePanel('languages', 'directory.Language', is_single=False),
-        AutocompletePanel('countries', 'directory.Country', is_single=False),
-        AutocompletePanel('topics', 'directory.Topic', is_single=False),
+        AutocompletePanel('languages', target_model='directory.Language'),
+        AutocompletePanel('countries', target_model='directory.Country'),
+        AutocompletePanel('topics', target_model='directory.Topic'),
         InlinePanel('owners', label='Owners'),
         HelpPanel(heading='Scans', template='directory/admin_scan_result_help.html')
     ]

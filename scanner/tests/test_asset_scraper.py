@@ -185,6 +185,26 @@ class AssetExtractionTestCase(TestCase):
     def test_should_extract_urls_in_embedded_css(self):
         html = """<html><head><style>
         div {
+          background-image: url(https://example.org/files/example.png);
+        }
+        </style></head><body></body></html>"""
+
+        soup = BeautifulSoup(html, "lxml")
+
+        self.assertEqual(
+            [
+                Asset(
+                    resource='https://example.org/files/example.png',
+                    kind='style-embed',
+                    initiator=self.test_url,
+                )
+            ],
+            extract_assets(soup, self.test_url),
+        )
+
+    def test_should_extract_string_urls_in_embedded_css(self):
+        html = """<html><head><style>
+        div {
           background-image: url("https://example.org/files/example.png");
         }
         </style></head><body></body></html>"""
@@ -204,6 +224,21 @@ class AssetExtractionTestCase(TestCase):
 
     def test_should_extract_urls_in_inline_css(self):
         html = """<html>
+        <body style="background-image: url(https://example.org/files/example.png)"></body></html>"""
+        soup = BeautifulSoup(html, "lxml")
+        self.assertEqual(
+            [
+                Asset(
+                    resource='https://example.org/files/example.png',
+                    kind='style-resource-inline',
+                    initiator=self.test_url,
+                )
+            ],
+            extract_assets(soup, self.test_url),
+        )
+
+    def test_should_extract_string_urls_in_inline_css(self):
+        html = """<html>
         <body style="background-image: url('https://example.org/files/example.png')"></body></html>"""
         soup = BeautifulSoup(html, "lxml")
         self.assertEqual(
@@ -220,7 +255,7 @@ class AssetExtractionTestCase(TestCase):
     @mock.patch('scanner.assets.requests')
     def test_should_extract_urls_in_linked_css(self, requests_mock):
         requests_mock.get.return_value = mock.Mock(
-            text='selector { background-image: url("https://example.org/example.png") }'
+            text='selector { background-image: url(https://example.org/example.png) }'
         )
         html = """
         <html><head><link href="https://example.org/styles.css" rel="stylesheet"></head><body></body></html>"""
@@ -279,7 +314,7 @@ class TestAssetFetching(TestCase):
 
 class TestCssUrlExtractionFromDeclarations(TestCase):
     def test_should_extract_urls_from_css_declarations(self):
-        css = 'background-image: url("http://www.example.com");'
+        css = 'background-image: url(http://www.example.com);'
         self.assertEqual(urls_from_css_declarations(css), ['http://www.example.com'])
 
     def test_should_extract_urls_from_multiproperty_declarations(self):
@@ -291,7 +326,7 @@ class TestCssUrlExtractionFromDeclarations(TestCase):
 
 class TestCssUrlExtraction(TestCase):
     def test_should_extract_urls_from_at_import_rules(self):
-        css = '@import url("thing.css");'
+        css = '@import url(thing.css);'
         self.assertEqual(urls_from_css(css), ['thing.css'])
 
     def test_should_extract_urls_from_multiple_selectors(self):
@@ -311,7 +346,7 @@ class TestCssUrlExtraction(TestCase):
                 @media screen and (min-width: 900px) {
                   article {
                     display: flex;
-                    background-image: url("example.png");
+                    background-image: url(example.png);
                   }
                 }
               }

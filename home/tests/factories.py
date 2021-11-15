@@ -1,9 +1,9 @@
 from factory import (
     Faker,
-    DjangoModelFactory,
     Sequence,
     SubFactory,
 )
+from factory.django import DjangoModelFactory
 from wagtail_factories import PageFactory
 
 from common.factories import ButtonFactory
