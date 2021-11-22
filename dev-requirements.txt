@@ -14,6 +14,10 @@ backcall==0.2.0 \
     --hash=sha256:5cbdbf27be5e7cfadb448baf0aa95508f91f2bbc6c6437cd9cd06e2a4c215e1e \
     --hash=sha256:fbbce6a29f263178a1f7915c1940bde0ec2b2a967566fe1c65c1dfb7422bd255
     # via ipython
+bandit==1.7.1 \
+    --hash=sha256:a81b00b5436e6880fa8ad6799bc830e02032047713cbb143a12939ac67eb756c \
+    --hash=sha256:f5acd838e59c038a159b5c621cf0f8270b279e884eadd7b782d7491c02add0d4
+    # via -r dev-requirements.in
 beautifulsoup4==4.8.2 \
     --hash=sha256:05fd825eb01c290877657a56df4c6e4c311b3965bda790c613a3d6fb01a5462a \
     --hash=sha256:9fbb4d6e48ecd30bcacc5b63b94088192dcda178513b2ae3c394229f8911b887 \
@@ -104,6 +108,10 @@ charset-normalizer==2.0.7 \
     # via
     #   -r requirements.txt
     #   requests
+click==8.0.3 \
+    --hash=sha256:353f466495adaeb40b6b5f592f9f91cb22372351c84caeb068132442a4518ef3 \
+    --hash=sha256:410e932b050f5eed773c4cda94de75971c89cdb3155a72a0831139a79e5ecb5b
+    # via safety
 colorama==0.4.4 \
     --hash=sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b \
     --hash=sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2
@@ -291,6 +299,10 @@ docopt==0.6.2 \
     # via
     #   -r requirements.txt
     #   pshtt
+dparse==0.5.1 \
+    --hash=sha256:a1b5f169102e1c894f9a7d5ccf6f9402a836a5d24be80a986c7ce9eaed78f367 \
+    --hash=sha256:e953a25e44ebb60a5c6efc2add4420c177f1d8404509da88da9729202f306994
+    # via safety
 draftjs-exporter==2.1.7 \
     --hash=sha256:5839cbc29d7bce2fb99837a404ca40c3a07313f2a20e2700de7ad6aa9a9a18fb \
     --hash=sha256:d415a9964690a2cddb66a31ef32dd46c277e9b80434b94e39e3043188ed83e33
@@ -329,6 +341,14 @@ flake8==4.0.1 \
     --hash=sha256:479b1304f72536a55948cb40a32dce8bb0ffe3501e26eaf292c7e60eb5e0428d \
     --hash=sha256:806e034dda44114815e23c16ef92f95c91e4c71100ff52813adf7132a6ad870d
     # via -r dev-requirements.in
+gitdb==4.0.9 \
+    --hash=sha256:8033ad4e853066ba6ca92050b9df2f89301b8fc8bf7e9324d412a63f8bf1a8fd \
+    --hash=sha256:bac2fd45c0a1c9cf619e63a90d62bdc63892ef92387424b855792a6cabe789aa
+    # via gitpython
+gitpython==3.1.24 \
+    --hash=sha256:dc0a7f2f697657acc8d7f89033e8b1ea94dd90356b2983bca89dc8d2ab3cc647 \
+    --hash=sha256:df83fdf5e684fef7c6ee2c02fc68a5ceb7e7e759d08b694088d0cacb4eba59e5
+    # via bandit
 google-api-core==2.2.2 \
     --hash=sha256:97349cc18c2bb2415f64f1353a80273a289a61294ce3eb2f7ce682d251bdd997 \
     --hash=sha256:e7853735d4f51f4212d6bf9750620d76fc0106c0f271be0c3f43b73501c7ddf9
@@ -644,6 +664,8 @@ packaging==21.2 \
     # via
     #   -r requirements.txt
     #   bleach
+    #   dparse
+    #   safety
     #   typepy
 parso==0.8.2 \
     --hash=sha256:12b83492c6239ce32ff5eed6d3639d6a536170723c6f3f1506869f1ace413398 \
@@ -662,6 +684,10 @@ pathvalidate==2.5.0 \
     #   -r requirements.txt
     #   pytablereader
     #   pytablewriter
+pbr==5.8.0 \
+    --hash=sha256:176e8560eaf61e127817ef93d8a844803abb27a4d4637f0ff3bb783129be2e0a \
+    --hash=sha256:672d8ebee84921862110f23fcec2acea191ef58543d34dfe9ef3d9f13c31cddf
+    # via stevedore
 pexpect==4.8.0 \
     --hash=sha256:0b48a55dcb3c05f3329815901ea4fc1537514d6ba867a152b581d69ae3710937 \
     --hash=sha256:fc65a43959d153d0114afe13997d439c22823a27cefceb5ff35c2178c6784c0c
@@ -928,7 +954,10 @@ pyyaml==6.0 \
     --hash=sha256:daf496c58a8c52083df09b80c860005194014c3698698d1a57cbcfa182142a3a \
     --hash=sha256:e61ceaab6f49fb8bdfaa0f92c4b57bcfbea54c09277b1b4f7ac376bfb7a7c174 \
     --hash=sha256:f84fbc98b019fef2ee9a1cb3ce93e3187a6df0b2538a651bfb890254ba9f90b5
-    # via vcrpy
+    # via
+    #   bandit
+    #   dparse
+    #   vcrpy
 qrcode==7.3.1 \
     --hash=sha256:375a6ff240ca9bd41adc070428b5dfc1dcfbb0f2507f1ac848f6cded38956578
     # via
@@ -946,6 +975,7 @@ requests==2.26.0 \
     #   pshtt
     #   requests-file
     #   requests-oauthlib
+    #   safety
     #   tldextract
     #   wagtail
 requests-file==1.5.1 \
@@ -966,6 +996,10 @@ rsa==4.7.2 \
     # via
     #   -r requirements.txt
     #   google-auth
+safety==1.10.3 \
+    --hash=sha256:30e394d02a20ac49b7f65292d19d38fa927a8f9582cdfd3ad1adbbc66c641ad5 \
+    --hash=sha256:5f802ad5df5614f9622d8d71fedec2757099705c2356f862847c58c6dfe13e84
+    # via -r dev-requirements.in
 sgmllib3k==1.0.0 \
     --hash=sha256:7868fb1c8bfa764c1ac563d3cf369c381d1325d36124933a726f29fcdaa812e9
     # via
@@ -985,6 +1019,10 @@ six==1.16.0 \
     #   python-dateutil
     #   requests-file
     #   vcrpy
+smmap==5.0.0 \
+    --hash=sha256:2aba19d6a040e78d8b09de5c57e96207b09ed71d8e55ce0959eeee6c8e190d94 \
+    --hash=sha256:c840e62059cd3be204b0c9c9f74be2c09d5648eddd4580d9314c3ecde0b30936
+    # via gitdb
 soupsieve==2.3 \
     --hash=sha256:617ffc4d0dfd39c66f4d1413a6e165663a34eca86be9b54f97b91756300ff6df \
     --hash=sha256:e4860f889dfa88774c07da0b276b70c073b6470fa1a4a8350800bb7bce3dcc76
@@ -1003,6 +1041,10 @@ sslyze==4.1.0 \
     # via
     #   -r requirements.txt
     #   pshtt
+stevedore==3.5.0 \
+    --hash=sha256:a547de73308fd7e90075bb4d301405bebf705292fa90a90fc3bcf9133f58616c \
+    --hash=sha256:f40253887d8712eaa2bb0ea3830374416736dc8ec0e22f5a65092c1174c44335
+    # via bandit
 structlog==21.2.0 \
     --hash=sha256:63a7111a32e5b615671536bb745692ea02cebfea2b39dcb7d2617eed19437cfe \
     --hash=sha256:7ac42b565e1295712313f91edbcb64e0840a9037d888c8954f11fa6c43270e99
@@ -1048,7 +1090,9 @@ tls-parser==1.2.2 \
 toml==0.10.2 \
     --hash=sha256:806143ae5bfb6a3c6e736a764057db0e6a0e05e338b5630894a5f779cabb4f9b \
     --hash=sha256:b3bda1d108d5dd99f4a20d24d9c348e91c4db7ab1b749200bded2f839ccbe68f
-    # via ipdb
+    # via
+    #   dparse
+    #   ipdb
 traitlets==5.1.1 \
     --hash=sha256:059f456c5a7c1c82b98c2e8c799f39c9b8128f6d0d46941ee118daace9eb70c7 \
     --hash=sha256:2d313cc50a42cd6c277e7d7dc8d4d7fedd06a2c215f78766ae7b1a66277e0033
@@ -1064,6 +1108,10 @@ typepy[datetime]==1.3.0 \
     #   pytablereader
     #   pytablewriter
     #   tabledata
+typing-extensions==4.0.0 \
+    --hash=sha256:2cdf80e4e04866a9b3689a51869016d36db0814d84b8d8a568d22781d45d27ed \
+    --hash=sha256:829704698b22e13ec9eaf959122315eabb370b0884400e9818334d8b677023d9
+    # via gitpython
 unidecode==1.3.2 \
     --hash=sha256:215fe33c9d1c889fa823ccb66df91b02524eb8cc8c9c80f9c5b8129754d27829 \
     --hash=sha256:669898c1528912bcf07f9819dc60df18d057f7528271e31f8ec28cc88ef27504
@@ -1290,7 +1338,6 @@ setuptools==58.5.3 \
     --hash=sha256:a481fbc56b33f5d8f6b33dce41482e64c68b668be44ff42922903b03872590bf \
     --hash=sha256:dae6b934a965c8a59d6d230d3867ec408bb95e73bd538ff77e71fedf1eaca729
     # via
-    #   -r requirements.txt
     #   google-api-core
     #   google-auth
     #   gunicorn
@@ -1298,3 +1345,4 @@ setuptools==58.5.3 \
     #   ipython
     #   pytablereader
     #   pytablewriter
+    #   safety

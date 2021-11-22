@@ -1,15 +1,4 @@
 ---
-reuse-blerbs:
-  - &python_prereqs
-    run:
-      name: Install testing pre-reqs
-      command: |
-        # Set python to 3.9.1
-        pyenv global 3.9.1
-        pip install -U pip
-        pip install pipenv
-        pipenv install
-
 version: 2.1
 commands:
   check-changed-files-or-halt:
@@ -22,45 +11,46 @@ commands:
 
 jobs:
   safety_check:
-    machine:
-      image: ubuntu-2004:202101-01
+    docker:
+      - image: cimg/python:3.9
     working_directory: ~/securedrop.org
     steps:
       - checkout
 
-      - *python_prereqs
+      - run:
+          name: Install pip dependencies
+          command: pip install --require-hashes -r dev-requirements.txt
 
       - run:
           name: Check Python dependencies for CVEs
-          command: |
-            pipenv install --selective-upgrade safety
-            pipenv run make safety
+          command: make safety
+
+      - run:
+          name: Update bandit to the latest version
+          command: pip install --upgrade bandit
 
       - run:
           name: Static code analysis for vulnerabilities
-          command: |
-            pipenv install --selective-upgrade bandit
-            pipenv run make bandit
+          command: ./scripts/bandit
 
   npm_audit:
-    machine:
-      image: ubuntu-2004:202101-01
-    working_directory: ~/freedom.press
+    docker:
+      - image: node:14-alpine@sha256:5c33bc6f021453ae2e393e6e20650a4df0a4737b1882d389f17069dc1933fdc5
+    working_directory: ~/securedrop.org
     steps:
       - checkout
       - check-changed-files-or-halt:
           pattern: ^package-lock.json$
 
-      - *python_prereqs
-
       - run:
           name: Check node dependencies for vulnerabilities
           command: |
-            pipenv run make dev-init
-            pipenv run make ci-npm-audit
+            mkdir -p test-results
+            npm ci
+            $(npm bin)/npm-audit-plus --xml > test-results/audit.xml
 
       - store_test_results:
-          path: ~/freedom.press/test-results/
+          path: ~/securedrop.org/test-results/
 
   build_dev:
     machine:
@@ -69,19 +59,16 @@ jobs:
     steps:
       - checkout
 
-      - *python_prereqs
-
-
       - run:
           name: Ensure we can run dev-env
           command: |
             make dev-init
-            pipenv run docker-compose up -d
+            docker-compose up -d
             echo "Polling with curl --silent until Django is up..."
             while ! curl --output /dev/null --silent --head --fail http://localhost:8000; do sleep 5; done
-            pipenv run make flake8
-            pipenv run make dev-tests
-            pipenv run make check-migrations
+            make flake8
+            make dev-tests
+            make check-migrations
           no_output_timeout: 5m
 
       - store_artifacts:
@@ -91,7 +78,7 @@ jobs:
           name: Yank docker logs
           command: |
             mkdir -p ~/dockercomposelogs || true
-            pipenv run docker-compose logs > ~/dockercomposelogs/dev.log
+            docker-compose logs > ~/dockercomposelogs/dev.log
           when: always
 
       - store_artifacts:
@@ -101,29 +88,28 @@ jobs:
           path: ~/securedrop.org/test-results
 
   build_prod:
-    machine:
-      image: ubuntu-2004:202101-01
-    working_directory: ~/pressfreedom
+    docker:
+      - image: cimg/python:3.9
+    working_directory: ~/securedrop.org
     steps:
       - checkout
 
-      - *python_prereqs
+      - setup_remote_docker
 
       - run:
           name: Ensure we can run prod-env
           command: |
-            pipenv run docker-compose -f prod-docker-compose.yaml build
-            pipenv run docker-compose -f prod-docker-compose.yaml up -d
-            echo "Polling with curl --silent until Django is up..."
-            while ! curl --output /dev/null --silent --head --fail http://localhost:8000; do sleep 5; done
-            pipenv run docker-compose -f prod-docker-compose.yaml exec django /bin/bash -c "./manage.py createdevdata --no-download"
+            docker-compose -f prod-docker-compose.yaml build
+            docker-compose -f prod-docker-compose.yaml up -d
+            docker run --rm --network securedroporg_app curlimages/curl:7.80.0 -4 --retry 24 --retry-delay 5 --retry-all-errors http://app:8000/health/ok/
+            docker-compose -f prod-docker-compose.yaml exec django /bin/bash -c "./manage.py createdevdata --no-download"
           no_output_timeout: 5m
 
       - run:
           name: Yank docker logs
           command: |
             mkdir -p ~/dockercomposelogs || true
-            pipenv run docker-compose -f prod-docker-compose.yaml logs > ~/dockercomposelogs/prod.log
+            docker-compose -f prod-docker-compose.yaml logs > ~/dockercomposelogs/prod.log
           when: always
 
       - store_artifacts:
