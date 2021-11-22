@@ -4,11 +4,11 @@ networks:
   app:
 services:
   postgresql:
-    image: postgres:9.6
+    build:
+      context: .
+      dockerfile: devops/docker/ProdPostgresqlDockerfile
     ports:
       - "5432"
-    volumes:
-      - ./devops/docker/postgres-scripts:/docker-entrypoint-initdb.d:ro
     environment:
       POSTGRES_PASSWORD: securedroppassword
       POSTGRES_USER: securedrop
