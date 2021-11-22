@@ -26,7 +26,7 @@ Prerequisites
 The installation instructions below assume you have the following software on your machine:
 
 * `Docker <https://www.docker.com/get-started>`_
-* `Pipenv <https://docs.pipenv.org/#install-pipenv-today>`_ (if not using Docker for Mac)
+* `docker-compose <https://docs.docker.com/compose/install/>`_
 
 Getting Started: The Quick Version
 ----------------------------------
@@ -46,21 +46,7 @@ Visit ``http://localhost:8000/`` to see the site or ``http://localhost:8000/admi
 Getting Started: The Unabridged Edition
 ---------------------------------------
 
-The development environment uses Docker Compose to run the application server, database, and webpack compilation processes. If you are using Docker for Mac, this comes preinstalled. You may skip the Pipenv related code. Otherwise, you can install it for this project using Pipenv:
-
-.. code:: bash
-
-    pipenv install
-
-When installed this way, you will need to activate the env before running all ``docker-compose`` commands with:
-
-.. code:: bash
-
-    pipenv shell
-    # or
-    pipenv run $command $args
-
-These must be run from the project directory.
+The development environment uses Docker Compose to run the application server, database, and webpack compilation processes. If you are using Docker for Mac, this comes preinstalled.
 
 Before development you *must* run this one-time command.
 
