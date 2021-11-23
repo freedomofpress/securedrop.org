@@ -101,18 +101,11 @@ flake8: ## Runs flake8 linting in Python3 container.
 
 .PHONY: bandit
 bandit: ## Runs bandit static code analysis in Python3 container.
-	@docker run -it -v $(PWD):/code -w /code --name fpf_www_bandit --rm \
-		python:3.9-slim \
-		bash -c "pip install -q --upgrade bandit && bandit --recursive . -ll --exclude devops,node_modules,molecule,.venv"
+	@docker-compose run --rm django ./scripts/bandit
 
 .PHONY: npm-audit
 npm-audit: ## Checks NodeJS NPM dependencies for vulnerabilities
-	@docker-compose run --entrypoint "/bin/ash -c" node 'npm install && $$(npm bin)/npm-audit-plus --ignore 803'
-
-.PHONY: ci-npm-audit
-ci-npm-audit:
-	@mkdir -p test-results # Creates necessary test-results folder
-	@docker-compose run --entrypoint "/bin/ash -c" node 'npm ci && $$(npm bin)/npm-audit-plus --xml --ignore 803 > test-results/audit.xml'
+	@docker-compose run --rm --entrypoint "/bin/ash -c" node 'npm install && $$(npm bin)/npm-audit-plus'
 
 .PHONY: clean
 clean: ## clean out local developer assets
