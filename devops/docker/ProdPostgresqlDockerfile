@@ -1,2 +1,2 @@
-FROM postgres:9.6
+FROM postgres:13
 COPY ./devops/docker/postgres-scripts /docker-entrypoint-initdb.d
