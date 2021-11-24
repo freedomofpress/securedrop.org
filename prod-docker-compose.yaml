@@ -4,9 +4,7 @@ networks:
   app:
 services:
   postgresql:
-    build:
-      context: .
-      dockerfile: devops/docker/ProdPostgresqlDockerfile
+    image: postgres:13
     ports:
       - "5432"
     environment:
