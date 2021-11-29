@@ -23,18 +23,6 @@ LABEL APP="securedrop.org"
 # sha256 as of 2021-05-10 for 3.9-slim-buster
 FROM python@sha256:655f71f243ee31eea6774e0b923b990cd400a0689eff049facd2703e57892447
 
-# Set environment variables
-ENV DJANGO_SETTINGS_MODULE=securedrop.settings.production
-ENV DJANGO_ALLOWED_HOSTS="app localhost"
-ENV DJANGO_SECRET_KEY=64a235ef65834d8b42fa2802dd4290cf61c773c3f31332039ec5c48165f744da
-ENV DJANGO_STATIC_ROOT=/django-static
-ENV DJANGO_MEDIA_ROOT=/django-media
-ENV DJANGO_DB_NAME=securedropdb
-ENV DJANGO_DB_PASSWORD=securedropdbpassword
-ENV DJANGO_DB_USER=securedrop
-ENV DJANGO_DB_HOST=db
-ENV DJANGO_DB_PORT=5432
-
 RUN apt-get update && apt-get install -y \
     curl \
     gcc \
@@ -83,5 +71,5 @@ RUN mkdir /deploy && \
 EXPOSE 8000
 USER ${USERID}
 # since no django env is specified, runs in dev; disable DEBUG
-RUN env ./manage.py collectstatic -c --noinput
+RUN env DJANGO_DISABLE_DEBUG=1 ./manage.py collectstatic -c --noinput
 CMD django-start.sh
