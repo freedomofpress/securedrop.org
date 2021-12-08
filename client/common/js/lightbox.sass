@@ -1,3 +1,4 @@
+@use "sass:math"
 @import '../sass/base/variables'
 @import '../sass/base/mixins/breakpoints'
 
@@ -48,7 +49,7 @@
 		line-height: $size
 		color: #FFF
 		background-color: #000
-		border-radius: $size / 2
+		border-radius: math.div($size, 2)
 		text-align: center
 
 .lightbox__image

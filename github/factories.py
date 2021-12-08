@@ -1,11 +1,11 @@
 from datetime import timezone, timedelta, datetime
 
 from factory import (
-    DjangoModelFactory,
     Faker,
     Sequence,
     LazyAttributeSequence,
 )
+from factory.django import DjangoModelFactory
 
 from github.models import Release
 

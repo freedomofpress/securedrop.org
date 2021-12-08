@@ -1,0 +1,4 @@
+#!/bin/bash
+set -e
+
+bandit --recursive . --exclude node_modules,devops,.venv -ll

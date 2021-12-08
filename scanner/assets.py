@@ -137,6 +137,8 @@ def urls_from_css_declarations(css_text: str) -> List[str]:
         for token in declaration.value:
             if getattr(token, 'type', '') == 'url':
                 urls.append(token.value)
+            elif getattr(token, 'type', '') == 'function' and token.lower_name == 'url':
+                urls.append(token.arguments[0].value)
     return urls
 
 
@@ -147,6 +149,8 @@ def urls_from_css(css_text: str) -> List[str]:
     for node in descendants(nodes):
         if getattr(node, 'type', '') == 'url':
             urls.append(node.value)
+        elif getattr(node, 'type', '') == 'function' and node.lower_name == 'url':
+            urls.append(node.arguments[0].value)
     return urls
 
 

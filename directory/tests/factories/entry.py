@@ -87,7 +87,7 @@ class DirectoryEntryFactory(wagtail_factories.PageFactory):
             self._prefetched_objects_cache = {'topics': topics}
 
 
-class ScanResultFactory(factory.DjangoModelFactory):
+class ScanResultFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = ScanResult
 
