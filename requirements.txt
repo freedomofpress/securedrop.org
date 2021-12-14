@@ -137,8 +137,8 @@ django==2.2.25 \
     #   django-treebeard
     #   djangorestframework
     #   wagtail
-django-allauth==0.45.0 \
-    --hash=sha256:6d46be0e1480316ccd45476db3aefb39db70e038d2a543112d314b76bb999a4e
+django-allauth==0.47.0 \
+    --hash=sha256:2bcf09d4c6e672620981d283f555d643982ac066b71f8947dbd81882a1d7c5e8
     # via
     #   -r requirements.in
     #   django-allauth-2fa
