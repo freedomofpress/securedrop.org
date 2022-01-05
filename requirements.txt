@@ -120,9 +120,9 @@ defusedxml==0.7.1 \
     --hash=sha256:1bb3032db185915b62d7c6209c5a8792be6a32ab2fedacc84e01b52c51aa3e69 \
     --hash=sha256:a352e7e428770286cc899e2542b6cdaedb2b4953ff269a210103ec58f6198a61
     # via python3-openid
-django==2.2.25 \
-    --hash=sha256:08bad7ef7e90286b438dbe1412c3e633fbc7b96db04735f0c7baadeed52f3fad \
-    --hash=sha256:b1e65eaf371347d4b13eb7e061b09786c973061de95390c327c85c1e2aa2349c
+django==2.2.26 \
+    --hash=sha256:85e62019366692f1d5afed946ca32fef34c8693edf342ac9d067d75d64faf0ac \
+    --hash=sha256:dfa537267d52c6243a62b32855a744ca83c37c70600aacffbfd98bc5d6d8518f
     # via
     #   -r requirements.in
     #   django-allauth
