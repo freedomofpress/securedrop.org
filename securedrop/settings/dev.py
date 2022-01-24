@@ -45,6 +45,7 @@ LOGGING = {
         "normal": {
             "class": "logging.StreamHandler",
             "formatter": "plain_console",
+            'filters': ['require_debug_true'],
         },
         "null": {
             "class": "logging.NullHandler"
@@ -55,6 +56,11 @@ LOGGING = {
             "()": structlog.stdlib.ProcessorFormatter,
             "processor": structlog.dev.ConsoleRenderer(),
             "foreign_pre_chain": shared_processors,
+        },
+    },
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
         },
     },
     "loggers": {
