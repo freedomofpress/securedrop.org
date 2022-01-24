@@ -57,7 +57,8 @@ class DirectoryEntryQuerySet(PageQuerySet):
                 F('landing_page_url'),
                 Value('/'),
                 Value(3),
-                function='SPLIT_PART'
+                function='SPLIT_PART',
+                output_field=models.CharField()
             )
         )
 
@@ -403,46 +404,46 @@ class ScanResult(models.Model):
     result_last_seen = models.DateTimeField(auto_now_add=True)
 
     # HTTPS fields populated with pshtt
-    forces_https = models.NullBooleanField()
-    hsts = models.NullBooleanField()
-    hsts_max_age = models.NullBooleanField()
-    hsts_entire_domain = models.NullBooleanField()
-    hsts_preloaded = models.NullBooleanField()
+    forces_https = models.BooleanField(null=True)
+    hsts = models.BooleanField(null=True)
+    hsts_max_age = models.BooleanField(null=True)
+    hsts_entire_domain = models.BooleanField(null=True)
+    hsts_preloaded = models.BooleanField(null=True)
 
     # Basic checks
-    http_status_200_ok = models.NullBooleanField()
-    no_cross_domain_redirects = models.NullBooleanField()
-    expected_encoding = models.NullBooleanField()
+    http_status_200_ok = models.BooleanField(null=True)
+    no_cross_domain_redirects = models.BooleanField(null=True)
+    expected_encoding = models.BooleanField(null=True)
 
     # HTTP/2 support
     http2 = models.BooleanField(default=False)
 
     # Security headers
-    no_server_info = models.NullBooleanField()
-    no_server_version = models.NullBooleanField()
-    csp_origin_only = models.NullBooleanField()
-    mime_sniffing_blocked = models.NullBooleanField()
-    noopen_download = models.NullBooleanField()
-    xss_protection = models.NullBooleanField()
-    clickjacking_protection = models.NullBooleanField()
-    good_cross_domain_policy = models.NullBooleanField()
-    http_1_0_caching_disabled = models.NullBooleanField()
-    cache_control_set = models.NullBooleanField()
-    cache_control_revalidate_set = models.NullBooleanField()
-    cache_control_nocache_set = models.NullBooleanField()
-    cache_control_notransform_set = models.NullBooleanField()
-    cache_control_nostore_set = models.NullBooleanField()
-    cache_control_private_set = models.NullBooleanField()
-    expires_set = models.NullBooleanField()
-    referrer_policy_set_to_no_referrer = models.NullBooleanField()
+    no_server_info = models.BooleanField(null=True)
+    no_server_version = models.BooleanField(null=True)
+    csp_origin_only = models.BooleanField(null=True)
+    mime_sniffing_blocked = models.BooleanField(null=True)
+    noopen_download = models.BooleanField(null=True)
+    xss_protection = models.BooleanField(null=True)
+    clickjacking_protection = models.BooleanField(null=True)
+    good_cross_domain_policy = models.BooleanField(null=True)
+    http_1_0_caching_disabled = models.BooleanField(null=True)
+    cache_control_set = models.BooleanField(null=True)
+    cache_control_revalidate_set = models.BooleanField(null=True)
+    cache_control_nocache_set = models.BooleanField(null=True)
+    cache_control_notransform_set = models.BooleanField(null=True)
+    cache_control_nostore_set = models.BooleanField(null=True)
+    cache_control_private_set = models.BooleanField(null=True)
+    expires_set = models.BooleanField(null=True)
+    referrer_policy_set_to_no_referrer = models.BooleanField(null=True)
 
     # Page content
-    safe_onion_address = models.NullBooleanField()
-    no_cdn = models.NullBooleanField()
-    no_analytics = models.NullBooleanField()
-    subdomain = models.NullBooleanField()
-    no_cookies = models.NullBooleanField()
-    no_cross_domain_assets = models.NullBooleanField()
+    safe_onion_address = models.BooleanField(null=True)
+    no_cdn = models.BooleanField(null=True)
+    no_analytics = models.BooleanField(null=True)
+    subdomain = models.BooleanField(null=True)
+    no_cookies = models.BooleanField(null=True)
+    no_cross_domain_assets = models.BooleanField(null=True)
     cross_domain_asset_summary = models.TextField(default='', blank=True)
     ignored_cross_domain_assets = models.TextField(default='', blank=True)
 
