@@ -86,7 +86,7 @@ def add_scan_results_buttons(page, page_perms, is_parent=False, next_url=None):
 
 
 @hooks.register('add_scan_results_button')
-def add_bundle_stats_button(page, page_perms, is_parent=False, next_url=None):
+def button_for_scan_results(page, page_perms, is_parent=False, next_url=None):
     """Creates drop-down buttons that link to ScanResult model admin
     sections for a given DirectoryEntry on the page listing area.  The
     links go to the most recent live result, as well as the filtered
