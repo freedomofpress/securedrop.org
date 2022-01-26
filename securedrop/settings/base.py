@@ -227,7 +227,7 @@ if 'postgres' in DATABASES['default']['ENGINE']:
     INSTALLED_APPS.append('wagtail.contrib.postgres_search')
     WAGTAILSEARCH_BACKENDS = {
         'default': {
-            'BACKEND': 'wagtail.contrib.postgres_search.backend',
+            'BACKEND': 'wagtail.search.backends.database',
         },
     }
 else:
@@ -240,6 +240,8 @@ WAGTAIL_SITE_NAME = "securedrop"
 
 WAGTAILIMAGES_IMAGE_MODEL = 'common.CustomImage'
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+WAGTAILADMIN_COMMENTS_ENABLED = False
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
