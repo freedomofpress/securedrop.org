@@ -47,7 +47,7 @@ compile-pip-dependencies: ## Uses pip-compile to update requirements.txt
 # It is critical that we run pip-compile via the same Python version
 # that we're generating requirements for, otherwise the versions may
 # be resolved differently.
-	docker run -v "$(DIR):/code" -w /code -it python:3.9-slim \
+	docker run --rm -v "$(DIR):/code" -w /code -it python:3.9-slim \
 		bash -c 'apt-get update && apt-get install gcc libpq-dev -y && \
     pip install pip-tools && \
 		pip-compile --generate-hashes --no-header --output-file requirements.txt requirements.in && \
