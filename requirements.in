@@ -22,7 +22,7 @@ tinycss2
 wagtail>=2.15.2,<2.16
 wagtail-factories
 wagtail-metadata>=3.4.0
-wagtail-autocomplete>=0.6
+wagtail-autocomplete>=0.8.1
 unittest-xml-reporting
 django-allauth>=0.47
 django-allauth-2fa
