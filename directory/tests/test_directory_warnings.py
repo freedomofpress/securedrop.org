@@ -133,3 +133,31 @@ class DirectorySevereWarningTest(TestCase):
             'We strongly advise you to only visit this landing page <a href="https://www.torproject.org/download/download-easy.html.en">using the Tor browser</a>, with the <a href="https://tb-manual.torproject.org/en-US/security-slider.html">security slider</a> set to "safest".',
             status_code=200,
         )
+
+
+class DirectoryUnreachableWarningTest(TestCase):
+    def setUp(self):
+        site = Site.objects.get()
+        self.entry = DirectoryEntryFactory(
+            parent=DirectoryPageFactory(parent=site.root_page)
+        )
+        self.result = ScanResultFactory(
+            securedrop=self.entry,
+            landing_page_url=self.entry.landing_page_url,
+            no_failures=True,
+        )
+        self.client = Client()
+
+    def test_warning_presence(self):
+        self.result.http_status_200_ok = False
+        self.result.save()
+        response = self.client.get(self.entry.url)
+        self.assertContains(
+            response,
+            "This SecureDrop's landing page appears to be unreachable",
+            status_code=200,
+        )
+        self.assertContains(
+            response,
+            'images/instance-status/Error.svg'
+        )

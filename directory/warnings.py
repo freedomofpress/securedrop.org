@@ -32,6 +32,13 @@ class Warning:
     message: str
 
 
+def unreachable_test(scan_result):
+    if not scan_result.http_status_200_ok:
+        return TestResult.FAIL
+    else:
+        return TestResult.PASS
+
+
 def onion_address_test(scan_result):
     if scan_result.safe_onion_address:
         return TestResult.PASS
@@ -85,6 +92,12 @@ WARNINGS = [
         WarningLevel.MODERATE,
         '{} includes a clickable link to a Tor Onion Service (.onion address). Any attempt to visit such a link in a regular browser will fail, but it may be detected by third parties.',
     ),
+    Warning(
+        'unreachable_landing_page',
+        unreachable_test,
+        WarningLevel.SEVERE,
+        "This SecureDrop's landing page appears to be unreachable. You may wish to wait until the landing page is back online before contacting this SecureDrop, so you can verify the .onion address.",
+    )
 ]
 
 
