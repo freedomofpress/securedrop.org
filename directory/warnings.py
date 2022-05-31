@@ -1,5 +1,8 @@
-from collections import namedtuple
+from dataclasses import dataclass
 from enum import Enum
+from collections.abc import Callable
+
+import directory.models.entry
 
 
 class TestResult(Enum):
@@ -21,7 +24,12 @@ class WarningLevel(Enum):
         return self == WarningLevel.SEVERE
 
 
-Warning = namedtuple('Warning', ['name', 'test', 'level', 'message'])
+@dataclass
+class Warning:
+    name: str
+    test: Callable[['directory.models.entry.ScanResult'], TestResult]
+    level: WarningLevel
+    message: str
 
 
 def onion_address_test(scan_result):
