@@ -1,11 +1,24 @@
+from django.core.exceptions import ValidationError
 from django.test import Client, TestCase
 from wagtail.core.models import Site
 
+from directory.models.entry import DirectoryEntry
+from directory.warnings import WARNINGS
 from directory.tests.factories import (
     DirectoryEntryFactory,
     DirectoryPageFactory,
     ScanResultFactory,
 )
+
+
+class DirectoryChoicesTest(TestCase):
+    def test_all_warnings_can_be_chosen(self):
+        all_warning_names = set(warning.name for warning in WARNINGS)
+        warning_choice_names = set(
+            choice[0] for choice in DirectoryEntry.WARNING_CHOICES
+        )
+
+        self.assertEqual(all_warning_names, warning_choice_names)
 
 
 class DirectoryNoResultsTest(TestCase):
@@ -39,6 +52,39 @@ class DirectoryNoWarningTest(TestCase):
     def test_page_request_should_succeed_if_no_warnings_on_result(self):
         response = self.client.get(self.entry.url)
         self.assertEqual(response.status_code, 200)
+
+
+class DirectoryPinnedWarningTest(TestCase):
+    def setUp(self):
+        site = Site.objects.get()
+        self.entry = DirectoryEntryFactory(
+            parent=DirectoryPageFactory(parent=site.root_page)
+        )
+        self.result = ScanResultFactory(
+            securedrop=self.entry,
+            landing_page_url=self.entry.landing_page_url,
+            no_failures=True,
+        )
+        self.result.save()
+        self.entry.save()
+
+        self.client = Client()
+
+    def test_warning_presence(self):
+        """warning should be displayed if pinned"""
+        self.entry.warnings_pinned = ['unreachable_landing_page']
+        self.entry.save()
+        response = self.client.get(self.entry.url)
+        self.assertContains(
+            response,
+            "This SecureDrop's landing page appears to be unreachable. You may wish to wait until the landing page is back online before contacting this SecureDrop, so you can verify the .onion address.",
+        )
+
+    def test_pinning_and_ignoring_the_same_warning_is_invalid(self):
+        self.entry.warnings_pinned = ['unreachable_landing_page']
+        self.entry.warnings_ignored = ['unreachable_landing_page']
+        with self.assertRaises(ValidationError):
+            self.entry.save()
 
 
 class DirectoryModerateWarningTest(TestCase):
