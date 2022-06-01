@@ -80,6 +80,10 @@ class DirectoryEntryManager(PageManager):
 DirectoryEntryManager = DirectoryEntryManager.from_queryset(DirectoryEntryQuerySet)
 
 
+class CheckboxMultipleChoice(forms.MultipleChoiceField):
+    widget = forms.CheckboxSelectMultiple
+
+
 class ChoiceArrayField(ArrayField):
     """
     A field that allows us to store an array of choices.
@@ -88,7 +92,7 @@ class ChoiceArrayField(ArrayField):
 
     def formfield(self, **kwargs):
         defaults = {
-            'form_class': forms.MultipleChoiceField,
+            'form_class': CheckboxMultipleChoice,
             'choices': self.base_field.choices,
         }
         defaults.update(kwargs)
@@ -237,19 +241,17 @@ class DirectoryEntry(MetadataPageMixin, Page):
         blank=True,
         help_text=(
             'Landing page warnings that will be always be shown to someone '
-            'viewing this entry, even if not reflected in the scan results. '
-            'Select multiples with shift or control click.'),
+            'viewing this entry, even if not reflected in the scan results.'),
     )
     warnings_ignored = ChoiceArrayField(
         models.CharField(
-            max_length=50,
+            max_length=500,
             choices=WARNING_CHOICES,
         ),
         default=list,
         blank=True,
         help_text=('Landing page warnings that will not be shown to someone '
-                   'viewing this entry, even if they are in the scan results. '
-                   'Select multiples with shift or control click.'),
+                   'viewing this entry, even if they are in the scan results.'),
     )
 
     content_panels = Page.content_panels + [
