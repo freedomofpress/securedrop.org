@@ -2,6 +2,7 @@ import re
 
 from django import forms
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models import Func, F, Q, Value
@@ -79,6 +80,10 @@ class DirectoryEntryManager(PageManager):
 DirectoryEntryManager = DirectoryEntryManager.from_queryset(DirectoryEntryQuerySet)
 
 
+class CheckboxMultipleChoice(forms.MultipleChoiceField):
+    widget = forms.CheckboxSelectMultiple
+
+
 class ChoiceArrayField(ArrayField):
     """
     A field that allows us to store an array of choices.
@@ -87,7 +92,7 @@ class ChoiceArrayField(ArrayField):
 
     def formfield(self, **kwargs):
         defaults = {
-            'form_class': forms.MultipleChoiceField,
+            'form_class': CheckboxMultipleChoice,
             'choices': self.base_field.choices,
         }
         defaults.update(kwargs)
@@ -211,7 +216,7 @@ class DirectoryEntry(MetadataPageMixin, Page):
     )
 
     WARNING_CHOICES = (
-        ('no_cdn', 'Use of CDN'),
+        ('unreachable_landing_page', 'Landing Page Unreachable'),
         ('no_third_party_assets', 'Use of analytics or third party assets'),
         ('subdomain', 'Subdomain'),
         ('referrer_policy_set_to_no_referrer', 'Referer Policy'),
@@ -227,16 +232,26 @@ class DirectoryEntry(MetadataPageMixin, Page):
                    'Subdomains on domains in this list are ignored.  For example, '
                    'adding "news.bbc.co.uk" permits all assets from "bbc.co.uk".'),
     )
+    warnings_pinned = ChoiceArrayField(
+        models.CharField(
+            max_length=500,
+            choices=WARNING_CHOICES,
+        ),
+        default=list,
+        blank=True,
+        help_text=(
+            'Landing page warnings that will be always be shown to someone '
+            'viewing this entry, even if not reflected in the scan results.'),
+    )
     warnings_ignored = ChoiceArrayField(
         models.CharField(
-            max_length=50,
+            max_length=500,
             choices=WARNING_CHOICES,
         ),
         default=list,
         blank=True,
         help_text=('Landing page warnings that will not be shown to someone '
-                   'viewing this entry, even if they are in the scan results. '
-                   'Select multiples with shift or control click.'),
+                   'viewing this entry, even if they are in the scan results.'),
     )
 
     content_panels = Page.content_panels + [
@@ -265,10 +280,15 @@ class DirectoryEntry(MetadataPageMixin, Page):
     settings_panels = Page.settings_panels + [
         FieldPanel('delisted'),
         FieldPanel('warnings_ignored'),
+        FieldPanel('warnings_pinned'),
         FieldPanel('permitted_domains_for_assets'),
     ]
 
     search_fields_pgsql = ['title', 'landing_page_url', 'onion_address', 'organization_description']
+
+    def clean(self):
+        if set(self.warnings_pinned) & set(self.warnings_ignored):
+            raise ValidationError('Cannot pin and ignore the same warning.')
 
     def get_context(self, request):
         context = super(DirectoryEntry, self).get_context(request)
@@ -324,7 +344,8 @@ class DirectoryEntry(MetadataPageMixin, Page):
         for warning in WARNINGS:
             if warning.name in self.warnings_ignored:
                 continue
-            if warning.test(result) == TestResult.FAIL:
+            if warning.name in self.warnings_pinned \
+               or warning.test(result) == TestResult.FAIL:
                 warnings.append(warning)
         return warnings
 
