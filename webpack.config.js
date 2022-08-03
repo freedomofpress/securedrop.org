@@ -70,8 +70,10 @@ var common = {
 					{
 						loader: 'sass-loader',
 						options: {
-							includePaths: [path.resolve(__dirname, 'node_modules/'), path.resolve(__dirname, 'common/static/fonts/')],
-							data: sassData
+							sassOptions: {
+								includePaths: [path.resolve(__dirname, 'node_modules/'), path.resolve(__dirname, 'common/static/fonts/')],
+							},
+							additionalData: sassData
 						}
 					}
 				],
