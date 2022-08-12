@@ -315,9 +315,9 @@ docopt==0.6.2 \
     # via
     #   -r requirements.txt
     #   pshtt
-dparse==0.5.1 \
-    --hash=sha256:a1b5f169102e1c894f9a7d5ccf6f9402a836a5d24be80a986c7ce9eaed78f367 \
-    --hash=sha256:e953a25e44ebb60a5c6efc2add4420c177f1d8404509da88da9729202f306994
+dparse==0.5.2 \
+    --hash=sha256:b1514fb08895d85b18d4eba3b1b7025ff9e6ea07286282021e19def872129975 \
+    --hash=sha256:c348994a1f41c85f664d8f5a47442647bc4e22c5af5b1b26ef29aff0fa5dddcd
     # via safety
 draftjs-exporter==2.1.7 \
     --hash=sha256:5839cbc29d7bce2fb99837a404ca40c3a07313f2a20e2700de7ad6aa9a9a18fb \
@@ -996,7 +996,6 @@ pyyaml==6.0 \
     --hash=sha256:f84fbc98b019fef2ee9a1cb3ce93e3187a6df0b2538a651bfb890254ba9f90b5
     # via
     #   bandit
-    #   dparse
     #   vcrpy
 qrcode==7.3.1 \
     --hash=sha256:375a6ff240ca9bd41adc070428b5dfc1dcfbb0f2507f1ac848f6cded38956578
