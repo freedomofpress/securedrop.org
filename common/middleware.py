@@ -1,6 +1,7 @@
 import time
 import uuid
 
+from django.http import Http404
 import structlog
 
 
@@ -24,7 +25,8 @@ class RequestLogMiddleware(object):
         self.response_keys = ('charset', 'reason_phrase', 'status_code')
 
     def process_exception(self, request, exception):
-        logger.exception("request_failed")
+        if not isinstance(exception, Http404):
+            logger.exception("request_failed")
 
     def __call__(self, request):
         # Code to be executed for each request before
