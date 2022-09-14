@@ -36,6 +36,9 @@ class RequestLogMiddleware(object):
         request_id = str(uuid.uuid4())
 
         request_dict = {key: getattr(request, key, '') for key in self.request_keys}
+        if request.GET:
+            request_dict["query_string_raw"] = request.GET.urlencode()
+            request_dict["query_string_parsed"] = request.GET.dict()
         request_dict["user"] = str(request_dict["user"])
         request_dict["meta"] = {
             key: request.META.get(key, "") for key in self.request_meta_keys
