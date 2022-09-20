@@ -1,6 +1,6 @@
 {% load wagtailcore_tags wagtailsettings_tags static i18n %}
 
-{% get_settings %}
+{% get_settings use_default_site=True %}
 
 {% with footer=settings.common.FooterSettings %}
 	<footer class="footer">
