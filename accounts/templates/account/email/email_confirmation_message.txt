@@ -1,8 +1,0 @@
-{% load account common_tags%}{% user_display user as user_display %}{% load i18n %}{% autoescape off %}{% blocktrans %}Hello from {% endblocktrans %}{% get_site_name %}!
-
-{% blocktrans %}
-You're receiving this e-mail because user {{ user_display }} has given yours as an e-mail address to connect their account.
-
-To confirm this is correct, go to {{ activate_url }}
-
-Thank you from {% endblocktrans %}{% endautoescape %}{% get_site_name %}!

@@ -1,26 +1,16 @@
 from django.core.validators import MaxValueValidator
 from django.db import models
-from django.shortcuts import render
-from django.urls import reverse
-from django.utils.decorators import method_decorator
 
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
-from wagtail.contrib.routable_page.models import RoutablePageMixin, route
+from wagtail.contrib.routable_page.models import RoutablePageMixin
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Page
 
-from directory.decorators import directory_management_required
 from common.models.mixins import MetadataPageMixin
 from common.utils import paginate, DEFAULT_PAGE_KEY
 from search.utils import get_search_content_by_fields
 from directory.models.taxonomy import Language, Topic, Country
 from directory.models.entry import DirectoryEntry
-from directory.forms import ScannerForm
-from accounts.forms.directory_management import DirectoryEntryForm
-from scanner import scanner
-
-
-SCAN_URL = 'scan/'
 
 
 class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
@@ -204,55 +194,3 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
         }
 
         return context
-
-    @route(SCAN_URL)
-    @method_decorator(directory_management_required)
-    def scan_view(self, request):
-        if request.method == 'POST':
-            form = ScannerForm(request.POST)
-            # if form is invalid, this will skip to returning the form with errors
-            if form.is_valid():
-                data = form.cleaned_data
-
-                instance = DirectoryEntry(
-                    landing_page_url=data['url'],
-                )
-                result = scanner.scan(instance)
-                result.save()
-                context = {
-                    'landing_page_url': data['url'],
-                    'result': result,
-                    'submission_form': DirectoryEntryForm(
-                        directory_page=self,
-                        user=request.user if request.user.is_authenticated else None,
-                        initial={
-                            'landing_page_url': data['url'],
-                        },
-                    ),
-                    'submission_url': reverse('securedroppage_add'),
-                    'form_title': self.org_details_form_title
-                }
-
-                if self.org_details_form_text:
-                    context['form_text'] = self.org_details_form_text
-
-                return render(
-                    request,
-                    'directory/result.html',
-                    context,
-                )
-
-        elif request.method == 'GET':
-            form = ScannerForm()
-
-        context = {
-            'form': form,
-            'submit_url': '{base}{scan_url}'.format(
-                base=self.get_url(request=request),
-                scan_url=SCAN_URL,
-            ),
-            'form_title': self.scanner_form_title,
-        }
-        if self.scanner_form_text:
-            context['text'] = self.scanner_form_text
-        return render(request, 'directory/scanner_form.html', context)
