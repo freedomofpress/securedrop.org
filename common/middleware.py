@@ -20,7 +20,7 @@ class RequestLogMiddleware(object):
             'HTTP_HOST',
             'HTTP_X_FORWARDED_FOR',
             'HTTP_X_REAL_IP',
-            'HTTP_X_SCEHEME',
+            'HTTP_X_SCHEME',
         )
         self.response_keys = ('charset', 'reason_phrase', 'status_code')
 
