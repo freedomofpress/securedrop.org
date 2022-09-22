@@ -114,7 +114,7 @@ class DirectoryLanguageFilterTest(TestCase):
         filtered_instances = self.directory.get_instances(filters=self.lang_filter)
         self.assertIn(self.spanish_instance, filtered_instances)
 
-    def test_langauge_not_filtered_for_is_not_in_queryset(self):
+    def test_language_not_filtered_for_is_not_in_queryset(self):
         filtered_instances = self.directory.get_instances(filters=self.lang_filter)
         self.assertNotIn(self.chinese_instance, filtered_instances)
 
