@@ -1,15 +1,9 @@
-from allauth.account.models import EmailAddress
-
 from django.core.exceptions import ValidationError
-from django.urls import reverse_lazy
-from django.contrib.auth import get_user_model
-from django.test import Client, TestCase
-
-from wagtail.core.models import Site
+from django.test import TestCase
 
 from directory.warnings import WarningLevel
-from directory.models import DirectoryEntry, ScanResult, SecuredropOwner
-from directory.tests.factories import DirectoryEntryFactory, ScanResultFactory, DirectoryPageFactory
+from directory.models import DirectoryEntry, ScanResult
+from directory.tests.factories import DirectoryEntryFactory, ScanResultFactory
 
 
 class DirectoryEntryTest(TestCase):
@@ -310,39 +304,3 @@ class DirectoryEntrySearchTest(TestCase):
     def test_get_search_content_indexes_countries(self):
         country = self.sd.countries.first().title
         self.assertIn(country, self.search_content.text)
-
-
-class DirectoryEntryAuthTest(TestCase):
-    def setUp(self):
-        User = get_user_model()
-        self.client = Client()
-        self.username = "Rachel"
-        self.email = "r@r.com"
-        self.password = "rachel"
-        self.user = User.objects.create_user(username=self.username, email=self.email, password=self.password, is_active=True)
-        self.user.save()
-        # Create a verified email address object for this user via allauth
-        EmailAddress.objects.create(user=self.user, email=self.email, verified=True)
-        # Setup pages. Site is needed for valid urls.
-        site = Site.objects.get()
-        directory = DirectoryPageFactory(parent=site.root_page)
-        self.unowned_sd_page = DirectoryEntryFactory(live=True, parent=directory)
-        self.unowned_sd_page.save()
-        self.user_owned_sd_page = DirectoryEntryFactory(live=True, parent=directory)
-        self.user_owned_sd_page.save()
-        SecuredropOwner(owner=self.user, page=self.user_owned_sd_page).save()
-
-    def test_logged_in_user_should_see_edit_on_owned_pages(self):
-        # Login
-        self.client.post(reverse_lazy('account_login'), {'login': self.email, 'password': self.password})
-        response = self.client.get(self.user_owned_sd_page.url)
-        self.assertTrue(response.context['page'].editable)
-
-    def test_logged_out_user_should_not_see_edit(self):
-        response = self.client.get(self.user_owned_sd_page.url)
-        self.assertFalse(response.context['page'].editable)
-
-    def test_logged_in_user_should_not_see_edit_on_unowned_pages(self):
-        self.client.post(reverse_lazy('account_login'), {'login': self.email, 'password': self.password})
-        response = self.client.get(self.unowned_sd_page.url)
-        self.assertFalse(response.context['page'].editable)

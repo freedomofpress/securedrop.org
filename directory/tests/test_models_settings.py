@@ -1,8 +1,5 @@
-import re
-
 from bs4 import BeautifulSoup
 
-from django.urls import reverse
 from django.test import TestCase
 
 from wagtail.core.models import Site
@@ -67,89 +64,3 @@ class DirectorySettingsTestCase(TestCase):
 
         self.assertEqual(len(grade), 1)
         self.assertEqual(len(result), 1)
-
-    def test_management_disabled_hides_call_to_action(self):
-        self.directory_settings.allow_directory_management = False
-        self.directory_settings.save()
-
-        # We add a trailing `?` to account for the optional trailing slash
-        scan_url_re = '{}{}?'.format(
-            self.directory.url,
-            self.directory.reverse_subpage('scan_view')
-        )
-        response = self.client.get(self.directory.url)
-        soup = BeautifulSoup(response.content, 'html.parser')
-        scan_links = soup.find_all(href=re.compile(scan_url_re))
-
-        self.assertEqual(len(scan_links), 0)
-
-    def test_management_enabled_shows_call_to_action(self):
-        self.directory_settings.allow_directory_management = True
-        self.directory_settings.save()
-
-        # We add a trailing `?` to account for the optional trailing slash
-        scan_url_re = '{}{}?'.format(
-            self.directory.url,
-            self.directory.reverse_subpage('scan_view')
-        )
-        response = self.client.get(self.directory.url)
-        soup = BeautifulSoup(response.content, 'html.parser')
-        scan_links = soup.find_all(href=re.compile(scan_url_re))
-
-        self.assertTrue(len(scan_links) > 0)
-
-    def test_management_enabled_shows_footer_login(self):
-        self.directory_settings.allow_directory_management = True
-        self.directory_settings.save()
-        response = self.client.get(self.directory.url)
-        soup = BeautifulSoup(response.content, 'html.parser')
-        login_links = soup.find_all(
-            class_='footer-main__admin-link',
-            href=reverse('account_login')
-        )
-        self.assertTrue(len(login_links) > 0)
-
-    def test_management_disabled_hides_footer_login(self):
-        self.directory_settings.allow_directory_management = False
-        self.directory_settings.save()
-        response = self.client.get(self.directory.url)
-        soup = BeautifulSoup(response.content, 'html.parser')
-        login_links = soup.find_all(
-            class_='footer-main__admin-link',
-            href=reverse('account_login')
-        )
-        self.assertEqual(len(login_links), 0)
-
-    def test_management_disabled_causes_404s(self):
-        """
-        Test that all the relevant paths return 404s is directory management is
-        disabled. A test for when directory management is enabled is not
-        included here, since the tests for proper behavior there is included
-        in the apps that define those views.
-        """
-
-        self.directory_settings.allow_directory_management = False
-        self.directory_settings.save()
-
-        self.assertEqual(
-            self.client.get(reverse('dashboard')).status_code,
-            404
-        )
-        self.assertEqual(
-            self.client.get(reverse('securedroppage_add')).status_code,
-            404
-        )
-        self.assertEqual(
-            self.client.get(reverse(
-                'securedroppage_edit',
-                args=[self.securedrop_page.slug]
-            )).status_code,
-            404
-        )
-        self.assertEqual(
-            self.client.get('{}{}'.format(
-                self.directory.url,
-                self.directory.reverse_subpage('scan_view')
-            )).status_code,
-            404
-        )

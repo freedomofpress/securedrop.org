@@ -1,13 +1,6 @@
 from django import forms
 
 
-class ScannerForm(forms.Form):
-    error_css_class = 'basic-form__error'
-    required_css_class = 'basic-form__required'
-
-    url = forms.URLField()
-
-
 class ManualScanForm(forms.Form):
     landing_page_url = forms.URLField(required=True)
     permitted_domains = forms.CharField(

@@ -11,7 +11,6 @@ from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
 from common.views import view_document, health_ok, health_version
-from accounts.urls import urlpatterns as account_urls
 from wagtailautocomplete.urls.admin import urlpatterns as autocomplete_admin_urls
 from wagtailautocomplete.views import objects, search, create
 from directory.api import api_router as directory_api_router
@@ -38,10 +37,6 @@ urlpatterns = [
     path('search/', search_views.search, name='search'),
 
     path('github/', include('github.urls')),
-    # Include the allauth and 2FA urls from their respective packages.
-    path('accounts/', include(account_urls)),
-    path('accounts/', include('allauth_2fa.urls')),
-    path('accounts/', include('allauth.urls')),
 
     path('api/', RedirectView.as_view(url='/api/v1/')),
     path('api/v1/', include(directory_api_router.urls)),
