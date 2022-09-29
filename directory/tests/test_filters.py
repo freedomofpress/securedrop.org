@@ -101,11 +101,11 @@ class DirectoryLanguageFilterTest(TestCase):
         spanish.save()
         chinese.save()
         # set up instances that are children of the directory and have those languages
-        self.spanish_instance = DirectoryEntryFactory(parent=self.directory)
+        self.spanish_instance = DirectoryEntryFactory(languages=0, parent=self.directory)
         self.spanish_instance.languages.add(spanish)
         self.spanish_instance.save()
 
-        self.chinese_instance = DirectoryEntryFactory(parent=self.directory)
+        self.chinese_instance = DirectoryEntryFactory(languages=0, parent=self.directory)
         self.chinese_instance.languages.add(chinese)
         self.chinese_instance.save()
         self.lang_filter = {'languages': spanish}
@@ -114,7 +114,7 @@ class DirectoryLanguageFilterTest(TestCase):
         filtered_instances = self.directory.get_instances(filters=self.lang_filter)
         self.assertIn(self.spanish_instance, filtered_instances)
 
-    def test_langauge_not_filtered_for_is_not_in_queryset(self):
+    def test_language_not_filtered_for_is_not_in_queryset(self):
         filtered_instances = self.directory.get_instances(filters=self.lang_filter)
         self.assertNotIn(self.chinese_instance, filtered_instances)
 

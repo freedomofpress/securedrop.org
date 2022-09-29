@@ -53,11 +53,6 @@ class DirectorySettings(BaseSetting):
     )
 
     # Feature flags
-    allow_directory_management = models.BooleanField(
-        default=False,
-        help_text='Allow directory instance submission/management by '
-                  'site visitors'
-    )
     show_scan_results = models.BooleanField(
         default=False,
         help_text='Show directory instance scan results on public site'
@@ -69,7 +64,6 @@ class DirectorySettings(BaseSetting):
             FieldPanel('no_results_text'),
         ], 'Messages'),
         MultiFieldPanel([
-            FieldPanel('allow_directory_management'),
             FieldPanel('show_scan_results'),
         ], 'Feature Flags'),
         MultiFieldPanel([

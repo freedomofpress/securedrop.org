@@ -67,7 +67,7 @@ class RequestLogTestCase(TestCase):
         real_ip = '2.2.2.2'
 
         request = self.factory.get(
-            '/',
+            '/?key=value',
             HTTP_USER_AGENT=user_agent,
             HTTP_X_FORWARDED_FOR=forwarded_for,
             HTTP_HOST=host,
@@ -102,7 +102,8 @@ class RequestLogTestCase(TestCase):
                     'HTTP_USER_AGENT': user_agent,
                     'HTTP_X_FORWARDED_FOR': forwarded_for,
                     'HTTP_X_REAL_IP': real_ip,
-                    'HTTP_X_SCEHEME': '',
+                    'HTTP_X_SCHEME': '',
+                    'QUERY_STRING': 'key=value',
                 },
                 'method': 'GET',
                 'path_info': '/',

@@ -31,7 +31,7 @@
 					</title>
 					<meta name="description" content="" />
 				{% endif %}
-				{% get_settings %}
+				{% get_settings use_default_site=True %}
 				{% with seo_settings=settings.common.SocialSharingSEOSettings %}
 					{% if seo_settings.twitter %}
 						<meta name="twitter:site" content="@{{ seo_settings.twitter }}">

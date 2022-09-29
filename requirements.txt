@@ -110,7 +110,6 @@ cryptography==3.4.8 \
     --hash=sha256:d9ec0e67a14f9d1d48dd87a2531009a9b251c02ea42851c060b25c782516ff06 \
     --hash=sha256:f44d141b8c4ea5eb4dbc9b3ad992d45580c1d22bf5e24363f2fbf50c2d7ae8a7
     # via
-    #   pyjwt
     #   pyopenssl
     #   sslyze
 dataproperty==0.54.2 \
@@ -120,35 +119,20 @@ dataproperty==0.54.2 \
     #   pytablereader
     #   pytablewriter
     #   tabledata
-defusedxml==0.7.1 \
-    --hash=sha256:1bb3032db185915b62d7c6209c5a8792be6a32ab2fedacc84e01b52c51aa3e69 \
-    --hash=sha256:a352e7e428770286cc899e2542b6cdaedb2b4953ff269a210103ec58f6198a61
-    # via python3-openid
 django==3.2.15 \
     --hash=sha256:115baf5049d5cf4163e43492cdc7139c306ed6d451e7d3571fe9612903903713 \
     --hash=sha256:f71934b1a822f14a86c9ac9634053689279cd04ae69cb6ade4a59471b886582b
     # via
     #   -r requirements.in
-    #   django-allauth
-    #   django-allauth-2fa
     #   django-anymail
     #   django-csp
     #   django-filter
-    #   django-otp
     #   django-settings-export
     #   django-storages
     #   django-taggit
     #   django-treebeard
     #   djangorestframework
     #   wagtail
-django-allauth==0.47.0 \
-    --hash=sha256:2bcf09d4c6e672620981d283f555d643982ac066b71f8947dbd81882a1d7c5e8
-    # via
-    #   -r requirements.in
-    #   django-allauth-2fa
-django-allauth-2fa==0.8 \
-    --hash=sha256:217e4d3e3205a4285160f32579041eb9938de9bb81384a741adfb40b3711f2fa
-    # via -r requirements.in
 django-anymail[mailgun]==8.4 \
     --hash=sha256:2e8307e84f0a12f9283469017094a8246db9a0fc608ac17dd1027ee011ece986 \
     --hash=sha256:671a338de43b8e414d48c6d16aac1df54d2f24f916e1073f9f60aef5acffaf89
@@ -167,10 +151,6 @@ django-modelcluster==5.2 \
     # via
     #   -r requirements.in
     #   wagtail
-django-otp==1.1.1 \
-    --hash=sha256:0c03a471db9e876f3671314bc9a65bd56a5c3c108ee0562c473701310bba4a77 \
-    --hash=sha256:4c90cdaed683d736b0efafc034a3c6b410e1be2a53c24da287165b1f371d8776
-    # via django-allauth-2fa
 django-settings-export==1.2.1 \
     --hash=sha256:fceeae49fc597f654c1217415d8e049fc81c930b7154f5d8f28c432db738ff79
     # via -r requirements.in
@@ -225,26 +205,26 @@ filelock==3.3.2 \
     --hash=sha256:7afc856f74fa7006a289fd10fa840e1eebd8bbff6bffb69c26c54a0512ea8cf8 \
     --hash=sha256:bb2a1c717df74c48a2d00ed625e5a66f8572a3a30baacb7657add1d7bac4097b
     # via tldextract
-google-api-core==2.2.2 \
-    --hash=sha256:97349cc18c2bb2415f64f1353a80273a289a61294ce3eb2f7ce682d251bdd997 \
-    --hash=sha256:e7853735d4f51f4212d6bf9750620d76fc0106c0f271be0c3f43b73501c7ddf9
+google-api-core==2.10.1 \
+    --hash=sha256:92d17123cfe399b5ef7e026c63babf978d8475e1ac877919eb7933e25dea2273 \
+    --hash=sha256:e16c15a11789bc5a3457afb2818a3540a03f341e6e710d7f9bbf6cde2ef4a7c8
     # via
     #   google-cloud-core
     #   google-cloud-storage
-google-auth==2.3.3 \
-    --hash=sha256:a348a50b027679cb7dae98043ac8dbcc1d7951f06d8387496071a1e05a2465c0 \
-    --hash=sha256:d83570a664c10b97a1dc6f8df87e5fdfff012f48f62be131e449c20dfc32630e
+google-auth==2.12.0 \
+    --hash=sha256:98f601773978c969e1769f97265e732a81a8e598da3263895023958d456ee625 \
+    --hash=sha256:f12d86502ce0f2c0174e2e70ecc8d36c69593817e67e1d9c5e34489120422e4b
     # via
     #   google-api-core
     #   google-cloud-core
     #   google-cloud-storage
-google-cloud-core==2.1.0 \
-    --hash=sha256:35a1f5f02a86e0fa2e28c669f0db4a76d928671a28fbbbb493ab59ba9d1cb9a9 \
-    --hash=sha256:8d5fed11731dae8bc8656a2c9fa8ff17bdfdfd083cba97569324e35b94e7e002
+google-cloud-core==2.3.2 \
+    --hash=sha256:8417acf6466be2fa85123441696c4badda48db314c607cf1e5d543fa8bdc22fe \
+    --hash=sha256:b9529ee7047fd8d4bf4a2182de619154240df17fbe60ead399078c1ae152af9a
     # via google-cloud-storage
-google-cloud-storage==1.42.3 \
-    --hash=sha256:71ee3a0dcf2c139f034a054181cd7658f1ec8f12837d2769c450a8a00fcd4c6d \
-    --hash=sha256:7754d4dcaa45975514b404ece0da2bb4292acbc67ca559a69e12a19d54fcdb06
+google-cloud-storage==2.5.0 \
+    --hash=sha256:19a26c66c317ce542cea0830b7e787e8dac2588b6bfa4d3fd3b871ba16305ab0 \
+    --hash=sha256:382f34b91de2212e3c2e7b40ec079d27ee2e3dbbae99b75b1bcd8c63063ce235
     # via django-storages
 google-crc32c==1.3.0 \
     --hash=sha256:04e7c220798a72fd0f08242bc8d7a05986b2a08a0573396187fd32c1dcdd58b3 \
@@ -291,13 +271,13 @@ google-crc32c==1.3.0 \
     --hash=sha256:fec221a051150eeddfdfcff162e6db92c65ecf46cb0f7bb1bf812a1520ec026b \
     --hash=sha256:ff71073ebf0e42258a42a0b34f2c09ec384977e7f6808999102eedd5b49920e3
     # via google-resumable-media
-google-resumable-media==2.1.0 \
-    --hash=sha256:725b989e0dd387ef2703d1cc8e86217474217f4549593c477fd94f4024a0f911 \
-    --hash=sha256:cdc75ea0361e39704dc7df7da59fbd419e73c8bc92eac94d8a020d36baa9944b
+google-resumable-media==2.3.3 \
+    --hash=sha256:27c52620bd364d1c8116eaac4ea2afcbfb81ae9139fb3199652fcac1724bfb6c \
+    --hash=sha256:5b52774ea7a829a8cdaa8bd2d4c3d4bc660c91b30857ab2668d0eb830f4ea8c5
     # via google-cloud-storage
-googleapis-common-protos==1.53.0 \
-    --hash=sha256:a88ee8903aa0a81f6c3cec2d5cf62d3c8aa67c06439b0496b49048fb1854ebf4 \
-    --hash=sha256:f6d561ab8fb16b30020b940e2dd01cd80082f4762fa9f3ee670f4419b4b8dbd0
+googleapis-common-protos==1.56.4 \
+    --hash=sha256:8eb2cbc91b69feaf23e32452a7ae60e791e09967d81d4fcc7fc388182d1bd394 \
+    --hash=sha256:c25873c47279387cfdcbdafa36149887901d36202cb645a0e4f29686bf6e4417
     # via google-api-core
 gunicorn==20.1.0 \
     --hash=sha256:9dcc4547dbb1cb284accfb15ab5667a0e5d1881cc443e0677b4882a4067a807e \
@@ -416,10 +396,6 @@ nassl==4.0.1 \
     --hash=sha256:ff757d935ca58298f6ff58f321944c4647a30e30bb5a8f1bac7b8eb0ec8d243f \
     --hash=sha256:ffdd9d1829b489d19d5e8ec6b82722f2530e0f55ab6c4ecf0c8e5c6e3b6c2e9a
     # via sslyze
-oauthlib==3.2.1 \
-    --hash=sha256:1565237372795bf6ee3e5aba5e2a85bd5a65d0e2aa5c628b9a97b7d7a0da3721 \
-    --hash=sha256:88e912ca1ad915e1dcc1c06fc9259d19de8deacd6fd17cc2df266decc2e49066
-    # via requests-oauthlib
 openpyxl==3.0.9 \
     --hash=sha256:40f568b9829bf9e446acfffce30250ac1fa39035124d55fc024025c41481c90f \
     --hash=sha256:8f3b11bd896a95468a4ab162fc4fcd260d46157155d1f8bfaabb99d88cfcf79f
@@ -479,34 +455,23 @@ pillow==9.0.1 \
     # via
     #   -r requirements.in
     #   wagtail
-protobuf==3.19.1 \
-    --hash=sha256:038daf4fa38a7e818dd61f51f22588d61755160a98db087a046f80d66b855942 \
-    --hash=sha256:28ccea56d4dc38d35cd70c43c2da2f40ac0be0a355ef882242e8586c6d66666f \
-    --hash=sha256:36d90676d6f426718463fe382ec6274909337ca6319d375eebd2044e6c6ac560 \
-    --hash=sha256:3cd0458870ea7d1c58e948ac8078f6ba8a7ecc44a57e03032ed066c5bb318089 \
-    --hash=sha256:5935c8ce02e3d89c7900140a8a42b35bc037ec07a6aeb61cc108be8d3c9438a6 \
-    --hash=sha256:615b426a177780ce381ecd212edc1e0f70db8557ed72560b82096bd36b01bc04 \
-    --hash=sha256:62a8e4baa9cb9e064eb62d1002eca820857ab2138440cb4b3ea4243830f94ca7 \
-    --hash=sha256:655264ed0d0efe47a523e2255fc1106a22f6faab7cc46cfe99b5bae085c2a13e \
-    --hash=sha256:6e8ea9173403219239cdfd8d946ed101f2ab6ecc025b0fda0c6c713c35c9981d \
-    --hash=sha256:71b0250b0cfb738442d60cab68abc166de43411f2a4f791d31378590bfb71bd7 \
-    --hash=sha256:74f33edeb4f3b7ed13d567881da8e5a92a72b36495d57d696c2ea1ae0cfee80c \
-    --hash=sha256:77d2fadcf369b3f22859ab25bd12bb8e98fb11e05d9ff9b7cd45b711c719c002 \
-    --hash=sha256:8b30a7de128c46b5ecb343917d9fa737612a6e8280f440874e5cc2ba0d79b8f6 \
-    --hash=sha256:8e51561d72efd5bd5c91490af1f13e32bcba8dab4643761eb7de3ce18e64a853 \
-    --hash=sha256:a529e7df52204565bcd33738a7a5f288f3d2d37d86caa5d78c458fa5fabbd54d \
-    --hash=sha256:b691d996c6d0984947c4cf8b7ae2fe372d99b32821d0584f0b90277aa36982d3 \
-    --hash=sha256:d80f80eb175bf5f1169139c2e0c5ada98b1c098e2b3c3736667f28cbbea39fc8 \
-    --hash=sha256:d83e1ef8cb74009bebee3e61cc84b1c9cd04935b72bca0cbc83217d140424995 \
-    --hash=sha256:d8919368410110633717c406ab5c97e8df5ce93020cfcf3012834f28b1fab1ea \
-    --hash=sha256:db3532d9f7a6ebbe2392041350437953b6d7a792de10e629c1e4f5a6b1fe1ac6 \
-    --hash=sha256:e7b24c11df36ee8e0c085e5b0dc560289e4b58804746fb487287dda51410f1e2 \
-    --hash=sha256:e7e8d2c20921f8da0dea277dfefc6abac05903ceac8e72839b2da519db69206b \
-    --hash=sha256:e813b1c9006b6399308e917ac5d298f345d95bb31f46f02b60cd92970a9afa17 \
-    --hash=sha256:fd390367fc211cc0ffcf3a9e149dfeca78fecc62adb911371db0cec5c8b7472d
+protobuf==4.21.6 \
+    --hash=sha256:07a0bb9cc6114f16a39c866dc28b6e3d96fa4ffb9cc1033057412547e6e75cb9 \
+    --hash=sha256:308173d3e5a3528787bb8c93abea81d5a950bdce62840d9760effc84127fb39c \
+    --hash=sha256:4143513c766db85b9d7c18dbf8339673c8a290131b2a0fe73855ab20770f72b0 \
+    --hash=sha256:49f88d56a9180dbb7f6199c920f5bb5c1dd0172f672983bb281298d57c2ac8eb \
+    --hash=sha256:6b1040a5661cd5f6e610cbca9cfaa2a17d60e2bb545309bc1b278bb05be44bdd \
+    --hash=sha256:77b355c8604fe285536155286b28b0c4cbc57cf81b08d8357bf34829ea982860 \
+    --hash=sha256:7a6cc8842257265bdfd6b74d088b829e44bcac3cca234c5fdd6052730017b9ea \
+    --hash=sha256:80e6540381080715fddac12690ee42d087d0d17395f8d0078dfd6f1181e7be4c \
+    --hash=sha256:8f9e60f7d44592c66e7b332b6a7b4b6e8d8b889393c79dbc3a91f815118f8eac \
+    --hash=sha256:9666da97129138585b26afcb63ad4887f602e169cafe754a8258541c553b8b5d \
+    --hash=sha256:aa29113ec901281f29d9d27b01193407a98aa9658b8a777b0325e6d97149f5ce \
+    --hash=sha256:b6cea204865595a92a7b240e4b65bcaaca3ad5d2ce25d9db3756eba06041138e \
+    --hash=sha256:ba596b9ffb85c909fcfe1b1a23136224ed678af3faf9912d3fa483d5f9813c4e \
+    --hash=sha256:c7c864148a237f058c739ae7a05a2b403c0dfa4ce7d1f3e5213f352ad52d57c6
     # via
     #   google-api-core
-    #   google-cloud-storage
     #   googleapis-common-protos
 pshtt @ https://github.com/freedomofpress/pshtt/zipball/65596ff08fa7bf0357b5af63da73e2dead91c304 \
     --hash=sha256:56e10b98409223c2800c25268822468579a7dad0faebc8ed31f9d12ef7b80381
@@ -549,10 +514,6 @@ pygments==2.10.0 \
     --hash=sha256:b8e67fe6af78f492b3c4b3e2970c0624cbf08beb1e493b2c99b9fa1b67a20380 \
     --hash=sha256:f398865f7eb6874156579fdf36bc840a03cab64d1cde9e93d68f46a425ec52c6
     # via -r requirements.in
-pyjwt[crypto]==2.4.0 \
-    --hash=sha256:72d1d253f32dbd4f5c88eaf1fdc62f3a19f676ccbadb9dbc5d07e951b2b26daf \
-    --hash=sha256:d42908208c699b3b973cbeb01a969ba6a96c821eefb1c5bfe4c390c01d67abba
-    # via django-allauth
 pyopenssl==19.0.0 \
     --hash=sha256:aeca66338f6de19d1aa46ed634c3b9ae519a64b458f8468aec688e7e3c20f200 \
     --hash=sha256:c727930ad54b10fc157015014b666f2d8b41f70c0d03e83ab67624fd3dd5d1e6
@@ -605,10 +566,6 @@ python-json-logger==2.0.2 \
     --hash=sha256:202a4f29901a4b8002a6d1b958407eeb2dd1d83c18b18b816f5b64476dde9096 \
     --hash=sha256:99310d148f054e858cd5f4258794ed6777e7ad2c3fd7e1c1b527f1cba4d08420
     # via -r requirements.in
-python3-openid==3.2.0 \
-    --hash=sha256:33fbf6928f401e0b790151ed2b5290b02545e8775f982485205a066f874aaeaf \
-    --hash=sha256:6626f771e0417486701e0b4daff762e7212e820ca5b29fcc0d05f6f8736dfa6b
-    # via django-allauth
 pytz==2021.3 \
     --hash=sha256:3672058bc3453457b622aab7a1c3bfd5ab0bdae451512f6cf25f64ed37f5b87c \
     --hash=sha256:acad2d8b20a1af07d4e4c9d2e9285c5ed9104354062f275f3fcd88dcef4f1326
@@ -618,31 +575,22 @@ pytz==2021.3 \
     #   l18n
     #   pshtt
     #   typepy
-qrcode==7.3.1 \
-    --hash=sha256:375a6ff240ca9bd41adc070428b5dfc1dcfbb0f2507f1ac848f6cded38956578
-    # via django-allauth-2fa
 requests==2.26.0 \
     --hash=sha256:6c1246513ecd5ecd4528a0906f910e8f0f9c6b8ec72030dc9fd154dc1a6efd24 \
     --hash=sha256:b8aa58f8cf793ffd8782d3d8cb19e66ef36f7aba4353eec859e74678b01b07a7
     # via
     #   -r requirements.in
-    #   django-allauth
     #   django-anymail
     #   google-api-core
     #   google-cloud-storage
     #   pshtt
     #   requests-file
-    #   requests-oauthlib
     #   tldextract
     #   wagtail
 requests-file==1.5.1 \
     --hash=sha256:07d74208d3389d01c38ab89ef403af0cfec63957d53a0081d8eca738d0247d8e \
     --hash=sha256:dfe5dae75c12481f68ba353183c53a65e6044c923e64c24b2209f6c7570ca953
     # via tldextract
-requests-oauthlib==1.3.0 \
-    --hash=sha256:7f71572defaecd16372f9006f33c2ec8c077c3cfa6f5911a9a90202beb513f3d \
-    --hash=sha256:b4261601a71fd721a8bd6d7aa1cc1d6a8a93b4a9f5e96626f8e4d91e8beeaa6a
-    # via django-allauth
 rsa==4.7.2 \
     --hash=sha256:78f9a9bf4e7be0c5ded4583326e7461e3a3c5aae24073648b4bdfa797d78c9d2 \
     --hash=sha256:9d689e6ca1b3038bc82bf8d23e944b6b6037bc02301a574935b2dd946e0353b9
@@ -656,7 +604,6 @@ six==1.16.0 \
     # via
     #   bleach
     #   google-auth
-    #   google-cloud-storage
     #   html5lib
     #   l18n
     #   pyopenssl

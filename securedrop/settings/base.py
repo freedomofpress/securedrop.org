@@ -31,7 +31,6 @@ DEBUG = False
 # Application definition
 
 INSTALLED_APPS = [
-    'accounts',
     'blog',
     'cloudflare',
     'common',
@@ -62,10 +61,6 @@ INSTALLED_APPS = [
     'wagtail.contrib.legacy.richtext',
     'wagtail.core',
 
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-
     'wagtailmetadata',
     'wagtailautocomplete',
     'webpack_loader',
@@ -83,14 +78,6 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
 
     'build',
-
-    # Configure the django-otp package.
-    'django_otp',
-    'django_otp.plugins.otp_totp',
-    'django_otp.plugins.otp_static',
-
-    # Enable two-factor auth.
-    'allauth_2fa',
 ]
 
 MIDDLEWARE = [
@@ -109,15 +96,6 @@ if os.environ.get('DJANGO_WHITENOISE'):
 
 MIDDLEWARE.extend([
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
-
-    # Configure the django-otp package. Note this must be after the
-    # AuthenticationMiddleware.
-    'django_otp.middleware.OTPMiddleware',
-
-    # Reset login flow middleware. If this middleware is included, the login
-    # flow is reset if another page is loaded between login and successfully
-    # entering two-factor credentials.
-    'allauth_2fa.middleware.AllauthTwoFactorMiddleware',
 
     # Middleware for content security policy
     'csp.middleware.CSPMiddleware',
@@ -279,21 +257,6 @@ GITHUB_HOOK_SECRET_KEY = os.environ.get(
     'default'
 ).encode('utf-8')
 
-# django-allauth
-AUTHENTICATION_BACKENDS = (
-    # Needed to login by username in Django admin, regardless of `allauth`
-    'django.contrib.auth.backends.ModelBackend',
-
-    # `allauth` specific authentication methods, such as login by e-mail
-    'allauth.account.auth_backends.AuthenticationBackend',
-)
-AUTH_PASSWORD_VALIDATORS = (
-    {
-        'NAME': 'accounts.password_validation.ZxcvbnValidator',
-    },
-)
-
-WAGTAIL_FRONTEND_LOGIN_URL = '/accounts/login/'
 SITE_ID = 1
 LOGIN_REDIRECT_URL = "/"
 ACCOUNT_EMAIL_REQUIRED = True
@@ -305,8 +268,6 @@ ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
 ACCOUNT_UNIQUE_EMAIL = True
 SOCIALACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_ADAPTER = 'accounts.users.adapter.MyAccountAdapter'
-ACCOUNT_SIGNUP_FORM_CLASS = 'accounts.forms.SignupForm'
 
 # Content Security Policy
 # script:
