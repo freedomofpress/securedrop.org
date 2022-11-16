@@ -201,16 +201,11 @@ MEDIA_URL = '/media/'
 
 # Search Backend
 
-if 'postgres' in DATABASES['default']['ENGINE']:
-    INSTALLED_APPS.append('wagtail.contrib.postgres_search')
-    WAGTAILSEARCH_BACKENDS = {
-        'default': {
-            'BACKEND': 'wagtail.search.backends.database',
-        },
-    }
-else:
-    WAGTAILSEARCH_BACKENDS = {}
-
+WAGTAILSEARCH_BACKENDS = {
+    'default': {
+        'BACKEND': 'wagtail.search.backends.database',
+    },
+}
 
 # Wagtail settings
 
