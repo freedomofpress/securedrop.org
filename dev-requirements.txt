@@ -227,6 +227,8 @@ django==3.2.16 \
     #   django-csp
     #   django-debug-toolbar
     #   django-filter
+    #   django-modelcluster
+    #   django-permissionedforms
     #   django-settings-export
     #   django-storages
     #   django-taggit
@@ -251,9 +253,15 @@ django-filter==2.4.0 \
     # via
     #   -r requirements.txt
     #   wagtail
-django-modelcluster==5.2 \
-    --hash=sha256:767084078b9e172540b271454ecc73cb320927131ca4b2c5f276daf771f9542f \
-    --hash=sha256:e541a46a0a899ef4778a4708be22e71cac3efacc09a6ff44bc065c5c9194c054
+django-modelcluster==6.0 \
+    --hash=sha256:4ae46f86c43702020f24f212222eef0a2588df937bbb523a5447da247b5fb130 \
+    --hash=sha256:cdcffef5baf5d3759ee04c5b60ffaf1a0c95fc0f265e762f3ddfadde3394e5db
+    # via
+    #   -r requirements.txt
+    #   wagtail
+django-permissionedforms==0.1 \
+    --hash=sha256:4340bb20c4477fffb13b4cc5cccf9f1b1010b64f79956c291c72d2ad2ed243f8 \
+    --hash=sha256:d341a961a27cc77fde8cc42141c6ab55cc1f0cb886963cc2d6967b9674fa47d6
     # via
     #   -r requirements.txt
     #   wagtail
@@ -1045,6 +1053,7 @@ six==1.16.0 \
     --hash=sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254
     # via
     #   -r requirements.txt
+    #   asttokens
     #   bleach
     #   google-auth
     #   html5lib
@@ -1176,9 +1185,9 @@ vcrpy==4.1.1 \
     --hash=sha256:12c3fcdae7b88ecf11fc0d3e6d77586549d4575a2ceee18e82eee75c1f626162 \
     --hash=sha256:57095bf22fc0a2d99ee9674cdafebed0f3ba763018582450706f7d3a74fff599
     # via -r dev-requirements.in
-wagtail==2.16.3 \
-    --hash=sha256:3b52f0e1a4bcad66e57eaa341025e90a6dcd40170f7adb132e9e9df9efa978c9 \
-    --hash=sha256:a1f04513f06c760208698578367f03b3af5400f05d36b94e4a8ce07ee30d42fc
+wagtail==3.0.3 \
+    --hash=sha256:111ed9a0a6ff26d5d881d52deb4bf52b627d79a53c43829611752dbb68a9192f \
+    --hash=sha256:23b3e541401355ea183372582050ea52b049c956dd5b506197f957bb68423ab3
     # via
     #   -r requirements.txt
     #   wagtail-autocomplete
@@ -1193,9 +1202,9 @@ wagtail-factories==2.0.1 \
     --hash=sha256:3eeb55199f2c9ffbfe14979a94766d724c9e9f4d8f561df61097884e63bd537f \
     --hash=sha256:e2bd1a22e67b70e1603fc292e97f6f998ee0169477e1f71b5c53368630f1d088
     # via -r requirements.txt
-wagtail-metadata==3.4.1 \
-    --hash=sha256:4fb668499b44af62eff1a2a399d477357e33b862bea88867ecafbf862a57bf3a \
-    --hash=sha256:b680259c35454d64e3a5687d5789efb3c21a7cc25d3ba46c14bdadeded09f6c6
+wagtail-metadata==4.0.2 \
+    --hash=sha256:28436201e308921ec6a4e15ac45b3bd09cdd61f699a0973d968653a8e2fff5a7 \
+    --hash=sha256:46e4854a6ba15f7d1aeccf330be63530cc28d3ab26a1a514a663a796581e1ae1
     # via -r requirements.txt
 wagtailmedia==0.8.0 \
     --hash=sha256:550b41f60c546276fb79eac69630364efb82d40389ddb7f64242ff9eaef621ef \
@@ -1378,10 +1387,11 @@ zxcvbn-python==4.4.24 \
     # via -r requirements.txt
 
 # The following packages are considered to be unsafe in a requirements file:
-setuptools==58.5.3 \
-    --hash=sha256:a481fbc56b33f5d8f6b33dce41482e64c68b668be44ff42922903b03872590bf \
-    --hash=sha256:dae6b934a965c8a59d6d230d3867ec408bb95e73bd538ff77e71fedf1eaca729
+setuptools==65.5.1 \
+    --hash=sha256:d0b9a8433464d5800cbe05094acf5c6d52a91bfac9b52bcfc4d41382be5d5d31 \
+    --hash=sha256:e197a19aa8ec9722928f2206f8de752def0e4c9fc6953527360d1c36d94ddb2f
     # via
+    #   -r requirements.txt
     #   gunicorn
     #   ipdb
     #   ipython

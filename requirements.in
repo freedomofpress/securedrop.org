@@ -19,9 +19,9 @@ python-json-logger
 structlog>=21,<22
 tldextract
 tinycss2
-wagtail>=2.16,<3
+wagtail>=3,<4
 wagtail-factories
-wagtail-metadata>=3.4.0
+wagtail-metadata>=4.0.2
 wagtail-autocomplete>=0.8.1
 unittest-xml-reporting
 django-csp>=3.7
