@@ -51,10 +51,10 @@ class FormPage(MetadataPageMixin, AbstractEmailForm):
     )
 
     content_panels = AbstractEmailForm.content_panels + [
-        FieldPanel('intro', classname="full"),
-        FieldPanel('warning', classname="full"),
+        FieldPanel('intro'),
+        FieldPanel('warning'),
         InlinePanel('form_fields', label="Form fields"),
-        FieldPanel('thank_you_text', classname="full"),
+        FieldPanel('thank_you_text'),
         FieldPanel('button_text'),
         MultiFieldPanel([
             FieldRowPanel([
