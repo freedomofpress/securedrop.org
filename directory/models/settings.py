@@ -4,7 +4,6 @@ from django.db import models
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel, PageChooserPanel
 from wagtail.fields import RichTextField
-from wagtail.documents.edit_handlers import DocumentChooserPanel
 
 
 @register_setting(icon='form')
@@ -69,8 +68,8 @@ class DirectorySettings(BaseSetting):
         MultiFieldPanel([
             FieldPanel('new_instance_alert_group'),
             FieldPanel('contact_email'),
-            PageChooserPanel('report_error_page', 'forms.FormPage'),
-            DocumentChooserPanel('contact_gpg'),
+            PageChooserPanel('report_error_page', page_type='forms.FormPage'),
+            FieldPanel('contact_gpg'),
         ], 'Contact'),
     ]
 

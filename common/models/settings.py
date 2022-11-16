@@ -2,10 +2,8 @@ from django.conf import settings
 from django.db import models
 
 from wagtail.contrib.settings.models import BaseSetting, register_setting
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel, PageChooserPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.fields import RichTextField
-from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
 
 
 @register_setting
@@ -51,9 +49,9 @@ class FooterSettings(BaseSetting):
 
     panels = [
         FieldPanel('title'),
-        SnippetChooserPanel('main_menu'),
+        FieldPanel('main_menu'),
         FieldPanel('donation_url'),
-        PageChooserPanel('contribute_link'),
+        FieldPanel('contribute_link'),
         MultiFieldPanel(
             [
                 FieldPanel('release_key_description'),
@@ -66,7 +64,7 @@ class FooterSettings(BaseSetting):
         MultiFieldPanel(
             [
                 FieldPanel('support_title'),
-                SnippetChooserPanel('support_menu'),
+                FieldPanel('support_menu'),
             ],
             "Support Footer Settings",
             classname="collapsible"
@@ -220,7 +218,7 @@ class SocialSharingSEOSettings(BaseSetting):
 
     panels = [
         FieldPanel('default_description'),
-        ImageChooserPanel('default_image'),
+        FieldPanel('default_image'),
         FieldPanel('facebook_page_id'),
         FieldPanel('twitter'),
     ]

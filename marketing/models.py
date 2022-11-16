@@ -13,11 +13,10 @@ from common.blocks import (
 )
 from search.utils import get_search_content_by_fields
 
-from wagtail.admin.panels import FieldPanel, InlinePanel, PageChooserPanel, StreamFieldPanel, MultiFieldPanel
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail import blocks
 from wagtail.fields import StreamField, RichTextField
 from wagtail.models import Page, Orderable
-from wagtail.images.edit_handlers import ImageChooserPanel
 
 
 class MarketingIndexPage(MetadataPageMixin, Page):
@@ -84,14 +83,14 @@ class MarketingIndexPage(MetadataPageMixin, Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('subtitle'),
-        StreamFieldPanel('body'),
+        FieldPanel('body'),
         InlinePanel('features', label="Features"),
         MultiFieldPanel(
             heading='How to install',
             children=[
                 FieldPanel('subheader'),
                 FieldPanel('how_to_install_subtitle'),
-                StreamFieldPanel('how_to_install_body'),
+                FieldPanel('how_to_install_body'),
             ]
         ),
     ]
@@ -123,7 +122,7 @@ class OrderedFeatures(Orderable):
     )
 
     panels = [
-        PageChooserPanel('feature')
+        FieldPanel('feature')
     ]
 
     class Meta:
@@ -153,7 +152,7 @@ class FeaturePage(MetadataPageMixin, Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('teaser_title'),
-        ImageChooserPanel('icon'),
+        FieldPanel('icon'),
         FieldPanel('teaser_description'),
         FieldPanel('description'),
     ]

@@ -8,7 +8,6 @@ from wagtail.admin.panels import (
 )
 from wagtail.fields import RichTextField
 from wagtail.contrib.forms.models import AbstractFormField, AbstractEmailForm
-from wagtail.images.edit_handlers import ImageChooserPanel
 
 from common.models import MetadataPageMixin
 from forms.utils import send_mail
@@ -33,7 +32,7 @@ class FormField(AbstractFormField):
     show_image_thumbnail = models.BooleanField(default=False)
 
     panels = AbstractFormField.panels + [
-        ImageChooserPanel('image'),
+        FieldPanel('image'),
         FieldPanel('image_caption'),
         FieldPanel('image_link_text'),
         FieldPanel('show_image_thumbnail'),

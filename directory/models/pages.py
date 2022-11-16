@@ -75,7 +75,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
                 FieldPanel('source_warning'),
                 FieldPanel('submit_title'),
                 FieldPanel('submit_body'),
-                PageChooserPanel('directory_submission_form', 'forms.FormPage'),
+                PageChooserPanel('directory_submission_form', page_type='forms.FormPage'),
                 FieldPanel('submit_button_text'),
                 FieldPanel('manage_instances_text'),
             ],
@@ -84,7 +84,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
     ]
 
     settings_panels = Page.settings_panels + [
-        PageChooserPanel('faq_link'),
+        FieldPanel('faq_link'),
         MultiFieldPanel((
             FieldPanel('per_page'),
             FieldPanel('orphans'),

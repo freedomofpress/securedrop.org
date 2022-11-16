@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.html import strip_tags
 from django.template.defaultfilters import truncatewords
 
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel, PageChooserPanel, StreamFieldPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, PageChooserPanel
 from wagtail import blocks
 from wagtail.fields import StreamField, RichTextField
 from wagtail.models import Page
@@ -92,14 +92,14 @@ class BlogPage(MetadataPageMixin, Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('publication_datetime'),
-        StreamFieldPanel('body'),
+        FieldPanel('body'),
         MultiFieldPanel(
             heading='Teaser',
             children=[
                 FieldPanel('teaser_text'),
             ]
         ),
-        PageChooserPanel('category', 'blog.CategoryPage'),
+        PageChooserPanel('category', page_type='blog.CategoryPage'),
         FieldPanel('release'),
     ]
 
@@ -208,7 +208,7 @@ class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('subtitle'),
-        StreamFieldPanel('body'),
+        FieldPanel('body'),
     ]
 
     settings_panels = Page.settings_panels + [

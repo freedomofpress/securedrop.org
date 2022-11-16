@@ -18,7 +18,6 @@ from wagtail.admin.panels import (
     HelpPanel,
 )
 from wagtail.admin import messages
-from wagtail.images.edit_handlers import ImageChooserPanel
 
 from wagtailautocomplete.edit_handlers import AutocompletePanel
 from common.models.edit_handlers import ReadOnlyPanel
@@ -265,9 +264,9 @@ class DirectoryEntry(MetadataPageMixin, Page):
         FieldPanel('organization_description'),
         FieldPanel('organization_url'),
         MultiFieldPanel([
-            ImageChooserPanel('organization_logo'),
-            ImageChooserPanel('organization_logo_square'),
-            ImageChooserPanel('organization_logo_homepage'),
+            FieldPanel('organization_logo'),
+            FieldPanel('organization_logo_square'),
+            FieldPanel('organization_logo_homepage'),
             FieldPanel('organization_logo_is_title'),
         ], 'Logo'),
         AutocompletePanel('languages', target_model='directory.Language'),
