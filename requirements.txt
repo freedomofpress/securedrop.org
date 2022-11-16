@@ -135,6 +135,7 @@ django==3.2.16 \
     #   django-treebeard
     #   djangorestframework
     #   wagtail
+    #   wagtailmedia
 django-anymail[mailgun]==8.4 \
     --hash=sha256:2e8307e84f0a12f9283469017094a8246db9a0fc608ac17dd1027ee011ece986 \
     --hash=sha256:671a338de43b8e414d48c6d16aac1df54d2f24f916e1073f9f60aef5acffaf89
@@ -728,9 +729,9 @@ wagtail-metadata==4.0.2 \
     --hash=sha256:28436201e308921ec6a4e15ac45b3bd09cdd61f699a0973d968653a8e2fff5a7 \
     --hash=sha256:46e4854a6ba15f7d1aeccf330be63530cc28d3ab26a1a514a663a796581e1ae1
     # via -r requirements.in
-wagtailmedia==0.8.0 \
-    --hash=sha256:550b41f60c546276fb79eac69630364efb82d40389ddb7f64242ff9eaef621ef \
-    --hash=sha256:79313a9565f8b737304412bbf297c3975274e104a2ea005f8a8e1499c3ef743f
+wagtailmedia==0.12.0 \
+    --hash=sha256:0807515c5d89782666b613de2e4aedab19e9dd358097fad2cb79633c0b5416d3 \
+    --hash=sha256:1d39622c3d7d0191e58ffedf45d05fbef851e3905955513012a72ae4d46a12b0
     # via -r requirements.in
 webencodings==0.5.1 \
     --hash=sha256:a0af1213f3c2226497a97e2b3aa01a7e4bee4f403f95be16fc9acd2947514a78 \
