@@ -20,7 +20,6 @@ from wagtail.admin.panels import (
 from wagtail.admin import messages
 
 from wagtailautocomplete.edit_handlers import AutocompletePanel
-from common.models.edit_handlers import ReadOnlyPanel
 from common.models.mixins import MetadataPageMixin
 from directory.warnings import WARNINGS, TestResult, WarningLevel
 from scanner.utils import url_to_domain
@@ -254,7 +253,7 @@ class DirectoryEntry(MetadataPageMixin, Page):
     )
 
     content_panels = Page.content_panels + [
-        ReadOnlyPanel('added', heading='Date Added'),
+        HelpPanel(heading='Date Added', template='directory/admin_directory_entry_added_field.html'),
         FieldPanel('landing_page_url'),
         MultiFieldPanel([
             FieldPanel('onion_address'),
@@ -459,42 +458,6 @@ class ScanResult(models.Model):
     ignored_cross_domain_assets = models.TextField(default='', blank=True)
 
     grade = models.CharField(max_length=2, editable=False, default='?')
-
-    panels = [
-        ReadOnlyPanel('grade'),
-        ReadOnlyPanel('live'),
-        ReadOnlyPanel('result_last_seen'),
-        ReadOnlyPanel("forces_https"),
-        ReadOnlyPanel("hsts"),
-        ReadOnlyPanel("hsts_max_age"),
-        ReadOnlyPanel("hsts_entire_domain"),
-        ReadOnlyPanel("hsts_preloaded"),
-        ReadOnlyPanel("http_status_200_ok"),
-        ReadOnlyPanel("no_cross_domain_redirects"),
-        ReadOnlyPanel("expected_encoding"),
-        ReadOnlyPanel("no_server_info"),
-        ReadOnlyPanel("no_server_version"),
-        ReadOnlyPanel("csp_origin_only"),
-        ReadOnlyPanel("mime_sniffing_blocked"),
-        ReadOnlyPanel("noopen_download"),
-        ReadOnlyPanel("xss_protection"),
-        ReadOnlyPanel("clickjacking_protection"),
-        ReadOnlyPanel("good_cross_domain_policy"),
-        ReadOnlyPanel("http_1_0_caching_disabled"),
-        ReadOnlyPanel("cache_control_set"),
-        ReadOnlyPanel("cache_control_revalidate_set"),
-        ReadOnlyPanel("cache_control_nocache_set"),
-        ReadOnlyPanel("cache_control_notransform_set"),
-        ReadOnlyPanel("cache_control_nostore_set"),
-        ReadOnlyPanel("cache_control_private_set"),
-        ReadOnlyPanel("expires_set"),
-        ReadOnlyPanel("referrer_policy_set_to_no_referrer"),
-        ReadOnlyPanel("safe_onion_address"),
-        ReadOnlyPanel("no_cdn"),
-        ReadOnlyPanel("no_analytics"),
-        ReadOnlyPanel("subdomain"),
-        ReadOnlyPanel("no_cookies"),
-    ]
 
     class Meta:
         get_latest_by = 'result_last_seen'
