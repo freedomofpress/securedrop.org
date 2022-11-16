@@ -324,15 +324,6 @@ class DirectoryEntry(MetadataPageMixin, Page):
             return f"https://{onion_domain}"
         return self.onion_address
 
-    def serve(self, request):
-        owners = [sd_owner.owner for sd_owner in self.owners.all()]
-        if request.user in owners:
-            self.editable = True
-        else:
-            self.editable = False
-
-        return super(DirectoryEntry, self).serve(request)
-
     def get_live_result(self):
         # Used in template to get the latest live result.
         return self.results.filter(live=True).order_by('-result_last_seen').first()

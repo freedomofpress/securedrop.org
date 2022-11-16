@@ -20,11 +20,6 @@
 		{% endif %}
 		<h1 id="title" class="instance-title__header {% if page.organization_logo_is_title %}sr-only{% endif %}">
 			{{ page.title }}
-			{% if page.editable %}
-				<a href="{% url 'securedroppage_edit' page.slug %}" class="instance-title__edit-link">
-					{% trans "Edit" %} {% include "common/chevron-right.svg" with class="instance-title__chevron" %}
-				</a>
-			{% endif %}
 		</h1>
 	</div>
 {% endblock top %}
