@@ -13,10 +13,10 @@ from common.blocks import (
 )
 from search.utils import get_search_content_by_fields
 
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, PageChooserPanel, StreamFieldPanel, MultiFieldPanel
-from wagtail.core import blocks
-from wagtail.core.fields import StreamField, RichTextField
-from wagtail.core.models import Page, Orderable
+from wagtail.admin.panels import FieldPanel, InlinePanel, PageChooserPanel, StreamFieldPanel, MultiFieldPanel
+from wagtail import blocks
+from wagtail.fields import StreamField, RichTextField
+from wagtail.models import Page, Orderable
 from wagtail.images.edit_handlers import ImageChooserPanel
 
 

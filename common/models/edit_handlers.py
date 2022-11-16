@@ -2,7 +2,7 @@ import datetime
 from django.forms.utils import pretty_name
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
-from wagtail.admin.edit_handlers import EditHandler
+from wagtail.admin.panels import EditHandler
 
 
 class ReadOnlyPanel(EditHandler):

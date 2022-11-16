@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 
 from django.test import TestCase
 
-from wagtail.core.models import Site
+from wagtail.models import Site
 
 from directory.models import DirectorySettings
 from directory.tests.factories import (

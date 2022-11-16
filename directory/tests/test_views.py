@@ -1,6 +1,6 @@
 import os
 
-from wagtail.tests.utils import WagtailPageTests
+from wagtail.test.utils import WagtailPageTests
 
 from directory.models import ScanResult
 from directory.wagtail_hooks import ScanResultAdmin

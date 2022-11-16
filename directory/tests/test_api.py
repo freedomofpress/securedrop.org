@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
-from wagtail.core.models import Site
+from wagtail.models import Site
 
 from directory.tests.factories import (
     DirectoryPageFactory,

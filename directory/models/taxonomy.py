@@ -2,7 +2,7 @@ from django.db import models
 
 from modelcluster.models import ClusterableModel
 
-from wagtail.admin.edit_handlers import FieldPanel
+from wagtail.admin.panels import FieldPanel
 from wagtail.snippets.models import register_snippet
 
 

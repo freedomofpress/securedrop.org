@@ -2,10 +2,10 @@ from django.db import models
 from django.utils.html import strip_tags
 from django.template.defaultfilters import truncatewords
 
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel, StreamFieldPanel
-from wagtail.core import blocks
-from wagtail.core.fields import StreamField, RichTextField
-from wagtail.core.models import Page
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, PageChooserPanel, StreamFieldPanel
+from wagtail import blocks
+from wagtail.fields import StreamField, RichTextField
+from wagtail.models import Page
 from wagtail.images.blocks import ImageChooserBlock
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 

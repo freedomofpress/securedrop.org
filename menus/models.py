@@ -3,8 +3,8 @@ from django.db import models
 from modelcluster.models import ClusterableModel
 from modelcluster.fields import ParentalKey
 
-from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel, InlinePanel, MultiFieldPanel
-from wagtail.core.models import Orderable
+from wagtail.admin.panels import FieldPanel, PageChooserPanel, InlinePanel, MultiFieldPanel
+from wagtail.models import Orderable
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.snippets.models import register_snippet
 

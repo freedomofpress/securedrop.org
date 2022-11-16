@@ -9,9 +9,9 @@ from django.db.models import Func, F, Q, Value
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from django.contrib.postgres.fields import ArrayField
 
-from wagtail.core.models import Page, PageManager, PageQuerySet
-from wagtail.core import hooks
-from wagtail.admin.edit_handlers import (
+from wagtail.models import Page, PageManager, PageQuerySet
+from wagtail import hooks
+from wagtail.admin.panels import (
     FieldPanel,
     InlinePanel,
     MultiFieldPanel,

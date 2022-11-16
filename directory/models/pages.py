@@ -1,10 +1,10 @@
 from django.core.validators import MaxValueValidator
 from django.db import models
 
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, PageChooserPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin
-from wagtail.core.fields import RichTextField
-from wagtail.core.models import Page
+from wagtail.fields import RichTextField
+from wagtail.models import Page
 
 from common.models.mixins import MetadataPageMixin
 from common.utils import paginate, DEFAULT_PAGE_KEY

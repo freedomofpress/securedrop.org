@@ -3,9 +3,9 @@ from django.db import models
 from modelcluster.models import ClusterableModel
 from modelcluster.fields import ParentalKey
 
-from wagtail.core.models import Orderable
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel
-from wagtail.core.fields import RichTextField
+from wagtail.models import Orderable
+from wagtail.admin.panels import FieldPanel, InlinePanel
+from wagtail.fields import RichTextField
 from wagtail.snippets.models import register_snippet
 
 

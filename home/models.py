@@ -1,9 +1,9 @@
 from django.db import models
 from modelcluster.fields import ParentalKey
 
-from wagtail.core.models import Page, Orderable
-from wagtail.core.fields import RichTextField
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel, InlinePanel
+from wagtail.models import Page, Orderable
+from wagtail.fields import RichTextField
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, PageChooserPanel, InlinePanel
 
 from common.models import MetadataPageMixin, Button
 from search.utils import get_search_content_by_fields

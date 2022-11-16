@@ -2,8 +2,8 @@ from django.conf import settings
 from django.db import models
 
 from wagtail.contrib.settings.models import BaseSetting, register_setting
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
-from wagtail.core.fields import RichTextField
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, PageChooserPanel
+from wagtail.fields import RichTextField
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.snippets.edit_handlers import SnippetChooserPanel
 

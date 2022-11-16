@@ -1,4 +1,4 @@
-from wagtail.core import hooks
+from wagtail import hooks
 from django.conf.urls import url
 
 from .views import deploy_info_view

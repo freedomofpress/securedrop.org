@@ -2,8 +2,8 @@ import bleach
 from django import template
 from django.urls import reverse
 from django.utils.html import mark_safe
-from wagtail.core.templatetags.wagtailcore_tags import richtext
-from wagtail.core.models import Site
+from wagtail.templatetags.wagtailcore_tags import richtext
+from wagtail.models import Site
 
 register = template.Library()
 

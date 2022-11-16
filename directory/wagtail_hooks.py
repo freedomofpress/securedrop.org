@@ -8,7 +8,7 @@ from wagtail.contrib.modeladmin.options import (
     ModelAdmin,
     modeladmin_register,
 )
-from wagtail.core import hooks
+from wagtail import hooks
 
 from .models import ScanResult, DirectoryEntry
 from .views import ManualScanView

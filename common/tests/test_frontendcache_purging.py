@@ -1,7 +1,7 @@
 from unittest.mock import patch
 
 from django.test import TestCase
-from wagtail.core.models import Site
+from wagtail.models import Site
 from wagtail_factories import PageFactory
 
 from common.models.settings import FooterSettings

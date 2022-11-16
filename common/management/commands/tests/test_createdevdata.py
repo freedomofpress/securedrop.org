@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.core import management
 from django.test import TestCase
 from django.urls import reverse
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 
 class CreateDevDataTestCase(TestCase):
