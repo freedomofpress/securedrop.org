@@ -11,7 +11,7 @@ factory_boy
 feedparser
 gunicorn>=20.1.0
 lxml>=4.7.1
-pillow>=9.0.0
+pillow>=9.3.0
 psycopg2>=2.8.4,<2.9
 pyopenssl==19.0.0
 pygments
