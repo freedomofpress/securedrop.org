@@ -19,7 +19,7 @@ python-json-logger
 structlog>=21,<22
 tldextract
 tinycss2
-wagtail>=3,<4
+wagtail>=4,<4.1
 wagtail-factories
 wagtail-metadata>=4.0.2
 wagtail-autocomplete>=0.8.1
