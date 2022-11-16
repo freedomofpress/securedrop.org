@@ -66,7 +66,8 @@ class BlogPage(MetadataPageMixin, Page):
             ('heading_3', Heading3()),
             ('inline_pdf', InlinePDFBlock()),
         ],
-        blank=False
+        blank=False,
+        use_json_field=True,
     )
 
     teaser_text = RichTextField(
@@ -176,7 +177,8 @@ class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
             ('image', ImageChooserBlock()),
             ('raw_html', blocks.RawHTMLBlock()),
         ],
-        blank=True
+        blank=True,
+        use_json_field=True,
     )
 
     link_to_page_text = models.CharField(

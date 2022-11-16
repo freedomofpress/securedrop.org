@@ -93,7 +93,8 @@ class SimplePage(MetadataPageMixin, Page):
             ('heading_2', Heading2()),
             ('heading_3', Heading3()),
         ],
-        blank=False
+        blank=False,
+        use_json_field=True,
     )
 
     content_panels = Page.content_panels + [
@@ -150,7 +151,8 @@ class SimplePageWithMenuSidebar(MetadataPageMixin, BaseSidebarPageMixin, Page):
             ('heading_2', Heading2()),
             ('heading_3', Heading3()),
         ],
-        blank=False
+        blank=False,
+        use_json_field=True,
     )
 
     content_panels = Page.content_panels + [
@@ -210,7 +212,8 @@ class FAQPage(MetadataPageMixin, BaseSidebarPageMixin, Page):
             ('heading_3', Heading3()),
         ],
         blank=True,
-        null=True
+        null=True,
+        use_json_field=True,
     )
 
     content_panels = Page.content_panels + [
