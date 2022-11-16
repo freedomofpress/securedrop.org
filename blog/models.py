@@ -7,7 +7,7 @@ from wagtail import blocks
 from wagtail.fields import StreamField, RichTextField
 from wagtail.models import Page
 from wagtail.images.blocks import ImageChooserBlock
-from wagtail.contrib.routable_page.models import RoutablePageMixin, route
+from wagtail.contrib.routable_page.models import RoutablePageMixin, path
 
 from blog.feeds import BlogIndexPageFeed
 from common.utils import DEFAULT_PAGE_KEY, paginate
@@ -238,7 +238,7 @@ class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
 
         return search_elements
 
-    @route(r'^feed/$')
+    @path('feed/')
     def feed(self, request):
         return BlogIndexPageFeed(self)(request)
 
