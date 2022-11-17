@@ -1,6 +1,6 @@
 import os
 
-from wagtail.test.utils import WagtailPageTests
+from wagtail.test.utils import WagtailPageTestCase
 
 from directory.models import ScanResult
 from directory.wagtail_hooks import ScanResultAdmin
@@ -10,9 +10,10 @@ from scanner.tests.test_scanner import mod_vcr
 VCR_DIR = os.path.join(os.path.dirname(__file__), 'scans_vcr')
 
 
-class ManualScanTests(WagtailPageTests):
+class ManualScanTests(WagtailPageTestCase):
     def setUp(self):
         super().setUp()
+        self.login()
 
         self.admin = ScanResultAdmin()
         self.view_url = self.admin.url_helper.create_url

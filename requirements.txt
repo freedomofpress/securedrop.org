@@ -403,10 +403,10 @@ nassl==4.0.1 \
     --hash=sha256:ff757d935ca58298f6ff58f321944c4647a30e30bb5a8f1bac7b8eb0ec8d243f \
     --hash=sha256:ffdd9d1829b489d19d5e8ec6b82722f2530e0f55ab6c4ecf0c8e5c6e3b6c2e9a
     # via sslyze
-openpyxl==3.0.9 \
-    --hash=sha256:40f568b9829bf9e446acfffce30250ac1fa39035124d55fc024025c41481c90f \
-    --hash=sha256:8f3b11bd896a95468a4ab162fc4fcd260d46157155d1f8bfaabb99d88cfcf79f
-    # via tablib
+openpyxl==3.0.10 \
+    --hash=sha256:0ab6d25d01799f97a9464630abacbb34aafecdcaa0ef3cba6d6b3499867d0355 \
+    --hash=sha256:e47805627aebcf860edb4edf7987b1309c1b3632f3750538ed962bbcc3bd7449
+    # via wagtail
 packaging==21.2 \
     --hash=sha256:096d689d78ca690e4cd8a89568ba06d07ca097e3306a4381635073ca91479966 \
     --hash=sha256:14317396d1e8cdb122989b916fa2c7e9ca8e2be9e8060a6eff75b6b7b4d8a7e0
@@ -663,10 +663,6 @@ tabledata==1.3.0 \
     # via
     #   pytablereader
     #   pytablewriter
-tablib[xls,xlsx]==3.1.0 \
-    --hash=sha256:26141c9cf2d5904a2228d3f5d45f8a46a3f3f2f0fbb4c33b4a1c1ddca9f31348 \
-    --hash=sha256:d64c9f6712918a3d90ec5d71b44b8bab1083e3609e4844ad2be80eb633e097ed
-    # via wagtail
 tcolorpy==0.1.1 \
     --hash=sha256:33abe296af468582a2c4d4666761ee58a38935601699a61fb148f576cf648af8 \
     --hash=sha256:93107beffe11a93d24488d512169220d7560c15732276356ab1b3ff7107ba639
@@ -708,9 +704,9 @@ urllib3==1.26.10 \
     # via
     #   -r requirements.in
     #   requests
-wagtail==4.0.4 \
-    --hash=sha256:43b35e8e29bcc83a3ddf60f08e8c22fea1e819f338bcba73a4b290771233809a \
-    --hash=sha256:8799c7550cc033c8e85aeeaf6f91b5343d7dee72fecd5d4093499af9d3aeaa1d
+wagtail==4.1.1 \
+    --hash=sha256:9df6bfe5637ebe5b9e96cd0174cb812d3bb9200913100b6f8007ef31bdc02f70 \
+    --hash=sha256:fe164fa5bb5f62fa8fa35cb456d523b3f263b6bcc0a5e0b688e2c6c1760bc095
     # via
     #   -r requirements.in
     #   wagtail-autocomplete
@@ -751,18 +747,6 @@ willow==1.4 \
     --hash=sha256:698f755fc6bfb8984ac8550f470a0cb630ec1e628287475315d4d1e7595d7337 \
     --hash=sha256:cde01e054c510284ac3459d6b531e1653a58e33a735706ac27905a94fe81742c
     # via wagtail
-xlrd==2.0.1 \
-    --hash=sha256:6a33ee89877bd9abc1158129f6e94be74e2679636b8a205b43b85206c3f0bbdd \
-    --hash=sha256:f72f148f54442c6b056bf931dbc34f986fd0c3b0b6b5a58d013c9aef274d0c88
-    # via tablib
-xlsxwriter==1.4.5 \
-    --hash=sha256:0956747859567ec01907e561a7d8413de18a7aae36860f979f9da52b9d58bc19 \
-    --hash=sha256:f9335f1736e2c4fd80e940fe1b6d92d967bf454a1e5d639b0b7a4459ade790cc
-    # via wagtail
-xlwt==1.3.0 \
-    --hash=sha256:a082260524678ba48a297d922cc385f58278b8aa68741596a87de01a9c628b2e \
-    --hash=sha256:c59912717a9b28f1a3c2a98fd60741014b06b043936dcecbc113eaaada156c88
-    # via tablib
 zxcvbn-python==4.4.24 \
     --hash=sha256:900b28cc5e96be4091d8778f19f222832890264e338765a1c1c09fca2db64b2d
     # via -r requirements.in
