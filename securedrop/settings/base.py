@@ -282,7 +282,6 @@ CSP_DEFAULT_SRC = ("'self'",)
 CSP_BASE_URI = ("'self'",)
 CSP_FORM_ACTION = ("'self'",)
 CSP_FRAME_ANCESTORS = ("'self'",)
-CSP_PLUGIN_TYPES = ("'self'",)
 CSP_SCRIPT_SRC = (
     "'self'",
     "'unsafe-eval'",
