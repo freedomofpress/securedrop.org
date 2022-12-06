@@ -1,7 +1,7 @@
 from django.db import transaction
 from django.core.management.base import BaseCommand
 
-from wagtail.core.rich_text import RichText
+from wagtail.rich_text import RichText
 
 from directory.models import ResultGroup, ResultState
 

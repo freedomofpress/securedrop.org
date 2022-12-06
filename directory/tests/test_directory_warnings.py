@@ -1,6 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.test import Client, TestCase
-from wagtail.core.models import Site
+from wagtail.models import Site
 
 from directory.models.entry import DirectoryEntry
 from directory.warnings import WARNINGS

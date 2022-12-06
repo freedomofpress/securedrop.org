@@ -1,15 +1,13 @@
 from django.conf import settings
 from django.db import models
 
-from wagtail.contrib.settings.models import BaseSetting, register_setting
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
-from wagtail.core.fields import RichTextField
-from wagtail.images.edit_handlers import ImageChooserPanel
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.fields import RichTextField
 
 
 @register_setting
-class FooterSettings(BaseSetting):
+class FooterSettings(BaseSiteSetting):
     title = RichTextField(blank=True, null=True)
     main_menu = models.ForeignKey(
         'menus.Menu',
@@ -51,9 +49,9 @@ class FooterSettings(BaseSetting):
 
     panels = [
         FieldPanel('title'),
-        SnippetChooserPanel('main_menu'),
+        FieldPanel('main_menu'),
         FieldPanel('donation_url'),
-        PageChooserPanel('contribute_link'),
+        FieldPanel('contribute_link'),
         MultiFieldPanel(
             [
                 FieldPanel('release_key_description'),
@@ -66,7 +64,7 @@ class FooterSettings(BaseSetting):
         MultiFieldPanel(
             [
                 FieldPanel('support_title'),
-                SnippetChooserPanel('support_menu'),
+                FieldPanel('support_menu'),
             ],
             "Support Footer Settings",
             classname="collapsible"
@@ -90,7 +88,7 @@ class FooterSettings(BaseSetting):
 
 
 @register_setting(icon='warning')
-class AlertSettings(BaseSetting):
+class AlertSettings(BaseSiteSetting):
     title = models.CharField(max_length=100, default='Alert')
     body = RichTextField(blank=True, null=True)
     close_text = models.CharField(
@@ -105,7 +103,7 @@ class AlertSettings(BaseSetting):
 
 
 @register_setting(icon='warning')
-class TorAlertSettings(BaseSetting):
+class TorAlertSettings(BaseSiteSetting):
     title = models.CharField(
         max_length=255,
         default="Have a document to share?",
@@ -185,7 +183,7 @@ class TorAlertSettings(BaseSetting):
 
 
 @register_setting(icon='plus')
-class SocialSharingSEOSettings(BaseSetting):
+class SocialSharingSEOSettings(BaseSiteSetting):
     default_description = models.TextField(
         blank=True,
         null=True,
@@ -220,7 +218,7 @@ class SocialSharingSEOSettings(BaseSetting):
 
     panels = [
         FieldPanel('default_description'),
-        ImageChooserPanel('default_image'),
+        FieldPanel('default_image'),
         FieldPanel('facebook_page_id'),
         FieldPanel('twitter'),
     ]
@@ -230,7 +228,7 @@ class SocialSharingSEOSettings(BaseSetting):
 
 
 @register_setting(icon='password')
-class TwoFactorAuthSettings(BaseSetting):
+class TwoFactorAuthSettings(BaseSiteSetting):
     signup_form_text = RichTextField(
         blank=True,
         null=True,

@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 from django.db import migrations, models
 import django.db.models.deletion
 import modelcluster.fields
-import wagtail.core.fields
+import wagtail.fields
 import wagtailmetadata.models
 
 
@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
                 ('description_header', models.CharField(default='Share and accept documents securely.', max_length=255)),
-                ('description', wagtail.core.fields.RichTextField(blank=True, null=True)),
+                ('description', wagtail.fields.RichTextField(blank=True, null=True)),
                 ('features_header', models.CharField(default='What SecureDrop Does', max_length=255)),
                 ('instances_header', models.CharField(default='Share Documents Securely With These Organizations', max_length=255)),
                 ('instance_link_default_text', models.CharField(default='View in the directory', help_text="Text displayed linking to each instance's page in the directory.", max_length=255)),

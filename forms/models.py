@@ -2,13 +2,12 @@ from django.db import models
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_control
 from modelcluster.fields import ParentalKey
-from wagtail.admin.edit_handlers import (
+from wagtail.admin.panels import (
     FieldPanel, FieldRowPanel,
     InlinePanel, MultiFieldPanel
 )
-from wagtail.core.fields import RichTextField
+from wagtail.fields import RichTextField
 from wagtail.contrib.forms.models import AbstractFormField, AbstractEmailForm
-from wagtail.images.edit_handlers import ImageChooserPanel
 
 from common.models import MetadataPageMixin
 from forms.utils import send_mail
@@ -33,7 +32,7 @@ class FormField(AbstractFormField):
     show_image_thumbnail = models.BooleanField(default=False)
 
     panels = AbstractFormField.panels + [
-        ImageChooserPanel('image'),
+        FieldPanel('image'),
         FieldPanel('image_caption'),
         FieldPanel('image_link_text'),
         FieldPanel('show_image_thumbnail'),
@@ -52,10 +51,10 @@ class FormPage(MetadataPageMixin, AbstractEmailForm):
     )
 
     content_panels = AbstractEmailForm.content_panels + [
-        FieldPanel('intro', classname="full"),
-        FieldPanel('warning', classname="full"),
+        FieldPanel('intro'),
+        FieldPanel('warning'),
         InlinePanel('form_fields', label="Form fields"),
-        FieldPanel('thank_you_text', classname="full"),
+        FieldPanel('thank_you_text'),
         FieldPanel('button_text'),
         MultiFieldPanel([
             FieldRowPanel([

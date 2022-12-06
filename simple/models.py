@@ -3,12 +3,10 @@ from modelcluster.fields import ParentalKey
 
 from django.utils.html import strip_tags
 from django.template.defaultfilters import truncatewords
-from wagtail.admin.edit_handlers import StreamFieldPanel, InlinePanel
-from wagtail.core import blocks
-from wagtail.core.models import Page, Orderable
-from wagtail.core.fields import StreamField, RichTextField
-from wagtail.admin.edit_handlers import FieldPanel
-from wagtail.snippets.edit_handlers import SnippetChooserPanel
+from wagtail.admin.panels import FieldPanel, InlinePanel
+from wagtail import blocks
+from wagtail.models import Page, Orderable
+from wagtail.fields import StreamField, RichTextField
 
 from common.models import MetadataPageMixin
 from common.blocks import (
@@ -39,7 +37,7 @@ class BaseSidebarPageMixin(models.Model):
     )
 
     settings_panels = [
-        SnippetChooserPanel('sidebar_menu'),
+        FieldPanel('sidebar_menu'),
     ]
 
     def get_sidebar_menu(self):
@@ -95,12 +93,13 @@ class SimplePage(MetadataPageMixin, Page):
             ('heading_2', Heading2()),
             ('heading_3', Heading3()),
         ],
-        blank=False
+        blank=False,
+        use_json_field=True,
     )
 
     content_panels = Page.content_panels + [
         FieldPanel('subtitle'),
-        StreamFieldPanel('body'),
+        FieldPanel('body'),
     ]
 
     search_fields_pgsql = ['title', 'body']
@@ -152,12 +151,13 @@ class SimplePageWithMenuSidebar(MetadataPageMixin, BaseSidebarPageMixin, Page):
             ('heading_2', Heading2()),
             ('heading_3', Heading3()),
         ],
-        blank=False
+        blank=False,
+        use_json_field=True,
     )
 
     content_panels = Page.content_panels + [
         FieldPanel('subtitle'),
-        StreamFieldPanel('body'),
+        FieldPanel('body'),
     ]
 
     settings_panels = Page.settings_panels + BaseSidebarPageMixin.settings_panels
@@ -212,12 +212,13 @@ class FAQPage(MetadataPageMixin, BaseSidebarPageMixin, Page):
             ('heading_3', Heading3()),
         ],
         blank=True,
-        null=True
+        null=True,
+        use_json_field=True,
     )
 
     content_panels = Page.content_panels + [
         FieldPanel('subtitle'),
-        StreamFieldPanel('body'),
+        FieldPanel('body'),
         InlinePanel('questions', label="Questions")
     ]
 

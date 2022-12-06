@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     'wagtail.admin',
     # See https://docs.wagtail.io/en/stable/reference/contrib/legacy_richtext.html#legacy-richtext
     'wagtail.contrib.legacy.richtext',
-    'wagtail.core',
+    'wagtail',
 
     'wagtailmetadata',
     'wagtailautocomplete',
@@ -201,16 +201,11 @@ MEDIA_URL = '/media/'
 
 # Search Backend
 
-if 'postgres' in DATABASES['default']['ENGINE']:
-    INSTALLED_APPS.append('wagtail.contrib.postgres_search')
-    WAGTAILSEARCH_BACKENDS = {
-        'default': {
-            'BACKEND': 'wagtail.search.backends.database',
-        },
-    }
-else:
-    WAGTAILSEARCH_BACKENDS = {}
-
+WAGTAILSEARCH_BACKENDS = {
+    'default': {
+        'BACKEND': 'wagtail.search.backends.database',
+    },
+}
 
 # Wagtail settings
 
@@ -223,7 +218,7 @@ WAGTAILADMIN_COMMENTS_ENABLED = False
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-BASE_URL = 'https://securedrop.org'
+WAGTAILADMIN_BASE_URL = 'https://securedrop.org'
 
 # Django-webpack configuration
 WEBPACK_LOADER = {
