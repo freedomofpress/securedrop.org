@@ -751,11 +751,6 @@ zxcvbn-python==4.4.24 \
     --hash=sha256:900b28cc5e96be4091d8778f19f222832890264e338765a1c1c09fca2db64b2d
     # via -r requirements.in
 
-# The following packages are considered to be unsafe in a requirements file:
-setuptools==65.5.1 \
-    --hash=sha256:d0b9a8433464d5800cbe05094acf5c6d52a91bfac9b52bcfc4d41382be5d5d31 \
-    --hash=sha256:e197a19aa8ec9722928f2206f8de752def0e4c9fc6953527360d1c36d94ddb2f
-    # via
-    #   gunicorn
-    #   pytablereader
-    #   pytablewriter
+# WARNING: The following packages were not pinned, but pip requires them to be
+# pinned when the requirements file includes hashes. Consider using the --allow-unsafe flag.
+# setuptools
