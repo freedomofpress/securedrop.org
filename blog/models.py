@@ -2,12 +2,12 @@ from django.db import models
 from django.utils.html import strip_tags
 from django.template.defaultfilters import truncatewords
 
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel, StreamFieldPanel
-from wagtail.core import blocks
-from wagtail.core.fields import StreamField, RichTextField
-from wagtail.core.models import Page
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, PageChooserPanel
+from wagtail import blocks
+from wagtail.fields import StreamField, RichTextField
+from wagtail.models import Page
 from wagtail.images.blocks import ImageChooserBlock
-from wagtail.contrib.routable_page.models import RoutablePageMixin, route
+from wagtail.contrib.routable_page.models import RoutablePageMixin, path
 
 from blog.feeds import BlogIndexPageFeed
 from common.utils import DEFAULT_PAGE_KEY, paginate
@@ -66,7 +66,8 @@ class BlogPage(MetadataPageMixin, Page):
             ('heading_3', Heading3()),
             ('inline_pdf', InlinePDFBlock()),
         ],
-        blank=False
+        blank=False,
+        use_json_field=True,
     )
 
     teaser_text = RichTextField(
@@ -92,14 +93,14 @@ class BlogPage(MetadataPageMixin, Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('publication_datetime'),
-        StreamFieldPanel('body'),
+        FieldPanel('body'),
         MultiFieldPanel(
             heading='Teaser',
             children=[
                 FieldPanel('teaser_text'),
             ]
         ),
-        PageChooserPanel('category', 'blog.CategoryPage'),
+        PageChooserPanel('category', page_type='blog.CategoryPage'),
         FieldPanel('release'),
     ]
 
@@ -176,7 +177,8 @@ class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
             ('image', ImageChooserBlock()),
             ('raw_html', blocks.RawHTMLBlock()),
         ],
-        blank=True
+        blank=True,
+        use_json_field=True,
     )
 
     link_to_page_text = models.CharField(
@@ -208,7 +210,7 @@ class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('subtitle'),
-        StreamFieldPanel('body'),
+        FieldPanel('body'),
     ]
 
     settings_panels = Page.settings_panels + [
@@ -236,7 +238,7 @@ class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
 
         return search_elements
 
-    @route(r'^feed/$')
+    @path('feed/')
     def feed(self, request):
         return BlogIndexPageFeed(self)(request)
 

@@ -1,9 +1,9 @@
 from django.db import models
 from modelcluster.fields import ParentalKey
 
-from wagtail.core.models import Page, Orderable
-from wagtail.core.fields import RichTextField
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel, InlinePanel
+from wagtail.models import Page, Orderable
+from wagtail.fields import RichTextField
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel
 
 from common.models import MetadataPageMixin, Button
 from search.utils import get_search_content_by_fields
@@ -107,7 +107,7 @@ class DescriptionButtons(Orderable, Button):
 
     panels = [
         FieldPanel('text'),
-        PageChooserPanel('link')
+        FieldPanel('link')
     ]
 
 
@@ -116,7 +116,7 @@ class InstancesButton(Button):
 
     panels = [
         FieldPanel('text'),
-        PageChooserPanel('link')
+        FieldPanel('link')
     ]
 
 
@@ -125,7 +125,7 @@ class FeaturesButton(Button):
 
     panels = [
         FieldPanel('text'),
-        PageChooserPanel('link')
+        FieldPanel('link')
     ]
 
 
@@ -138,7 +138,7 @@ class HomepageFeature(Orderable):
     )
 
     panels = [
-        PageChooserPanel('feature')
+        FieldPanel('feature')
     ]
 
     class Meta:

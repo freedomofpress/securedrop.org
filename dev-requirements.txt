@@ -227,12 +227,15 @@ django==3.2.16 \
     #   django-csp
     #   django-debug-toolbar
     #   django-filter
+    #   django-modelcluster
+    #   django-permissionedforms
     #   django-settings-export
     #   django-storages
     #   django-taggit
     #   django-treebeard
     #   djangorestframework
     #   wagtail
+    #   wagtailmedia
 django-anymail[mailgun]==8.4 \
     --hash=sha256:2e8307e84f0a12f9283469017094a8246db9a0fc608ac17dd1027ee011ece986 \
     --hash=sha256:671a338de43b8e414d48c6d16aac1df54d2f24f916e1073f9f60aef5acffaf89
@@ -251,9 +254,15 @@ django-filter==2.4.0 \
     # via
     #   -r requirements.txt
     #   wagtail
-django-modelcluster==5.2 \
-    --hash=sha256:767084078b9e172540b271454ecc73cb320927131ca4b2c5f276daf771f9542f \
-    --hash=sha256:e541a46a0a899ef4778a4708be22e71cac3efacc09a6ff44bc065c5c9194c054
+django-modelcluster==6.0 \
+    --hash=sha256:4ae46f86c43702020f24f212222eef0a2588df937bbb523a5447da247b5fb130 \
+    --hash=sha256:cdcffef5baf5d3759ee04c5b60ffaf1a0c95fc0f265e762f3ddfadde3394e5db
+    # via
+    #   -r requirements.txt
+    #   wagtail
+django-permissionedforms==0.1 \
+    --hash=sha256:4340bb20c4477fffb13b4cc5cccf9f1b1010b64f79956c291c72d2ad2ed243f8 \
+    --hash=sha256:d341a961a27cc77fde8cc42141c6ab55cc1f0cb886963cc2d6967b9674fa47d6
     # via
     #   -r requirements.txt
     #   wagtail
@@ -264,9 +273,9 @@ django-storages[google]==1.12.3 \
     --hash=sha256:204a99f218b747c46edbfeeb1310d357f83f90fa6a6024d8d0a3f422570cee84 \
     --hash=sha256:a475edb2f0f04c4f7e548919a751ecd50117270833956ed5bd585c0575d2a5e7
     # via -r requirements.txt
-django-taggit==1.5.1 \
-    --hash=sha256:dfe9e9c10b5929132041de0c00093ef0072c73c2a97d0f74a818ae50fa77149a \
-    --hash=sha256:e5bb62891f458d55332e36a32e19c08d20142c43f74bc5656c803f8af25c084a
+django-taggit==2.1.0 \
+    --hash=sha256:61547a23fc99967c9304107414a09e662b459f4163dbbae32e60b8ba40c34d05 \
+    --hash=sha256:a9f41e4ad58efe4b28d86f274728ee87eb98eeae90c9eb4b4efad39e5068184e
     # via
     #   -r requirements.txt
     #   wagtail
@@ -656,12 +665,12 @@ nassl==4.0.1 \
     # via
     #   -r requirements.txt
     #   sslyze
-openpyxl==3.0.9 \
-    --hash=sha256:40f568b9829bf9e446acfffce30250ac1fa39035124d55fc024025c41481c90f \
-    --hash=sha256:8f3b11bd896a95468a4ab162fc4fcd260d46157155d1f8bfaabb99d88cfcf79f
+openpyxl==3.0.10 \
+    --hash=sha256:0ab6d25d01799f97a9464630abacbb34aafecdcaa0ef3cba6d6b3499867d0355 \
+    --hash=sha256:e47805627aebcf860edb4edf7987b1309c1b3632f3750538ed962bbcc3bd7449
     # via
     #   -r requirements.txt
-    #   tablib
+    #   wagtail
 packaging==21.2 \
     --hash=sha256:096d689d78ca690e4cd8a89568ba06d07ca097e3306a4381635073ca91479966 \
     --hash=sha256:14317396d1e8cdb122989b916fa2c7e9ca8e2be9e8060a6eff75b6b7b4d8a7e0
@@ -1045,6 +1054,7 @@ six==1.16.0 \
     --hash=sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254
     # via
     #   -r requirements.txt
+    #   asttokens
     #   bleach
     #   google-auth
     #   html5lib
@@ -1094,12 +1104,6 @@ tabledata==1.3.0 \
     #   -r requirements.txt
     #   pytablereader
     #   pytablewriter
-tablib[xls,xlsx]==3.1.0 \
-    --hash=sha256:26141c9cf2d5904a2228d3f5d45f8a46a3f3f2f0fbb4c33b4a1c1ddca9f31348 \
-    --hash=sha256:d64c9f6712918a3d90ec5d71b44b8bab1083e3609e4844ad2be80eb633e097ed
-    # via
-    #   -r requirements.txt
-    #   wagtail
 tcolorpy==0.1.1 \
     --hash=sha256:33abe296af468582a2c4d4666761ee58a38935601699a61fb148f576cf648af8 \
     --hash=sha256:93107beffe11a93d24488d512169220d7560c15732276356ab1b3ff7107ba639
@@ -1176,9 +1180,9 @@ vcrpy==4.1.1 \
     --hash=sha256:12c3fcdae7b88ecf11fc0d3e6d77586549d4575a2ceee18e82eee75c1f626162 \
     --hash=sha256:57095bf22fc0a2d99ee9674cdafebed0f3ba763018582450706f7d3a74fff599
     # via -r dev-requirements.in
-wagtail==2.15.2 \
-    --hash=sha256:0086c8bf7fb93e456f15f230f0bfcb3d3945420aa663a8a962c404051da96d46 \
-    --hash=sha256:9a2c7ceee79f2d1974f021f76b814ba36744e91c732e7e5113a43cfb046e56f1
+wagtail==4.1.1 \
+    --hash=sha256:9df6bfe5637ebe5b9e96cd0174cb812d3bb9200913100b6f8007ef31bdc02f70 \
+    --hash=sha256:fe164fa5bb5f62fa8fa35cb456d523b3f263b6bcc0a5e0b688e2c6c1760bc095
     # via
     #   -r requirements.txt
     #   wagtail-autocomplete
@@ -1193,13 +1197,13 @@ wagtail-factories==2.0.1 \
     --hash=sha256:3eeb55199f2c9ffbfe14979a94766d724c9e9f4d8f561df61097884e63bd537f \
     --hash=sha256:e2bd1a22e67b70e1603fc292e97f6f998ee0169477e1f71b5c53368630f1d088
     # via -r requirements.txt
-wagtail-metadata==3.4.1 \
-    --hash=sha256:4fb668499b44af62eff1a2a399d477357e33b862bea88867ecafbf862a57bf3a \
-    --hash=sha256:b680259c35454d64e3a5687d5789efb3c21a7cc25d3ba46c14bdadeded09f6c6
+wagtail-metadata==4.0.2 \
+    --hash=sha256:28436201e308921ec6a4e15ac45b3bd09cdd61f699a0973d968653a8e2fff5a7 \
+    --hash=sha256:46e4854a6ba15f7d1aeccf330be63530cc28d3ab26a1a514a663a796581e1ae1
     # via -r requirements.txt
-wagtailmedia==0.8.0 \
-    --hash=sha256:550b41f60c546276fb79eac69630364efb82d40389ddb7f64242ff9eaef621ef \
-    --hash=sha256:79313a9565f8b737304412bbf297c3975274e104a2ea005f8a8e1499c3ef743f
+wagtailmedia==0.12.0 \
+    --hash=sha256:0807515c5d89782666b613de2e4aedab19e9dd358097fad2cb79633c0b5416d3 \
+    --hash=sha256:1d39622c3d7d0191e58ffedf45d05fbef851e3905955513012a72ae4d46a12b0
     # via -r requirements.txt
 wcwidth==0.2.5 \
     --hash=sha256:beb4802a9cebb9144e99086eff703a642a13d6a0052920003a230f3294bbe784 \
@@ -1281,24 +1285,6 @@ wrapt==1.13.3 \
     --hash=sha256:f9c51d9af9abb899bd34ace878fbec8bf357b3194a10c4e8e0a25512826ef056 \
     --hash=sha256:fd76c47f20984b43d93de9a82011bb6e5f8325df6c9ed4d8310029a55fa361ea
     # via vcrpy
-xlrd==2.0.1 \
-    --hash=sha256:6a33ee89877bd9abc1158129f6e94be74e2679636b8a205b43b85206c3f0bbdd \
-    --hash=sha256:f72f148f54442c6b056bf931dbc34f986fd0c3b0b6b5a58d013c9aef274d0c88
-    # via
-    #   -r requirements.txt
-    #   tablib
-xlsxwriter==1.4.5 \
-    --hash=sha256:0956747859567ec01907e561a7d8413de18a7aae36860f979f9da52b9d58bc19 \
-    --hash=sha256:f9335f1736e2c4fd80e940fe1b6d92d967bf454a1e5d639b0b7a4459ade790cc
-    # via
-    #   -r requirements.txt
-    #   wagtail
-xlwt==1.3.0 \
-    --hash=sha256:a082260524678ba48a297d922cc385f58278b8aa68741596a87de01a9c628b2e \
-    --hash=sha256:c59912717a9b28f1a3c2a98fd60741014b06b043936dcecbc113eaaada156c88
-    # via
-    #   -r requirements.txt
-    #   tablib
 yarl==1.7.2 \
     --hash=sha256:044daf3012e43d4b3538562da94a88fb12a6490652dbc29fb19adfa02cf72eac \
     --hash=sha256:0cba38120db72123db7c58322fa69e3c0efa933040ffb586c3a87c063ec7cae8 \
@@ -1378,10 +1364,11 @@ zxcvbn-python==4.4.24 \
     # via -r requirements.txt
 
 # The following packages are considered to be unsafe in a requirements file:
-setuptools==58.5.3 \
-    --hash=sha256:a481fbc56b33f5d8f6b33dce41482e64c68b668be44ff42922903b03872590bf \
-    --hash=sha256:dae6b934a965c8a59d6d230d3867ec408bb95e73bd538ff77e71fedf1eaca729
+setuptools==65.5.1 \
+    --hash=sha256:d0b9a8433464d5800cbe05094acf5c6d52a91bfac9b52bcfc4d41382be5d5d31 \
+    --hash=sha256:e197a19aa8ec9722928f2206f8de752def0e4c9fc6953527360d1c36d94ddb2f
     # via
+    #   -r requirements.txt
     #   gunicorn
     #   ipdb
     #   ipython

@@ -1,7 +1,7 @@
 import requests
 import time
 
-from wagtail.core.models import Page, Site
+from wagtail.models import Page, Site
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 from django.core.files.base import ContentFile

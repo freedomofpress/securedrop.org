@@ -8,7 +8,7 @@ from django.db import migrations, models
 import django.db.models.deletion
 import modelcluster.fields
 import wagtail.contrib.routable_page.models
-import wagtail.core.fields
+import wagtail.fields
 import wagtailmetadata.models
 
 
@@ -55,18 +55,18 @@ class Migration(migrations.Migration):
             fields=[
                 ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
                 ('subtitle', models.CharField(blank=True, max_length=255, null=True)),
-                ('body', wagtail.core.fields.RichTextField(blank=True, null=True)),
-                ('source_warning', wagtail.core.fields.RichTextField(blank=True, help_text='A warning for sources about checking onion addresses.', null=True)),
+                ('body', wagtail.fields.RichTextField(blank=True, null=True)),
+                ('source_warning', wagtail.fields.RichTextField(blank=True, help_text='A warning for sources about checking onion addresses.', null=True)),
                 ('submit_title', models.CharField(default='Want to get your instance listed?', max_length=255)),
-                ('submit_body', wagtail.core.fields.RichTextField(blank=True, null=True)),
+                ('submit_body', wagtail.fields.RichTextField(blank=True, null=True)),
                 ('submit_button_text', models.CharField(default='Get Started', help_text='Text displayed on link to scanning form.', max_length=100)),
                 ('manage_instances_text', models.CharField(default='Manage instances', help_text='Text displayed on link to user dashboard.', max_length=100)),
                 ('per_page', models.PositiveSmallIntegerField(default=10, help_text='Number of news stories to display per page', validators=[django.core.validators.MaxValueValidator(25)])),
                 ('orphans', models.PositiveSmallIntegerField(default=2, help_text='Minimum number of stories on the last page (if the last page is smaller, they will get added to the preceding page)', validators=[django.core.validators.MaxValueValidator(5)])),
                 ('scanner_form_title', models.CharField(default='Scan', max_length=100)),
-                ('scanner_form_text', wagtail.core.fields.RichTextField(blank=True, null=True)),
+                ('scanner_form_text', wagtail.fields.RichTextField(blank=True, null=True)),
                 ('org_details_form_title', models.CharField(default='Enter organization details', max_length=100)),
-                ('org_details_form_text', wagtail.core.fields.RichTextField(blank=True, null=True)),
+                ('org_details_form_text', wagtail.fields.RichTextField(blank=True, null=True)),
                 ('directory_submission_form', models.ForeignKey(blank=True, help_text='If directory self-management tools are enabled in Directory Settings, this will have no effect. Otherwise this should be a link to a FormPage where SecureDrop admins can submit their instance to the directory', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailcore.Page')),
                 ('faq_link', models.ForeignKey(blank=True, help_text="Linked to by the info icon next to 'Security' in the directory table headers.", null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailcore.Page')),
                 ('search_image', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='common.CustomImage')),
@@ -82,7 +82,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('contact_email', models.EmailField(default='securedrop@freedom.press', help_text='People should contact this email address about inaccuracies or potential attacks in the directory', max_length=254)),
                 ('grade_text', models.CharField(default='Security Grade', max_length=100)),
-                ('no_results_text', wagtail.core.fields.RichTextField(default='Results could not be calculated.', help_text='Text displayed when there are no results for a results group.')),
+                ('no_results_text', wagtail.fields.RichTextField(default='Results could not be calculated.', help_text='Text displayed when there are no results for a results group.')),
                 ('allow_directory_management', models.BooleanField(default=False, help_text='Allow directory instance submission/management by site visitors')),
                 ('show_scan_results', models.BooleanField(default=False, help_text='Show directory instance scan results on public site')),
                 ('contact_gpg', models.ForeignKey(blank=True, help_text='Public key for email communication', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtaildocs.Document', verbose_name='Contact email GPG')),
@@ -119,10 +119,10 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
                 ('name', models.CharField(help_text='Must be a field in the directory.ScanResult model.', max_length=255)),
-                ('success_text', wagtail.core.fields.RichTextField()),
-                ('failure_text', wagtail.core.fields.RichTextField()),
+                ('success_text', wagtail.fields.RichTextField()),
+                ('failure_text', wagtail.fields.RichTextField()),
                 ('is_warning', models.BooleanField(help_text='If checked, will display a flag and yellow text. If left unchecked, will display an x and red text.')),
-                ('fix_text', wagtail.core.fields.RichTextField(blank=True, null=True)),
+                ('fix_text', wagtail.fields.RichTextField(blank=True, null=True)),
                 ('result_group', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='result_states', to='directory.ResultGroup')),
             ],
             options={

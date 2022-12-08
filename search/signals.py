@@ -1,4 +1,4 @@
-from wagtail.core.signals import page_published, page_unpublished
+from wagtail.signals import page_published, page_unpublished
 
 from search.utils.wagtail import delete_wagtail_page, index_wagtail_page
 

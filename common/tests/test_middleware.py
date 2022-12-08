@@ -4,7 +4,7 @@ from unittest import mock
 import structlog
 from django.test import TestCase, RequestFactory
 from django.contrib.auth import get_user_model
-from wagtail.core.models import Page
+from wagtail.models import Page
 
 from common.middleware import RequestLogMiddleware
 

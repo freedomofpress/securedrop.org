@@ -3,9 +3,8 @@ from django.db import models
 from modelcluster.models import ClusterableModel
 from modelcluster.fields import ParentalKey
 
-from wagtail.admin.edit_handlers import FieldPanel, PageChooserPanel, InlinePanel, MultiFieldPanel
-from wagtail.core.models import Orderable
-from wagtail.documents.edit_handlers import DocumentChooserPanel
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.models import Orderable
 from wagtail.snippets.models import register_snippet
 
 
@@ -43,8 +42,8 @@ class MenuItem(Orderable):
     panels = [
         FieldPanel('text'),
         MultiFieldPanel((
-            PageChooserPanel('link_page'),
-            DocumentChooserPanel('link_document'),
+            FieldPanel('link_page'),
+            FieldPanel('link_document'),
             FieldPanel('link_url'),
         ), 'Destination'),
         MultiFieldPanel((

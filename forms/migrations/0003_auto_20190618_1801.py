@@ -2,7 +2,7 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
-import wagtail.core.fields
+import wagtail.fields
 
 
 class Migration(migrations.Migration):
@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='formfield',
             name='image_caption',
-            field=wagtail.core.fields.RichTextField(blank=True, null=True),
+            field=wagtail.fields.RichTextField(blank=True, null=True),
         ),
         migrations.AddField(
             model_name='formfield',

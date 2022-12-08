@@ -1,10 +1,10 @@
 from django.core.validators import MaxValueValidator
 from django.db import models
 
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, PageChooserPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin
-from wagtail.core.fields import RichTextField
-from wagtail.core.models import Page
+from wagtail.fields import RichTextField
+from wagtail.models import Page
 
 from common.models.mixins import MetadataPageMixin
 from common.utils import paginate, DEFAULT_PAGE_KEY
@@ -75,7 +75,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
                 FieldPanel('source_warning'),
                 FieldPanel('submit_title'),
                 FieldPanel('submit_body'),
-                PageChooserPanel('directory_submission_form', 'forms.FormPage'),
+                PageChooserPanel('directory_submission_form', page_type='forms.FormPage'),
                 FieldPanel('submit_button_text'),
                 FieldPanel('manage_instances_text'),
             ],
@@ -84,7 +84,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
     ]
 
     settings_panels = Page.settings_panels + [
-        PageChooserPanel('faq_link'),
+        FieldPanel('faq_link'),
         MultiFieldPanel((
             FieldPanel('per_page'),
             FieldPanel('orphans'),

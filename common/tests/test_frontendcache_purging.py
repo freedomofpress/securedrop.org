@@ -1,7 +1,7 @@
 from unittest.mock import patch
 
 from django.test import TestCase
-from wagtail.core.models import Site
+from wagtail.models import Site
 from wagtail_factories import PageFactory
 
 from common.models.settings import FooterSettings
@@ -38,7 +38,7 @@ class FrontendCacheTestCase(TestCase):
         """
         Changing any Setting should purge the entire zone. In this
         case we test with FooterSettings as an example, but it should work for
-        any BaseSetting subclass
+        any BaseSiteSetting subclass
         """
 
         site = Site.objects.get(is_default_site=True)

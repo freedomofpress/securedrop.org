@@ -8,7 +8,7 @@ from wagtail.contrib.modeladmin.options import (
     ModelAdmin,
     modeladmin_register,
 )
-from wagtail.core import hooks
+from wagtail import hooks
 
 from .models import ScanResult, DirectoryEntry
 from .views import ManualScanView
@@ -69,7 +69,7 @@ scanresult_modeladmin = ScanResultAdmin()
 
 
 @hooks.register('register_page_listing_buttons')
-def add_scan_results_buttons(page, page_perms, is_parent=False, next_url=None):
+def add_scan_results_buttons(page, page_perms, next_url=None):
     """
     For directory entry pages, add an additional button to the page listing,
     linking to the most relevant model admin pages for scan results.
@@ -80,13 +80,12 @@ def add_scan_results_buttons(page, page_perms, is_parent=False, next_url=None):
             hook_name='add_scan_results_button',
             page=page,
             page_perms=page_perms,
-            is_parent=is_parent,
             priority=35
         )
 
 
 @hooks.register('add_scan_results_button')
-def button_for_scan_results(page, page_perms, is_parent=False, next_url=None):
+def button_for_scan_results(page, page_perms, next_url=None):
     """Creates drop-down buttons that link to ScanResult model admin
     sections for a given DirectoryEntry on the page listing area.  The
     links go to the most recent live result, as well as the filtered

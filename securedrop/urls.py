@@ -7,7 +7,7 @@ from django.views.generic import TemplateView, RedirectView
 
 from search import views as search_views
 from wagtail.admin import urls as wagtailadmin_urls
-from wagtail.core import urls as wagtail_urls
+from wagtail import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
 from common.views import view_document, health_ok, health_version
