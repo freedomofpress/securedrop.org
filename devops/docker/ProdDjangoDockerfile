@@ -64,12 +64,15 @@ RUN  mkdir /django-media /django-static /django-logs && \
 RUN mkdir -p /etc/gunicorn && chown -R gcorn: /etc/gunicorn
 COPY devops/docker/gunicorn/gunicorn.py /etc/gunicorn/gunicorn.py
 
-RUN mkdir /deploy && \
-    chown -R gcorn: /deploy && \
-    /django/devops/scripts/version-file.sh
+# Create /deploy as root
+RUN mkdir /deploy && chown -R gcorn: /deploy
 
 EXPOSE 8000
 USER ${USERID}
+
+# Run version info script as gcorn user (required as the repo directories are owned by this user)
+RUN /django/devops/scripts/version-file.sh
+
 # since no django env is specified, runs in dev; disable DEBUG
 RUN env DJANGO_DISABLE_DEBUG=1 ./manage.py collectstatic -c --noinput
 CMD django-start.sh
