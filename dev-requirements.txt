@@ -50,9 +50,9 @@ cachetools==4.2.4 \
     # via
     #   -r requirements.txt
     #   google-auth
-certifi==2021.10.8 \
-    --hash=sha256:78884e7c1d4b00ce3cea67b44566851c4343c120abd683433ce934a68ea58872 \
-    --hash=sha256:d62a0163eb4c2344ac042ab2bdf75399a71a2d8c7d47eac2e2ee91b9d6339569
+certifi==2022.12.7 \
+    --hash=sha256:35824b4c3a97115964b408844d64aa14db1cc518f6562e8d7261699d1350a9e3 \
+    --hash=sha256:4ad3232f5e926d6718ec31cfc1fcadfde020920e278684144551c91769c7bc18
     # via
     #   -r requirements.txt
     #   requests
@@ -1054,7 +1054,6 @@ six==1.16.0 \
     --hash=sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254
     # via
     #   -r requirements.txt
-    #   asttokens
     #   bleach
     #   google-auth
     #   html5lib
@@ -1368,7 +1367,6 @@ setuptools==65.5.1 \
     --hash=sha256:d0b9a8433464d5800cbe05094acf5c6d52a91bfac9b52bcfc4d41382be5d5d31 \
     --hash=sha256:e197a19aa8ec9722928f2206f8de752def0e4c9fc6953527360d1c36d94ddb2f
     # via
-    #   -r requirements.txt
     #   gunicorn
     #   ipdb
     #   ipython
