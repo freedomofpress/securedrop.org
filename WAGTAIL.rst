@@ -1,7 +1,7 @@
 Wagtail Editor's Guide
 ======================
 
-This guide is designed for Wagtail editors of Securedrop.org. It will explain where to find certain settings and the ins and outs of this particular Wagtail site.
+This guide is designed for Wagtail editors of SecureDrop.org. It will explain where to find certain settings and the ins and outs of this particular Wagtail site.
 
 General information about editing Wagtail sites can be found in `Wagtail's documentation <https://guide.wagtail.org/>`_.
 
@@ -45,9 +45,9 @@ These are settings for social media and search engine optimization, including a 
 
 Directory Settings
 ++++++++++++++++++
-These are settings that are used on the Securedrop instance pages (DirectoryEntry) that users and admins can create. The text in these settings will show up on every Securedrop page.
+These are settings that are used on the SecureDrop instance pages (DirectoryEntry) that users and admins can create. The text in these settings will show up on every SecureDrop page.
 
-You can also change which user group will receive alerts when securedrop instances are submitted.
+You can also change which user group will receive alerts when SecureDrop instances are submitted.
 
 Page Settings
 -------------
@@ -75,6 +75,6 @@ Menus are groups of links used throughout the site. The Main Menu is displayed o
 
 Result Groups
 +++++++++++++
-Result Groups are used to display results from scanning a Securedrop landing page. The title of each group is displayed as a header. Each ``result state`` in a result group must have the exact name of a field in the Result model (in the ``directory`` app).
+Result Groups are used to display results from scanning a SecureDrop landing page. The title of each group is displayed as a header. Each ``result state`` in a result group must have the exact name of a field in the Result model (in the ``directory`` app).
 
 These result states three types of text. A success text, displayed if the corresponding field on the Result model is ``True``; a failure text, displayed if the corresponding field on a model is ``False``; and a fix text, which is displayed immediately after a user scans their page and shows them what to do to pass that test. Result states also contain an 'is warning' field, which will cause the failure text to display with a yellow flag if checked, or a red x if left unchecked.
