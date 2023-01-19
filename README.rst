@@ -23,15 +23,25 @@ Table of Contents
 Prerequisites
 -------------
 
-The installation instructions below assume you have the following software on your machine:
+The installation instructions below assume you have Docker on your machine.  The easiest way to achieve this is to install `Docker Desktop <https://www.docker.com/products/docker-desktop/>`_ for your operating system by following the instructions in the appropriate link below:
 
-* `Docker <https://www.docker.com/get-started>`_
-* `docker-compose <https://docs.docker.com/compose/install/>`_
+* `Install Docker Desktop on Mac <https://docs.docker.com/desktop/install/mac-install/>`_
+* `Install Docker Desktop on Fedora Linux <https://docs.docker.com/desktop/install/fedora/>`_
+* `Install Docker Desktop on Ubuntu Linux <https://docs.docker.com/desktop/install/ubuntu/>`_
+* `Install Docker Desktop on other Linux distributions <https://docs.docker.com/desktop/install/linux-install/>`_
+
+The instructions also assume you have cloned this repository and are in a shell environment in the base directory of the clone.  If this is not the case, run these commands:
+
+.. code:: bash
+
+    git clone https://github.com/freedomofpress/securedrop.org.git
+    cd securedrop.org
+
 
 Getting Started: The Quick Version
 ----------------------------------
 
-To get started, run:
+To start the website running in your local environment, run these commands:
 
 .. code:: bash
 
@@ -39,14 +49,16 @@ To get started, run:
     docker compose up  # long-running process to run application server, every time
 
     # In a separate shell:
-    docker-compose exec django ./manage.py createdevdata  # one-time command
+    make dev-createdevdata  # one-time command
 
-Visit ``http://localhost:8000/`` to see the site or ``http://localhost:8000/admin/`` for the Wagtail admin.
+Visit ``http://localhost:8000/`` to see the site.
+
+The URL of the admin area is ``http://localhost:8000/admin/`` for the Wagtail admin.  Running the dev data creation command will create login credentials of username "test" and password "test".
 
 Getting Started: The Unabridged Edition
 ---------------------------------------
 
-The development environment uses Docker Compose to run the application server, database, and webpack compilation processes. If you are using Docker for Mac, this comes preinstalled.
+The development environment uses Docker Compose to run the application server, database, and webpack compilation processes.
 
 Before development you *must* run this one-time command.
 
@@ -66,7 +78,7 @@ To populate the project with data suitable for development and testing.
 
 .. code:: bash
 
-    docker-compose exec django ./manage.py createdevdata
+    make dev-createdevdata
 
 .. important:: Though your database will persist between *most* runs, it is recommended that you consider it ephemeral and do not use it to store data you don't wish to lose.
 
