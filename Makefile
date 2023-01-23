@@ -7,6 +7,9 @@ GIT_REV := $(shell git rev-parse HEAD | cut -c1-10)
 GIT_BR := $(shell git rev-parse --abbrev-ref HEAD)
 SD_IMAGE := quay.io/freedomofpress/securedrop.org
 
+# Required for docker build --output
+export DOCKER_BUILDKIT = 1
+
 .PHONY: dev-init
 dev-init: ## Initialize docker environment for developer workflow
 	echo UID=$(HOST_UID) > .env
@@ -43,15 +46,8 @@ dev-restore-db: ## Restore the most recent database snapshot for the current git
 	./devops/scripts/restoredb.sh
 
 .PHONY: compile-pip-dependencies
-compile-pip-dependencies: ## Uses pip-compile to update requirements.txt
-# It is critical that we run pip-compile via the same Python version
-# that we're generating requirements for, otherwise the versions may
-# be resolved differently.
-	docker run --rm -v "$(DIR):/code" -w /code -it python:3.9-slim \
-		bash -c 'apt-get update && apt-get install gcc libpq-dev -y && \
-    pip install pip-tools && \
-		pip-compile --generate-hashes --no-header --allow-unsafe --output-file requirements.txt requirements.in && \
-		pip-compile --generate-hashes --no-header --allow-unsafe --output-file dev-requirements.txt dev-requirements.in'
+compile-pip-dependencies:
+	docker build --target=requirements-artifacts -f ./devops/docker/DevDjangoDockerfile --output type=local,dest=$(DIR) .
 
 .PHONY: pip-update
 pip-update: ## Uses pip-compile to update requirements.txt for upgrading a specific package
