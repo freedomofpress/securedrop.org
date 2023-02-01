@@ -1,13 +1,13 @@
-.. note::
-
-   By contributing to this project, you agree to abide by our
-   `Code of Conduct <https://github.com/freedomofpress/.github/blob/main/CODE_OF_CONDUCT.md>`_.
-
 SecureDrop.org
 ==============
 
 .. image:: https://circleci.com/gh/freedomofpress/securedrop.org.svg?style=svg&circle-token=ae1bdad92b508cea5a86c6a84374af0ae3cf9706
     :target: https://circleci.com/gh/freedomofpress/securedrop.org
+
+.. note::
+
+   By contributing to this project, you agree to abide by our
+   `Code of Conduct <https://github.com/freedomofpress/.github/blob/main/CODE_OF_CONDUCT.md>`_.
 
 Table of Contents
 -----------------
