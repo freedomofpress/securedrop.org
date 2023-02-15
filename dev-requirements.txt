@@ -36,10 +36,6 @@ beautifulsoup4==4.8.2 \
     #   -r requirements.txt
     #   pytablereader
     #   wagtail
-black==21.12b0 \
-    --hash=sha256:77b80f693a569e2e527958459634f18df9b0ba2625ba4e0c2d5da5be42e6f2b3 \
-    --hash=sha256:a615e69ae185e08fdd73e4715e260e2479c861b5740057fde6e8b4e3b7dd589f
-    # via ipython
 bleach==4.1.0 \
     --hash=sha256:0900d8b37eba61a802ee40ac0061f8c2b5dee29c1927dd1d233e075ebf5a71da \
     --hash=sha256:4d2651ab93271d1129ac9cbc679f524565cc8a1b791909c4a51eac4446a15994
@@ -125,9 +121,7 @@ charset-normalizer==2.0.7 \
 click==8.0.3 \
     --hash=sha256:353f466495adaeb40b6b5f592f9f91cb22372351c84caeb068132442a4518ef3 \
     --hash=sha256:410e932b050f5eed773c4cda94de75971c89cdb3155a72a0831139a79e5ecb5b
-    # via
-    #   black
-    #   safety
+    # via safety
 colorama==0.4.4 \
     --hash=sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b \
     --hash=sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2
@@ -218,9 +212,9 @@ decorator==5.1.0 \
     # via
     #   ipdb
     #   ipython
-django==3.2.17 \
-    --hash=sha256:59c39fc342b242fb42b6b040ad8b1b4c15df438706c1d970d416d63cdd73e7fd \
-    --hash=sha256:644288341f06ebe4938eec6801b6bd59a6534a78e4aedde2a153075d11143894
+django==3.2.18 \
+    --hash=sha256:08208dfe892eb64fff073ca743b3b952311104f939e7f6dae954fe72dcc533ba \
+    --hash=sha256:4d492d9024c7b3dfababf49f94511ab6a58e2c9c3c7207786f1ba4eb77750706
     # via
     #   -r requirements.txt
     #   django-anymail
@@ -461,9 +455,9 @@ idna==3.3 \
 ipdb==0.13.9 \
     --hash=sha256:951bd9a64731c444fd907a5ce268543020086a697f6be08f7cc2c9a752a278c5
     # via -r dev-requirements.in
-ipython==8.0.1 \
-    --hash=sha256:ab564d4521ea8ceaac26c3a2c6e5ddbca15c8848fd5a5cc325f960da88d42974 \
-    --hash=sha256:c503a0dd6ccac9c8c260b211f2dd4479c042b49636b097cc9a0d55fe62dff64c
+ipython==8.10.0 \
+    --hash=sha256:b13a1d6c1f5818bd388db53b7107d17454129a70de2b87481d555daede5eb49e \
+    --hash=sha256:b38c31e8fc7eff642fc7c597061fff462537cf2314e3225a19c906b7b0d8a345
     # via ipdb
 jedi==0.18.0 \
     --hash=sha256:18456d83f65f400ab0c2d3319e48520420ef43b23a086fdc05dff34132f0fb93 \
@@ -644,10 +638,6 @@ multidict==5.2.0 \
     --hash=sha256:fc66d4016f6e50ed36fb39cd287a3878ffcebfa90008535c62e0e90a7ab713ae \
     --hash=sha256:fd77c8f3cba815aa69cb97ee2b2ef385c7c12ada9c734b0f3b32e26bb88bbf1d
     # via yarl
-mypy-extensions==0.4.3 \
-    --hash=sha256:090fedd75945a69ae91ce1303b5824f428daf5a028d2f6ab8a299250a846f15d \
-    --hash=sha256:2d82818f5bb3e369420cb3c4060a7970edba416647068eb4c5343488a6c604a8
-    # via black
 nassl==4.0.1 \
     --hash=sha256:103324c5b9b23792158eeeea8767a40211c665e6ac4488bb303415819158504f \
     --hash=sha256:13545af770d9ade632bdd97b1312309657462553b87f27be5a4f65f872186eb3 \
@@ -690,10 +680,6 @@ path==16.2.0 \
     # via
     #   -r requirements.txt
     #   pytablereader
-pathspec==0.9.0 \
-    --hash=sha256:7d15c4ddb0b5c802d161efc417ec1a2558ea2653c2e8ad9c19098201dc1c993a \
-    --hash=sha256:e564499435a2673d586f6b2130bb5b95f04a3ba06f81b8f895b651a3c76aabb1
-    # via black
 pathvalidate==2.5.0 \
     --hash=sha256:119ba36be7e9a405d704c7b7aea4b871c757c53c9adc0ed64f40be1ed8da2781 \
     --hash=sha256:e5b2747ad557363e8f4124f0553d68878b12ecabd77bcca7e7312d5346d20262
@@ -778,13 +764,9 @@ pillow==9.3.0 \
     # via
     #   -r requirements.txt
     #   wagtail
-platformdirs==2.4.1 \
-    --hash=sha256:1d7385c7db91728b83efd0ca99a5afb296cab9d0ed8313a45ed8ba17967ecfca \
-    --hash=sha256:440633ddfebcc36264232365d7840a970e75e1018d15b4327d11f91909045fda
-    # via black
-prompt-toolkit==3.0.22 \
-    --hash=sha256:449f333dd120bd01f5d296a8ce1452114ba3a71fae7288d2f0ae2c918764fa72 \
-    --hash=sha256:48d85cdca8b6c4f16480c7ce03fd193666b62b0a21667ca56b4bb5ad679d1170
+prompt-toolkit==3.0.36 \
+    --hash=sha256:3e163f254bef5a03b146397d7c1963bd3e2812f0964bb9a24e6ec761fd28db63 \
+    --hash=sha256:aa64ad242a462c5ff0363a7b9cfe696c20d55d9fc60c11fd8e632d064804d305
     # via ipython
 protobuf==4.21.6 \
     --hash=sha256:07a0bb9cc6114f16a39c866dc28b6e3d96fa4ffb9cc1033057412547e6e75cb9 \
@@ -1140,10 +1122,6 @@ toml==0.10.2 \
     # via
     #   dparse
     #   ipdb
-tomli==1.2.3 \
-    --hash=sha256:05b6166bff487dc068d322585c7ea4ef78deed501cc124060e0f238e89a9231f \
-    --hash=sha256:e3069e4be3ead9668e21cb9b074cd948f7b3113fd9c8bba083f48247aab8b11c
-    # via black
 traitlets==5.1.1 \
     --hash=sha256:059f456c5a7c1c82b98c2e8c799f39c9b8128f6d0d46941ee118daace9eb70c7 \
     --hash=sha256:2d313cc50a42cd6c277e7d7dc8d4d7fedd06a2c215f78766ae7b1a66277e0033
@@ -1159,10 +1137,6 @@ typepy[datetime]==1.3.0 \
     #   pytablereader
     #   pytablewriter
     #   tabledata
-typing-extensions==4.0.0 \
-    --hash=sha256:2cdf80e4e04866a9b3689a51869016d36db0814d84b8d8a568d22781d45d27ed \
-    --hash=sha256:829704698b22e13ec9eaf959122315eabb370b0884400e9818334d8b677023d9
-    # via black
 unittest-xml-reporting==3.0.4 \
     --hash=sha256:7bf515ea8cb244255a25100cd29db611a73f8d3d0aaf672ed3266307e14cc1ca \
     --hash=sha256:984cebba69e889401bfe3adb9088ca376b3a1f923f0590d005126c1bffd1a695
@@ -1365,10 +1339,8 @@ setuptools==67.1.0 \
     --hash=sha256:a7687c12b444eaac951ea87a9627c4f904ac757e7abdc5aac32833234af90378 \
     --hash=sha256:e261cdf010c11a41cb5cb5f1bf3338a7433832029f559a6a7614bd42a967c300
     # via
-    #   -r requirements.txt
     #   gunicorn
     #   ipdb
-    #   ipython
     #   pytablereader
     #   pytablewriter
     #   safety
