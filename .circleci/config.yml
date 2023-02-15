@@ -18,6 +18,10 @@ jobs:
       - checkout
 
       - run:
+          name: Obtain misc resources
+          command: git clone --depth 1 https://github.com/freedomofpress/fpf-misc-resources.git
+
+      - run:
           name: Install pip dependencies
           command: pip install --require-hashes -r dev-requirements.txt
 

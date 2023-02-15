@@ -7,6 +7,9 @@ import sys
 import pathlib
 
 
+CENTRALIZATION_REPO_NAME = "fpf-misc-resources"
+
+
 def check_full_report(ids_to_ignore=[]):
     """Runs `safety` on all requirements files, outputs the full report
     for each.  Exits with a success code (0) if all the checks also
@@ -29,9 +32,14 @@ def check_full_report(ids_to_ignore=[]):
 
 
 if __name__ == '__main__':
-    project_path = pathlib.Path(__file__).parent.parent / "project.json"
+    resources_path = (
+        pathlib.Path(__file__).parent.parent
+        / CENTRALIZATION_REPO_NAME
+        / "projectfiles"
+        / "securedrop.org.json"
+    )
 
-    project = json.loads(project_path.read_text())
+    project = json.loads(resources_path.read_text())
 
     try:
         sys.exit(
