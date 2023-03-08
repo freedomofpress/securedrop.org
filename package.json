@@ -35,7 +35,6 @@
     "babel-polyfill": "^6.26.0",
     "classlist-polyfill": "^1.2.0",
     "classnames": "^2.2.5",
-    "commander": "^2.20.0",
     "element-dataset": "^2.2.6",
     "hamburgers": "^0.9.1",
     "invariant": "^2.2.2",
