@@ -36,7 +36,6 @@
     "classlist-polyfill": "^1.2.0",
     "hamburgers": "^1.2.1",
     "pdfobject": "^2.2.7",
-    "prop-types": "^15.5.10",
-    "terser-webpack-plugin": "^5.3.3"
+    "prop-types": "^15.5.10"
   }
 }
