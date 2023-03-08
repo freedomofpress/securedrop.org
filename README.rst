@@ -23,30 +23,42 @@ Table of Contents
 Prerequisites
 -------------
 
-The installation instructions below assume you have the following software on your machine:
+The installation instructions below assume you have Docker on your machine.  The easiest way to achieve this is to install `Docker Desktop <https://www.docker.com/products/docker-desktop/>`_ for your operating system by following the instructions in the appropriate link below:
 
-* `Docker <https://www.docker.com/get-started>`_
-* `docker-compose <https://docs.docker.com/compose/install/>`_
+* `Install Docker Desktop on Mac <https://docs.docker.com/desktop/install/mac-install/>`_
+* `Install Docker Desktop on Fedora Linux <https://docs.docker.com/desktop/install/fedora/>`_
+* `Install Docker Desktop on Ubuntu Linux <https://docs.docker.com/desktop/install/ubuntu/>`_
+* `Install Docker Desktop on other Linux distributions <https://docs.docker.com/desktop/install/linux-install/>`_
+
+The instructions also assume you have cloned this repository and are in a shell environment in the base directory of the clone.  If this is not the case, run these commands:
+
+.. code:: bash
+
+    git clone https://github.com/freedomofpress/securedrop.org.git
+    cd securedrop.org
+
 
 Getting Started: The Quick Version
 ----------------------------------
 
-To get started, run:
+To start the website running in your local environment, run these commands:
 
 .. code:: bash
 
     make dev-init  # one-time command
-    docker-compose up  # long-running process to run application server, every time
+    docker compose up  # long-running process to run application server, every time
 
     # In a separate shell:
-    docker-compose exec django ./manage.py createdevdata  # one-time command
+    make dev-createdevdata  # one-time command
 
-Visit ``http://localhost:8000/`` to see the site or ``http://localhost:8000/admin/`` for the Wagtail admin.
+Visit ``http://localhost:8000/`` to see the site.
+
+The URL of the admin area is ``http://localhost:8000/admin/`` for the Wagtail admin.  Running the dev data creation command will create login credentials of username "test" and password "test".
 
 Getting Started: The Unabridged Edition
 ---------------------------------------
 
-The development environment uses Docker Compose to run the application server, database, and webpack compilation processes. If you are using Docker for Mac, this comes preinstalled.
+The development environment uses Docker Compose to run the application server, database, and webpack compilation processes.
 
 Before development you *must* run this one-time command.
 
@@ -58,7 +70,7 @@ To start the environment, run the following your first run:
 
 .. code:: bash
 
-    docker-compose up
+    docker compose up
 
 This is how you start the server every time you are working on the project. This will start a long-running process. You can exit this process with ``ctl-c``. You may wish to open a second shell to run one-off commands while the server is running.
 
@@ -66,18 +78,18 @@ To populate the project with data suitable for development and testing.
 
 .. code:: bash
 
-    docker-compose exec django ./manage.py createdevdata
+    make dev-createdevdata
 
 .. important:: Though your database will persist between *most* runs, it is recommended that you consider it ephemeral and do not use it to store data you don't wish to lose.
 
 You should be able to hit the web server interface at ``http://localhost:8000/``. You can access the Wagtail admin at ``http://localhost:8000/admin/``.
 
-To learn more about Docker Compose, see the `docker-compose CLI docs <https://docs.docker.com/compose/reference/overview/>`_
+To learn more about Docker Compose, see the `docker compose CLI docs <https://docs.docker.com/compose/reference/overview/>`_
 
 Management Commands
 -------------------
 
-In addition to the management commands provided by `Django <https://docs.djangoproject.com/en/stable/ref/django-admin/>`_ and `Wagtail <http://docs.wagtail.io/en/stable/reference/management_commands.html>`_, the project has a set of its own custom management commands. All commands listed should be prefaced by ``docker-compose exec django ./manage.py``.
+In addition to the management commands provided by `Django <https://docs.djangoproject.com/en/stable/ref/django-admin/>`_ and `Wagtail <http://docs.wagtail.io/en/stable/reference/management_commands.html>`_, the project has a set of its own custom management commands. All commands listed should be prefaced by ``docker compose exec django ./manage.py``.
 
 Dev Data Commands
 +++++++++++++++++
@@ -172,7 +184,7 @@ Database import
 +++++++++++++++
 
 Drop a Postgres database dump into the root of the repo and rename it to
-``import.db``. To import it into a running dev session (ensure ``docker-compose up`` has
+``import.db``. To import it into a running dev session (ensure ``docker compose up`` has
 already been started) run ``make dev-import-db``. Note that this will not pull in
 images that are referenced from an external site backup.
 
@@ -180,7 +192,7 @@ Connect to PostgreSQL service from host
 +++++++++++++++++++++++++++++++++++++++
 
 The postgresql service is exposed to your host on a port that will be displayed
-to you in the output of ``docker-compose port postgresql 5432``. If you have a GUI
+to you in the output of ``docker compose port postgresql 5432``. If you have a GUI
 database manipulation application you'd like to utilize point it to ``localhost``
 with the correct port, username ``securedrop``, password ``securedroppassword``, dbname ``securedropdb``
 
@@ -193,7 +205,7 @@ Note that build time for this container takes much longer than the developer env
 
 .. code:: bash
 
-    docker-compose -f prod-docker-compose.yaml up
+    docker compose -f prod-docker-compose.yaml up
 
 It is not run using live-code refresh so it's not a great dev environment but is good for replicating issues
 that would come up in production.
@@ -248,22 +260,22 @@ Sometimes when dependencies are changed or a Docker image needs to be updated fo
 
 .. code:: shell
 
-    docker-compose up --build
+    docker compose up --build
 
 Adding the ``--build`` flag tells Docker Compose to detect and update any images that require new changes. You can safely add the ``--build`` flag under most circumstances without adverse effects.
 
 .. code:: shell
 
-    docker-compose up --build --force-recreate
+    docker compose up --build --force-recreate
 
 Adding the ``--force-recreate`` flag tells Docker Compose to recreate all containers that are part of the application.
 
-If neither of the above fix the issues you're encountering, ensure all docker containers are stopped (``ctl-c`` if containers are running in a shell, ``docker-compose kill`` if they are running detached) and run the following commands. These commands will remove all images ad containers and rebuild from scratch. Any data in your database will be wiped.
+If neither of the above fix the issues you're encountering, ensure all docker containers are stopped (``ctl-c`` if containers are running in a shell, ``docker compose kill`` if they are running detached) and run the following commands. These commands will remove all images ad containers and rebuild from scratch. Any data in your database will be wiped.
 
 .. code:: shell
 
-    docker-compose rm
-    docker-compose up --build
+    docker compose rm
+    docker compose up --build
 
 
 Debugging
@@ -279,6 +291,6 @@ Second, attach to the running Django container.  This must be done in a shell, a
 
 .. code:: bash
 
-    docker attach $(docker-compose ps -q django)
+    docker attach $(docker compose ps -q django)
 
 Once you have done this, you can load the page that will run the code with your ``import ipdb`` and the debugger will activate in the shell you attached.  To detach from the shell without stopping the container press ``Control+P`` followed by ``Control+Q``.
