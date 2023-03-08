@@ -34,10 +34,7 @@
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "classlist-polyfill": "^1.2.0",
-    "classnames": "^2.2.5",
-    "element-dataset": "^2.2.6",
     "hamburgers": "^1.2.1",
-    "invariant": "^2.2.2",
     "pdfobject": "^2.2.7",
     "prop-types": "^15.5.10",
     "terser-webpack-plugin": "^5.3.3"

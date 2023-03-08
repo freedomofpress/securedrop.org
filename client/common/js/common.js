@@ -1,5 +1,4 @@
 import 'classlist-polyfill'
-import 'element-dataset'
 import 'babel-polyfill'
 
 import '../sass/common.sass'
