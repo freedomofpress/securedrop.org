@@ -51,7 +51,7 @@ jobs:
           command: |
             mkdir -p test-results
             npm ci
-            $(npm bin)/npm-audit-plus --xml > test-results/audit.xml
+            npx npm-audit-plus --xml > test-results/audit.xml
 
       - store_test_results:
           path: ~/securedrop.org/test-results/

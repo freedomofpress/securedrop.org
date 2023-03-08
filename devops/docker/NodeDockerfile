@@ -2,7 +2,7 @@
 FROM node:16-alpine@sha256:1908564153449b1c46b329e6ce2307e226bc566294f822f11c5a8bcef4eeaad7
 
 # Install npm, making output less verbose
-ARG NPM_VER=8.19.3
+ARG NPM_VER=9.6.0
 ENV NPM_CONFIG_LOGLEVEL warn
 RUN npm install npm@${NPM_VER} --location=global
 
