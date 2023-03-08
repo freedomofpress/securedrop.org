@@ -39,7 +39,7 @@ jobs:
 
   npm_audit:
     docker:
-      - image: cimg/node:14.17.3
+      - image: cimg/node:18.14.2
     working_directory: ~/securedrop.org
     steps:
       - checkout
