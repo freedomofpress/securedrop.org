@@ -32,7 +32,6 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
-    "axios": "^0.21.2",
     "babel-polyfill": "^6.26.0",
     "classlist-polyfill": "^1.2.0",
     "classnames": "^2.2.5",

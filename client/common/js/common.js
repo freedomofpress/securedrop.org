@@ -1,11 +1,6 @@
 import 'classlist-polyfill'
 import 'element-dataset'
 import 'babel-polyfill'
-import axios from 'axios'
-
-axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
-axios.defaults.xsrfCookieName = 'csrftoken'
-axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
 import '../sass/common.sass'
 import '~/slidingnav'
