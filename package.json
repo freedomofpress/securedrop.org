@@ -40,7 +40,6 @@
     "invariant": "^2.2.2",
     "pdfobject": "^2.2.7",
     "prop-types": "^15.5.10",
-    "query-string": "^5.0.0",
     "terser-webpack-plugin": "^5.3.3"
   }
 }
