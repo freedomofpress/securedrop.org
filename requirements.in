@@ -11,14 +11,13 @@ factory_boy
 feedparser
 gunicorn>=20.1.0
 lxml>=4.7.1
-pillow>=9.3.0
-psycopg2>=2.8.4,<2.9
-pyopenssl==19.0.0
+psycopg2
 pygments
 python-json-logger
-structlog>=21,<22
+structlog
 tldextract
 tinycss2
+sslyze<5
 wagtail>=4.1,<4.2
 wagtail-factories
 wagtail-metadata>=4.0.2
