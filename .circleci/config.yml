@@ -39,7 +39,7 @@ jobs:
 
   npm_audit:
     docker:
-      - image: cimg/node:14.17.3
+      - image: cimg/node:18.14.2
     working_directory: ~/securedrop.org
     steps:
       - checkout
@@ -51,7 +51,7 @@ jobs:
           command: |
             mkdir -p test-results
             npm ci
-            $(npm bin)/npm-audit-plus --xml > test-results/audit.xml
+            npx npm-audit-plus --xml > test-results/audit.xml
 
       - store_test_results:
           path: ~/securedrop.org/test-results/

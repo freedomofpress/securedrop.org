@@ -1330,15 +1330,13 @@ yarl==1.7.2 \
     --hash=sha256:fce78593346c014d0d986b7ebc80d782b7f5e19843ca798ed62f8e3ba8728576 \
     --hash=sha256:fd547ec596d90c8676e369dd8a581a21227fe9b4ad37d0dc7feb4ccf544c2d59
     # via vcrpy
-zxcvbn-python==4.4.24 \
-    --hash=sha256:900b28cc5e96be4091d8778f19f222832890264e338765a1c1c09fca2db64b2d
-    # via -r requirements.txt
 
 # The following packages are considered to be unsafe in a requirements file:
 setuptools==67.1.0 \
     --hash=sha256:a7687c12b444eaac951ea87a9627c4f904ac757e7abdc5aac32833234af90378 \
     --hash=sha256:e261cdf010c11a41cb5cb5f1bf3338a7433832029f559a6a7614bd42a967c300
     # via
+    #   -r requirements.txt
     #   gunicorn
     #   ipdb
     #   pytablereader
