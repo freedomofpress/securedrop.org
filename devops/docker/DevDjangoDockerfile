@@ -1,13 +1,29 @@
 # sha256 as of 2021-07-22
-FROM python:3.9-slim-buster@sha256:4e69709296a8ae67d97ba072e7f4973125939f3a13cd276c1e8ca1f7b7d49aa3
+FROM python:3.9-slim-buster@sha256:4e69709296a8ae67d97ba072e7f4973125939f3a13cd276c1e8ca1f7b7d49aa3 AS python-base
+RUN apt-get update && \
+    apt-get install -y \
+       gcc \
+    libpq-dev
 
+FROM python-base AS builder
+RUN pip install -U pip pip-tools wheel
+COPY dev-requirements.in requirements.in dev-requirements.txt requirements.txt ./
+COPY devops/docker/pip-compile.sh /usr/local/bin
+RUN pip-compile.sh
+
+# This build target extracts the requirements.txt files from the
+# previous stage and is intented to be used with
+# `docker build --output=...` or the make command `compile-pip-dependencies`
+FROM scratch AS requirements-artifacts
+COPY --from=builder dev-requirements.txt ./
+COPY --from=builder requirements.txt ./
+
+FROM python-base
 RUN apt-get update && apt-get install -y \
     curl \
-    gcc \
     build-essential \
     git \
     libffi-dev \
-    libpq-dev \
     libxml2-dev \
     libxslt-dev \
     libssl-dev \
@@ -19,7 +35,7 @@ RUN apt-get update && apt-get install -y \
 COPY devops/docker/django-start.sh /usr/local/bin
 RUN  chmod +x /usr/local/bin/django-start.sh
 
-COPY dev-requirements.txt /requirements.txt
+COPY --from=builder dev-requirements.txt /requirements.txt
 RUN pip install --require-hashes -r /requirements.txt
 
 ARG USERID

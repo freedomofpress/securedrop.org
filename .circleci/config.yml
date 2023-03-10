@@ -18,6 +18,10 @@ jobs:
       - checkout
 
       - run:
+          name: Obtain misc resources
+          command: git clone --depth 1 https://github.com/freedomofpress/fpf-misc-resources.git
+
+      - run:
           name: Install pip dependencies
           command: pip install --require-hashes -r dev-requirements.txt
 
@@ -35,7 +39,7 @@ jobs:
 
   npm_audit:
     docker:
-      - image: cimg/node:14.17.3
+      - image: cimg/node:18.14.2
     working_directory: ~/securedrop.org
     steps:
       - checkout
@@ -47,14 +51,14 @@ jobs:
           command: |
             mkdir -p test-results
             npm ci
-            $(npm bin)/npm-audit-plus --xml > test-results/audit.xml
+            npx npm-audit-plus --xml > test-results/audit.xml
 
       - store_test_results:
           path: ~/securedrop.org/test-results/
 
   build_dev:
     machine:
-      image: ubuntu-2004:202101-01
+      image: ubuntu-2004:2022.10.1
     working_directory: ~/securedrop.org
     steps:
       - checkout
