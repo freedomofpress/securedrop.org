@@ -386,6 +386,7 @@ class ScannerTest(TestCase):
             headers={
                 'User-Agent': 'SecureDrop Landing Page Scanner 0.1.0',
             },
+            timeout=10,
         )
 
 

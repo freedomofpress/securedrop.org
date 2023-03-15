@@ -181,7 +181,7 @@ def fetch_asset(asset_url: str, site_url: str) -> requests.models.Response:
 
     # Note: headers include User-Agent which is required for correct
     # scanning.
-    return requests.get(asset_url.geturl(), headers=HEADERS)
+    return requests.get(asset_url.geturl(), headers=HEADERS, timeout=5)
 
 
 def parse_srcset(srcset: str) -> List[str]:

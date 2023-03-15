@@ -309,6 +309,7 @@ class TestAssetFetching(TestCase):
         requests_get.assert_called_once_with(
             'http://example.com/example.gif',
             headers={'User-Agent': 'SecureDrop Landing Page Scanner 0.1.0'},
+            timeout=5,
         )
 
 
