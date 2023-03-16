@@ -1,3 +1,5 @@
+import dataclasses
+
 from django.core.validators import MaxValueValidator
 from django.db import models
 
@@ -9,8 +11,14 @@ from wagtail.models import Page
 from common.models.mixins import MetadataPageMixin
 from common.utils import paginate, DEFAULT_PAGE_KEY
 from search.utils import get_search_content_by_fields
-from directory.models.taxonomy import Language, Topic, Country
 from directory.models.entry import DirectoryEntry
+from directory.forms import FilterForm
+
+
+@dataclasses.dataclass
+class FilterDefinition:
+    form_field: str
+    filter_argument: str
 
 
 class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
@@ -122,57 +130,31 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
             instances = instances.filter(**filters)
         return instances
 
-    def filters_from_querydict(self, query):
-        """Accept a querydict and return a list of queryset filters
-
-        Currently accepts the following get keys:
-        - `language` an language id
-        - `country` a country id
-        - `topic` a topic id
-
-        Returns filters with objects, not PKs because objects can be used
-        to render information about the filter in the template. (I.e., "You
-        are filtering for instances that list Spanish as a language")
-        Returns an empty filters object if PKs are invalid.
-        """
-        filters = {}
-        search = query.get('search')
-        language_id = query.get('language')
-        country_id = query.get('country')
-        topic_id = query.get('topic')
-        if search:
-            filters['title__icontains'] = search
-
-        if language_id:
-            try:
-                filters['languages'] = Language.objects.get(id=language_id)
-            except ValueError:
-                pass
-            except Language.DoesNotExist:
-                pass
-
-        if country_id:
-            try:
-                filters['countries'] = Country.objects.get(id=country_id)
-            except ValueError:
-                pass
-            except Country.DoesNotExist:
-                pass
-
-        if topic_id:
-            try:
-                filters['topics'] = Topic.objects.get(id=topic_id)
-            except ValueError:
-                pass
-            except Topic.DoesNotExist:
-                pass
-
-        return filters
-
     def get_context(self, request):
         context = super(DirectoryPage, self).get_context(request)
 
-        entry_filters = self.filters_from_querydict(request.GET)
+        valid_filters = [
+            FilterDefinition(
+                form_field='search',
+                filter_argument='title__icontains',
+            ),
+            FilterDefinition(form_field='language', filter_argument='languages'),
+            FilterDefinition(form_field='country', filter_argument='countries'),
+            FilterDefinition(form_field='topic', filter_argument='topics'),
+        ]
+        search_value = ''
+
+        form = FilterForm(request.GET)
+        if form.is_valid():
+            entry_filters = {
+                filter_def.filter_argument: form.cleaned_data[filter_def.form_field]
+                for filter_def in valid_filters
+                if form.cleaned_data[filter_def.form_field]
+            }
+            search_value = form.cleaned_data['search'].strip()
+        else:
+            entry_filters = {}
+
         entry_qs = self.get_instances(filters=entry_filters)
 
         paginator, entries = paginate(
@@ -183,14 +165,14 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
             orphans=self.orphans
         )
 
-        context['search_value'] = request.GET.get('search', '')
+        context['search_value'] = search_value
         context['entries_page'] = entries
         context['entries_filters'] = entry_filters
         context['paginator'] = paginator
         context['all_filters'] = {
-            'languages': Language.objects.all(),
-            'countries': Country.objects.all(),
-            'topics': Topic.objects.all(),
+            'languages': form.fields['language'].queryset,
+            'countries': form.fields['country'].queryset,
+            'topics': form.fields['topic'].queryset,
         }
 
         return context
