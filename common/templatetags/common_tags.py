@@ -22,9 +22,9 @@ def richtext_inline(value):
     return mark_safe(bleach.clean(
         text,
         strip=True,
-        tags=[
+        tags={
             'a', 'abbr', 'acronym', 'b', 'code', 'em', 'i', 'strong', 'span'
-        ]
+        }
     ))
 
 

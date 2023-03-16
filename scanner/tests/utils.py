@@ -18,4 +18,5 @@ def requests_get_mock(url, params={}, **kwargs):
     if NON_EXISTENT_URL_RE.fullmatch(url):
         raise ConnectionError
     else:
-        return get(url, params, **kwargs)
+        kwargs.setdefault('timeout', 5)
+        return get(url, params, **kwargs)  # nosec request_without_timeout
