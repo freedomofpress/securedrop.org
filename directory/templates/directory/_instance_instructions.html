@@ -3,21 +3,42 @@
 <div class="instance-instructions">
 	<h1 class="instance-instructions__title">{% trans "Planning to submit information?" %}</h1>
 	<p>
+		{% blocktrans with organization=page.title %}
+			The button below will take you to {{ organization }}’s landing page,
+			which will provide more details about how to submit files to their SecureDrop instance.
+		{% endblocktrans %}
+	</p>
+	<p>
+		Because the landing page is linked in our directory, it was found to be in compliance with
+		our strict security requirements.
+	<p>
 		{% blocktrans with organization=page.title onion=page.full_onion_address %}
-			Be sure that the .onion address provided on {{ organization }}’s landing
-			page below matches
+			As part of the submission process, we have confirmed {{ organization }}’s SecureDrop to be
+			available at the following .onion addresses:
+			<br />
+			<br />
 			<span class="instance-instructions__onion-address">{{ onion }}</span>
 		{% endblocktrans %}
 		{% if page.onion_name %}
 			{% blocktrans with onion_name=page.onion_name %}
-				or <span class="instance-instructions__onion-address">{{ onion_name }}</span>
+				<br />
+				<span class="instance-instructions__onion-address">{{ onion_name }}</span>
+				<br />
+				<br />
 			{% endblocktrans %}
 		{% endif %}
+	</p>
+	<p>
 		{% blocktrans %}
-			before continuing. This helps ensure you are visiting a legitimate
-			SecureDrop instance. See our
+			Please ensure the .onion address you are directed to visit matches an address above.
+			This helps ensure you are visiting a legitimate SecureDrop instance. See our
 			<a href="https://docs.securedrop.org/en/stable/source.html">Source Guide</a>
 			for more information on SecureDrop usage and risks.
+	</p>
+	<p>
+			Note that this .onion address will be different than the .onion address you
+			will see in your browser's address bar above, if you are visiting this page
+			using the Tor Browser.
 		{% endblocktrans %}
 	</p>
 	<p>
