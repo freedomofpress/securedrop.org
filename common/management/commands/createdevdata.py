@@ -40,7 +40,7 @@ class Command(BaseCommand):
         url = 'https://placeimg.com/{width}/{height}/{category}'.format(
             width=width, height=height, category=category
         )
-        response = requests.get(url)
+        response = requests.get(url, timeout=5)
         if response and response.content:
             CustomImageFactory(
                 file__from_file=ContentFile(response.content),

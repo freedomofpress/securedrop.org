@@ -1,5 +1,6 @@
 from django.test import TestCase
-from django.http import QueryDict
+from django.test.client import RequestFactory
+from wagtail.models import Site
 
 from directory.tests.factories import (
     DirectoryPageFactory,
@@ -25,90 +26,115 @@ class DirectoryFilterTest(TestCase):
         self.assertNotIn(self.not_child, filtered_instances)
 
 
-class FiltersFromQueryDictTest(TestCase):
+class DirectoryPageContextTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        site = Site.objects.get(is_default_site=True)
+        cls.directory = DirectoryPageFactory(parent=site.root_page)
+
     def setUp(self):
-        self.directory = DirectoryPageFactory()
+        self.factory = RequestFactory()
 
-    def test_correct_search_term_returned_from_querydict(self):
+    def test_correct_search_term_returned_in_context(self):
         search_term = "Amet"
-        querydict = QueryDict('search={}'.format(search_term))
-        filters = self.directory.filters_from_querydict(querydict)
-        self.assertEqual(filters['title__icontains'], search_term)
+        request = self.factory.get(self.directory.url, {
+            'search': search_term,
+        })
+        context = self.directory.get_context(request)
+        self.assertEqual(
+            context['entries_filters'],
+            {'title__icontains': search_term},
+        )
+        self.assertEqual(context['search_value'], search_term)
 
-    def test_correct_language_returned_from_querydict(self):
+    def test_correct_language_returned_in_context(self):
         georgian = LanguageFactory(title="Georgian")
-        georgian.save()
-        querydict = QueryDict('language={}'.format(georgian.id))
-        filters = self.directory.filters_from_querydict(querydict)
-        self.assertEqual(filters['languages'], georgian)
 
-    def test_correct_country_returned_from_querydict(self):
+        request = self.factory.get(self.directory.url, {
+            'language': str(georgian.pk),
+        })
+        context = self.directory.get_context(request)
+        self.assertEqual(context['entries_filters'], {'languages': georgian})
+
+    def test_correct_country_returned_in_context(self):
         honduras = CountryFactory(title="Honduras")
-        honduras.save()
-        querydict = QueryDict('country={}'.format(honduras.id))
-        filters = self.directory.filters_from_querydict(querydict)
-        self.assertEqual(filters['countries'], honduras)
+        request = self.factory.get(self.directory.url, {
+            'country': str(honduras.pk),
+        })
+        context = self.directory.get_context(request)
+        self.assertEqual(context['entries_filters'], {'countries': honduras})
 
     def test_correct_topic_returned_from_querydict(self):
         sports = TopicFactory(title="sports")
-        sports.save()
-        querydict = QueryDict('topic={}'.format(sports.id))
-        filters = self.directory.filters_from_querydict(querydict)
-        self.assertEqual(filters['topics'], sports)
+        request = self.factory.get(self.directory.url, {
+            'topic': str(sports.pk),
+        })
+        context = self.directory.get_context(request)
+        self.assertEqual(context['entries_filters'], {'topics': sports})
 
     def test_non_int_id_does_not_break_filters(self):
-        querydict = QueryDict('topic=foo')
-        filters = self.directory.filters_from_querydict(querydict)
-        self.assertEqual({}, filters)
+        request = self.factory.get(self.directory.url, {
+            'topic': 'foo',
+        })
+        context = self.directory.get_context(request)
+        self.assertEqual(context['entries_filters'], {})
 
     def test_invalid_topic_id_does_not_break_filters(self):
-        querydict = QueryDict('topic=1000000')
-        filters = self.directory.filters_from_querydict(querydict)
-        self.assertEqual({}, filters)
+        request = self.factory.get(self.directory.url, {
+            'topic': '1000000',
+        })
+        context = self.directory.get_context(request)
+        self.assertEqual(context['entries_filters'], {})
 
-    def test_invalid_id_does_not_break_filters(self):
-        querydict = QueryDict('language=100000')
-        filters = self.directory.filters_from_querydict(querydict)
-        self.assertEqual({}, filters)
+    def test_invalid_language_id_does_not_break_filters(self):
+        request = self.factory.get(self.directory.url, {
+            'language': '1000000',
+        })
+        context = self.directory.get_context(request)
+        self.assertEqual(context['entries_filters'], {})
 
     def test_multiple_filters_returned_from_querydict(self):
         search_term = "Amet"
         afrikaans = LanguageFactory(title="Afrikaans")
-        afrikaans.save()
         thailand = CountryFactory(title="Country")
-        thailand.save()
         scotus = TopicFactory(title="SCOTUS")
-        scotus.save()
-        querydict = QueryDict('search={}&language={}&topic={}&country={}'.format(
-            search_term,
-            afrikaans.id,
-            scotus.id,
-            thailand.id
-        ))
-        filters = self.directory.filters_from_querydict(querydict)
-        self.assertEqual(filters['title__icontains'], search_term)
-        self.assertEqual(filters['topics'], scotus)
-        self.assertEqual(filters['countries'], thailand)
-        self.assertEqual(filters['languages'], afrikaans)
+
+        request = self.factory.get(self.directory.url, {
+            'search': search_term,
+            'language': str(afrikaans.pk),
+            'country': str(thailand.pk),
+            'topic': str(scotus.pk),
+        })
+        context = self.directory.get_context(request)
+        self.assertEqual(
+            context['entries_filters'],
+            {
+                'title__icontains': search_term,
+                'languages': afrikaans,
+                'countries': thailand,
+                'topics': scotus,
+            },
+        )
 
 
 class DirectoryLanguageFilterTest(TestCase):
-    def setUp(self):
-        self.directory = DirectoryPageFactory()
-        # set up languages
+    @classmethod
+    def setUpTestData(cls):
+        site = Site.objects.get(is_default_site=True)
+        cls.directory = DirectoryPageFactory(parent=site.root_page)
+
         spanish = LanguageFactory(title='Spanish')
         chinese = LanguageFactory(title='Chinese')
-        spanish.save()
-        chinese.save()
         # set up instances that are children of the directory and have those languages
-        self.spanish_instance = DirectoryEntryFactory(languages=0, parent=self.directory)
-        self.spanish_instance.languages.add(spanish)
-        self.spanish_instance.save()
+        cls.spanish_instance = DirectoryEntryFactory(languages=0, parent=cls.directory)
+        cls.spanish_instance.languages.add(spanish)
+        cls.spanish_instance.save()
 
-        self.chinese_instance = DirectoryEntryFactory(languages=0, parent=self.directory)
-        self.chinese_instance.languages.add(chinese)
-        self.chinese_instance.save()
-        self.lang_filter = {'languages': spanish}
+        cls.chinese_instance = DirectoryEntryFactory(languages=0, parent=cls.directory)
+        cls.chinese_instance.languages.add(chinese)
+        cls.chinese_instance.save()
+        cls.lang_filter = {'languages': spanish}
+        cls.spanish = spanish
 
     def test_language_filtered_for_is_in_queryset(self):
         filtered_instances = self.directory.get_instances(filters=self.lang_filter)
@@ -118,24 +144,34 @@ class DirectoryLanguageFilterTest(TestCase):
         filtered_instances = self.directory.get_instances(filters=self.lang_filter)
         self.assertNotIn(self.chinese_instance, filtered_instances)
 
+    def test_filters_based_on_get_parameters(self):
+        response = self.client.get(self.directory.url, {
+            'language': str(self.spanish.pk)
+        })
+        self.assertEqual(
+            response.context['entries_page'].object_list,
+            [self.spanish_instance],
+        )
+
 
 class DirectoryCountryFilterTest(TestCase):
-    def setUp(self):
-        self.directory = DirectoryPageFactory()
-        # set up countries
-        mexico = CountryFactory(title='Mexico')
-        azerbaijan = CountryFactory(title='Azerbaijan')
-        mexico.save()
-        azerbaijan.save()
-        # set up instances that are children of the directory and have those countries
-        self.mexico_instance = DirectoryEntryFactory(parent=self.directory)
-        self.mexico_instance.countries.add(mexico)
-        self.mexico_instance.save()
+    @classmethod
+    def setUpTestData(cls):
+        site = Site.objects.get(is_default_site=True)
+        cls.directory = DirectoryPageFactory(parent=site.root_page)
 
-        self.azerbaijan_instance = DirectoryEntryFactory(parent=self.directory)
-        self.azerbaijan_instance.countries.add(azerbaijan)
-        self.azerbaijan_instance.save()
-        self.country_filter = {'countries': mexico}
+        cls.mexico = CountryFactory(title='Mexico')
+        cls.azerbaijan = CountryFactory(title='Azerbaijan')
+
+        # set up instances that are children of the directory and have those countries
+        cls.mexico_instance = DirectoryEntryFactory(parent=cls.directory)
+        cls.mexico_instance.countries.add(cls.mexico)
+        cls.mexico_instance.save()
+
+        cls.azerbaijan_instance = DirectoryEntryFactory(parent=cls.directory)
+        cls.azerbaijan_instance.countries.add(cls.azerbaijan)
+        cls.azerbaijan_instance.save()
+        cls.country_filter = {'countries': cls.mexico}
 
     def test_country_filtered_for_is_in_queryset(self):
         filtered_instances = self.directory.get_instances(filters=self.country_filter)
@@ -145,24 +181,34 @@ class DirectoryCountryFilterTest(TestCase):
         filtered_instances = self.directory.get_instances(filters=self.country_filter)
         self.assertNotIn(self.azerbaijan_instance, filtered_instances)
 
+    def test_filters_based_on_get_parameters(self):
+        response = self.client.get(self.directory.url, {
+            'country': str(self.mexico.pk)
+        })
+        self.assertEqual(
+            response.context['entries_page'].object_list,
+            [self.mexico_instance],
+        )
+
 
 class DirectoryTopicFilterTest(TestCase):
-    def setUp(self):
-        self.directory = DirectoryPageFactory()
-        # set up topics
-        pf = TopicFactory(title='Press Freedom')
-        irs = TopicFactory(title='IRS')
-        pf.save()
-        irs.save()
-        # set up instances that are children of the directory and have those topics
-        self.pf_instance = DirectoryEntryFactory(parent=self.directory)
-        self.pf_instance.topics.add(pf)
-        self.pf_instance.save()
+    @classmethod
+    def setUpTestData(cls):
+        site = Site.objects.get(is_default_site=True)
+        cls.directory = DirectoryPageFactory(parent=site.root_page)
 
-        self.irs_instance = DirectoryEntryFactory(parent=self.directory)
-        self.irs_instance.topics.add(irs)
-        self.irs_instance.save()
-        self.topic_filter = {'topics': pf}
+        cls.pf = TopicFactory(title='Press Freedom')
+        cls.irs = TopicFactory(title='IRS')
+
+        # set up instances that are children of the directory and have those topics
+        cls.pf_instance = DirectoryEntryFactory(parent=cls.directory)
+        cls.pf_instance.topics.add(cls.pf)
+        cls.pf_instance.save()
+
+        cls.irs_instance = DirectoryEntryFactory(parent=cls.directory)
+        cls.irs_instance.topics.add(cls.irs)
+        cls.irs_instance.save()
+        cls.topic_filter = {'topics': cls.pf}
 
     def test_topic_filtered_for_is_in_queryset(self):
         filtered_instances = self.directory.get_instances(filters=self.topic_filter)
@@ -172,19 +218,30 @@ class DirectoryTopicFilterTest(TestCase):
         filtered_instances = self.directory.get_instances(filters=self.topic_filter)
         self.assertNotIn(self.irs_instance, filtered_instances)
 
+    def test_filters_based_on_get_parameters(self):
+        response = self.client.get(self.directory.url, {
+            'topic': str(self.pf.pk)
+        })
+        self.assertEqual(
+            response.context['entries_page'].object_list,
+            [self.pf_instance],
+        )
+
 
 class DirectorySearchFilterTest(TestCase):
-    def setUp(self):
-        self.directory = DirectoryPageFactory()
-        self.best_instance = DirectoryEntryFactory(
-            title="Best Instansce",
-            parent=self.directory
+    @classmethod
+    def setUpTestData(cls):
+        site = Site.objects.get(is_default_site=True)
+        cls.directory = DirectoryPageFactory(parent=site.root_page)
+        cls.best_instance = DirectoryEntryFactory(
+            title="Best Instance",
+            parent=cls.directory
         )
-        self.worst_instance = DirectoryEntryFactory(
+        cls.worst_instance = DirectoryEntryFactory(
             title="Worst Instance",
-            parent=self.directory
+            parent=cls.directory
         )
-        self.search_filter = {'title__icontains': 'best'}
+        cls.search_filter = {'title__icontains': 'best'}
 
     def test_title_searched_is_in_queryset(self):
         filtered_instances = self.directory.get_instances(filters=self.search_filter)
@@ -194,54 +251,65 @@ class DirectorySearchFilterTest(TestCase):
         filtered_instances = self.directory.get_instances(filters=self.search_filter)
         self.assertNotIn(self.worst_instance, filtered_instances)
 
+    def test_filters_based_on_get_parameters(self):
+        response = self.client.get(self.directory.url, {
+            'search': 'best',
+        })
+        self.assertEqual(
+            response.context['entries_page'].object_list,
+            [self.best_instance],
+        )
+
+    def test_does_not_search_if_query_includes_null_characters(self):
+        response = self.client.get(self.directory.url, {
+            'search': 'be\x00st',
+        })
+        self.assertEqual(response.status_code, 200)
+
 
 class DirectoryMultipleFiltersTest(TestCase):
-    def setUp(self):
-        self.directory = DirectoryPageFactory()
-        # set up languages
-        spanish = LanguageFactory(title='Spanish')
-        chinese = LanguageFactory(title='Chinese')
-        spanish.save()
-        chinese.save()
-        # set up countries
-        mexico = CountryFactory(title='Mexico')
-        azerbaijan = CountryFactory(title='Azerbaijan')
-        mexico.save()
-        azerbaijan.save()
-        # set up topics
-        pf = TopicFactory(title='Press Freedom')
-        irs = TopicFactory(title='IRS')
-        pf.save()
-        irs.save()
+    @classmethod
+    def setUpTestData(cls):
+        site = Site.objects.get(is_default_site=True)
+        cls.directory = DirectoryPageFactory(parent=site.root_page)
+
+        cls.spanish = LanguageFactory(title='Spanish')
+        cls.chinese = LanguageFactory(title='Chinese')
+
+        cls.mexico = CountryFactory(title='Mexico')
+        cls.azerbaijan = CountryFactory(title='Azerbaijan')
+
+        cls.pf = TopicFactory(title='Press Freedom')
+        cls.irs = TopicFactory(title='IRS')
+
         # set up instances that are children of the directory and have multiple categories
-        self.sp_mx_instance = DirectoryEntryFactory(parent=self.directory)
-        self.sp_mx_instance.languages.add(spanish)
-        self.sp_mx_instance.countries.add(mexico)
-        self.sp_mx_instance.save()
+        cls.sp_mx_instance = DirectoryEntryFactory(parent=cls.directory)
+        cls.sp_mx_instance.languages.add(cls.spanish)
+        cls.sp_mx_instance.countries.add(cls.mexico)
+        cls.sp_mx_instance.save()
 
-        self.az_pf_instance = DirectoryEntryFactory(parent=self.directory)
-        self.az_pf_instance.countries.add(azerbaijan)
-        self.az_pf_instance.topics.add(pf)
-        self.az_pf_instance.save()
+        cls.az_pf_instance = DirectoryEntryFactory(parent=cls.directory)
+        cls.az_pf_instance.countries.add(cls.azerbaijan)
+        cls.az_pf_instance.topics.add(cls.pf)
+        cls.az_pf_instance.save()
 
-        self.other_instance = DirectoryEntryFactory(
-            parent=self.directory,
+        cls.other_instance = DirectoryEntryFactory(
+            parent=cls.directory,
             languages=0,
             countries=0,
         )
-        self.other_instance.languages.add(spanish)
-        self.other_instance.topics.add(pf)
-        self.other_instance.save()
+        cls.other_instance.languages.add(cls.spanish)
+        cls.other_instance.topics.add(cls.pf)
+        cls.other_instance.save()
 
-        # filters
-        self.lang_country_filter = {
-            'languages': spanish,
-            'countries': mexico
+        cls.lang_country_filter = {
+            'languages': cls.spanish,
+            'countries': cls.mexico,
         }
 
-        self.country_topic_filter = {
-            'countries': azerbaijan,
-            'topics': pf
+        cls.country_topic_filter = {
+            'countries': cls.azerbaijan,
+            'topics': cls.pf,
         }
 
     def test_country_and_language_filter(self):
@@ -249,7 +317,27 @@ class DirectoryMultipleFiltersTest(TestCase):
         self.assertIn(self.sp_mx_instance, filtered_instances)
         self.assertNotIn(self.other_instance, filtered_instances)
 
+    def test_country_and_language_filtered_based_on_get_parameters(self):
+        response = self.client.get(self.directory.url, {
+            'language': str(self.spanish.pk),
+            'country': str(self.mexico.pk),
+        })
+        self.assertEqual(
+            response.context['entries_page'].object_list,
+            [self.sp_mx_instance],
+        )
+
     def test_country_and_topic_filter(self):
         filtered_instances = self.directory.get_instances(filters=self.country_topic_filter)
         self.assertIn(self.az_pf_instance, filtered_instances)
         self.assertNotIn(self.other_instance, filtered_instances)
+
+    def test_country_and_topic_filtered_based_on_get_parameters(self):
+        response = self.client.get(self.directory.url, {
+            'topic': str(self.pf.pk),
+            'country': str(self.azerbaijan.pk),
+        })
+        self.assertEqual(
+            response.context['entries_page'].object_list,
+            [self.az_pf_instance],
+        )

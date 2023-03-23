@@ -36,6 +36,7 @@ def _purge(backend: CloudflareBackend, data={}) -> None:
             "X-Auth-Key": backend.cloudflare_api_key,
             "Content-Type": "application/json",
         },
+        timeout=5,
     )
 
     try:

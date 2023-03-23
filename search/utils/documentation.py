@@ -13,7 +13,7 @@ READTHEDOCS_BASE = 'https://docs.securedrop.org/en/stable/'
 def fetch_indexable_pages():
     """Fetch documentation root and extract a list of URLs to scrape"""
     url = urljoin(READTHEDOCS_BASE, 'index.html')
-    page = requests.get(url)
+    page = requests.get(url, timeout=10)
     soup = BeautifulSoup(page.content, 'html.parser')
 
     # Select the main nav bar and extract links from it
@@ -24,7 +24,7 @@ def fetch_indexable_pages():
 
 def scrape_documentation_page(url):
     """Fetch the contents from a URL for a documentation page"""
-    return requests.get(url)
+    return requests.get(url, timeout=10)
 
 
 def index_documentation_page(url, page):

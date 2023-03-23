@@ -137,6 +137,7 @@ def request_and_scrape_page(url: str, allow_redirects: bool = True) -> Tuple[req
             url,
             allow_redirects=allow_redirects,
             headers=HEADERS,
+            timeout=10,
         )
         soup = BeautifulSoup(page.content, "lxml")
     except requests.exceptions.MissingSchema:
@@ -144,6 +145,7 @@ def request_and_scrape_page(url: str, allow_redirects: bool = True) -> Tuple[req
             'https://{}'.format(url),
             allow_redirects=allow_redirects,
             headers=HEADERS,
+            timeout=10,
         )
         soup = BeautifulSoup(page.content, "lxml")
 

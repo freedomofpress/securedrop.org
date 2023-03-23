@@ -35,7 +35,8 @@ class TestCacheTags(TestCase):
                 'X-Auth-Email': 'CLOUDFLARE_FAKE_EMAIL',
                 'Content-Type': 'application/json',
                 'X-Auth-Key': 'CLOUDFLARE_FAKE_TOKEN'
-            }
+            },
+            timeout=5,
         )
 
     def test_cache_purge_all(self, requests_delete):
@@ -51,7 +52,8 @@ class TestCacheTags(TestCase):
                 'X-Auth-Email': 'CLOUDFLARE_FAKE_EMAIL',
                 'Content-Type': 'application/json',
                 'X-Auth-Key': 'CLOUDFLARE_FAKE_TOKEN'
-            }
+            },
+            timeout=5,
         )
 
 
