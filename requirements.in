@@ -18,7 +18,7 @@ structlog
 tldextract
 tinycss2
 sslyze<5
-wagtail>=4.1,<4.2
+wagtail>=4.1.4,<4.2
 wagtail-factories
 wagtail-metadata>=4.0.2
 wagtail-autocomplete>=0.8.1
