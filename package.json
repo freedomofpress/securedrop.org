@@ -36,6 +36,7 @@
     "classlist-polyfill": "^1.2.0",
     "hamburgers": "^1.2.1",
     "pdfobject": "^2.2.7",
-    "prop-types": "^15.5.10"
+    "prop-types": "^15.5.10",
+    "underscore": "^1.11.0"
   }
 }
