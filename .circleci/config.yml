@@ -47,14 +47,12 @@ jobs:
           pattern: ^package-lock.json$
 
       - run:
-          name: Check node dependencies for vulnerabilities
-          command: |
-            mkdir -p test-results
-            npm ci
-            npx npm-audit-plus --xml > test-results/audit.xml
+          name: Obtain misc resources
+          command: git clone --depth 1 https://github.com/freedomofpress/fpf-misc-resources.git
 
-      - store_test_results:
-          path: ~/securedrop.org/test-results/
+      - run:
+          name: Check node dependencies for vulnerabilities
+          command: npx audit-ci@^6 --config fpf-misc-resources/audit-ci/securedrop.org.json5
 
   build_dev:
     machine:
