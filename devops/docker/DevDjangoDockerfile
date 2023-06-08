@@ -1,5 +1,5 @@
-# sha256 as of 2021-07-22
-FROM python:3.9-slim-buster@sha256:4e69709296a8ae67d97ba072e7f4973125939f3a13cd276c1e8ca1f7b7d49aa3 AS python-base
+# sha256 for python:3.9.16-slim-buster on linux/amd64 as of 2023-06-01
+FROM python:3.9-slim-buster@sha256:6199d5aaae3f33f415501ec9737fad89c147bcc0ce47f2e62d8c59cb4f7f8243 AS python-base
 RUN apt-get update && \
     apt-get install -y \
        gcc \
