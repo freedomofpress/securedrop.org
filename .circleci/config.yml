@@ -65,7 +65,7 @@ jobs:
           name: Ensure we can run dev-env
           command: |
             make dev-init
-            docker-compose up -d
+            docker compose up -d
             echo "Polling with curl --silent until Django is up..."
             while ! curl --output /dev/null --silent --head --fail http://localhost:8000; do sleep 5; done
             make flake8
@@ -80,7 +80,7 @@ jobs:
           name: Yank docker logs
           command: |
             mkdir -p ~/dockercomposelogs || true
-            docker-compose logs > ~/dockercomposelogs/dev.log
+            docker compose logs > ~/dockercomposelogs/dev.log
           when: always
 
       - store_artifacts:
@@ -102,17 +102,17 @@ jobs:
       - run:
           name: Ensure we can run prod-env
           command: |
-            docker-compose -f prod-docker-compose.yaml build
-            docker-compose -f prod-docker-compose.yaml up -d
+            docker compose -f prod-docker-compose.yaml build
+            docker compose -f prod-docker-compose.yaml up -d
             docker run --rm --network securedroporg_app curlimages/curl:7.80.0 -4 --retry 24 --retry-delay 5 --retry-all-errors http://app:8000/health/ok/
-            docker-compose -f prod-docker-compose.yaml exec django /bin/bash -c "./manage.py createdevdata --no-download"
+            docker compose -f prod-docker-compose.yaml exec django /bin/bash -c "./manage.py createdevdata --no-download"
           no_output_timeout: 5m
 
       - run:
           name: Yank docker logs
           command: |
             mkdir -p ~/dockercomposelogs || true
-            docker-compose -f prod-docker-compose.yaml logs > ~/dockercomposelogs/prod.log
+            docker compose -f prod-docker-compose.yaml logs > ~/dockercomposelogs/prod.log
           when: always
 
       - store_artifacts:
