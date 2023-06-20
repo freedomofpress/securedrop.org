@@ -36,7 +36,7 @@ COPY devops/docker/django-start.sh /usr/local/bin
 RUN  chmod +x /usr/local/bin/django-start.sh
 
 COPY --from=builder dev-requirements.txt /requirements.txt
-RUN pip install --require-hashes -r /requirements.txt
+RUN pip install --no-deps --require-hashes -r /requirements.txt
 
 ARG USERID
 RUN getent passwd "${USERID?USERID must be supplied}" || adduser --uid "${USERID}" --disabled-password --gecos "" gcorn
