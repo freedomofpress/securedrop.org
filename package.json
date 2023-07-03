@@ -21,7 +21,6 @@
     "babel-plugin-add-module-exports": "^1.0.4",
     "css-loader": "^6.7.1",
     "mini-css-extract-plugin": "^2.6.1",
-    "npm-audit-plus": "^0.2.0",
     "postcss": "^8.4.5",
     "postcss-loader": "^7.0.2",
     "sass": "^1.54.0",

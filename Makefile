@@ -99,10 +99,6 @@ flake8: ## Runs flake8 linting in Python3 container.
 bandit: ## Runs bandit static code analysis in Python3 container.
 	@docker compose run --rm django ./scripts/bandit
 
-.PHONY: npm-audit
-npm-audit: ## Checks NodeJS NPM dependencies for vulnerabilities
-	@docker compose run --rm --entrypoint "/bin/ash -c" node 'npm install && $$(npm bin)/npm-audit-plus'
-
 .PHONY: clean
 clean: ## clean out local developer assets
 	@rm -rvf ./node_modules
