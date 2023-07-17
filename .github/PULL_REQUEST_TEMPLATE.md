@@ -12,6 +12,7 @@ Changes proposed in this pull request:
 - [ ] Config changes
 - [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
 - [ ] This change requires an admin update after deploy
+- [ ] Includes a database migration removing  or renaming a field
 
 
 ## Testing
