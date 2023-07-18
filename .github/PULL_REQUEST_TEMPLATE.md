@@ -20,6 +20,10 @@ Changes proposed in this pull request:
 How should the reviewer test this PR?
 Write out any special testing steps here.
 
+### Post-deployment actions
+
+In case this PR needs any admin changes or run a management command after deployment, mention it here:
+
 ## Checklist
 
 ### General checks
