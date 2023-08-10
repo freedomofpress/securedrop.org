@@ -6,16 +6,17 @@ from django.db.models import Func, F, TextField
 from django.shortcuts import render
 
 from search.models import SearchDocument
+from .forms import SearchForm
 
 
 def search(request):
-    search_query = request.GET.get('query', None)
     page = request.GET.get('page', 1)
+    form = SearchForm(request.GET)
 
     # Search
-    if search_query:
+    if form.is_valid():
         vector = F('search_vector')
-        query = SearchQuery(search_query)
+        query = SearchQuery(form.cleaned_data['query'])
         search_results = SearchDocument.objects.annotate(
             rank=SearchRank(vector, query),
             search=vector,
@@ -36,6 +37,6 @@ def search(request):
         search_results = paginator.page(paginator.num_pages)
 
     return render(request, 'search/search.html', {
-        'search_query': search_query,
+        'search_query': form.cleaned_data.get('query', ''),
         'search_results': search_results,
     })
