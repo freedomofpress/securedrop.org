@@ -1,6 +1,17 @@
 // This user agent string matches Tor Browser 9 and 10 or Firefox Quantum (on desktop)
-const TBB_UA_REGEX = /Mozilla\/5\.0 \((Windows NT 10\.0|X11; Linux x86_64|Macintosh; Intel Mac OS X 10\.[0-9]{2}|Windows NT 10\.0; Win64; x64|Android; Mobile); rv:[0-9]{2}\.0\) Gecko\/20100101 Firefox\/([0-9]{2})\.0/
-const MOBILE_TOR_UA_REGEX = /Mozilla\/5\.0 \(Android; Mobile; rv:[0-9]{2}\.0\) Gecko\/20100101 Firefox\/([0-9]{2})\.0/
+const TBB_UA_REGEX = /Mozilla\/5\.0 \((Windows NT 10\.0|X11; Linux x86_64|Macintosh; Intel Mac OS X 10\.[0-9]{2}|Windows NT 10\.0; Win64; x64); rv:[0-9]{2,3}\.0\) Gecko\/20100101 Firefox\/([0-9]{2,3})\.0/
+const MOBILE_TOR_UA_REGEX = /Mozilla\/5\.0 \(Android( [0-9]{2})?; Mobile; rv:[0-9]{2,3}\.0\) Gecko\/(20100101|[0-9]{2}\.0) Firefox\/([0-9]{2,3})\.0/
+
+// Use Tor css resource loading to check whether it's Tor Browser
+let isTorResourceLoaded = false
+let css = document.createElement("link")
+css.href = "resource://torbutton-assets/aboutTor.css"
+css.type = "text/css"
+css.rel = "stylesheet"
+css.onload = function() {isTorResourceLoaded = true}
+document.head.appendChild(css)
+document.head.removeChild(css)
+console.log(isTorResourceLoaded)
 
 
 const is_likely_tor_browser = function () {
@@ -14,14 +25,16 @@ const is_likely_tor_browser = function () {
 		// implements letterboxing, such as Firefox configured with
 		// privacy.resistFingerprinting=true
 		window.screen.width == window.innerWidth &&
-		window.screen.height == window.innerHeight
+		window.screen.height == window.innerHeight &&
+		isTorResourceLoaded
 	)
 }
 
 const is_likely_mobile_tor_browser = function () {
 	return (
 		window.navigator.userAgent.match(MOBILE_TOR_UA_REGEX) &&
-		new Date().getTimezoneOffset() == 0
+		new Date().getTimezoneOffset() == 0 &&
+		isTorResourceLoaded
 	)
 }
 
