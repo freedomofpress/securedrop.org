@@ -1,20 +1,30 @@
 // This user agent string matches Tor Browser 9 and 10 or Firefox Quantum (on desktop)
-const TBB_UA_REGEX = /Mozilla\/5\.0 \((Windows NT 10\.0|X11; Linux x86_64|Macintosh; Intel Mac OS X 10\.[0-9]{2}|Windows NT 10\.0; Win64; x64); rv:[0-9]{2,3}\.0\) Gecko\/20100101 Firefox\/([0-9]{2,3})\.0/
+const TBB_UA_REGEX = /Mozilla\/5\.0 \((Windows NT 10\.0|X11; Linux x86_64|Macintosh; Intel Mac OS X 10\.[0-9]{2}|Windows NT 10\.0; Win64; x64|Android( [0-9]{2})?; Mobile); rv:[0-9]{2,3}\.0\) Gecko\/20100101 Firefox\/([0-9]{2,3})\.0/
 const MOBILE_TOR_UA_REGEX = /Mozilla\/5\.0 \(Android( [0-9]{2})?; Mobile; rv:[0-9]{2,3}\.0\) Gecko\/(20100101|[0-9]{2}\.0) Firefox\/([0-9]{2,3})\.0/
 
 // Use Tor css resource loading to check whether it's Tor Browser
-let isTorResourceLoaded = false
-let css = document.createElement("link")
-css.href = "resource://torbutton-assets/aboutTor.css"
-css.type = "text/css"
-css.rel = "stylesheet"
-css.onload = function() {isTorResourceLoaded = true}
-document.head.appendChild(css)
-document.head.removeChild(css)
-console.log(isTorResourceLoaded)
+const is_tor_resource_loaded = async () => new Promise(resolve => {
+	setTimeout(() => resolve(false), 150)
+	try {
+		let css = document.createElement("link")
+		css.href = "resource://torbutton-assets/aboutTor.css"
+		css.type = "text/css"
+		css.rel = "stylesheet"
+		document.head.appendChild(css)
+		css.onload = function() {
+			resolve(true)
+		}
+		css.onerror = function() {
+			resolve(false)
+		}
+		document.head.removeChild(css)
+	} catch(e) {
+		resolve(false)
+	}
+})
 
 
-const is_likely_tor_browser = function () {
+const is_likely_tor_browser = async function () {
 	return (
 		// Tor Browser has the Tor/FF UA string
 		window.navigator.userAgent.match(TBB_UA_REGEX) &&
@@ -25,17 +35,15 @@ const is_likely_tor_browser = function () {
 		// implements letterboxing, such as Firefox configured with
 		// privacy.resistFingerprinting=true
 		window.screen.width == window.innerWidth &&
-		window.screen.height == window.innerHeight &&
-		isTorResourceLoaded
-	)
+		window.screen.height == window.innerHeight
+	) || await is_tor_resource_loaded()
 }
 
-const is_likely_mobile_tor_browser = function () {
+const is_likely_mobile_tor_browser = async function () {
 	return (
 		window.navigator.userAgent.match(MOBILE_TOR_UA_REGEX) &&
-		new Date().getTimezoneOffset() == 0 &&
-		isTorResourceLoaded
-	)
+		new Date().getTimezoneOffset() == 0
+	) || await is_tor_resource_loaded()
 }
 
 const is_likely_mobile_browser = function () {
@@ -44,11 +52,12 @@ const is_likely_mobile_browser = function () {
 
 
 // Adjust <html> element classes according to tor detection
-document.documentElement.classList.add(is_likely_tor_browser() || is_likely_mobile_tor_browser() ? 'tor' : 'no-tor')
-
+is_likely_tor_browser().then(result => {
+	document.documentElement.classList.add(result ? 'tor' : 'no-tor')
+})
 
 // Warn about using Javascript and not using Tor Browser
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
 	if (sessionStorage.getItem('torWarningDismissed') === '1') {
 		return
 	}
@@ -57,7 +66,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	const instances = document.getElementById('js-instances')
 	const body = document.body
 
-	if (is_likely_tor_browser()) {
+	if (await is_likely_tor_browser()) {
+		console.log("I am here")
 		/* If the source is using Tor Browser, we want to encourage them to turn Tor
 			Browser's Security Slider to "High", which enables various hardening
 			methods, including disabling Javascript. Since JS is disabled by turning
@@ -91,6 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			sessionStorage.setItem('torWarningDismissed', '1')
 		})
 	} else if (is_likely_mobile_browser()) {
+		console.log("I am here")
 		let torWarning = document.getElementById('js-tor-mobile-warning')
 		torWarning.classList.remove('tor-warning--hidden')
 		torWarning.setAttribute('aria-hidden', 'false')
