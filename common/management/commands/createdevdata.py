@@ -37,9 +37,7 @@ class Command(BaseCommand):
         )
 
     def fetch_image(self, width, height, collection, category):
-        url = 'https://placeimg.com/{width}/{height}/{category}'.format(
-            width=width, height=height, category=category
-        )
+        url = f'https://source.unsplash.com/{width}x{height}?{category}'
         response = requests.get(url, timeout=5)
         if response and response.content:
             CustomImageFactory(
