@@ -1,6 +1,5 @@
 // This user agent string matches Tor Browser 9 and 10 or Firefox Quantum (on desktop)
 const TBB_UA_REGEX = /Mozilla\/5\.0 \((Windows NT 10\.0|X11; Linux x86_64|Macintosh; Intel Mac OS X 10\.[0-9]{2}|Windows NT 10\.0; Win64; x64|Android( [0-9]{2})?; Mobile); rv:[0-9]{2,3}\.0\) Gecko\/20100101 Firefox\/([0-9]{2,3})\.0/
-const MOBILE_TOR_UA_REGEX = /Mozilla\/5\.0 \(Android( [0-9]{2})?; Mobile; rv:[0-9]{2,3}\.0\) Gecko\/(20100101|[0-9]{2}\.0) Firefox\/([0-9]{2,3})\.0/
 
 // Use Tor css resource loading to check whether it's Tor Browser
 const is_tor_resource_loaded = async () => new Promise(resolve => {
@@ -39,13 +38,6 @@ const is_likely_tor_browser = async function () {
 	) || await is_tor_resource_loaded()
 }
 
-const is_likely_mobile_tor_browser = async function () {
-	return (
-		window.navigator.userAgent.match(MOBILE_TOR_UA_REGEX) &&
-		new Date().getTimezoneOffset() == 0
-	) || await is_tor_resource_loaded()
-}
-
 const is_likely_mobile_browser = function () {
 	return window.navigator.userAgent.indexOf("Mobi") !== -1
 }
@@ -67,7 +59,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 	const body = document.body
 
 	if (await is_likely_tor_browser()) {
-		console.log("I am here")
 		/* If the source is using Tor Browser, we want to encourage them to turn Tor
 			Browser's Security Slider to "High", which enables various hardening
 			methods, including disabling Javascript. Since JS is disabled by turning
@@ -87,7 +78,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 			instances.classList.add('instances--tor-warning')
 		}
 
-		let torWarningClose = document.getElementById('js-tor-warning-close')
 		const closeUseTorBrowser = document.getElementById('js-tor-warning-close')
 
 		closeUseTorBrowser.addEventListener('click', () => {
@@ -101,7 +91,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 			sessionStorage.setItem('torWarningDismissed', '1')
 		})
 	} else if (is_likely_mobile_browser()) {
-		console.log("I am here")
 		let torWarning = document.getElementById('js-tor-mobile-warning')
 		torWarning.classList.remove('tor-warning--hidden')
 		torWarning.setAttribute('aria-hidden', 'false')
