@@ -22,6 +22,9 @@ const is_tor_resource_loaded = async () => new Promise(resolve => {
 	}
 })
 
+const is_likely_mobile_browser = function () {
+	return window.navigator.userAgent.indexOf("Mobi") !== -1
+}
 
 const is_likely_tor_browser = async function () {
 	return (
@@ -38,8 +41,8 @@ const is_likely_tor_browser = async function () {
 	) || await is_tor_resource_loaded()
 }
 
-const is_likely_mobile_browser = function () {
-	return window.navigator.userAgent.indexOf("Mobi") !== -1
+const is_likely_desktop_tor_browser = async function () {
+	return !is_likely_mobile_browser() && await is_likely_tor_browser()
 }
 
 
@@ -58,8 +61,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 	const instances = document.getElementById('js-instances')
 	const body = document.body
 
-	if (await is_likely_tor_browser()) {
-		/* If the source is using Tor Browser, we want to encourage them to turn Tor
+	if (await is_likely_desktop_tor_browser()) {
+		/* If the source is using Tor Browser in desktop, we want to encourage them to turn Tor
 			Browser's Security Slider to "High", which enables various hardening
 			methods, including disabling Javascript. Since JS is disabled by turning
 			the Security Slider to "High", this code only runs if it set to another
