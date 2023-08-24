@@ -168,9 +168,7 @@ else:
 try:
     es_host = os.environ.get('DJANGO_ES_HOST', 'disable')
 
-    if es_host == 'disable':
-        WAGTAILSEARCH_BACKENDS = {}
-    else:
+    if es_host != 'disable':
         WAGTAILSEARCH_BACKENDS = {
             'default': {
                 'BACKEND': 'wagtail.search.backends.elasticsearch2',
