@@ -1,4 +1,3 @@
-import collections
 import os
 import re
 from unittest import mock
@@ -46,10 +45,6 @@ class ScannerTest(TestCase):
         'scanner.scanner.requests.get',
         new=requests_get_mock
     )
-    @mock.patch(
-        'pshtt.pshtt.requests.get',
-        new=requests_get_mock
-    )
     @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'full-scan-site-not-live.yaml'))
     def test_scan_returns_result_if_site_not_live(self):
         """
@@ -69,7 +64,6 @@ class ScannerTest(TestCase):
         self.assertFalse(result.live)
 
     @mock.patch('scanner.scanner.requests.get', new=requests_get_mock)
-    @mock.patch('pshtt.pshtt.requests.get', new=requests_get_mock)
     @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'full-scan-site-not-live.yaml'))
     def test_scan_returns_reurns_url_if_site_not_live(self):
         """
@@ -113,14 +107,14 @@ class ScannerTest(TestCase):
         )
         result = scanner.scan(securedrop)
 
-        self.assertTrue(result.forces_https)
+        self.assertIsNone(result.forces_https)
         self.assertTrue(result.http_status_200_ok)
-        self.assertTrue(result.hsts)
-        self.assertTrue(result.hsts_max_age)
-        self.assertTrue(result.hsts_entire_domain)
-        self.assertTrue(result.hsts_preloaded)
+        self.assertIsNone(result.hsts)
+        self.assertIsNone(result.hsts_max_age)
+        self.assertIsNone(result.hsts_entire_domain)
+        self.assertIsNone(result.hsts_preloaded)
         self.assertIs(result.subdomain, False)
-        self.assertIs(result.no_cookies, False)
+        self.assertIs(result.no_cookies, True)
         self.assertTrue(result.safe_onion_address)
         self.assertIs(result.no_cdn, False)
         self.assertTrue(result.no_cross_domain_redirects)
@@ -132,7 +126,7 @@ class ScannerTest(TestCase):
         self.assertTrue(result.mime_sniffing_blocked)
         self.assertIs(result.noopen_download, False)
         self.assertTrue(result.xss_protection)
-        self.assertIs(result.clickjacking_protection, False)
+        self.assertIs(result.clickjacking_protection, True)
         self.assertIs(result.good_cross_domain_policy, False)
         self.assertIs(result.http_1_0_caching_disabled, False)
         self.assertIs(result.expires_set, False)
@@ -175,7 +169,7 @@ class ScannerTest(TestCase):
 
         self.assertIs(result.no_cross_domain_assets, False)
         expected_urls = (
-            'https://www.googletagmanager.com/ns.html?id=GTM-TSGB826',
+            'https://www.googletagmanager.com/ns.html?id=GTM-WS34WVD',
             '//searchg2-assets.crownpeak.net/crownpeak.searchg2-1.0.2.min.js',
             'https://cdn.cookielaw.org/langswitch/ead3872f-33b9-4b16-a7f2-4ea8137893d3.js',
         )
@@ -318,10 +312,6 @@ class ScannerTest(TestCase):
         'scanner.scanner.requests.get',
         new=requests_get_mock
     )
-    @mock.patch(
-        'pshtt.pshtt.requests.get',
-        new=requests_get_mock
-    )
     @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'bulk-scan-not-live.yaml'))
     def test_bulk_scan_not_live(self):
         """
@@ -365,7 +355,7 @@ class ScannerTest(TestCase):
         )
 
     @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'scrape-sourceanonyme.yaml'))
-    def test_forces_https_should_not_be_none(self):
+    def test_forces_https_should_be_none(self):
         domain = 'https://sourceanonyme.radio-canada.ca'
 
         entry = DirectoryEntryFactory.create(
@@ -374,7 +364,7 @@ class ScannerTest(TestCase):
             onion_address='notreal.onion'
         )
         r = scanner.scan(entry, commit=True)
-        self.assertIsNotNone(r.forces_https)
+        self.assertIsNone(r.forces_https)
 
     @mock.patch('scanner.scanner.requests.get')
     def test_should_call_requests_with_correct_arguments(self, requests_get):
@@ -435,21 +425,6 @@ class ScannerRedirectionSuccess(TestCase):
         result = scanner.scan(entry)
         self.assertEqual(result.redirect_target, 'https://httpbin.org/status/404')
         self.assertFalse(result.http_status_200_ok)
-
-    @mock.patch('scanner.scanner.tldextract')
-    @mock.patch('scanner.scanner.BeautifulSoup')
-    @mock.patch('scanner.scanner.requests')
-    @mock.patch('scanner.scanner.inspect_domains')
-    def test_scanner_omits_www_prefix_on_domains_domains_for_pshtt(self, mock_inspect_domains, mock_requests, mock_soup, mock_tldextract):
-        entry = DirectoryEntryFactory.create(
-            landing_page_url='https://www.example.com',
-        )
-
-        mock_requests.get.return_value = mock.MagicMock(url=entry.landing_page_url)
-        mock_inspect_domains.return_value = [collections.defaultdict(int)]
-
-        scanner.scan(entry)
-        mock_inspect_domains.assert_called_once_with(['example.com'], {'timeout': 10})
 
 
 class ScannerSubdomainRedirect(TestCase):

@@ -6,13 +6,12 @@ import operator
 
 from typing import TYPE_CHECKING, Tuple, Dict, List
 
-from pshtt.pshtt import inspect_domains
 import tldextract
 
 from django.utils import timezone
 
 from directory.models import ScanResult, DirectoryEntry
-from scanner.utils import url_to_domain, HEADERS
+from scanner.utils import HEADERS
 from scanner.assets import extract_assets, Asset
 from scanner.http2 import check_http2
 
@@ -36,6 +35,7 @@ def perform_scan(url: str, permitted_domains: List[str]) -> ScanResult:
         # Catch the base class exception for these cases.
         scan_data['http_status_200_ok'] = False
         return ScanResult(**scan_data)
+    scan_data['live'] = True
 
     http_response_data = parse_page_data(page)
     scan_data.update(http_response_data)
@@ -47,21 +47,11 @@ def perform_scan(url: str, permitted_domains: List[str]) -> ScanResult:
     asset_results = parse_assets(assets, [tldextract.extract(page.url).registered_domain] + permitted_domains)
     scan_data.update(asset_results)
 
-    pshtt_domain = url_to_domain(page.url)
-    if pshtt_domain.startswith('www.'):
-        pshtt_domain = pshtt_domain[4:]
-
-    pshtt_results = list(inspect_domains([pshtt_domain], {'timeout': 10}))
-
-    canonical_url = pshtt_results[0].get('Canonical URL')
-    if canonical_url:
-        http2_data = check_http2(canonical_url)
+    if page.url:
+        http2_data = check_http2(page.url)
     else:
         http2_data = {'http2': False}
     scan_data.update(http2_data)
-
-    https_data = parse_pshtt_data(pshtt_results[0])
-    scan_data.update(https_data)
 
     return ScanResult(**scan_data)
 
@@ -253,17 +243,6 @@ def parse_soup_data(soup: BeautifulSoup) -> Dict[str, bool]:
     }
 
 
-def parse_pshtt_data(pshtt_data: dict) -> Dict[str, bool]:
-    return {
-        'live': pshtt_data['Live'],
-        'forces_https': bool(pshtt_data['Strictly Forces HTTPS']),
-        'hsts': pshtt_data['HSTS'],
-        'hsts_max_age': validate_hsts_max_age(pshtt_data['HSTS Max Age']),
-        'hsts_entire_domain': validate_hsts_entire_domain(pshtt_data['HSTS Entire Domain']),
-        'hsts_preloaded': pshtt_data['HSTS Preloaded'],
-    }
-
-
 def same_domain(url1: str, url2: str) -> bool:
     parsed_url1 = tldextract.extract(url1)
     parsed_url2 = tldextract.extract(url2)
@@ -345,14 +324,6 @@ def validate_200_ok(page):
 
 def validate_hsts_max_age(max_age):
     if max_age and max_age >= 16070400:
-        return True
-    else:
-        return False
-
-
-def validate_hsts_entire_domain(pshtt_result):
-    # Ensures a boolean response for proper template rendering
-    if pshtt_result:
         return True
     else:
         return False
