@@ -122,8 +122,16 @@ workflows:
   version: 2
   freedomdotpress_ci:
     jobs:
-      - safety_check
-      - npm_audit
+      - safety_check:
+          filters:
+            branches:
+              only:
+                - develop
+      - npm_audit:
+          filters:
+            branches:
+              only:
+                - develop
       - build_dev
       - build_prod
   nightly:
