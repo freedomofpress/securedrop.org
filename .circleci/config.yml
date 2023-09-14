@@ -29,14 +29,6 @@ jobs:
           name: Check Python dependencies for CVEs
           command: make safety
 
-      - run:
-          name: Update bandit to the latest version
-          command: pip install --upgrade bandit
-
-      - run:
-          name: Static code analysis for vulnerabilities
-          command: ./scripts/bandit
-
   npm_audit:
     docker:
       - image: cimg/node:20.6
@@ -62,16 +54,29 @@ jobs:
       - checkout
 
       - run:
-          name: Ensure we can run dev-env
+          name: Build and start dev environment
           command: |
             make dev-init
             docker compose up -d
             echo "Polling with curl --silent until Django is up..."
             while ! curl --output /dev/null --silent --head --fail http://localhost:8000; do sleep 5; done
-            make flake8
-            make dev-tests
-            make check-migrations
           no_output_timeout: 5m
+
+      - run:
+          name: Run flake8
+          command: make flake8
+
+      - run:
+          name: Validate migrations
+          command: make check-migrations
+
+      - run:
+          name: Static code analysis for vulnerabilities
+          command: docker compose exec django ./scripts/bandit
+
+      - run:
+          name: Run tests
+          command: make dev-tests
 
       - store_artifacts:
           path: htmlcov
