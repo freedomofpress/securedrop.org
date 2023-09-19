@@ -20,8 +20,8 @@ RUN cd /src-files && ( npm install && npm run build )
 LABEL MAINTAINER="Freedom of the Press Foundation"
 LABEL APP="securedrop.org"
 
-# sha256 for python:3.9.16-slim-buster on linux/amd64 as of 2023-06-01
-FROM python:3.9-slim-buster@sha256:6199d5aaae3f33f415501ec9737fad89c147bcc0ce47f2e62d8c59cb4f7f8243 AS python-base
+# sha256 for python:3.9.18-slim-bookworm on linux/amd64 as of 2023-09-15
+FROM python:3.9-slim-bookworm@sha256:44b7f161ed03f85e96d423b9916cdc8cb0509fb970fd643bdbc9896d49e1cad0 AS python-base
 
 RUN apt-get update && apt-get install -y \
     curl \
@@ -34,7 +34,7 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     libxslt-dev \
     libz-dev \
-    netcat \
+    netcat-traditional \
     python3-dev \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
