@@ -72,7 +72,7 @@ jobs:
 
       - run:
           name: Static code analysis for vulnerabilities
-          command: docker compose exec django ./scripts/bandit
+          command: make bandit
 
       - run:
           name: Run tests
