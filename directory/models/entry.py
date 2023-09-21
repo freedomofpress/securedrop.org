@@ -413,7 +413,7 @@ class ScanResult(models.Model):
     # we store result_last_scan
     result_last_seen = models.DateTimeField(auto_now_add=True)
 
-    # HTTPS fields populated with pshtt
+    # HTTPS fields formerly populated with pshtt
     forces_https = models.BooleanField(null=True)
     hsts = models.BooleanField(null=True)
     hsts_max_age = models.BooleanField(null=True)
