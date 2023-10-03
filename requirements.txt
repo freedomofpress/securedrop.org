@@ -577,12 +577,10 @@ unittest-xml-reporting==3.2.0 \
     --hash=sha256:edd8d3170b40c3a81b8cf910f46c6a304ae2847ec01036d02e9c0f9b85762d28 \
     --hash=sha256:f3d7402e5b3ac72a5ee3149278339db1a8f932ee405f48bcb9c681372f2717d5
     # via -r requirements.in
-urllib3==1.26.14 \
-    --hash=sha256:076907bf8fd355cde77728471316625a4d2f7e713c125f51953bb5b3eecf4f72 \
-    --hash=sha256:75edcdc2f7d85b137124a6c3c9fc3933cdeaa12ecb9a6a959f22797a0feca7e1
-    # via
-    #   -r requirements.in
-    #   requests
+urllib3==1.26.17 \
+    --hash=sha256:24d6a242c28d29af46c3fae832c36db3bbebcc533dd1bb549172cd739c82df21 \
+    --hash=sha256:94a757d178c9be92ef5539b8840d48dc9cf1b2709c9d6b588232a055c524458b
+    # via requests
 wagtail==4.1.8 \
     --hash=sha256:186f65f0607c9e3caadd3d39e8920b7ea4ceb640d5b5a062a07201e7d6001794 \
     --hash=sha256:a179a940ddd1a67f2a2a985b1c75de2382dbebba5b8e78def30e138d51bbdd21
@@ -624,7 +622,8 @@ willow==1.6.2 \
     --hash=sha256:e2d0450fd78ab19052d0478b888ef163e3264e8dcd1af002dd691458db98056f
     # via wagtail
 
-# WARNING: The following packages were not pinned, but pip requires them to be
-# pinned when the requirements file includes hashes and the requirement is not
-# satisfied by a package already installed. Consider using the --allow-unsafe flag.
-# setuptools
+# The following packages are considered to be unsafe in a requirements file:
+setuptools==68.2.2 \
+    --hash=sha256:4ac1475276d2f1c48684874089fefcd83bd7162ddaafb81fac866ba0db282a87 \
+    --hash=sha256:b454a35605876da60632df1a60f736524eb73cc47bbc9f3f1ef1b644de74fd2a
+    # via gunicorn
