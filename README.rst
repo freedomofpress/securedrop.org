@@ -169,14 +169,6 @@ There are separate commands to upgrade a package without changing the ``requirem
 
 will update the package named ``package-name`` to the latest version allowed by the constraints in ``requirements.in`` and compile a new ``dev-requirements.txt`` and ``requirements.txt`` based on that version.
 
-If the package appears only in ``dev-requirements.in``, then you must use this command:
-
-.. code:: bash
-
-    make pip-dev-update PACKAGE=package-name
-
-which will update the package named ``package-name`` to the latest version allowed by the constraints in ``requirements.in`` and compile a new ``dev-requirements.txt``.
-
 Advanced Actions Against the Database
 -------------------------------------
 

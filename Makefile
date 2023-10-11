@@ -50,43 +50,8 @@ compile-pip-dependencies:
 	docker build --target=requirements-artifacts -f ./devops/docker/DevDjangoDockerfile --output type=local,dest=$(DIR) .
 
 .PHONY: pip-update
-pip-update: ## Uses pip-compile to update requirements.txt for upgrading a specific package
-# It is critical that we run pip-compile via the same Python version
-# that we're generating requirements for, otherwise the versions may
-# be resolved differently.
-	docker run --rm -v "$(DIR):/code" -w /code -it python:3.9-slim-bookworm \
-		bash -c 'apt-get update && apt-get install gcc libpq-dev -y && \
-    pip install pip-tools && \
-		pip-compile --generate-hashes --no-header --upgrade-package $(PACKAGE) --output-file requirements.txt requirements.in && \
-		pip-compile --generate-hashes --no-header --allow-unsafe --upgrade-package $(PACKAGE) --output-file dev-requirements.txt dev-requirements.in'
-
-
-.PHONY: pip-dev-update
-pip-dev-update: ## Uses pip-compile to update dev-requirements.txt for upgrading a specific package
-# It is critical that we run pip-compile via the same Python version
-# that we're generating requirements for, otherwise the versions may
-# be resolved differently.
-	docker run --rm -v "$(DIR):/code" -w /code -it python:3.9-slim-bookworm \
-		bash -c 'apt-get update && apt-get install gcc libpq-dev -y && \
-    pip install pip-tools && \
-		pip-compile --generate-hashes --no-header --allow-unsafe --upgrade-package $(PACKAGE) --output-file dev-requirements.txt dev-requirements.in'
-
-.PHONY: pip-upgrade
-pip-upgrade: ## Uses pip-compile to update all requirements that are not pinned
-# in requirements.in
-	docker run --rm -v "$(DIR):/code" -w /code -it python:3.9-slim-bookworm \
-		bash -c 'apt-get update && apt-get install gcc libpq-dev -y && \
-    pip install pip-tools && \
-		pip-compile --generate-hashes --no-header --allow-unsafe --upgrade --output-file requirements.txt requirements.in && \
-		pip-compile --generate-hashes --no-header --allow-unsafe --upgrade --output-file dev-requirements.txt dev-requirements.in'
-
-.PHONY: pip-dev-upgrade
-pip-dev-upgrade: ## Uses pip-compile to update all dev requirements that are not pinned
-# in dev-requirements.in
-	docker run --rm -v "$(DIR):/code" -w /code -it python:3.9-slim-bookworm \
-		bash -c 'apt-get update && apt-get install gcc libpq-dev -y && \
-    pip install pip-tools && \
-		pip-compile --generate-hashes --no-header --allow-unsafe --upgrade --output-file dev-requirements.txt dev-requirements.in'
+pip-update:
+	docker build --build-arg="PIP_COMPILE_ARGS=--upgrade-package=$(PACKAGE)" --target=requirements-artifacts -f ./devops/docker/DevDjangoDockerfile --output type=local,dest=$(DIR) .
 
 .PHONY: lint
 lint: flake8
