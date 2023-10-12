@@ -6,10 +6,12 @@ RUN apt-get update && \
     libpq-dev
 
 FROM python-base AS builder
+ARG PIP_COMPILE_ARGS
 RUN pip install -U pip pip-tools wheel
 COPY dev-requirements.in requirements.in dev-requirements.txt requirements.txt ./
 COPY devops/docker/pip-compile.sh /usr/local/bin
-RUN pip-compile.sh
+# Pass given pip compile arguments through to the pip compile script
+RUN pip-compile.sh $PIP_COMPILE_ARGS
 
 # This build target extracts the requirements.txt files from the
 # previous stage and is intented to be used with
