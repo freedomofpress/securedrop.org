@@ -217,7 +217,9 @@ django==3.2.22 \
 django-anymail[mailgun]==9.0 \
     --hash=sha256:4239f7c61fb77b6eb8c8591a317a84a2a78f6bce1f8f42847921de74194b5d8a \
     --hash=sha256:c21d94ffdbada613a85c22a7bf32e37447d2811e1688cd001d3cad3c7f1ff289
-    # via -r requirements.txt
+    # via
+    #   -r requirements.txt
+    #   django-anymail
 django-csp==3.7 \
     --hash=sha256:01443a07723f9a479d498bd7bb63571aaa771e690f64bde515db6cdb76e8041a \
     --hash=sha256:01eda02ad3f10261c74131cdc0b5a6a62b7c7ad4fd017fbefb7a14776e0a9727
@@ -250,7 +252,9 @@ django-settings-export==1.2.1 \
 django-storages[google]==1.13.2 \
     --hash=sha256:31dc5a992520be571908c4c40d55d292660ece3a55b8141462b4e719aa38eab3 \
     --hash=sha256:cbadd15c909ceb7247d4ffc503f12a9bec36999df8d0bef7c31e57177d512688
-    # via -r requirements.txt
+    # via
+    #   -r requirements.txt
+    #   django-storages
 django-taggit==3.1.0 \
     --hash=sha256:543218ac346fbe02a65733e0341c91b57a3e0f7a41568966b26f1cea9edc4805 \
     --hash=sha256:c8f2e4eae387939089b3d75d1d8649e008880970c068ce9d0e82f87fd5e29508
@@ -1038,9 +1042,9 @@ vcrpy==4.2.1 \
     --hash=sha256:7cd3e81a2c492e01c281f180bcc2a86b520b173d2b656cb5d89d99475423e013 \
     --hash=sha256:efac3e2e0b2af7686f83a266518180af7a048619b2f696e7bad9520f5e2eac09
     # via -r dev-requirements.in
-wagtail==4.1.8 \
-    --hash=sha256:186f65f0607c9e3caadd3d39e8920b7ea4ceb640d5b5a062a07201e7d6001794 \
-    --hash=sha256:a179a940ddd1a67f2a2a985b1c75de2382dbebba5b8e78def30e138d51bbdd21
+wagtail==4.1.9 \
+    --hash=sha256:1394d78d01b7c33dbf7b2412f959196402639c21716ba0da1fe182673d2f15cd \
+    --hash=sha256:60dd18907c4fb2402a2a7d59dc9d0987a3c954a8327927acd32990bb55b0227c
     # via
     #   -r requirements.txt
     #   wagtail-autocomplete
