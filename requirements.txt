@@ -123,7 +123,9 @@ django==3.2.22 \
 django-anymail[mailgun]==9.0 \
     --hash=sha256:4239f7c61fb77b6eb8c8591a317a84a2a78f6bce1f8f42847921de74194b5d8a \
     --hash=sha256:c21d94ffdbada613a85c22a7bf32e37447d2811e1688cd001d3cad3c7f1ff289
-    # via -r requirements.in
+    # via
+    #   -r requirements.in
+    #   django-anymail
 django-csp==3.7 \
     --hash=sha256:01443a07723f9a479d498bd7bb63571aaa771e690f64bde515db6cdb76e8041a \
     --hash=sha256:01eda02ad3f10261c74131cdc0b5a6a62b7c7ad4fd017fbefb7a14776e0a9727
@@ -581,9 +583,9 @@ urllib3==1.26.17 \
     --hash=sha256:24d6a242c28d29af46c3fae832c36db3bbebcc533dd1bb549172cd739c82df21 \
     --hash=sha256:94a757d178c9be92ef5539b8840d48dc9cf1b2709c9d6b588232a055c524458b
     # via requests
-wagtail==4.1.8 \
-    --hash=sha256:186f65f0607c9e3caadd3d39e8920b7ea4ceb640d5b5a062a07201e7d6001794 \
-    --hash=sha256:a179a940ddd1a67f2a2a985b1c75de2382dbebba5b8e78def30e138d51bbdd21
+wagtail==4.1.9 \
+    --hash=sha256:1394d78d01b7c33dbf7b2412f959196402639c21716ba0da1fe182673d2f15cd \
+    --hash=sha256:60dd18907c4fb2402a2a7d59dc9d0987a3c954a8327927acd32990bb55b0227c
     # via
     #   -r requirements.in
     #   wagtail-autocomplete
