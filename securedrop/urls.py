@@ -8,6 +8,7 @@ from django.views.generic import TemplateView, RedirectView
 from search import views as search_views
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail import urls as wagtail_urls
+from wagtail.contrib.sitemaps.views import sitemap
 from wagtail.documents import urls as wagtaildocs_urls
 
 from common.views import view_document, health_ok, health_version
@@ -33,6 +34,8 @@ urlpatterns = [
     re_path(r'^document/view/(\d+)/(.*)$', view_document, name='view_document'),
     path('health/ok/', health_ok),
     path('health/version/', health_version),
+    path('sitemap.xml', sitemap, name='sitemap'),
+    path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
 
     path('search/', search_views.search, name='search'),
 

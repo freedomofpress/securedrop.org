@@ -72,3 +72,10 @@ def get_site_name():
 @register.filter
 def document_view_url(value):
     return reverse('view_document', args=[value.id, value.filename])
+
+
+@register.simple_tag(takes_context=True)
+def get_absolute_url(context, view_name, *args, **kwargs):
+    return context['request'].build_absolute_uri(
+        reverse(view_name, args=args, kwargs=kwargs)
+    )
