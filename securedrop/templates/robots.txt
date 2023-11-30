@@ -1,0 +1,6 @@
+{% load common_tags %}
+User-agent: *
+Disallow:
+Crawl-delay: 10
+
+Sitemap: {% get_absolute_url 'sitemap' %}

@@ -1047,9 +1047,9 @@ wagtail==4.1.9 \
     #   wagtail-factories
     #   wagtail-metadata
     #   wagtailmedia
-wagtail-autocomplete==0.9.0 \
-    --hash=sha256:b64828d35f370453c84bc4094174872822798e54414f5fb9fc8a43c2a6c3e727 \
-    --hash=sha256:d85789543308d344447656725b9aac8d1c4c6fb271221a3340008a3c9f2ab6fa
+wagtail-autocomplete==0.11.0 \
+    --hash=sha256:11479000aae7532376048d0ff75585d9bebc8fdd09bad88b28f770032a362d11 \
+    --hash=sha256:b2ba0f5c8a0e43cdc124a9503d91e9815fb0251a1431d52db5868306ab935059
     # via -r requirements.txt
 wagtail-factories==4.0.0 \
     --hash=sha256:3e39ec1cc13b61c6e467f1bf223ce2d134e823fa9fe4dc7e32d0222cc8d350ec \
