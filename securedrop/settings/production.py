@@ -45,8 +45,9 @@ structlog.configure(
 )
 
 pre_chain = [
-    # Add the log level and a timestamp to the event_dict if the log entry
-    # is not from structlog.
+    # Add the context vars, log level and a timestamp to the
+    # event_dict if the log entry is not from structlog.
+    structlog.contextvars.merge_contextvars,
     structlog.stdlib.add_log_level,
     structlog.stdlib.add_logger_name,
 ]
