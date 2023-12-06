@@ -660,9 +660,9 @@ wagtail-metadata==4.0.2 \
     --hash=sha256:28436201e308921ec6a4e15ac45b3bd09cdd61f699a0973d968653a8e2fff5a7 \
     --hash=sha256:46e4854a6ba15f7d1aeccf330be63530cc28d3ab26a1a514a663a796581e1ae1
     # via -r requirements.in
-wagtailmedia==0.13.0 \
-    --hash=sha256:112977ab0f2e00fc0e9c023d9635a58435ee70e7e59293c66b9320a13159f6b0 \
-    --hash=sha256:2bd42d565a5eb491dbf45bd3bda2cf628217b42e2c707d92d068ecb30a03a396
+wagtailmedia==0.14.5 \
+    --hash=sha256:591f38f72980f8494c41e7df70c583ba8b40f284ec109f178ef73876747a139b \
+    --hash=sha256:f3300f57d326c571420af4bc9381b3bb508dab402fb0f4b7957991a41fe91ef3
     # via -r requirements.in
 webencodings==0.5.1 \
     --hash=sha256:a0af1213f3c2226497a97e2b3aa01a7e4bee4f403f95be16fc9acd2947514a78 \
