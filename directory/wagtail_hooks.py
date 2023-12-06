@@ -69,7 +69,7 @@ scanresult_modeladmin = ScanResultAdmin()
 
 
 @hooks.register('register_page_listing_buttons')
-def add_scan_results_buttons(page, page_perms, next_url=None):
+def add_scan_results_buttons(page, user, next_url=None):
     """
     For directory entry pages, add an additional button to the page listing,
     linking to the most relevant model admin pages for scan results.
@@ -79,7 +79,7 @@ def add_scan_results_buttons(page, page_perms, next_url=None):
             'Scan Results',
             hook_name='add_scan_results_button',
             page=page,
-            page_perms=page_perms,
+            user=user,
             priority=35
         )
 
