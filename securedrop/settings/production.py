@@ -19,11 +19,7 @@ except ImportError:
 
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(' ')
-
-
-MIDDLEWARE += [  # noqa: F405
-    'common.middleware.RequestLogMiddleware',
-]
+MIDDLEWARE.insert(3, 'common.middleware.RequestLogMiddleware')  # noqa: F405
 
 
 structlog.configure(
@@ -49,8 +45,9 @@ structlog.configure(
 )
 
 pre_chain = [
-    # Add the log level and a timestamp to the event_dict if the log entry
-    # is not from structlog.
+    # Add the context vars, log level and a timestamp to the
+    # event_dict if the log entry is not from structlog.
+    structlog.contextvars.merge_contextvars,
     structlog.stdlib.add_log_level,
     structlog.stdlib.add_logger_name,
 ]
