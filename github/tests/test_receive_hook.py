@@ -130,6 +130,16 @@ class TestReceiveHook(TestCase):
         )
         self.assertEqual(Release.objects.count(), 0)
 
+    @override_settings(GITHUB_HOOK_SECRET_KEY=b'test')
+    def test_incorrect_signature_type(self):
+        self._post_hook(
+            json_file_name='valid_release_hook.json',
+            secret=b'test',
+            payload_digest_func=lambda payload: payload,
+            signature='md5=39382',
+        )
+        self.assertEqual(Release.objects.count(), 0)
+
     @override_settings(GITHUB_HOOK_SECRET_KEY=b'WRONG SECRET KEY')
     def test_incorrect_secret(self):
         self._post_hook(
