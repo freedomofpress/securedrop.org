@@ -20,8 +20,8 @@ RUN cd /src-files && ( npm install && npm run build )
 LABEL MAINTAINER="Freedom of the Press Foundation"
 LABEL APP="securedrop.org"
 
-# sha256 for python:3.12.0-slim-bookworm on linux/amd64 as of 2023-12-06
-FROM python:3.12.0-slim-bookworm@sha256:8e216a21d8df597118b46f3fff477ed1c5c11be81531b6da87790a17851b7f1c AS python-base
+# sha256 for python:3.12.1-slim-bookworm on linux/amd64 as of 2023-12-13
+FROM python:3.12.1-slim-bookworm@sha256:815f9e7b04768469d7c1346adaaa9f7b1853b28a870e23c82ae18bd08777ff1d AS python-base
 
 RUN apt-get update && apt-get install -y \
     curl \
