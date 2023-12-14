@@ -3,6 +3,7 @@ from unittest.mock import patch, Mock
 from django.test import TestCase, override_settings
 from requests.exceptions import HTTPError, InvalidURL
 
+from common.tests.utils import capture_logs_with_contextvars
 from cloudflare.utils import purge_tags_from_cache, purge_all_from_cache
 
 
@@ -59,21 +60,27 @@ class TestCacheTags(TestCase):
 
 @override_settings(WAGTAILFRONTENDCACHE=WAGTAILFRONTENDCACHE_SETTINGS)
 @patch('cloudflare.utils.requests.delete')
-@patch('cloudflare.utils.logger')
 class LoggingTestCase(TestCase):
-    def test_log__success(self, logger_mock, delete_mock):
+    def test_log__success(self, delete_mock):
         """
         If Cloudflare's API response OK on purge, info should be logged
         """
         # Mock a successful JSON response
         delete_mock.return_value.json.return_value = {'success': True}
-        purge_all_from_cache()
-        logger_mock.info.assert_called_once_with(
-            'Purged from CloudFlare with data: %s',
-            '{}'
+
+        with capture_logs_with_contextvars() as cap_logs:
+            purge_all_from_cache()
+        log_entry = cap_logs[0]
+        self.assertEqual(
+            log_entry,
+            {
+                'event': 'Purged from CloudFlare',
+                'log_level': 'info',
+                'cloudflare_request_data': '{}',
+            },
         )
 
-    def test_log__http_ok__cf_error(self, logger_mock, delete_mock):
+    def test_log__http_ok__cf_error(self, delete_mock):
         """
         If Clouflare's API response returns a successful HTTP response, but
         without success in the json, an error should be logged
@@ -83,15 +90,20 @@ class LoggingTestCase(TestCase):
             'success': False,
             'errors': [{'message': 'Cloudflare doesn\'t like you 😡'}]
         }
-        purge_all_from_cache()
-        logger_mock.error.assert_called_once_with(
-            'Couldn\'t purge from Cloudflare with data: %s. '
-            'Cloudflare errors \'%s\'',
-            '{}',
-            'Cloudflare doesn\'t like you 😡'
+        with capture_logs_with_contextvars() as cap_logs:
+            purge_all_from_cache()
+        log_entry = cap_logs[0]
+        self.assertEqual(
+            log_entry,
+            {
+                'event': "Couldn't purge from Cloudflare.",
+                'log_level': 'error',
+                'cloudflare_request_data': '{}',
+                'cloudflare_request_errors': 'Cloudflare doesn\'t like you 😡',
+            },
         )
 
-    def test_log__http_error(self, logger_mock, delete_mock):
+    def test_log__http_error(self, delete_mock):
         # Mock an HTTP error response
         response_500 = Mock()
         response_500.status_code = 500
@@ -101,24 +113,35 @@ class LoggingTestCase(TestCase):
             response=response_500
         )
 
-        purge_all_from_cache()
-        logger_mock.error.assert_called_once_with(
-            'Couldn\'t purge from Cloudflare with data: %s. HTTPError: %d %s',
-            '{}',
-            500,
-            'something happened'
+        with capture_logs_with_contextvars() as cap_logs:
+            purge_all_from_cache()
+        log_entry = cap_logs[0]
+        self.assertEqual(
+            log_entry,
+            {
+                'event': "Couldn't purge from Cloudflare.",
+                'log_level': 'error',
+                'exc_info': True,
+                'cloudflare_request_data': '{}',
+            },
         )
 
-    def test_log__invalid_url(self, logger_mock, delete_mock):
+    def test_log__invalid_url(self, delete_mock):
         # Mock a URL error response
         delete_mock.return_value.json.side_effect = ValueError
         delete_mock.return_value.raise_for_status.side_effect = InvalidURL(
             'something happened',
         )
 
-        purge_all_from_cache()
-        logger_mock.error.assert_called_once_with(
-            'Couldn\'t purge from Cloudflare with data: %s. InvalidURL: %s',
-            '{}',
-            'something happened'
+        with capture_logs_with_contextvars() as cap_logs:
+            purge_all_from_cache()
+        log_entry = cap_logs[0]
+        self.assertEqual(
+            log_entry,
+            {
+                'event': "Couldn't purge from Cloudflare.",
+                'log_level': 'error',
+                'exc_info': True,
+                'cloudflare_request_data': '{}',
+            },
         )

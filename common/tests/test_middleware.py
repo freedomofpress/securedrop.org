@@ -1,27 +1,12 @@
-import contextlib
 from unittest import mock
 
-import structlog
 from django.test import TestCase, RequestFactory
 from django.contrib.auth import get_user_model
 from wagtail.models import Page
 
 from common.middleware import RequestLogMiddleware
 
-
-@contextlib.contextmanager
-def capture_logs_with_contextvars():
-    """Modified version of structlog.testing.capture_logs that captures
-    data bound to structlog's loggers with ``bind_contextvars``.
-
-    """
-    cap = structlog.testing.LogCapture()
-    old_processors = structlog.get_config()['processors']
-    try:
-        structlog.configure(processors=[structlog.contextvars.merge_contextvars, cap])
-        yield cap.entries
-    finally:
-        structlog.configure(processors=old_processors)
+from .utils import capture_logs_with_contextvars
 
 
 class RequestLogTestCase(TestCase):
