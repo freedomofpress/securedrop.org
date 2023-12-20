@@ -1,34 +1,16 @@
 from django.utils.translation import gettext as _
+from wagtail.admin.ui.tables import BooleanColumn
 from wagtail.admin.widgets import (
     ButtonWithDropdownFromHook,
     Button,
 )
-from wagtail.contrib.modeladmin.helpers import PermissionHelper, ButtonHelper
-from wagtail.contrib.modeladmin.options import (
-    ModelAdmin,
-    modeladmin_register,
-)
+from wagtail.contrib.modeladmin.helpers import ButtonHelper
+from wagtail.snippets.models import register_snippet
+from wagtail.snippets.views.snippets import SnippetViewSet
 from wagtail import hooks
 
 from .models import ScanResult, DirectoryEntry
 from .views import ManualScanView
-
-
-class CannotModifyPermissionHelper(PermissionHelper):
-    """Permission helper for read-only ModelAdmins
-
-    Permission helper class that denies all permissions to edit or
-    delete objects.
-
-    """
-    def user_can_list(self, user):
-        return True
-
-    def user_can_edit_obj(self, user, obj):
-        return False
-
-    def user_can_delete_obj(self, user, obj):
-        return False
 
 
 class MyButtonHelper(ButtonHelper):
@@ -47,25 +29,40 @@ class MyButtonHelper(ButtonHelper):
         }
 
 
-class ScanResultAdmin(ModelAdmin):
-    """ModelAdmin for viewing/searching ScanResults."""
+class ScanResultAdmin(SnippetViewSet):
+    """SnippetViewSet for viewing/searching ScanResults."""
     model = ScanResult
-    button_helper_class = MyButtonHelper
-    create_view_class = ManualScanView
-    menu_icon = 'folder-open-inverse'
+    action_text = _('Perform a scan')
+    add_view_class = ManualScanView
+    # create_template_name = 'modeladmin/scan_form.html'
+    add_to_admin_menu = True
+    icon = 'folder-open-inverse'
     menu_order = 500
-    list_display = ('securedrop', 'landing_page_url', 'result_last_seen', 'live', 'grade')
+    list_display = (
+        'securedrop',
+        'landing_page_url',
+        'result_last_seen',
+        BooleanColumn('live'),
+        'grade'
+    )
     list_filter = (
         'result_last_seen',
         'grade',
         'live',
     )
     search_fields = ('landing_page_url', 'securedrop__title')
-    permission_helper_class = CannotModifyPermissionHelper
     inspect_view_enabled = True
 
 
-scanresult_modeladmin = ScanResultAdmin()
+scanresult_snippetviewset = ScanResultAdmin()
+
+
+@hooks.register('construct_snippet_listing_buttons')
+def remove_snippet_listing_button_item(buttons, snippet, user):
+    """
+    Removes edit and delete from the action buttons of each snippet
+    """
+    buttons[:] = [button for button in buttons if button.label not in ('Delete', 'Edit')]
 
 
 @hooks.register('register_page_listing_buttons')
@@ -92,7 +89,7 @@ def button_for_scan_results(page, page_perms, next_url=None):
     list of all results.
 
     """
-    index_url = scanresult_modeladmin.url_helper.get_action_url('index')
+    index_url = scanresult_snippetviewset.url_helper.get_action_url('index')
     results_url = f'{index_url}?securedrop__page_ptr_id__exact={page.pk}'
     buttons = [
         Button(
@@ -106,11 +103,11 @@ def button_for_scan_results(page, page_perms, next_url=None):
         buttons.append(
             Button(
                 'Latest Result',
-                scanresult_modeladmin.url_helper.get_action_url('inspect', latest.pk),
+                scanresult_snippetviewset.url_helper.get_action_url('inspect', latest.pk),
                 priority=20,
             )
         )
     return buttons
 
 
-modeladmin_register(ScanResultAdmin)
+register_snippet(ScanResultAdmin)

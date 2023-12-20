@@ -1,12 +1,13 @@
 from django.http import HttpResponseRedirect
 from django.views.generic.edit import FormView
+from wagtail.snippets.views.snippets import CreateView
 
 from scanner.scanner import perform_scan
 
 from .forms import ManualScanForm
 
 
-class ManualScanView(FormView):
+class ManualScanView(CreateView, FormView):
     model_admin = None
     template_name = 'modeladmin/scan_form.html'
     form_class = ManualScanForm
