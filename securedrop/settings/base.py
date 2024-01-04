@@ -292,11 +292,10 @@ CSP_STYLE_SRC_ATTR = (
     "'unsafe-hashes'",
     "'sha256-ZdHxw9eWtnxUb3mk6tBS+gIiVUPE3pGM470keHPDFlE='",
 )
-CSP_FRAME_SRC = ("'self'",)
-CSP_CONNECT_SRC = (
+CSP_CONNECT_SRC = [
     "'self'",
     "analytics.freedom.press",
-)
+]
 CSP_EXCLUDE_URL_PREFIXES = ("/admin", )
 
 # Need to be lists for now so that CSP configuration can add to them.
@@ -306,6 +305,7 @@ CSP_IMG_SRC = [
     "analytics.freedom.press",
 ]
 CSP_OBJECT_SRC = ["'self'"]
+CSP_FRAME_SRC = ["'self'"]
 CSP_MEDIA_SRC = ["'self'"]
 
 # This will be used to evaluate Google Storage media support in staging
@@ -317,6 +317,8 @@ if os.environ.get("DJANGO_CSP_IMG_HOSTS"):
 # default-src, set an explicit object-source
 if os.environ.get("DJANGO_CSP_OBJ_HOSTS"):
     CSP_OBJECT_SRC.extend(os.environ["DJANGO_CSP_OBJ_HOSTS"].split())
+    CSP_FRAME_SRC.extend(os.environ["DJANGO_CSP_OBJ_HOSTS"].split())
+    CSP_CONNECT_SRC.extend(os.environ["DJANGO_CSP_OBJ_HOSTS"].split())
 
 # Report URI must be a string, not a tuple.
 CSP_REPORT_URI = os.environ.get('DJANGO_CSP_REPORT_URI',

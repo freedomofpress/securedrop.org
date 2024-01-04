@@ -10,8 +10,10 @@ import structlog
 
 from github.models import Release
 
+from .event_codes import EventCode
 
-logger = structlog.get_logger(__name__)
+
+logger = structlog.get_logger()
 
 
 def validate_sha1_signature(request, secret):
@@ -23,9 +25,9 @@ def validate_sha1_signature(request, secret):
     digestmod, signature = digest.split('=')
     if digestmod != 'sha1':
         logger.warn(
-            'SHA1 signature validation failed due to signature of type other than sha1: %s %s',
-            digestmod,
-            request.META,
+            'SHA1 signature validation failed due to signature of type other than sha1',
+            github_digest=digest,
+            event_code=EventCode.SignatureNotSha1,
         )
         return False
 
@@ -49,16 +51,14 @@ def handle_release_hook(release):
         release.full_clean()
         release.save()
         return release
-    except KeyError as error:
-        logger.error(
-            'GitHub release event received but failed due to missing data: %s',
-            error,
+    except KeyError:
+        logger.exception(
+            'GitHub release event received but failed due to missing data'
         )
         return False
-    except Exception as error:
-        logger.error(
-            'GitHub release event received but failed to create Release object: %s',
-            error,
+    except Exception:
+        logger.exception(
+            'GitHub release event received but failed to create Release object',
         )
         return False
 
@@ -68,24 +68,27 @@ def handle_release_hook(release):
 def receive_hook(request):
     encoding = request.encoding or settings.DEFAULT_CHARSET
     content = request.body.decode(encoding)
-    logger.info(
-        'GitHub hook received. '
-        'Request content and error or success status follow immediately: %s',
-        content
+    structlog.contextvars.bind_contextvars(
+        github_hook_content=content,
     )
-
     if not content:
-        logger.warn('GitHub hook received with no POST data')
+        logger.warn(
+            'GitHub hook received with no POST data',
+            event_code=EventCode.PostDataMissing,
+        )
         return HttpResponse(status=204)
 
     if not validate_sha1_signature(request, settings.GITHUB_HOOK_SECRET_KEY):
-        logger.warn('GitHub hook received event with an invalid signature.')
+        logger.warn(
+            'GitHub hook received event with an invalid signature.',
+            event_code=EventCode.InvalidSignature,
+        )
         return HttpResponse(status=204)
 
     try:
         body = json.loads(content)
-    except Exception as error:
-        logger.warn('GitHub hook received erroneous JSON POST data. %s', error)
+    except Exception:
+        logger.exception('GitHub hook received erroneous JSON POST data.')
         return HttpResponse(status=204)
 
     event_type = request.META.get('HTTP_X_GITHUB_EVENT')
@@ -93,21 +96,36 @@ def receive_hook(request):
         logger.info('Ping received from GitHub hook.')
         return HttpResponse(status=204)
     elif event_type != 'release':
-        logger.warn('Received an unsupported GitHub event: %s', event_type)
+        logger.warn(
+            'Received an unsupported GitHub event',
+            github_event_type=event_type,
+            event_code=EventCode.UnsupportedGithubEvent,
+        )
         return HttpResponse(status=204)
 
-    if body.get('action', None) != 'published':
+    github_action = body.get('action', None)
+    if github_action != 'published':
         # Currently the only `action` value for the Release hook should be
         # `published`.
-        logger.warn('GitHub hook received event with an action value other than published.')
+        logger.warn(
+            'GitHub hook received event with an action value other than published.',
+            github_action=github_action,
+            event_code=EventCode.UnsupportedAction,
+        )
         return HttpResponse(status=204)
 
     release = body.get('release', False)
     if release:
         obj = handle_release_hook(release)
         if obj:
-            logger.info('Successfully created release %s', obj.tag_name)
+            logger.info(
+                'Successfully created release %s',
+                github_release_created=obj.tag_name,
+            )
     else:
-        logger.warn('GitHub hook received event without a release attribute.')
+        logger.warn(
+            'GitHub hook received event without a release attribute.',
+            event_code=EventCode.ReleaseAttributeMissing,
+        )
 
     return HttpResponse(status=204)
