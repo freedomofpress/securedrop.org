@@ -1,13 +1,13 @@
 from django.http import HttpResponseRedirect
 from django.views.generic.edit import FormView
-from wagtail.snippets.views.snippets import CreateView
+from django.urls import reverse
 
 from scanner.scanner import perform_scan
 
 from .forms import ManualScanForm
 
 
-class ManualScanView(CreateView, FormView):
+class ManualScanView(FormView):
     model_admin = None
     template_name = 'modeladmin/scan_form.html'
     form_class = ManualScanForm
@@ -30,6 +30,6 @@ class ManualScanView(CreateView, FormView):
         result = perform_scan(landing_page_url, permitted_domains)
         result.save()
 
-        result_url = scanresult_modeladmin.url_helper.get_action_url('inspect', result.pk)
+        result_url = reverse(scanresult_modeladmin.get_url_name('inspect'), kwargs={'pk':result.pk})
 
         return HttpResponseRedirect(result_url)
