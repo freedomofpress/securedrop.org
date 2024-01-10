@@ -6,7 +6,7 @@
 		{% if self.instance.pk %}
 			{% if self.instance.get_live_result %}
 				{% with latest=self.instance.get_live_result %}
-					<a class="button button-small button-secondary" href="{% url 'directory_scanresult_snippetviewset_inspect' instance_pk=latest.pk %}">
+					<a class="button button-small button-secondary" href="{% url 'directory_scanresult_viewset_inspect' instance_pk=latest.pk %}">
 						Latest live result
 					</a>
 					<dl>
@@ -21,7 +21,7 @@
 
 			<hr>
 
-			<a class="button button-small button-secondary" href="{% url 'directory_scanresult_snippetviewset_index' %}?securedrop__page_ptr_id__exact={{ self.instance.pk }}">All scan results</a>
+			<a class="button button-small button-secondary" href="{% url 'directory_scanresult_viewset_index' %}?securedrop__page_ptr_id__exact={{ self.instance.pk }}">All scan results</a>
 		{% else %}
 			No scans available.
 		{% endif %}

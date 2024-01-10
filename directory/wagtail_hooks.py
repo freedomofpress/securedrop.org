@@ -6,23 +6,20 @@ from wagtail.admin.widgets import (
     ButtonWithDropdownFromHook,
     Button,
 )
-from wagtail.snippets.models import register_snippet
-from wagtail.snippets.views.snippets import SnippetViewSet
+from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail import hooks
 
 from .models import ScanResult, DirectoryEntry
 from .views import ManualScanView
 
 
-class ScanResultAdmin(SnippetViewSet):
+class ScanResultAdmin(ModelViewSet):
     """SnippetViewSet for viewing/searching ScanResults."""
     model = ScanResult
-    action_text = _('Perform a scan')
-    # add_view_class = ManualScanView
-    # # create_template_name = 'modeladmin/scan_form.html'
     add_to_admin_menu = True
     icon = 'folder-open-inverse'
     menu_order = 500
+    form_fields = []
     list_display = (
         'securedrop',
         'landing_page_url',
@@ -38,19 +35,26 @@ class ScanResultAdmin(SnippetViewSet):
     search_fields = ('landing_page_url', 'securedrop__title')
     inspect_view_enabled = True
 
+    def get_common_view_kwargs(self, **kwargs):
+        view_kwargs = super().get_common_view_kwargs(
+            **{
+                "add_url_name": None,
+                "edit_url_name": None,
+                "delete_url_name": None,
+                **kwargs,
+            }
+        )
+        if self.inspect_view_enabled:
+            view_kwargs["inspect_url_name"] = self.get_url_name("inspect")
+        return view_kwargs
 
-scanresult_snippetviewset = ScanResultAdmin()
+
+scanresult_viewset = ScanResultAdmin()
 
 
-@hooks.register('construct_snippet_listing_buttons')
-def remove_snippet_listing_button_item(buttons, snippet, user):
-    """
-    Removes edit and delete from the action buttons of each snippet
-    """
-    buttons[:] = [button for button in buttons if button.label not in ('Delete', 'Edit')]
-
-
-register_snippet(ScanResultAdmin)
+@hooks.register('register_admin_viewset')
+def register_scanresult_viewset():
+    return scanresult_viewset
 
 
 @hooks.register('register_admin_urls')
@@ -69,5 +73,5 @@ def register_manual_scan_item():
     return MenuItem(
         'Perform a scan',
         reverse('manual_scan'),
-        classnames='icon icon-plus',
+        classname='icon icon-plus',
     )

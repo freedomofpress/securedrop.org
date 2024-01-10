@@ -22,7 +22,7 @@ class ManualScanView(FormView):
     def form_valid(self, form):
         from .wagtail_hooks import ScanResultAdmin
 
-        scanresult_modeladmin = ScanResultAdmin()
+        scanresult_viewset = ScanResultAdmin()
 
         permitted_domains = form.cleaned_data['permitted_domains'].split(',')
         landing_page_url = form.cleaned_data['landing_page_url']
@@ -30,6 +30,6 @@ class ManualScanView(FormView):
         result = perform_scan(landing_page_url, permitted_domains)
         result.save()
 
-        result_url = reverse(scanresult_modeladmin.get_url_name('inspect'), kwargs={'pk':result.pk})
+        result_url = reverse(scanresult_viewset.get_url_name('inspect'), kwargs={'pk':result.pk})
 
         return HttpResponseRedirect(result_url)
