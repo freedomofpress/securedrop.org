@@ -1,15 +1,10 @@
-from django.utils.translation import gettext as _
 from django.urls import path, reverse
 from wagtail.admin.menu import MenuItem
 from wagtail.admin.ui.tables import BooleanColumn
-from wagtail.admin.widgets import (
-    ButtonWithDropdownFromHook,
-    Button,
-)
 from wagtail.admin.viewsets.model import ModelViewSet
 from wagtail import hooks
 
-from .models import ScanResult, DirectoryEntry
+from .models import ScanResult
 from .views import ManualScanView
 
 

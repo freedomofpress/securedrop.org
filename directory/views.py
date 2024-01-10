@@ -30,6 +30,6 @@ class ManualScanView(FormView):
         result = perform_scan(landing_page_url, permitted_domains)
         result.save()
 
-        result_url = reverse(scanresult_viewset.get_url_name('inspect'), kwargs={'pk':result.pk})
+        result_url = reverse(scanresult_viewset.get_url_name('inspect'), kwargs={'pk': result.pk})
 
         return HttpResponseRedirect(result_url)
