@@ -3,7 +3,7 @@ bandit>=1.7.1
 colorama<1
 coverage
 django-debug-toolbar>=1.11.1
-flake8
+flake8>=6.1.0
 ipdb>=0.13.9
 safety>=1.10.3
 vcrpy
