@@ -129,6 +129,13 @@ DATABASES = {
 #
 STATIC_ROOT = os.environ['DJANGO_STATIC_ROOT']
 
+# Adds CSRF_TRUSTED_ORIGINS to ensure that the origins we trust
+# are used rather than it checking with the Host header
+try:
+    CSRF_TRUSTED_ORIGINS = os.environ['DJANGO_CSRF_TRUSTED_ORIGINS'].split(' ')
+except KeyError:
+    pass
+
 if os.environ.get('GS_BUCKET_NAME'):
     INSTALLED_APPS.append('storages')  # noqa: F405
 
