@@ -1,5 +1,6 @@
 import os
 
+from django.urls import reverse
 from wagtail.test.utils import WagtailPageTestCase
 
 from directory.models import ScanResult
@@ -16,7 +17,7 @@ class ManualScanTests(WagtailPageTestCase):
         self.login()
 
         self.admin = ScanResultAdmin()
-        self.view_url = self.admin.url_helper.create_url
+        self.view_url = reverse('manual_scan')
 
     def test_getting_the_form_succeeds(self):
         response = self.client.get(self.view_url)
@@ -39,8 +40,8 @@ class ManualScanTests(WagtailPageTestCase):
         result = ScanResult.objects.get(landing_page_url=landing_page_url)
 
         self.assertEqual(response.status_code, 302)
-        expected_url = self.admin.url_helper.get_action_url(
-            'inspect',
-            result.pk,
+        expected_url = reverse(
+            self.admin.get_url_name('inspect'),
+            kwargs={'pk': result.pk}
         )
         self.assertEqual(response.url, expected_url)
