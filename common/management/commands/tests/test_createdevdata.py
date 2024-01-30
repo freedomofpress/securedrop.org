@@ -2,12 +2,12 @@ import os
 
 from django.contrib.auth.models import User
 from django.core import management
-from django.test import TestCase
+from django.test import TransactionTestCase
 from django.urls import reverse
 from wagtail.models import Page
 
 
-class CreateDevDataTestCase(TestCase):
+class CreateDevDataTestCase(TransactionTestCase):
     def test_createdevdata_works(self):
         """The createdevdata command successfully creates functional pages
 
