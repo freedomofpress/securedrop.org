@@ -26,6 +26,7 @@ class ScanResultAdmin(ModelViewSet):
         'result_last_seen',
         'grade',
         'live',
+        'securedrop',
     )
     search_fields = ('landing_page_url', 'securedrop__title')
     inspect_view_enabled = True
