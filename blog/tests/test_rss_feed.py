@@ -1,31 +1,14 @@
-import unittest
 import feedparser
-from django.test import Client
+from django.test import Client, TestCase
 from blog.tests.factories import BlogIndexPageFactory, BlogPageFactory
-from home.tests.factories import HomePageFactory
-from wagtail.models import Page, Site
+from wagtail.models import Site
 
 
-class RSSTest(unittest.TestCase):
+class RSSTest(TestCase):
     def setUp(self):
-        Page.objects.filter(slug='home').delete()
-        home_page = HomePageFactory.build(
-            description_header="Share and accept documents securely.",
-            slug="home"
-        )
-
-        root_page = Page.objects.get(title='Root')
-        root_page.add_child(instance=home_page)
-
-        Site.objects.create(
-            site_name='SecureDrop.org (Dev)',
-            hostname='localhost',
-            port='8000',
-            root_page=home_page,
-            is_default_site=True
-        )
+        site = Site.objects.get()
         self.blog_index = BlogIndexPageFactory(
-            parent=home_page,
+            parent=site.root_page,
             search_description="Search me!"
         )
         self.blog_index.save()
