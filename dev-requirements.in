@@ -1,5 +1,5 @@
 -r requirements.txt
-bandit>=1.7.1
+bandit>=1.7.7
 colorama<1
 coverage
 django-debug-toolbar>=1.11.1
