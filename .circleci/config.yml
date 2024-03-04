@@ -97,9 +97,7 @@ jobs:
     working_directory: ~/securedrop.org
     steps:
       - checkout
-
-      - setup_remote_docker:
-          version: 20.10.18
+      - setup_remote_docker
 
       - run:
           name: Ensure we can run prod-env
