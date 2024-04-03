@@ -1,5 +1,7 @@
 ## Description
 
+<!-- If this is a deploy PR, please append `?template=deploy.md` to the current URL -->
+
 Fixes #.
 
 Changes proposed in this pull request:
