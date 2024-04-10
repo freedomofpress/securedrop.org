@@ -1,37 +1,41 @@
 {% load i18n %}
 
 <div class="instance-instructions">
-	<h1 class="instance-instructions__title">{% trans "Planning to submit information?" %}</h1>
+	<h1 class="instance-instructions__title">{% trans "Contact this SecureDrop instance" %}</h1>
 	<p>
 		{% blocktrans with organization=page.title onion=page.full_onion_address %}
-			Be sure that the .onion address provided on {{ organization }}’s landing
-			page below matches
+			Our records indicate that this SecureDrop is reachable via the following
+			.onion addresses using <a href="https://www.torproject.org/">Tor Browser</a>:
+			<br />
+			<br />
 			<span class="instance-instructions__onion-address">{{ onion }}</span>
 		{% endblocktrans %}
 		{% if page.onion_name %}
 			{% blocktrans with onion_name=page.onion_name %}
-				or <span class="instance-instructions__onion-address">{{ onion_name }}</span>
+				<br />
+				<span class="instance-instructions__onion-address">{{ onion_name }}</span>
+				<br />
+				<br />
 			{% endblocktrans %}
 		{% endif %}
-		{% blocktrans %}
-			before continuing. This helps ensure you are visiting a legitimate
-			SecureDrop instance. See our
-			<a href="https://docs.securedrop.org/en/stable/source.html">Source Guide</a>
-			for more information on SecureDrop usage and risks.
+	</p>
+	<p>
+		{% blocktrans with organization=page.title %}
+			If the .onion address information on {{ organization }}’s landing page
+			below does not match our records, do not contact this SecureDrop.
 		{% endblocktrans %}
 	</p>
 	<p>
 
 		{% if settings.directory.DirectorySettings.report_error_page %}
 			{% blocktrans with report_error_page=settings.directory.DirectorySettings.report_error_page.url %}
-				If you encounter a mismatch, make sure to report an error
-				<a href="{{ report_error_page }}">here</a>.
+				<a href="{{ report_error_page }}">Let us know</a>, and we will investigate the discrepancy.
 			{% endblocktrans %}
 		{% elif settings.directory.DirectorySettings.contact_gpg %}
 			{% blocktrans with contact_email=settings.directory.DirectorySettings.contact_email contact_email_escaped=settings.directory.DirectorySettings.contact_email|escape contact_gpg=settings.directory.DirectorySettings.contact_gpg.url %}
-				If you encounter a mismatch, please contact us at
+				Let us know at  
 				<a href="mailto:{{ contact_email_escaped }}">{{ contact_email }}</a>
-				(<a href="{{ contact_gpg }}">GPG</a>).
+				(<a href="{{ contact_gpg }}">GPG</a>), and we will investigate the discrepancy.
 			{% endblocktrans %}
 		{% else %}
 			{% comment %}
@@ -41,17 +45,14 @@
 				environments.
 			{% endcomment %}
 			{% blocktrans with contact_email=settings.directory.DirectorySettings.contact_email contact_email_escaped=settings.directory.DirectorySettings.contact_email|escape %}
-				If you encounter a mismatch, please contact us at
-				<a href="mailto:{{ contact_email_escaped }}">{{ contact_email }}</a>.
+				Let us know at
+				<a href="mailto:{{ contact_email_escaped }}">{{ contact_email }}</a>, and we will investigate the discrepancy.
 			{% endblocktrans %}
 		{% endif %}
 
 		{% blocktrans %}
-			This could be evidence of an attempted attack, or it could be a simple
-			failure to communicate between an organization running SecureDrop and
-			Freedom of the Press Foundation.
-			In either case, we will investigate the matter and establish a path to
-			resolution.
+			See our <a href="https://docs.securedrop.org/en/stable/source.html">Source Guide</a> for
+			more information on SecureDrop usage and risks.
 		{% endblocktrans %}
 
 	</p>
