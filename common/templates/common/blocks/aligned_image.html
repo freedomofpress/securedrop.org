@@ -1,8 +1,8 @@
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags %}
 
-{% image self.image width-1440 as x1 %}
-{% image self.image width-2880 as x2 %}
+{% image self.image preserve-svg width-1440 as x1 %}
+{% image self.image preserve-svg width-2880 as x2 %}
 
 <div class="image__wrapper
 	{% if self.alignment == 'center' %}

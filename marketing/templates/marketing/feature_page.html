@@ -40,7 +40,7 @@
 
 {% block sidebar %}
 	{% if page.icon %}
-		{% image page.icon max-500x500 class="features-sidebar__image" %}
+		{% image page.icon max-500x500 preserve-svg class="features-sidebar__image" %}
 	{% endif %}
 	<ol class="features-sidebar__list">
 		{% for feature in page.all_features %}

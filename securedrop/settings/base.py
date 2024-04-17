@@ -212,6 +212,7 @@ WAGTAILSEARCH_BACKENDS = {
 WAGTAIL_SITE_NAME = "securedrop"
 
 WAGTAILIMAGES_IMAGE_MODEL = 'common.CustomImage'
+WAGTAILIMAGES_EXTENSIONS = ["avif", "gif", "jpg", "jpeg", "png", "webp", "svg"]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 WAGTAILADMIN_COMMENTS_ENABLED = False

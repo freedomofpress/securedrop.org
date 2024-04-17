@@ -13,8 +13,8 @@
 	<div class="instance-title">
 		{% if page.organization_logo %}
 			<div class="instance-title__logo">
-				{% image page.organization_logo max-400x160 as image_1x %}
-				{% image page.organization_logo max-800x320 as image_2x %}
+				{% image page.organization_logo max-400x160 preserve-svg as image_1x %}
+				{% image page.organization_logo max-800x320 preserve-svg as image_2x %}
 				<img {{ image_1x.attrs }} srcset="{{ image_1x.url }} 1x, {{ image_2x.url }} 2x" />
 			</div>
 		{% endif %}

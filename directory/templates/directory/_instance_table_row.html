@@ -3,9 +3,9 @@
 <tr class="instance-table__row">
 	<td class="instance-table__icon-column">
 		{% if instance.specific.organization_logo_square %}
-			{% image instance.specific.organization_logo_square width-144 class="instance-table__icon" %}
+			{% image instance.specific.organization_logo_square width-144 preserve-svg class="instance-table__icon" %}
 		{% elif instance.specific.organization_logo %}
-			{% image instance.specific.organization_logo width-144 class="instance-table__icon" %}
+			{% image instance.specific.organization_logo width-144 preserve-svg class="instance-table__icon" %}
 		{% else %}
 			{% include "common/_hexagon.svg" with class="instance-table__icon" category_slug="instance-table" %}
 		{% endif %}

@@ -19,7 +19,7 @@
 				<div class="basic-form__label-help-text">
 					{{ field.help_text|safe }}
 					{% if extras.image %}
-						{% image extras.image max-1500x1500 as full_image %}
+						{% image extras.image max-1500x1500 preserve-svg as full_image %}
 						<a
 							class="js-lightbox basic-form__image-link {% if extras.show_image_thumbnail %}basic-form__image-link--hide-on-desktop{% endif %}"
 							{% if not extras.image_caption|richtext_isempty %}
@@ -39,7 +39,7 @@
 	</div>
 
 	{% if extras.image and extras.show_image_thumbnail %}
-		{% image extras.image max-1500x1500 as full_image %}
+		{% image extras.image max-1500x1500 preserve-svg as full_image %}
 		<figure class="basic-form__image">
 			<a
 				class="js-lightbox"
@@ -48,7 +48,7 @@
 				{% endif %}
 				href="{{ full_image.url }}"
 			>
-				{% image extras.image max-600x600 %}
+				{% image extras.image max-600x600 preserve-svg %}
 			</a>
 			{% if not extras.image_caption|richtext_isempty %}
 				<figcaption class="basic-form__image-caption">

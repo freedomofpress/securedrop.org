@@ -2,12 +2,12 @@
 {% for highlighted_instance in instances %}
 	<a href="{% pageurl highlighted_instance.instance %}" class="instances__item" aria-label="{{ page.instance_link_default_text }}: {{ highlighted_instance.instance.title }}">
 		{% if highlighted_instance.instance.organization_logo_homepage %}
-			{% image highlighted_instance.instance.organization_logo_homepage max-96x96 as logo_1x %}
-			{% image highlighted_instance.instance.organization_logo_homepage max-192x192 as logo_2x %}
+			{% image highlighted_instance.instance.organization_logo_homepage max-96x96 preserve-svg as logo_1x %}
+			{% image highlighted_instance.instance.organization_logo_homepage max-192x192 preserve-svg as logo_2x %}
 			<img class="instances__logo" {{ logo_1x.attrs }} srcset="{{ logo_1x.url }} 1x, {{ logo_2x.url }} 2x" />
 		{% elif highlighted_instance.instance.organization_logo %}
-			{% image highlighted_instance.instance.organization_logo max-96x96 as logo_1x %}
-			{% image highlighted_instance.instance.organization_logo max-192x192 as logo_2x %}
+			{% image highlighted_instance.instance.organization_logo max-96x96 preserve-svg as logo_1x %}
+			{% image highlighted_instance.instance.organization_logo max-192x192 preserve-svg as logo_2x %}
 			<img class="instances__logo" {{ logo_1x.attrs }} srcset="{{ logo_1x.url }} 1x, {{ logo_2x.url }} 2x" />
 		{% else %}
 			{% include "common/_hexagon.svg" with class="instances__logo instances__logo--hexagon" category_slug="instance-table" %}

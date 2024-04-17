@@ -7,7 +7,7 @@
 			<a class="features-list__item" href="{% pageurl feature.feature %}">
 				<div class="features-list__item-content">
 					{% if feature.feature.icon %}
-						{% image feature.feature.icon max-200x200 class='features-list__item-image' role='presentation' %}
+						{% image feature.feature.icon max-200x200 preserve-svg class='features-list__item-image' role='presentation' %}
 					{% endif %}
 					<div class="features-list__item-text">
 						<h2 class="features-list__item-heading">{{ feature.feature.teaser_title }}</h2>
