@@ -164,11 +164,17 @@ class DirectoryCountryFilterTest(TestCase):
         cls.azerbaijan = CountryFactory(title='Azerbaijan')
 
         # set up instances that are children of the directory and have those countries
-        cls.mexico_instance = DirectoryEntryFactory(parent=cls.directory)
+        cls.mexico_instance = DirectoryEntryFactory(
+            parent=cls.directory,
+            countries=0,
+        )
         cls.mexico_instance.countries.add(cls.mexico)
         cls.mexico_instance.save()
 
-        cls.azerbaijan_instance = DirectoryEntryFactory(parent=cls.directory)
+        cls.azerbaijan_instance = DirectoryEntryFactory(
+            parent=cls.directory,
+            countries=0,
+        )
         cls.azerbaijan_instance.countries.add(cls.azerbaijan)
         cls.azerbaijan_instance.save()
         cls.country_filter = {'countries': cls.mexico}
