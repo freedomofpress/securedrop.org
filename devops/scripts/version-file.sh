@@ -6,6 +6,13 @@
 
 set -e
 
+handle_error() {
+    echo "Error: line $1, exit code $2"
+    exit 1
+}
+
+trap 'handle_error $LINENO $?' ERR
+
 short_version_out="${DJANGO_SHORT_VERSION_FILE:-/deploy/version-short.txt}"
 full_version_out="${DJANGO_FULL_VERSION_FILE:-/deploy/version-full.txt}"
 

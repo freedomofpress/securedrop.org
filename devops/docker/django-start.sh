@@ -28,7 +28,7 @@ django_start() {
         ./manage.py collectstatic -c --noinput
     fi
     if [ "${DEPLOY_ENV}" == "dev" ]; then
-        ./devops/scripts/version-file.sh
+        ./devops/scripts/version-file.sh || echo "WARNING: version file creation failed"
         ./manage.py runserver 0.0.0.0:8000
     else
         gunicorn -c /etc/gunicorn/gunicorn.py "${DJANGO_APP_NAME?}.wsgi"
