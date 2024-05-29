@@ -308,6 +308,38 @@ class ScannerTest(TestCase):
                 1, page.results.count()
             )
 
+    @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'bulk-scan-error-handling.yaml'))
+    def test_bulk_scan_error_handling(self):
+        sd1 = DirectoryEntryFactory.create(
+            title='SecureDrop',
+            landing_page_url='https://www.2600.com/securedrop',
+            onion_address='notreal.onion'
+        )
+        sd2 = DirectoryEntryFactory.create(
+            title='Freedom of the Press Foundation',
+            landing_page_url='https://www.forbes.com/fdc/securedrop.html',
+            onion_address='notreal-2.onion'
+        )
+        sd3 = DirectoryEntryFactory.create(
+            title='Freedom of the Press Foundation',
+            landing_page_url='https://www.cnn.com/tips/',
+            onion_address='notreal-3.onion'
+        )
+        self.assertFalse(
+            DirectoryEntry.objects.get(pk=sd2.pk).results.exists()
+        )
+        with mock.patch('scanner.scanner.extract_assets') as extract_assets:
+            extract_assets.side_effect = [[], TypeError, []]
+            scanner.bulk_scan(DirectoryEntry.objects.all())
+
+        self.assertTrue(
+            DirectoryEntry.objects.get(pk=sd1.pk).results.all()[0].live
+        )
+        self.assertFalse(DirectoryEntry.objects.get(pk=sd2.pk).results.exists())
+        self.assertTrue(
+            DirectoryEntry.objects.get(pk=sd3.pk).results.all()[0].live
+        )
+
     @mock.patch(
         'scanner.scanner.requests.get',
         new=requests_get_mock

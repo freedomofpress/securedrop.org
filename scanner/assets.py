@@ -81,9 +81,9 @@ def extract_assets(soup: BeautifulSoup, site_url: str) -> List[Asset]:
                 )
             )
 
-            response = fetch_asset(script.attrs['src'], site_url)
+            asset_text = fetch_asset(script.attrs['src'], site_url)
             # assets in content from external js
-            for text in extract_strings(response.text):
+            for text in extract_strings(asset_text):
                 for url in extract_urls(text):
                     assets.append(Asset(resource=url, kind='script-resource', initiator=script.attrs['src']))
         # js embedded in <script> tags
@@ -102,9 +102,9 @@ def extract_assets(soup: BeautifulSoup, site_url: str) -> List[Asset]:
     stylesheet_links = soup.find_all('link', rel='stylesheet')
     for link in stylesheet_links:
         if link.attrs.get('href'):
-            response = fetch_asset(link.attrs['href'], site_url)
+            asset_text = fetch_asset(link.attrs['href'], site_url)
             # assets in content from stylesheet link
-            for url in urls_from_css(response.text):
+            for url in urls_from_css(asset_text):
                 assets.append(Asset(resource=url, kind='style-resource', initiator=link.attrs['href']))
 
             # stylesheet link
@@ -170,7 +170,7 @@ def descendants(nodes):
     return children
 
 
-def fetch_asset(asset_url: str, site_url: str) -> requests.models.Response:
+def fetch_asset(asset_url: str, site_url: str) -> str:
     site_url = urllib.parse.urlparse(site_url)
     asset_url = urllib.parse.urlparse(asset_url)
 
@@ -181,7 +181,11 @@ def fetch_asset(asset_url: str, site_url: str) -> requests.models.Response:
 
     # Note: headers include User-Agent which is required for correct
     # scanning.
-    return requests.get(asset_url.geturl(), headers=HEADERS, timeout=5)
+    try:
+        response = requests.get(asset_url.geturl(), headers=HEADERS, timeout=5)
+    except requests.RequestException:
+        return ''
+    return response.text
 
 
 def parse_srcset(srcset: str) -> List[str]:

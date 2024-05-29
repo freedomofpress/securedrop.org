@@ -92,7 +92,10 @@ def bulk_scan(securedrops: 'DirectoryEntryQuerySet') -> None:
             tldextract.extract(d).registered_domain
             for d in entry.permitted_domains_for_assets
         ]
-        current_result = perform_scan(entry.landing_page_url, permitted_domains)
+        try:
+            current_result = perform_scan(entry.landing_page_url, permitted_domains)
+        except Exception:
+            continue
 
         # This is usually handled by Result.save, but since we're doing a
         # bulk save, we need to do it here

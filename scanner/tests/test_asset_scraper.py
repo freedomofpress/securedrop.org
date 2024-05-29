@@ -252,6 +252,22 @@ class AssetExtractionTestCase(TestCase):
             extract_assets(soup, self.test_url),
         )
 
+    def test_should_handle_unfetchable_urls(self):
+        html = """<html><head>
+        <link rel="stylesheet" href="file:///Users/dcao/Downloads/securedrop.css">
+        </head><body></body></html>"""
+        soup = BeautifulSoup(html, "lxml")
+        self.assertEqual(
+            [
+                Asset(
+                    resource='file:///Users/dcao/Downloads/securedrop.css',
+                    kind='style-href',
+                    initiator=self.test_url,
+                )
+            ],
+            extract_assets(soup, self.test_url),
+        )
+
     @mock.patch('scanner.assets.requests')
     def test_should_extract_urls_in_linked_css(self, requests_mock):
         requests_mock.get.return_value = mock.Mock(
