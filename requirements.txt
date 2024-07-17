@@ -670,9 +670,9 @@ urllib3==1.26.19 \
     # via
     #   -r requirements.in
     #   requests
-wagtail==5.2.5 \
-    --hash=sha256:15800e17bd03244e023d2b9d70f02a51623982c3ef1ddb121925a884d625b5bb \
-    --hash=sha256:576f7690ca997b0e6d9fda9880594bf4bb904117b6edd5f2d7fbab570feee5a3
+wagtail==5.2.6 \
+    --hash=sha256:133ec00787d83ab7fa06255641aa855e7fd75f07d04af473bd98fe782c736595 \
+    --hash=sha256:5497eecf8ffef7996e2ac348e90444deac71e54d3334eca27683c29da8754550
     # via
     #   -r requirements.in
     #   wagtail-autocomplete
