@@ -103,9 +103,9 @@ defusedxml==0.7.1 \
     --hash=sha256:1bb3032db185915b62d7c6209c5a8792be6a32ab2fedacc84e01b52c51aa3e69 \
     --hash=sha256:a352e7e428770286cc899e2542b6cdaedb2b4953ff269a210103ec58f6198a61
     # via willow
-django==4.2.14 \
-    --hash=sha256:3ec32bc2c616ab02834b9cac93143a7dc1cdcd5b822d78ac95fc20a38c534240 \
-    --hash=sha256:fc6919875a6226c7ffcae1a7d51e0f2ceaf6f160393180818f6c95f51b1e7b96
+django==4.2.15 \
+    --hash=sha256:61ee4a130efb8c451ef3467c67ca99fdce400fedd768634efc86a68c18d80d30 \
+    --hash=sha256:c77f926b81129493961e19c0e02188f8d07c112a1162df69bfab178ae447f94a
     # via
     #   -r requirements.in
     #   django-anymail
