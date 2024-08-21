@@ -10,8 +10,10 @@ class Command(BaseCommand):
     help = "Scan one or all SecureDrop landing pages for security"
 
     def add_arguments(self, parser):
-        parser.add_argument(
-            'securedrops',
+        filter_group = parser.add_mutually_exclusive_group()
+
+        filter_group.add_argument(
+            '--domains',
             nargs='*',
             type=str,
             default='',
@@ -22,10 +24,11 @@ class Command(BaseCommand):
                 "directory."
             ),
         )
+        filter_group.add_argument('--all', action='store_true')
 
     def handle(self, *args, **options):
-        if options['securedrops']:
-            requested_domains = [url_to_domain(x) for x in options['securedrops']]
+        if options['domains']:
+            requested_domains = [url_to_domain(x) for x in options['domains']]
             securedrop_pages = DirectoryEntry.objects.with_domain_annotation()\
                 .filter(domain__in=requested_domains)
 
@@ -40,8 +43,10 @@ class Command(BaseCommand):
                         'https://{}'.format(requested_domain)
                     )
                     raise CommandError(msg)
-        else:
+        elif options['all']:
             securedrop_pages = DirectoryEntry.objects.all()
+        else:
+            securedrop_pages = DirectoryEntry.objects.live()
 
         bulk_scan(securedrop_pages)
         self.stdout.write('Scanning complete! Results added to database.')
