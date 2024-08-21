@@ -28,21 +28,21 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         if options['domains']:
-            requested_domains = [url_to_domain(x) for x in options['domains']]
+            requested_domains = set([url_to_domain(x) for x in options['domains']])
             securedrop_pages = DirectoryEntry.objects.with_domain_annotation()\
                 .filter(domain__in=requested_domains)
 
             # Check that all the domains provided to the command are in the
             # database. If they are not, raise an error.
-            retrieved_domains = list(
+            retrieved_domains = set(
                 securedrop_pages.values_list('domain', flat=True)
             )
-            for requested_domain in requested_domains:
-                if requested_domain not in retrieved_domains:
-                    msg = "Landing page '{}' does not exist".format(
-                        'https://{}'.format(requested_domain)
-                    )
-                    raise CommandError(msg)
+
+            if diff := requested_domains.difference(retrieved_domains):
+                domains = ', '.join(diff)
+                raise CommandError(
+                    f"No landing pages matching: {domains}\nScan aborted."
+                )
         elif options['all']:
             securedrop_pages = DirectoryEntry.objects.all()
         else:
