@@ -7,7 +7,11 @@ from scanner.utils import url_to_domain
 
 class Command(BaseCommand):
     # Adapted from Secure The News https://securethe.news
-    help = "Scan one or all SecureDrop landing pages for security"
+    help = (
+        "Scan one or all SecureDrop landing pages for security.  By "
+        "default, scans all published directory entries and skips "
+        "unpublished ones."
+    )
 
     def add_arguments(self, parser):
         filter_group = parser.add_mutually_exclusive_group()
@@ -20,11 +24,15 @@ class Command(BaseCommand):
             help=(
                 "Specify one or more domain names of securedrop landing pages "
                 " to scan. Specify the domain name with the 'https://' or "
-                "'http://' removed. If unspecified, scan all landing pages in the "
-                "directory."
+                "'http://' removed.  Directory entries not matching this domain "
+                "will not be scanned."
             ),
         )
-        filter_group.add_argument('--all', action='store_true')
+        filter_group.add_argument(
+            '--all',
+            action='store_true',
+            help='Scan all directory entries, including unpublished pages.',
+        )
 
     def handle(self, *args, **options):
         if options['domains']:
