@@ -34,12 +34,6 @@ class Command(BaseCommand):
                     menu=docs,
                     sort_order=1
                 ),
-                MenuItem(
-                    text='Support Forum',
-                    link_url='https://forum.securedrop.club/',
-                    menu=docs,
-                    sort_order=2
-                ),
             ])
 
         if not Menu.objects.filter(slug='search-guides').exists():

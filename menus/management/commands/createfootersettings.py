@@ -95,12 +95,6 @@ class Command(BaseCommand):
                     sort_order=1
                 ),
                 MenuItem(
-                    text='Support Forum',
-                    link_url='#',
-                    menu=support_menu,
-                    sort_order=2
-                ),
-                MenuItem(
                     text='Guide for Journalists',
                     link_url='#',
                     menu=support_menu,
