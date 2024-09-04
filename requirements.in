@@ -1,5 +1,5 @@
 bleach>=4.1.0
-Django>=4.2.11,<4.3
+Django>=4.2.16,<4.3
 django-anymail[mailgun]>=1.4
 django-modelcluster>=6.1
 django-settings-export
