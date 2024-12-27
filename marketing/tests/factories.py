@@ -28,7 +28,7 @@ class FeaturePageFactory(PageFactory):
 
     class Params:
         with_image = Trait(
-            icon=Iterator(CustomImage.objects.filter(collection__name='Icons'))
+            icon=Iterator(CustomImage.objects.filter(collection__name='Animals'))
         )
 
     title = Faker('sentence')

@@ -1,19 +1,16 @@
-import requests
-import time
+import os
 
 from wagtail.models import Page, Site
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
-from django.core.files.base import ContentFile
+from django.core.files.storage import FileSystemStorage, default_storage
+from django.core.management import call_command
 from django.core.files.images import ImageFile
 from django.core.management.base import BaseCommand
 from django.db import transaction
 from django.core import management
-import factory
-import wagtail_factories
 
 from common.models import SocialSharingSEOSettings, CustomImage
-from common.factories import CustomImageFactory
 from home.models import HomePage
 from home.tests.factories import HomePageFactory
 
@@ -23,12 +20,6 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
-            '--no-download',
-            action='store_false',
-            dest='download_images',
-            help='Download external images',
-        )
-        parser.add_argument(
             '--delete',
             action='store_true',
             dest='delete',
@@ -36,21 +27,18 @@ class Command(BaseCommand):
             help='Delete homepage and child pages before creating new data.',
         )
 
-    def fetch_image(self, width, height, collection, category):
-        url = f'https://source.unsplash.com/{width}x{height}?{category}'
-        response = requests.get(url, timeout=5)
-        if response and response.content:
-            CustomImageFactory(
-                file__from_file=ContentFile(response.content),
-                file_size=len(response.content),
-                width=width,
-                height=height,
-                collection=collection,
-            )
-        else:
-            return False
-        time.sleep(0.2)
-        return True
+    def _copy_files(self, local_storage, path):
+        """
+        Recursively copy files from local_storage to default_storage.
+        """
+        directories, file_names = local_storage.listdir(path)
+        print(directories)
+        print(file_names)
+        for directory in directories:
+            self._copy_files(local_storage, path + directory + "/")
+        for file_name in file_names:
+            with local_storage.open(path + file_name) as file_:
+                default_storage.save(path + file_name, file_)
 
     @transaction.atomic
     def handle(self, *args, **options):
@@ -93,28 +81,13 @@ class Command(BaseCommand):
             site.save()
 
         # IMAGES
-        icon_collection = wagtail_factories.CollectionFactory(name='Icons')
-
-        if options.get('download_images', True):
-            self.stdout.write('Fetching images')
-            self.stdout.flush()
-            image_fail = False
-            for i in range(15):
-                if not self.fetch_image(500, 500, icon_collection, 'animals'):
-                    image_fail = True
-            if image_fail:
-                self.stdout.write(self.style.NOTICE('NOTICE: Some images failed to save'))
-            else:
-                self.stdout.write(self.style.SUCCESS('OK'))
-        else:
-            faker = factory.faker.Faker._get_faker(locale='en-US')
-            for i in range(20):
-                CustomImageFactory.create(
-                    file__width=500,
-                    file__height=500,
-                    file__color=faker.safe_color_name(),
-                    collection=icon_collection,
-                )
+        fixtures_dir = os.path.join("common", "fixtures")
+        fixture_file = os.path.join(fixtures_dir, "devdata.json")
+        self.stdout.write("Copying media files...")
+        local_storage = FileSystemStorage(os.path.join(fixtures_dir, "media"))
+        self._copy_files(local_storage, "")
+        call_command("loaddata", fixture_file, verbosity=4)
+        print(CustomImage.objects.all())
 
         management.call_command('createblogdata', '10')
         management.call_command('createdirectory', '10')
