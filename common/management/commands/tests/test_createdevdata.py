@@ -19,7 +19,7 @@ class CreateDevDataTestCase(TransactionTestCase):
         """
         # Write stdout to /dev/null so as not to clutter the output from the tests
         with open(os.devnull, 'w') as devnull:
-            management.call_command('createdevdata', '--delete', '--no-download', stdout=devnull)
+            management.call_command('createdevdata', '--delete', stdout=devnull)
 
         # We expect `createdevdata` to also make a superuser
         self.client.force_login(User.objects.filter(is_superuser=True).first())
