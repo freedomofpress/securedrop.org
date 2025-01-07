@@ -32,8 +32,6 @@ class Command(BaseCommand):
         Recursively copy files from local_storage to default_storage.
         """
         directories, file_names = local_storage.listdir(path)
-        print(directories)
-        print(file_names)
         for directory in directories:
             self._copy_files(local_storage, path + directory + "/")
         for file_name in file_names:
@@ -87,7 +85,6 @@ class Command(BaseCommand):
         local_storage = FileSystemStorage(os.path.join(fixtures_dir, "media"))
         self._copy_files(local_storage, "")
         call_command("loaddata", fixture_file, verbosity=4)
-        print(CustomImage.objects.all())
 
         management.call_command('createblogdata', '10')
         management.call_command('createdirectory', '10')
