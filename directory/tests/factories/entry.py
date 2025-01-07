@@ -35,7 +35,7 @@ class DirectoryEntryFactory(wagtail_factories.PageFactory):
     class Params:
         with_images = factory.Trait(
             organization_logo=factory.Iterator(
-                CustomImage.objects.filter(collection__name='Icons')
+                CustomImage.objects.filter(collection__name='Animals')
             )
         )
 
