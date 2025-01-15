@@ -105,7 +105,7 @@ jobs:
             docker compose -f prod-docker-compose.yaml build
             docker compose -f prod-docker-compose.yaml up -d
             docker run --rm --network securedroporg_app curlimages/curl:7.80.0 -4 --retry 24 --retry-delay 5 --retry-all-errors http://app:8000/health/ok/
-            docker compose -f prod-docker-compose.yaml exec django /bin/bash -c "./manage.py createdevdata --no-download"
+            docker compose -f prod-docker-compose.yaml exec django /bin/bash -c "./manage.py createdevdata"
           no_output_timeout: 5m
 
       - run:

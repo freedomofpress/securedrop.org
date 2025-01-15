@@ -12,6 +12,7 @@ class ScanResultAdmin(ModelViewSet):
     """SnippetViewSet for viewing/searching ScanResults."""
     model = ScanResult
     add_to_admin_menu = True
+    copy_view_enabled = False
     icon = 'folder-open-inverse'
     menu_order = 500
     form_fields = []
@@ -37,6 +38,7 @@ class ScanResultAdmin(ModelViewSet):
                 "add_url_name": None,
                 "edit_url_name": None,
                 "delete_url_name": None,
+                "copy_url_name": None,
                 **kwargs,
             }
         )
