@@ -1,0 +1,51 @@
+name: Feature Request
+description: A feature request adds something new to the site. It may be an important addition, but it's not a fix to something broken.
+labels: ["triage", "feature"]
+projects: ["freedomofpress/24"]
+assignees:
+  - harrislapiroff  # Assign it to Harris off the bat for triage
+body:
+  - type: markdown
+    attributes:
+      value: What feature would you like to see added to the site? If possible, focus first on the problem you’re trying to solve or goal you’re trying to achieve and second on any solution suggestions.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What feature would you like to see added to the site?
+
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: Urgency
+      description: How high priority is this feature request? We will keep you updated on final prioritization.
+      options:
+        - Critical (ASAP)
+        - High (within the upcoming two-week sprint)
+        - Medium (don't forget about this)
+        - Low (get to it whenever you have a free moment)
+      default: 2
+
+  - type: dropdown
+    id: impact
+    attributes:
+      label: Impact
+      description: How important is this feature request?
+      options:
+        - Must Have
+        - Important
+        - Nice-to-Have
+      default: 1
+
+  - type: textarea
+    id: timing
+    attributes:
+      label: Timing
+      description: Is there a specific deadline for this feature and, if so, what is driving it?
+
+  - type: textarea
+    id: people
+    attributes:
+      label: Notifications
+      description: Is there anyone besides you we should notify of progress on this feature?

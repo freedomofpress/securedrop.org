@@ -1,0 +1,46 @@
+name: Bug Report
+description: Something is broken or behaving incorrectly on the website.
+labels: ["triage", "bug"]
+projects: ["freedomofpress/24"]
+assignees:
+  - harrislapiroff  # Assign it to Harris off the bat for triage
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for taking the time to file a bug report with the web team! If possible, please upload screenshots or recordings of the bug to the description field.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What is the bug and when and where does it arise?
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: If not clear from the description.
+
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and OS
+      description: If you’re not sure, check <https://www.whatismybrowser.com/>. If you tested in multiple browsers and OSes, please list them.
+
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: Urgency
+      description: How high priority is this feature request? We will keep you updated on final prioritization.
+      options:
+        - Critical (ASAP)
+        - High (within the upcoming two-week sprint)
+        - Medium (don't forget about this)
+        - Low (get to it whenever you have a free moment)
+      default: 2
+
+  - type: textarea
+    id: people
+    attributes:
+      label: Notifications
+      description: Is there anyone besides you we should notify of progress on this feature?
