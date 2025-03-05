@@ -213,6 +213,8 @@ WAGTAIL_SITE_NAME = "securedrop"
 
 WAGTAILIMAGES_IMAGE_MODEL = 'common.CustomImage'
 WAGTAILIMAGES_EXTENSIONS = ["avif", "gif", "jpg", "jpeg", "png", "webp", "svg"]
+# The size needs to be set to an integer in units of bytes, e.g. 1 MB should be set to 1 * 1024 * 1024
+WAGTAILIMAGES_MAX_UPLOAD_SIZE = int(os.environ.get('WAGTAILIMAGES_MAX_UPLOAD_SIZE', 10 * 1024 * 1024))
 
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 WAGTAILADMIN_COMMENTS_ENABLED = False
