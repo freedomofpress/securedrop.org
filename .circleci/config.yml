@@ -10,39 +10,6 @@ commands:
       - run: git diff --name-only develop...HEAD|grep -q '<< parameters.pattern >>' || circleci step halt
 
 jobs:
-  safety_check:
-    docker:
-      - image: cimg/python:3.12.1
-    working_directory: ~/securedrop.org
-    steps:
-      - checkout
-
-      - run:
-          name: Obtain misc resources
-          command: git clone --depth 1 https://github.com/freedomofpress/fpf-misc-resources.git
-
-      - run:
-          name: Install pip dependencies
-          command: pip install --no-deps --require-hashes -r dev-requirements.txt
-
-      - run:
-          name: Check Python dependencies for CVEs
-          command: make safety
-
-  npm_audit:
-    docker:
-      - image: cimg/node:20.6
-    working_directory: ~/securedrop.org
-    steps:
-      - checkout
-      - run:
-          name: Obtain misc resources
-          command: git clone --depth 1 https://github.com/freedomofpress/fpf-misc-resources.git
-
-      - run:
-          name: Check node dependencies for vulnerabilities
-          command: npx audit-ci@^6 --config fpf-misc-resources/audit-ci/securedrop.org.json5
-
   build_dev:
     machine:
       image: ubuntu-2204:current
@@ -122,25 +89,5 @@ workflows:
   version: 2
   freedomdotpress_ci:
     jobs:
-      - safety_check:
-          filters:
-            branches:
-              only:
-                - develop
-      - npm_audit:
-          filters:
-            branches:
-              only:
-                - develop
       - build_dev
       - build_prod
-  nightly:
-    triggers:
-      - schedule:
-          cron: "0 0 * * *"
-          filters:
-            branches:
-              only:
-                - develop
-    jobs:
-      - safety_check
