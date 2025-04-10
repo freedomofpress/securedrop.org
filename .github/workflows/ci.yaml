@@ -5,7 +5,7 @@ on:
   pull_request:
     types: ["opened", "synchronize"]
   push:
-    branches: ["enp/github2"]
+    branches: ["prod", "develop"]
 
 env:
   COMPOSE_FILE_DEV: docker-compose.yaml
@@ -44,8 +44,8 @@ jobs:
     - name: Export built images
       run: |
         mkdir ${{ runner.temp }}/export
-        docker image save --output ${{ runner.temp }}/export/securedrop-django.tar securedroporg-django
-        docker image save --output ${{ runner.temp }}/export/securedrop-node.tar securedroporg-node
+        docker image save --output ${{ runner.temp }}/export/securedroporg-django.tar securedroporg-django
+        docker image save --output ${{ runner.temp }}/export/securedroporg-node.tar securedroporg-node
 
     - name: Upload built images
       uses: actions/upload-artifact@v4
@@ -62,8 +62,6 @@ jobs:
   build-prod:
     name: Build:Prod
     runs-on: ubuntu-latest
-    #needs:
-    #- build-dev  # no point trying a prod build if the dev fails
     steps:
     - name: Install Docker
       uses: docker/setup-docker-action@v4
@@ -87,7 +85,7 @@ jobs:
 
     - name: Verify django
       run: |
-        docker run --pull=always --rm --network=securedroporg_app docker.io/curlimages/curl:7.80.0 \
+        docker run --pull=missing --rm --network=securedroporg_app docker.io/curlimages/curl:7.80.0 \
         --ipv4 --retry 24 --retry-delay 5 --retry-all-errors http://django:8000/health/ok/
 
     - name: Verify database
@@ -108,14 +106,84 @@ jobs:
         path: ${{ runner.temp }}/logs
         if-no-files-found: error
         overwrite: true
-        retention-days: 10
+        retention-days: 5
+
+  test:
+    name: Test:${{ matrix.target }}
+    runs-on: ubuntu-latest
+    needs:
+    - build-dev
+    strategy:
+      matrix:
+        target:
+        - check-migrations
+        - bandit
+        - dev-tests
+        - flake8
+    steps:
+    - name: Install Docker
+      uses: docker/setup-docker-action@v4
+
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        persist-credentials: true
+
+    - name: Download dev images
+      uses: actions/download-artifact@v4
+      with:
+        name: ${{ needs.build-dev.outputs.images }}
+        path: ${{ runner.temp }}/images
+
+    - name: Restore dev images
+      run: |
+        docker image load --input ${{ runner.temp }}/images/securedroporg-django.tar
+        docker image load --input ${{ runner.temp }}/images/securedroporg-node.tar
+
+    - name: Create env config
+      run: make dev-init
+
+    - name: Start
+      run: |
+        docker compose --file=${{ env.COMPOSE_FILE_DEV }} up --detach --pull=missing --no-build
+        sleep 5s
+
+    - name: Make target ${{ matrix.target }}
+      run: make ${{ matrix.target }}
+
+    - name: Export logs
+      run: |
+        mkdir --parents ${{ runner.temp }}/logs
+        docker compose --file=${{ env.COMPOSE_FILE_DEV }} logs django >${{ runner.temp }}/logs/django.log
+        docker compose --file=${{ env.COMPOSE_FILE_DEV }} logs node >${{ runner.temp }}/logs/node.log
+        docker compose --file=${{ env.COMPOSE_FILE_DEV }} logs postgresql >${{ runner.temp }}/logs/postgresql.log
+    
+    - name: Save logs
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-${{ matrix.target }}-${{ github.run_id }}-logs
+        path: ${{ runner.temp }}/logs
+        if-no-files-found: error
+        overwrite: true
+        retention-days: 5
+
+    - name: Save HTML coverage
+      uses: actions/upload-artifact@v4
+      if: ${{ matrix.target == 'dev-tests' }}
+      with:
+        name: test-${{ matrix.target }}-${{ github.run_id }}-htmlcov
+        path: htmlcov
+        if-no-files-found: error
+        overwrite: true
+        retention-days: 5
 
   cleanup:
     name: Build:Cleanup
     runs-on: ubuntu-latest
     needs: 
     - build-dev
-    if: ${{ needs.build-dev.result == 'success' }}
+    - test
+    if: ${{ needs.build-dev.result == 'success' && always() }}
     permissions:
       contents: read
       actions: write
