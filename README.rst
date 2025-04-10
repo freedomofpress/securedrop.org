@@ -1,8 +1,21 @@
 SecureDrop.org
 ==============
 
-.. image:: https://circleci.com/gh/freedomofpress/securedrop.org.svg?style=svg&circle-token=ae1bdad92b508cea5a86c6a84374af0ae3cf9706
-    :target: https://circleci.com/gh/freedomofpress/securedrop.org
+.. |prodCI| image:: https://github.com/freedomofpress/securedrop.org/actions/workflows/ci.yaml/badge.svg?branch=prod&event=push
+    :target: https://github.com/freedomofpress/securedrop.org/actions/workflows/ci.yaml?query=branch%3Aprod
+    :alt: Production CI
+
+.. |developCI| image:: https://github.com/freedomofpress/securedrop.org/actions/workflows/ci.yaml/badge.svg?branch=develop&event=push
+    :target: https://github.com/freedomofpress/securedrop.org/actions/workflows/ci.yaml?query=branch%3Adevelop
+    :alt: Develop CI
+
++---------------------------+
+| CI Status                 |
++=============+=============+
+| ``prod``    | |prodCI|    |
++-------------+-------------+
+| ``develop`` | |developCI| |
++-------------+-------------+
 
 .. note::
 
