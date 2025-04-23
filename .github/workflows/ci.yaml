@@ -1,0 +1,205 @@
+---
+name: CI
+
+on:
+  pull_request:
+    types: ["opened", "synchronize"]
+  push:
+    branches: ["prod", "develop"]
+
+env:
+  COMPOSE_FILE_DEV: docker-compose.yaml
+  COMPOSE_FILE_PROD: prod-docker-compose.yaml
+  # See here for valid options:
+  # https://github.com/docker/setup-docker-action?tab=readme-ov-file#inputs.version
+  VERSION_DOCKER: latest
+  # See here for valid options:
+  # https://hub.docker.com/r/curlimages/curl/tags
+  VERSION_CURL: 7.80.0
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  lint-actions:
+    name: Lint:Actions
+    uses: freedomofpress/actionslib/.github/workflows/lint-actions.yaml@main
+
+  build-dev:
+    name: Build:Dev
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install Docker
+      uses: docker/setup-docker-action@v4
+      with:
+        version: ${{ env.VERSION_DOCKER }}
+
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        persist-credentials: true
+
+    - name: Create env config
+      run: make dev-init
+
+    - name: Build
+      run: docker compose --file=${{ env.COMPOSE_FILE_DEV }} build
+
+    - name: Export built images
+      run: |
+        mkdir ${{ runner.temp }}/export
+        docker image save --output ${{ runner.temp }}/export/securedroporg-django.tar securedroporg-django
+        docker image save --output ${{ runner.temp }}/export/securedroporg-node.tar securedroporg-node
+
+    - name: Upload built images
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-dev-${{ github.run_id }}-images
+        path: ${{ runner.temp }}/export
+        if-no-files-found: error
+        overwrite: true
+        retention-days: 1
+
+    outputs:
+      images: build-dev-${{ github.run_id }}-images
+
+  build-prod:
+    name: Build:Prod
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install Docker
+      uses: docker/setup-docker-action@v4
+      with:
+        version: ${{ env.VERSION_DOCKER }}
+
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        persist-credentials: true
+        # The build inspects the local git environment for setting build time
+        # parameters and will fail if they aren't available
+        fetch-tags: true
+        fetch-depth: 0
+
+    - name: Build
+      run: docker compose --file=${{ env.COMPOSE_FILE_PROD }} build
+
+    - name: Start
+      run: |
+        docker compose --file=${{ env.COMPOSE_FILE_PROD }} up --detach
+        sleep 5s
+
+    - name: Verify django
+      run: |
+        docker run --pull=missing --rm --network=securedroporg_app docker.io/curlimages/curl:${{ env.VERSION_CURL }} \
+        --ipv4 --retry 24 --retry-delay 5 --retry-all-errors http://django:8000/health/ok/
+
+    - name: Verify database
+      run: |
+        docker compose --file=${{ env.COMPOSE_FILE_PROD }} exec django \
+        /bin/bash -c "./manage.py createdevdata"
+
+    - name: Export logs
+      run: |
+        mkdir --parents ${{ runner.temp }}/logs
+        docker compose --file=${{ env.COMPOSE_FILE_PROD }} logs django >${{ runner.temp }}/logs/django.log
+        docker compose --file=${{ env.COMPOSE_FILE_PROD }} logs postgresql >${{ runner.temp }}/logs/postgresql.log
+
+    - name: Save logs
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-prod-${{ github.run_id }}-logs
+        path: ${{ runner.temp }}/logs
+        if-no-files-found: error
+        overwrite: true
+        retention-days: 5
+
+  test:
+    name: Test:${{ matrix.target }}
+    runs-on: ubuntu-latest
+    needs:
+    - build-dev
+    strategy:
+      matrix:
+        target:
+        - check-migrations
+        - bandit
+        - dev-tests
+        - flake8
+    steps:
+    - name: Install Docker
+      uses: docker/setup-docker-action@v4
+      with:
+        version: ${{ env.VERSION_DOCKER }}
+
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        persist-credentials: true
+
+    - name: Download dev images
+      uses: actions/download-artifact@v4
+      with:
+        name: ${{ needs.build-dev.outputs.images }}
+        path: ${{ runner.temp }}/images
+
+    - name: Restore dev images
+      run: |
+        docker image load --input ${{ runner.temp }}/images/securedroporg-django.tar
+        docker image load --input ${{ runner.temp }}/images/securedroporg-node.tar
+
+    - name: Create env config
+      run: make dev-init
+
+    - name: Start
+      run: |
+        docker compose --file=${{ env.COMPOSE_FILE_DEV }} up --detach --pull=missing --no-build
+        sleep 5s
+
+    - name: Make target ${{ matrix.target }}
+      run: make ${{ matrix.target }}
+
+    - name: Export logs
+      run: |
+        mkdir --parents ${{ runner.temp }}/logs
+        docker compose --file=${{ env.COMPOSE_FILE_DEV }} logs django >${{ runner.temp }}/logs/django.log
+        docker compose --file=${{ env.COMPOSE_FILE_DEV }} logs node >${{ runner.temp }}/logs/node.log
+        docker compose --file=${{ env.COMPOSE_FILE_DEV }} logs postgresql >${{ runner.temp }}/logs/postgresql.log
+    
+    - name: Save logs
+      uses: actions/upload-artifact@v4
+      with:
+        name: test-${{ matrix.target }}-${{ github.run_id }}-logs
+        path: ${{ runner.temp }}/logs
+        if-no-files-found: error
+        overwrite: true
+        retention-days: 5
+
+    - name: Save HTML coverage
+      uses: actions/upload-artifact@v4
+      if: ${{ matrix.target == 'dev-tests' }}
+      with:
+        name: test-${{ matrix.target }}-${{ github.run_id }}-htmlcov
+        path: htmlcov
+        if-no-files-found: error
+        overwrite: true
+        retention-days: 5
+
+  cleanup:
+    name: Build:Cleanup
+    runs-on: ubuntu-latest
+    needs: 
+    - build-dev
+    - test
+    if: ${{ needs.build-dev.result == 'success' && always() }}
+    permissions:
+      contents: read
+      actions: write
+    steps:
+    - name: Delete built images
+      uses: freedomofpress/actionslib/act/delete-artifact@main
+      with:
+        artifact: ${{ needs.build-dev.outputs.images }}
+        error-if-absent: 'false'
+        github-token: ${{ secrets.GITHUB_TOKEN }}
