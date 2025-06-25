@@ -51,6 +51,7 @@ COPY --from=node-assets /src-files/ /django/
 RUN find /django -path /django/node_modules -prune -o -print -exec chown gcorn: '{}' \;
 
 WORKDIR /django
+ENV TLDEXTRACT_CACHE="/tmp/python-tldextract"
 RUN pip install --no-deps --require-hashes -r /django/requirements.txt
 
 
@@ -67,8 +68,14 @@ COPY devops/docker/gunicorn/gunicorn.py /etc/gunicorn/gunicorn.py
 # Create /deploy as root
 RUN mkdir /deploy && chown -R gcorn: /deploy
 
+# Create tldextract cache file
+RUN mkdir -p /tmp/python-tldextract && chown -R gcorn: /tmp/python-tldextract
+
 EXPOSE 8000
 USER ${USERID}
+
+# Update cache file for tldextract python package
+RUN tldextract --update
 
 # Run version info script as gcorn user (required as the repo directories are owned by this user)
 RUN /django/devops/scripts/version-file.sh
