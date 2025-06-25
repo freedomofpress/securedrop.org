@@ -195,12 +195,11 @@ def parse_assets(assets, permitted_domains: List[str]) -> Dict[str, bool]:
     for asset in assets:
         # ignore subdomain attribute
         extracted = tldextract.extract(asset.resource)
-        (_, asset_domain, asset_suffix) = extracted
-        if not (asset_domain and asset_suffix):
+        if not (extracted.domain and extracted.suffix):
             # we've extracted something that probably is not a real domain
             continue
 
-        if extracted.registered_domain in permitted_domains:
+        if extracted.top_domain_under_public_suffix in permitted_domains:
             continue
 
         # Ignore 'script-resource' and 'script-embed' assets, these
