@@ -24,6 +24,7 @@ services:
       dockerfile: devops/docker/NodeDockerfile
       args:
         USERID: ${UID:?err}
+    image: localhost/securedroporg-node
     volumes:
       - ./:/django
     working_dir: /django
@@ -39,6 +40,7 @@ services:
       dockerfile: devops/docker/DevDjangoDockerfile
       args:
         USERID: ${UID:?err}
+    image: localhost/securedroporg-django
     depends_on:
       - node
       - postgresql
