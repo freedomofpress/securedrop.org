@@ -38,14 +38,17 @@ COPY devops/docker/django-start.sh /usr/local/bin
 RUN  chmod +x /usr/local/bin/django-start.sh
 
 COPY --from=builder dev-requirements.txt /requirements.txt
+
+ENV TLDEXTRACT_CACHE="/tmp/python-tldextract"
 RUN pip install --no-deps --require-hashes -r /requirements.txt
 
 ARG USERID
 RUN getent passwd "${USERID?USERID must be supplied}" || adduser --uid "${USERID}" --disabled-password --gecos "" gcorn
 
-RUN  mkdir /django-logs /deploy && \
-    chown -R "${USERID}" /django-logs /deploy
+RUN  mkdir /django-logs /deploy /tmp/python-tldextract && \
+    chown -R "${USERID}" /django-logs /deploy /tmp/python-tldextract
 
 EXPOSE 8000
 USER ${USERID}
+RUN tldextract --update
 CMD django-start.sh

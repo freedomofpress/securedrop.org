@@ -137,8 +137,8 @@ class ScannerTest(TestCase):
         self.assertIs(result.cache_control_nostore_set, False)
         self.assertIs(result.cache_control_private_set, False)
         self.assertIs(result.referrer_policy_set_to_no_referrer, False)
-        self.assertIs(result.no_cross_domain_assets, False)
-        self.assertNotEqual(result.cross_domain_asset_summary, '')
+        self.assertIs(result.no_cross_domain_assets, True)
+        self.assertEqual(result.cross_domain_asset_summary, '')
         self.assertTrue(result.http2)
 
     @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'scan-site-with-trackers.yaml'))
@@ -170,30 +170,38 @@ class ScannerTest(TestCase):
         self.assertIs(result.no_cross_domain_assets, False)
         expected_urls = (
             'https://www.googletagmanager.com/ns.html?id=GTM-WS34WVD',
-            '//searchg2-assets.crownpeak.net/crownpeak.searchg2-1.0.2.min.js',
-            'https://cdn.cookielaw.org/langswitch/ead3872f-33b9-4b16-a7f2-4ea8137893d3.js',
+            'https://cloud.ap-mail.org/master-lead-form',
+            'https://px.ads.linkedin.com/collect/?pid=4521762&fmt=gif',
+            'https://cdn.cookielaw.org/consent/9b378212-96b2-4ea5-8886-8e09f3fd29d6/OtAutoBlock.js',
+            'https://cdn.cookielaw.org/scripttemplates/otSDKStub.js',
+            'https://546000564.collect.igodigital.com/collect.js',
         )
 
         for url in expected_urls:
             self.assertIn(url, result.cross_domain_asset_summary)
 
         ignored_urls = (
-            'https://www.google-analytics.com/analytics.js',
-            'pardot.com/pd.js',
+            'nova.collect.igodigital.com',
+            'e.read',
+            'e.target',
+            'https://edge.marker.io/latest/shim.js',
+            'https://schema.org',
+            'https://snap.licdn.com/li.lms',
+            'https://vimeo.com/',
+            'https://www.ap.org/wp-content/themes/apnews/assets/js/app.min.js?ver=b5c4c20524b4f4b0e0a45b5a76d44318ee1bae10',
+            'https://www.facebook.com/APNews',
             'https://www.googletagmanager.com/gtm.js?id=',
-            'www.crownpeak.com',
-            'searchg2.crownpeak.net/',
-            'http://www.w3.org/2000/svg',
-            'click.bs.carousel.data',
-            'click.bs.collapse.data',
-            'element.id',
-            'click.bs.modal.data',
-            'hidden.bs.tab',
-            'shown.bs.tab',
-            'bs.tab',
-            'hide.bs.tab',
-            'show.bs.tab',
-            'click.bs.tab.data',
+            'https://www.linkedin.com/company/associated',
+            'https://www.youtube.com/ap',
+            'https://www.youtube.com/watch?v=',
+            'https://x.com/AboutTheAP',
+            'marker.io',
+            'super.play',
+            'this.mp4Player.play',
+            'this.play',
+            'this.style',
+            'this.vimeoPlayer.play',
+            'window.location.search',
         )
         for url in ignored_urls:
             self.assertIn(url, result.ignored_cross_domain_assets)
@@ -216,14 +224,14 @@ class ScannerTest(TestCase):
         "request_and_scrape_page should handle a URL with a protocol"
         url = 'https://securedrop.org'
         page, soup = scanner.request_and_scrape_page(url)
-        self.assertIn('SecureDrop Directory', str(page.content))
+        self.assertIn('List of SecureDrops', str(page.content))
 
     @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'scrape-securedrop-dot-org.yaml'))
     def test_request_gets_page_if_protocol_identifier_not_present(self):
         "request_and_scrape_page should handle a URL without a protocol"
         url = 'securedrop.org'
         page, soup = scanner.request_and_scrape_page(url)
-        self.assertIn('SecureDrop Directory', str(page.content))
+        self.assertIn('List of SecureDrops', str(page.content))
 
     @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'full-scan-site-live.yaml'))
     def test_scan_and_commit(self):
