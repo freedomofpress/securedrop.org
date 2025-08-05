@@ -109,7 +109,7 @@ jobs:
 
     - name: Start
       run: |
-        docker compose --file="$COMPOSE_FILE_DEV" up --wait --detach --pull=missing --no-build
+        docker compose --file="$COMPOSE_FILE_DEV" up --wait --pull=missing --no-build
 
         # Check for failed services and error if any are found
         sleep 5
@@ -181,7 +181,7 @@ jobs:
 
     - name: Start
       run: |
-        docker compose --file="$COMPOSE_FILE_PROD" up --wait --detach --pull=missing --no-build
+        docker compose --file="$COMPOSE_FILE_PROD" up --wait --pull=missing --no-build
 
         # Check for failed services and error if any are found
         sleep 5
