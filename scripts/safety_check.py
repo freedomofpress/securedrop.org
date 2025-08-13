@@ -7,7 +7,7 @@ import sys
 import pathlib
 
 
-CENTRALIZATION_REPO_NAME = "fpf-misc-resources"
+CENTRALIZATION_REPO_NAME = "fpf-security-allowlists"
 
 
 def check_full_report(ids_to_ignore=[]):
