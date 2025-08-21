@@ -24,10 +24,12 @@ services:
       dockerfile: devops/docker/NodeDockerfile
       args:
         USERID: ${UID:?err}
+    image: localhost/securedroporg-node
     volumes:
-      - ./:/django
+      - ./:/django:z
     working_dir: /django
     user: ${UID:?err}
+    userns_mode: keep-id
     networks:
       - app
 
@@ -39,6 +41,7 @@ services:
       dockerfile: devops/docker/DevDjangoDockerfile
       args:
         USERID: ${UID:?err}
+    image: localhost/securedroporg-django
     depends_on:
       - node
       - postgresql
@@ -52,8 +55,9 @@ services:
       DEPLOY_ENV: dev
       DJANGO_ONION_HOSTNAME: secrdrop5wyphb5x.onion
     working_dir: /django
+    userns_mode: keep-id
     volumes:
-      - ./:/django
+      - ./:/django:z
     ports:
       - "127.0.0.1:8000:8000"
     networks:
