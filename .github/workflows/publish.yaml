@@ -48,5 +48,5 @@ jobs:
       build-args: USERID=12345
       tags: ${{ needs.prepare.outputs.tags }}
       requires-deep-history: true
-      registry: ghcr.io/freedomofpress/securedroporg
-    
+      registry: ghcr.io/freedomofpress/securedrop-org
+
