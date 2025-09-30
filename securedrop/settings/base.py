@@ -297,6 +297,7 @@ CSP_STYLE_SRC_ATTR = (
     "'self'",
     "'unsafe-hashes'",
     "'sha256-ZdHxw9eWtnxUb3mk6tBS+gIiVUPE3pGM470keHPDFlE='",
+    "'sha256-RjGXttEfn3lP8F5dx3vtPdu6djlmub1vrGRYYEoYmk0='",
 )
 CSP_CONNECT_SRC = [
     "'self'",

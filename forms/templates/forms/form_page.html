@@ -1,7 +1,17 @@
 {% extends "layout/_layout_one_column.html" %}
-{% load wagtailcore_tags common_tags %}
+{% load wagtailcore_tags common_tags honeypot_tags static %}
 
 {% block page_title_text %}{{ page.title }}{% endblock %}
+
+{% block css %}
+	{{ block.super }}
+	<link rel="stylesheet" href="{% static 'css/honeypot.css' %}">
+{% endblock %}
+
+{% block js %}
+	{{ block.super }}
+	<script src="{% static 'js/honeypot.js' %}"></script>
+{% endblock %}
 
 {% block main %}
 	<div class="form-page">
@@ -13,6 +23,7 @@
 		</div>
 		<form class="basic-form" action="{% pageurl page %}" method="POST">
 			{% csrf_token %}
+			{% honeypot_fields page.honeypot %}
 			{% for field in form.hidden_fields %}
 				{{ hidden }}
 			{% endfor %}
