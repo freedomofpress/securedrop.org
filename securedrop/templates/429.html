@@ -1,0 +1,10 @@
+{% extends "layout/_layout_one_column.html" %}
+{% load i18n %}
+
+{% block site_title %}429{% endblock %}
+
+{% block page_title_text %}{% trans "Too Many Requests" %}{% endblock %}
+
+{% block main %}
+	<p>{% trans "Sorry, you are trying your request too often.  Please wait a while and try again later." %}</p>
+{% endblock %}

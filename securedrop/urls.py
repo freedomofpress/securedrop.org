@@ -51,6 +51,7 @@ urlpatterns = [
     path('500/', TemplateView.as_view(template_name="500.html")),
     path('404/', TemplateView.as_view(template_name="404.html")),
     path('403/', TemplateView.as_view(template_name="403.html")),
+    path('429/', common_views.too_many_requests, name='too_many_requests'),
     path(r'', include(wagtail_urls)),
 ]
 
