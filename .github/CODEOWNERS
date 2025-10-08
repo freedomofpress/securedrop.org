@@ -1,5 +1,5 @@
-# Harris, Cameron, and Saptak are codeowners for all website changes
-*   @harrislapiroff @chigby @SaptakS
+# Web team developers are codeowners for all website changes
+*   @freedomofpress/fpf-web-developers
 
-# Harris should be in the loop on all ownership modifications
-.github/    @harrislapiroff
+# The web team manager(s) should be in the loop on all ownership modifications
+.github/CODEOWNERS    @freedomofpress/fpf-web-managers
