@@ -4,10 +4,17 @@ from django.views.decorators.cache import cache_control
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import (
     FieldPanel, FieldRowPanel,
-    InlinePanel, MultiFieldPanel
+    InlinePanel, MultiFieldPanel,
+    TabbedInterface,
+    ObjectList,
 )
+from wagtail.models import Page
 from wagtail.fields import RichTextField
 from wagtail.contrib.forms.models import AbstractFormField, AbstractEmailForm
+
+from wagtail_honeypot.models import (
+    HoneypotFormMixin, HoneypotFormSubmissionMixin
+)
 
 from common.models import MetadataPageMixin
 from forms.utils import send_mail
@@ -40,7 +47,7 @@ class FormField(AbstractFormField):
 
 
 @method_decorator(cache_control(private=True), name='serve')
-class FormPage(MetadataPageMixin, AbstractEmailForm):
+class FormPage(MetadataPageMixin, HoneypotFormMixin, HoneypotFormSubmissionMixin):
     intro = RichTextField(blank=True)
     warning = RichTextField(blank=True, help_text='A warning for sources not to submit documents via this form.')
     thank_you_text = RichTextField(blank=True)
@@ -64,6 +71,22 @@ class FormPage(MetadataPageMixin, AbstractEmailForm):
             FieldPanel('subject'),
         ], "Email"),
     ]
+
+    honeypot_panels = [
+        MultiFieldPanel(
+            [FieldPanel("honeypot")],
+            heading="Reduce Form Spam",
+        )
+    ]
+
+    edit_handler = TabbedInterface(
+        [
+            ObjectList(content_panels, heading="Content"),
+            ObjectList(honeypot_panels, heading="Honeypot"),
+            ObjectList(Page.promote_panels, heading="Promote"),
+            ObjectList(Page.settings_panels, heading="Settings", classname="settings"),
+        ]
+    )
 
     def send_mail(self, form):
         """
