@@ -2,6 +2,7 @@ import os
 
 from wagtail.documents.views import serve
 from django.http import HttpResponse
+from django.template.response import TemplateResponse
 from django.views.decorators.cache import never_cache
 
 
@@ -65,3 +66,7 @@ def health_version(request):
     """Also a health check, but returns the commit short-hash."""
     version_short_text = read_version_info_file(VERSION_INFO_SHORT_PATH)
     return HttpResponse(version_short_text, content_type="text/plain")
+
+
+def too_many_requests(request):
+    return TemplateResponse(request, '429.html', {})

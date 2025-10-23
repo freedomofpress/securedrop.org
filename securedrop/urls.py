@@ -11,7 +11,7 @@ from wagtail import urls as wagtail_urls
 from wagtail.contrib.sitemaps.views import sitemap
 from wagtail.documents import urls as wagtaildocs_urls
 
-from common.views import view_document, health_ok, health_version
+import common.views as common_views
 from wagtailautocomplete.urls.admin import urlpatterns as autocomplete_admin_urls
 from wagtailautocomplete.views import objects, search, create
 from directory.api import api_router as directory_api_router
@@ -31,9 +31,13 @@ urlpatterns = [
     path('admin/', include(wagtailadmin_urls)),
     path('documents/', include(wagtaildocs_urls)),
 
-    re_path(r'^document/view/(\d+)/(.*)$', view_document, name='view_document'),
-    path('health/ok/', health_ok),
-    path('health/version/', health_version),
+    re_path(
+        r'^document/view/(\d+)/(.*)$',
+        common_views.view_document,
+        name='view_document'
+    ),
+    path('health/ok/', common_views.health_ok),
+    path('health/version/', common_views.health_version),
     path('sitemap.xml', sitemap, name='sitemap'),
     path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
 
@@ -47,6 +51,7 @@ urlpatterns = [
     path('500/', TemplateView.as_view(template_name="500.html")),
     path('404/', TemplateView.as_view(template_name="404.html")),
     path('403/', TemplateView.as_view(template_name="403.html")),
+    path('429/', common_views.too_many_requests, name='too_many_requests'),
     path(r'', include(wagtail_urls)),
 ]
 
