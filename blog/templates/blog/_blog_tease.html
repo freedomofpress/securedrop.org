@@ -19,9 +19,9 @@
 			<p class="blog-tease__text">
 				<span class="blog-tease__description">
 				{% if page.teaser_text %}
-					{{ page.teaser_text|striptags }}
+					{{ page.teaser_text|striptags|safe }}
 				{% else %}
-					{% include_block page.body.0|striptags|truncatewords_html:50 %}
+					{% include_block page.body.0|striptags|truncatewords_html:50|safe %}
 				{% endif %}
 				</span>
 				<a
