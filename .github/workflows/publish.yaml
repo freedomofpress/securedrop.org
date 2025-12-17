@@ -13,31 +13,9 @@ permissions:
   actions: read
 
 jobs:
-  prepare:
-    name: Prepare
-    runs-on: ubuntu-latest
-    steps:
-    - name: Determine tags
-      id: tags
-      env:
-        BRANCH: ${{ github.ref_name }}
-        SHA: ${{ github.sha }}
-      run: |
-        export TAGS="$BRANCH;$BRANCH-${SHA:0:7}"
-
-        if [ "$BRANCH" = "prod" ]; then
-          export TAGS="$TAGS;latest"
-        fi
-
-        echo "tags=$TAGS" >>$GITHUB_OUTPUT
-    outputs:
-      tags: ${{ steps.tags.outputs.tags }}
-
   build:
     name: Build
     uses: freedomofpress/actionslib/.github/workflows/oci-build.yaml@main
-    needs:
-    - prepare
     permissions:
       contents: read
       actions: read
@@ -46,7 +24,7 @@ jobs:
       context: "."
       containerfile: devops/docker/ProdDjangoDockerfile
       build-args: USERID=12345
-      tags: ${{ needs.prepare.outputs.tags }}
       requires-deep-history: true
       registry: ghcr.io/freedomofpress/securedrop-org
+      add-branch-tags: true
 
