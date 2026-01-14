@@ -310,9 +310,9 @@ feedparser==6.0.10 \
     --hash=sha256:27da485f4637ce7163cdeab13a80312b93b7d0c1b775bef4a47629a3110bca51 \
     --hash=sha256:79c257d526d13b944e965f6095700587f27388e50ea16fd245babe4dfae7024f
     # via -r requirements.txt
-filelock==3.20.2 \
-    --hash=sha256:a2241ff4ddde2a7cebddf78e39832509cb045d18ec1a09d7248d6bfc6bfbbe64 \
-    --hash=sha256:fbba7237d6ea277175a32c54bb71ef814a8546d8601269e1bfc388de333974e8
+filelock==3.20.3 \
+    --hash=sha256:18c57ee915c7ec61cff0ecf7f0f869936c7c30191bb0cf406f1341778d0834e1 \
+    --hash=sha256:4b0dda527ee31078689fc205ec4f1c1bf7d56cf88b6dc9426c4f230e46c2dce1
     # via
     #   -r requirements.txt
     #   tldextract
