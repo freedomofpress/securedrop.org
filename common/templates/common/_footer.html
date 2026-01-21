@@ -62,7 +62,7 @@
 									</li>
 								{% endfor %}
 							</ul>
-							{% if footer.twitter_url or footer.mastodon_url %}
+							{% if footer.twitter_url or footer.mastodon_url or footer.bluesky_url %}
 								<div class="footer-main__social-media">
 									{% if footer.mastodon_url %}
 										<a href="{{ footer.mastodon_url }}" rel="me noopener nofollow" target="_blank">{% include "common/_svg.html" with class="footer-main__social-icon" svg="images/mastodon.svg" img="images/mastodon.png" alt="Mastodon Profile" %}</a>
@@ -71,6 +71,9 @@
 									{% if footer.twitter_url %}
 										<a href="{{ footer.twitter_url }}" rel="noopener nofollow" target="_blank">{% include "common/_svg.html" with class="footer-main__social-icon" svg="images/twitter.svg" img="images/twitter.png" alt="Twitter Profile" %}</a>
 										<!-- Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) -->
+									{% endif %}
+									{% if footer.bluesky_url %}
+										<a href="{{ footer.bluesky_url }}" rel="noopener nofollow" target="_blank">{% include "common/_svg.html" with class="footer-main__social-icon" svg="images/bluesky.svg" img="images/bluesky.png" alt="Bluesky Profile" %}</a>
 									{% endif %}
 								</div>
 							{% endif %}

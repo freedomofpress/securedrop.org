@@ -46,6 +46,10 @@ class FooterSettings(BaseSiteSetting):
         blank=True,
         help_text='Link to Mastodon profile',
     )
+    bluesky_url = models.URLField(
+        blank=True,
+        help_text='Link to Bluesky profile',
+    )
 
     panels = [
         FieldPanel('title'),
@@ -73,6 +77,7 @@ class FooterSettings(BaseSiteSetting):
             [
                 FieldPanel('twitter_url'),
                 FieldPanel('mastodon_url'),
+                FieldPanel('bluesky_url'),
             ],
             'Social Media',
             classname='collapsible'
