@@ -1,5 +1,5 @@
 # Web team developers are codeowners for all website changes
-*   @freedomofpress/fpf-web-developers
+*   @freedomofpress/fpf-web-developers @freedomofpress/web-developers-basic
 
 # The web team manager(s) should be in the loop on all ownership modifications
 .github/CODEOWNERS    @freedomofpress/fpf-web-managers
