@@ -236,9 +236,9 @@ defusedxml==0.7.1 \
     --hash=sha256:1bb3032db185915b62d7c6209c5a8792be6a32ab2fedacc84e01b52c51aa3e69 \
     --hash=sha256:a352e7e428770286cc899e2542b6cdaedb2b4953ff269a210103ec58f6198a61
     # via willow
-django==4.2.28 \
-    --hash=sha256:49a23c1b83ef31525f8d71a57b040f91d34660edb3f086280a8519855655ed3c \
-    --hash=sha256:a4b9cd881991add394cafa8bb3b11ad1742d1e1470ba99c3ef53dc540316ccfe
+django==4.2.29 \
+    --hash=sha256:074d7c4d2808050e528388bda442bd491f06def4df4fe863f27066851bba010c \
+    --hash=sha256:86d91bc8086569c8d08f9c55888b583a921ac1f95ed3bdc7d5659d4709542014
     # via
     #   -r requirements.in
     #   django-anymail
@@ -826,9 +826,9 @@ urllib3==2.6.3 \
     --hash=sha256:1b62b6884944a57dbe321509ab94fd4d3b307075e0c2eae991ac71ee15ad38ed \
     --hash=sha256:bf272323e553dfb2e87d9bfd225ca7b0f467b919d7bbd355436d3fd37cb0acd4
     # via requests
-wagtail==6.3.7 \
-    --hash=sha256:00939e24c3166c2462380f827377e62e3770f78e989cf4e6d476b927551b0a74 \
-    --hash=sha256:e0594633616e14092b9d20ef080b28564f124f407c1f444ca778b83e50b5184a
+wagtail==6.3.8 \
+    --hash=sha256:9c7695457f18e7a6e7815ffbc0d64be0ecb956ed896eaf107df8b5768648a7f2 \
+    --hash=sha256:cbe241055234a3dac0f4ae73992cd0519340ab66c2bc4077257929d392ec19b2
     # via
     #   -r requirements.in
     #   wagtail-autocomplete
