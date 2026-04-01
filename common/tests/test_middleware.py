@@ -1,10 +1,12 @@
 from unittest import mock
 
-from django.test import TestCase, RequestFactory
+from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.test import TestCase, RequestFactory
 from wagtail.models import Page
 
-from common.middleware import RequestLogMiddleware
+from common.middleware.request_logger import RequestLogMiddleware
+from common.middleware.onion_location import OnionLocationHeaderMiddleware
 
 from .utils import capture_logs_with_contextvars
 
@@ -29,7 +31,7 @@ class RequestLogTestCase(TestCase):
         with self.assertRaises(Exception):
             with capture_logs_with_contextvars() as cap_logs:
                 with self.modify_settings(MIDDLEWARE={
-                    'append': 'common.middleware.RequestLogMiddleware',
+                    'append': 'common.middleware.request_logger.RequestLogMiddleware',
                 }):
                     self.client.get('/')
 
@@ -103,4 +105,32 @@ class RequestLogTestCase(TestCase):
         self.assertRegex(
             log_entry['request_id'],
             r'[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}'
+        )
+
+
+class OnionLocationHeaderMiddlewareTestCase(TestCase):
+    def setUp(self):
+        self.factory = RequestFactory()
+        self.response_charset = 'utf-8'
+        self.response_status_code = 200
+        self.response_reason_phrase = 'OK'
+
+    def test_onion_location_correct(self):
+        response = {
+            'status_code': self.response_status_code,
+            'charset': self.response_charset,
+            'reason_phrase': self.response_reason_phrase,
+        }
+        get_response = mock.Mock(return_value=response)
+        request = self.factory.get(
+            '/path/?key=value',
+            HTTP_USER_AGENT='Mozilla',
+        )
+
+        middleware = OnionLocationHeaderMiddleware(get_response)
+        response = middleware(request)
+
+        self.assertEqual(
+            response['Onion-Location'],
+            f'http://{settings.ONION_HOSTNAME}/path/?key=value'
         )

@@ -19,7 +19,8 @@ except ImportError:
 
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS').split(' ')
-MIDDLEWARE.insert(1, 'common.middleware.RequestLogMiddleware')  # noqa: F405
+MIDDLEWARE.insert(1, 'common.middleware.request_logger.RequestLogMiddleware')  # noqa: F405
+MIDDLEWARE.append('common.middleware.onion_location.OnionLocationHeaderMiddleware')  # noqa: F405
 
 
 structlog.configure(

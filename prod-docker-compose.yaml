@@ -42,6 +42,7 @@ services:
       DJANGO_DB_NAME: securedropdb
       DJANGO_DB_PORT: 5432
       DJANGO_DB_HOST: db
+      DJANGO_ONION_HOSTNAME: secrdrop5wyphb5x.onion
       DJANGO_STATIC_ROOT: /django-static
       DJANGO_MEDIA_ROOT: /django-media
       DEPLOY_ENV: prod
