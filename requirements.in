@@ -12,7 +12,7 @@ feedparser
 gunicorn>=20.1.0
 lxml>=4.9.3
 psycopg2>=2.9.9
-pygments
+pygments>=2.20.0
 python-json-logger
 structlog
 tldextract
@@ -27,4 +27,3 @@ django-csp>=3.7
 requests>=2.33.1
 wagtailmedia>=0.14.5
 whitenoise
-pygments>=2.15.1
