@@ -19,7 +19,7 @@ logger = structlog.get_logger()
 def validate_sha1_signature(request, secret):
     # X-Hub-Signature is the "HMAC hex digest of the payload, using the hook's
     # secret as the key."
-    digest = request.META.get('HTTP_X_HUB_SIGNATURE', None)
+    digest = request.headers.get('x-hub-signature', None)
     if not digest or digest.count('=') != 1:
         return False
     digestmod, signature = digest.split('=')
@@ -91,7 +91,7 @@ def receive_hook(request):
         logger.exception('GitHub hook received erroneous JSON POST data.')
         return HttpResponse(status=204)
 
-    event_type = request.META.get('HTTP_X_GITHUB_EVENT')
+    event_type = request.headers.get('x-github-event')
     if event_type == 'ping':
         logger.info('Ping received from GitHub hook.')
         return HttpResponse(status=204)

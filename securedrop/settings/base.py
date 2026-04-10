@@ -149,7 +149,7 @@ WSGI_APPLICATION = 'securedrop.wsgi.application'
 if 'DJANGO_DB_HOST' in os.environ:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'ENGINE': 'django.db.backends.postgresql',
             'NAME': os.environ['DJANGO_DB_NAME'],
             'USER': os.environ['DJANGO_DB_USER'],
             'PASSWORD': os.environ['DJANGO_DB_PASSWORD'],
@@ -176,7 +176,6 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_L10N = True
 
 USE_TZ = True
 

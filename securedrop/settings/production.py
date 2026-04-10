@@ -116,7 +116,7 @@ MEDIA_URL = os.environ.get('DJANGO_MEDIA_URL', '/media/')
 #
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ['DJANGO_DB_NAME'],
         'USER': os.environ['DJANGO_DB_USER'],
         'PASSWORD': os.environ['DJANGO_DB_PASSWORD'],
