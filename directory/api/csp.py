@@ -26,8 +26,8 @@ def csp_fixes(view):
         ),
     }
 
-    view = csp_replace(**CSP_REPLACEMENTS)(view)
-    view = csp_update(**CSP_ADDITIONS)(view)
+    view = csp_replace(CSP_REPLACEMENTS)(view)
+    view = csp_update(CSP_ADDITIONS)(view)
     return view
 
 
