@@ -350,13 +350,13 @@ django==5.2.13 \
     #   laces
     #   wagtail
     #   wagtailmedia
-django-anymail[mailgun]==9.0 \
-    --hash=sha256:4239f7c61fb77b6eb8c8591a317a84a2a78f6bce1f8f42847921de74194b5d8a \
-    --hash=sha256:c21d94ffdbada613a85c22a7bf32e37447d2811e1688cd001d3cad3c7f1ff289
+django-anymail[mailgun]==14.0 \
+    --hash=sha256:98e5575bcff231952a92117b7d0a4dd37fab582333a343de302d415a31dc72b1 \
+    --hash=sha256:ca42e52da62d2c96ce92412f9d68ef6d2067d96a384096b6e932d6a247e9fd61
     # via -r requirements.txt
-django-csp==3.7 \
-    --hash=sha256:01443a07723f9a479d498bd7bb63571aaa771e690f64bde515db6cdb76e8041a \
-    --hash=sha256:01eda02ad3f10261c74131cdc0b5a6a62b7c7ad4fd017fbefb7a14776e0a9727
+django-csp==4.0 \
+    --hash=sha256:b27010bb702eb20a3dad329178df2b61a2b82d338b70fbdc13c3a3bd28712833 \
+    --hash=sha256:d5a0a05463a6b75a4f1fc1828c58c89af8db9364d09fc6e12f122b4d7f3d00dc
     # via -r requirements.txt
 django-debug-toolbar==6.3.0 \
     --hash=sha256:a199ce3d0f884739a9096835ad417479fede05f3b3c4824bc8b354721ba8f629 \
@@ -368,9 +368,9 @@ django-filter==23.5 \
     # via
     #   -r requirements.txt
     #   wagtail
-django-modelcluster==6.4 \
-    --hash=sha256:0102d00e6b884721ba21e32edb716548e0dead7880e130aa2e04854bd384a42f \
-    --hash=sha256:839b0ddb4a1a6f5fc7d9f2f029614a84350b41315bdb80a9c8b755baaa2297f2
+django-modelcluster==6.4.1 \
+    --hash=sha256:ccc190cd9e22c24900ea2410bff64d444d48f43f0f4aedeed0f6cd94e2536698 \
+    --hash=sha256:e736fcee925f83b63218dbf9c869ab50618b0f5e98869a5aa497f7a5331aa263
     # via
     #   -r requirements.txt
     #   wagtail
@@ -399,13 +399,13 @@ django-treebeard==4.6.1 \
     # via
     #   -r requirements.txt
     #   wagtail
-django-webpack-loader==1.8.1 \
-    --hash=sha256:073beda18e2929fa5cd83bafbcaaf975e5945e84a17bfa81927cb6c9f5a17b94 \
-    --hash=sha256:2d50a902256cf94bdd87eac3e7687989c9aa757a63af21db68773115216cedee
+django-webpack-loader==3.2.3 \
+    --hash=sha256:81092499af8e0c9b3a0bad21324aca6e2ad786133b19248dae213eb9661a17f7 \
+    --hash=sha256:d070bfe8ea5bd6ed48810a8d247204bb7f672573bdb6a7b589f6b75998a45993
     # via -r requirements.txt
-djangorestframework==3.15.2 \
-    --hash=sha256:2b8871b062ba1aefc2de01f773875441a961fefbf79f5eed1e32b2f096944b20 \
-    --hash=sha256:36fe88cd2d6c6bec23dca9804bab2ba5517a8bb9d8f47ebc68981b56840107ad
+djangorestframework==3.17.1 \
+    --hash=sha256:a6def5f447fe78ff853bff1d47a3c59bf38f5434b031780b351b0c73a62db1a5 \
+    --hash=sha256:c3c74dd3e83a5a3efc37b3c18d92bd6f86a6791c7b7d4dff62bb068500e76457
     # via
     #   -r requirements.txt
     #   wagtail
@@ -581,6 +581,7 @@ idna==3.7 \
     --hash=sha256:82fee1fc78add43492d3a1898bfa6d8a904cc97d8427f683ed8e798d07761aa0
     # via
     #   -r requirements.txt
+    #   django-anymail
     #   requests
     #   tldextract
     #   yarl
@@ -843,6 +844,7 @@ packaging==24.0 \
     --hash=sha256:eb82c5e3e56209074766e6885bb04b8c38a0c015d0a30036ebe7ece34c9989e9
     # via
     #   -r requirements.txt
+    #   django-csp
     #   dparse
     #   gunicorn
     #   safety
@@ -1420,6 +1422,7 @@ urllib3==2.6.3 \
     --hash=sha256:bf272323e553dfb2e87d9bfd225ca7b0f467b919d7bbd355436d3fd37cb0acd4
     # via
     #   -r requirements.txt
+    #   django-anymail
     #   requests
     #   vcrpy
 vcrpy==7.0.0 \
