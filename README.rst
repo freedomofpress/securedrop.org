@@ -303,3 +303,14 @@ Second, attach to the running Django container.  This must be done in a shell, a
     docker attach $(docker compose ps -q django)
 
 Once you have done this, you can load the page that will run the code with your ``import ipdb`` and the debugger will activate in the shell you attached.  To detach from the shell without stopping the container press ``Control+P`` followed by ``Control+Q``.
+
+Django Debug Toolbar
+++++++++++++++++++++
+
+For local development, it is possible to enable the `Django Debug Toolbar <https://django-debug-toolbar.readthedocs.io/en/stable/>`_ by setting the ``ENABLE_DEBUG_TOOLBAR`` environment variable when starting docker compose:
+
+.. code:: bash
+
+    ENABLE_DEBUG_TOOLBAR=1 docker compose up
+
+See the documentation for more information about how to use this tool to explore template information or SQL queries.  Note that when the toolbar is running, performance of the local server may be affected.
