@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING, Tuple, Dict, List
 
 import tldextract
 
-from django.utils import timezone
+from datetime import timezone
 
 from directory.models import ScanResult, DirectoryEntry
 from scanner.utils import HEADERS
