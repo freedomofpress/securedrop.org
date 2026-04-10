@@ -102,6 +102,10 @@ MIDDLEWARE.extend([
     'csp.middleware.CSPMiddleware',
 ])
 
+if os.getenv('ENABLE_DEBUG_TOOLBAR'):
+    ENABLE_DEBUG_TOOLBAR = True
+else:
+    ENABLE_DEBUG_TOOLBAR = False
 
 # Django HTTP settings
 

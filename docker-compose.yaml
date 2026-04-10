@@ -54,6 +54,7 @@ services:
       DJANGO_XMLTEST_OUTPUT: 'yes'
       DEPLOY_ENV: dev
       DJANGO_ONION_HOSTNAME: secrdrop5wyphb5x.onion
+      ENABLE_DEBUG_TOOLBAR:
     working_dir: /django
     userns_mode: keep-id
     volumes:

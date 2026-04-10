@@ -64,12 +64,8 @@ if settings.DEBUG:
     urlpatterns = staticfiles_urlpatterns() + urlpatterns
     urlpatterns = static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + urlpatterns
 
-    # Debugtoolbar isnt always installed in prod, but sometimes i need to
-    # toggle debug mode there.
-    try:
-        import debug_toolbar
-        urlpatterns = [
-            path('__debug__/', include(debug_toolbar.urls))
-        ] + urlpatterns
-    except ImportError:
-        pass
+    if settings.ENABLE_DEBUG_TOOLBAR:
+        from debug_toolbar.toolbar import debug_toolbar_urls
+
+        urlpatterns += debug_toolbar_urls()
+
