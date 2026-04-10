@@ -162,9 +162,6 @@ if os.environ.get('GS_BUCKET_NAME'):
     GS_STATIC_PATH = os.environ.get('GS_STATIC_PATH', 'static')
     GS_FILE_OVERWRITE = os.environ.get('GS_FILE_OVERWRITE') == 'True'
 
-    DEFAULT_FILE_STORAGE = 'common.storage.MediaStorage'
-    if 'GS_STORE_STATIC' in os.environ:
-        STATICFILES_STORAGE = 'common.storage.StaticStorage'
 else:
     MEDIA_ROOT = os.environ['DJANGO_MEDIA_ROOT']
 
