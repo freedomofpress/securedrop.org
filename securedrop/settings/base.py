@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 from __future__ import absolute_import, unicode_literals
 
-from csp.constants import SELF, UNSAFE_HASHES
+from csp.constants import SELF, UNSAFE_EVAL, UNSAFE_HASHES
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
@@ -291,7 +291,7 @@ CONTENT_SECURITY_POLICY = {
         "base-uri": [SELF],
         "form-action": [SELF],
         "frame-ancestors": [SELF],
-        "script-src": [SELF, "unsafe-eval", "analytics.freedom.press"],
+        "script-src": [SELF, UNSAFE_EVAL, "analytics.freedom.press"],
         "style-src": [SELF, "sha256-ZdHxw9eWtnxUb3mk6tBS+gIiVUPE3pGM470keHPDFlE="],
         "connect-src": [SELF, "analytics.freedom.press"],
         "img-src": [SELF, "analytics.freedom.press"],
