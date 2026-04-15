@@ -1,6 +1,6 @@
 bleach>=4.1.0
-cryptography>=46.0.6
-Django>=4.2.29,<4.3
+cryptography>=46.0.7
+Django>=4.2.30,<4.3
 django-anymail[mailgun]>=1.4
 django-modelcluster>=6.2.1
 django-settings-export
@@ -11,8 +11,9 @@ factory_boy
 feedparser
 gunicorn>=20.1.0
 lxml>=4.9.3
+pillow>=12.2.0
 psycopg2>=2.9.9
-pygments
+pygments>=2.20.0
 python-json-logger
 structlog
 tldextract
@@ -27,4 +28,3 @@ django-csp>=3.7
 requests>=2.33.1
 wagtailmedia>=0.14.5
 whitenoise
-pygments>=2.15.1
