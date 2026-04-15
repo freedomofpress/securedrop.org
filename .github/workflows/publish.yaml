@@ -27,4 +27,3 @@ jobs:
       requires-deep-history: true
       registry: ghcr.io/freedomofpress/securedrop-org
       add-branch-tags: true
-
