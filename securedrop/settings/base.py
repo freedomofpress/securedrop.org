@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 from __future__ import absolute_import, unicode_literals
 
-from csp.constants import SELF
+from csp.constants import SELF, UNSAFE_HASHES
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
@@ -298,7 +298,12 @@ CONTENT_SECURITY_POLICY = {
         "object-src": [SELF],
         "frame-src": [SELF],
         "media-src": [SELF],
-        "style-src-attr": [SELF, 'unsafe-hashes', 'sha256-ZdHxw9eWtnxUb3mk6tBS+gIiVUPE3pGM470keHPDFlE=', 'sha256-RjGXttEfn3lP8F5dx3vtPdu6djlmub1vrGRYYEoYmk0='],
+        "style-src-attr": [
+            SELF,
+            UNSAFE_HASHES,
+            "sha256-ZdHxw9eWtnxUb3mk6tBS+gIiVUPE3pGM470keHPDFlE=",
+            "sha256-RjGXttEfn3lP8F5dx3vtPdu6djlmub1vrGRYYEoYmk0=",
+        ],
     }
 }
 
