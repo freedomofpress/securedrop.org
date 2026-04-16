@@ -1,301 +1,302 @@
 interactions:
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - python-requests/2.32.4
-    method: GET
-    uri: https://docs.securedrop.org/en/stable/index.html
-  response:
-    body:
-      string: "\n\n<!DOCTYPE html>\n<html class=\"writer-html5\" lang=\"en\" data-content_root=\"./\">\n<head>\n
-        \ <meta charset=\"utf-8\" /><meta name=\"viewport\" content=\"width=device-width,
-        initial-scale=1\" />\n\n  <meta name=\"viewport\" content=\"width=device-width,
-        initial-scale=1.0\" />\n  <title>Welcome to SecureDrop\u2019s documentation!
-        &mdash; SecureDrop stable documentation</title>\n      <link rel=\"stylesheet\"
-        type=\"text/css\" href=\"_static/pygments.css?v=03e43079\" />\n      <link
-        rel=\"stylesheet\" type=\"text/css\" href=\"_static/css/theme.css?v=e59714d7\"
-        />\n      <link rel=\"stylesheet\" type=\"text/css\" href=\"_static/rtd_dark.css?v=c2ecd34e\"
-        />\n\n  \n      <script src=\"_static/jquery.js?v=5d32c60e\"></script>\n      <script
-        src=\"_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c\"></script>\n
-        \     <script src=\"_static/documentation_options.js?v=ea3bebfc\"></script>\n
-        \     <script src=\"_static/doctools.js?v=9bcbadda\"></script>\n      <script
-        src=\"_static/sphinx_highlight.js?v=dc90522c\"></script>\n    <script src=\"_static/js/theme.js\"></script>\n
-        \   <link rel=\"index\" title=\"Index\" href=\"genindex.html\" />\n    <link
-        rel=\"search\" title=\"Search\" href=\"search.html\" />\n    <link rel=\"next\"
-        title=\"What Is SecureDrop?\" href=\"what_is_securedrop.html\" />\n<link rel=\"stylesheet\"
-        href=\"_static/releases.css\" type=\"text/css\" />\n\n</head>\n\n<body class=\"wy-body-for-nav\">\n<div
-        class=\"rst-versions\" data-toggle=\"rst-versions\" role=\"note\" aria-label=\"versions\">\n
-        \   <span class=\"rst-current-version\" data-toggle=\"rst-current-version\">\n
-        \       <span class=\"fa fa-book\">SecureDrop Docs</span>\n        v: stable\n
-        \       <span class=\"fa fa-caret-down\"></span>\n    </span>\n    <div class=\"rst-other-versions\">\n
-        \       <dl>\n            <dt>Versions</dt>\n            <dd class=\"current-release\">\n
-        \               <a href=\"/en/stable/index.html\">stable</a>\n            </dd>\n
-        \           <dd>\n                <a href=\"/en/latest/index.html\">latest</a>\n
-        \           </dd>\n        </dl>\n        <dl>\n            <dt>Downloads</dt>\n
-        \           <dd><a href=\"/en/stable/SecureDrop.pdf\">PDF</a></dd>\n        </dl>\n
-        \       <hr>\n        <small>\n            A project of <a href=\"https://freedom.press/\">Freedom
-        of the Press Foundation</a> \xB7\n            <a href=\"https://freedom.press/privacy-policy/\">Privacy
-        Policy</a>\n        </small>\n    </div>\n</div>\n\n  <div class=\"wy-grid-for-nav\">\n
-        \   <nav data-toggle=\"wy-nav-shift\" class=\"wy-nav-side\">\n      <div class=\"wy-side-scroll\">\n
-        \       <div class=\"wy-side-nav-search\" >\n\n          \n          \n          <a
-        href=\"#\" class=\"icon icon-home\">\n            SecureDrop\n              <img
-        src=\"_static/favicon.png\" class=\"logo\" alt=\"Logo\"/>\n          </a>\n<div
-        role=\"search\">\n  <form id=\"rtd-search-form\" class=\"wy-form\" action=\"search.html\"
-        method=\"get\">\n    <input type=\"text\" name=\"q\" placeholder=\"Search
-        docs\" aria-label=\"Search docs\" />\n    <input type=\"hidden\" name=\"check_keywords\"
-        value=\"yes\" />\n    <input type=\"hidden\" name=\"area\" value=\"default\"
-        />\n  </form>\n</div>\n        </div><div class=\"wy-menu wy-menu-vertical\"
-        data-spy=\"affix\" role=\"navigation\" aria-label=\"Navigation menu\">\n              <p
-        class=\"caption\" role=\"heading\"><span class=\"caption-text\">Overview</span></p>\n<ul>\n<li
-        class=\"toctree-l1\"><a class=\"reference internal\" href=\"what_is_securedrop.html\">What
-        Is SecureDrop?</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
-        href=\"what_makes_securedrop_unique.html\">What Makes SecureDrop Unique?</a></li>\n<li
-        class=\"toctree-l1\"><a class=\"reference internal\" href=\"glossary.html\">Glossary</a></li>\n<li
-        class=\"toctree-l1\"><a class=\"reference internal\" href=\"threat_model/threat_model.html\">Threat
-        Model</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\" href=\"threat_model/dataflow.html\">Data
-        Flow Diagram</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
-        href=\"threat_model/mitigations.html\">Attacks and Countermeasures on the
-        SecureDrop Environment</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
-        internal\" href=\"getting_support.html\">Getting Support</a></li>\n<li class=\"toctree-l1\"><a
-        class=\"reference internal\" href=\"training_schedule.html\">SecureDrop On-Site
-        Training Schedule</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
-        internal\" href=\"passphrase_best_practices.html\">Passphrase Best Practices</a></li>\n</ul>\n<p
-        class=\"caption\" role=\"heading\"><span class=\"caption-text\">Source Guide</span></p>\n<ul>\n<li
-        class=\"toctree-l1\"><a class=\"reference internal\" href=\"source/source.html\">SecureDrop
-        for Sources</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
-        href=\"source/before_you_submit.html\">Before You Submit</a></li>\n<li class=\"toctree-l1\"><a
-        class=\"reference internal\" href=\"source/how_to_submit.html\">How To Submit</a></li>\n<li
-        class=\"toctree-l1\"><a class=\"reference internal\" href=\"source/after_you_submit.html\">After
-        You Submit</a></li>\n</ul>\n<p class=\"caption\" role=\"heading\"><span class=\"caption-text\">Journalist
-        Guide</span></p>\n<ul>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
-        href=\"journalist/journalist.html\">SecureDrop for Journalists</a></li>\n<li
-        class=\"toctree-l1\"><a class=\"reference internal\" href=\"journalist/workstation.html\">Using
-        the Journalist Workstation</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
-        internal\" href=\"journalist/svs.html\">Using the Secure Viewing Station</a></li>\n<li
-        class=\"toctree-l1\"><a class=\"reference internal\" href=\"journalist/documents.html\">Working
-        with Documents</a></li>\n</ul>\n<p class=\"caption\" role=\"heading\"><span
-        class=\"caption-text\">Admin Guide: Reference</span></p>\n<ul>\n<li class=\"toctree-l1\"><a
-        class=\"reference internal\" href=\"admin/reference/admin.html\">SecureDrop
-        for Administrators</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
-        internal\" href=\"admin/reference/responsibilities.html\">Responsibilities</a></li>\n<li
-        class=\"toctree-l1\"><a class=\"reference internal\" href=\"admin/reference/admin_interface.html\">The
-        Admin Interface</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
-        href=\"admin/reference/ssh_access.html\">Logging in via SSH</a></li>\n<li
-        class=\"toctree-l1\"><a class=\"reference internal\" href=\"admin/reference/securedrop_admin.html\">The
-        <code class=\"docutils literal notranslate\"><span class=\"pre\">securedrop-admin</span></code>
-        Utility</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
-        href=\"admin/reference/faq.html\">Frequently Asked Questions</a></li>\n</ul>\n<p
-        class=\"caption\" role=\"heading\"><span class=\"caption-text\">Admin Guide:
-        Installation</span></p>\n<ul>\n<li class=\"toctree-l1\"><a class=\"reference
-        internal\" href=\"admin/installation/installation_overview.html\">Installation
-        Overview</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
-        href=\"admin/installation/passphrases.html\">Passphrases</a></li>\n<li class=\"toctree-l1\"><a
-        class=\"reference internal\" href=\"admin/installation/hardware.html\">Hardware</a></li>\n<li
-        class=\"toctree-l1\"><a class=\"reference internal\" href=\"admin/installation/minimum_security_requirements.html\">Minimum
-        requirements for the SecureDrop environment</a></li>\n<li class=\"toctree-l1\"><a
-        class=\"reference internal\" href=\"admin/installation/create_usb_boot_drives.html\">Create
-        USB Boot Drives</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
-        href=\"admin/installation/set_up_svs.html\">Set Up the <em>Secure Viewing
-        Station</em></a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
-        href=\"admin/installation/set_up_transfer_and_export_device.html\">Set Up
-        the <em>Transfer Device</em> and the <em>Export Device</em></a></li>\n<li
-        class=\"toctree-l1\"><a class=\"reference internal\" href=\"admin/installation/generate_submission_key.html\">Generate
-        the <em>Submission Key</em></a></li>\n<li class=\"toctree-l1\"><a class=\"reference
-        internal\" href=\"admin/installation/set_up_admin_tails.html\">Set Up the
-        <em>Admin Workstation</em></a></li>\n<li class=\"toctree-l1\"><a class=\"reference
-        internal\" href=\"admin/installation/network_firewall.html\">Set Up the Network
-        Firewall</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
-        href=\"admin/installation/firewall_pfsense.html\">Setting Up a pfSense Network
-        Firewall</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
-        href=\"admin/installation/firewall_opnsense.html\">Setting Up An OPNSense
-        Network Firewall</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
-        href=\"admin/installation/servers.html\">Set Up the Servers</a></li>\n<li
-        class=\"toctree-l1\"><a class=\"reference internal\" href=\"admin/installation/install.html\">Install
-        SecureDrop</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
-        href=\"admin/installation/configure_admin_workstation_post_install.html\">Configure
-        the Admin Workstation Post-Install and Create Backups</a></li>\n<li class=\"toctree-l1\"><a
-        class=\"reference internal\" href=\"admin/installation/create_admin_account.html\">Create
-        an Admin Account on the <em>Journalist Interface</em></a></li>\n<li class=\"toctree-l1\"><a
-        class=\"reference internal\" href=\"admin/installation/test_the_installation.html\">Test
-        the Installation</a></li>\n</ul>\n<p class=\"caption\" role=\"heading\"><span
-        class=\"caption-text\">Admin Guide: Deployment</span></p>\n<ul>\n<li class=\"toctree-l1\"><a
-        class=\"reference internal\" href=\"admin/deployment/deployment_practices.html\">Deployment
-        Overview</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
-        href=\"admin/deployment/deployment_practices.html#protecting-the-security-of-the-system\">Protecting
-        the Security of the System</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
-        internal\" href=\"admin/deployment/landing_page.html\"><em>Landing Page</em></a></li>\n<li
-        class=\"toctree-l1\"><a class=\"reference internal\" href=\"admin/deployment/onion_name.html\">Getting
-        An Onion Name for Your SecureDrop</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
-        internal\" href=\"admin/deployment/whole_site_changes.html\">Whole Site Changes</a></li>\n<li
-        class=\"toctree-l1\"><a class=\"reference internal\" href=\"admin/deployment/sample_privacy_policy.html\">Sample
-        SecureDrop Privacy Policy</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
-        internal\" href=\"admin/deployment/getting_the_most_out_of_securedrop.html\">Promoting
-        Your SecureDrop Instance</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
-        internal\" href=\"admin/deployment/onboarding_journalists.html\">Onboard Journalists</a></li>\n<li
-        class=\"toctree-l1\"><a class=\"reference internal\" href=\"admin/deployment/onboarding_admins.html\">Onboard
-        Additional Admins</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
-        internal\" href=\"admin/deployment/yubikey_setup.html\">Using a YubiKey with
-        the <em>Journalist Interface</em></a></li>\n<li class=\"toctree-l1\"><a class=\"reference
-        internal\" href=\"admin/deployment/tor_pow.html\">Tor Proof-of-Work Defense
-        on the <em>Source Interface</em></a></li>\n<li class=\"toctree-l1\"><a class=\"reference
-        internal\" href=\"admin/deployment/https_source_interface.html\">HTTPS on
-        the <em>Source Interface</em></a></li>\n<li class=\"toctree-l1\"><a class=\"reference
-        internal\" href=\"admin/deployment/ssh_over_local_net.html\">SSH Over Local
-        Network</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
-        href=\"admin/deployment/remote.html\">Accessing SecureDrop Remotely</a></li>\n<li
-        class=\"toctree-l1\"><a class=\"reference internal\" href=\"admin/deployment/tails_printing_guide.html\">Setting
-        Up a Printer in Tails</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
-        internal\" href=\"admin/deployment/offboarding.html\">Off-board Administrators
-        and Journalists</a></li>\n</ul>\n<p class=\"caption\" role=\"heading\"><span
-        class=\"caption-text\">Admin Guide: Maintenance</span></p>\n<ul>\n<li class=\"toctree-l1\"><a
-        class=\"reference internal\" href=\"admin/maintenance/logging.html\">Investigating
-        Logs</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\" href=\"admin/maintenance/ossec_alerts.html\">OSSEC
-        Guide</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\" href=\"admin/maintenance/backup_and_restore.html\">Backing
-        Up and Restoring Servers</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
-        internal\" href=\"admin/maintenance/backup_workstations.html\">Backing Up
-        and Restoring Workstations</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
-        internal\" href=\"admin/maintenance/update_workstations.html\">Troubleshooting
-        Workstation Updates</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
-        internal\" href=\"admin/maintenance/update_tails_usbs.html\">Updating Tails
-        USBs</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\" href=\"admin/maintenance/updates_over_tor.html\">Updates
-        over Tor</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
-        href=\"admin/maintenance/kernel_troubleshooting.html\">Troubleshooting Kernel
-        Updates</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
-        href=\"admin/maintenance/rebuild_admin.html\">Rebuilding an <em>Admin Workstation</em>
-        USB</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\" href=\"admin/maintenance/update_bios.html\">BIOS
-        Updates on the Servers</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
-        internal\" href=\"admin/maintenance/decommission.html\">Decommission SecureDrop</a></li>\n<li
-        class=\"toctree-l1\"><a class=\"reference internal\" href=\"admin/maintenance/noble_migration_prep.html\">Preparing
-        for the Ubuntu 24.04 (Noble) migration</a></li>\n<li class=\"toctree-l1\"><a
-        class=\"reference internal\" href=\"admin/maintenance/noble_migration.html\">Ubuntu
-        24.04 (Noble) migration</a></li>\n</ul>\n<p class=\"caption\" role=\"heading\"><span
-        class=\"caption-text\">Admin Guide: Upgrades</span></p>\n<ul>\n<li class=\"toctree-l1\"><a
-        class=\"reference internal\" href=\"upgrade/2.12.3_to_2.12.8.html\">Upgrade
-        from 2.12.3 to 2.12.8</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
-        internal\" href=\"upgrade/2.12.2_to_2.12.3.html\">Upgrade from 2.12.2 to 2.12.3</a></li>\n<li
-        class=\"toctree-l1\"><a class=\"reference internal\" href=\"upgrade/2.12.1_to_2.12.2.html\">Upgrade
-        from 2.12.1 to 2.12.2</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
-        internal\" href=\"upgrade/2.12.0_to_2.12.1.html\">Upgrade from 2.12.0 to 2.12.1</a></li>\n<li
-        class=\"toctree-l1\"><a class=\"reference internal\" href=\"upgrade/2.11.1_to_2.12.0.html\">Upgrade
-        from 2.11.1 to 2.12.0</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
-        internal\" href=\"upgrade/2.11.0_to_2.11.1.html\">Upgrade from 2.11.0 to 2.11.1</a></li>\n<li
-        class=\"toctree-l1\"><a class=\"reference internal\" href=\"upgrade/2.10.1_to_2.11.0.html\">Upgrade
-        from 2.10.1 to 2.11.0</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
-        internal\" href=\"upgrade/2.10.0_to_2.10.1.html\">Upgrade from 2.10.0 to 2.10.1</a></li>\n<li
-        class=\"toctree-l1\"><a class=\"reference internal\" href=\"upgrade/2.9.0_to_2.10.0.html\">Upgrade
-        from 2.9.0 to 2.10.0</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
-        internal\" href=\"upgrade/2.8.0_to_2.9.0.html\">Upgrade from 2.8.0 to 2.9.0</a></li>\n<li
-        class=\"toctree-l1\"><a class=\"reference internal\" href=\"upgrade/2.7.0_to_2.8.0.html\">Upgrade
-        from 2.7.0 to 2.8.0</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
-        internal\" href=\"upgrade/2.6.1_to_2.7.0.html\">Upgrade from 2.6.1 to 2.7.0</a></li>\n<li
-        class=\"toctree-l1\"><a class=\"reference internal\" href=\"upgrade/2.6.0_to_2.6.1.html\">Upgrade
-        from 2.6.0 to 2.6.1</a></li>\n</ul>\n\n        </div>\n      </div>\n    </nav>\n\n
-        \   <section data-toggle=\"wy-nav-shift\" class=\"wy-nav-content-wrap\"><nav
-        class=\"wy-nav-top\" aria-label=\"Mobile navigation menu\" >\n          <i
-        data-toggle=\"wy-nav-top\" class=\"fa fa-bars\"></i>\n          <a href=\"#\">SecureDrop</a>\n
-        \     </nav>\n\n      <div class=\"wy-nav-content\">\n        <div class=\"rst-content\">\n
-        \         <div role=\"navigation\" aria-label=\"Page navigation\">\n  <ul
-        class=\"wy-breadcrumbs\">\n      <li><a href=\"#\" class=\"icon icon-home\"
-        aria-label=\"Home\"></a></li>\n      <li class=\"breadcrumb-item active\">Welcome
-        to SecureDrop\u2019s documentation!</li>\n      <li class=\"wy-breadcrumbs-aside\">\n
-        \             <a href=\"https://github.com/freedomofpress/securedrop-docs/blob/main/docs/index.rst\"
-        class=\"fa fa-github\"> Edit on GitHub</a>\n      </li>\n  </ul>\n  <hr/>\n</div>\n
-        \         <div role=\"main\" class=\"document\" itemscope=\"itemscope\" itemtype=\"http://schema.org/Article\">\n
-        \          <div itemprop=\"articleBody\">\n             \n  <section id=\"welcome-to-securedrop-s-documentation\">\n<h1>Welcome
-        to SecureDrop\u2019s documentation!<a class=\"headerlink\" href=\"#welcome-to-securedrop-s-documentation\"
-        title=\"Link to this heading\">\uF0C1</a></h1>\n<p>SecureDrop is an open-source
-        whistleblower submission system that media\norganizations can use to securely
-        accept documents from and communicate with\nanonymous sources.</p>\n<p>This
-        documentation is intended for sources, journalists, and administrators.\nIf
-        you would like to contribute to SecureDrop, please see our\n<a class=\"reference
-        external\" href=\"https://developers.securedrop.org/\">developer documentation</a>.</p>\n<div
-        class=\"admonition note\">\n<p class=\"admonition-title\">Note</p>\n<p>This
-        documentation is also available as a Tor Onion Service at\n<a class=\"reference
-        external\" href=\"http://dftlffjdogaragaxkc6jqxpo77s7rrngimyoq7uuq3clowhmttblcoyd.onion/en/stable/\">http://dftlffjdogaragaxkc6jqxpo77s7rrngimyoq7uuq3clowhmttblcoyd.onion/en/stable/</a>.</p>\n</div>\n<section
-        id=\"get-started\">\n<h2>Get Started<a class=\"headerlink\" href=\"#get-started\"
-        title=\"Link to this heading\">\uF0C1</a></h2>\n<p><a class=\"reference internal\"
-        href=\"what_is_securedrop.html\"><span class=\"doc\">I want to learn more
-        about how SecureDrop works.</span></a></p>\n<p><a class=\"reference internal\"
-        href=\"source/source.html\"><span class=\"doc\">I have information I want
-        to share, and would like to learn how to do so safely.</span></a></p>\n<p><a
-        class=\"reference internal\" href=\"admin/installation/installation_overview.html\"><span
-        class=\"doc\">I am looking to set up a SecureDrop installation.</span></a></p>\n<p><a
-        class=\"reference internal\" href=\"admin/deployment/getting_the_most_out_of_securedrop.html\"><span
-        class=\"doc\">I have a SecureDrop installation and am interested in next steps.</span></a></p>\n<p><a
-        class=\"reference internal\" href=\"journalist/journalist.html\"><span class=\"doc\">I
-        am a journalist and would like information about how to best use this system.</span></a></p>\n<div
-        class=\"toctree-wrapper compound\" id=\"overviewtoc\">\n</div>\n<div class=\"toctree-wrapper
-        compound\" id=\"sourceguidetoc\">\n</div>\n<div class=\"toctree-wrapper compound\"
-        id=\"journalistguidetoc\">\n</div>\n<div class=\"toctree-wrapper compound\"
-        id=\"adminguidetoc\">\n</div>\n<div class=\"toctree-wrapper compound\" id=\"installtoc\">\n</div>\n<div
-        class=\"toctree-wrapper compound\" id=\"deploymentguide\">\n</div>\n<div class=\"toctree-wrapper
-        compound\" id=\"maintenance\">\n</div>\n<div class=\"toctree-wrapper compound\"
-        id=\"upgradetoc\">\n</div>\n</section>\n<section id=\"get-involved\">\n<h2>Get
-        Involved<a class=\"headerlink\" href=\"#get-involved\" title=\"Link to this
-        heading\">\uF0C1</a></h2>\n<p>SecureDrop is an open source project. If you
-        would like to contribute\nto SecureDrop, please see our\n<a class=\"reference
-        external\" href=\"https://developers.securedrop.org/\">developer documentation</a>.</p>\n<p>Two
-        versions of this documentation are available, and can be selected in the\nlower
-        left corner using the version dropdown menu:</p>\n<ul class=\"simple\">\n<li><p><code
-        class=\"docutils literal notranslate\"><span class=\"pre\">latest</span></code>
-        - built from the <code class=\"docutils literal notranslate\"><span class=\"pre\">develop</span></code>
-        branch of the SecureDrop\nrepository, containing updates that have been tested
-        but not yet released.</p></li>\n<li><p><code class=\"docutils literal notranslate\"><span
-        class=\"pre\">stable</span></code> - built from the <code class=\"docutils
-        literal notranslate\"><span class=\"pre\">stable</span></code> branch of the
-        SecureDrop repository,\nand up to date with the most recent release, 2.12.8.</p></li>\n</ul>\n</section>\n</section>\n\n\n
-        \          </div>\n          </div>\n          <footer><div class=\"rst-footer-buttons\"
-        role=\"navigation\" aria-label=\"Footer\">\n        <a href=\"what_is_securedrop.html\"
-        class=\"btn btn-neutral float-right\" title=\"What Is SecureDrop?\" accesskey=\"n\"
-        rel=\"next\">Next <span class=\"fa fa-arrow-circle-right\" aria-hidden=\"true\"></span></a>\n
-        \   </div>\n\n  <hr/>\n\n  <div role=\"contentinfo\">\n    <p>&#169; Copyright
-        2015-2022, Freedom of the Press Foundation.</p>\n  </div>\n\n  Built with
-        <a href=\"https://www.sphinx-doc.org/\">Sphinx</a> using a\n    <a href=\"https://github.com/readthedocs/sphinx_rtd_theme\">theme</a>\n
-        \   provided by <a href=\"https://readthedocs.org\">Read the Docs</a>.\n   \n\n</footer>\n
-        \       </div>\n      </div>\n    </section>\n  </div>\n  <script>\n      jQuery(function
-        () {\n          SphinxRtdTheme.Navigation.enable(true);\n      });\n  </script>
-        \n\n</body>\n</html>"
-    headers:
-      CF-RAY:
-      - 955736c1fef7c957-IAD
-      Connection:
-      - keep-alive
-      Content-Encoding:
-      - gzip
-      Content-Type:
-      - text/html
-      Date:
-      - Wed, 25 Jun 2025 20:28:53 GMT
-      Server:
-      - cloudflare
-      Transfer-Encoding:
-      - chunked
-      cf-cache-status:
-      - DYNAMIC
-      etag:
-      - W/"6853dbf9-5015"
-      last-modified:
-      - Thu, 19 Jun 2025 09:44:25 GMT
-      onion-location:
-      - http://dftlffjdogaragaxkc6jqxpo77s7rrngimyoq7uuq3clowhmttblcoyd.onion/en/stable/index.html
-      referrer-policy:
-      - same-origin
-      strict-transport-security:
-      - max-age=63072000; includeSubDomains; preload
-      x-content-type-options:
-      - nosniff
-      x-frame-options:
-      - DENY
-      x-xss-protection:
-      - 1; mode=block
-    status:
-      code: 200
-      message: OK
+  - request:
+      body: null
+      headers:
+        Accept:
+          - '*/*'
+        Accept-Encoding:
+          - gzip, deflate
+        Connection:
+          - keep-alive
+        User-Agent:
+          - python-requests/2.32.4
+      method: GET
+      uri: https://docs.securedrop.org/en/stable/index.html
+    response:
+      body:
+        string:
+          "\n\n<!DOCTYPE html>\n<html class=\"writer-html5\" lang=\"en\" data-content_root=\"./\">\n<head>\n
+          \ <meta charset=\"utf-8\" /><meta name=\"viewport\" content=\"width=device-width,
+          initial-scale=1\" />\n\n  <meta name=\"viewport\" content=\"width=device-width,
+          initial-scale=1.0\" />\n  <title>Welcome to SecureDrop\u2019s documentation!
+          &mdash; SecureDrop stable documentation</title>\n      <link rel=\"stylesheet\"
+          type=\"text/css\" href=\"_static/pygments.css?v=03e43079\" />\n      <link
+          rel=\"stylesheet\" type=\"text/css\" href=\"_static/css/theme.css?v=e59714d7\"
+          />\n      <link rel=\"stylesheet\" type=\"text/css\" href=\"_static/rtd_dark.css?v=c2ecd34e\"
+          />\n\n  \n      <script src=\"_static/jquery.js?v=5d32c60e\"></script>\n      <script
+          src=\"_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c\"></script>\n
+          \     <script src=\"_static/documentation_options.js?v=ea3bebfc\"></script>\n
+          \     <script src=\"_static/doctools.js?v=9bcbadda\"></script>\n      <script
+          src=\"_static/sphinx_highlight.js?v=dc90522c\"></script>\n    <script src=\"_static/js/theme.js\"></script>\n
+          \   <link rel=\"index\" title=\"Index\" href=\"genindex.html\" />\n    <link
+          rel=\"search\" title=\"Search\" href=\"search.html\" />\n    <link rel=\"next\"
+          title=\"What Is SecureDrop?\" href=\"what_is_securedrop.html\" />\n<link rel=\"stylesheet\"
+          href=\"_static/releases.css\" type=\"text/css\" />\n\n</head>\n\n<body class=\"wy-body-for-nav\">\n<div
+          class=\"rst-versions\" data-toggle=\"rst-versions\" role=\"note\" aria-label=\"versions\">\n
+          \   <span class=\"rst-current-version\" data-toggle=\"rst-current-version\">\n
+          \       <span class=\"fa fa-book\">SecureDrop Docs</span>\n        v: stable\n
+          \       <span class=\"fa fa-caret-down\"></span>\n    </span>\n    <div class=\"rst-other-versions\">\n
+          \       <dl>\n            <dt>Versions</dt>\n            <dd class=\"current-release\">\n
+          \               <a href=\"/en/stable/index.html\">stable</a>\n            </dd>\n
+          \           <dd>\n                <a href=\"/en/latest/index.html\">latest</a>\n
+          \           </dd>\n        </dl>\n        <dl>\n            <dt>Downloads</dt>\n
+          \           <dd><a href=\"/en/stable/SecureDrop.pdf\">PDF</a></dd>\n        </dl>\n
+          \       <hr>\n        <small>\n            A project of <a href=\"https://freedom.press/\">Freedom
+          of the Press Foundation</a> \xB7\n            <a href=\"https://freedom.press/privacy-policy/\">Privacy
+          Policy</a>\n        </small>\n    </div>\n</div>\n\n  <div class=\"wy-grid-for-nav\">\n
+          \   <nav data-toggle=\"wy-nav-shift\" class=\"wy-nav-side\">\n      <div class=\"wy-side-scroll\">\n
+          \       <div class=\"wy-side-nav-search\" >\n\n          \n          \n          <a
+          href=\"#\" class=\"icon icon-home\">\n            SecureDrop\n              <img
+          src=\"_static/favicon.png\" class=\"logo\" alt=\"Logo\"/>\n          </a>\n<div
+          role=\"search\">\n  <form id=\"rtd-search-form\" class=\"wy-form\" action=\"search.html\"
+          method=\"get\">\n    <input type=\"text\" name=\"q\" placeholder=\"Search
+          docs\" aria-label=\"Search docs\" />\n    <input type=\"hidden\" name=\"check_keywords\"
+          value=\"yes\" />\n    <input type=\"hidden\" name=\"area\" value=\"default\"
+          />\n  </form>\n</div>\n        </div><div class=\"wy-menu wy-menu-vertical\"
+          data-spy=\"affix\" role=\"navigation\" aria-label=\"Navigation menu\">\n              <p
+          class=\"caption\" role=\"heading\"><span class=\"caption-text\">Overview</span></p>\n<ul>\n<li
+          class=\"toctree-l1\"><a class=\"reference internal\" href=\"what_is_securedrop.html\">What
+          Is SecureDrop?</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
+          href=\"what_makes_securedrop_unique.html\">What Makes SecureDrop Unique?</a></li>\n<li
+          class=\"toctree-l1\"><a class=\"reference internal\" href=\"glossary.html\">Glossary</a></li>\n<li
+          class=\"toctree-l1\"><a class=\"reference internal\" href=\"threat_model/threat_model.html\">Threat
+          Model</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\" href=\"threat_model/dataflow.html\">Data
+          Flow Diagram</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
+          href=\"threat_model/mitigations.html\">Attacks and Countermeasures on the
+          SecureDrop Environment</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
+          internal\" href=\"getting_support.html\">Getting Support</a></li>\n<li class=\"toctree-l1\"><a
+          class=\"reference internal\" href=\"training_schedule.html\">SecureDrop On-Site
+          Training Schedule</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
+          internal\" href=\"passphrase_best_practices.html\">Passphrase Best Practices</a></li>\n</ul>\n<p
+          class=\"caption\" role=\"heading\"><span class=\"caption-text\">Source Guide</span></p>\n<ul>\n<li
+          class=\"toctree-l1\"><a class=\"reference internal\" href=\"source/source.html\">SecureDrop
+          for Sources</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
+          href=\"source/before_you_submit.html\">Before You Submit</a></li>\n<li class=\"toctree-l1\"><a
+          class=\"reference internal\" href=\"source/how_to_submit.html\">How To Submit</a></li>\n<li
+          class=\"toctree-l1\"><a class=\"reference internal\" href=\"source/after_you_submit.html\">After
+          You Submit</a></li>\n</ul>\n<p class=\"caption\" role=\"heading\"><span class=\"caption-text\">Journalist
+          Guide</span></p>\n<ul>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
+          href=\"journalist/journalist.html\">SecureDrop for Journalists</a></li>\n<li
+          class=\"toctree-l1\"><a class=\"reference internal\" href=\"journalist/workstation.html\">Using
+          the Journalist Workstation</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
+          internal\" href=\"journalist/svs.html\">Using the Secure Viewing Station</a></li>\n<li
+          class=\"toctree-l1\"><a class=\"reference internal\" href=\"journalist/documents.html\">Working
+          with Documents</a></li>\n</ul>\n<p class=\"caption\" role=\"heading\"><span
+          class=\"caption-text\">Admin Guide: Reference</span></p>\n<ul>\n<li class=\"toctree-l1\"><a
+          class=\"reference internal\" href=\"admin/reference/admin.html\">SecureDrop
+          for Administrators</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
+          internal\" href=\"admin/reference/responsibilities.html\">Responsibilities</a></li>\n<li
+          class=\"toctree-l1\"><a class=\"reference internal\" href=\"admin/reference/admin_interface.html\">The
+          Admin Interface</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
+          href=\"admin/reference/ssh_access.html\">Logging in via SSH</a></li>\n<li
+          class=\"toctree-l1\"><a class=\"reference internal\" href=\"admin/reference/securedrop_admin.html\">The
+          <code class=\"docutils literal notranslate\"><span class=\"pre\">securedrop-admin</span></code>
+          Utility</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
+          href=\"admin/reference/faq.html\">Frequently Asked Questions</a></li>\n</ul>\n<p
+          class=\"caption\" role=\"heading\"><span class=\"caption-text\">Admin Guide:
+          Installation</span></p>\n<ul>\n<li class=\"toctree-l1\"><a class=\"reference
+          internal\" href=\"admin/installation/installation_overview.html\">Installation
+          Overview</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
+          href=\"admin/installation/passphrases.html\">Passphrases</a></li>\n<li class=\"toctree-l1\"><a
+          class=\"reference internal\" href=\"admin/installation/hardware.html\">Hardware</a></li>\n<li
+          class=\"toctree-l1\"><a class=\"reference internal\" href=\"admin/installation/minimum_security_requirements.html\">Minimum
+          requirements for the SecureDrop environment</a></li>\n<li class=\"toctree-l1\"><a
+          class=\"reference internal\" href=\"admin/installation/create_usb_boot_drives.html\">Create
+          USB Boot Drives</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
+          href=\"admin/installation/set_up_svs.html\">Set Up the <em>Secure Viewing
+          Station</em></a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
+          href=\"admin/installation/set_up_transfer_and_export_device.html\">Set Up
+          the <em>Transfer Device</em> and the <em>Export Device</em></a></li>\n<li
+          class=\"toctree-l1\"><a class=\"reference internal\" href=\"admin/installation/generate_submission_key.html\">Generate
+          the <em>Submission Key</em></a></li>\n<li class=\"toctree-l1\"><a class=\"reference
+          internal\" href=\"admin/installation/set_up_admin_tails.html\">Set Up the
+          <em>Admin Workstation</em></a></li>\n<li class=\"toctree-l1\"><a class=\"reference
+          internal\" href=\"admin/installation/network_firewall.html\">Set Up the Network
+          Firewall</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
+          href=\"admin/installation/firewall_pfsense.html\">Setting Up a pfSense Network
+          Firewall</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
+          href=\"admin/installation/firewall_opnsense.html\">Setting Up An OPNSense
+          Network Firewall</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
+          href=\"admin/installation/servers.html\">Set Up the Servers</a></li>\n<li
+          class=\"toctree-l1\"><a class=\"reference internal\" href=\"admin/installation/install.html\">Install
+          SecureDrop</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
+          href=\"admin/installation/configure_admin_workstation_post_install.html\">Configure
+          the Admin Workstation Post-Install and Create Backups</a></li>\n<li class=\"toctree-l1\"><a
+          class=\"reference internal\" href=\"admin/installation/create_admin_account.html\">Create
+          an Admin Account on the <em>Journalist Interface</em></a></li>\n<li class=\"toctree-l1\"><a
+          class=\"reference internal\" href=\"admin/installation/test_the_installation.html\">Test
+          the Installation</a></li>\n</ul>\n<p class=\"caption\" role=\"heading\"><span
+          class=\"caption-text\">Admin Guide: Deployment</span></p>\n<ul>\n<li class=\"toctree-l1\"><a
+          class=\"reference internal\" href=\"admin/deployment/deployment_practices.html\">Deployment
+          Overview</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
+          href=\"admin/deployment/deployment_practices.html#protecting-the-security-of-the-system\">Protecting
+          the Security of the System</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
+          internal\" href=\"admin/deployment/landing_page.html\"><em>Landing Page</em></a></li>\n<li
+          class=\"toctree-l1\"><a class=\"reference internal\" href=\"admin/deployment/onion_name.html\">Getting
+          An Onion Name for Your SecureDrop</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
+          internal\" href=\"admin/deployment/whole_site_changes.html\">Whole Site Changes</a></li>\n<li
+          class=\"toctree-l1\"><a class=\"reference internal\" href=\"admin/deployment/sample_privacy_policy.html\">Sample
+          SecureDrop Privacy Policy</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
+          internal\" href=\"admin/deployment/getting_the_most_out_of_securedrop.html\">Promoting
+          Your SecureDrop Instance</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
+          internal\" href=\"admin/deployment/onboarding_journalists.html\">Onboard Journalists</a></li>\n<li
+          class=\"toctree-l1\"><a class=\"reference internal\" href=\"admin/deployment/onboarding_admins.html\">Onboard
+          Additional Admins</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
+          internal\" href=\"admin/deployment/yubikey_setup.html\">Using a YubiKey with
+          the <em>Journalist Interface</em></a></li>\n<li class=\"toctree-l1\"><a class=\"reference
+          internal\" href=\"admin/deployment/tor_pow.html\">Tor Proof-of-Work Defense
+          on the <em>Source Interface</em></a></li>\n<li class=\"toctree-l1\"><a class=\"reference
+          internal\" href=\"admin/deployment/https_source_interface.html\">HTTPS on
+          the <em>Source Interface</em></a></li>\n<li class=\"toctree-l1\"><a class=\"reference
+          internal\" href=\"admin/deployment/ssh_over_local_net.html\">SSH Over Local
+          Network</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
+          href=\"admin/deployment/remote.html\">Accessing SecureDrop Remotely</a></li>\n<li
+          class=\"toctree-l1\"><a class=\"reference internal\" href=\"admin/deployment/tails_printing_guide.html\">Setting
+          Up a Printer in Tails</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
+          internal\" href=\"admin/deployment/offboarding.html\">Off-board Administrators
+          and Journalists</a></li>\n</ul>\n<p class=\"caption\" role=\"heading\"><span
+          class=\"caption-text\">Admin Guide: Maintenance</span></p>\n<ul>\n<li class=\"toctree-l1\"><a
+          class=\"reference internal\" href=\"admin/maintenance/logging.html\">Investigating
+          Logs</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\" href=\"admin/maintenance/ossec_alerts.html\">OSSEC
+          Guide</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\" href=\"admin/maintenance/backup_and_restore.html\">Backing
+          Up and Restoring Servers</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
+          internal\" href=\"admin/maintenance/backup_workstations.html\">Backing Up
+          and Restoring Workstations</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
+          internal\" href=\"admin/maintenance/update_workstations.html\">Troubleshooting
+          Workstation Updates</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
+          internal\" href=\"admin/maintenance/update_tails_usbs.html\">Updating Tails
+          USBs</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\" href=\"admin/maintenance/updates_over_tor.html\">Updates
+          over Tor</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
+          href=\"admin/maintenance/kernel_troubleshooting.html\">Troubleshooting Kernel
+          Updates</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\"
+          href=\"admin/maintenance/rebuild_admin.html\">Rebuilding an <em>Admin Workstation</em>
+          USB</a></li>\n<li class=\"toctree-l1\"><a class=\"reference internal\" href=\"admin/maintenance/update_bios.html\">BIOS
+          Updates on the Servers</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
+          internal\" href=\"admin/maintenance/decommission.html\">Decommission SecureDrop</a></li>\n<li
+          class=\"toctree-l1\"><a class=\"reference internal\" href=\"admin/maintenance/noble_migration_prep.html\">Preparing
+          for the Ubuntu 24.04 (Noble) migration</a></li>\n<li class=\"toctree-l1\"><a
+          class=\"reference internal\" href=\"admin/maintenance/noble_migration.html\">Ubuntu
+          24.04 (Noble) migration</a></li>\n</ul>\n<p class=\"caption\" role=\"heading\"><span
+          class=\"caption-text\">Admin Guide: Upgrades</span></p>\n<ul>\n<li class=\"toctree-l1\"><a
+          class=\"reference internal\" href=\"upgrade/2.12.3_to_2.12.8.html\">Upgrade
+          from 2.12.3 to 2.12.8</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
+          internal\" href=\"upgrade/2.12.2_to_2.12.3.html\">Upgrade from 2.12.2 to 2.12.3</a></li>\n<li
+          class=\"toctree-l1\"><a class=\"reference internal\" href=\"upgrade/2.12.1_to_2.12.2.html\">Upgrade
+          from 2.12.1 to 2.12.2</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
+          internal\" href=\"upgrade/2.12.0_to_2.12.1.html\">Upgrade from 2.12.0 to 2.12.1</a></li>\n<li
+          class=\"toctree-l1\"><a class=\"reference internal\" href=\"upgrade/2.11.1_to_2.12.0.html\">Upgrade
+          from 2.11.1 to 2.12.0</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
+          internal\" href=\"upgrade/2.11.0_to_2.11.1.html\">Upgrade from 2.11.0 to 2.11.1</a></li>\n<li
+          class=\"toctree-l1\"><a class=\"reference internal\" href=\"upgrade/2.10.1_to_2.11.0.html\">Upgrade
+          from 2.10.1 to 2.11.0</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
+          internal\" href=\"upgrade/2.10.0_to_2.10.1.html\">Upgrade from 2.10.0 to 2.10.1</a></li>\n<li
+          class=\"toctree-l1\"><a class=\"reference internal\" href=\"upgrade/2.9.0_to_2.10.0.html\">Upgrade
+          from 2.9.0 to 2.10.0</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
+          internal\" href=\"upgrade/2.8.0_to_2.9.0.html\">Upgrade from 2.8.0 to 2.9.0</a></li>\n<li
+          class=\"toctree-l1\"><a class=\"reference internal\" href=\"upgrade/2.7.0_to_2.8.0.html\">Upgrade
+          from 2.7.0 to 2.8.0</a></li>\n<li class=\"toctree-l1\"><a class=\"reference
+          internal\" href=\"upgrade/2.6.1_to_2.7.0.html\">Upgrade from 2.6.1 to 2.7.0</a></li>\n<li
+          class=\"toctree-l1\"><a class=\"reference internal\" href=\"upgrade/2.6.0_to_2.6.1.html\">Upgrade
+          from 2.6.0 to 2.6.1</a></li>\n</ul>\n\n        </div>\n      </div>\n    </nav>\n\n
+          \   <section data-toggle=\"wy-nav-shift\" class=\"wy-nav-content-wrap\"><nav
+          class=\"wy-nav-top\" aria-label=\"Mobile navigation menu\" >\n          <i
+          data-toggle=\"wy-nav-top\" class=\"fa fa-bars\"></i>\n          <a href=\"#\">SecureDrop</a>\n
+          \     </nav>\n\n      <div class=\"wy-nav-content\">\n        <div class=\"rst-content\">\n
+          \         <div role=\"navigation\" aria-label=\"Page navigation\">\n  <ul
+          class=\"wy-breadcrumbs\">\n      <li><a href=\"#\" class=\"icon icon-home\"
+          aria-label=\"Home\"></a></li>\n      <li class=\"breadcrumb-item active\">Welcome
+          to SecureDrop\u2019s documentation!</li>\n      <li class=\"wy-breadcrumbs-aside\">\n
+          \             <a href=\"https://github.com/freedomofpress/securedrop-docs/blob/main/docs/index.rst\"
+          class=\"fa fa-github\"> Edit on GitHub</a>\n      </li>\n  </ul>\n  <hr/>\n</div>\n
+          \         <div role=\"main\" class=\"document\" itemscope=\"itemscope\" itemtype=\"http://schema.org/Article\">\n
+          \          <div itemprop=\"articleBody\">\n             \n  <section id=\"welcome-to-securedrop-s-documentation\">\n<h1>Welcome
+          to SecureDrop\u2019s documentation!<a class=\"headerlink\" href=\"#welcome-to-securedrop-s-documentation\"
+          title=\"Link to this heading\">\uF0C1</a></h1>\n<p>SecureDrop is an open-source
+          whistleblower submission system that media\norganizations can use to securely
+          accept documents from and communicate with\nanonymous sources.</p>\n<p>This
+          documentation is intended for sources, journalists, and administrators.\nIf
+          you would like to contribute to SecureDrop, please see our\n<a class=\"reference
+          external\" href=\"https://developers.securedrop.org/\">developer documentation</a>.</p>\n<div
+          class=\"admonition note\">\n<p class=\"admonition-title\">Note</p>\n<p>This
+          documentation is also available as a Tor Onion Service at\n<a class=\"reference
+          external\" href=\"http://dftlffjdogaragaxkc6jqxpo77s7rrngimyoq7uuq3clowhmttblcoyd.onion/en/stable/\">http://dftlffjdogaragaxkc6jqxpo77s7rrngimyoq7uuq3clowhmttblcoyd.onion/en/stable/</a>.</p>\n</div>\n<section
+          id=\"get-started\">\n<h2>Get Started<a class=\"headerlink\" href=\"#get-started\"
+          title=\"Link to this heading\">\uF0C1</a></h2>\n<p><a class=\"reference internal\"
+          href=\"what_is_securedrop.html\"><span class=\"doc\">I want to learn more
+          about how SecureDrop works.</span></a></p>\n<p><a class=\"reference internal\"
+          href=\"source/source.html\"><span class=\"doc\">I have information I want
+          to share, and would like to learn how to do so safely.</span></a></p>\n<p><a
+          class=\"reference internal\" href=\"admin/installation/installation_overview.html\"><span
+          class=\"doc\">I am looking to set up a SecureDrop installation.</span></a></p>\n<p><a
+          class=\"reference internal\" href=\"admin/deployment/getting_the_most_out_of_securedrop.html\"><span
+          class=\"doc\">I have a SecureDrop installation and am interested in next steps.</span></a></p>\n<p><a
+          class=\"reference internal\" href=\"journalist/journalist.html\"><span class=\"doc\">I
+          am a journalist and would like information about how to best use this system.</span></a></p>\n<div
+          class=\"toctree-wrapper compound\" id=\"overviewtoc\">\n</div>\n<div class=\"toctree-wrapper
+          compound\" id=\"sourceguidetoc\">\n</div>\n<div class=\"toctree-wrapper compound\"
+          id=\"journalistguidetoc\">\n</div>\n<div class=\"toctree-wrapper compound\"
+          id=\"adminguidetoc\">\n</div>\n<div class=\"toctree-wrapper compound\" id=\"installtoc\">\n</div>\n<div
+          class=\"toctree-wrapper compound\" id=\"deploymentguide\">\n</div>\n<div class=\"toctree-wrapper
+          compound\" id=\"maintenance\">\n</div>\n<div class=\"toctree-wrapper compound\"
+          id=\"upgradetoc\">\n</div>\n</section>\n<section id=\"get-involved\">\n<h2>Get
+          Involved<a class=\"headerlink\" href=\"#get-involved\" title=\"Link to this
+          heading\">\uF0C1</a></h2>\n<p>SecureDrop is an open source project. If you
+          would like to contribute\nto SecureDrop, please see our\n<a class=\"reference
+          external\" href=\"https://developers.securedrop.org/\">developer documentation</a>.</p>\n<p>Two
+          versions of this documentation are available, and can be selected in the\nlower
+          left corner using the version dropdown menu:</p>\n<ul class=\"simple\">\n<li><p><code
+          class=\"docutils literal notranslate\"><span class=\"pre\">latest</span></code>
+          - built from the <code class=\"docutils literal notranslate\"><span class=\"pre\">develop</span></code>
+          branch of the SecureDrop\nrepository, containing updates that have been tested
+          but not yet released.</p></li>\n<li><p><code class=\"docutils literal notranslate\"><span
+          class=\"pre\">stable</span></code> - built from the <code class=\"docutils
+          literal notranslate\"><span class=\"pre\">stable</span></code> branch of the
+          SecureDrop repository,\nand up to date with the most recent release, 2.12.8.</p></li>\n</ul>\n</section>\n</section>\n\n\n
+          \          </div>\n          </div>\n          <footer><div class=\"rst-footer-buttons\"
+          role=\"navigation\" aria-label=\"Footer\">\n        <a href=\"what_is_securedrop.html\"
+          class=\"btn btn-neutral float-right\" title=\"What Is SecureDrop?\" accesskey=\"n\"
+          rel=\"next\">Next <span class=\"fa fa-arrow-circle-right\" aria-hidden=\"true\"></span></a>\n
+          \   </div>\n\n  <hr/>\n\n  <div role=\"contentinfo\">\n    <p>&#169; Copyright
+          2015-2022, Freedom of the Press Foundation.</p>\n  </div>\n\n  Built with
+          <a href=\"https://www.sphinx-doc.org/\">Sphinx</a> using a\n    <a href=\"https://github.com/readthedocs/sphinx_rtd_theme\">theme</a>\n
+          \   provided by <a href=\"https://readthedocs.org\">Read the Docs</a>.\n   \n\n</footer>\n
+          \       </div>\n      </div>\n    </section>\n  </div>\n  <script>\n      jQuery(function
+          () {\n          SphinxRtdTheme.Navigation.enable(true);\n      });\n  </script>
+          \n\n</body>\n</html>"
+      headers:
+        CF-RAY:
+          - 955736c1fef7c957-IAD
+        Connection:
+          - keep-alive
+        Content-Encoding:
+          - gzip
+        Content-Type:
+          - text/html
+        Date:
+          - Wed, 25 Jun 2025 20:28:53 GMT
+        Server:
+          - cloudflare
+        Transfer-Encoding:
+          - chunked
+        cf-cache-status:
+          - DYNAMIC
+        etag:
+          - W/"6853dbf9-5015"
+        last-modified:
+          - Thu, 19 Jun 2025 09:44:25 GMT
+        onion-location:
+          - http://dftlffjdogaragaxkc6jqxpo77s7rrngimyoq7uuq3clowhmttblcoyd.onion/en/stable/index.html
+        referrer-policy:
+          - same-origin
+        strict-transport-security:
+          - max-age=63072000; includeSubDomains; preload
+        x-content-type-options:
+          - nosniff
+        x-frame-options:
+          - DENY
+        x-xss-protection:
+          - 1; mode=block
+      status:
+        code: 200
+        message: OK
 version: 1

@@ -1,9 +1,9 @@
 name: Feature Request
 description: A feature request adds something new to the site. It may be an important addition, but it's not a fix to something broken.
-labels: ["triage", "feature"]
-projects: ["freedomofpress/24"]
+labels: ['triage', 'feature']
+projects: ['freedomofpress/24']
 assignees:
-  - harrislapiroff  # Assign it to Harris off the bat for triage
+  - harrislapiroff # Assign it to Harris off the bat for triage
 body:
   - type: markdown
     attributes:
