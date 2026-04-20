@@ -292,7 +292,7 @@ CONTENT_SECURITY_POLICY = {
         "form-action": [SELF],
         "frame-ancestors": [SELF],
         "script-src": [SELF, UNSAFE_EVAL, "analytics.freedom.press"],
-        "style-src": [SELF, "sha256-ZdHxw9eWtnxUb3mk6tBS+gIiVUPE3pGM470keHPDFlE="],
+        "style-src": [SELF, "'sha256-ZdHxw9eWtnxUb3mk6tBS+gIiVUPE3pGM470keHPDFlE='"],
         "connect-src": [SELF, "analytics.freedom.press"],
         "img-src": [SELF, "analytics.freedom.press"],
         "object-src": [SELF],
@@ -301,8 +301,8 @@ CONTENT_SECURITY_POLICY = {
         "style-src-attr": [
             SELF,
             UNSAFE_HASHES,
-            "sha256-ZdHxw9eWtnxUb3mk6tBS+gIiVUPE3pGM470keHPDFlE=",
-            "sha256-RjGXttEfn3lP8F5dx3vtPdu6djlmub1vrGRYYEoYmk0=",
+            "'sha256-ZdHxw9eWtnxUb3mk6tBS+gIiVUPE3pGM470keHPDFlE='",
+            "'sha256-RjGXttEfn3lP8F5dx3vtPdu6djlmub1vrGRYYEoYmk0='",
         ],
     }
 }
