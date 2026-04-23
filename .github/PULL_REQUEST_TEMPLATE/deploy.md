@@ -1,8 +1,9 @@
 ## Deploy changelog
+
 <!-- List the changes getting deployed -->
 
-
 ## Pre-deploy Checklist
+
 - [ ] Verify basic CMS functionality (saving drafts, publishing changes) across content types
 - [ ] Verify directory filters (country/topic/language) work as expected
 - [ ] Verify directory search works as expected

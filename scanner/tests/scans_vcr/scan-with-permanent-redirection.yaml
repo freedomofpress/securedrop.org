@@ -1,76 +1,77 @@
 interactions:
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - SecureDrop Landing Page Scanner 0.1.0
-    method: GET
-    uri: https://httpbin.org/redirect-to?status_code=301&url=https%3A%2F%2Fhttpbin.org%2Fget
-  response:
-    body:
-      string: ''
-    headers:
-      Access-Control-Allow-Credentials:
-      - 'true'
-      Access-Control-Allow-Origin:
-      - '*'
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '0'
-      Content-Type:
-      - text/html; charset=utf-8
-      Date:
-      - Tue, 05 Sep 2023 19:09:59 GMT
-      Location:
-      - https://httpbin.org/get
-      Server:
-      - gunicorn/19.9.0
-    status:
-      code: 301
-      message: MOVED PERMANENTLY
-- request:
-    body: null
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      User-Agent:
-      - SecureDrop Landing Page Scanner 0.1.0
-    method: GET
-    uri: https://httpbin.org/get
-  response:
-    body:
-      string: "{\n  \"args\": {}, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n
-        \   \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\",
-        \n    \"User-Agent\": \"SecureDrop Landing Page Scanner 0.1.0\", \n    \"X-Amzn-Trace-Id\":
-        \"Root=1-64f77d07-13f937d65be0acee4f30206d\"\n  }, \n  \"origin\": \"69.5.112.95\",
-        \n  \"url\": \"https://httpbin.org/get\"\n}\n"
-    headers:
-      Access-Control-Allow-Credentials:
-      - 'true'
-      Access-Control-Allow-Origin:
-      - '*'
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '320'
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 05 Sep 2023 19:09:59 GMT
-      Server:
-      - gunicorn/19.9.0
-    status:
-      code: 200
-      message: OK
+  - request:
+      body: null
+      headers:
+        Accept:
+          - '*/*'
+        Accept-Encoding:
+          - gzip, deflate
+        Connection:
+          - keep-alive
+        User-Agent:
+          - SecureDrop Landing Page Scanner 0.1.0
+      method: GET
+      uri: https://httpbin.org/redirect-to?status_code=301&url=https%3A%2F%2Fhttpbin.org%2Fget
+    response:
+      body:
+        string: ''
+      headers:
+        Access-Control-Allow-Credentials:
+          - 'true'
+        Access-Control-Allow-Origin:
+          - '*'
+        Connection:
+          - keep-alive
+        Content-Length:
+          - '0'
+        Content-Type:
+          - text/html; charset=utf-8
+        Date:
+          - Tue, 05 Sep 2023 19:09:59 GMT
+        Location:
+          - https://httpbin.org/get
+        Server:
+          - gunicorn/19.9.0
+      status:
+        code: 301
+        message: MOVED PERMANENTLY
+  - request:
+      body: null
+      headers:
+        Accept:
+          - '*/*'
+        Accept-Encoding:
+          - gzip, deflate
+        Connection:
+          - keep-alive
+        User-Agent:
+          - SecureDrop Landing Page Scanner 0.1.0
+      method: GET
+      uri: https://httpbin.org/get
+    response:
+      body:
+        string:
+          "{\n  \"args\": {}, \n  \"headers\": {\n    \"Accept\": \"*/*\", \n
+          \   \"Accept-Encoding\": \"gzip, deflate\", \n    \"Host\": \"httpbin.org\",
+          \n    \"User-Agent\": \"SecureDrop Landing Page Scanner 0.1.0\", \n    \"X-Amzn-Trace-Id\":
+          \"Root=1-64f77d07-13f937d65be0acee4f30206d\"\n  }, \n  \"origin\": \"69.5.112.95\",
+          \n  \"url\": \"https://httpbin.org/get\"\n}\n"
+      headers:
+        Access-Control-Allow-Credentials:
+          - 'true'
+        Access-Control-Allow-Origin:
+          - '*'
+        Connection:
+          - keep-alive
+        Content-Length:
+          - '320'
+        Content-Type:
+          - application/json
+        Date:
+          - Tue, 05 Sep 2023 19:09:59 GMT
+        Server:
+          - gunicorn/19.9.0
+      status:
+        code: 200
+        message: OK
 version: 1

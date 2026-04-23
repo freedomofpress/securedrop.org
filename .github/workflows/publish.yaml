@@ -4,9 +4,9 @@ name: Publish
 on:
   push:
     branches:
-    - develop
-    - staging
-    - prod
+      - develop
+      - staging
+      - prod
 
 permissions:
   contents: read
@@ -21,10 +21,9 @@ jobs:
       actions: read
       packages: write
     with:
-      context: "."
+      context: '.'
       containerfile: devops/docker/ProdDjangoDockerfile
       build-args: USERID=12345
       requires-deep-history: true
       registry: ghcr.io/freedomofpress/securedrop-org
       add-branch-tags: true
-
