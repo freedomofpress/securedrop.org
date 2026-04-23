@@ -304,6 +304,7 @@ CONTENT_SECURITY_POLICY = {
     # next year.
     "REPORT_URI": CSP_REPORT_URI,
     "REPORT_TO": CSP_REPORT_URI,
+    "EXCLUDE_URL_PREFIXES": ["/admin"],
     "DIRECTIVES": {
         "default-src": [SELF],
         "base-uri": [SELF],
@@ -324,9 +325,6 @@ CONTENT_SECURITY_POLICY = {
         ],
     }
 }
-
-CSP_EXCLUDE_URL_PREFIXES = ("/admin", )
-
 
 # This will be used to evaluate Google Storage media support in staging
 if os.environ.get("DJANGO_CSP_IMG_HOSTS"):
