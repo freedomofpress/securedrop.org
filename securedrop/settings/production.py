@@ -162,6 +162,23 @@ if os.environ.get('GS_BUCKET_NAME'):
     GS_STATIC_PATH = os.environ.get('GS_STATIC_PATH', 'static')
     GS_FILE_OVERWRITE = os.environ.get('GS_FILE_OVERWRITE') == 'True'
 
+    STORAGES["default"] = {  # noqa: F405
+        "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
+        "OPTIONS": {
+            'location': GS_MEDIA_PATH,
+            'default_acl': 'publicRead',
+        }
+    }
+
+    if 'GS_STORE_STATIC' in os.environ:
+        STORAGES['staticfiles'] = {  # noqa: F405
+            "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
+            "OPTIONS": {
+                'location': GS_STATIC_PATH,
+                'default_acl': 'publicRead',
+            },
+        }
+
 else:
     MEDIA_ROOT = os.environ['DJANGO_MEDIA_ROOT']
 

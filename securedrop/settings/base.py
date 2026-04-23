@@ -172,17 +172,6 @@ else:
         }
     }
 
-STORAGES = {
-    "default": {
-        "BACKEND": "common.storage.MediaStorage",
-    },
-}
-
-if 'GS_STORE_STATIC' in os.environ:
-    STORAGES["staticfiles"] = {
-        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
-    }
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
