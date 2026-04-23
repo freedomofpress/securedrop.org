@@ -300,6 +300,8 @@ CSP_REPORT_URI = os.environ.get('DJANGO_CSP_REPORT_URI',
                                 'https://freedomofpress.report-uri.com/r/d/csp/enforce')
 
 CONTENT_SECURITY_POLICY = {
+    # 2026-04: Support both report-uri and report-to for now. Remove report-uri
+    # next year.
     "REPORT_URI": CSP_REPORT_URI,
     "REPORT_TO": CSP_REPORT_URI,
     "DIRECTIVES": {
