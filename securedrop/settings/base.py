@@ -295,7 +295,13 @@ SOCIALACCOUNT_EMAIL_REQUIRED = True
 # #9 and #10 hashes needed for inline style for modernizr on admin page
 # #11 needed for wagtail admin
 
+# Report URI must be a string, not a tuple.
+CSP_REPORT_URI = os.environ.get('DJANGO_CSP_REPORT_URI',
+                                'https://freedomofpress.report-uri.com/r/d/csp/enforce')
+
 CONTENT_SECURITY_POLICY = {
+    "REPORT_URI": CSP_REPORT_URI,
+    "REPORT_TO": CSP_REPORT_URI,
     "DIRECTIVES": {
         "default-src": [SELF],
         "base-uri": [SELF],
@@ -331,11 +337,6 @@ if os.environ.get("DJANGO_CSP_OBJ_HOSTS"):
     CONTENT_SECURITY_POLICY["DIRECTIVES"]["object-src"].extend(os.environ["DJANGO_CSP_OBJ_HOSTS"].split())
     CONTENT_SECURITY_POLICY["DIRECTIVES"]["frame-src"].extend(os.environ["DJANGO_CSP_OBJ_HOSTS"].split())
     CONTENT_SECURITY_POLICY["DIRECTIVES"]["connect-src"].extend(os.environ["DJANGO_CSP_OBJ_HOSTS"].split())
-
-# Report URI must be a string, not a tuple.
-CSP_REPORT_URI = os.environ.get('DJANGO_CSP_REPORT_URI',
-                                'https://freedomofpress.report-uri.com/r/d/csp/enforce')
-
 
 # Logging
 #
