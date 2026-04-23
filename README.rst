@@ -64,6 +64,10 @@ To start the website running in your local environment, run these commands:
     # In a separate shell:
     make dev-createdevdata  # one-time command
 
+    # install pre-commit and set up hooks
+    pip install pre-commit
+    pre-commit install
+
 Visit ``http://localhost:8000/`` to see the site.
 
 The URL of the admin area is ``http://localhost:8000/admin/`` for the Wagtail admin.  Running the dev data creation command will create login credentials of username "test" and password "test".
