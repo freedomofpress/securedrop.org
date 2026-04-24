@@ -6,7 +6,7 @@ ENV DOCKER_VER 17.05.0-ce
 ENV DOCKER_SHA256_x86_64 340e0b5a009ba70e1b644136b94d13824db0aeb52e09071410f35a95d94316d9
 
 RUN apt-get update && \
-    apt-get install -y ruff make virtualenv ccontrol libpython2.7-dev \
+    apt-get install -y make virtualenv ccontrol libpython2.7-dev \
             libffi-dev libssl-dev libyaml-dev python-pip curl git &&\
     apt-get clean
 
