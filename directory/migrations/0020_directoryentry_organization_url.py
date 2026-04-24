@@ -4,15 +4,16 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('directory', '0019_directorysettings_report_error_page'),
+        ("directory", "0019_directorysettings_report_error_page"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='directoryentry',
-            name='organization_url',
-            field=models.URLField(blank=True, help_text='The URL of the main website of the organization.'),
+            model_name="directoryentry",
+            name="organization_url",
+            field=models.URLField(
+                blank=True, help_text="The URL of the main website of the organization."
+            ),
         ),
     ]

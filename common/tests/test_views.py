@@ -15,4 +15,4 @@ class HealthCheckTestCase(TestCase):
 class TooManyRequestsTestCase(TestCase):
     def test_too_many_requests_uses_correct_template(self):
         with self.assertTemplateUsed("429.html"):
-            self.response = self.client.get(reverse('too_many_requests'))
+            self.response = self.client.get(reverse("too_many_requests"))

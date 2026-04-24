@@ -6,15 +6,19 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('directory', '0008_auto_20180918_1857'),
+        ("directory", "0008_auto_20180918_1857"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='scanresult',
-            name='redirect_target',
-            field=models.URLField(blank=True, max_length=255, null=True, verbose_name='Final destination of redirects from the landing page url'),
+            model_name="scanresult",
+            name="redirect_target",
+            field=models.URLField(
+                blank=True,
+                max_length=255,
+                null=True,
+                verbose_name="Final destination of redirects from the landing page url",
+            ),
         ),
     ]

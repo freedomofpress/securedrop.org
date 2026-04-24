@@ -6,72 +6,76 @@ from wagtail.admin.panels import FieldPanel, MultiFieldPanel, PageChooserPanel
 from wagtail.fields import RichTextField
 
 
-@register_setting(icon='form')
+@register_setting(icon="form")
 class DirectorySettings(BaseSiteSetting):
-
     # Contact
     new_instance_alert_group = models.OneToOneField(
         Group,
         blank=True,
         null=True,
-        help_text='Users in this group will get an email alert when a new SecureDrop instance is submitted',
+        help_text="Users in this group will get an email alert when a new SecureDrop instance is submitted",
         on_delete=models.CASCADE,
     )
     contact_email = models.EmailField(
-        default='securedrop@freedom.press',
-        help_text='People should contact this email address about inaccuracies '
-                  'or potential attacks in the directory'
+        default="securedrop@freedom.press",
+        help_text="People should contact this email address about inaccuracies "
+        "or potential attacks in the directory",
     )
     contact_gpg = models.ForeignKey(
-        'wagtaildocs.Document',
+        "wagtaildocs.Document",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+',
-        verbose_name='Contact email GPG',
-        help_text='Public key for email communication'
+        related_name="+",
+        verbose_name="Contact email GPG",
+        help_text="Public key for email communication",
     )
     report_error_page = models.ForeignKey(
-        'wagtailcore.Page',
+        "wagtailcore.Page",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+',
-        verbose_name='Report Error Page',
-        help_text='Form for submitting Error Reports'
+        related_name="+",
+        verbose_name="Report Error Page",
+        help_text="Form for submitting Error Reports",
     )
 
     # Messages
-    grade_text = models.CharField(
-        max_length=100,
-        default='Security Grade'
-    )
+    grade_text = models.CharField(max_length=100, default="Security Grade")
     no_results_text = RichTextField(
-        default='Results could not be calculated.',
-        help_text='Text displayed when there are no results for a results group.'
+        default="Results could not be calculated.",
+        help_text="Text displayed when there are no results for a results group.",
     )
 
     # Feature flags
     show_scan_results = models.BooleanField(
-        default=False,
-        help_text='Show directory instance scan results on public site'
+        default=False, help_text="Show directory instance scan results on public site"
     )
 
     panels = [
-        MultiFieldPanel([
-            FieldPanel('grade_text'),
-            FieldPanel('no_results_text'),
-        ], 'Messages'),
-        MultiFieldPanel([
-            FieldPanel('show_scan_results'),
-        ], 'Feature Flags'),
-        MultiFieldPanel([
-            FieldPanel('new_instance_alert_group'),
-            FieldPanel('contact_email'),
-            PageChooserPanel('report_error_page', page_type='forms.FormPage'),
-            FieldPanel('contact_gpg'),
-        ], 'Contact'),
+        MultiFieldPanel(
+            [
+                FieldPanel("grade_text"),
+                FieldPanel("no_results_text"),
+            ],
+            "Messages",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("show_scan_results"),
+            ],
+            "Feature Flags",
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("new_instance_alert_group"),
+                FieldPanel("contact_email"),
+                PageChooserPanel("report_error_page", page_type="forms.FormPage"),
+                FieldPanel("contact_gpg"),
+            ],
+            "Contact",
+        ),
     ]
 
     class Meta:
-        verbose_name = 'Directory Settings'
+        verbose_name = "Directory Settings"

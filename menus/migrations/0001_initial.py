@@ -8,42 +8,117 @@ import modelcluster.fields
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('wagtaildocs', '0007_merge'),
-        ('wagtailcore', '0040_page_draft_title'),
+        ("wagtaildocs", "0007_merge"),
+        ("wagtailcore", "0040_page_draft_title"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Menu',
+            name="Menu",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(help_text='A name to identify this menu by for internal use', max_length=255)),
-                ('slug', models.SlugField(help_text='A key to identify this menu in code', max_length=255)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        help_text="A name to identify this menu by for internal use",
+                        max_length=255,
+                    ),
+                ),
+                (
+                    "slug",
+                    models.SlugField(
+                        help_text="A key to identify this menu in code", max_length=255
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='MenuItem',
+            name="MenuItem",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('text', models.CharField(max_length=255)),
-                ('link_url', models.CharField(blank=True, help_text='A URL or path for this menu item to link to.', max_length=255)),
-                ('html_title', models.CharField(blank=True, help_text='Value for the HTML title attribute', max_length=255)),
-                ('html_classes', models.CharField(blank=True, help_text='HTML classes to be added to this menu item', max_length=255)),
-                ('link_document', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtaildocs.Document')),
-                ('link_page', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailcore.Page')),
-                ('menu', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='menu_items', to='menus.Menu')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                ("text", models.CharField(max_length=255)),
+                (
+                    "link_url",
+                    models.CharField(
+                        blank=True,
+                        help_text="A URL or path for this menu item to link to.",
+                        max_length=255,
+                    ),
+                ),
+                (
+                    "html_title",
+                    models.CharField(
+                        blank=True,
+                        help_text="Value for the HTML title attribute",
+                        max_length=255,
+                    ),
+                ),
+                (
+                    "html_classes",
+                    models.CharField(
+                        blank=True,
+                        help_text="HTML classes to be added to this menu item",
+                        max_length=255,
+                    ),
+                ),
+                (
+                    "link_document",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="wagtaildocs.Document",
+                    ),
+                ),
+                (
+                    "link_page",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="wagtailcore.Page",
+                    ),
+                ),
+                (
+                    "menu",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="menu_items",
+                        to="menus.Menu",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['sort_order'],
-                'abstract': False,
+                "ordering": ["sort_order"],
+                "abstract": False,
             },
         ),
     ]

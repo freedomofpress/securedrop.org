@@ -7,6 +7,7 @@ from django.apps import AppConfig
 # to work around the issue to avoid the crash by monkeypatching the
 # HTML parser within the wagtail rich text system.
 
+
 # Ideally this code can be removed when the bug itself is fixed.
 # See discussion here: https://github.com/wagtail/wagtail/issues/4602
 def InlineStyleElementHandler__handle_endtag(self, name, state, contentstate):
@@ -33,14 +34,14 @@ def InlineEntityElementHandler__handle_endtag(self, name, state, contentstate):
 
 
 class CommonConfig(AppConfig):
-    name = 'common'
+    name = "common"
 
     def ready(self):
         import common.signals  # noqa: F401
         from wagtail.admin.rich_text.converters.html_to_contentstate import (
             InlineStyleElementHandler,
             BlockElementHandler,
-            InlineEntityElementHandler
+            InlineEntityElementHandler,
         )
 
         InlineStyleElementHandler.handle_endtag = (
@@ -49,4 +50,6 @@ class CommonConfig(AppConfig):
         BlockElementHandler.fpf_old_handle_endtag = BlockElementHandler.handle_endtag
         BlockElementHandler.handle_endtag = BlockElementHandler__handle_endtag
 
-        InlineEntityElementHandler.handle_endtag = InlineEntityElementHandler__handle_endtag
+        InlineEntityElementHandler.handle_endtag = (
+            InlineEntityElementHandler__handle_endtag
+        )

@@ -8,24 +8,40 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         HStoreExtension(),
         migrations.CreateModel(
-            name='SearchDocument',
+            name="SearchDocument",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=255)),
-                ('url', models.URLField(max_length=255)),
-                ('search_content', models.TextField()),
-                ('data', django.contrib.postgres.fields.hstore.HStoreField()),
-                ('result_type', models.CharField(choices=[('F', 'Forum'), ('D', 'Documentation'), ('W', 'Wagtail Page')], max_length=1)),
-                ('key', models.CharField(max_length=255, unique=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=255)),
+                ("url", models.URLField(max_length=255)),
+                ("search_content", models.TextField()),
+                ("data", django.contrib.postgres.fields.hstore.HStoreField()),
+                (
+                    "result_type",
+                    models.CharField(
+                        choices=[
+                            ("F", "Forum"),
+                            ("D", "Documentation"),
+                            ("W", "Wagtail Page"),
+                        ],
+                        max_length=1,
+                    ),
+                ),
+                ("key", models.CharField(max_length=255, unique=True)),
             ],
         ),
     ]

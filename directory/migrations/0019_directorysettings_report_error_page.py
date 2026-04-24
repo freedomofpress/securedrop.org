@@ -5,16 +5,23 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('wagtailcore', '0041_group_collection_permissions_verbose_name_plural'),
-        ('directory', '0018_directoryentry_organization_logo_square'),
+        ("wagtailcore", "0041_group_collection_permissions_verbose_name_plural"),
+        ("directory", "0018_directoryentry_organization_logo_square"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='directorysettings',
-            name='report_error_page',
-            field=models.ForeignKey(blank=True, help_text='Form for submitting Error Reports', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailcore.Page', verbose_name='Report Error Page'),
+            model_name="directorysettings",
+            name="report_error_page",
+            field=models.ForeignKey(
+                blank=True,
+                help_text="Form for submitting Error Reports",
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="wagtailcore.Page",
+                verbose_name="Report Error Page",
+            ),
         ),
     ]

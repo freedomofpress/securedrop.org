@@ -7,15 +7,21 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('home', '0002_auto_20180423_1812'),
+        ("home", "0002_auto_20180423_1812"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='homepage',
-            name='search_image',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='common.CustomImage', verbose_name='Search image'),
+            model_name="homepage",
+            name="search_image",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="common.CustomImage",
+                verbose_name="Search image",
+            ),
         ),
     ]

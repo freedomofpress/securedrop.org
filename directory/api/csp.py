@@ -1,4 +1,5 @@
 "CSP compatible variations on DRF classes"
+
 from functools import update_wrapper
 
 from csp.constants import SELF, UNSAFE_INLINE
@@ -12,14 +13,14 @@ from django.views.decorators.csrf import csrf_exempt
 
 def csp_fixes(view):
     CSP_REPLACEMENTS = {
-        'script-src': (
+        "script-src": (
             SELF,
             UNSAFE_INLINE,
         ),
     }
 
     CSP_ADDITIONS = {
-        'style-src': (
+        "style-src": (
             # float: left
             "'sha256-e+Z0n8P0IwqIce2RMye3/p5TaNb2k/QdJT4urKCsrwk='",
             # clear: both
@@ -32,7 +33,7 @@ def csp_fixes(view):
     return view
 
 
-csp_cbv_decorator = method_decorator(csp_fixes, name='get')
+csp_cbv_decorator = method_decorator(csp_fixes, name="get")
 
 
 class CSPCompatibleRouter(DefaultRouter):
@@ -66,24 +67,30 @@ class CSPCompatibleViewSetMixin:
 
         # actions must not be empty
         if not actions:
-            raise TypeError("The `actions` argument must be provided when "
-                            "calling `.as_view()` on a ViewSet. For example "
-                            "`.as_view({'get': 'list'})`")
+            raise TypeError(
+                "The `actions` argument must be provided when "
+                "calling `.as_view()` on a ViewSet. For example "
+                "`.as_view({'get': 'list'})`"
+            )
 
         # sanitize keyword arguments
         for key in initkwargs:
             if key in cls.http_method_names:
-                raise TypeError("You tried to pass in the %s method name as a "
-                                "keyword argument to %s(). Don't do that."
-                                % (key, cls.__name__))
+                raise TypeError(
+                    "You tried to pass in the %s method name as a "
+                    "keyword argument to %s(). Don't do that." % (key, cls.__name__)
+                )
             if not hasattr(cls, key):
-                raise TypeError("%s() received an invalid keyword %r" % (
-                    cls.__name__, key))
+                raise TypeError(
+                    "%s() received an invalid keyword %r" % (cls.__name__, key)
+                )
 
         # name and suffix are mutually exclusive
-        if 'name' in initkwargs and 'suffix' in initkwargs:
-            raise TypeError("%s() received both `name` and `suffix`, which are "
-                            "mutually exclusive arguments." % (cls.__name__))
+        if "name" in initkwargs and "suffix" in initkwargs:
+            raise TypeError(
+                "%s() received both `name` and `suffix`, which are "
+                "mutually exclusive arguments." % (cls.__name__)
+            )
 
         def view(request, *args, **kwargs):
             self = cls(**initkwargs)
@@ -98,7 +105,7 @@ class CSPCompatibleViewSetMixin:
                 handler = getattr(self, action)
                 setattr(self, method, handler)
 
-            if hasattr(self, 'get') and not hasattr(self, 'head'):
+            if hasattr(self, "get") and not hasattr(self, "head"):
                 self.head = self.get
 
             self.request = request

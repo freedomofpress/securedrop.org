@@ -26,8 +26,8 @@ class DirectorySettingsTestCase(TestCase):
         self.directory_settings.save()
 
         response = self.client.get(self.directory.url)
-        soup = BeautifulSoup(response.content, 'html.parser')
-        grades = soup.find_all(class_='instance-table__grade-column')
+        soup = BeautifulSoup(response.content, "html.parser")
+        grades = soup.find_all(class_="instance-table__grade-column")
 
         self.assertEqual(len(grades), 0)
 
@@ -36,8 +36,8 @@ class DirectorySettingsTestCase(TestCase):
         self.directory_settings.save()
 
         response = self.client.get(self.directory.url)
-        soup = BeautifulSoup(response.content, 'html.parser')
-        grades = soup.find_all(class_='instance-table__grade-column')
+        soup = BeautifulSoup(response.content, "html.parser")
+        grades = soup.find_all(class_="instance-table__grade-column")
 
         self.assertEqual(len(grades), 1)
 
@@ -46,9 +46,9 @@ class DirectorySettingsTestCase(TestCase):
         self.directory_settings.save()
 
         response = self.client.get(self.securedrop_page.url)
-        soup = BeautifulSoup(response.content, 'html.parser')
-        grade = soup.find_all(class_='security_grade')
-        result = soup.find_all(class_='scan-result')
+        soup = BeautifulSoup(response.content, "html.parser")
+        grade = soup.find_all(class_="security_grade")
+        result = soup.find_all(class_="scan-result")
 
         self.assertEqual(len(grade), 0)
         self.assertEqual(len(result), 0)
@@ -58,9 +58,9 @@ class DirectorySettingsTestCase(TestCase):
         self.directory_settings.save()
 
         response = self.client.get(self.securedrop_page.url)
-        soup = BeautifulSoup(response.content, 'html.parser')
-        grade = soup.find_all(class_='security_grade')
-        result = soup.find_all(class_='scan-result')
+        soup = BeautifulSoup(response.content, "html.parser")
+        grade = soup.find_all(class_="security_grade")
+        result = soup.find_all(class_="scan-result")
 
         self.assertEqual(len(grade), 1)
         self.assertEqual(len(result), 1)

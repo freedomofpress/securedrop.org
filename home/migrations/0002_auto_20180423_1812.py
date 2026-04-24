@@ -8,48 +8,74 @@ import modelcluster.fields
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('common', '0001_initial'),
-        ('home', '0001_initial'),
-        ('marketing', '0001_initial'),
+        ("common", "0001_initial"),
+        ("home", "0001_initial"),
+        ("marketing", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='homepagefeature',
-            name='feature',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='+', to='marketing.FeaturePage'),
+            model_name="homepagefeature",
+            name="feature",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="+",
+                to="marketing.FeaturePage",
+            ),
         ),
         migrations.AddField(
-            model_name='homepagefeature',
-            name='page',
-            field=modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='features', to='home.HomePage'),
+            model_name="homepagefeature",
+            name="page",
+            field=modelcluster.fields.ParentalKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="features",
+                to="home.HomePage",
+            ),
         ),
         migrations.AddField(
-            model_name='homepage',
-            name='instances_button',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='home.InstancesButton'),
+            model_name="homepage",
+            name="instances_button",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="home.InstancesButton",
+            ),
         ),
         migrations.AddField(
-            model_name='homepage',
-            name='search_image',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='common.CustomImage'),
+            model_name="homepage",
+            name="search_image",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="common.CustomImage",
+            ),
         ),
         migrations.AddField(
-            model_name='featuresbutton',
-            name='page',
-            field=modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='features_button', to='home.HomePage'),
+            model_name="featuresbutton",
+            name="page",
+            field=modelcluster.fields.ParentalKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="features_button",
+                to="home.HomePage",
+            ),
         ),
         migrations.AddField(
-            model_name='descriptionbuttons',
-            name='page',
-            field=modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='description_buttons', to='home.HomePage'),
+            model_name="descriptionbuttons",
+            name="page",
+            field=modelcluster.fields.ParentalKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="description_buttons",
+                to="home.HomePage",
+            ),
         ),
         migrations.AlterUniqueTogether(
-            name='homepagefeature',
-            unique_together=set([('page', 'feature')]),
+            name="homepagefeature",
+            unique_together=set([("page", "feature")]),
         ),
     ]

@@ -13,207 +13,554 @@ import wagtailmetadata.models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('common', '0001_initial'),
+        ("common", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('auth', '0008_alter_user_username_max_length'),
-        ('wagtaildocs', '0007_merge'),
-        ('wagtailcore', '0040_page_draft_title'),
+        ("auth", "0008_alter_user_username_max_length"),
+        ("wagtaildocs", "0007_merge"),
+        ("wagtailcore", "0040_page_draft_title"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Country',
+            name="Country",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=255, unique=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=255, unique=True)),
             ],
             options={
-                'verbose_name_plural': 'Countries',
+                "verbose_name_plural": "Countries",
             },
         ),
         migrations.CreateModel(
-            name='DirectoryEntry',
+            name="DirectoryEntry",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('landing_page_url', models.URLField(max_length=255, unique=True, verbose_name='Landing page URL')),
-                ('onion_address', models.CharField(max_length=255, validators=[django.core.validators.RegexValidator(message='Enter a valid .onion address.', regex='\\.onion$')], verbose_name='SecureDrop onion address')),
-                ('added', models.DateTimeField(auto_now_add=True)),
-                ('organization_description', models.CharField(blank=True, help_text='A micro description of your organization that will be displayed in the directory.', max_length=95, null=True)),
-                ('countries', modelcluster.fields.ParentalManyToManyField(blank=True, related_name='countries', to='directory.Country', verbose_name='Countries')),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.Page",
+                    ),
+                ),
+                (
+                    "landing_page_url",
+                    models.URLField(
+                        max_length=255, unique=True, verbose_name="Landing page URL"
+                    ),
+                ),
+                (
+                    "onion_address",
+                    models.CharField(
+                        max_length=255,
+                        validators=[
+                            django.core.validators.RegexValidator(
+                                message="Enter a valid .onion address.",
+                                regex="\\.onion$",
+                            )
+                        ],
+                        verbose_name="SecureDrop onion address",
+                    ),
+                ),
+                ("added", models.DateTimeField(auto_now_add=True)),
+                (
+                    "organization_description",
+                    models.CharField(
+                        blank=True,
+                        help_text="A micro description of your organization that will be displayed in the directory.",
+                        max_length=95,
+                        null=True,
+                    ),
+                ),
+                (
+                    "countries",
+                    modelcluster.fields.ParentalManyToManyField(
+                        blank=True,
+                        related_name="countries",
+                        to="directory.Country",
+                        verbose_name="Countries",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=(wagtailmetadata.models.MetadataMixin, 'wagtailcore.page', models.Model),
+            bases=(
+                wagtailmetadata.models.MetadataMixin,
+                "wagtailcore.page",
+                models.Model,
+            ),
         ),
         migrations.CreateModel(
-            name='DirectoryPage',
+            name="DirectoryPage",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('subtitle', models.CharField(blank=True, max_length=255, null=True)),
-                ('body', wagtail.fields.RichTextField(blank=True, null=True)),
-                ('source_warning', wagtail.fields.RichTextField(blank=True, help_text='A warning for sources about checking onion addresses.', null=True)),
-                ('submit_title', models.CharField(default='Want to get your instance listed?', max_length=255)),
-                ('submit_body', wagtail.fields.RichTextField(blank=True, null=True)),
-                ('submit_button_text', models.CharField(default='Get Started', help_text='Text displayed on link to scanning form.', max_length=100)),
-                ('manage_instances_text', models.CharField(default='Manage instances', help_text='Text displayed on link to user dashboard.', max_length=100)),
-                ('per_page', models.PositiveSmallIntegerField(default=10, help_text='Number of news stories to display per page', validators=[django.core.validators.MaxValueValidator(25)])),
-                ('orphans', models.PositiveSmallIntegerField(default=2, help_text='Minimum number of stories on the last page (if the last page is smaller, they will get added to the preceding page)', validators=[django.core.validators.MaxValueValidator(5)])),
-                ('scanner_form_title', models.CharField(default='Scan', max_length=100)),
-                ('scanner_form_text', wagtail.fields.RichTextField(blank=True, null=True)),
-                ('org_details_form_title', models.CharField(default='Enter organization details', max_length=100)),
-                ('org_details_form_text', wagtail.fields.RichTextField(blank=True, null=True)),
-                ('directory_submission_form', models.ForeignKey(blank=True, help_text='If directory self-management tools are enabled in Directory Settings, this will have no effect. Otherwise this should be a link to a FormPage where SecureDrop admins can submit their instance to the directory', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailcore.Page')),
-                ('faq_link', models.ForeignKey(blank=True, help_text="Linked to by the info icon next to 'Security' in the directory table headers.", null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailcore.Page')),
-                ('search_image', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='common.CustomImage')),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.Page",
+                    ),
+                ),
+                ("subtitle", models.CharField(blank=True, max_length=255, null=True)),
+                ("body", wagtail.fields.RichTextField(blank=True, null=True)),
+                (
+                    "source_warning",
+                    wagtail.fields.RichTextField(
+                        blank=True,
+                        help_text="A warning for sources about checking onion addresses.",
+                        null=True,
+                    ),
+                ),
+                (
+                    "submit_title",
+                    models.CharField(
+                        default="Want to get your instance listed?", max_length=255
+                    ),
+                ),
+                ("submit_body", wagtail.fields.RichTextField(blank=True, null=True)),
+                (
+                    "submit_button_text",
+                    models.CharField(
+                        default="Get Started",
+                        help_text="Text displayed on link to scanning form.",
+                        max_length=100,
+                    ),
+                ),
+                (
+                    "manage_instances_text",
+                    models.CharField(
+                        default="Manage instances",
+                        help_text="Text displayed on link to user dashboard.",
+                        max_length=100,
+                    ),
+                ),
+                (
+                    "per_page",
+                    models.PositiveSmallIntegerField(
+                        default=10,
+                        help_text="Number of news stories to display per page",
+                        validators=[django.core.validators.MaxValueValidator(25)],
+                    ),
+                ),
+                (
+                    "orphans",
+                    models.PositiveSmallIntegerField(
+                        default=2,
+                        help_text="Minimum number of stories on the last page (if the last page is smaller, they will get added to the preceding page)",
+                        validators=[django.core.validators.MaxValueValidator(5)],
+                    ),
+                ),
+                (
+                    "scanner_form_title",
+                    models.CharField(default="Scan", max_length=100),
+                ),
+                (
+                    "scanner_form_text",
+                    wagtail.fields.RichTextField(blank=True, null=True),
+                ),
+                (
+                    "org_details_form_title",
+                    models.CharField(
+                        default="Enter organization details", max_length=100
+                    ),
+                ),
+                (
+                    "org_details_form_text",
+                    wagtail.fields.RichTextField(blank=True, null=True),
+                ),
+                (
+                    "directory_submission_form",
+                    models.ForeignKey(
+                        blank=True,
+                        help_text="If directory self-management tools are enabled in Directory Settings, this will have no effect. Otherwise this should be a link to a FormPage where SecureDrop admins can submit their instance to the directory",
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="wagtailcore.Page",
+                    ),
+                ),
+                (
+                    "faq_link",
+                    models.ForeignKey(
+                        blank=True,
+                        help_text="Linked to by the info icon next to 'Security' in the directory table headers.",
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="wagtailcore.Page",
+                    ),
+                ),
+                (
+                    "search_image",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="common.CustomImage",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=(wagtail.contrib.routable_page.models.RoutablePageMixin, wagtailmetadata.models.MetadataMixin, 'wagtailcore.page', models.Model),
+            bases=(
+                wagtail.contrib.routable_page.models.RoutablePageMixin,
+                wagtailmetadata.models.MetadataMixin,
+                "wagtailcore.page",
+                models.Model,
+            ),
         ),
         migrations.CreateModel(
-            name='DirectorySettings',
+            name="DirectorySettings",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('contact_email', models.EmailField(default='securedrop@freedom.press', help_text='People should contact this email address about inaccuracies or potential attacks in the directory', max_length=254)),
-                ('grade_text', models.CharField(default='Security Grade', max_length=100)),
-                ('no_results_text', wagtail.fields.RichTextField(default='Results could not be calculated.', help_text='Text displayed when there are no results for a results group.')),
-                ('allow_directory_management', models.BooleanField(default=False, help_text='Allow directory instance submission/management by site visitors')),
-                ('show_scan_results', models.BooleanField(default=False, help_text='Show directory instance scan results on public site')),
-                ('contact_gpg', models.ForeignKey(blank=True, help_text='Public key for email communication', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtaildocs.Document', verbose_name='Contact email GPG')),
-                ('new_instance_alert_group', models.OneToOneField(blank=True, help_text='Users in this group will get an email alert when a new SecureDrop instance is submitted', null=True, on_delete=django.db.models.deletion.CASCADE, to='auth.Group')),
-                ('site', models.OneToOneField(editable=False, on_delete=django.db.models.deletion.CASCADE, to='wagtailcore.Site')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "contact_email",
+                    models.EmailField(
+                        default="securedrop@freedom.press",
+                        help_text="People should contact this email address about inaccuracies or potential attacks in the directory",
+                        max_length=254,
+                    ),
+                ),
+                (
+                    "grade_text",
+                    models.CharField(default="Security Grade", max_length=100),
+                ),
+                (
+                    "no_results_text",
+                    wagtail.fields.RichTextField(
+                        default="Results could not be calculated.",
+                        help_text="Text displayed when there are no results for a results group.",
+                    ),
+                ),
+                (
+                    "allow_directory_management",
+                    models.BooleanField(
+                        default=False,
+                        help_text="Allow directory instance submission/management by site visitors",
+                    ),
+                ),
+                (
+                    "show_scan_results",
+                    models.BooleanField(
+                        default=False,
+                        help_text="Show directory instance scan results on public site",
+                    ),
+                ),
+                (
+                    "contact_gpg",
+                    models.ForeignKey(
+                        blank=True,
+                        help_text="Public key for email communication",
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="wagtaildocs.Document",
+                        verbose_name="Contact email GPG",
+                    ),
+                ),
+                (
+                    "new_instance_alert_group",
+                    models.OneToOneField(
+                        blank=True,
+                        help_text="Users in this group will get an email alert when a new SecureDrop instance is submitted",
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="auth.Group",
+                    ),
+                ),
+                (
+                    "site",
+                    models.OneToOneField(
+                        editable=False,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="wagtailcore.Site",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Directory Settings',
+                "verbose_name": "Directory Settings",
             },
         ),
         migrations.CreateModel(
-            name='Language',
+            name="Language",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=255, unique=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=255, unique=True)),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='ResultGroup',
+            name="ResultGroup",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(help_text='Will be displayed as the group heading.', max_length=255)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        help_text="Will be displayed as the group heading.",
+                        max_length=255,
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='ResultState',
+            name="ResultState",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('name', models.CharField(help_text='Must be a field in the directory.ScanResult model.', max_length=255)),
-                ('success_text', wagtail.fields.RichTextField()),
-                ('failure_text', wagtail.fields.RichTextField()),
-                ('is_warning', models.BooleanField(help_text='If checked, will display a flag and yellow text. If left unchecked, will display an x and red text.')),
-                ('fix_text', wagtail.fields.RichTextField(blank=True, null=True)),
-                ('result_group', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='result_states', to='directory.ResultGroup')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        help_text="Must be a field in the directory.ScanResult model.",
+                        max_length=255,
+                    ),
+                ),
+                ("success_text", wagtail.fields.RichTextField()),
+                ("failure_text", wagtail.fields.RichTextField()),
+                (
+                    "is_warning",
+                    models.BooleanField(
+                        help_text="If checked, will display a flag and yellow text. If left unchecked, will display an x and red text."
+                    ),
+                ),
+                ("fix_text", wagtail.fields.RichTextField(blank=True, null=True)),
+                (
+                    "result_group",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="result_states",
+                        to="directory.ResultGroup",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['sort_order'],
-                'abstract': False,
+                "ordering": ["sort_order"],
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='ScanResult',
+            name="ScanResult",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('landing_page_url', models.URLField(db_index=True, max_length=255, verbose_name='Landing page URL')),
-                ('live', models.BooleanField()),
-                ('result_last_seen', models.DateTimeField(auto_now_add=True)),
-                ('forces_https', models.NullBooleanField()),
-                ('hsts', models.NullBooleanField()),
-                ('hsts_max_age', models.NullBooleanField()),
-                ('hsts_entire_domain', models.NullBooleanField()),
-                ('hsts_preloaded', models.NullBooleanField()),
-                ('http_status_200_ok', models.NullBooleanField()),
-                ('http_no_redirect', models.NullBooleanField()),
-                ('expected_encoding', models.NullBooleanField()),
-                ('no_server_info', models.NullBooleanField()),
-                ('no_server_version', models.NullBooleanField()),
-                ('csp_origin_only', models.NullBooleanField()),
-                ('mime_sniffing_blocked', models.NullBooleanField()),
-                ('noopen_download', models.NullBooleanField()),
-                ('xss_protection', models.NullBooleanField()),
-                ('clickjacking_protection', models.NullBooleanField()),
-                ('good_cross_domain_policy', models.NullBooleanField()),
-                ('http_1_0_caching_disabled', models.NullBooleanField()),
-                ('cache_control_set', models.NullBooleanField()),
-                ('cache_control_revalidate_set', models.NullBooleanField()),
-                ('cache_control_nocache_set', models.NullBooleanField()),
-                ('cache_control_notransform_set', models.NullBooleanField()),
-                ('cache_control_nostore_set', models.NullBooleanField()),
-                ('cache_control_private_set', models.NullBooleanField()),
-                ('expires_set', models.NullBooleanField()),
-                ('safe_onion_address', models.NullBooleanField()),
-                ('no_cdn', models.NullBooleanField()),
-                ('no_analytics', models.NullBooleanField()),
-                ('subdomain', models.NullBooleanField()),
-                ('no_cookies', models.NullBooleanField()),
-                ('grade', models.CharField(default='?', editable=False, max_length=2)),
-                ('securedrop', modelcluster.fields.ParentalKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='results', to='directory.DirectoryEntry')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "landing_page_url",
+                    models.URLField(
+                        db_index=True, max_length=255, verbose_name="Landing page URL"
+                    ),
+                ),
+                ("live", models.BooleanField()),
+                ("result_last_seen", models.DateTimeField(auto_now_add=True)),
+                ("forces_https", models.NullBooleanField()),
+                ("hsts", models.NullBooleanField()),
+                ("hsts_max_age", models.NullBooleanField()),
+                ("hsts_entire_domain", models.NullBooleanField()),
+                ("hsts_preloaded", models.NullBooleanField()),
+                ("http_status_200_ok", models.NullBooleanField()),
+                ("http_no_redirect", models.NullBooleanField()),
+                ("expected_encoding", models.NullBooleanField()),
+                ("no_server_info", models.NullBooleanField()),
+                ("no_server_version", models.NullBooleanField()),
+                ("csp_origin_only", models.NullBooleanField()),
+                ("mime_sniffing_blocked", models.NullBooleanField()),
+                ("noopen_download", models.NullBooleanField()),
+                ("xss_protection", models.NullBooleanField()),
+                ("clickjacking_protection", models.NullBooleanField()),
+                ("good_cross_domain_policy", models.NullBooleanField()),
+                ("http_1_0_caching_disabled", models.NullBooleanField()),
+                ("cache_control_set", models.NullBooleanField()),
+                ("cache_control_revalidate_set", models.NullBooleanField()),
+                ("cache_control_nocache_set", models.NullBooleanField()),
+                ("cache_control_notransform_set", models.NullBooleanField()),
+                ("cache_control_nostore_set", models.NullBooleanField()),
+                ("cache_control_private_set", models.NullBooleanField()),
+                ("expires_set", models.NullBooleanField()),
+                ("safe_onion_address", models.NullBooleanField()),
+                ("no_cdn", models.NullBooleanField()),
+                ("no_analytics", models.NullBooleanField()),
+                ("subdomain", models.NullBooleanField()),
+                ("no_cookies", models.NullBooleanField()),
+                ("grade", models.CharField(default="?", editable=False, max_length=2)),
+                (
+                    "securedrop",
+                    modelcluster.fields.ParentalKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="results",
+                        to="directory.DirectoryEntry",
+                    ),
+                ),
             ],
             options={
-                'get_latest_by': 'result_last_seen',
+                "get_latest_by": "result_last_seen",
             },
         ),
         migrations.CreateModel(
-            name='SecuredropOwner',
+            name="SecuredropOwner",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('owner', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='instances', to=settings.AUTH_USER_MODEL)),
-                ('page', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='owners', to='directory.DirectoryEntry')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "owner",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="instances",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "page",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="owners",
+                        to="directory.DirectoryEntry",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Topic',
+            name="Topic",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=255, unique=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=255, unique=True)),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.AddField(
-            model_name='directoryentry',
-            name='languages',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='languages', to='directory.Language', verbose_name='Languages accepted'),
+            model_name="directoryentry",
+            name="languages",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True,
+                related_name="languages",
+                to="directory.Language",
+                verbose_name="Languages accepted",
+            ),
         ),
         migrations.AddField(
-            model_name='directoryentry',
-            name='organization_logo',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='common.CustomImage'),
+            model_name="directoryentry",
+            name="organization_logo",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="common.CustomImage",
+            ),
         ),
         migrations.AddField(
-            model_name='directoryentry',
-            name='organization_logo_homepage',
-            field=models.ForeignKey(blank=True, help_text='Optional second logo optimized to show up on dark backgrounds. For instances that are featured on the homepage.', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='common.CustomImage'),
+            model_name="directoryentry",
+            name="organization_logo_homepage",
+            field=models.ForeignKey(
+                blank=True,
+                help_text="Optional second logo optimized to show up on dark backgrounds. For instances that are featured on the homepage.",
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="common.CustomImage",
+            ),
         ),
         migrations.AddField(
-            model_name='directoryentry',
-            name='search_image',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='common.CustomImage'),
+            model_name="directoryentry",
+            name="search_image",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="common.CustomImage",
+            ),
         ),
         migrations.AddField(
-            model_name='directoryentry',
-            name='topics',
-            field=modelcluster.fields.ParentalManyToManyField(blank=True, related_name='topics', to='directory.Topic', verbose_name='Preferred topics'),
+            model_name="directoryentry",
+            name="topics",
+            field=modelcluster.fields.ParentalManyToManyField(
+                blank=True,
+                related_name="topics",
+                to="directory.Topic",
+                verbose_name="Preferred topics",
+            ),
         ),
     ]

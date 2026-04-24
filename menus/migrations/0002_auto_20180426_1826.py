@@ -6,14 +6,13 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('menus', '0001_initial'),
+        ("menus", "0001_initial"),
     ]
 
     operations = [
         migrations.AddIndex(
-            model_name='menu',
-            index=models.Index(fields=['slug'], name='menus_menu_slug_aab763_idx'),
+            model_name="menu",
+            index=models.Index(fields=["slug"], name="menus_menu_slug_aab763_idx"),
         ),
     ]

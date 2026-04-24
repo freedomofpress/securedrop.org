@@ -6,49 +6,69 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('directory', '0002_directoryentry_organization_logo_is_title'),
+        ("directory", "0002_directoryentry_organization_logo_is_title"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='country',
-            options={'ordering': ['-order_priority', 'title'], 'verbose_name_plural': 'Countries'},
+            name="country",
+            options={
+                "ordering": ["-order_priority", "title"],
+                "verbose_name_plural": "Countries",
+            },
         ),
         migrations.AlterModelOptions(
-            name='language',
-            options={'ordering': ['-order_priority', 'title']},
+            name="language",
+            options={"ordering": ["-order_priority", "title"]},
         ),
         migrations.AlterModelOptions(
-            name='topic',
-            options={'ordering': ['-order_priority', 'title']},
+            name="topic",
+            options={"ordering": ["-order_priority", "title"]},
         ),
         migrations.AddField(
-            model_name='country',
-            name='order_priority',
-            field=models.IntegerField(default=0, help_text='Default ordering will be by title. Use this field if certain items should always be at then top or bottom of lists (larger number is closer to top)'),
+            model_name="country",
+            name="order_priority",
+            field=models.IntegerField(
+                default=0,
+                help_text="Default ordering will be by title. Use this field if certain items should always be at then top or bottom of lists (larger number is closer to top)",
+            ),
         ),
         migrations.AddField(
-            model_name='language',
-            name='order_priority',
-            field=models.IntegerField(default=0, help_text='Default ordering will be by title. Use this field if certain items should always be at then top or bottom of lists (larger number is closer to top)'),
+            model_name="language",
+            name="order_priority",
+            field=models.IntegerField(
+                default=0,
+                help_text="Default ordering will be by title. Use this field if certain items should always be at then top or bottom of lists (larger number is closer to top)",
+            ),
         ),
         migrations.AddField(
-            model_name='topic',
-            name='order_priority',
-            field=models.IntegerField(default=0, help_text='Default ordering will be by title. Use this field if certain items should always be at then top or bottom of lists (larger number is closer to top)'),
+            model_name="topic",
+            name="order_priority",
+            field=models.IntegerField(
+                default=0,
+                help_text="Default ordering will be by title. Use this field if certain items should always be at then top or bottom of lists (larger number is closer to top)",
+            ),
         ),
         migrations.AddIndex(
-            model_name='country',
-            index=models.Index(fields=['-order_priority', 'title'], name='directory_c_order_p_0fc4b1_idx'),
+            model_name="country",
+            index=models.Index(
+                fields=["-order_priority", "title"],
+                name="directory_c_order_p_0fc4b1_idx",
+            ),
         ),
         migrations.AddIndex(
-            model_name='topic',
-            index=models.Index(fields=['-order_priority', 'title'], name='directory_t_order_p_e2e7f9_idx'),
+            model_name="topic",
+            index=models.Index(
+                fields=["-order_priority", "title"],
+                name="directory_t_order_p_e2e7f9_idx",
+            ),
         ),
         migrations.AddIndex(
-            model_name='language',
-            index=models.Index(fields=['-order_priority', 'title'], name='directory_l_order_p_c2b448_idx'),
+            model_name="language",
+            index=models.Index(
+                fields=["-order_priority", "title"],
+                name="directory_l_order_p_c2b448_idx",
+            ),
         ),
     ]

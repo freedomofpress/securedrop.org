@@ -28,16 +28,16 @@ class BaseSidebarPageMixin(models.Model):
     """
 
     sidebar_menu = models.ForeignKey(
-        'menus.Menu',
+        "menus.Menu",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+',
-        help_text='If left empty, page will use parent\'s sidebar menu'
+        related_name="+",
+        help_text="If left empty, page will use parent's sidebar menu",
     )
 
     settings_panels = [
-        FieldPanel('sidebar_menu'),
+        FieldPanel("sidebar_menu"),
     ]
 
     def get_sidebar_menu(self):
@@ -62,47 +62,52 @@ class SimplePage(MetadataPageMixin, Page):
     subtitle = models.CharField(max_length=255, null=True, blank=True)
     body = StreamField(
         [
-
-            ('text', blocks.RichTextBlock(
-                features=[
-                    'bold',
-                    'italic',
-                    'h2',
-                    'h3',
-                    'h4',
-                    'ol',
-                    'ul',
-                    'hr',
-                    'embed',
-                    'link',
-                    'document-link',
-                    'image',
-                    'code',
-                ],
-            )),
-            ('image', AlignedImageBlock()),
-            ('raw_html', blocks.RawHTMLBlock()),
-            ('blockquote', RichTextBlockQuoteBlock()),
-            ('list', blocks.ListBlock(
-                blocks.CharBlock(label="List Item"),
-                template='common/blocks/list_block_columns.html'
-            )),
-            ('video', AlignedEmbedBlock()),
-            ('media_file', VideoBlock()),
-            ('heading_1', Heading1()),
-            ('heading_2', Heading2()),
-            ('heading_3', Heading3()),
+            (
+                "text",
+                blocks.RichTextBlock(
+                    features=[
+                        "bold",
+                        "italic",
+                        "h2",
+                        "h3",
+                        "h4",
+                        "ol",
+                        "ul",
+                        "hr",
+                        "embed",
+                        "link",
+                        "document-link",
+                        "image",
+                        "code",
+                    ],
+                ),
+            ),
+            ("image", AlignedImageBlock()),
+            ("raw_html", blocks.RawHTMLBlock()),
+            ("blockquote", RichTextBlockQuoteBlock()),
+            (
+                "list",
+                blocks.ListBlock(
+                    blocks.CharBlock(label="List Item"),
+                    template="common/blocks/list_block_columns.html",
+                ),
+            ),
+            ("video", AlignedEmbedBlock()),
+            ("media_file", VideoBlock()),
+            ("heading_1", Heading1()),
+            ("heading_2", Heading2()),
+            ("heading_3", Heading3()),
         ],
         blank=False,
         use_json_field=True,
     )
 
     content_panels = Page.content_panels + [
-        FieldPanel('subtitle'),
-        FieldPanel('body'),
+        FieldPanel("subtitle"),
+        FieldPanel("body"),
     ]
 
-    search_fields_pgsql = ['title', 'body']
+    search_fields_pgsql = ["title", "body"]
 
     def get_search_content(self):
         return get_search_content_by_fields(self, self.search_fields_pgsql)
@@ -111,58 +116,61 @@ class SimplePage(MetadataPageMixin, Page):
         if self.search_description:
             return self.search_description
 
-        return truncatewords(
-            strip_tags(self.body.render_as_block()),
-            20
-        )
+        return truncatewords(strip_tags(self.body.render_as_block()), 20)
 
 
 class SimplePageWithMenuSidebar(MetadataPageMixin, BaseSidebarPageMixin, Page):
     subtitle = models.CharField(max_length=255, null=True, blank=True)
     body = StreamField(
         [
-            ('text', blocks.RichTextBlock(
-                features=[
-                    'bold',
-                    'italic',
-                    'h2',
-                    'h3',
-                    'h4',
-                    'ol',
-                    'ul',
-                    'hr',
-                    'embed',
-                    'link',
-                    'document-link',
-                    'image',
-                    'code',
-                ],
-            )),
-            ('image', AlignedImageBlock()),
-            ('raw_html', blocks.RawHTMLBlock()),
-            ('blockquote', RichTextBlockQuoteBlock()),
-            ('list', blocks.ListBlock(
-                blocks.CharBlock(label="List Item"),
-                template='common/blocks/list_block_columns.html'
-            )),
-            ('video', AlignedEmbedBlock()),
-            ('media_file', VideoBlock()),
-            ('heading_1', Heading1()),
-            ('heading_2', Heading2()),
-            ('heading_3', Heading3()),
+            (
+                "text",
+                blocks.RichTextBlock(
+                    features=[
+                        "bold",
+                        "italic",
+                        "h2",
+                        "h3",
+                        "h4",
+                        "ol",
+                        "ul",
+                        "hr",
+                        "embed",
+                        "link",
+                        "document-link",
+                        "image",
+                        "code",
+                    ],
+                ),
+            ),
+            ("image", AlignedImageBlock()),
+            ("raw_html", blocks.RawHTMLBlock()),
+            ("blockquote", RichTextBlockQuoteBlock()),
+            (
+                "list",
+                blocks.ListBlock(
+                    blocks.CharBlock(label="List Item"),
+                    template="common/blocks/list_block_columns.html",
+                ),
+            ),
+            ("video", AlignedEmbedBlock()),
+            ("media_file", VideoBlock()),
+            ("heading_1", Heading1()),
+            ("heading_2", Heading2()),
+            ("heading_3", Heading3()),
         ],
         blank=False,
         use_json_field=True,
     )
 
     content_panels = Page.content_panels + [
-        FieldPanel('subtitle'),
-        FieldPanel('body'),
+        FieldPanel("subtitle"),
+        FieldPanel("body"),
     ]
 
     settings_panels = Page.settings_panels + BaseSidebarPageMixin.settings_panels
 
-    search_fields_pgsql = ['title', 'body']
+    search_fields_pgsql = ["title", "body"]
 
     def get_search_content(self):
         return get_search_content_by_fields(self, self.search_fields_pgsql)
@@ -171,45 +179,48 @@ class SimplePageWithMenuSidebar(MetadataPageMixin, BaseSidebarPageMixin, Page):
         if self.search_description:
             return self.search_description
 
-        return truncatewords(
-            strip_tags(self.body.render_as_block()),
-            20
-        )
+        return truncatewords(strip_tags(self.body.render_as_block()), 20)
 
 
 class FAQPage(MetadataPageMixin, BaseSidebarPageMixin, Page):
     subtitle = models.CharField(max_length=255, null=True, blank=True)
     body = StreamField(
         [
-            ('text', blocks.RichTextBlock(
-                features=[
-                    'bold',
-                    'italic',
-                    'h2',
-                    'h3',
-                    'h4',
-                    'ol',
-                    'ul',
-                    'hr',
-                    'embed',
-                    'link',
-                    'document-link',
-                    'image',
-                    'code',
-                ],
-            )),
-            ('image', AlignedImageBlock()),
-            ('raw_html', blocks.RawHTMLBlock()),
-            ('blockquote', RichTextBlockQuoteBlock()),
-            ('list', blocks.ListBlock(
-                blocks.CharBlock(label="List Item"),
-                template='common/blocks/list_block_columns.html'
-            )),
-            ('video', AlignedEmbedBlock()),
-            ('media_file', VideoBlock()),
-            ('heading_1', Heading1()),
-            ('heading_2', Heading2()),
-            ('heading_3', Heading3()),
+            (
+                "text",
+                blocks.RichTextBlock(
+                    features=[
+                        "bold",
+                        "italic",
+                        "h2",
+                        "h3",
+                        "h4",
+                        "ol",
+                        "ul",
+                        "hr",
+                        "embed",
+                        "link",
+                        "document-link",
+                        "image",
+                        "code",
+                    ],
+                ),
+            ),
+            ("image", AlignedImageBlock()),
+            ("raw_html", blocks.RawHTMLBlock()),
+            ("blockquote", RichTextBlockQuoteBlock()),
+            (
+                "list",
+                blocks.ListBlock(
+                    blocks.CharBlock(label="List Item"),
+                    template="common/blocks/list_block_columns.html",
+                ),
+            ),
+            ("video", AlignedEmbedBlock()),
+            ("media_file", VideoBlock()),
+            ("heading_1", Heading1()),
+            ("heading_2", Heading2()),
+            ("heading_3", Heading3()),
         ],
         blank=True,
         null=True,
@@ -217,18 +228,31 @@ class FAQPage(MetadataPageMixin, BaseSidebarPageMixin, Page):
     )
 
     content_panels = Page.content_panels + [
-        FieldPanel('subtitle'),
-        FieldPanel('body'),
-        InlinePanel('questions', label="Questions")
+        FieldPanel("subtitle"),
+        FieldPanel("body"),
+        InlinePanel("questions", label="Questions"),
     ]
 
     settings_panels = Page.settings_panels + BaseSidebarPageMixin.settings_panels
 
 
 class FaqQuestion(Orderable):
-    page = ParentalKey('simple.FAQPage', related_name='questions')
+    page = ParentalKey("simple.FAQPage", related_name="questions")
     question = models.CharField(max_length=255)
     # features disables h1 use
     answer = RichTextField(
-        features=['h2', 'h3', 'bold', 'italic', 'link', 'embed', 'image', 'embed', 'document-link', 'ol', 'ul', 'code']
+        features=[
+            "h2",
+            "h3",
+            "bold",
+            "italic",
+            "link",
+            "embed",
+            "image",
+            "embed",
+            "document-link",
+            "ol",
+            "ul",
+            "code",
+        ]
     )

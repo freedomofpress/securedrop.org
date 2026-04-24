@@ -30,13 +30,13 @@ class DirectoryEntryQuerySet(PageQuerySet):
     def listed_q(self) -> Q:
         return Q(delisted__isnull=True)
 
-    def listed(self) -> 'DirectoryEntryQuerySet':
+    def listed(self) -> "DirectoryEntryQuerySet":
         """
         Filters the queryset to contain entries that are not marked as delisted
         """
         return self.filter(self.listed_q())
 
-    def delisted(self) -> 'DirectoryEntryQuerySet':
+    def delisted(self) -> "DirectoryEntryQuerySet":
         """
         Filters the queryset to contain entries that are marked as delisted
         """
@@ -53,11 +53,11 @@ class DirectoryEntryQuerySet(PageQuerySet):
         # being the third token when splitting on '/'
         return self.annotate(
             domain=Func(
-                F('landing_page_url'),
-                Value('/'),
+                F("landing_page_url"),
+                Value("/"),
                 Value(3),
-                function='SPLIT_PART',
-                output_field=models.CharField()
+                function="SPLIT_PART",
+                output_field=models.CharField(),
             )
         )
 
@@ -90,8 +90,8 @@ class ChoiceArrayField(ArrayField):
 
     def formfield(self, **kwargs):
         defaults = {
-            'form_class': CheckboxMultipleChoice,
-            'choices': self.base_field.choices,
+            "form_class": CheckboxMultipleChoice,
+            "choices": self.base_field.choices,
         }
         defaults.update(kwargs)
         return super(ArrayField, self).formfield(**defaults)
@@ -100,106 +100,109 @@ class ChoiceArrayField(ArrayField):
 class DirectoryEntry(MetadataPageMixin, Page):
     objects = DirectoryEntryManager()
 
-    landing_page_url = models.URLField(
-        'Landing page URL',
-        max_length=255,
-        unique=True
-    )
+    landing_page_url = models.URLField("Landing page URL", max_length=255, unique=True)
 
     onion_address = models.CharField(
-        'SecureDrop onion address',
+        "SecureDrop onion address",
         max_length=255,
-        validators=[RegexValidator(regex=r'\.onion$', message="Enter a valid .onion address.")]
+        validators=[
+            RegexValidator(regex=r"\.onion$", message="Enter a valid .onion address.")
+        ],
     )
 
     https_preferred = models.BooleanField(
-        'HTTPS Preferred?',
+        "HTTPS Preferred?",
         default=False,
-        help_text='Check this box if the onion_address URL should preferrably be shown with https://'
+        help_text="Check this box if the onion_address URL should preferrably be shown with https://",
     )
 
     onion_name = models.CharField(
-        'SecureDrop onion name',
+        "SecureDrop onion name",
         max_length=255,
         null=True,
         blank=True,
         validators=[
             RegexValidator(
-                regex=r'\.securedrop\.tor\.onion$',
-                message="Enter a valid onion name. The onion name should be in the format <name>.securedrop.tor.onion"
+                regex=r"\.securedrop\.tor\.onion$",
+                message="Enter a valid onion name. The onion name should be in the format <name>.securedrop.tor.onion",
             )
         ],
-        help_text='Enter the human-readable onion name in the format <name>.securedrop.tor.onion'
+        help_text="Enter the human-readable onion name in the format <name>.securedrop.tor.onion",
     )
 
     added = models.DateTimeField(auto_now_add=True)
 
     organization_logo = models.ForeignKey(
-        'common.CustomImage',
+        "common.CustomImage",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+',
+        related_name="+",
     )
 
     organization_logo_square = models.ForeignKey(
-        'common.CustomImage',
+        "common.CustomImage",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+',
+        related_name="+",
     )
 
     organization_logo_homepage = models.ForeignKey(
-        'common.CustomImage',
+        "common.CustomImage",
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+',
-        help_text='Optional second logo optimized to show up on dark backgrounds. For instances that are featured on the homepage.'
+        related_name="+",
+        help_text="Optional second logo optimized to show up on dark backgrounds. For instances that are featured on the homepage.",
     )
 
     organization_logo_is_title = models.BooleanField(
         default=False,
         help_text=(
-            'Logo will be displayed instead of the header on page. Recommended '
-            'primarily for logos containing the full organization name on a '
-            'white or transparent background'
-        )
+            "Logo will be displayed instead of the header on page. Recommended "
+            "primarily for logos containing the full organization name on a "
+            "white or transparent background"
+        ),
     )
 
-    organization_description = models.CharField(max_length=95, blank=True, null=True, help_text="A micro description of your organization that will be displayed in the directory.")
+    organization_description = models.CharField(
+        max_length=95,
+        blank=True,
+        null=True,
+        help_text="A micro description of your organization that will be displayed in the directory.",
+    )
     organization_url = models.URLField(
         blank=True,
-        help_text='The URL of the main website of the organization.',
+        help_text="The URL of the main website of the organization.",
     )
 
     languages = ParentalManyToManyField(
-        'directory.Language',
+        "directory.Language",
         blank=True,
-        verbose_name='Languages accepted',
-        related_name='languages'
+        verbose_name="Languages accepted",
+        related_name="languages",
     )
 
     countries = ParentalManyToManyField(
-        'directory.Country',
+        "directory.Country",
         blank=True,
-        verbose_name='Countries',
-        related_name='countries'
+        verbose_name="Countries",
+        related_name="countries",
     )
 
     topics = ParentalManyToManyField(
-        'directory.Topic',
+        "directory.Topic",
         blank=True,
-        verbose_name='Preferred topics',
-        related_name='topics'
+        verbose_name="Preferred topics",
+        related_name="topics",
     )
 
     DELISTED_REASONS = (
-        ('http', 'Mixed-content or no HTTPS'),
-        ('no200', 'Non-200 status response'),
-        ('down', 'Extended downtime'),
-        ('other', 'Other'),
+        ("http", "Mixed-content or no HTTPS"),
+        ("no200", "Non-200 status response"),
+        ("down", "Extended downtime"),
+        ("other", "Other"),
     )
 
     delisted = models.CharField(
@@ -208,27 +211,31 @@ class DirectoryEntry(MetadataPageMixin, Page):
         null=True,
         choices=DELISTED_REASONS,
         default=None,
-        help_text=('If set, entry will not show up in the directory, but the '
-                   'page will still be live. Should be used for SecureDrop '
-                   'instances that are under review for detected issues.')
+        help_text=(
+            "If set, entry will not show up in the directory, but the "
+            "page will still be live. Should be used for SecureDrop "
+            "instances that are under review for detected issues."
+        ),
     )
 
     WARNING_CHOICES = (
-        ('unreachable_landing_page', 'Landing Page Unreachable'),
-        ('no_third_party_assets', 'Use of analytics or third party assets'),
-        ('subdomain', 'Subdomain'),
-        ('referrer_policy_set_to_no_referrer', 'Referer Policy'),
-        ('safe_onion_address', 'Links to Onion Addresses'),
+        ("unreachable_landing_page", "Landing Page Unreachable"),
+        ("no_third_party_assets", "Use of analytics or third party assets"),
+        ("subdomain", "Subdomain"),
+        ("referrer_policy_set_to_no_referrer", "Referer Policy"),
+        ("safe_onion_address", "Links to Onion Addresses"),
     )
 
     permitted_domains_for_assets = ArrayField(
         models.TextField(),
         blank=True,
         default=list,
-        help_text=('Comma-separated list of additional domains that will not trigger '
-                   'the cross domain asset warning for this landing page.  '
-                   'Subdomains on domains in this list are ignored.  For example, '
-                   'adding "news.bbc.co.uk" permits all assets from "bbc.co.uk".'),
+        help_text=(
+            "Comma-separated list of additional domains that will not trigger "
+            "the cross domain asset warning for this landing page.  "
+            "Subdomains on domains in this list are ignored.  For example, "
+            'adding "news.bbc.co.uk" permits all assets from "bbc.co.uk".'
+        ),
     )
     warnings_pinned = ChoiceArrayField(
         models.CharField(
@@ -238,8 +245,9 @@ class DirectoryEntry(MetadataPageMixin, Page):
         default=list,
         blank=True,
         help_text=(
-            'Landing page warnings that will be always be shown to someone '
-            'viewing this entry, even if not reflected in the scan results.'),
+            "Landing page warnings that will be always be shown to someone "
+            "viewing this entry, even if not reflected in the scan results."
+        ),
     )
     warnings_ignored = ChoiceArrayField(
         models.CharField(
@@ -248,45 +256,61 @@ class DirectoryEntry(MetadataPageMixin, Page):
         ),
         default=list,
         blank=True,
-        help_text=('Landing page warnings that will not be shown to someone '
-                   'viewing this entry, even if they are in the scan results.'),
+        help_text=(
+            "Landing page warnings that will not be shown to someone "
+            "viewing this entry, even if they are in the scan results."
+        ),
     )
 
     content_panels = Page.content_panels + [
-        HelpPanel(heading='Date Added', template='directory/admin_directory_entry_added_field.html'),
-        FieldPanel('landing_page_url'),
-        MultiFieldPanel([
-            FieldPanel('onion_address'),
-            FieldPanel('https_preferred'),
-        ], 'Onion Address'),
-        FieldPanel('onion_name'),
-        FieldPanel('organization_description'),
-        FieldPanel('organization_url'),
-        MultiFieldPanel([
-            FieldPanel('organization_logo'),
-            FieldPanel('organization_logo_square'),
-            FieldPanel('organization_logo_homepage'),
-            FieldPanel('organization_logo_is_title'),
-        ], 'Logo'),
-        AutocompletePanel('languages', target_model='directory.Language'),
-        AutocompletePanel('countries', target_model='directory.Country'),
-        AutocompletePanel('topics', target_model='directory.Topic'),
-        InlinePanel('owners', label='Owners'),
-        HelpPanel(heading='Scans', template='directory/admin_scan_result_help.html')
+        HelpPanel(
+            heading="Date Added",
+            template="directory/admin_directory_entry_added_field.html",
+        ),
+        FieldPanel("landing_page_url"),
+        MultiFieldPanel(
+            [
+                FieldPanel("onion_address"),
+                FieldPanel("https_preferred"),
+            ],
+            "Onion Address",
+        ),
+        FieldPanel("onion_name"),
+        FieldPanel("organization_description"),
+        FieldPanel("organization_url"),
+        MultiFieldPanel(
+            [
+                FieldPanel("organization_logo"),
+                FieldPanel("organization_logo_square"),
+                FieldPanel("organization_logo_homepage"),
+                FieldPanel("organization_logo_is_title"),
+            ],
+            "Logo",
+        ),
+        AutocompletePanel("languages", target_model="directory.Language"),
+        AutocompletePanel("countries", target_model="directory.Country"),
+        AutocompletePanel("topics", target_model="directory.Topic"),
+        InlinePanel("owners", label="Owners"),
+        HelpPanel(heading="Scans", template="directory/admin_scan_result_help.html"),
     ]
 
     settings_panels = Page.settings_panels + [
-        FieldPanel('delisted'),
-        FieldPanel('warnings_ignored'),
-        FieldPanel('warnings_pinned'),
-        FieldPanel('permitted_domains_for_assets'),
+        FieldPanel("delisted"),
+        FieldPanel("warnings_ignored"),
+        FieldPanel("warnings_pinned"),
+        FieldPanel("permitted_domains_for_assets"),
     ]
 
-    search_fields_pgsql = ['title', 'landing_page_url', 'onion_address', 'organization_description']
+    search_fields_pgsql = [
+        "title",
+        "landing_page_url",
+        "onion_address",
+        "organization_description",
+    ]
 
     def clean(self):
         if set(self.warnings_pinned) & set(self.warnings_ignored):
-            raise ValidationError('Cannot pin and ignore the same warning.')
+            raise ValidationError("Cannot pin and ignore the same warning.")
 
     def get_context(self, request):
         context = super(DirectoryEntry, self).get_context(request)
@@ -299,21 +323,21 @@ class DirectoryEntry(MetadataPageMixin, Page):
         if not result:
             return context
 
-        context['show_warnings'] = True
+        context["show_warnings"] = True
         messages = []
-        context['highest_warning_level'] = WarningLevel.NONE
+        context["highest_warning_level"] = WarningLevel.NONE
         warnings = self.get_warnings(result)
         for warning in warnings:
-            if warning.level.value > context['highest_warning_level'].value:
-                context['highest_warning_level'] = warning.level
+            if warning.level.value > context["highest_warning_level"].value:
+                context["highest_warning_level"] = warning.level
 
             messages.append(
                 warning.message.format(
-                    'This SecureDrop landing page',
+                    "This SecureDrop landing page",
                     domain=url_to_domain(result.landing_page_url),
                 )
             )
-        context['warning_messages'] = messages
+        context["warning_messages"] = messages
         return context
 
     @property
@@ -325,7 +349,7 @@ class DirectoryEntry(MetadataPageMixin, Page):
 
     def get_live_result(self):
         # Used in template to get the latest live result.
-        return self.results.filter(live=True).order_by('-result_last_seen').first()
+        return self.results.filter(live=True).order_by("-result_last_seen").first()
 
     def get_warnings(self, result):
         warnings = []
@@ -333,15 +357,17 @@ class DirectoryEntry(MetadataPageMixin, Page):
         for warning in WARNINGS:
             if warning.name in self.warnings_ignored:
                 continue
-            if warning.name in self.warnings_pinned \
-               or warning.test(result) == TestResult.FAIL:
+            if (
+                warning.name in self.warnings_pinned
+                or warning.test(result) == TestResult.FAIL
+            ):
                 warnings.append(warning)
         return warnings
 
     def get_search_content(self):
         search_elements = get_search_content_by_fields(self, self.search_fields_pgsql)
 
-        for field in ['languages', 'countries', 'topics']:
+        for field in ["languages", "countries", "topics"]:
             for item in getattr(self, field).all():
                 search_elements.append(item.title)
 
@@ -349,11 +375,14 @@ class DirectoryEntry(MetadataPageMixin, Page):
 
     def save(self, *args, **kwargs):
         from directory.models import ScanResult
+
         super(DirectoryEntry, self).save(*args, **kwargs)
-        ScanResult.objects.filter(landing_page_url=self.landing_page_url).update(securedrop=self)
+        ScanResult.objects.filter(landing_page_url=self.landing_page_url).update(
+            securedrop=self
+        )
 
 
-@hooks.register('after_edit_page')
+@hooks.register("after_edit_page")
 def scan_directory_entry_after_edit(request, page):
     from scanner import scanner
 
@@ -363,19 +392,15 @@ def scan_directory_entry_after_edit(request, page):
             messages.success(request, "Scan of '{}' complete.".format(page.title))
         except Exception as e:
             messages.error(
-                request,
-                "Error during scan of '{}': {!r}".format(page.title, e)
+                request, "Error during scan of '{}': {!r}".format(page.title, e)
             )
 
 
 class SecuredropOwner(models.Model):
-    page = ParentalKey(
-        DirectoryEntry,
-        related_name='owners'
-    )
+    page = ParentalKey(DirectoryEntry, related_name="owners")
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        related_name='instances',
+        related_name="instances",
         on_delete=models.CASCADE,
     )
 
@@ -390,18 +415,18 @@ class ScanResult(models.Model):
     # to the date of the last scan.
     securedrop = ParentalKey(
         DirectoryEntry,
-        related_name='results',
+        related_name="results",
         blank=True,
         null=True,
-        on_delete=models.SET_NULL
+        on_delete=models.SET_NULL,
     )
     landing_page_url = models.URLField(
-        'Landing page URL',
+        "Landing page URL",
         max_length=255,
         db_index=True,
     )
     redirect_target = models.URLField(
-        'Final destination of redirects from the landing page url',
+        "Final destination of redirects from the landing page url",
         null=True,
         blank=True,
         max_length=255,
@@ -454,73 +479,90 @@ class ScanResult(models.Model):
     subdomain = models.BooleanField(null=True)
     no_cookies = models.BooleanField(null=True)
     no_cross_domain_assets = models.BooleanField(null=True)
-    cross_domain_asset_summary = models.TextField(default='', blank=True)
-    ignored_cross_domain_assets = models.TextField(default='', blank=True)
+    cross_domain_asset_summary = models.TextField(default="", blank=True)
+    ignored_cross_domain_assets = models.TextField(default="", blank=True)
 
-    grade = models.CharField(max_length=2, editable=False, default='?')
+    grade = models.CharField(max_length=2, editable=False, default="?")
 
     class Meta:
-        get_latest_by = 'result_last_seen'
+        get_latest_by = "result_last_seen"
         indexes = [
-            models.Index(fields=['result_last_seen']),
+            models.Index(fields=["result_last_seen"]),
         ]
 
     def is_equal_to(self, other):
         # We will use this equality method to compare the scan results only
 
-        excluded_keys = ['_state', '_securedrop_cache', 'result_last_seen',
-                         'id', 'grade']
+        excluded_keys = [
+            "_state",
+            "_securedrop_cache",
+            "result_last_seen",
+            "id",
+            "grade",
+        ]
 
-        self_values_to_compare = [(k, v) for k, v in self.__dict__.items()
-                                  if k not in excluded_keys]
-        other_values_to_compare = [(k, v) for k, v in other.__dict__.items()
-                                   if k not in excluded_keys]
+        self_values_to_compare = [
+            (k, v) for k, v in self.__dict__.items() if k not in excluded_keys
+        ]
+        other_values_to_compare = [
+            (k, v) for k, v in other.__dict__.items() if k not in excluded_keys
+        ]
 
         return self_values_to_compare == other_values_to_compare
 
     def __str__(self):
-        return 'Scan result for {}'.format(self.landing_page_url)
+        return "Scan result for {}".format(self.landing_page_url)
 
     def compute_grade(self):
         if self.live is False:
-            self.grade = '?'
+            self.grade = "?"
             return
 
-        if (self.forces_https is False or
-            self.no_cookies is False or
-            self.http_status_200_ok is False or
-            self.no_analytics is False):  # noqa: E129
-            self.grade = 'F'
-        elif (self.subdomain is True or
-              self.no_cdn is False or
-              self.no_server_info is False or
-              self.no_server_version is False):
-            self.grade = 'D'
-        elif (self.hsts is False or
-              self.expected_encoding is False or
-              self.noopen_download is False or
-              self.cache_control_set is False or
-              self.csp_origin_only is False or
-              self.mime_sniffing_blocked is False or
-              self.xss_protection is False or
-              self.clickjacking_protection is False or
-              self.good_cross_domain_policy is False or
-              self.http_1_0_caching_disabled is False or
-              self.expires_set is False or
-              self.hsts_max_age is False):
-            self.grade = 'C'
-        elif (self.cache_control_revalidate_set is False or
-              self.cache_control_nocache_set is False or
-              self.cache_control_notransform_set is False or
-              self.cache_control_nostore_set is False or
-              self.cache_control_private_set is False or
-              self.hsts_preloaded is False or
-              self.hsts_entire_domain is False):
-            self.grade = 'B'
+        if (
+            self.forces_https is False
+            or self.no_cookies is False
+            or self.http_status_200_ok is False
+            or self.no_analytics is False
+        ):  # noqa: E129
+            self.grade = "F"
+        elif (
+            self.subdomain is True
+            or self.no_cdn is False
+            or self.no_server_info is False
+            or self.no_server_version is False
+        ):
+            self.grade = "D"
+        elif (
+            self.hsts is False
+            or self.expected_encoding is False
+            or self.noopen_download is False
+            or self.cache_control_set is False
+            or self.csp_origin_only is False
+            or self.mime_sniffing_blocked is False
+            or self.xss_protection is False
+            or self.clickjacking_protection is False
+            or self.good_cross_domain_policy is False
+            or self.http_1_0_caching_disabled is False
+            or self.expires_set is False
+            or self.hsts_max_age is False
+        ):
+            self.grade = "C"
+        elif (
+            self.cache_control_revalidate_set is False
+            or self.cache_control_nocache_set is False
+            or self.cache_control_notransform_set is False
+            or self.cache_control_nostore_set is False
+            or self.cache_control_private_set is False
+            or self.hsts_preloaded is False
+            or self.hsts_entire_domain is False
+        ):
+            self.grade = "B"
         else:
-            self.grade = 'A'
+            self.grade = "A"
 
     def save(self, *args, **kwargs):
         self.compute_grade()
-        self.securedrop = DirectoryEntry.objects.filter(landing_page_url=self.landing_page_url).first()
+        self.securedrop = DirectoryEntry.objects.filter(
+            landing_page_url=self.landing_page_url
+        ).first()
         super(ScanResult, self).save(*args, **kwargs)

@@ -7,15 +7,32 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('directory', '0006_scanresult_no_referrer_policy_set_squashed_0007_auto_20180828_2158'),
+        (
+            "directory",
+            "0006_scanresult_no_referrer_policy_set_squashed_0007_auto_20180828_2158",
+        ),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='directoryentry',
-            name='warnings_ignored',
-            field=directory.models.entry.ChoiceArrayField(base_field=models.CharField(choices=[('no_cookies', 'Use of Cookies'), ('no_cdn', 'Use of CDN'), ('no_analytics', 'Use of Analytics'), ('subdomain', 'Subdomain'), ('referrer_policy_set_to_no_referrer', 'Referer Policy'), ('safe_onion_address', 'Links to Onion Addresses')], max_length=50), blank=True, default=[], size=None),
+            model_name="directoryentry",
+            name="warnings_ignored",
+            field=directory.models.entry.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        ("no_cookies", "Use of Cookies"),
+                        ("no_cdn", "Use of CDN"),
+                        ("no_analytics", "Use of Analytics"),
+                        ("subdomain", "Subdomain"),
+                        ("referrer_policy_set_to_no_referrer", "Referer Policy"),
+                        ("safe_onion_address", "Links to Onion Addresses"),
+                    ],
+                    max_length=50,
+                ),
+                blank=True,
+                default=[],
+                size=None,
+            ),
         ),
     ]

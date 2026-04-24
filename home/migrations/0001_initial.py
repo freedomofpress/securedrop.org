@@ -10,76 +10,188 @@ import wagtailmetadata.models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('common', '0001_initial'),
-        ('directory', '0001_initial'),
-        ('wagtailcore', '0040_page_draft_title'),
+        ("common", "0001_initial"),
+        ("directory", "0001_initial"),
+        ("wagtailcore", "0040_page_draft_title"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='DescriptionButtons',
+            name="DescriptionButtons",
             fields=[
-                ('button_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='common.Button')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
+                (
+                    "button_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="common.Button",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
             ],
             options={
-                'ordering': ['sort_order'],
-                'abstract': False,
+                "ordering": ["sort_order"],
+                "abstract": False,
             },
-            bases=('common.button', models.Model),
+            bases=("common.button", models.Model),
         ),
         migrations.CreateModel(
-            name='FeaturesButton',
+            name="FeaturesButton",
             fields=[
-                ('button_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='common.Button')),
+                (
+                    "button_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="common.Button",
+                    ),
+                ),
             ],
-            bases=('common.button',),
+            bases=("common.button",),
         ),
         migrations.CreateModel(
-            name='HomePage',
+            name="HomePage",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('description_header', models.CharField(default='Share and accept documents securely.', max_length=255)),
-                ('description', wagtail.fields.RichTextField(blank=True, null=True)),
-                ('features_header', models.CharField(default='What SecureDrop Does', max_length=255)),
-                ('instances_header', models.CharField(default='Share Documents Securely With These Organizations', max_length=255)),
-                ('instance_link_default_text', models.CharField(default='View in the directory', help_text="Text displayed linking to each instance's page in the directory.", max_length=255)),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.Page",
+                    ),
+                ),
+                (
+                    "description_header",
+                    models.CharField(
+                        default="Share and accept documents securely.", max_length=255
+                    ),
+                ),
+                ("description", wagtail.fields.RichTextField(blank=True, null=True)),
+                (
+                    "features_header",
+                    models.CharField(default="What SecureDrop Does", max_length=255),
+                ),
+                (
+                    "instances_header",
+                    models.CharField(
+                        default="Share Documents Securely With These Organizations",
+                        max_length=255,
+                    ),
+                ),
+                (
+                    "instance_link_default_text",
+                    models.CharField(
+                        default="View in the directory",
+                        help_text="Text displayed linking to each instance's page in the directory.",
+                        max_length=255,
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=(wagtailmetadata.models.MetadataMixin, 'wagtailcore.page', models.Model),
+            bases=(
+                wagtailmetadata.models.MetadataMixin,
+                "wagtailcore.page",
+                models.Model,
+            ),
         ),
         migrations.CreateModel(
-            name='HomepageFeature',
+            name="HomepageFeature",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='HomePageInstances',
+            name="HomePageInstances",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('instance', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='directory.DirectoryEntry')),
-                ('page', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='instances', to='home.HomePage')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                (
+                    "instance",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="directory.DirectoryEntry",
+                    ),
+                ),
+                (
+                    "page",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="instances",
+                        to="home.HomePage",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['sort_order'],
-                'abstract': False,
+                "ordering": ["sort_order"],
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='InstancesButton',
+            name="InstancesButton",
             fields=[
-                ('button_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='common.Button')),
-                ('page', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='instance_button', to='home.HomePage')),
+                (
+                    "button_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="common.Button",
+                    ),
+                ),
+                (
+                    "page",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="instance_button",
+                        to="home.HomePage",
+                    ),
+                ),
             ],
-            bases=('common.button',),
+            bases=("common.button",),
         ),
     ]

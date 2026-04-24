@@ -19,13 +19,13 @@ def first_block_of(blocks, type):
 def richtext_inline(value):
     "Returns HTML-formatted rich text stripped of block level elements"
     text = richtext(value)
-    return mark_safe(bleach.clean(
-        text,
-        strip=True,
-        tags={
-            'a', 'abbr', 'acronym', 'b', 'code', 'em', 'i', 'strong', 'span'
-        }
-    ))
+    return mark_safe(
+        bleach.clean(
+            text,
+            strip=True,
+            tags={"a", "abbr", "acronym", "b", "code", "em", "i", "strong", "span"},
+        )
+    )
 
 
 @register.filter
@@ -38,11 +38,13 @@ def richtext_isempty(value):
     https://github.com/wagtail/wagtail/issues/4549
     """
 
-    return any([
-        value is None,
-        value == '',
-        value == '<p></p>',
-    ])
+    return any(
+        [
+            value is None,
+            value == "",
+            value == "<p></p>",
+        ]
+    )
 
 
 @register.simple_tag
@@ -55,7 +57,7 @@ def query_transform(request, **kwargs):
 
 @register.filter
 def get_attr(obj, attribute):
-    """ Try to get an attribute from an object
+    """Try to get an attribute from an object
 
     Returns false if object does not exist
     """
@@ -71,11 +73,11 @@ def get_site_name():
 
 @register.filter
 def document_view_url(value):
-    return reverse('view_document', args=[value.id, value.filename])
+    return reverse("view_document", args=[value.id, value.filename])
 
 
 @register.simple_tag(takes_context=True)
 def get_absolute_url(context, view_name, *args, **kwargs):
-    return context['request'].build_absolute_uri(
+    return context["request"].build_absolute_uri(
         reverse(view_name, args=args, kwargs=kwargs)
     )

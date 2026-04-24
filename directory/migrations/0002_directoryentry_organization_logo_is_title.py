@@ -6,15 +6,17 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('directory', '0001_initial'),
+        ("directory", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='directoryentry',
-            name='organization_logo_is_title',
-            field=models.BooleanField(default=False, help_text='Logo will be displayed instead of the header on page. Recommended primarily for logos containing the full organization name on a white or transparent background'),
+            model_name="directoryentry",
+            name="organization_logo_is_title",
+            field=models.BooleanField(
+                default=False,
+                help_text="Logo will be displayed instead of the header on page. Recommended primarily for logos containing the full organization name on a white or transparent background",
+            ),
         ),
     ]

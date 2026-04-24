@@ -6,41 +6,46 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('directory', '0003_auto_20180425_2334'),
+        ("directory", "0003_auto_20180425_2334"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='resultstate',
+            name="resultstate",
             options={},
         ),
         migrations.AlterField(
-            model_name='country',
-            name='title',
+            model_name="country",
+            name="title",
             field=models.CharField(db_index=True, max_length=255, unique=True),
         ),
         migrations.AlterField(
-            model_name='language',
-            name='title',
+            model_name="language",
+            name="title",
             field=models.CharField(db_index=True, max_length=255, unique=True),
         ),
         migrations.AlterField(
-            model_name='topic',
-            name='title',
+            model_name="topic",
+            name="title",
             field=models.CharField(db_index=True, max_length=255, unique=True),
         ),
         migrations.AddIndex(
-            model_name='scanresult',
-            index=models.Index(fields=['result_last_seen'], name='directory_s_result__3e35e3_idx'),
+            model_name="scanresult",
+            index=models.Index(
+                fields=["result_last_seen"], name="directory_s_result__3e35e3_idx"
+            ),
         ),
         migrations.AddIndex(
-            model_name='resultstate',
-            index=models.Index(fields=['result_group'], name='directory_r_result__c102ee_idx'),
+            model_name="resultstate",
+            index=models.Index(
+                fields=["result_group"], name="directory_r_result__c102ee_idx"
+            ),
         ),
         migrations.AddIndex(
-            model_name='resultstate',
-            index=models.Index(fields=['sort_order'], name='directory_r_sort_or_720ea8_idx'),
+            model_name="resultstate",
+            index=models.Index(
+                fields=["sort_order"], name="directory_r_sort_or_720ea8_idx"
+            ),
         ),
     ]

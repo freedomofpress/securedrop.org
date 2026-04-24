@@ -17,14 +17,10 @@ class ResultGroup(ClusterableModel):
     """
 
     name = models.CharField(
-        max_length=255,
-        help_text="Will be displayed as the group heading."
+        max_length=255, help_text="Will be displayed as the group heading."
     )
 
-    panels = [
-        FieldPanel('name'),
-        InlinePanel('result_states', label='Result States')
-    ]
+    panels = [FieldPanel("name"), InlinePanel("result_states", label="Result States")]
 
     def __str__(self):
         return self.name
@@ -35,26 +31,28 @@ class ResultState(Orderable):
     Represents a field on a ScanResult. Lets Wagtail admins define how
     success and failure states for those fields are displayed
     """
+
     name = models.CharField(
-        max_length=255,
-        help_text="Must be a field in the directory.ScanResult model."
+        max_length=255, help_text="Must be a field in the directory.ScanResult model."
     )
-    result_group = ParentalKey(ResultGroup, related_name='result_states')
+    result_group = ParentalKey(ResultGroup, related_name="result_states")
     success_text = RichTextField()
     failure_text = RichTextField()
-    is_warning = models.BooleanField(help_text="If checked, will display a flag and yellow text. If left unchecked, will display an x and red text.")
+    is_warning = models.BooleanField(
+        help_text="If checked, will display a flag and yellow text. If left unchecked, will display an x and red text."
+    )
     fix_text = RichTextField(blank=True, null=True)
 
     panels = [
-        FieldPanel('name'),
-        FieldPanel('success_text'),
-        FieldPanel('failure_text'),
-        FieldPanel('is_warning'),
-        FieldPanel('fix_text'),
+        FieldPanel("name"),
+        FieldPanel("success_text"),
+        FieldPanel("failure_text"),
+        FieldPanel("is_warning"),
+        FieldPanel("fix_text"),
     ]
 
     class Meta:
         indexes = [
-            models.Index(fields=['result_group']),
-            models.Index(fields=['sort_order']),
+            models.Index(fields=["result_group"]),
+            models.Index(fields=["sort_order"]),
         ]

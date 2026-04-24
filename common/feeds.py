@@ -6,19 +6,19 @@ class MRSSFeed(Rss201rev2Feed):
 
     def rss_attributes(self):
         attrs = super(MRSSFeed, self).rss_attributes()
-        attrs['xmlns:dc'] = "http://purl.org/dc/elements/1.1/"
-        attrs['xmlns:media'] = 'http://search.yahoo.com/mrss/'
+        attrs["xmlns:dc"] = "http://purl.org/dc/elements/1.1/"
+        attrs["xmlns:media"] = "http://search.yahoo.com/mrss/"
         return attrs
 
     def add_item_elements(self, handler, item):
         super(MRSSFeed, self).add_item_elements(handler, item)
-        if 'teaser_image' in item:
+        if "teaser_image" in item:
             handler.addQuickElement(
-                'media:thumbnail',
-                '',
+                "media:thumbnail",
+                "",
                 {
-                    'url': item['teaser_image']['url'],
-                    'width': str(item['teaser_image']['width']),
-                    'height': str(item['teaser_image']['height']),
-                }
+                    "url": item["teaser_image"]["url"],
+                    "width": str(item["teaser_image"]["width"]),
+                    "height": str(item["teaser_image"]["height"]),
+                },
             )

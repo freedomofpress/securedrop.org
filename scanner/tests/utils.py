@@ -4,8 +4,8 @@ from requests.api import get
 from requests.exceptions import ConnectionError
 
 
-NON_EXISTENT_URL = 'https://notarealsite.party'
-NON_EXISTENT_URL_RE = url_re = re.compile(r'https?://(www\.)?notarealsite\.party(/.*)?')
+NON_EXISTENT_URL = "https://notarealsite.party"
+NON_EXISTENT_URL_RE = url_re = re.compile(r"https?://(www\.)?notarealsite\.party(/.*)?")
 
 
 def requests_get_mock(url, params={}, **kwargs):
@@ -18,5 +18,5 @@ def requests_get_mock(url, params={}, **kwargs):
     if NON_EXISTENT_URL_RE.fullmatch(url):
         raise ConnectionError
     else:
-        kwargs.setdefault('timeout', 5)
+        kwargs.setdefault("timeout", 5)
         return get(url, params, **kwargs)  # nosec request_without_timeout

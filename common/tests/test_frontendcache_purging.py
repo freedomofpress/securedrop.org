@@ -8,7 +8,7 @@ from common.models.settings import FooterSettings
 
 
 class FrontendCacheTestCase(TestCase):
-    @patch('common.signals.purge_all_from_cache')
+    @patch("common.signals.purge_all_from_cache")
     def test_cache_purge__publish_page(self, purge_mock):
         "Creating a new page should purge the entire zone"
         page = PageFactory.create(parent=None)
@@ -21,7 +21,7 @@ class FrontendCacheTestCase(TestCase):
         "Deleting a page should purge the entire zone"
         page = PageFactory.create(parent=None)
 
-        with patch('common.signals.purge_all_from_cache') as purge_mock:
+        with patch("common.signals.purge_all_from_cache") as purge_mock:
             page.delete()
             self.assertEqual(purge_mock.call_count, 1)
 
@@ -30,7 +30,7 @@ class FrontendCacheTestCase(TestCase):
 
         site = Site.objects.get(is_default_site=True)
         footer_settings = FooterSettings.for_site(site)
-        with patch('common.signals.purge_all_from_cache') as purge_mock:
+        with patch("common.signals.purge_all_from_cache") as purge_mock:
             footer_settings.delete()
             self.assertEqual(purge_mock.call_count, 1)
 
@@ -43,7 +43,7 @@ class FrontendCacheTestCase(TestCase):
 
         site = Site.objects.get(is_default_site=True)
         footer_settings = FooterSettings.for_site(site)
-        footer_settings.release_key = 'securekey'
-        with patch('common.signals.purge_all_from_cache') as purge_mock:
+        footer_settings.release_key = "securekey"
+        with patch("common.signals.purge_all_from_cache") as purge_mock:
             footer_settings.save()
             self.assertEqual(purge_mock.call_count, 1)

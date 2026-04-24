@@ -10,20 +10,27 @@ from .forms import SearchForm
 
 
 def search(request):
-    page = request.GET.get('page', 1)
+    page = request.GET.get("page", 1)
     form = SearchForm(request.GET)
 
     # Search
     if form.is_valid():
-        vector = F('search_vector')
-        query = SearchQuery(form.cleaned_data['query'])
-        search_results = SearchDocument.objects.annotate(
-            rank=SearchRank(vector, query),
-            search=vector,
-            description=Func(F('search_content'), query, function='TS_HEADLINE', output_field=TextField())
-        ).filter(
-            search=query
-        ).order_by('-rank')
+        vector = F("search_vector")
+        query = SearchQuery(form.cleaned_data["query"])
+        search_results = (
+            SearchDocument.objects.annotate(
+                rank=SearchRank(vector, query),
+                search=vector,
+                description=Func(
+                    F("search_content"),
+                    query,
+                    function="TS_HEADLINE",
+                    output_field=TextField(),
+                ),
+            )
+            .filter(search=query)
+            .order_by("-rank")
+        )
     else:
         search_results = SearchDocument.objects.none()
 
@@ -36,7 +43,11 @@ def search(request):
     except EmptyPage:
         search_results = paginator.page(paginator.num_pages)
 
-    return render(request, 'search/search.html', {
-        'search_query': form.cleaned_data.get('query', ''),
-        'search_results': search_results,
-    })
+    return render(
+        request,
+        "search/search.html",
+        {
+            "search_query": form.cleaned_data.get("query", ""),
+            "search_results": search_results,
+        },
+    )

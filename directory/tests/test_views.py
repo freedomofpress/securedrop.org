@@ -8,7 +8,7 @@ from directory.wagtail_hooks import ScanResultAdmin
 from scanner.tests.test_scanner import mod_vcr
 
 
-VCR_DIR = os.path.join(os.path.dirname(__file__), 'scans_vcr')
+VCR_DIR = os.path.join(os.path.dirname(__file__), "scans_vcr")
 
 
 class ManualScanTests(WagtailPageTestCase):
@@ -17,31 +17,30 @@ class ManualScanTests(WagtailPageTestCase):
         self.login()
 
         self.admin = ScanResultAdmin()
-        self.view_url = reverse('manual_scan')
+        self.view_url = reverse("manual_scan")
 
     def test_getting_the_form_succeeds(self):
         response = self.client.get(self.view_url)
         self.assertEqual(response.status_code, 200)
 
     @mod_vcr.use_cassette(
-        os.path.join(VCR_DIR, 'manual-scan.yaml'),
+        os.path.join(VCR_DIR, "manual-scan.yaml"),
         # Workaround for flickering test, see:
         # https://github.com/kevin1024/vcrpy/issues/533
         allow_playback_repeats=True,
     )
     def test_creates_new_scan_result(self):
-        landing_page_url = 'https://www.nytimes.com/tips'
+        landing_page_url = "https://www.nytimes.com/tips"
 
         response = self.client.post(
             self.view_url,
-            {'landing_page_url': landing_page_url},
+            {"landing_page_url": landing_page_url},
         )
 
         result = ScanResult.objects.get(landing_page_url=landing_page_url)
 
         self.assertEqual(response.status_code, 302)
         expected_url = reverse(
-            self.admin.get_url_name('inspect'),
-            kwargs={'pk': result.pk}
+            self.admin.get_url_name("inspect"), kwargs={"pk": result.pk}
         )
         self.assertEqual(response.url, expected_url)

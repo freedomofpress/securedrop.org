@@ -5,16 +5,16 @@ from scanner.utils import url_to_domain, extract_strings, extract_urls
 
 class URLToDomainTestCase(TestCase):
     def test_url_to_domain_strips_protocol(self):
-        url = 'https://securedrop.org'
-        self.assertEqual(url_to_domain(url), 'securedrop.org')
+        url = "https://securedrop.org"
+        self.assertEqual(url_to_domain(url), "securedrop.org")
 
     def test_url_to_domain_strips_path(self):
-        url = 'securedrop.org/path/'
-        self.assertEqual(url_to_domain(url), 'securedrop.org')
+        url = "securedrop.org/path/"
+        self.assertEqual(url_to_domain(url), "securedrop.org")
 
     def test_url_to_domain_strips_path_and_protocol(self):
-        url = 'https://securedrop.org/path/'
-        self.assertEqual(url_to_domain(url), 'securedrop.org')
+        url = "https://securedrop.org/path/"
+        self.assertEqual(url_to_domain(url), "securedrop.org")
 
 
 class StringExtractionTestCase(TestCase):
@@ -28,14 +28,14 @@ class StringExtractionTestCase(TestCase):
   })();"""
 
         expected = {
-            '2',
-            '111111',
-            '222222',
-            'script',
-            'https:',
-            'https://sb',
-            'http://b',
-            '.example.com/beacon.js',
+            "2",
+            "111111",
+            "222222",
+            "script",
+            "https:",
+            "https://sb",
+            "http://b",
+            ".example.com/beacon.js",
         }
         self.assertEqual(extract_strings(js), expected)
 
@@ -43,14 +43,18 @@ class StringExtractionTestCase(TestCase):
 class UrlExtractionTestCase(TestCase):
     def test_should_extract_urls_from_a_string(self):
         self.assertEqual(
-            extract_urls('http://www.example.com'),
-            ['http://www.example.com'],
+            extract_urls("http://www.example.com"),
+            ["http://www.example.com"],
         )
 
-        self.assertEqual(extract_urls('www.example.com, www.example2.com'),
-                         ['www.example.com', 'www.example2.com'])
+        self.assertEqual(
+            extract_urls("www.example.com, www.example2.com"),
+            ["www.example.com", "www.example2.com"],
+        )
 
-        self.assertEqual(extract_urls('.example.com'), ['example.com'])
-        self.assertEqual(extract_urls('//cdn.example.com'), ['cdn.example.com'])
-        self.assertEqual(extract_urls('//www.example.com/file.js?id='),
-                         ['www.example.com/file.js?id='])
+        self.assertEqual(extract_urls(".example.com"), ["example.com"])
+        self.assertEqual(extract_urls("//cdn.example.com"), ["cdn.example.com"])
+        self.assertEqual(
+            extract_urls("//www.example.com/file.js?id="),
+            ["www.example.com/file.js?id="],
+        )

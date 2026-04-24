@@ -13,53 +13,261 @@ import wagtailmetadata.models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('wagtailcore', '0040_page_draft_title'),
+        ("wagtailcore", "0040_page_draft_title"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='BlogIndexPage',
+            name="BlogIndexPage",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('subtitle', models.CharField(blank=True, max_length=255, null=True)),
-                ('body', wagtail.fields.StreamField((('rich_text', wagtail.blocks.RichTextBlock(icon='doc-full', label='Rich Text')), ('image', wagtail.images.blocks.ImageChooserBlock()), ('raw_html', wagtail.blocks.RawHTMLBlock())), blank=True)),
-                ('link_to_page_text', models.CharField(default='Read More', help_text='Text to display at the bottom of blog teasers that links to the blog page.', max_length=100)),
-                ('release_title', models.CharField(default='Current Release', help_text='Text to display as a title for the current release in the sidebar.', max_length=100)),
-                ('feed_limit', models.PositiveIntegerField(default=20, help_text='Maximum number of posts to be included in the syndication feed. 0 for unlimited.')),
-                ('per_page', models.PositiveIntegerField(default=8, help_text='Number of posts to display per page.')),
-                ('orphans', models.PositiveIntegerField(default=5, help_text='Minimum number of stories on the last page (if the last page is smaller, they will get added to the preceding page).')),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.Page",
+                    ),
+                ),
+                ("subtitle", models.CharField(blank=True, max_length=255, null=True)),
+                (
+                    "body",
+                    wagtail.fields.StreamField(
+                        (
+                            (
+                                "rich_text",
+                                wagtail.blocks.RichTextBlock(
+                                    icon="doc-full", label="Rich Text"
+                                ),
+                            ),
+                            ("image", wagtail.images.blocks.ImageChooserBlock()),
+                            ("raw_html", wagtail.blocks.RawHTMLBlock()),
+                        ),
+                        blank=True,
+                    ),
+                ),
+                (
+                    "link_to_page_text",
+                    models.CharField(
+                        default="Read More",
+                        help_text="Text to display at the bottom of blog teasers that links to the blog page.",
+                        max_length=100,
+                    ),
+                ),
+                (
+                    "release_title",
+                    models.CharField(
+                        default="Current Release",
+                        help_text="Text to display as a title for the current release in the sidebar.",
+                        max_length=100,
+                    ),
+                ),
+                (
+                    "feed_limit",
+                    models.PositiveIntegerField(
+                        default=20,
+                        help_text="Maximum number of posts to be included in the syndication feed. 0 for unlimited.",
+                    ),
+                ),
+                (
+                    "per_page",
+                    models.PositiveIntegerField(
+                        default=8, help_text="Number of posts to display per page."
+                    ),
+                ),
+                (
+                    "orphans",
+                    models.PositiveIntegerField(
+                        default=5,
+                        help_text="Minimum number of stories on the last page (if the last page is smaller, they will get added to the preceding page).",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=(wagtail.contrib.routable_page.models.RoutablePageMixin, wagtailmetadata.models.MetadataMixin, 'wagtailcore.page', models.Model),
+            bases=(
+                wagtail.contrib.routable_page.models.RoutablePageMixin,
+                wagtailmetadata.models.MetadataMixin,
+                "wagtailcore.page",
+                models.Model,
+            ),
         ),
         migrations.CreateModel(
-            name='BlogPage',
+            name="BlogPage",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('publication_datetime', models.DateTimeField(help_text='Past or future date of publication')),
-                ('body', wagtail.fields.StreamField((('text', wagtail.blocks.RichTextBlock()), ('code', wagtail.blocks.StructBlock((('language', wagtail.blocks.ChoiceBlock(choices=[('python', 'Python'), ('bash', 'Bash/Shell'), ('html', 'HTML'), ('css', 'CSS'), ('scss', 'SCSS'), ('json', 'JSON')])), ('code', wagtail.blocks.TextBlock())), label='Code Block')), ('image', wagtail.blocks.StructBlock((('image', wagtail.images.blocks.ImageChooserBlock()), ('alignment', wagtail.blocks.ChoiceBlock(choices=[('left', 'Left'), ('right', 'Right'), ('center', 'Center')]))))), ('raw_html', wagtail.blocks.RawHTMLBlock()), ('blockquote', wagtail.blocks.StructBlock((('text', wagtail.blocks.RichTextBlock()), ('source_text', wagtail.blocks.RichTextBlock(required=False)), ('source_url', wagtail.blocks.URLBlock(help_text='Source text will link to this url.', required=False))))), ('list', wagtail.blocks.ListBlock(wagtail.blocks.CharBlock(label='List Item'), template='common/blocks/list_block_columns.html')), ('video', wagtail.blocks.StructBlock((('video', wagtail.embeds.blocks.EmbedBlock()), ('alignment', wagtail.blocks.ChoiceBlock(choices=[('left', 'Left'), ('right', 'Right'), ('center', 'Center')]))))), ('heading_1', wagtail.blocks.StructBlock((('content', wagtail.blocks.CharBlock()),))), ('heading_2', wagtail.blocks.StructBlock((('content', wagtail.blocks.CharBlock()),))), ('heading_3', wagtail.blocks.StructBlock((('content', wagtail.blocks.CharBlock()),)))))),
-                ('teaser_text', wagtail.fields.RichTextField(blank=True, null=True)),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.Page",
+                    ),
+                ),
+                (
+                    "publication_datetime",
+                    models.DateTimeField(
+                        help_text="Past or future date of publication"
+                    ),
+                ),
+                (
+                    "body",
+                    wagtail.fields.StreamField(
+                        (
+                            ("text", wagtail.blocks.RichTextBlock()),
+                            (
+                                "code",
+                                wagtail.blocks.StructBlock(
+                                    (
+                                        (
+                                            "language",
+                                            wagtail.blocks.ChoiceBlock(
+                                                choices=[
+                                                    ("python", "Python"),
+                                                    ("bash", "Bash/Shell"),
+                                                    ("html", "HTML"),
+                                                    ("css", "CSS"),
+                                                    ("scss", "SCSS"),
+                                                    ("json", "JSON"),
+                                                ]
+                                            ),
+                                        ),
+                                        ("code", wagtail.blocks.TextBlock()),
+                                    ),
+                                    label="Code Block",
+                                ),
+                            ),
+                            (
+                                "image",
+                                wagtail.blocks.StructBlock(
+                                    (
+                                        (
+                                            "image",
+                                            wagtail.images.blocks.ImageChooserBlock(),
+                                        ),
+                                        (
+                                            "alignment",
+                                            wagtail.blocks.ChoiceBlock(
+                                                choices=[
+                                                    ("left", "Left"),
+                                                    ("right", "Right"),
+                                                    ("center", "Center"),
+                                                ]
+                                            ),
+                                        ),
+                                    )
+                                ),
+                            ),
+                            ("raw_html", wagtail.blocks.RawHTMLBlock()),
+                            (
+                                "blockquote",
+                                wagtail.blocks.StructBlock(
+                                    (
+                                        ("text", wagtail.blocks.RichTextBlock()),
+                                        (
+                                            "source_text",
+                                            wagtail.blocks.RichTextBlock(
+                                                required=False
+                                            ),
+                                        ),
+                                        (
+                                            "source_url",
+                                            wagtail.blocks.URLBlock(
+                                                help_text="Source text will link to this url.",
+                                                required=False,
+                                            ),
+                                        ),
+                                    )
+                                ),
+                            ),
+                            (
+                                "list",
+                                wagtail.blocks.ListBlock(
+                                    wagtail.blocks.CharBlock(label="List Item"),
+                                    template="common/blocks/list_block_columns.html",
+                                ),
+                            ),
+                            (
+                                "video",
+                                wagtail.blocks.StructBlock(
+                                    (
+                                        ("video", wagtail.embeds.blocks.EmbedBlock()),
+                                        (
+                                            "alignment",
+                                            wagtail.blocks.ChoiceBlock(
+                                                choices=[
+                                                    ("left", "Left"),
+                                                    ("right", "Right"),
+                                                    ("center", "Center"),
+                                                ]
+                                            ),
+                                        ),
+                                    )
+                                ),
+                            ),
+                            (
+                                "heading_1",
+                                wagtail.blocks.StructBlock(
+                                    (("content", wagtail.blocks.CharBlock()),)
+                                ),
+                            ),
+                            (
+                                "heading_2",
+                                wagtail.blocks.StructBlock(
+                                    (("content", wagtail.blocks.CharBlock()),)
+                                ),
+                            ),
+                            (
+                                "heading_3",
+                                wagtail.blocks.StructBlock(
+                                    (("content", wagtail.blocks.CharBlock()),)
+                                ),
+                            ),
+                        )
+                    ),
+                ),
+                ("teaser_text", wagtail.fields.RichTextField(blank=True, null=True)),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=(wagtailmetadata.models.MetadataMixin, 'wagtailcore.page', models.Model),
+            bases=(
+                wagtailmetadata.models.MetadataMixin,
+                "wagtailcore.page",
+                models.Model,
+            ),
         ),
         migrations.CreateModel(
-            name='CategoryPage',
+            name="CategoryPage",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('description', wagtail.fields.RichTextField(blank=True, null=True)),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.Page",
+                    ),
+                ),
+                ("description", wagtail.fields.RichTextField(blank=True, null=True)),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=(wagtailmetadata.models.MetadataMixin, 'wagtailcore.page', models.Model),
+            bases=(
+                wagtailmetadata.models.MetadataMixin,
+                "wagtailcore.page",
+                models.Model,
+            ),
         ),
     ]

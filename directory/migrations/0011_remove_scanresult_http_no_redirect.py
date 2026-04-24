@@ -6,14 +6,13 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('directory', '0010_scanresult_no_cross_domain_redirects'),
+        ("directory", "0010_scanresult_no_cross_domain_redirects"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='scanresult',
-            name='http_no_redirect',
+            model_name="scanresult",
+            name="http_no_redirect",
         ),
     ]

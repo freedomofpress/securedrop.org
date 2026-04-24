@@ -6,31 +6,37 @@ import wagtail.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('common', '0003_customimage_file_hash'),
-        ('forms', '0002_auto_20190219_1839'),
+        ("common", "0003_customimage_file_hash"),
+        ("forms", "0002_auto_20190219_1839"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='formfield',
-            name='image',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='common.CustomImage'),
+            model_name="formfield",
+            name="image",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="common.CustomImage",
+            ),
         ),
         migrations.AddField(
-            model_name='formfield',
-            name='image_caption',
+            model_name="formfield",
+            name="image_caption",
             field=wagtail.fields.RichTextField(blank=True, null=True),
         ),
         migrations.AddField(
-            model_name='formfield',
-            name='image_link_text',
-            field=models.CharField(blank=True, default='Show Image', max_length=50, null=True),
+            model_name="formfield",
+            name="image_link_text",
+            field=models.CharField(
+                blank=True, default="Show Image", max_length=50, null=True
+            ),
         ),
         migrations.AddField(
-            model_name='formfield',
-            name='show_image_thumbnail',
+            model_name="formfield",
+            name="show_image_thumbnail",
             field=models.BooleanField(default=False),
         ),
     ]

@@ -14,7 +14,7 @@ class ReleaseFactory(DjangoModelFactory):
     class Meta:
         model = Release
 
-    url = Faker('url')
+    url = Faker("url")
     tag_name = LazyAttributeSequence(
         lambda o, n: "{year}.{n}".format(year=o.date.year, n=n)
     )

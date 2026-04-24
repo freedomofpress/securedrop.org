@@ -11,15 +11,12 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
-            '-o',
-            '--output',
-            dest='output',
-            type=argparse.FileType('w')
+            "-o", "--output", dest="output", type=argparse.FileType("w")
         )
 
     def handle(self, *args, **options):
-        if options['output'] is not None:
-            stream = options['output']
+        if options["output"] is not None:
+            stream = options["output"]
         else:
             stream = self.stdout
         entries = DirectoryEntry.objects.all()

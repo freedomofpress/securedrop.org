@@ -15,13 +15,13 @@ class Release(models.Model):
     date = models.DateTimeField(blank=False, null=False)
 
     panels = [
-        FieldPanel('url'),
-        FieldPanel('tag_name'),
-        FieldPanel('date'),
+        FieldPanel("url"),
+        FieldPanel("tag_name"),
+        FieldPanel("date"),
     ]
 
     def __str__(self):
-        return '{} released at {} ({})'.format(
+        return "{} released at {} ({})".format(
             self.tag_name,
             self.date,
             self.url,

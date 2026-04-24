@@ -15,7 +15,6 @@ from search.models import SearchDocument
 
 
 class WagtailTestCase(TestCase):
-
     def setUp(self):
         self.root_page = Page.add_root(instance=Page(title="Root"))
         self.page = HomePageFactory.build()
@@ -27,21 +26,19 @@ class WagtailTestCase(TestCase):
 
         # Assert that a search document was created
         self.assertEqual(
-            SearchDocument.objects.filter(key=KEY_FORMAT.format(page.pk)).count(),
-            1
+            SearchDocument.objects.filter(key=KEY_FORMAT.format(page.pk)).count(), 1
         )
 
     def test_non_routable_wagtail_page(self):
         # Wagtail can only route a page if it starts with the same
         # path as Site.root_page.url, which in the case of this test
         # is '/', so the non-routable URL should not start with '/'.
-        page = HomePageFactory.build(path='non_root_route')
+        page = HomePageFactory.build(path="non_root_route")
         index_wagtail_page(page)
 
         # Document should not be created nor errors raised
         self.assertEqual(
-            SearchDocument.objects.filter(key=KEY_FORMAT.format(page.pk)).count(),
-            0
+            SearchDocument.objects.filter(key=KEY_FORMAT.format(page.pk)).count(), 0
         )
 
     def test_index_wagtail_page_signal(self):
@@ -50,8 +47,7 @@ class WagtailTestCase(TestCase):
         page.get_latest_revision().publish()  # trigger page_published signal
         # Assert that a search document was created
         self.assertEqual(
-            SearchDocument.objects.filter(key=KEY_FORMAT.format(page.pk)).count(),
-            1
+            SearchDocument.objects.filter(key=KEY_FORMAT.format(page.pk)).count(), 1
         )
 
     def test_unindex_wagtail_page(self):
@@ -60,8 +56,7 @@ class WagtailTestCase(TestCase):
         delete_wagtail_page(page)
         # Assert that previously created search document was deleted
         self.assertEqual(
-            SearchDocument.objects.filter(key=KEY_FORMAT.format(page.pk)).count(),
-            0
+            SearchDocument.objects.filter(key=KEY_FORMAT.format(page.pk)).count(), 0
         )
 
     def test_unindex_wagtail_page_signal(self):
@@ -70,8 +65,7 @@ class WagtailTestCase(TestCase):
         page.delete()
         # Assert that previously created search document was deleted
         self.assertEqual(
-            SearchDocument.objects.filter(key=KEY_FORMAT.format(page.pk)).count(),
-            0
+            SearchDocument.objects.filter(key=KEY_FORMAT.format(page.pk)).count(), 0
         )
 
     def test_delete_unindexed_page(self):
@@ -87,8 +81,7 @@ class WagtailTestCase(TestCase):
         except Exception as e:
             self.fail(
                 'delete_wagtail_page raised an exception {} ("{}")'.format(
-                    type(e).__name__,
-                    e.args[0]
+                    type(e).__name__, e.args[0]
                 )
             )
 
@@ -96,13 +89,12 @@ class WagtailTestCase(TestCase):
         blog_index = BlogIndexPageFactory(
             parent=self.page,
             title="News",
-            body=[('rich_text', RichText('hello world'))],
+            body=[("rich_text", RichText("hello world"))],
         )
         index_wagtail_page(blog_index)
 
         self.assertEqual(
-            SearchDocument.objects.filter(search_vector='hello').count(),
-            1
+            SearchDocument.objects.filter(search_vector="hello").count(), 1
         )
 
         self.assertEqual(

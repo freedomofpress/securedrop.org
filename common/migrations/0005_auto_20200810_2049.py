@@ -5,25 +5,35 @@ import wagtail.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('common', '0004_auto_20200624_1553'),
+        ("common", "0004_auto_20200624_1553"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='toralertsettings',
-            name='mobile_body',
-            field=wagtail.fields.RichTextField(blank=True, help_text='Body text for the alert box displayed to users of mobile browsers'),
+            model_name="toralertsettings",
+            name="mobile_body",
+            field=wagtail.fields.RichTextField(
+                blank=True,
+                help_text="Body text for the alert box displayed to users of mobile browsers",
+            ),
         ),
         migrations.AddField(
-            model_name='toralertsettings',
-            name='mobile_subtitle',
-            field=models.CharField(blank=True, help_text='Subtitle of alert box displayed to users of mobile browsers', max_length=255),
+            model_name="toralertsettings",
+            name="mobile_subtitle",
+            field=models.CharField(
+                blank=True,
+                help_text="Subtitle of alert box displayed to users of mobile browsers",
+                max_length=255,
+            ),
         ),
         migrations.AddField(
-            model_name='toralertsettings',
-            name='mobile_title',
-            field=models.CharField(blank=True, help_text='Title of alert box displayed to users of mobile browsers', max_length=255),
+            model_name="toralertsettings",
+            name="mobile_title",
+            field=models.CharField(
+                blank=True,
+                help_text="Title of alert box displayed to users of mobile browsers",
+                max_length=255,
+            ),
         ),
     ]
