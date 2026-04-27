@@ -1,37 +1,37 @@
 repos:
--   repo: https://gitlab.com/vojko.pribudic.foss/pre-commit-update
+  - repo: https://gitlab.com/vojko.pribudic.foss/pre-commit-update
     rev: v0.9.0
     hooks:
-    -   id: pre-commit-update
+      - id: pre-commit-update
 
--   repo: https://github.com/adamchainz/django-upgrade
+  - repo: https://github.com/adamchainz/django-upgrade
     rev: 1.30.0
     hooks:
-    -   id: django-upgrade
+      - id: django-upgrade
         args: [--target-version, '5.2']
 
--   repo: https://github.com/pre-commit/pre-commit-hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:
-    -   id: end-of-file-fixer
+      - id: end-of-file-fixer
         name: Enforce end of file format
         exclude: '\.svg$|blog/static/pdf.js/build/.+\.js'
 
-    -   id: trailing-whitespace
+      - id: trailing-whitespace
         name: Enforce removal of trailing whitespace
 
-    -   id: mixed-line-ending
+      - id: mixed-line-ending
         args: [--fix=lf]
 
-    -   id: fix-byte-order-marker
+      - id: fix-byte-order-marker
 
-    -   id: check-json
-    -   id: check-toml
-    -   id: check-yaml
+      - id: check-json
+      - id: check-toml
+      - id: check-yaml
 
--   repo: https://github.com/astral-sh/ruff-pre-commit
+  - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.15.12
     hooks:
-    -   id: ruff-check
+      - id: ruff-check
         args: [--fix]
-    -   id: ruff-format
+      - id: ruff-format
