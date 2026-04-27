@@ -9,6 +9,7 @@ from rest_framework.routers import DefaultRouter, APIRootView
 from django.utils.decorators import classonlymethod
 from django.views.decorators.csrf import csrf_exempt
 
+
 def csp_fixes(view):
     CSP_REPLACEMENTS = {
         'script-src': (
