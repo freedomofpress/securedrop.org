@@ -1,6 +1,7 @@
 "CSP compatible variations on DRF classes"
 from functools import update_wrapper
 
+from csp.constants import SELF, UNSAFE_INLINE
 from csp.decorators import csp_update, csp_replace
 from django.utils.decorators import method_decorator
 from rest_framework.routers import DefaultRouter, APIRootView
@@ -11,14 +12,14 @@ from django.views.decorators.csrf import csrf_exempt
 
 def csp_fixes(view):
     CSP_REPLACEMENTS = {
-        'SCRIPT_SRC': (
-            "'self'",
-            "'unsafe-inline'",
+        'script-src': (
+            SELF,
+            UNSAFE_INLINE,
         ),
     }
 
     CSP_ADDITIONS = {
-        'STYLE_SRC': (
+        'style-src': (
             # float: left
             "'sha256-e+Z0n8P0IwqIce2RMye3/p5TaNb2k/QdJT4urKCsrwk='",
             # clear: both
@@ -26,8 +27,8 @@ def csp_fixes(view):
         ),
     }
 
-    view = csp_replace(**CSP_REPLACEMENTS)(view)
-    view = csp_update(**CSP_ADDITIONS)(view)
+    view = csp_replace(CSP_REPLACEMENTS)(view)
+    view = csp_update(CSP_ADDITIONS)(view)
     return view
 
 

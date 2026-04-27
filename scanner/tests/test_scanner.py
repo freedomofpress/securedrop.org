@@ -1,10 +1,9 @@
 import os
 import re
 from unittest import mock
-from datetime import datetime
+from datetime import datetime, timezone
 
 from django.test import TestCase
-from django.utils.timezone import utc
 import vcr
 
 from scanner import scanner
@@ -23,7 +22,7 @@ VCR_DIR = os.path.join(os.path.dirname(__file__), 'scans_vcr')
 def long_lasting_cookies(response):
     """modify a HTTP response to extend cookie lifetime"""
     if 'Set-Cookie' in response['headers']:
-        timestamp = datetime(2032, 10, 31, 13, 14, 15, tzinfo=utc)
+        timestamp = datetime(2032, 10, 31, 13, 14, 15, tzinfo=timezone.utc)
         updated_expiry = re.sub(r'(expires=)([\w, -:]+)', r'\1{}'.format(timestamp.strftime("%a, %d-%b-%y %H:%M:%S %Z")), response['headers']['Set-Cookie'][0])
         response['headers']['Set-Cookie'] = [updated_expiry]
     return response

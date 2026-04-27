@@ -5,6 +5,12 @@ repos:
     hooks:
       - id: pre-commit-update
 
+  - repo: https://github.com/adamchainz/django-upgrade
+    rev: 1.30.0
+    hooks:
+      - id: django-upgrade
+        args: [--target-version, '5.2']
+
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v6.0.0
     hooks:

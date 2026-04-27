@@ -116,7 +116,7 @@ MEDIA_URL = os.environ.get('DJANGO_MEDIA_URL', '/media/')
 #
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ['DJANGO_DB_NAME'],
         'USER': os.environ['DJANGO_DB_USER'],
         'PASSWORD': os.environ['DJANGO_DB_PASSWORD'],
@@ -162,9 +162,23 @@ if os.environ.get('GS_BUCKET_NAME'):
     GS_STATIC_PATH = os.environ.get('GS_STATIC_PATH', 'static')
     GS_FILE_OVERWRITE = os.environ.get('GS_FILE_OVERWRITE') == 'True'
 
-    DEFAULT_FILE_STORAGE = 'common.storage.MediaStorage'
+    STORAGES["default"] = {  # noqa: F405
+        "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
+        "OPTIONS": {
+            'location': GS_MEDIA_PATH,
+            'default_acl': 'publicRead',
+        }
+    }
+
     if 'GS_STORE_STATIC' in os.environ:
-        STATICFILES_STORAGE = 'common.storage.StaticStorage'
+        STORAGES['staticfiles'] = {  # noqa: F405
+            "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
+            "OPTIONS": {
+                'location': GS_STATIC_PATH,
+                'default_acl': 'publicRead',
+            },
+        }
+
 else:
     MEDIA_ROOT = os.environ['DJANGO_MEDIA_ROOT']
 

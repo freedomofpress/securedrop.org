@@ -133,14 +133,20 @@ def get_default_gateway_linux():
 
 
 if settings.DEBUG:
-    DEBUG_TOOLBAR_CONFIG = {
-        'JQUERY_URL': STATIC_URL + 'debug/jquery.js',  # noqa: F405
-    }
-
     # Obtain the default gateway from docker, needed for
     # debug toolbar whitelisting
     INTERNAL_IPS = [get_default_gateway_linux()]
-    INSTALLED_APPS.append('debug_toolbar')  # noqa: F405
     INSTALLED_APPS.append('debug')  # noqa: F405
-    # Needs to be injected relatively early in the MIDDLEWARE list
-    MIDDLEWARE.insert(4, 'debug_toolbar.middleware.DebugToolbarMiddleware')  # noqa: F405
+
+if ENABLE_DEBUG_TOOLBAR:  # noqa: F405
+    INSTALLED_APPS += [  # noqa: F405
+        'debug_toolbar',
+    ]
+
+    MIDDLEWARE += [  # noqa: F405
+        'debug_toolbar.middleware.DebugToolbarMiddleware',
+    ]
+
+    DEBUG_TOOLBAR_CONFIG = {
+        'JQUERY_URL': STATIC_URL + 'debug/jquery.js',  # noqa: F405
+    }
