@@ -225,6 +225,7 @@ WAGTAILSEARCH_BACKENDS = {
 }
 
 # Wagtail settings
+WAGTAIL_GRAVATAR_PROVIDER_URL = None
 
 WAGTAIL_SITE_NAME = "securedrop"
 
