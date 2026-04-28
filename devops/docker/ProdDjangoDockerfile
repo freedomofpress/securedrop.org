@@ -81,5 +81,5 @@ RUN tldextract --update
 RUN /django/devops/scripts/version-file.sh
 
 # since no django env is specified, runs in dev; disable DEBUG
-RUN env DJANGO_DISABLE_DEBUG=1 ./manage.py collectstatic -c --noinput
+RUN env DJANGO_WHITENOISE=1 DJANGO_DISABLE_DEBUG=1 ./manage.py collectstatic -c --noinput
 CMD django-start.sh
