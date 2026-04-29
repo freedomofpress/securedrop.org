@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 from __future__ import absolute_import, unicode_literals
 
+from csp.constants import SELF, UNSAFE_EVAL, UNSAFE_HASHES
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 
@@ -91,9 +93,21 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
 ]
 
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
+
 # Must be directly after SecurityMiddleware
 if os.environ.get('DJANGO_WHITENOISE'):
     MIDDLEWARE.append('whitenoise.middleware.WhiteNoiseMiddleware')
+    STORAGES["staticfiles"] = {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    }
 
 MIDDLEWARE.extend([
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
@@ -102,6 +116,10 @@ MIDDLEWARE.extend([
     'csp.middleware.CSPMiddleware',
 ])
 
+if os.getenv('ENABLE_DEBUG_TOOLBAR'):
+    ENABLE_DEBUG_TOOLBAR = True
+else:
+    ENABLE_DEBUG_TOOLBAR = False
 
 # Django HTTP settings
 
@@ -149,7 +167,7 @@ WSGI_APPLICATION = 'securedrop.wsgi.application'
 if 'DJANGO_DB_HOST' in os.environ:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'ENGINE': 'django.db.backends.postgresql',
             'NAME': os.environ['DJANGO_DB_NAME'],
             'USER': os.environ['DJANGO_DB_USER'],
             'PASSWORD': os.environ['DJANGO_DB_PASSWORD'],
@@ -166,7 +184,6 @@ else:
         }
     }
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
@@ -176,7 +193,6 @@ TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
-USE_L10N = True
 
 USE_TZ = True
 
@@ -209,6 +225,7 @@ WAGTAILSEARCH_BACKENDS = {
 }
 
 # Wagtail settings
+WAGTAIL_GRAVATAR_PROVIDER_URL = None
 
 WAGTAIL_SITE_NAME = "securedrop"
 
@@ -280,57 +297,45 @@ SOCIALACCOUNT_EMAIL_REQUIRED = True
 # #9 and #10 hashes needed for inline style for modernizr on admin page
 # #11 needed for wagtail admin
 
-CSP_DEFAULT_SRC = ("'self'",)
-CSP_BASE_URI = ("'self'",)
-CSP_FORM_ACTION = ("'self'",)
-CSP_FRAME_ANCESTORS = ("'self'",)
-CSP_SCRIPT_SRC = (
-    "'self'",
-    "'unsafe-eval'",
-    "analytics.freedom.press",
-)
-CSP_STYLE_SRC = (
-    "'self'",
-    "'sha256-ZdHxw9eWtnxUb3mk6tBS+gIiVUPE3pGM470keHPDFlE='",
-)
-CSP_STYLE_SRC_ATTR = (
-    "'self'",
-    "'unsafe-hashes'",
-    "'sha256-ZdHxw9eWtnxUb3mk6tBS+gIiVUPE3pGM470keHPDFlE='",
-    "'sha256-RjGXttEfn3lP8F5dx3vtPdu6djlmub1vrGRYYEoYmk0='",
-)
-CSP_CONNECT_SRC = [
-    "'self'",
-    "analytics.freedom.press",
-]
-CSP_EXCLUDE_URL_PREFIXES = ("/admin", )
-
-# Need to be lists for now so that CSP configuration can add to them.
-# This should be reverted after testing.
-CSP_IMG_SRC = [
-    "'self'",
-    "analytics.freedom.press",
-]
-CSP_OBJECT_SRC = ["'self'"]
-CSP_FRAME_SRC = ["'self'"]
-CSP_MEDIA_SRC = ["'self'"]
-
-# This will be used to evaluate Google Storage media support in staging
-if os.environ.get("DJANGO_CSP_IMG_HOSTS"):
-    CSP_IMG_SRC.extend(os.environ["DJANGO_CSP_IMG_HOSTS"].split())
-    CSP_MEDIA_SRC.extend(os.environ["DJANGO_CSP_IMG_HOSTS"].split())
-
-# There are also PDF <embeds> in some news posts, so rather than adding to
-# default-src, set an explicit object-source
-if os.environ.get("DJANGO_CSP_OBJ_HOSTS"):
-    CSP_OBJECT_SRC.extend(os.environ["DJANGO_CSP_OBJ_HOSTS"].split())
-    CSP_FRAME_SRC.extend(os.environ["DJANGO_CSP_OBJ_HOSTS"].split())
-    CSP_CONNECT_SRC.extend(os.environ["DJANGO_CSP_OBJ_HOSTS"].split())
-
 # Report URI must be a string, not a tuple.
 CSP_REPORT_URI = os.environ.get('DJANGO_CSP_REPORT_URI',
                                 'https://freedomofpress.report-uri.com/r/d/csp/enforce')
 
+CONTENT_SECURITY_POLICY = {
+    "EXCLUDE_URL_PREFIXES": ["/admin"],
+    "DIRECTIVES": {
+        "report-uri": CSP_REPORT_URI,
+        "default-src": [SELF],
+        "base-uri": [SELF],
+        "form-action": [SELF],
+        "frame-ancestors": [SELF],
+        "script-src": [SELF, UNSAFE_EVAL, "analytics.freedom.press"],
+        "style-src": [SELF, "'sha256-ZdHxw9eWtnxUb3mk6tBS+gIiVUPE3pGM470keHPDFlE='"],
+        "connect-src": [SELF, "analytics.freedom.press"],
+        "img-src": [SELF, "analytics.freedom.press"],
+        "object-src": [SELF],
+        "frame-src": [SELF],
+        "media-src": [SELF],
+        "style-src-attr": [
+            SELF,
+            UNSAFE_HASHES,
+            "'sha256-ZdHxw9eWtnxUb3mk6tBS+gIiVUPE3pGM470keHPDFlE='",
+            "'sha256-RjGXttEfn3lP8F5dx3vtPdu6djlmub1vrGRYYEoYmk0='",
+        ],
+    }
+}
+
+# This will be used to evaluate Google Storage media support in staging
+if os.environ.get("DJANGO_CSP_IMG_HOSTS"):
+    CONTENT_SECURITY_POLICY["DIRECTIVES"]["img-src"].extend(os.environ["DJANGO_CSP_IMG_HOSTS"].split())
+    CONTENT_SECURITY_POLICY["DIRECTIVES"]["media-src"].extend(os.environ["DJANGO_CSP_IMG_HOSTS"].split())
+
+# There are also PDF <embeds> in some news posts, so rather than adding to
+# default-src, set an explicit object-source
+if os.environ.get("DJANGO_CSP_OBJ_HOSTS"):
+    CONTENT_SECURITY_POLICY["DIRECTIVES"]["object-src"].extend(os.environ["DJANGO_CSP_OBJ_HOSTS"].split())
+    CONTENT_SECURITY_POLICY["DIRECTIVES"]["frame-src"].extend(os.environ["DJANGO_CSP_OBJ_HOSTS"].split())
+    CONTENT_SECURITY_POLICY["DIRECTIVES"]["connect-src"].extend(os.environ["DJANGO_CSP_OBJ_HOSTS"].split())
 
 # Logging
 #

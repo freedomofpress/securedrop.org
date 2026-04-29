@@ -47,11 +47,10 @@ class TestReceiveHook(TestCase):
             reverse('github:receive-hook'),
             data=payload,
             content_type='application/json',
-            HTTP_X_GITHUB_EVENT=kwargs.get('github_event', 'release'),
-            HTTP_X_HUB_SIGNATURE=kwargs.get(
+            headers={"x-github-event": kwargs.get('github_event', 'release'), "x-hub-signature": kwargs.get(
                 'signature',
                 'sha1={}'.format(mac.hexdigest())
-            ),
+            )}
         )
 
     def setUp(self):
@@ -97,7 +96,7 @@ class TestReceiveHook(TestCase):
             reverse('github:receive-hook'),
             data='',
             content_type='application/json',
-            HTTP_X_GITHUB_EVENT='release',
+            headers={"x-github-event": 'release'}
         )
         self.assertEqual(Release.objects.count(), 0)
 

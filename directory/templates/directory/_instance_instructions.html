@@ -33,7 +33,7 @@
 			{% endblocktrans %}
 		{% elif settings.directory.DirectorySettings.contact_gpg %}
 			{% blocktrans with contact_email=settings.directory.DirectorySettings.contact_email contact_email_escaped=settings.directory.DirectorySettings.contact_email|escape contact_gpg=settings.directory.DirectorySettings.contact_gpg.url %}
-				Let us know at  
+				Let us know at
 				<a href="mailto:{{ contact_email_escaped }}">{{ contact_email }}</a>
 				(<a href="{{ contact_gpg }}">GPG</a>), and we will investigate the discrepancy.
 			{% endblocktrans %}

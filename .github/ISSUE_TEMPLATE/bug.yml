@@ -1,9 +1,9 @@
 name: Bug Report
 description: Something is broken or behaving incorrectly on the website.
-labels: ["triage", "bug"]
-projects: ["freedomofpress/24"]
+labels: ['triage', 'bug']
+projects: ['freedomofpress/24']
 assignees:
-  - harrislapiroff  # Assign it to Harris off the bat for triage
+  - harrislapiroff # Assign it to Harris off the bat for triage
 body:
   - type: markdown
     attributes:

@@ -5,7 +5,7 @@ services:
   postgresql:
     image: postgres:14
     ports:
-      - "5432:5432"
+      - '5432:5432'
     volumes:
       - ./:/django:ro
     environment:
@@ -51,15 +51,16 @@ services:
       DJANGO_DB_NAME: securedropdb
       DJANGO_DB_PORT: 5432
       DJANGO_DB_HOST: db
-      DJANGO_XMLTEST_OUTPUT: "yes"
+      DJANGO_XMLTEST_OUTPUT: 'yes'
       DEPLOY_ENV: dev
       DJANGO_ONION_HOSTNAME: secrdrop5wyphb5x.onion
+      ENABLE_DEBUG_TOOLBAR:
     working_dir: /django
     userns_mode: keep-id
     volumes:
       - ./:/django:z
     ports:
-      - "127.0.0.1:8000:8000"
+      - '127.0.0.1:8000:8000'
     networks:
       app:
         aliases:
