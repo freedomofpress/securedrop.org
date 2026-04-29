@@ -1,7 +1,7 @@
 import os
 import re
 from unittest import mock
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 from django.test import TestCase
 import vcr
@@ -12,7 +12,7 @@ from scanner.tests.utils import (
     NON_EXISTENT_URL,
     requests_get_mock,
 )
-from directory.models import DirectoryEntry
+from directory.models import DirectoryEntry, ScanResult
 from directory.tests.factories import DirectoryEntryFactory
 
 
@@ -314,6 +314,43 @@ class ScannerTest(TestCase):
             self.assertEqual(
                 1, page.results.count()
             )
+
+    @mock.patch('scanner.scanner.perform_scan')
+    def test_bulk_scan_duplicate_result(self, mock_perform_scan):
+        entry = DirectoryEntryFactory.create(
+            title='News Org',
+            landing_page_url='https://newsorg.org',
+            onion_address='notreal.onion'
+        )
+
+        old_result = ScanResult.objects.create(
+            securedrop=entry,
+            landing_page_url=entry.landing_page_url,
+            redirect_target=None,
+            live=True,
+        )
+
+        # Update the last seen time, needed to evade
+        # `auto_now_add=True` on this field.
+        old_result.result_last_seen = (
+            datetime.now(timezone.utc) - timedelta(days=1)
+        )
+        old_result.save()
+
+        # Must match old result's fields.
+        mock_perform_scan.return_value = ScanResult(
+            landing_page_url=entry.landing_page_url,
+            redirect_target=None,
+            live=True,
+        )
+        securedrop_pages_qs = DirectoryEntry.objects.all()
+        scanner.bulk_scan(securedrop_pages_qs)
+
+        old_result.refresh_from_db()
+        self.assertTrue(
+            datetime.now(timezone.utc) - old_result.result_last_seen
+            < timedelta(seconds=10),
+        )
 
     @mod_vcr.use_cassette(os.path.join(VCR_DIR, 'bulk-scan-error-handling.yaml'))
     def test_bulk_scan_error_handling(self):

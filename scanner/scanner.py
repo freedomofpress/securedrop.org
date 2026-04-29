@@ -8,7 +8,7 @@ from typing import TYPE_CHECKING, Tuple, Dict, List
 
 import tldextract
 
-from datetime import timezone
+from datetime import datetime, timezone
 
 from directory.models import ScanResult, DirectoryEntry
 from scanner.utils import HEADERS
@@ -110,7 +110,7 @@ def bulk_scan(securedrops: 'DirectoryEntryQuerySet') -> None:
 
         if prior_result.is_equal_to(current_result):
             # Then let's not waste a row in the database
-            prior_result.result_last_seen = timezone.now()
+            prior_result.result_last_seen = datetime.now(timezone.utc)
             prior_result.save()
         else:
             # Then let's add this new scan result to the database
