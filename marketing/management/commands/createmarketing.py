@@ -8,11 +8,11 @@ from marketing.tests.factories import FeaturePageFactory, OrderedFeaturesFactory
 
 
 class Command(BaseCommand):
-    help = 'Creates marketing data appropriate for development'
+    help = "Creates marketing data appropriate for development"
 
     @transaction.atomic
     def handle(self, *args, **options):
-        home_page = HomePage.objects.get(slug='home')
+        home_page = HomePage.objects.get(slug="home")
 
         marketing_index = MarketingIndexPage.objects.first()
 
@@ -27,5 +27,5 @@ class Command(BaseCommand):
         FeaturesButtonFactory(
             page=home_page,
             link=marketing_index,
-            text='Learn more about SecureDrop',
+            text="Learn more about SecureDrop",
         )

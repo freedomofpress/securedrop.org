@@ -4,14 +4,13 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('directory', '0027_update_warning_choice_help_text_and_length'),
+        ("directory", "0027_update_warning_choice_help_text_and_length"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='directorysettings',
-            name='allow_directory_management',
+            model_name="directorysettings",
+            name="allow_directory_management",
         ),
     ]

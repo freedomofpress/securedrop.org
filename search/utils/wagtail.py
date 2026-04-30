@@ -2,7 +2,7 @@ from search.models import SearchDocument
 from search.utils.search_elements import SearchElements
 
 
-KEY_FORMAT = 'wagtail-page-{}'
+KEY_FORMAT = "wagtail-page-{}"
 
 
 def index_wagtail_page(page):
@@ -25,21 +25,25 @@ def index_wagtail_page(page):
         return
 
     # Get search content from page instance
-    search_elements = page.get_search_content() if hasattr(page, 'get_search_content') else SearchElements()
+    search_elements = (
+        page.get_search_content()
+        if hasattr(page, "get_search_content")
+        else SearchElements()
+    )
 
     # Create a new SearchDocument
     document_key = KEY_FORMAT.format(page.pk)
     result = SearchDocument.objects.update_or_create(
         {
-            'title': page.title,
-            'url': page.full_url,
-            'search_content': search_elements.as_string(),
-            'search_vector': search_elements.as_search_vector(),
-            'data': {},
-            'result_type': 'W',
-            'key': document_key,
+            "title": page.title,
+            "url": page.full_url,
+            "search_content": search_elements.as_string(),
+            "search_vector": search_elements.as_search_vector(),
+            "data": {},
+            "result_type": "W",
+            "key": document_key,
         },
-        key=document_key
+        key=document_key,
     )
 
     return result

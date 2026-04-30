@@ -14,7 +14,7 @@ from scanner.assets import (
 
 class AssetExtractionTestCase(TestCase):
     def setUp(self):
-        self.test_url = 'http://www.example.com'
+        self.test_url = "http://www.example.com"
 
     def test_should_extract_images(self):
         html = """
@@ -23,7 +23,7 @@ class AssetExtractionTestCase(TestCase):
         soup = BeautifulSoup(html, "lxml")
 
         self.assertEqual(
-            [Asset(resource='image.jpg', kind='img-src', initiator=self.test_url)],
+            [Asset(resource="image.jpg", kind="img-src", initiator=self.test_url)],
             extract_assets(soup, self.test_url),
         )
 
@@ -37,18 +37,18 @@ class AssetExtractionTestCase(TestCase):
         self.assertEqual(
             [
                 Asset(
-                    resource='image-320w.jpg',
-                    kind='img-srcset',
+                    resource="image-320w.jpg",
+                    kind="img-srcset",
                     initiator=self.test_url,
                 ),
                 Asset(
-                    resource='image-480w.jpg',
-                    kind='img-srcset',
+                    resource="image-480w.jpg",
+                    kind="img-srcset",
                     initiator=self.test_url,
                 ),
                 Asset(
-                    resource='image-800w.jpg',
-                    kind='img-srcset',
+                    resource="image-800w.jpg",
+                    kind="img-srcset",
                     initiator=self.test_url,
                 ),
             ],
@@ -67,10 +67,10 @@ class AssetExtractionTestCase(TestCase):
         self.assertEqual(
             [
                 Asset(
-                    resource='video.webm', kind='source-src', initiator=self.test_url
+                    resource="video.webm", kind="source-src", initiator=self.test_url
                 ),
-                Asset(resource='video.ogg', kind='source-src', initiator=self.test_url),
-                Asset(resource='video.mov', kind='source-src', initiator=self.test_url),
+                Asset(resource="video.ogg", kind="source-src", initiator=self.test_url),
+                Asset(resource="video.mov", kind="source-src", initiator=self.test_url),
             ],
             extract_assets(soup, self.test_url),
         )
@@ -80,7 +80,7 @@ class AssetExtractionTestCase(TestCase):
         """
         soup = BeautifulSoup(html, "lxml")
         self.assertEqual(
-            [Asset(resource='movie.mov', kind='embed-src', initiator=self.test_url)],
+            [Asset(resource="movie.mov", kind="embed-src", initiator=self.test_url)],
             extract_assets(soup, self.test_url),
         )
 
@@ -95,13 +95,13 @@ class AssetExtractionTestCase(TestCase):
         self.assertEqual(
             [
                 Asset(
-                    resource='https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4',
-                    kind='video-src',
+                    resource="https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4",
+                    kind="video-src",
                     initiator=self.test_url,
                 ),
                 Asset(
-                    resource='https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217',
-                    kind='video-poster',
+                    resource="https://peach.blender.org/wp-content/uploads/title_anouncement.jpg?x11217",
+                    kind="video-poster",
                     initiator=self.test_url,
                 ),
             ],
@@ -113,20 +113,20 @@ class AssetExtractionTestCase(TestCase):
         """
         soup = BeautifulSoup(html, "lxml")
         self.assertEqual(
-            [Asset(resource='audio.wav', kind='audio-src', initiator=self.test_url)],
+            [Asset(resource="audio.wav", kind="audio-src", initiator=self.test_url)],
             extract_assets(soup, self.test_url),
         )
 
-    @mock.patch('scanner.assets.requests')
+    @mock.patch("scanner.assets.requests")
     def test_should_extract_external_scripts(self, mock_requests):
-        mock_requests.get.return_value = mock.Mock(text='')
+        mock_requests.get.return_value = mock.Mock(text="")
         html = """
         <html><head><script src="script.js"></head><body></body></html>
         """
         soup = BeautifulSoup(html, "lxml")
 
         self.assertEqual(
-            [Asset(resource='script.js', kind='script-src', initiator=self.test_url)],
+            [Asset(resource="script.js", kind="script-src", initiator=self.test_url)],
             extract_assets(soup, self.test_url),
         )
 
@@ -139,8 +139,8 @@ class AssetExtractionTestCase(TestCase):
             extract_assets(soup, self.test_url),
             [
                 Asset(
-                    resource='http://www.example.org',
-                    kind='script-embed',
+                    resource="http://www.example.org",
+                    kind="script-embed",
                     initiator=self.test_url,
                 )
             ],
@@ -155,15 +155,15 @@ class AssetExtractionTestCase(TestCase):
         self.assertEqual(
             [
                 Asset(
-                    resource='https://www.example.org/embed.html',
-                    kind='iframe-src',
+                    resource="https://www.example.org/embed.html",
+                    kind="iframe-src",
                     initiator=self.test_url,
                 )
             ],
             extract_assets(soup, self.test_url),
         )
 
-    @mock.patch('scanner.assets.requests')
+    @mock.patch("scanner.assets.requests")
     def test_should_extract_links_to_stylesheets(self, mock_requests):
         html = """
         <html><head><link href="/media/example.css" rel="stylesheet"></head><body></body></html>
@@ -174,8 +174,8 @@ class AssetExtractionTestCase(TestCase):
         self.assertEqual(
             [
                 Asset(
-                    resource='/media/example.css',
-                    kind='style-href',
+                    resource="/media/example.css",
+                    kind="style-href",
                     initiator=self.test_url,
                 )
             ],
@@ -194,8 +194,8 @@ class AssetExtractionTestCase(TestCase):
         self.assertEqual(
             [
                 Asset(
-                    resource='https://example.org/files/example.png',
-                    kind='style-embed',
+                    resource="https://example.org/files/example.png",
+                    kind="style-embed",
                     initiator=self.test_url,
                 )
             ],
@@ -214,8 +214,8 @@ class AssetExtractionTestCase(TestCase):
         self.assertEqual(
             [
                 Asset(
-                    resource='https://example.org/files/example.png',
-                    kind='style-embed',
+                    resource="https://example.org/files/example.png",
+                    kind="style-embed",
                     initiator=self.test_url,
                 )
             ],
@@ -229,8 +229,8 @@ class AssetExtractionTestCase(TestCase):
         self.assertEqual(
             [
                 Asset(
-                    resource='https://example.org/files/example.png',
-                    kind='style-resource-inline',
+                    resource="https://example.org/files/example.png",
+                    kind="style-resource-inline",
                     initiator=self.test_url,
                 )
             ],
@@ -244,8 +244,8 @@ class AssetExtractionTestCase(TestCase):
         self.assertEqual(
             [
                 Asset(
-                    resource='https://example.org/files/example.png',
-                    kind='style-resource-inline',
+                    resource="https://example.org/files/example.png",
+                    kind="style-resource-inline",
                     initiator=self.test_url,
                 )
             ],
@@ -260,18 +260,18 @@ class AssetExtractionTestCase(TestCase):
         self.assertEqual(
             [
                 Asset(
-                    resource='file:///Users/dcao/Downloads/securedrop.css',
-                    kind='style-href',
+                    resource="file:///Users/dcao/Downloads/securedrop.css",
+                    kind="style-href",
                     initiator=self.test_url,
                 )
             ],
             extract_assets(soup, self.test_url),
         )
 
-    @mock.patch('scanner.assets.requests')
+    @mock.patch("scanner.assets.requests")
     def test_should_extract_urls_in_linked_css(self, requests_mock):
         requests_mock.get.return_value = mock.Mock(
-            text='selector { background-image: url(https://example.org/example.png) }'
+            text="selector { background-image: url(https://example.org/example.png) }"
         )
         html = """
         <html><head><link href="https://example.org/styles.css" rel="stylesheet"></head><body></body></html>"""
@@ -280,19 +280,19 @@ class AssetExtractionTestCase(TestCase):
             set(extract_assets(soup, self.test_url)),
             {
                 Asset(
-                    resource='https://example.org/styles.css',
-                    kind='style-href',
+                    resource="https://example.org/styles.css",
+                    kind="style-href",
                     initiator=self.test_url,
                 ),
                 Asset(
-                    resource='https://example.org/example.png',
-                    kind='style-resource',
-                    initiator='https://example.org/styles.css',
+                    resource="https://example.org/example.png",
+                    kind="style-resource",
+                    initiator="https://example.org/styles.css",
                 ),
             },
         )
 
-    @mock.patch('scanner.assets.requests')
+    @mock.patch("scanner.assets.requests")
     def test_should_extract_urls_in_external_js(self, mock_requests):
         mock_requests.get.return_value = mock.Mock(
             text="""function makeRequest() { $.getJSON('http://example.org/', function(data) {}); }"""
@@ -304,11 +304,11 @@ class AssetExtractionTestCase(TestCase):
         soup = BeautifulSoup(html, "lxml")
         self.assertEqual(
             [
-                Asset(resource='file.js', kind='script-src', initiator=self.test_url),
+                Asset(resource="file.js", kind="script-src", initiator=self.test_url),
                 Asset(
-                    resource='http://example.org/',
-                    kind='script-resource',
-                    initiator='file.js',
+                    resource="http://example.org/",
+                    kind="script-resource",
+                    initiator="file.js",
                 ),
             ],
             extract_assets(soup, self.test_url),
@@ -316,35 +316,35 @@ class AssetExtractionTestCase(TestCase):
 
 
 class TestAssetFetching(TestCase):
-    @mock.patch('scanner.assets.requests.get')
+    @mock.patch("scanner.assets.requests.get")
     def test_should_send_headers_in_request_for_assets(self, requests_get):
-        asset_url = 'example.gif'
-        site_url = 'http://example.com'
+        asset_url = "example.gif"
+        site_url = "http://example.com"
         fetch_asset(asset_url, site_url)
 
         requests_get.assert_called_once_with(
-            'http://example.com/example.gif',
-            headers={'User-Agent': 'SecureDrop Landing Page Scanner 0.1.0'},
+            "http://example.com/example.gif",
+            headers={"User-Agent": "SecureDrop Landing Page Scanner 0.1.0"},
             timeout=5,
         )
 
 
 class TestCssUrlExtractionFromDeclarations(TestCase):
     def test_should_extract_urls_from_css_declarations(self):
-        css = 'background-image: url(http://www.example.com);'
-        self.assertEqual(urls_from_css_declarations(css), ['http://www.example.com'])
+        css = "background-image: url(http://www.example.com);"
+        self.assertEqual(urls_from_css_declarations(css), ["http://www.example.com"])
 
     def test_should_extract_urls_from_multiproperty_declarations(self):
         css = "list-style: square url(http://www.example.com/redball.png);"
         self.assertEqual(
-            urls_from_css_declarations(css), ['http://www.example.com/redball.png']
+            urls_from_css_declarations(css), ["http://www.example.com/redball.png"]
         )
 
 
 class TestCssUrlExtraction(TestCase):
     def test_should_extract_urls_from_at_import_rules(self):
-        css = '@import url(thing.css);'
-        self.assertEqual(urls_from_css(css), ['thing.css'])
+        css = "@import url(thing.css);"
+        self.assertEqual(urls_from_css(css), ["thing.css"])
 
     def test_should_extract_urls_from_multiple_selectors(self):
         css = """
@@ -355,7 +355,7 @@ class TestCssUrlExtraction(TestCase):
                 background-image: url(example2.png);
               }
         """
-        self.assertEqual(urls_from_css(css), ['example.png', 'example2.png'])
+        self.assertEqual(urls_from_css(css), ["example.png", "example2.png"])
 
     def test_should_extract_urls_from_nested_at_rules(self):
         css = """
@@ -368,7 +368,7 @@ class TestCssUrlExtraction(TestCase):
                 }
               }
         """
-        self.assertEqual(urls_from_css(css), ['example.png'])
+        self.assertEqual(urls_from_css(css), ["example.png"])
 
     def test_should_extract_urls_from_multiproperty_declarations(self):
         css = """"
@@ -376,26 +376,26 @@ class TestCssUrlExtraction(TestCase):
                 list-style: square url(http://www.example.com/redball.png);
               }
         """
-        self.assertEqual(urls_from_css(css), ['http://www.example.com/redball.png'])
+        self.assertEqual(urls_from_css(css), ["http://www.example.com/redball.png"])
 
 
 class TestSrcSetExtraction(TestCase):
     def test_should_extract_nothing_from_empty_srcset(self):
-        self.assertEqual(parse_srcset(''), [])
+        self.assertEqual(parse_srcset(""), [])
 
     def test_should_extract_urls_from_srcset(self):
         self.assertEqual(
-            parse_srcset('image-1x.png 1x, image-2x.png 2x'),
-            ['image-1x.png', 'image-2x.png'],
+            parse_srcset("image-1x.png 1x, image-2x.png 2x"),
+            ["image-1x.png", "image-2x.png"],
         )
 
     def test_should_extract_urls_with_extra_whitespace(self):
         self.assertEqual(
-            parse_srcset('image-1x.png  1x, image-2x.png  2x'),
-            ['image-1x.png', 'image-2x.png'],
+            parse_srcset("image-1x.png  1x, image-2x.png  2x"),
+            ["image-1x.png", "image-2x.png"],
         )
 
     def test_should_extract_urls_with_no_sizes(self):
         self.assertEqual(
-            parse_srcset('image-1x.png, image-2x.png'), ['image-1x.png', 'image-2x.png']
+            parse_srcset("image-1x.png, image-2x.png"), ["image-1x.png", "image-2x.png"]
         )

@@ -7,5 +7,7 @@ class OnionLocationHeaderMiddleware:
 
     def __call__(self, request):
         response = self.get_response(request)
-        response['Onion-Location'] = f'http://{settings.ONION_HOSTNAME}{request.get_full_path()}'
+        response["Onion-Location"] = (
+            f"http://{settings.ONION_HOSTNAME}{request.get_full_path()}"
+        )
         return response

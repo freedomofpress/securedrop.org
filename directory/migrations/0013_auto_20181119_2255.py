@@ -6,15 +6,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('directory', '0012_auto_20181016_2035'),
+        ("directory", "0012_auto_20181016_2035"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='scanresult',
-            name='ignored_cross_domain_assets',
-            field=models.TextField(blank=True, default=''),
+            model_name="scanresult",
+            name="ignored_cross_domain_assets",
+            field=models.TextField(blank=True, default=""),
         ),
     ]

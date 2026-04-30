@@ -8,25 +8,338 @@ import wagtail.images.blocks
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('simple', '0002_auto_20190219_1839'),
+        ("simple", "0002_auto_20190219_1839"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='faqpage',
-            name='body',
-            field=wagtail.fields.StreamField([('text', wagtail.blocks.RichTextBlock(features=['bold', 'italic', 'h2', 'h3', 'h4', 'ol', 'ul', 'hr', 'embed', 'link', 'document-link', 'image', 'code'])), ('image', wagtail.blocks.StructBlock([('image', wagtail.images.blocks.ImageChooserBlock()), ('alignment', wagtail.blocks.ChoiceBlock(choices=[('left', 'Left'), ('right', 'Right'), ('center', 'Center')]))])), ('raw_html', wagtail.blocks.RawHTMLBlock()), ('blockquote', wagtail.blocks.StructBlock([('text', wagtail.blocks.RichTextBlock()), ('source_text', wagtail.blocks.RichTextBlock(required=False)), ('source_url', wagtail.blocks.URLBlock(help_text='Source text will link to this url.', required=False))])), ('list', wagtail.blocks.ListBlock(wagtail.blocks.CharBlock(label='List Item'), template='common/blocks/list_block_columns.html')), ('video', wagtail.blocks.StructBlock([('video', wagtail.embeds.blocks.EmbedBlock()), ('alignment', wagtail.blocks.ChoiceBlock(choices=[('left', 'Left'), ('right', 'Right'), ('center', 'Center')]))])), ('heading_1', wagtail.blocks.StructBlock([('content', wagtail.blocks.CharBlock())])), ('heading_2', wagtail.blocks.StructBlock([('content', wagtail.blocks.CharBlock())])), ('heading_3', wagtail.blocks.StructBlock([('content', wagtail.blocks.CharBlock())]))], blank=True, null=True),
+            model_name="faqpage",
+            name="body",
+            field=wagtail.fields.StreamField(
+                [
+                    (
+                        "text",
+                        wagtail.blocks.RichTextBlock(
+                            features=[
+                                "bold",
+                                "italic",
+                                "h2",
+                                "h3",
+                                "h4",
+                                "ol",
+                                "ul",
+                                "hr",
+                                "embed",
+                                "link",
+                                "document-link",
+                                "image",
+                                "code",
+                            ]
+                        ),
+                    ),
+                    (
+                        "image",
+                        wagtail.blocks.StructBlock(
+                            [
+                                ("image", wagtail.images.blocks.ImageChooserBlock()),
+                                (
+                                    "alignment",
+                                    wagtail.blocks.ChoiceBlock(
+                                        choices=[
+                                            ("left", "Left"),
+                                            ("right", "Right"),
+                                            ("center", "Center"),
+                                        ]
+                                    ),
+                                ),
+                            ]
+                        ),
+                    ),
+                    ("raw_html", wagtail.blocks.RawHTMLBlock()),
+                    (
+                        "blockquote",
+                        wagtail.blocks.StructBlock(
+                            [
+                                ("text", wagtail.blocks.RichTextBlock()),
+                                (
+                                    "source_text",
+                                    wagtail.blocks.RichTextBlock(required=False),
+                                ),
+                                (
+                                    "source_url",
+                                    wagtail.blocks.URLBlock(
+                                        help_text="Source text will link to this url.",
+                                        required=False,
+                                    ),
+                                ),
+                            ]
+                        ),
+                    ),
+                    (
+                        "list",
+                        wagtail.blocks.ListBlock(
+                            wagtail.blocks.CharBlock(label="List Item"),
+                            template="common/blocks/list_block_columns.html",
+                        ),
+                    ),
+                    (
+                        "video",
+                        wagtail.blocks.StructBlock(
+                            [
+                                ("video", wagtail.embeds.blocks.EmbedBlock()),
+                                (
+                                    "alignment",
+                                    wagtail.blocks.ChoiceBlock(
+                                        choices=[
+                                            ("left", "Left"),
+                                            ("right", "Right"),
+                                            ("center", "Center"),
+                                        ]
+                                    ),
+                                ),
+                            ]
+                        ),
+                    ),
+                    (
+                        "heading_1",
+                        wagtail.blocks.StructBlock(
+                            [("content", wagtail.blocks.CharBlock())]
+                        ),
+                    ),
+                    (
+                        "heading_2",
+                        wagtail.blocks.StructBlock(
+                            [("content", wagtail.blocks.CharBlock())]
+                        ),
+                    ),
+                    (
+                        "heading_3",
+                        wagtail.blocks.StructBlock(
+                            [("content", wagtail.blocks.CharBlock())]
+                        ),
+                    ),
+                ],
+                blank=True,
+                null=True,
+            ),
         ),
         migrations.AlterField(
-            model_name='simplepage',
-            name='body',
-            field=wagtail.fields.StreamField([('text', wagtail.blocks.RichTextBlock(features=['bold', 'italic', 'h2', 'h3', 'h4', 'ol', 'ul', 'hr', 'embed', 'link', 'document-link', 'image', 'code'])), ('image', wagtail.blocks.StructBlock([('image', wagtail.images.blocks.ImageChooserBlock()), ('alignment', wagtail.blocks.ChoiceBlock(choices=[('left', 'Left'), ('right', 'Right'), ('center', 'Center')]))])), ('raw_html', wagtail.blocks.RawHTMLBlock()), ('blockquote', wagtail.blocks.StructBlock([('text', wagtail.blocks.RichTextBlock()), ('source_text', wagtail.blocks.RichTextBlock(required=False)), ('source_url', wagtail.blocks.URLBlock(help_text='Source text will link to this url.', required=False))])), ('list', wagtail.blocks.ListBlock(wagtail.blocks.CharBlock(label='List Item'), template='common/blocks/list_block_columns.html')), ('video', wagtail.blocks.StructBlock([('video', wagtail.embeds.blocks.EmbedBlock()), ('alignment', wagtail.blocks.ChoiceBlock(choices=[('left', 'Left'), ('right', 'Right'), ('center', 'Center')]))])), ('heading_1', wagtail.blocks.StructBlock([('content', wagtail.blocks.CharBlock())])), ('heading_2', wagtail.blocks.StructBlock([('content', wagtail.blocks.CharBlock())])), ('heading_3', wagtail.blocks.StructBlock([('content', wagtail.blocks.CharBlock())]))]),
+            model_name="simplepage",
+            name="body",
+            field=wagtail.fields.StreamField(
+                [
+                    (
+                        "text",
+                        wagtail.blocks.RichTextBlock(
+                            features=[
+                                "bold",
+                                "italic",
+                                "h2",
+                                "h3",
+                                "h4",
+                                "ol",
+                                "ul",
+                                "hr",
+                                "embed",
+                                "link",
+                                "document-link",
+                                "image",
+                                "code",
+                            ]
+                        ),
+                    ),
+                    (
+                        "image",
+                        wagtail.blocks.StructBlock(
+                            [
+                                ("image", wagtail.images.blocks.ImageChooserBlock()),
+                                (
+                                    "alignment",
+                                    wagtail.blocks.ChoiceBlock(
+                                        choices=[
+                                            ("left", "Left"),
+                                            ("right", "Right"),
+                                            ("center", "Center"),
+                                        ]
+                                    ),
+                                ),
+                            ]
+                        ),
+                    ),
+                    ("raw_html", wagtail.blocks.RawHTMLBlock()),
+                    (
+                        "blockquote",
+                        wagtail.blocks.StructBlock(
+                            [
+                                ("text", wagtail.blocks.RichTextBlock()),
+                                (
+                                    "source_text",
+                                    wagtail.blocks.RichTextBlock(required=False),
+                                ),
+                                (
+                                    "source_url",
+                                    wagtail.blocks.URLBlock(
+                                        help_text="Source text will link to this url.",
+                                        required=False,
+                                    ),
+                                ),
+                            ]
+                        ),
+                    ),
+                    (
+                        "list",
+                        wagtail.blocks.ListBlock(
+                            wagtail.blocks.CharBlock(label="List Item"),
+                            template="common/blocks/list_block_columns.html",
+                        ),
+                    ),
+                    (
+                        "video",
+                        wagtail.blocks.StructBlock(
+                            [
+                                ("video", wagtail.embeds.blocks.EmbedBlock()),
+                                (
+                                    "alignment",
+                                    wagtail.blocks.ChoiceBlock(
+                                        choices=[
+                                            ("left", "Left"),
+                                            ("right", "Right"),
+                                            ("center", "Center"),
+                                        ]
+                                    ),
+                                ),
+                            ]
+                        ),
+                    ),
+                    (
+                        "heading_1",
+                        wagtail.blocks.StructBlock(
+                            [("content", wagtail.blocks.CharBlock())]
+                        ),
+                    ),
+                    (
+                        "heading_2",
+                        wagtail.blocks.StructBlock(
+                            [("content", wagtail.blocks.CharBlock())]
+                        ),
+                    ),
+                    (
+                        "heading_3",
+                        wagtail.blocks.StructBlock(
+                            [("content", wagtail.blocks.CharBlock())]
+                        ),
+                    ),
+                ]
+            ),
         ),
         migrations.AlterField(
-            model_name='simplepagewithmenusidebar',
-            name='body',
-            field=wagtail.fields.StreamField([('text', wagtail.blocks.RichTextBlock(features=['bold', 'italic', 'h2', 'h3', 'h4', 'ol', 'ul', 'hr', 'embed', 'link', 'document-link', 'image', 'code'])), ('image', wagtail.blocks.StructBlock([('image', wagtail.images.blocks.ImageChooserBlock()), ('alignment', wagtail.blocks.ChoiceBlock(choices=[('left', 'Left'), ('right', 'Right'), ('center', 'Center')]))])), ('raw_html', wagtail.blocks.RawHTMLBlock()), ('blockquote', wagtail.blocks.StructBlock([('text', wagtail.blocks.RichTextBlock()), ('source_text', wagtail.blocks.RichTextBlock(required=False)), ('source_url', wagtail.blocks.URLBlock(help_text='Source text will link to this url.', required=False))])), ('list', wagtail.blocks.ListBlock(wagtail.blocks.CharBlock(label='List Item'), template='common/blocks/list_block_columns.html')), ('video', wagtail.blocks.StructBlock([('video', wagtail.embeds.blocks.EmbedBlock()), ('alignment', wagtail.blocks.ChoiceBlock(choices=[('left', 'Left'), ('right', 'Right'), ('center', 'Center')]))])), ('heading_1', wagtail.blocks.StructBlock([('content', wagtail.blocks.CharBlock())])), ('heading_2', wagtail.blocks.StructBlock([('content', wagtail.blocks.CharBlock())])), ('heading_3', wagtail.blocks.StructBlock([('content', wagtail.blocks.CharBlock())]))]),
+            model_name="simplepagewithmenusidebar",
+            name="body",
+            field=wagtail.fields.StreamField(
+                [
+                    (
+                        "text",
+                        wagtail.blocks.RichTextBlock(
+                            features=[
+                                "bold",
+                                "italic",
+                                "h2",
+                                "h3",
+                                "h4",
+                                "ol",
+                                "ul",
+                                "hr",
+                                "embed",
+                                "link",
+                                "document-link",
+                                "image",
+                                "code",
+                            ]
+                        ),
+                    ),
+                    (
+                        "image",
+                        wagtail.blocks.StructBlock(
+                            [
+                                ("image", wagtail.images.blocks.ImageChooserBlock()),
+                                (
+                                    "alignment",
+                                    wagtail.blocks.ChoiceBlock(
+                                        choices=[
+                                            ("left", "Left"),
+                                            ("right", "Right"),
+                                            ("center", "Center"),
+                                        ]
+                                    ),
+                                ),
+                            ]
+                        ),
+                    ),
+                    ("raw_html", wagtail.blocks.RawHTMLBlock()),
+                    (
+                        "blockquote",
+                        wagtail.blocks.StructBlock(
+                            [
+                                ("text", wagtail.blocks.RichTextBlock()),
+                                (
+                                    "source_text",
+                                    wagtail.blocks.RichTextBlock(required=False),
+                                ),
+                                (
+                                    "source_url",
+                                    wagtail.blocks.URLBlock(
+                                        help_text="Source text will link to this url.",
+                                        required=False,
+                                    ),
+                                ),
+                            ]
+                        ),
+                    ),
+                    (
+                        "list",
+                        wagtail.blocks.ListBlock(
+                            wagtail.blocks.CharBlock(label="List Item"),
+                            template="common/blocks/list_block_columns.html",
+                        ),
+                    ),
+                    (
+                        "video",
+                        wagtail.blocks.StructBlock(
+                            [
+                                ("video", wagtail.embeds.blocks.EmbedBlock()),
+                                (
+                                    "alignment",
+                                    wagtail.blocks.ChoiceBlock(
+                                        choices=[
+                                            ("left", "Left"),
+                                            ("right", "Right"),
+                                            ("center", "Center"),
+                                        ]
+                                    ),
+                                ),
+                            ]
+                        ),
+                    ),
+                    (
+                        "heading_1",
+                        wagtail.blocks.StructBlock(
+                            [("content", wagtail.blocks.CharBlock())]
+                        ),
+                    ),
+                    (
+                        "heading_2",
+                        wagtail.blocks.StructBlock(
+                            [("content", wagtail.blocks.CharBlock())]
+                        ),
+                    ),
+                    (
+                        "heading_3",
+                        wagtail.blocks.StructBlock(
+                            [("content", wagtail.blocks.CharBlock())]
+                        ),
+                    ),
+                ]
+            ),
         ),
     ]

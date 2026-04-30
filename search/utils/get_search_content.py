@@ -13,7 +13,7 @@ class SearchContentException(Exception):
         return self.message
 
     def __repr__(self):
-        return 'SearchContentException(%s)' % self
+        return "SearchContentException(%s)" % self
 
 
 def get_search_content_by_fields(page, fields, get_child_search_content=False):
@@ -25,7 +25,10 @@ def get_search_content_by_fields(page, fields, get_child_search_content=False):
                 pass
             elif isinstance(content, Page):
                 child_page = content
-                if hasattr(child_page.specific, 'get_search_content') and get_child_search_content:
+                if (
+                    hasattr(child_page.specific, "get_search_content")
+                    and get_child_search_content
+                ):
                     new_content = child_page.specific.get_search_content()
                 else:
                     new_content = child_page.title
@@ -37,7 +40,11 @@ def get_search_content_by_fields(page, fields, get_child_search_content=False):
                 new_content = content.title
             search_elements.append(new_content)
         else:
-            message = 'You are attempting to search by {} which does not exist on {}'.format(field, type(page))
+            message = (
+                "You are attempting to search by {} which does not exist on {}".format(
+                    field, type(page)
+                )
+            )
             raise SearchContentException(message=message)
 
     return search_elements

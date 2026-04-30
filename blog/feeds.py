@@ -15,19 +15,15 @@ class BlogIndexPageFeed(Feed):
         super(BlogIndexPageFeed, self).__init__(*args, **kwargs)
 
     def _get_category(self, obj):
-        categories = obj.categories.all().select_related('category')
+        categories = obj.categories.all().select_related("category")
         return [inline.category for inline in categories]
 
     def _get_complete_url(self, path):
-        return urljoin(
-            self.blog_index_page.get_site().root_url,
-            path
-        )
+        return urljoin(self.blog_index_page.get_site().root_url, path)
 
     def title(self):
-        return '{}: {}'.format(
-            self.blog_index_page.get_site().site_name,
-            self.blog_index_page.title
+        return "{}: {}".format(
+            self.blog_index_page.get_site().site_name, self.blog_index_page.title
         )
 
     def link(self):
@@ -38,7 +34,7 @@ class BlogIndexPageFeed(Feed):
 
     def feed_url(self):
         return self._get_complete_url(
-            self.blog_index_page.url + self.blog_index_page.reverse_subpage('feed')
+            self.blog_index_page.url + self.blog_index_page.reverse_subpage("feed")
         )
 
     def feed_guid(self):
@@ -48,7 +44,7 @@ class BlogIndexPageFeed(Feed):
         posts = self.blog_index_page.get_posts()
 
         if self.blog_index_page.feed_limit != 0:
-            return posts[:self.blog_index_page.feed_limit]
+            return posts[: self.blog_index_page.feed_limit]
 
         return posts
 

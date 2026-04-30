@@ -19,13 +19,14 @@ shared_processors = [
 ]
 
 # Do not cache the logger when running unit tests
-if len(sys.argv) > 1 and sys.argv[1] == 'test':
+if len(sys.argv) > 1 and sys.argv[1] == "test":
     cache_logger = False
 else:
     cache_logger = True
 
 structlog.configure(
-    processors=shared_processors + [
+    processors=shared_processors
+    + [
         structlog.stdlib.filter_by_level,
         structlog.stdlib.add_logger_name,
         structlog.stdlib.PositionalArgumentsFormatter(),
@@ -45,11 +46,9 @@ LOGGING = {
         "normal": {
             "class": "logging.StreamHandler",
             "formatter": "plain_console",
-            'filters': ['require_debug_true'],
+            "filters": ["require_debug_true"],
         },
-        "null": {
-            "class": "logging.NullHandler"
-        },
+        "null": {"class": "logging.NullHandler"},
     },
     "formatters": {
         "plain_console": {
@@ -58,23 +57,27 @@ LOGGING = {
             "foreign_pre_chain": shared_processors,
         },
     },
-    'filters': {
-        'require_debug_true': {
-            '()': 'django.utils.log.RequireDebugTrue',
+    "filters": {
+        "require_debug_true": {
+            "()": "django.utils.log.RequireDebugTrue",
         },
     },
     "loggers": {
         "django": {
-            "handlers": ["normal"], "propagate": True,
+            "handlers": ["normal"],
+            "propagate": True,
         },
         "django.template": {
-            "handlers": ["normal"], "propagate": False,
+            "handlers": ["normal"],
+            "propagate": False,
         },
         "django.db.backends": {
-            "handlers": ["normal"], "propagate": False,
+            "handlers": ["normal"],
+            "propagate": False,
         },
         "django.security": {
-            "handlers": ["normal"], "propagate": False,
+            "handlers": ["normal"],
+            "propagate": False,
         },
         "django.request": {
             "handlers": ["normal"],
@@ -82,7 +85,8 @@ LOGGING = {
         },
         # Log entries from runserver
         "django.server": {
-            "handlers": ["normal"], "propagate": False,
+            "handlers": ["normal"],
+            "propagate": False,
         },
         # Catchall
         "": {
@@ -94,10 +98,10 @@ LOGGING = {
 }
 
 
-if not os.environ.get('DJANGO_DISABLE_DEBUG'):
+if not os.environ.get("DJANGO_DISABLE_DEBUG"):
     DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ["*"]
 WHITENOISE_AUTOREFRESH = True
 WHITENOISE_USE_FINDERS = True
 
@@ -105,10 +109,10 @@ WHITENOISE_USE_FINDERS = True
 # The example SECRET_KEY below is used only in the local dev env.
 # In the production settings file, a custom env var is required
 # to run the application.
-SECRET_KEY = '-hf!6+rx$-55pyf6tekfkers#7cfn-_d#4f6*vnr-+vz82lqz_'
+SECRET_KEY = "-hf!6+rx$-55pyf6tekfkers#7cfn-_d#4f6*vnr-+vz82lqz_"
 
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 
 try:
@@ -119,14 +123,14 @@ except ImportError:
 
 def get_default_gateway_linux():
     """
-       Read the default gateway directly from /proc. Doesnt require subprocess
-       or an external python dep.
-       Ref: https://stackoverflow.com/questions/2761829/python-get-default-gateway-for-a-local-interface-ip-address-in-linux
+    Read the default gateway directly from /proc. Doesnt require subprocess
+    or an external python dep.
+    Ref: https://stackoverflow.com/questions/2761829/python-get-default-gateway-for-a-local-interface-ip-address-in-linux
     """
     with open("/proc/net/route") as fh:
         for line in fh:
             fields = line.strip().split()
-            if fields[1] != '00000000' or not int(fields[3], 16) & 2:
+            if fields[1] != "00000000" or not int(fields[3], 16) & 2:
                 continue
 
             return socket.inet_ntoa(struct.pack("<L", int(fields[2], 16)))
@@ -136,17 +140,17 @@ if settings.DEBUG:
     # Obtain the default gateway from docker, needed for
     # debug toolbar whitelisting
     INTERNAL_IPS = [get_default_gateway_linux()]
-    INSTALLED_APPS.append('debug')  # noqa: F405
+    INSTALLED_APPS.append("debug")  # noqa: F405
 
 if ENABLE_DEBUG_TOOLBAR:  # noqa: F405
     INSTALLED_APPS += [  # noqa: F405
-        'debug_toolbar',
+        "debug_toolbar",
     ]
 
     MIDDLEWARE += [  # noqa: F405
-        'debug_toolbar.middleware.DebugToolbarMiddleware',
+        "debug_toolbar.middleware.DebugToolbarMiddleware",
     ]
 
     DEBUG_TOOLBAR_CONFIG = {
-        'JQUERY_URL': STATIC_URL + 'debug/jquery.js',  # noqa: F405
+        "JQUERY_URL": STATIC_URL + "debug/jquery.js",  # noqa: F405
     }

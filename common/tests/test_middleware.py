@@ -15,29 +15,33 @@ class RequestLogTestCase(TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.user = get_user_model().objects.create_user(
-            username='username1', password='test', email='test@test.com',
+            username="username1",
+            password="test",
+            email="test@test.com",
         )
 
     def setUp(self):
         self.factory = RequestFactory()
-        self.response_charset = 'utf-8'
+        self.response_charset = "utf-8"
         self.response_status_code = 200
-        self.response_reason_phrase = 'OK'
+        self.response_reason_phrase = "OK"
 
-    @mock.patch.object(Page, 'serve')
+    @mock.patch.object(Page, "serve")
     def test_request_log_failed(self, serve):
-        serve.side_effect = Exception('Application Error')
+        serve.side_effect = Exception("Application Error")
 
         with self.assertRaises(Exception):
             with capture_logs_with_contextvars() as cap_logs:
-                with self.modify_settings(MIDDLEWARE={
-                    'append': 'common.middleware.request_logger.RequestLogMiddleware',
-                }):
-                    self.client.get('/')
+                with self.modify_settings(
+                    MIDDLEWARE={
+                        "append": "common.middleware.request_logger.RequestLogMiddleware",
+                    }
+                ):
+                    self.client.get("/")
 
         log_entry = cap_logs[0]
-        self.assertEqual(log_entry['event'], 'request_failed')
-        self.assertEqual(log_entry['log_level'], 'error')
+        self.assertEqual(log_entry["event"], "request_failed")
+        self.assertEqual(log_entry["log_level"], "error")
 
     def test_request_log_finished(self):
         response = mock.Mock(
@@ -47,14 +51,14 @@ class RequestLogTestCase(TestCase):
         )
         get_response = mock.Mock(return_value=response)
 
-        user_agent = 'Mozilla'
-        forwarded_for = '1.2.3.4'
-        host = '1.1.1.1'
-        referer = 'http://localhost:8000/'
-        real_ip = '2.2.2.2'
+        user_agent = "Mozilla"
+        forwarded_for = "1.2.3.4"
+        host = "1.1.1.1"
+        referer = "http://localhost:8000/"
+        real_ip = "2.2.2.2"
 
         request = self.factory.get(
-            '/?key=value',
+            "/?key=value",
             HTTP_USER_AGENT=user_agent,
             HTTP_X_FORWARDED_FOR=forwarded_for,
             HTTP_HOST=host,
@@ -72,65 +76,65 @@ class RequestLogTestCase(TestCase):
         log_entry = cap_logs[0]
 
         self.assertEqual(
-            log_entry['response'],
+            log_entry["response"],
             {
-                'charset': self.response_charset,
-                'status_code': self.response_status_code,
-                'reason_phrase': self.response_reason_phrase,
-            }
+                "charset": self.response_charset,
+                "status_code": self.response_status_code,
+                "reason_phrase": self.response_reason_phrase,
+            },
         )
         self.assertEqual(
-            log_entry['request'],
+            log_entry["request"],
             {
-                'meta': {
-                    'REMOTE_ADDR': '127.0.0.1',
-                    'HTTP_HOST': host,
-                    'HTTP_REFERER': referer,
-                    'HTTP_USER_AGENT': user_agent,
-                    'HTTP_X_FORWARDED_FOR': forwarded_for,
-                    'HTTP_X_REAL_IP': real_ip,
-                    'HTTP_X_SCHEME': '',
-                    'QUERY_STRING': 'key=value',
+                "meta": {
+                    "REMOTE_ADDR": "127.0.0.1",
+                    "HTTP_HOST": host,
+                    "HTTP_REFERER": referer,
+                    "HTTP_USER_AGENT": user_agent,
+                    "HTTP_X_FORWARDED_FOR": forwarded_for,
+                    "HTTP_X_REAL_IP": real_ip,
+                    "HTTP_X_SCHEME": "",
+                    "QUERY_STRING": "key=value",
                 },
-                'method': 'GET',
-                'path_info': '/',
-                'scheme': 'http',
-                'user': 'username1',
-            }
+                "method": "GET",
+                "path_info": "/",
+                "scheme": "http",
+                "user": "username1",
+            },
         )
 
-        self.assertIsNotNone(log_entry['duration_ms'])
-        self.assertEqual(log_entry['event'], 'request_finished')
-        self.assertEqual(log_entry['log_level'], 'info')
+        self.assertIsNotNone(log_entry["duration_ms"])
+        self.assertEqual(log_entry["event"], "request_finished")
+        self.assertEqual(log_entry["log_level"], "info")
         self.assertRegex(
-            log_entry['request_id'],
-            r'[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}'
+            log_entry["request_id"],
+            r"[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}",
         )
 
 
 class OnionLocationHeaderMiddlewareTestCase(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
-        self.response_charset = 'utf-8'
+        self.response_charset = "utf-8"
         self.response_status_code = 200
-        self.response_reason_phrase = 'OK'
+        self.response_reason_phrase = "OK"
 
     def test_onion_location_correct(self):
         response = {
-            'status_code': self.response_status_code,
-            'charset': self.response_charset,
-            'reason_phrase': self.response_reason_phrase,
+            "status_code": self.response_status_code,
+            "charset": self.response_charset,
+            "reason_phrase": self.response_reason_phrase,
         }
         get_response = mock.Mock(return_value=response)
         request = self.factory.get(
-            '/path/?key=value',
-            HTTP_USER_AGENT='Mozilla',
+            "/path/?key=value",
+            HTTP_USER_AGENT="Mozilla",
         )
 
         middleware = OnionLocationHeaderMiddleware(get_response)
         response = middleware(request)
 
         self.assertEqual(
-            response['Onion-Location'],
-            f'http://{settings.ONION_HOSTNAME}/path/?key=value'
+            response["Onion-Location"],
+            f"http://{settings.ONION_HOSTNAME}/path/?key=value",
         )

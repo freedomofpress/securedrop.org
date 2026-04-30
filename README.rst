@@ -256,7 +256,7 @@ Other Commands
 --------------
 
 In order to ensure that all commands are run in the same environment, we have
-added a ``make flake8`` command that runs ``flake8`` in the docker environment,
+added a ``make lint`` command that runs ``ruff`` in the docker environment,
 rather than on your local env.
 
 Troubleshooting

@@ -3,29 +3,29 @@ import re
 
 import structlog
 
-user = os.environ.get('DJANGO_GCORN_USER', 'gcorn')
-group = os.environ.get('DJANGO_GCORN_GROUP', 'gcorn')
-bind = os.environ.get('DJANGO_GCORN_BIND', '0.0.0.0:8000')
-loglevel = os.environ.get('DJANGO_GCORN_LOGLEVEL', 'INFO')
-capture_output = os.environ.get('DJANGO_GCORN_CAPOUTPUT', False)
+user = os.environ.get("DJANGO_GCORN_USER", "gcorn")
+group = os.environ.get("DJANGO_GCORN_GROUP", "gcorn")
+bind = os.environ.get("DJANGO_GCORN_BIND", "0.0.0.0:8000")
+loglevel = os.environ.get("DJANGO_GCORN_LOGLEVEL", "INFO")
+capture_output = os.environ.get("DJANGO_GCORN_CAPOUTPUT", False)
 
 
 def combined_logformat(logger, name, event_dict):
-    if event_dict.get('logger') == "gunicorn.access":
-        message = event_dict['event']
+    if event_dict.get("logger") == "gunicorn.access":
+        message = event_dict["event"]
 
         parts = [
-            r'(?P<host>\S+)',       # host %h
-            r'\S+',                 # indent %l (unused)
-            r'(?P<user>\S+)',       # user %u
-            r'\[(?P<time>.+)\]',    # time %t
-            r'"(?P<request>.+)"',   # request "%r"
-            r'(?P<status>[0-9]+)',  # status %>s
-            r'(?P<size>\S+)',       # size %b (careful, can be '-')
-            r'"(?P<referer>.*)"',   # referer "%{Referer}i"
-            r'"(?P<agent>.*)"',     # user agent "%{User-agent}i"
+            r"(?P<host>\S+)",  # host %h
+            r"\S+",  # indent %l (unused)
+            r"(?P<user>\S+)",  # user %u
+            r"\[(?P<time>.+)\]",  # time %t
+            r'"(?P<request>.+)"',  # request "%r"
+            r"(?P<status>[0-9]+)",  # status %>s
+            r"(?P<size>\S+)",  # size %b (careful, can be '-')
+            r'"(?P<referer>.*)"',  # referer "%{Referer}i"
+            r'"(?P<agent>.*)"',  # user agent "%{User-agent}i"
         ]
-        pattern = re.compile(r'\s+'.join(parts) + r'\s*\Z')
+        pattern = re.compile(r"\s+".join(parts) + r"\s*\Z")
         m = pattern.match(message)
         res = m.groupdict()
 
@@ -77,16 +77,16 @@ logconfig_dict = {
             "class": "logging.StreamHandler",
             "formatter": "json_formatter",
         },
-        "null": {
-            "class": "logging.NullHandler"
-        },
+        "null": {"class": "logging.NullHandler"},
     },
     "loggers": {
         "gunicorn.access": {
-            "handlers": ["null"], "propagate": False,
+            "handlers": ["null"],
+            "propagate": False,
         },
         "gunicorn.error": {
-            "handlers": ["console"], "propagate": False,
+            "handlers": ["console"],
+            "propagate": False,
         },
-    }
+    },
 }

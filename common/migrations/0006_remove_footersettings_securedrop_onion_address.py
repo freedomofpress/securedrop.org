@@ -4,14 +4,13 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('common', '0005_auto_20200810_2049'),
+        ("common", "0005_auto_20200810_2049"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='footersettings',
-            name='securedrop_onion_address',
+            model_name="footersettings",
+            name="securedrop_onion_address",
         ),
     ]

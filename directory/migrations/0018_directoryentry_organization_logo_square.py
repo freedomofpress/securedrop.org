@@ -5,16 +5,21 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('common', '0003_customimage_file_hash'),
-        ('directory', '0017_auto_20190305_1726'),
+        ("common", "0003_customimage_file_hash"),
+        ("directory", "0017_auto_20190305_1726"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='directoryentry',
-            name='organization_logo_square',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='common.CustomImage'),
+            model_name="directoryentry",
+            name="organization_logo_square",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="common.CustomImage",
+            ),
         ),
     ]

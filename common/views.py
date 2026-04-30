@@ -23,7 +23,7 @@ def read_version_info_file(p):
 
     """
     try:
-        with open(p, 'r') as f:
+        with open(p, "r") as f:
             return f.read()
     except FileNotFoundError:
         return "<file not found at {}>".format(p)
@@ -42,15 +42,15 @@ def view_document(request, document_id, document_filename):
     response = serve.serve(request, document_id, document_filename)
 
     # Remove "attachment" from response's Content-Disposition
-    if 'Content-Disposition' in response:
-        contdisp = response['Content-Disposition']
-        response['Content-Disposition'] = "; ".join(
+    if "Content-Disposition" in response:
+        contdisp = response["Content-Disposition"]
+        response["Content-Disposition"] = "; ".join(
             [x for x in contdisp.split("; ") if x != "attachment"]
         )
 
     # Force content-type for pdf files
-    if document_filename.split('.')[-1] == 'pdf':
-        response['Content-Type'] = 'application/pdf'
+    if document_filename.split(".")[-1] == "pdf":
+        response["Content-Type"] = "application/pdf"
 
     # Return the response
     return response
@@ -69,4 +69,4 @@ def health_version(request):
 
 
 def too_many_requests(request):
-    return TemplateResponse(request, '429.html', {})
+    return TemplateResponse(request, "429.html", {})

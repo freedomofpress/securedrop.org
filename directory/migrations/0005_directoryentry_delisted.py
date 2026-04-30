@@ -6,15 +6,26 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('directory', '0004_auto_20180501_1534'),
+        ("directory", "0004_auto_20180501_1534"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='directoryentry',
-            name='delisted',
-            field=models.CharField(blank=True, choices=[('http', 'Mixed-content or no HTTPS'), ('no200', 'Non-200 status response'), ('down', 'Extended downtime (>1 week)'), ('other', 'Other')], default=None, help_text='If set, entry will not show up in the directory, but the page will still be live. Should be used for SecureDrop instances that are under review for detected issues.', max_length=10, null=True),
+            model_name="directoryentry",
+            name="delisted",
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    ("http", "Mixed-content or no HTTPS"),
+                    ("no200", "Non-200 status response"),
+                    ("down", "Extended downtime (>1 week)"),
+                    ("other", "Other"),
+                ],
+                default=None,
+                help_text="If set, entry will not show up in the directory, but the page will still be live. Should be used for SecureDrop instances that are under review for detected issues.",
+                max_length=10,
+                null=True,
+            ),
         ),
     ]

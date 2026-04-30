@@ -11,126 +11,403 @@ import wagtail.search.index
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('wagtailcore', '0040_page_draft_title'),
+        ("wagtailcore", "0040_page_draft_title"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='AlertSettings',
+            name="AlertSettings",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(default='Alert', max_length=100)),
-                ('body', wagtail.fields.RichTextField(blank=True, null=True)),
-                ('close_text', models.CharField(default='Close Alert', help_text='Text on the close button visible only to screenreaders.', max_length=100)),
-                ('display_alert', models.BooleanField(default=False)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(default="Alert", max_length=100)),
+                ("body", wagtail.fields.RichTextField(blank=True, null=True)),
+                (
+                    "close_text",
+                    models.CharField(
+                        default="Close Alert",
+                        help_text="Text on the close button visible only to screenreaders.",
+                        max_length=100,
+                    ),
+                ),
+                ("display_alert", models.BooleanField(default=False)),
             ],
             options={
-                'verbose_name': 'Site Alert',
+                "verbose_name": "Site Alert",
             },
         ),
         migrations.CreateModel(
-            name='Button',
+            name="Button",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('text', models.CharField(max_length=50)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("text", models.CharField(max_length=50)),
             ],
         ),
         migrations.CreateModel(
-            name='CustomImage',
+            name="CustomImage",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=255, verbose_name='title')),
-                ('file', models.ImageField(height_field='height', upload_to=wagtail.images.models.get_upload_to, verbose_name='file', width_field='width')),
-                ('width', models.IntegerField(editable=False, verbose_name='width')),
-                ('height', models.IntegerField(editable=False, verbose_name='height')),
-                ('created_at', models.DateTimeField(auto_now_add=True, db_index=True, verbose_name='created at')),
-                ('focal_point_x', models.PositiveIntegerField(blank=True, null=True)),
-                ('focal_point_y', models.PositiveIntegerField(blank=True, null=True)),
-                ('focal_point_width', models.PositiveIntegerField(blank=True, null=True)),
-                ('focal_point_height', models.PositiveIntegerField(blank=True, null=True)),
-                ('file_size', models.PositiveIntegerField(editable=False, null=True)),
-                ('attribution', models.CharField(blank=True, help_text='Organization/Photographer.', max_length=255, null=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=255, verbose_name="title")),
+                (
+                    "file",
+                    models.ImageField(
+                        height_field="height",
+                        upload_to=wagtail.images.models.get_upload_to,
+                        verbose_name="file",
+                        width_field="width",
+                    ),
+                ),
+                ("width", models.IntegerField(editable=False, verbose_name="width")),
+                ("height", models.IntegerField(editable=False, verbose_name="height")),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, db_index=True, verbose_name="created at"
+                    ),
+                ),
+                ("focal_point_x", models.PositiveIntegerField(blank=True, null=True)),
+                ("focal_point_y", models.PositiveIntegerField(blank=True, null=True)),
+                (
+                    "focal_point_width",
+                    models.PositiveIntegerField(blank=True, null=True),
+                ),
+                (
+                    "focal_point_height",
+                    models.PositiveIntegerField(blank=True, null=True),
+                ),
+                ("file_size", models.PositiveIntegerField(editable=False, null=True)),
+                (
+                    "attribution",
+                    models.CharField(
+                        blank=True,
+                        help_text="Organization/Photographer.",
+                        max_length=255,
+                        null=True,
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
             bases=(wagtail.search.index.Indexed, models.Model),
         ),
         migrations.CreateModel(
-            name='CustomRendition',
+            name="CustomRendition",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('filter_spec', models.CharField(db_index=True, max_length=255)),
-                ('file', models.ImageField(height_field='height', upload_to=wagtail.images.models.get_rendition_upload_to, width_field='width')),
-                ('width', models.IntegerField(editable=False)),
-                ('height', models.IntegerField(editable=False)),
-                ('focal_point_key', models.CharField(blank=True, default='', editable=False, max_length=16)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("filter_spec", models.CharField(db_index=True, max_length=255)),
+                (
+                    "file",
+                    models.ImageField(
+                        height_field="height",
+                        upload_to=wagtail.images.models.get_rendition_upload_to,
+                        width_field="width",
+                    ),
+                ),
+                ("width", models.IntegerField(editable=False)),
+                ("height", models.IntegerField(editable=False)),
+                (
+                    "focal_point_key",
+                    models.CharField(
+                        blank=True, default="", editable=False, max_length=16
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='FooterSettings',
+            name="FooterSettings",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', wagtail.fields.RichTextField(blank=True, null=True)),
-                ('release_key', models.CharField(default='Key is unavailable', max_length=255)),
-                ('release_key_description', models.CharField(default='SecureDrop Release Signing Key \n (Not for communication)', max_length=255)),
-                ('release_key_link', models.URLField(blank=True, null=True)),
-                ('support_title', models.CharField(default='Get Support', max_length=100)),
-                ('donation_url', models.URLField()),
-                ('securedrop_onion_address', models.CharField(default='secrdrop5wyphb5x.onion', max_length=255, validators=[django.core.validators.RegexValidator(message='Enter a valid .onion address.', regex='\\.onion$')], verbose_name='SecureDrop Onion Address')),
-                ('contribute_link', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailcore.Page')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", wagtail.fields.RichTextField(blank=True, null=True)),
+                (
+                    "release_key",
+                    models.CharField(default="Key is unavailable", max_length=255),
+                ),
+                (
+                    "release_key_description",
+                    models.CharField(
+                        default="SecureDrop Release Signing Key \n (Not for communication)",
+                        max_length=255,
+                    ),
+                ),
+                ("release_key_link", models.URLField(blank=True, null=True)),
+                (
+                    "support_title",
+                    models.CharField(default="Get Support", max_length=100),
+                ),
+                ("donation_url", models.URLField()),
+                (
+                    "securedrop_onion_address",
+                    models.CharField(
+                        default="secrdrop5wyphb5x.onion",
+                        max_length=255,
+                        validators=[
+                            django.core.validators.RegexValidator(
+                                message="Enter a valid .onion address.",
+                                regex="\\.onion$",
+                            )
+                        ],
+                        verbose_name="SecureDrop Onion Address",
+                    ),
+                ),
+                (
+                    "contribute_link",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="wagtailcore.Page",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Site Footer',
+                "verbose_name": "Site Footer",
             },
         ),
         migrations.CreateModel(
-            name='SocialSharingSEOSettings',
+            name="SocialSharingSEOSettings",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('default_description', models.TextField(blank=True, help_text="Default text description for pages that don't have another logical field for text descirptions", null=True)),
-                ('facebook_page_id', models.CharField(blank=True, help_text='Find on your Facebook page by navigating to "About" and scrolling to the bottom', max_length=255, null=True)),
-                ('twitter', models.CharField(blank=True, help_text='Your Twitter username', max_length=255, null=True)),
-                ('default_image', models.ForeignKey(blank=True, help_text="Default image for pages that don't have another logical image for social sharing", null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='common.CustomImage')),
-                ('site', models.OneToOneField(editable=False, on_delete=django.db.models.deletion.CASCADE, to='wagtailcore.Site')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "default_description",
+                    models.TextField(
+                        blank=True,
+                        help_text="Default text description for pages that don't have another logical field for text descirptions",
+                        null=True,
+                    ),
+                ),
+                (
+                    "facebook_page_id",
+                    models.CharField(
+                        blank=True,
+                        help_text='Find on your Facebook page by navigating to "About" and scrolling to the bottom',
+                        max_length=255,
+                        null=True,
+                    ),
+                ),
+                (
+                    "twitter",
+                    models.CharField(
+                        blank=True,
+                        help_text="Your Twitter username",
+                        max_length=255,
+                        null=True,
+                    ),
+                ),
+                (
+                    "default_image",
+                    models.ForeignKey(
+                        blank=True,
+                        help_text="Default image for pages that don't have another logical image for social sharing",
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="common.CustomImage",
+                    ),
+                ),
+                (
+                    "site",
+                    models.OneToOneField(
+                        editable=False,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="wagtailcore.Site",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Social Sharing/SEO',
+                "verbose_name": "Social Sharing/SEO",
             },
         ),
         migrations.CreateModel(
-            name='TorAlertSettings',
+            name="TorAlertSettings",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(default='Have a document to share?', help_text='Displayed if user is not browsing with Tor.', max_length=255)),
-                ('subtitle', models.CharField(blank=True, default='Your security is compromised while using this browser.', max_length=255, null=True)),
-                ('body', wagtail.fields.RichTextField(blank=True, help_text='Text explaining how and why to use Tor browser. Only displayed if user is not browsing with Tor.', null=True)),
-                ('tor_settings_title', models.CharField(default='Your Tor security settings are too low.', help_text='This alert is only displayed if the user is browsing with Tor already.', max_length=255)),
-                ('tor_settings_subtitle', models.CharField(blank=True, default='These settings allow JavaScript to run which compromises your security.', max_length=255, null=True)),
-                ('tor_settings_body', wagtail.fields.RichTextField(blank=True, help_text='Text explaining how and why to change Tor security settings.', null=True)),
-                ('site', models.OneToOneField(editable=False, on_delete=django.db.models.deletion.CASCADE, to='wagtailcore.Site')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "title",
+                    models.CharField(
+                        default="Have a document to share?",
+                        help_text="Displayed if user is not browsing with Tor.",
+                        max_length=255,
+                    ),
+                ),
+                (
+                    "subtitle",
+                    models.CharField(
+                        blank=True,
+                        default="Your security is compromised while using this browser.",
+                        max_length=255,
+                        null=True,
+                    ),
+                ),
+                (
+                    "body",
+                    wagtail.fields.RichTextField(
+                        blank=True,
+                        help_text="Text explaining how and why to use Tor browser. Only displayed if user is not browsing with Tor.",
+                        null=True,
+                    ),
+                ),
+                (
+                    "tor_settings_title",
+                    models.CharField(
+                        default="Your Tor security settings are too low.",
+                        help_text="This alert is only displayed if the user is browsing with Tor already.",
+                        max_length=255,
+                    ),
+                ),
+                (
+                    "tor_settings_subtitle",
+                    models.CharField(
+                        blank=True,
+                        default="These settings allow JavaScript to run which compromises your security.",
+                        max_length=255,
+                        null=True,
+                    ),
+                ),
+                (
+                    "tor_settings_body",
+                    wagtail.fields.RichTextField(
+                        blank=True,
+                        help_text="Text explaining how and why to change Tor security settings.",
+                        null=True,
+                    ),
+                ),
+                (
+                    "site",
+                    models.OneToOneField(
+                        editable=False,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="wagtailcore.Site",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='TwoFactorAuthSettings',
+            name="TwoFactorAuthSettings",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('signup_form_text', wagtail.fields.RichTextField(blank=True, default='Note: two-factor authentication is required to use your account.  After you complete this form, you must also complete setup of a two-factor authentication device.', help_text='Message displayed on the signup page', null=True)),
-                ('authenticate_text', wagtail.fields.RichTextField(blank=True, help_text='Message displayed on the 2FA authentication form, where the user must enter their token', null=True)),
-                ('setup_text', wagtail.fields.RichTextField(blank=True, help_text='Message displayed on the 2FA setup form', null=True)),
-                ('backup_tokens_text', wagtail.fields.RichTextField(blank=True, help_text='Message displayed on the 2FA backup tokens generation form', null=True)),
-                ('remove_text', wagtail.fields.RichTextField(blank=True, help_text='Message displayed on the 2FA removal form', null=True)),
-                ('site', models.OneToOneField(editable=False, on_delete=django.db.models.deletion.CASCADE, to='wagtailcore.Site')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "signup_form_text",
+                    wagtail.fields.RichTextField(
+                        blank=True,
+                        default="Note: two-factor authentication is required to use your account.  After you complete this form, you must also complete setup of a two-factor authentication device.",
+                        help_text="Message displayed on the signup page",
+                        null=True,
+                    ),
+                ),
+                (
+                    "authenticate_text",
+                    wagtail.fields.RichTextField(
+                        blank=True,
+                        help_text="Message displayed on the 2FA authentication form, where the user must enter their token",
+                        null=True,
+                    ),
+                ),
+                (
+                    "setup_text",
+                    wagtail.fields.RichTextField(
+                        blank=True,
+                        help_text="Message displayed on the 2FA setup form",
+                        null=True,
+                    ),
+                ),
+                (
+                    "backup_tokens_text",
+                    wagtail.fields.RichTextField(
+                        blank=True,
+                        help_text="Message displayed on the 2FA backup tokens generation form",
+                        null=True,
+                    ),
+                ),
+                (
+                    "remove_text",
+                    wagtail.fields.RichTextField(
+                        blank=True,
+                        help_text="Message displayed on the 2FA removal form",
+                        null=True,
+                    ),
+                ),
+                (
+                    "site",
+                    models.OneToOneField(
+                        editable=False,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="wagtailcore.Site",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
     ]

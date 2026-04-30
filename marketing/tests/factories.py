@@ -19,7 +19,8 @@ from marketing.models import (
 class MarketingPageFactory(PageFactory):
     class Meta:
         model = MarketingIndexPage
-    title = Faker('sentence')
+
+    title = Faker("sentence")
 
 
 class FeaturePageFactory(PageFactory):
@@ -28,13 +29,13 @@ class FeaturePageFactory(PageFactory):
 
     class Params:
         with_image = Trait(
-            icon=Iterator(CustomImage.objects.filter(collection__name='Animals'))
+            icon=Iterator(CustomImage.objects.filter(collection__name="Animals"))
         )
 
-    title = Faker('sentence')
-    teaser_title = Faker('sentence', nb_words=3)
-    teaser_description = Faker('sentence')
-    description = Faker('paragraph', nb_sentences=5, variable_nb_sentences=True)
+    title = Faker("sentence")
+    teaser_title = Faker("sentence", nb_words=3)
+    teaser_description = Faker("sentence")
+    description = Faker("paragraph", nb_sentences=5, variable_nb_sentences=True)
 
 
 class OrderedFeaturesFactory(DjangoModelFactory):

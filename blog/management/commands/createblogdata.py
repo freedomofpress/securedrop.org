@@ -5,22 +5,26 @@ from django.core.management.base import BaseCommand
 from django.db import transaction
 
 from blog.models import BlogIndexPage, CategoryPage
-from blog.tests.factories import BlogPageFactory, BlogIndexPageFactory, CategoryPageFactory
+from blog.tests.factories import (
+    BlogPageFactory,
+    BlogIndexPageFactory,
+    CategoryPageFactory,
+)
 from github.factories import ReleaseFactory
 from home.models import HomePage
 
 
 class Command(BaseCommand):
-    help = 'Creates blog data appropriate for development'
+    help = "Creates blog data appropriate for development"
 
     def add_arguments(self, parser):
-        parser.add_argument('number_of_posts', type=int)
+        parser.add_argument("number_of_posts", type=int)
 
     @transaction.atomic
     def handle(self, *args, **options):
-        number_of_posts = options['number_of_posts']
+        number_of_posts = options["number_of_posts"]
 
-        home_page = HomePage.objects.get(slug='home')
+        home_page = HomePage.objects.get(slug="home")
 
         if BlogIndexPage.objects.all():
             blog_index_page = BlogIndexPage.objects.all().first()
@@ -28,10 +32,10 @@ class Command(BaseCommand):
             blog_index_page = BlogIndexPageFactory(parent=home_page, title="News")
 
         CATEGORY_NAMES = [
-            'Release Announcement',
-            'Pre-Release Announcement',
-            'Interest Article',
-            'Security Advisory',
+            "Release Announcement",
+            "Pre-Release Announcement",
+            "Interest Article",
+            "Security Advisory",
         ]
 
         categories = []
@@ -50,7 +54,7 @@ class Command(BaseCommand):
                 parent=blog_index_page,
                 category=category,
             )
-            if category.title == 'Release Announcement':
+            if category.title == "Release Announcement":
                 release = ReleaseFactory()
                 blog_page.release = release
 

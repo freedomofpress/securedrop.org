@@ -9,18 +9,20 @@ if TYPE_CHECKING:
 
 
 #: List of field names on DirectoryEntry that should be included in CSV
-directory_entry_fields = ['title', 'onion_address', 'added']
+directory_entry_fields = ["title", "onion_address", "added"]
 
 
 #: List of field names on ScanResult that should be included in CSV.
 #: This is all fields on the model except 'securedrop' and 'id'
-scan_result_fields = list(filter(
-    lambda x: x not in ['securedrop', 'id'],
-    (f.name for f in ScanResult._meta.get_fields())
-))
+scan_result_fields = list(
+    filter(
+        lambda x: x not in ["securedrop", "id"],
+        (f.name for f in ScanResult._meta.get_fields()),
+    )
+)
 
 
-def scan_csv(entries: 'DirectoryEntryQuerySet') -> str:
+def scan_csv(entries: "DirectoryEntryQuerySet") -> str:
     """
     Turn a DirectoryEntryQuerySet into a CSV where each row has details from
     an entry's most recent live scan

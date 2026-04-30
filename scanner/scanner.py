@@ -22,8 +22,8 @@ if TYPE_CHECKING:
 
 def perform_scan(url: str, permitted_domains: List[str]) -> ScanResult:
     scan_data = {
-        'live': False,
-        'landing_page_url': url,
+        "live": False,
+        "landing_page_url": url,
     }
 
     try:
@@ -33,9 +33,9 @@ def perform_scan(url: str, permitted_domains: List[str]) -> ScanResult:
         # Connection timed out, an invalid HTTP response was returned, or
         # a network problem occurred.
         # Catch the base class exception for these cases.
-        scan_data['http_status_200_ok'] = False
+        scan_data["http_status_200_ok"] = False
         return ScanResult(**scan_data)
-    scan_data['live'] = True
+    scan_data["live"] = True
 
     http_response_data = parse_page_data(page)
     scan_data.update(http_response_data)
@@ -44,13 +44,15 @@ def perform_scan(url: str, permitted_domains: List[str]) -> ScanResult:
     scan_data.update(content_data)
 
     assets = extract_assets(soup, page.url)
-    asset_results = parse_assets(assets, [tldextract.extract(page.url).registered_domain] + permitted_domains)
+    asset_results = parse_assets(
+        assets, [tldextract.extract(page.url).registered_domain] + permitted_domains
+    )
     scan_data.update(asset_results)
 
     if page.url:
         http2_data = check_http2(page.url)
     else:
-        http2_data = {'http2': False}
+        http2_data = {"http2": False}
     scan_data.update(http2_data)
 
     return ScanResult(**scan_data)
@@ -75,7 +77,7 @@ def scan(entry: DirectoryEntry, commit=False) -> ScanResult:
     return result
 
 
-def bulk_scan(securedrops: 'DirectoryEntryQuerySet') -> None:
+def bulk_scan(securedrops: "DirectoryEntryQuerySet") -> None:
     """
     This method takes a queryset and scans the securedrop pages. Unlike the
     scan method that takes a single SecureDrop instance, this method requires
@@ -120,7 +122,9 @@ def bulk_scan(securedrops: 'DirectoryEntryQuerySet') -> None:
     return ScanResult.objects.bulk_create(results_to_be_written)
 
 
-def request_and_scrape_page(url: str, allow_redirects: bool = True) -> Tuple[requests.models.Response, BeautifulSoup]:
+def request_and_scrape_page(
+    url: str, allow_redirects: bool = True
+) -> Tuple[requests.models.Response, BeautifulSoup]:
     """Scrape and parse the HTML of a page into a BeautifulSoup"""
 
     # Note: headers include User-Agent which is required for correct
@@ -135,7 +139,7 @@ def request_and_scrape_page(url: str, allow_redirects: bool = True) -> Tuple[req
         soup = BeautifulSoup(page.content, "lxml")
     except requests.exceptions.MissingSchema:
         page = requests.get(
-            'https://{}'.format(url),
+            "https://{}".format(url),
             allow_redirects=allow_redirects,
             headers=HEADERS,
             timeout=10,
@@ -147,46 +151,46 @@ def request_and_scrape_page(url: str, allow_redirects: bool = True) -> Tuple[req
 
 def parse_page_data(page: requests.models.Response) -> Dict[str, bool]:
     http_response_data = {
-        'no_cross_domain_redirects': True,
-        'subdomain': validate_subdomain(page.url),
-        'http_status_200_ok': validate_200_ok(page),
-        'no_cookies': validate_no_cookies(page),
-        'no_cdn': validate_not_using_cdn(page),
-        'expected_encoding': validate_encoding(page),
-        'no_analytics': validate_not_using_analytics(page),
-        'no_server_info': validate_server_software(page),
-        'no_server_version': validate_server_version(page),
-        'csp_origin_only': validate_csp(page),
-        'mime_sniffing_blocked': validate_no_sniff(page),
-        'noopen_download': validate_download_options(page),
-        'xss_protection': validate_xss_protection(page),
-        'clickjacking_protection': validate_clickjacking_protection(page),
-        'good_cross_domain_policy': validate_cross_domain_policy(page),
-        'http_1_0_caching_disabled': validate_pragma(page),
-        'expires_set': validate_expires(page),
-        'cache_control_set': validate_cache_control_set(page),
-        'cache_control_revalidate_set': validate_cache_must_revalidate(page),
-        'cache_control_nocache_set': validate_nocache(page),
-        'cache_control_notransform_set': validate_notransform(page),
-        'cache_control_nostore_set': validate_nostore(page),
-        'cache_control_private_set': validate_private(page),
-        'referrer_policy_set_to_no_referrer': validate_no_referrer_policy(page),
+        "no_cross_domain_redirects": True,
+        "subdomain": validate_subdomain(page.url),
+        "http_status_200_ok": validate_200_ok(page),
+        "no_cookies": validate_no_cookies(page),
+        "no_cdn": validate_not_using_cdn(page),
+        "expected_encoding": validate_encoding(page),
+        "no_analytics": validate_not_using_analytics(page),
+        "no_server_info": validate_server_software(page),
+        "no_server_version": validate_server_version(page),
+        "csp_origin_only": validate_csp(page),
+        "mime_sniffing_blocked": validate_no_sniff(page),
+        "noopen_download": validate_download_options(page),
+        "xss_protection": validate_xss_protection(page),
+        "clickjacking_protection": validate_clickjacking_protection(page),
+        "good_cross_domain_policy": validate_cross_domain_policy(page),
+        "http_1_0_caching_disabled": validate_pragma(page),
+        "expires_set": validate_expires(page),
+        "cache_control_set": validate_cache_control_set(page),
+        "cache_control_revalidate_set": validate_cache_must_revalidate(page),
+        "cache_control_nocache_set": validate_nocache(page),
+        "cache_control_notransform_set": validate_notransform(page),
+        "cache_control_nostore_set": validate_nostore(page),
+        "cache_control_private_set": validate_private(page),
+        "referrer_policy_set_to_no_referrer": validate_no_referrer_policy(page),
     }
     if page.history:
-        http_response_data['redirect_target'] = page.url
+        http_response_data["redirect_target"] = page.url
 
         for response in page.history:
             if validate_subdomain(response.url):
-                http_response_data['subdomain'] = True
+                http_response_data["subdomain"] = True
             if not same_domain(response.url, page.url):
-                http_response_data['no_cross_domain_redirects'] = False
+                http_response_data["no_cross_domain_redirects"] = False
 
     return http_response_data
 
 
 def parse_assets(assets, permitted_domains: List[str]) -> Dict[str, bool]:
-    summary = ''
-    ignored_summary = ''
+    summary = ""
+    ignored_summary = ""
     no_cross_domain_assets = True
 
     third_party_assets = []
@@ -204,7 +208,7 @@ def parse_assets(assets, permitted_domains: List[str]) -> Dict[str, bool]:
 
         # Ignore 'script-resource' and 'script-embed' assets, these
         # are causing a lot of false positives
-        if asset.kind in ('script-resource', 'script-embed'):
+        if asset.kind in ("script-resource", "script-embed"):
             ignored_assets.append(asset)
             continue
 
@@ -218,30 +222,30 @@ def parse_assets(assets, permitted_domains: List[str]) -> Dict[str, bool]:
         summary = summarize_assets(third_party_assets)
 
     return {
-        'ignored_cross_domain_assets': ignored_summary,
-        'no_cross_domain_assets': no_cross_domain_assets,
-        'cross_domain_asset_summary': summary,
+        "ignored_cross_domain_assets": ignored_summary,
+        "no_cross_domain_assets": no_cross_domain_assets,
+        "cross_domain_asset_summary": summary,
     }
 
 
 def summarize_assets(assets: List[Asset]) -> str:
-    summary = ''
+    summary = ""
 
-    by_initiator = operator.attrgetter('initiator')
-    by_kind = operator.attrgetter('kind')
+    by_initiator = operator.attrgetter("initiator")
+    by_kind = operator.attrgetter("kind")
 
     sorted_assets = sorted(assets, key=by_initiator)
 
     for initiator, assets in itertools.groupby(sorted_assets, by_initiator):
-        summary += initiator + '\n'
+        summary += initiator + "\n"
         for asset in sorted(assets, key=by_kind):
-            summary += '  * ({0.kind}) {0.resource}\n'.format(asset)
+            summary += "  * ({0.kind}) {0.resource}\n".format(asset)
     return summary
 
 
 def parse_soup_data(soup: BeautifulSoup) -> Dict[str, bool]:
     return {
-        'safe_onion_address': validate_onion_address_not_in_href(soup),
+        "safe_onion_address": validate_onion_address_not_in_href(soup),
     }
 
 
@@ -249,19 +253,21 @@ def same_domain(url1: str, url2: str) -> bool:
     parsed_url1 = tldextract.extract(url1)
     parsed_url2 = tldextract.extract(url2)
 
-    return (parsed_url1.domain == parsed_url2.domain and
-            parsed_url1.suffix == parsed_url2.suffix)
+    return (
+        parsed_url1.domain == parsed_url2.domain
+        and parsed_url1.suffix == parsed_url2.suffix
+    )
 
 
 def validate_subdomain(url):
     """Is the landing page on a subdomain"""
     parsed_domain = tldextract.extract(url)
-    return parsed_domain.subdomain not in ('', 'www')
+    return parsed_domain.subdomain not in ("", "www")
 
 
 def validate_not_using_cdn(page):
     """Right now this is just checking for Cloudflare"""
-    if 'CF-Cache-Status' in page.headers or 'CF-RAY' in page.headers:
+    if "CF-Cache-Status" in page.headers or "CF-RAY" in page.headers:
         return False
     else:
         return True
@@ -282,9 +288,15 @@ def validate_not_using_analytics(page):
     """
     # Common scripts: Google Analytics, Quantcast, Chartbeat (two variants),
     # comScore
-    analytics_scripts = ('ga.js', 'analytics.js', 'quant.js',
-                         'chartbeat.js', 'chartbeat_mab.js', 'beacon.js',
-                         'krxd.net')
+    analytics_scripts = (
+        "ga.js",
+        "analytics.js",
+        "quant.js",
+        "chartbeat.js",
+        "chartbeat_mab.js",
+        "beacon.js",
+        "krxd.net",
+    )
     page_str = str(page.content)
     for script in analytics_scripts:
         if script in page_str:
@@ -304,8 +316,8 @@ def validate_security_header(page, header, expected_value):
 
 
 def validate_cache_control_header(page, expected_directive):
-    header = page.headers.get('Cache-Control', '')
-    directives = [directive.lower().strip() for directive in header.split(',')]
+    header = page.headers.get("Cache-Control", "")
+    directives = [directive.lower().strip() for directive in header.split(",")]
 
     return expected_directive in directives
 
@@ -327,30 +339,30 @@ def validate_200_ok(page):
 def validate_encoding(page):
     if page.encoding is None:
         return False
-    if page.encoding.upper() in ('UTF-8', 'ISO-8859-1'):
+    if page.encoding.upper() in ("UTF-8", "ISO-8859-1"):
         return True
     else:
         return False
 
 
 def validate_server_software(page):
-    if 'Server' not in page.headers:
+    if "Server" not in page.headers:
         return True
     else:
-        server_header = str.lower(page.headers['Server'])
-    if 'nginx' in server_header or 'apache' in server_header:
+        server_header = str.lower(page.headers["Server"])
+    if "nginx" in server_header or "apache" in server_header:
         return False
     else:
         return True
 
 
 def validate_server_version(page):
-    version_regex = re.compile(r'\d+.\d+')
+    version_regex = re.compile(r"\d+.\d+")
 
-    if 'Server' not in page.headers:
+    if "Server" not in page.headers:
         return True
     else:
-        matches = version_regex.search(page.headers['Server'])
+        matches = version_regex.search(page.headers["Server"])
 
     if not matches:
         return True
@@ -361,9 +373,9 @@ def validate_server_version(page):
 
 
 def validate_csp(page):
-    if 'Content-Security-Policy' not in page.headers:
+    if "Content-Security-Policy" not in page.headers:
         return False
-    elif "default-src 'self'" not in page.headers['Content-Security-Policy']:
+    elif "default-src 'self'" not in page.headers["Content-Security-Policy"]:
         return False
     else:
         return True
@@ -418,30 +430,30 @@ def validate_expires(page):
 
 
 def validate_cache_control_set(page):
-    if 'Cache-Control' in page.headers:
+    if "Cache-Control" in page.headers:
         return True
     else:
         return False
 
 
 def validate_cache_must_revalidate(page):
-    return validate_cache_control_header(page, 'must-revalidate')
+    return validate_cache_control_header(page, "must-revalidate")
 
 
 def validate_nocache(page):
-    return validate_cache_control_header(page, 'no-cache')
+    return validate_cache_control_header(page, "no-cache")
 
 
 def validate_nostore(page):
-    return validate_cache_control_header(page, 'no-store')
+    return validate_cache_control_header(page, "no-store")
 
 
 def validate_notransform(page):
-    return validate_cache_control_header(page, 'no-transform')
+    return validate_cache_control_header(page, "no-transform")
 
 
 def validate_private(page):
-    return validate_cache_control_header(page, 'private')
+    return validate_cache_control_header(page, "private")
 
 
 def validate_no_referrer_policy(page):
@@ -459,7 +471,7 @@ def validate_onion_address_not_in_href(page):
     links_on_landing_page = page.find_all("a")
     for link in links_on_landing_page:
         try:
-            if '.onion' in link.attrs['href']:
+            if ".onion" in link.attrs["href"]:
                 return False
         except KeyError:
             # This means there isn't an href in the link. That's fine.

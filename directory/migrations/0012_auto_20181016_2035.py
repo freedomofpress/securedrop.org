@@ -6,20 +6,19 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('directory', '0011_remove_scanresult_http_no_redirect'),
+        ("directory", "0011_remove_scanresult_http_no_redirect"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='scanresult',
-            name='cross_domain_asset_summary',
-            field=models.TextField(blank=True, default=''),
+            model_name="scanresult",
+            name="cross_domain_asset_summary",
+            field=models.TextField(blank=True, default=""),
         ),
         migrations.AddField(
-            model_name='scanresult',
-            name='no_cross_domain_assets',
+            model_name="scanresult",
+            name="no_cross_domain_assets",
             field=models.NullBooleanField(),
         ),
     ]

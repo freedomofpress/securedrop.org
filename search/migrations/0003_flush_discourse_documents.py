@@ -5,16 +5,13 @@ from django.db import migrations
 
 def forwards(apps, schema_editor):
     """Delete all discourse documents, as we are removing the forum search feature."""
-    SearchDocument = apps.get_model('search', 'SearchDocument')
-    SearchDocument.objects.filter(result_type='F').delete()
+    SearchDocument = apps.get_model("search", "SearchDocument")
+    SearchDocument.objects.filter(result_type="F").delete()
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('search', '0002_auto_20180426_1907'),
+        ("search", "0002_auto_20180426_1907"),
     ]
 
-    operations = [
-        migrations.RunPython(forwards, migrations.RunPython.noop)
-    ]
+    operations = [migrations.RunPython(forwards, migrations.RunPython.noop)]

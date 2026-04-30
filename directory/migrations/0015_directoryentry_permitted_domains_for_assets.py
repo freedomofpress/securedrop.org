@@ -7,15 +7,20 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('directory', '0014_merge_20181121_2225'),
+        ("directory", "0014_merge_20181121_2225"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='directoryentry',
-            name='permitted_domains_for_assets',
-            field=django.contrib.postgres.fields.ArrayField(base_field=models.TextField(), blank=True, default=[], help_text='Comma-separated list of additional domains that will not trigger the cross domain asset warning for this landing page.  Subdomains on domains in this list are ignored.  For example, adding "news.bbc.co.uk" permits all assets from "bbc.co.uk".', size=None),
+            model_name="directoryentry",
+            name="permitted_domains_for_assets",
+            field=django.contrib.postgres.fields.ArrayField(
+                base_field=models.TextField(),
+                blank=True,
+                default=[],
+                help_text='Comma-separated list of additional domains that will not trigger the cross domain asset warning for this landing page.  Subdomains on domains in this list are ignored.  For example, adding "news.bbc.co.uk" permits all assets from "bbc.co.uk".',
+                size=None,
+            ),
         ),
     ]

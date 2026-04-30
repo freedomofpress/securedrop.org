@@ -9,29 +9,30 @@ from django.db import migrations
 
 def forwards(apps, schema_editor):
     "Build a new search vector for each search document"
-    SearchDocument = apps.get_model('search', 'SearchDocument')
+    SearchDocument = apps.get_model("search", "SearchDocument")
     for document in SearchDocument.objects.all():
         document.search_vector = django.contrib.postgres.search.SearchVector(
-            'title', 'search_content'
+            "title", "search_content"
         )
-        document.save(update_fields=['search_vector'])
+        document.save(update_fields=["search_vector"])
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('search', '0001_initial'),
+        ("search", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='searchdocument',
-            name='search_vector',
+            model_name="searchdocument",
+            name="search_vector",
             field=django.contrib.postgres.search.SearchVectorField(null=True),
         ),
         migrations.AddIndex(
-            model_name='searchdocument',
-            index=django.contrib.postgres.indexes.GinIndex(fields=['search_vector'], name='search_sear_search__b5d516_gin'),
+            model_name="searchdocument",
+            index=django.contrib.postgres.indexes.GinIndex(
+                fields=["search_vector"], name="search_sear_search__b5d516_gin"
+            ),
         ),
-        migrations.RunPython(forwards, migrations.RunPython.noop)
+        migrations.RunPython(forwards, migrations.RunPython.noop),
     ]

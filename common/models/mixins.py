@@ -7,6 +7,7 @@ class MetadataPageMixin(OriginalMetadataPageMixin):
     def _get_ssssettings(self):
         # Imported here to avoid circular dependency
         from common.models.settings import SocialSharingSEOSettings
+
         return SocialSharingSEOSettings.for_site(self.get_site())
 
     def get_meta_description(self):
