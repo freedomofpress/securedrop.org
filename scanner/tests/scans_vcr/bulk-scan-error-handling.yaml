@@ -1,618 +1,1041 @@
 interactions:
-  - request:
-      body: null
-      headers:
-        Accept:
-          - '*/*'
-        Accept-Encoding:
-          - gzip, deflate
-        Connection:
-          - keep-alive
-        User-Agent:
-          - SecureDrop Landing Page Scanner 0.1.0
-      method: GET
-      uri: https://www.2600.com/securedrop
-    response:
-      body:
-        string: '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate, zstd
+      Connection:
+      - keep-alive
+      User-Agent:
+      - SecureDrop Landing Page Scanner 0.1.0
+    method: GET
+    uri: https://www.2600.com/securedrop
+  response:
+    body:
+      string: '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
 
-          <html><head>
+        <html><head>
 
-          <title>301 Moved Permanently</title>
+        <title>301 Moved Permanently</title>
 
-          </head><body>
+        </head><body>
 
-          <h1>Moved Permanently</h1>
+        <h1>Moved Permanently</h1>
 
-          <p>The document has moved <a href="https://www.2600.com/securedrop/">here</a>.</p>
+        <p>The document has moved <a href="https://www.2600.com/securedrop/">here</a>.</p>
 
-          </body></html>
+        </body></html>
 
-          '
-      headers:
-        Connection:
-          - close
-        Content-Length:
-          - '240'
-        Content-Type:
-          - text/html; charset=iso-8859-1
-        Date:
-          - Wed, 29 May 2024 14:37:05 GMT
-        Location:
-          - https://www.2600.com/securedrop/
-        Server:
-          - Apache
-        X-Frame-Options:
-          - DENY
-      status:
-        code: 301
-        message: Moved Permanently
-  - request:
-      body: null
-      headers:
-        Accept:
-          - '*/*'
-        Accept-Encoding:
-          - gzip, deflate
-        Connection:
-          - keep-alive
-        User-Agent:
-          - SecureDrop Landing Page Scanner 0.1.0
-      method: GET
-      uri: https://www.2600.com/securedrop/
-    response:
-      body:
-        string: !!binary |
-          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
-      headers:
-        Accept-Ranges:
-          - bytes
-        Cache-Control:
-          - max-age=0, no-cache, no-store, must-revalidate
-        Connection:
-          - close
-        Content-Encoding:
-          - gzip
-        Content-Length:
-          - '1743'
-        Content-Security-Policy:
-          - default-src 'self'
-        Content-Type:
-          - text/html
-        Date:
-          - Wed, 29 May 2024 14:37:06 GMT
-        ETag:
-          - '"ed1-5c371fd0d07af-gzip"'
-        Expires:
-          - '-1'
-        Last-Modified:
-          - Sat, 29 May 2021 06:20:27 GMT
-        Referrer-Policy:
-          - no-referrer
-        Server:
-          - Apache
-        Strict-Transport-Security:
-          - max-age=16070400;
-        Vary:
-          - Accept-Encoding
-        X-Content-Type-Options:
-          - nosniff
-        X-Download-Options:
-          - noopen
-        X-Frame-Options:
-          - DENY
-        X-Permitted-Cross-Domain-Policies:
-          - master-only
-        X-XSS-Protection:
-          - 1; mode=block
-        orig_req_proto:
-          - https
-      status:
-        code: 200
-        message: OK
-  - request:
-      body: null
-      headers:
-        Accept:
-          - '*/*'
-        Accept-Encoding:
-          - gzip, deflate
-        Connection:
-          - keep-alive
-        User-Agent:
-          - SecureDrop Landing Page Scanner 0.1.0
-      method: GET
-      uri: https://www.forbes.com/fdc/securedrop.html
-    response:
-      body:
-        string: !!binary |
-          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
-      headers:
-        Accept-Ranges:
-          - bytes
-        Access-Control-Allow-Credentials:
-          - 'true'
-        Age:
-          - '5616'
-        Cache-Control:
-          - max-age=0, no-cache, no-store, must-revalidate
-        Connection:
-          - keep-alive
-        Content-Length:
-          - '2103'
-        Content-Security-Policy:
-          - default-src 'none'; img-src https://i.forbesimg.com; style-src 'unsafe-inline'
-        Date:
-          - Wed, 29 May 2024 14:37:06 GMT
-        Pragma:
-          - no-cache
-        Referrer-policy:
-          - no-referrer
-        Strict-Transport-Security:
-          - max-age=31536000; includeSubDomains; preload
-        Vary:
-          - x-malcolm, X-is-EU, X-is-CN, X-is-US-DPA, X-is-US, X-Device, x-backend, canary,
-            X-Is-Ad-Light, is-vwo-enabled
-        Via:
-          - 1.1 varnish
-        X-Cache:
-          - HIT
-        X-Cache-Hits:
-          - '0'
-        X-City-Code:
-          - burlington
-        X-Content-Type-Options:
-          - nosniff
-        X-Country-Code:
-          - US
-        X-Download-Options:
-          - noopen
-        X-Fastly-Backend:
-          - 24YyrkkiTBhSwXWzJgvwW6--F_GCP_NGINX
-        X-Fastly-X-is-CN:
-          - 'false'
-        X-Fastly-X-is-US:
-          - 'true'
-        X-Fastly-X-is-US-DPA:
-          - 'false'
-        X-FastlyTTL:
-          - '31536000.000'
-        X-Frame-Options:
-          - DENY
-        X-Permitted-Cross-Domain-Policies:
-          - master-only
-        X-Postal-Code:
-          - 05408
-        X-Region:
-          - VT
-        X-Served-By:
-          - cache-iad-kiad7000107-IAD
-        X-Timer:
-          - S1716993426.380020,VS0,VE1
-        X-XSS-Protection:
-          - 1; mode=block
-        alt-svc:
-          - h3=":443";ma=86400,h3-29=":443";ma=86400,h3-27=":443";ma=86400
-        content-encoding:
-          - gzip
-        content-type:
-          - text/html
-        etag:
-          - W/"63b4b0a8-18ca"
-        last-modified:
-          - Tue, 03 Jan 2023 22:48:08 GMT
-        server:
-          - istio-envoy
-        state:
-          - HIT-CLUSTER
-        x-device:
-          - pc
-        x-envoy-upstream-service-time:
-          - '140'
-        x-fastly-server-hint:
-          - cacheable
-      status:
-        code: 200
-        message: OK
-  - request:
-      body: null
-      headers:
-        Accept:
-          - '*/*'
-        Accept-Encoding:
-          - gzip, deflate
-        Connection:
-          - keep-alive
-        User-Agent:
-          - SecureDrop Landing Page Scanner 0.1.0
-      method: GET
-      uri: https://www.cnn.com/tips/
-    response:
-      body:
-        string: !!binary |
-          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
-      headers:
-        Accept-Ranges:
-          - bytes
-        Age:
-          - '489'
-        Cache-Control:
-          - max-age=0, no-cache, no-store, must-revalidate
-        Connection:
-          - keep-alive
-        Content-Length:
-          - '14921'
-        Content-Security-Policy:
-          - "default-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval';
-            style-src 'self' 'unsafe-inline'; img-src https://cdn.cnn.com 'self'
-            data: blob:; font-src https://edition.i.cdn.cnn.com https://www.i.cdn.cnn.com
-            https://ix.cnn.io 'self';"
-        Date:
-          - Wed, 29 May 2024 14:37:06 GMT
-        Referrer-Policy:
-          - no-referrer
-        Vary:
-          - Accept-Encoding
-        X-Cache:
-          - MISS, HIT
-        X-Cache-Hits:
-          - 0, 0
-        X-Content-Type-Options:
-          - nosniff
-        X-Download-Options:
-          - noopen
-        X-Frame-Options:
-          - DENY
-        X-Permitted-Cross-Domain-Policies:
-          - master-only
-        X-Served-By:
-          - cache-iad-kcgs7200172-IAD, cache-iad-kiad7000167-IAD
-        X-Timer:
-          - S1716993426.480080,VS0,VE2
-        X-XSS-Protection:
-          - 1; mode=block
-        alt-svc:
-          - h3=":443";ma=86400,h3-29=":443";ma=86400,h3-27=":443";ma=86400
-        content-encoding:
-          - gzip
-        content-type:
-          - text/html
-        via:
-          - 1.1 varnish, 1.1 varnish
-        x-amz-version-id:
-          - hJxM55Lcs3LHhZMWtFC18Vdsd5C_saDV
-        x-servedbyhost:
-          - ::ffff:127.0.0.1
-        x-ua-profile:
-          - desktop
-      status:
-        code: 200
-        message: OK
+        '
+    headers:
+      Connection:
+      - close
+      Content-Length:
+      - '240'
+      Content-Type:
+      - text/html; charset=iso-8859-1
+      Date:
+      - Mon, 04 May 2026 22:08:43 GMT
+      Location:
+      - https://www.2600.com/securedrop/
+      Server:
+      - Apache
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate, zstd
+      Connection:
+      - keep-alive
+      User-Agent:
+      - SecureDrop Landing Page Scanner 0.1.0
+    method: GET
+    uri: https://www.2600.com/securedrop/
+  response:
+    body:
+      string: "<!doctype html>\n\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\"\
+        >\n\n  <title>2600 - SecureDrop</title>\n\n  <link rel=\"stylesheet\" href=\"\
+        styles.css\">\n\n  <script src=\"scripts.js\"></script>\n\n</head>\n\n<body>\n\
+        <div class=\"button link\" id=\"link-to-2600\">\n    <a href=\"https://www.2600.com\"\
+        >2600</a>\n</div>\n<div class=\"main-content securedrop-info\" id=\"securedrop-generic-info\"\
+        >\n    <h2>What is SecureDrop?</h2>\n\n    <p>SecureDrop is an anonymity tool\
+        \ for journalists and whistleblowers. As a source, you can use our SecureDrop\
+        \ installation to anonymously submit documents to our organization. Our journalists\
+        \ use SecureDrop to receive source materials and securely communicate with\
+        \ anonymous contacts.</p>\n\n    <h2>What should I know before submitting\
+        \ material through SecureDrop?</h2>\n\n    <p>To protect your anonymity when\
+        \ using SecureDrop, it is essential that you do not use a network or device\
+        \ that can easily be traced back to your real identity. Instead, use public\
+        \ wifi networks and devices you control.\n    </p>\n    <ul>\n        <li>Do\
+        \ NOT access SecureDrop on your employer's network.</li>\n        <li>Do NOT\
+        \ access SecureDrop using your employer's hardware.</li>\n        <li>Do NOT\
+        \ access SecureDrop on your home network.</li>\n        <li>DO access SecureDrop\
+        \ on a network not associated with you, like the wifi at a library or cafe.</li>\n\
+        \    </ul>\n\n    <h2>Got it. How can I submit files and messages through\
+        \ SecureDrop?</h2>\n\n    <p>Once you are connected to a public network at\
+        \ a cafe or library, download and install the Tor Browser.</p>\n\n    <p>Launch\
+        \ the Tor Browser. Visit our organization's unique SecureDrop URL at 2600.securedrop.tor.onion.\
+        \ (The direct link is cy6wj77vryhcyh6go576hxycjz4wxlo4s5vevdinkw3armwzty5jozyd.onion.)\
+        \ Follow the instructions you find on our source page to send us materials\
+        \ and messages.</p>\n\n    <p>When you make your first submission, you will\
+        \ receive a unique codename. Memorize it. If you write it down, be sure to\
+        \ destroy the copy as soon as you've committed it to memory. Use your codename\
+        \ to sign back in to our source page, check for responses from our journalists,\
+        \ and upload additional materials.</p>\n\n    <h2>As a source, what else should\
+        \ I know?</h2>\n\n    <p>No tool can absolutely guarantee your security or\
+        \ anonymity. The best way to protect your privacy and anonymity as a source\
+        \ is to adhere to best practices.</p>\n\n    <p>You can use a separate computer\
+        \ you've designated specifically to handle the submission process. Or, you\
+        \ can use an alternate operating system like Tails, which boots from a USB\
+        \ stick and erases your activity at the end of every session.</p>\n\n    <p>A\
+        \ file contains valuable metadata about its source - when it was created and\
+        \ downloaded, what machine was involved, the machine's owner, etc. You can\
+        \ scrub metadata from some files prior to submission using the Metadata Anonymization\
+        \ Toolkit featured in Tails.</p>\n\n    <p>Your online behavior can be extremely\
+        \ revealing. Regularly monitoring our publication's social media or website\
+        \ can potentially flag you as a source. Take great care to think about what\
+        \ your online behavior might reveal, and consider using Tor Browser to mitigate\
+        \ such monitoring.</p>\n\n    <p>2600: The Hacker Quarterly retains strict\
+        \ access control over our SecureDrop equipment. The staff within our organization\
+        \ will be the only beings with access to SecureDrop submissions. We control\
+        \ the server that stores your submissions, so no other entities have direct\
+        \ access to the metadata or content of what you send us. In addition 2600.com\
+        \ does not actively log user traffic, IPs, or other personally identifiable\
+        \ data and thereby does not retain such information for any purpose ever.</p>\n\
+        \n    <p>Do not discuss leaking or whistleblowing, even with trusted contacts.</p>\n\
+        </div>\n</body>\n</html>\n"
+    headers:
+      Accept-Ranges:
+      - bytes
+      Cache-Control:
+      - max-age=0, no-cache, no-store, must-revalidate
+      Connection:
+      - close
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '1743'
+      Content-Security-Policy:
+      - default-src 'self'
+      Content-Type:
+      - text/html
+      Date:
+      - Mon, 04 May 2026 22:08:44 GMT
+      ETag:
+      - '"ed1-5c371fd0d07af-gzip"'
+      Expires:
+      - '-1'
+      Last-Modified:
+      - Sat, 29 May 2021 06:20:27 GMT
+      Referrer-Policy:
+      - no-referrer
+      Server:
+      - Apache
+      Strict-Transport-Security:
+      - max-age=16070400;
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - master-only
+      X-XSS-Protection:
+      - 1; mode=block
+      orig_req_proto:
+      - https
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate, zstd
+      Connection:
+      - keep-alive
+      User-Agent:
+      - SecureDrop Landing Page Scanner 0.1.0
+    method: GET
+    uri: https://www.forbes.com/fdc/securedrop.html
+  response:
+    body:
+      string: "\n<html>\n    <meta name=\"viewport\" content=\"width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no\"\
+        >\n    <title itemprop=\"headline\">How To Use Forbes SecureDrop </title>\n\
+        \    <meta name=\"description\" itemprop=\"description\" content=\"SecureDrop\
+        \ is an open-source whistleblower submission system that media organizations\
+        \ like Forbes can use to securely accept documents from and communicate with\
+        \ anonymous sources.\">\n    <meta name=\"keywords\" itemprop=\"keywords\"\
+        \ content=\"whistleblower, anonymous tips, Forbes\">\n    \n    <meta property=\"\
+        og:site_name\" content=\"Forbes\">\n    <meta property=\"og:url\" content=\"\
+        https://www.forbes.com/fdc/securedrop.html\">\n    <meta property=\"og:image\"\
+        \ content=\"https://i.forbesimg.com/media/assets/forbes_1200x1200.jpg\">\n\
+        \    <meta property=\"og:description\" content=\"SecureDrop is an open-source\
+        \ whistleblower submission system that media organizations like Forbes can\
+        \ use to securely accept documents from and communicate with anonymous sources.\"\
+        \ ng-attr-content=\"{{meta.description}}\">\n    <meta property=\"og:updated_time\"\
+        \ content=\"\">\n    <meta property=\"article:publisher\" content=\"https://www.facebook.com/forbes\"\
+        >\n    <meta property=\"article:author\" content=\"\">\n    <meta property=\"\
+        fb:app_id\" content=\"123694841080850\">\n    <meta name=\"twitter:card\"\
+        \ content=\"summary_large_image\">\n    <meta name=\"twitter:site\" content=\"\
+        @forbes\">\n    <meta name=\"twitter:title\" content=\"How To Use Forbes SecureDrop\
+        \ \">\n    <meta name=\"twitter:description\" content=\"SecureDrop is an open-source\
+        \ whistleblower submission system that media organizations like Forbes can\
+        \ use to securely accept documents from and communicate with anonymous sources.\"\
+        \ ng-attr-content=\"{{meta.description}}\">\n    <meta name=\"twitter:image\"\
+        \ itemprop=\"image\" content=\"https://i.forbesimg.com/media/assets/forbes_1200x1200.jpg\"\
+        >\n    <meta property=\"og:type\" content=\"website\">\n    <meta name=\"\
+        news_keywords\" itemprop=\"keywords\" content=\"whistleblower,anonymous tips,Forbes\"\
+        >\n    <link rel=\"shortcut icon\" href=\"//i.forbesimg.com/favicon.ico\"\
+        >\n    <link rel=\"apple-touch-icon\" href=\"//i.forbesimg.com/media/assets/appicons/forbes-app-icon_57x57.png\"\
+        >\n    <link rel=\"apple-touch-icon\" sizes=\"72x72\" href=\"//i.forbesimg.com/media/assets/appicons/forbes-app-icon_72x72.png\"\
+        >\n    <link rel=\"apple-touch-icon\" sizes=\"114x114\" href=\"//i.forbesimg.com/media/assets/appicons/forbes-app-icon_114x114.png\"\
+        >\n    <link rel=\"apple-touch-icon\" sizes=\"144x144\" href=\"//i.forbesimg.com/media/assets/appicons/forbes-app-icon_144x144.png\"\
+        >\n    <link rel=\"canonical\" itemprop=\"url\" href=\"https://www.forbes.com/fdc/securedrop.html\"\
+        \ ng-href=\"https://www.forbes.com/securedrop/\">\n    <style type=\"text/css\"\
+        >\n        a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1;min-height:100%}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}button{border:0;outline:0;padding:0;background:0\
+        \ 0;cursor:pointer}a{text-decoration:none;-webkit-tap-highlight-color:transparent}h1,h2,h3,h4,h5,h6,ol,p,ul{-webkit-margin-before:0;-webkit-margin-after:0;-webkit-padding-start:0}img{max-width:100%}sup{vertical-align:super;font-size:70%}em,i{font-style:italic}b,strong{font-weight:700}.ng-cloak,.x-ng-cloak,[data-ng-cloak],[ng-cloak],[ng\\\
+        :cloak],[x-ng-cloak]{display:none!important}*,:after,:before{-ms-box-sizing:border-box;-o-box-sizing:border-box}\n\
+        \n        @font-face {\n            font-family: \"Noto Sans\";\n        \
+        \    src: url(\"https://i.forbesimg.com/assets/fonts/noto-sans/notosans-regular-webfont.eot\"\
+        );\n            src: url(\"https://i.forbesimg.com/assets/fonts/noto-sans/notosans-regular-webfont.eot?#iefix\"\
+        ) format(\"embedded-opentype\"),\n                url(\"https://i.forbesimg.com/assets/fonts/noto-sans/notosans-regular-webfont.woff2\"\
+        ) format(\"woff2\"),\n                url(\"https://i.forbesimg.com/assets/fonts/noto-sans/notosans-regular-webfont.woff\"\
+        ) format(\"woff\"),\n                url(\"https://i.forbesimg.com/assets/fonts/noto-sans/notosans-regular-webfont.ttf\"\
+        ) format(\"truetype\"),\n                url(\"https://i.forbesimg.com/assets/fonts/noto-sans/notosans-regular-webfont.svg#noto_sansregular\"\
+        ) format(\"svg\");\n            font-weight: 400;\n            font-style:\
+        \ normal;\n        }\n        .sd {\n            font: .95em/1.5em \"Noto\
+        \ Sans\", Helvetica, sans serif;\n            width: 95%;\n            margin:\
+        \ 5rem auto;\n            max-width: 1200px;\n        }\n        .sd a {\n\
+        \            text-decoration: underline;\n            color: #003891;\n  \
+        \      }\n        .hed-sd, .hed-sub-sd {\n            font-size: 1.7em;\n\
+        \            line-height: 1.1em;\n            font-weight: bold;\n       \
+        \     margin: 0 0 30px; \n        }\n        .hed-sub-sd {\n            font-size:\
+        \ 1.2em;\n            margin: 20px 0; \n        }\n        .sd ol {\n    \
+        \        list-style-type: decimal;\n            margin: 15px 25px;\n     \
+        \   }\n        .sd ol li {\n            margin: 10px 0;\n        }\n     \
+        \       header {\n                height: 3em;\n                line-height:\
+        \ 3em;\n                background: rgba(0,0,0,.8);\n                padding:\
+        \ 0;\n                position: fixed;\n                width: 100%;\n   \
+        \             top: 0;\n                left: 0;\n            }\n         \
+        \   header .row-inner, footer .row-inner {\n                width: 90%;\n\
+        \                margin: 0 auto;\n            }\n            header a {\n\
+        \                color: #fff;\n            }\n\n            header .icon-forbes-logo\
+        \ {\n            /* margin-left: 2em;*/\n            }\n\n            .logo\
+        \ {\n                padding-top: 10px;\n                display: inline-block;\n\
+        \            }\n\n            .icon-forbes-logo:before {\n               \
+        \ line-height: inherit;\n            }\n\n            footer {\n         \
+        \       background: #ebebeb;\n                border-top: 4px solid #b3b3b3;\n\
+        \                border-bottom: 5px solid #6b6b6b;\n                width:\
+        \ 100%;\n                position: bottom;\n                bottom: 0;\n \
+        \               line-height: 1.1em;\n            }\n\n            footer .row-inner\
+        \ {\n                height: 120px;\n                max-width: 1300px;\n\
+        \                margin: 0 auto;\n            }\n\n            .footer-logo\
+        \ {\n                margin-top: 20px;\n            }\n\n            .footer-logo\
+        \ .copy {\n                display: block;\n                font: 10px Helvetica;\n\
+        \                color: #b3b3b3;\n                padding: 0 0 10px;\n   \
+        \         }\n\n            .footer-logo .icon-forbes-logo {\n            \
+        \    color: #939393;\n                font-size: 38px;\n            }\n\n\
+        \            .footer-links {    \n                width: 100%;\n         \
+        \       padding-left: 0;\n            }\n\n            .footer-links li {\n\
+        \                margin-right: 10px;\n                font: 12px Helvetica;\n\
+        \                list-style-type: none;\n                display: inline-block;\n\
+        \            }\n\n            .footer-links li:last-child {\n            \
+        \    margin-right: 0;\n            }\n\n            .footer-links li:not(:last-child)\
+        \ a:after {\n                content: \"|\";\n                color: #b3b3b3;\n\
+        \                margin-left: 10px;\n            }\n\n            .footer-links\
+        \ a {\n                color: #b3b3b3;\n            }\n\n            .footer-links\
+        \ a:hover {\n                color: #000;\n                text-decoration:\
+        \ underline;\n            }\n            @media screen and (max-width: 768px)\
+        \ {\n                .sd {\n                    margin-top: 4em;\n       \
+        \         }\n                .hed-sd, .hed-sub-sd {\n                    font-size:\
+        \ 1.3em;\n                    line-height: 1.4em;\n                }\n   \
+        \             .hed-sub-sd {\n                    font-size: 1.2em;\n     \
+        \               margin: 20px 0; \n                }   \n            footer\
+        \ {\n                position: relative;\n                bottom: 0;\n   \
+        \         }\n        }\n    </style>\n    <body>\n    <!-- Header -->\n  \
+        \  <header>\n        <div class=\"row-inner\">\n            <!-- Header Logo\
+        \ -->\n            <a href=\"//www.forbes.com/\" class=\"logo\" target=\"\
+        _self\">\n                <img src=\"https://i.forbesimg.com/media/logos/forbes-static.png\"\
+        >\n            </a>\n        </div>\n    </header>\n    \n    <div class=\"\
+        sd\">\n    <h1 class=\"hed-sd\">How To Send Forbes Documents Using SecureDrop</h1>\n\
+        \    <ol>\n        <li>Download and install the Tor browser from <a href=\"\
+        https://www.torproject.org\" target=\"_blank\">https://www.torproject.org</a>.\
+        \ The Tor browser allows access to our SecureDrop page, which operates as\
+        \ a Tor \"hidden service.\"</li>\n        <li>Open the Tor browser and wait\
+        \ for the page that says a connection has been established, then copy and\
+        \ paste the following into the address bar: \n<b>http://forbes.securedrop.tor.onion</b>\n\
+        or\n<b>http://6zonlfhh7aqtfwoyvdlad3nxn6ljecx2k6tyyy3spt43nn54q6lvncid.onion</b></li>\n\
+        \        <li>Follow the instructions to send us information. Users will be\
+        \ given a codename that can be used to log back in and check for responses\
+        \ from Forbes reporters.</li>\n    </ol>\n    \n    <b>For added security,\
+        \ consider using the Tails operating system instead of the Tor Browser.</b>\n\
+        \    \n    </div>\n    \n    <footer>\n        <div class=\"row-inner\">\n\
+        \            <div class=\"footer-logo\">\n                <span class=\"copy\"\
+        >&copy; 2017 Forbes Media LLC. All Rights Reserved.</span>\n            </div>\n\
+        \            <div class=\"footer-links-wrapper\">\n                <ul class=\"\
+        footer-links\">\n                    <li class=\"desk\"><a href=\"https://preferences-mgr.truste.com/?pid=forbes01\"\
+        \ target=\"_blank\">AdChoices</a></li>\n                    <li><a href=\"\
+        //www.forbes.com/fdc/privacy.html\" target=\"_self\">Privacy Statement</a></li>\n\
+        \                    <li><a href=\"//www.forbes.com/terms\" target=\"_self\"\
+        >Terms and Conditions</a></li>\n                    <li><a href=\"//www.forbes.com/fdc/contact.html\"\
+        \ target=\"_self\">Contact Us</a></li>\n                    <li><a href=\"\
+        mailto://feedback@forbes.com\">Send Us Feedback</a></li>\n               \
+        \     <li><a href=\"//www.forbes.com/sites/careers-at-forbes/\" target=\"\
+        _self\">Jobs At Forbes</a></li>\n                    <li><a href=\"http://forbesreprints.magreprints.com/\"\
+        \ target=\"_blank\">Reprints & Permissions</a></li>\n                    <li><a\
+        \ href=\"//www.forbes.com/sites/forbespr/\" target=\"_self\">Forbes Press\
+        \ Room</a></li>\n                    <li><a href=\"http://www.forbesmedia.com/\"\
+        \ target=\"_blank\">Advertise</a></li>\n                </ul>\n          \
+        \  </div>\n        </div>\n    </footer>\n    </body>\n    </html>\n"
+    headers:
+      Accept-Ranges:
+      - bytes
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Age:
+      - '0'
+      Cache-Control:
+      - max-age=0, no-cache, no-store, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '3372'
+      Content-Security-Policy:
+      - default-src 'none'; img-src https://i.forbesimg.com; style-src 'unsafe-inline'
+      Date:
+      - Mon, 04 May 2026 22:08:44 GMT
+      Permissions-Policy:
+      - unload=()
+      Pragma:
+      - no-cache
+      Referrer-policy:
+      - no-referrer
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Vary:
+      - x-malcolm, X-is-EU, X-is-CN, X-is-US-DPA, X-is-OPT-IN-JURISDICTION, X-is-STRICT-US-DPA,
+        X-is-US, X-Device, x-backend, canary, X-Is-Ad-Light, is-vwo-enabled
+      Via:
+      - 1.1 varnish
+      X-Cache:
+      - MISS
+      X-Cache-Hits:
+      - '0'
+      X-City-Code:
+      - brooklyn
+      X-Content-Type-Options:
+      - nosniff
+      X-Country-Code:
+      - US
+      X-Download-Options:
+      - noopen
+      X-Fastly-Backend:
+      - 24YyrkkiTBhSwXWzJgvwW6--F_GCP_NGINX
+      X-Fastly-X-is-CN:
+      - 'false'
+      X-Fastly-X-is-OPT-IN-JURISDICTION:
+      - 'false'
+      X-Fastly-X-is-STRICT-US-DPA:
+      - 'false'
+      X-Fastly-X-is-US:
+      - 'true'
+      X-Fastly-X-is-US-DPA:
+      - 'false'
+      X-FastlyTTL:
+      - '31536000.000'
+      X-Frame-Options:
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - master-only
+      X-Postal-Code:
+      - '11231'
+      X-Region:
+      - NY
+      X-Served-By:
+      - cache-nyc-kteb1890039-NYC
+      X-Timer:
+      - S1777932524.470501,VS0,VE180
+      X-XSS-Protection:
+      - 1; mode=block
+      alt-svc:
+      - h3=":443";ma=86400,h3-29=":443";ma=86400,h3-27=":443";ma=86400
+      content-encoding:
+      - gzip
+      content-type:
+      - text/html
+      etag:
+      - W/"6911f585-2ad8"
+      last-modified:
+      - Mon, 10 Nov 2025 14:24:05 GMT
+      server:
+      - istio-envoy
+      state:
+      - MISS-CLUSTER
+      x-device:
+      - pc
+      x-envoy-upstream-service-time:
+      - '170'
+      x-fastly-server-hint:
+      - cacheable
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate, zstd
+      Connection:
+      - keep-alive
+      User-Agent:
+      - SecureDrop Landing Page Scanner 0.1.0
+    method: GET
+    uri: https://www.cnn.com/tips/
+  response:
+    body:
+      string: "\n<!doctype html>\n<html>\n    <head>\n        <!--\n        \n   \
+        \     \n                 ,%%%%%%%%%%%%(   %%%%%%%%%          (%%%%%%%%   \
+        \      %%%% ,%%%(\n              .%%%%%%%%%%%%%%%(  %%%%%%%%%%%/       %%%%%%#%%%%%\
+        \       %%%% ,%%%(\n            *%%%%%%   *%%%%%%%( .%%%% %% *%%%%      %%%%\
+        \ #%  %%%%      %%%% ,%%%(\n           %%%%%. /%%%%%%%%%%%( .%%%% %%%  %%%%\
+        \     %%%% %%%  %%%%     %%%% ,%%%(\n          %%%%% *%%%%%%(....... .%%%%\
+        \ %%%%  %%%%    %%%% %%%%  %%%%    %%%% ,%%%(\n         %%%%( %%%%%      \
+        \      .%%%% %%%%%. %%%%.  %%%% %%%%%/ %%%%*  %%%% ,%%%(\n         %%%% (%%%%\
+        \             .%%%% %%%%%%, %%%%. %%%% %%%%%%% #%%%# %%%% ,%%%(\n        .%%%#\
+        \ %%%%              .%%%% %%%%%%%( %%%%(%%%% %%%%%%%% *%%%%%%%% ,%%%(\n  \
+        \      .%%%% %%%%              .%%%% %%%%*%%%% *%%%%%%% %%%%.%%%% .%%%%%%%\
+        \ ,%%%(\n         %%%% *%%%%             .%%%% %%%%  %%%%  %%%%%% %%%%  %%%%\
+        \  %%%%%% ,%%%(\n         #%%%% #%%%%,           .%%%% %%%%   %%%%  %%%%%\
+        \ %%%%   %%%%  %%%%% ,%%%(\n          %%%%%  %%%%%%%%#######%%%%% %%%%   \
+        \ %%%%  %%%% %%%%    %%%%/ %%%% ,%%%(\n           %%%%%#  %%%%%%%%%%%%%%%%%%\
+        \ %%%%     %%%%. %%% %%%%     #%%%% %%% ,%%%(\n             %%%%%%(    ............\
+        \  %%%%      #%%%# */ %%%%      /%%%% .( (%%%(\n               %%%%%%%%%%%%%%%%%%%%%%%%%%(\
+        \       ,%%%%%%%%%%%        %%%%%%%%%%% \n                  #%%%%%%%%%%%%%%%%%%%%%\
+        \           %%%%%%%%/          /%%%%%%%#  \n        \n        \n        -->\n\
+        \        \n        <title>CNN news tips</title>\n        \n        <meta charset=\"\
+        utf-8\">\n        <meta name=\"robots\" content=\"index, follow\">\n     \
+        \   <meta name=\"googlebot\" content=\"noarchive\">\n        <meta name=\"\
+        title\" content=\"CNN news tips\">\n        <meta name=\"description\" content=\"\
+        Do you have a tip or sensitive material to share with CNN? Here\u2019s how\
+        \ to share confidential story tips and material with our journalists.\">\n\
+        \        <meta name=\"keywords\" content=\"tips, whistleblowers, leaks, journalism,\
+        \ CNN, WhatsApp, Signal, Pretty Good Privacy, PGP, encryption, encrypted email,\
+        \ ProtonMail, privacy, anonymity, security, cybersecurity\">\n        <meta\
+        \ name=\"source\" content=\"CNN\">\n        <meta name=\"section\" content=\"\
+        us\">\n        <meta name=\"subsection\" content=\"\">\n        <meta name=\"\
+        application-name\" content=\"CNN\">\n        <meta name=\"viewport\" content=\"\
+        width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no,\
+        \ shrink-to-fit=no\">\n        <meta name=\"format-detection\" content=\"\
+        telephone=no\">\n        \n        <!-- OpenGraph -->\n        <meta property=\"\
+        og:url\" content=\"https://www.cnn.com/tips/\">\n        <meta property=\"\
+        og:type\" content=\"article\">\n        <meta property=\"og:site_name\" content=\"\
+        CNN\">\n        <meta property=\"og:locale\" content=\"en_US\">\n        <meta\
+        \ property=\"og:title\" content=\"Send a tip to CNN\">\n        <meta property=\"\
+        og:description\" content=\"Do you have a tip or sensitive material to share\
+        \ with CNN? Here\u2019s how to share confidential story tips and material\
+        \ with our journalists.\">\n        <meta property=\"og:image\" content=\"\
+        https://www.cnn.com/tips/media/assets/images/cnn-investigates-tips-card.jpg\"\
+        >\n        <meta property=\"og:image:alt\" content=\"A man wearing a trench\
+        \ coat and fedora holds up a red envelope.\">\n        \n        <!-- Facebook\
+        \ -->\n        <meta property=\"fb:admins\" content=\"690014395\">\n     \
+        \   <meta property=\"fb:app_id\" content=\"80401312489\">\n        \n    \
+        \    <!-- Twitter  -->\n        <meta name=\"twitter:site\" content=\"@CNN\"\
+        >\n        <meta name=\"twitter:site:id\" content=\"759251\">\n        <meta\
+        \ name=\"twitter:creator\" content=\"@CNN\">\n        <meta name=\"twitter:card\"\
+        \ content=\"summary_large_image\">\n        <meta name=\"twitter:image\" content=\"\
+        https://www.cnn.com/tips/media/assets/images/cnn-investigates-tips-card.jpg\"\
+        >\n        <meta name=\"twitter:image:alt\" content=\"A man wearing a trench\
+        \ coat and fedora holds up a red envelope.\">\n        \n        <link rel=\"\
+        canonical\" href=\"https://www.cnn.com/tips/\">\n        <link rel=\"shortcut\
+        \ icon\" href=\"/tips/media/assets/favicon.ico\">\n        <link rel=\"apple-touch-icon\"\
+        \ href=\"/tips/media/assets/images/apple-touch-icon.png\">\n        \n   \
+        \     <link rel=\"stylesheet\" type=\"text/css\" href=\"/tips/css/cnn-tips.css?e9ddf66320bf4aef39a1\"\
+        >\n        \n        <script type=\"application/ld+json\">\n        {\n  \
+        \          \"@context\": \"https://schema.org\", \n            \"@type\":\
+        \ \"NewsArticle\",\n            \"headline\": \"Send a tip to CNN\",\n   \
+        \         \"image\": [\n                \"https://media.cnn.com/api/v1/images/stellar/prod/cnn-investigates-tips-card.jpg?q=h_900,w_1600,x_0,y_0\"\
+        ,\n                \"https://media.cnn.com/api/v1/images/stellar/prod/cnn-investigates-tips-card.jpg?q=h_300,w_400,x_0,y_0\"\
+        ,\n                \"https://media.cnn.com/api/v1/images/stellar/prod/cnn-investigates-tips-card.jpg?q=h_100,w_100,x_0,y_0\"\
+        \n            ],\n            \"keywords\": \"tips, whistleblowers, leaks,\
+        \ journalism, CNN, WhatsApp, Signal, Pretty Good Privacy, PGP, encryption,\
+        \ encrypted email, ProtonMail, privacy, anonymity, security, cybersecurity\"\
+        , \n            \"wordcount\": 683,\n            \"publisher\": {\n      \
+        \          \"@type\": \"Organization\",\n                \"name\": \"CNN\"\
+        ,\n                \"logo\": {\n                    \"@type\": \"ImageObject\"\
+        ,\n                    \"url\": \"https://www.cnn.com/media/sites/cnn/cnn.svg\"\
+        ,\n                    \"width\": 103,\n                    \"height\": 60\n\
+        \                }\n            },\n            \"author\": {\n          \
+        \      \"@type\": \"Organization\",\n                \"name\": \"CNN\",\n\
+        \                \"logo\": {\n                    \"@type\": \"ImageObject\"\
+        ,\n                    \"url\": \"https://www.cnn.com/media/sites/cnn/cnn.svg\"\
+        ,\n                    \"width\": 103,\n                    \"height\": 60\n\
+        \                }\n            },\n            \"url\": \"https://www.cnn.com/tips/\"\
+        ,\n            \"mainEntityOfPage\": {\n                \"@type\": \"WebPage\"\
+        ,\n                \"@id\": \"https://www.cnn.com/tips/\"\n            },\n\
+        \            \"datePublished\": \"2019-12-02\",\n            \"dateCreated\"\
+        : \"2019-12-02\",\n            \"dateModified\": \"2024-02-13\",\n       \
+        \     \"description\": \"How to share confidential story tips and material\
+        \ with CNN\u2019s journalists.\",\n            \"articleBody\": Do you have\
+        \ a tip or sensitive material to share with CNN? We offer several ways to\
+        \ reach our journalists. We regularly review submissions, but because we receive\
+        \ a large number, we cannot respond to or investigate every tip. Anatomy of\
+        \ a good tip Tips should be newsworthy, meaning they concern systemic problems\
+        \ of timely and broad public interest. The most compelling tips are those\
+        \ that can be corroborated with documentation or evidence. These channels\
+        \ are not for press releases. To share feedback about something you saw on\
+        \ CNN or CNN.com, use our feedback form. Before reaching out Remember that\
+        \ no method is completely secure and what measures you should take depend\
+        \ on how much anonymity you need. Before using any of these apps or tools,\
+        \ consider taking a few extra security precautions, including: considering\
+        \ whether the network you use can be used to identify you or your activity;\
+        \ using a secure web browser or operating system; disabling features that\
+        \ back data up to cloud services; and avoiding using accounts or devices linked\
+        \ to your name, email or phone number. The Freedom of the Press Foundation\
+        \ (FPF) offers more detailed guides aimed at maintaining privacy and anonymity.\
+        \  Email Regular email is convenient but not secure. Do not use it if your\
+        \ information is sensitive or if you are concerned about someone knowing that\
+        \ you are a source. For more sensitive tips, you can send email encrypted\
+        \ with Pretty Good Privacy (PGP). Be aware that while the content of PGP-encrypted\
+        \ emails is secure, metadata \u2014 such as information about the sender or\
+        \ recipient, time stamps and the subject \u2014 is not. Keep in mind that\
+        \ many email providers retain your messages unless you direct otherwise. Several\
+        \ browser extensions, such as Mailvelope, Enigmail and FlowCrypt, make it\
+        \ easy to use PGP with existing email providers, such as Gmail. You can also\
+        \ use ProtonMail, an email provider that supports PGP. For additional anonymity,\
+        \ set up a dedicated email address to communicate with us. Email address:\
+        \ tips@cnn.com ProtonMail address: cnn.tips@protonmail.com Public key: B4BC\
+        \ 1138 6DD7 BB01 801A 2594 0486 46F7 1E7B 788C Get ProtonMail Learn more FPF\
+        \ guide  Signal Signal is a free app that allows users to make and send encrypted\
+        \ calls and self-destructing text messages, images and videos. The Signal\
+        \ Protocol is end-to-end encrypted, which means only the sender and recipient\
+        \ can access the conversations. Signal does save some information about you,\
+        \ including your phone number, when you signed up and when you were last active,\
+        \ but stores no metadata about your communications. By default, Signal saves\
+        \ your messages on your device unless you configure them to self-destruct.\
+        \ For additional anonymity, consider setting up a dedicated phone number to\
+        \ use with Signal. You can do this through several services, such as Google\
+        \ Voice, Skype or Twilio, or you can purchase a prepaid SIM card. Number:\
+        \ +1 (646) 397-6705 Get Signal Learn more FPF guide  WhatsApp WhatsApp is\
+        \ a free app that secures phone calls and text messages using end-to-end encryption\
+        \ and allows you to delete messages even after they\u2019ve been read. The\
+        \ app is owned by Meta, which also owns Facebook and Instagram, and retains\
+        \ a significant amount of metadata about conversations. However, WhatsApp\
+        \ claims neither it, nor third parties, can see users\u2019 private conversations.\
+        \ For additional anonymity, consider setting up a dedicated phone number to\
+        \ use with WhatsApp. You can do this through several services, such as Google\
+        \ Voice, Skype or Twilio, or you can purchase a prepaid SIM card. Number:\
+        \ +1 (646) 397-6705 Get WhatsApp Learn more FPF guide  Postal mail Traditional\
+        \ first-class mail is still among the safest ways to communicate securely.\
+        \ When sending tips through postal mail, don\u2019t include a return address\
+        \ on the letter\u2019s face. (If you\u2019d like us to be able to contact\
+        \ you, include your contact information inside the letter.) Make sure any\
+        \ writing on the letter\u2019s face is typed, not handwritten, and send your\
+        \ letter from a sidewalk mailbox and not your home, workplace or a post office.\
+        \ Send mail to: Tips\u2105 CNN Investigates, 30 Hudson Yards, Fl 21, New York,\
+        \ NY 10001, United States of America\n        }\n        </script>\n    </head>\n\
+        \    <body id=\"body\">\n        <div id=\"app\">\n\n            <svg xmlns=\"\
+        http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"\
+        \ style=\"position:absolute;width:0;height:0;visibility:hidden; display:none;\
+        \ pointer-events: none;\">\n                <defs>\n                    <symbol\
+        \ id=\"twitterShare\" viewBox=\"0 0 64 64\" width=\"24px\" height=\"24px\"\
+        ><path d=\"M60,15.2c-2.1,0.9-4.3,1.5-6.6,1.7c2.4-1.4,4.2-3.6,5.1-6.1c-2.2,1.3-4.7,2.2-7.3,2.7\
+        \ c-2.1-2.2-5.1-3.5-8.4-3.5c-6.3,0-11.5,5-11.5,11.1c0,0.9,0.1,1.7,0.3,2.5C22,23.2,13.6,18.8,7.9,12c-1,1.6-1.6,3.5-1.6,5.6\
+        \ c0,3.9,2,7.3,5.1,9.2c-1.9-0.1-3.7-0.6-5.2-1.4v0.1c0,5.4,4,9.9,9.2,10.9c-1,0.3-2,0.4-3,0.4c-0.7,0-1.5-0.1-2.2-0.2\
+        \ c1.5,4.4,5.7,7.6,10.7,7.7c-3.9,3-8.9,4.8-14.3,4.8c-0.9,0-1.8-0.1-2.7-0.2c5.1,3.2,11.1,5,17.6,5c21.1,0,32.7-16.9,32.7-31.6\
+        \ c0-0.5,0-1,0-1.4C56.5,19.4,58.5,17.4,60,15.2\"></path></symbol>\n      \
+        \              <symbol id=\"fbShare\" viewBox=\"0 0 64 64\" width=\"24px\"\
+        \ height=\"24px\"><path d=\"M56,5.1H8c-1.6,0-3,1.4-3,3v48.8c0,1.7,1.3,3,3,3h25.9V38.7h-7v-8.3h7v-6.1\
+        \ c0-7.1,4.3-10.9,10.5-10.9c3,0,5.9,0.2,6.7,0.3v7.7h-4.7c-3.4,0-4.1,1.6-4.1,4v5h8.1l-1,8.3h-7v21.2H56c1.6,0,3-1.4,3-3V8.1\
+        \ C59,6.4,57.7,5.1,56,5.1\"></path></symbol>\n                    <symbol\
+        \ id=\"nativeShare\"  viewBox=\"0 0 64 64\" width=\"24px\" height=\"24px\"\
+        ><path d=\"M50,34.00005 C50,32.89605 50.896,32.00005 52,32.00005 C53.104,32.00005\
+        \ 54,32.89605 54,34.00005 L54,58.00005 C54,59.10405 53.104,60.00005 52,60.00005\
+        \ L12,60.00005 C10.896,60.00005 10,59.10405 10,58.00005 L10,34.00005 C10,32.89605\
+        \ 10.896,32.00005 12,32.00005 C13.104,32.00005 14,32.89605 14,34.00005 L14,56.00005\
+        \ L50,56.00005 L50,34.00005 Z M47.3867,18.38875 C47.8987,18.89475 48.1437,19.64575\
+        \ 47.9117,20.32275 C47.3677,21.91675 45.5277,22.20975 44.5067,21.20175 L33.9997,10.99975\
+        \ L33.9997,43.99975 C33.9997,44.99975 32.9997,45.99975 31.9997,45.99975 C30.9997,45.99975\
+        \ 29.9997,44.99575 29.9997,43.99975 L29.9997,10.99975 L19.4417,21.20175 C18.5717,22.06075\
+        \ 17.1077,21.97575 16.3557,20.94575 C15.7657,20.13675 15.9397,19.00175 16.6537,18.29775\
+        \ L30.3267,4.79775 C30.3267,4.79675 30.3267,4.79675 30.3277,4.79675 L30.5417,4.58575\
+        \ C31.3327,3.80475 32.6157,3.80475 33.4067,4.58575 L33.6197,4.79675 C33.6197,4.79675\
+        \ 33.6207,4.79675 33.6207,4.79775 L47.3867,18.38875 Z\"></path></symbol>\n\
+        \                    <symbol id=\"scroll-arrow\" viewBox=\"0 0 21 44\" preserveAspectRatio=\"\
+        xMidYMid meet\"><g fill=\"none\" fill-rule=\"evenodd\"><path d=\"M10.333.432v40.995\"\
+        \ stroke=\"#FFF\" stroke-width=\"2.88\"/><path fill=\"#FFF\" d=\"M21 32.746L19.12\
+        \ 31l-8.621 9.242L1.88 31 0 32.746 10.499 44z\"/></g></symbol>\n         \
+        \           <symbol id=\"scrollIcon\" viewBox=\"0 0 33 33\" preserveAspectRatio=\"\
+        xMidYMid meet\"><path d=\"M8.116 0C5.379 0-.306 1.495.013 9.19.225 14.32 5.72\
+        \ 22.257 16.5 33 27.279 22.257 32.775 14.32 32.987 9.19 33.306 1.495 27.621\
+        \ 0 24.884 0c-2.736 0-5.447 1.296-8.384 5.487C13.563 1.296 10.852 0 8.116\
+        \ 0z\" fill=\"#FFF\" fill-rule=\"evenodd\"/></symbol>\n                  \
+        \  <symbol id=\"loader\" viewBox=\"20 20 100 100\"> <defs> <linearGradient\
+        \ x1=\"50%\" y1=\"0%\" x2=\"50%\" y2=\"100%\" id=\"loader_linearGradient-1\"\
+        > <stop stop-color=\"#FFFFFF\" offset=\"0%\"></stop> <stop stop-color=\"#262626\"\
+        \ offset=\"100%\"></stop> </linearGradient> </defs> <g stroke=\"none\" stroke-width=\"\
+        1\" fill=\"none\" fill-rule=\"evenodd\" transform=\"translate(22.000000, 22.000000)\"\
+        > <circle stroke=\"url(#loader_linearGradient-1)\" stroke-width=\"3\" cx=\"\
+        48\" cy=\"48\" r=\"48\"></circle> </g> </symbol>\n                    <symbol\
+        \ id=\"cnnlogo\" viewBox=\"0 0 500 500\" preserveAspectRatio=\"xMidYMid meet\"\
+        ><g><rect x=\"0.3\" fill=\"#cc0000 \" width=\"500\" height=\"500\"/><g><path\
+        \ d=\"M106.1,249.9c0-19.7,16-38.5,35.6-38.5h29.1v-19.3h-29.3c-30.8,0-55.8,27-55.8,57.8c0,30.8,25,57.8,55.8,57.8H194c2.9,0,5.7-4.8,5.7-7.2V197.1c0-5.7,3.4-10.5,8.7-12c4.5-1.2,10.8,0,15.1,7.2c0.2,0.3,13,22.6,32.7,56.4c15.4,26.6,31.4,54.1,31.6,54.6c1.6,2.8,3.5,4.1,5.6,3.5c1.4-0.4,2.5-1.7,2.5-4.2V197.1c0-5.7,4-10.5,9.3-12c4.5-1.2,11,0,15.3,7.2c0.2,0.3,11.7,20,30.5,52.3c16.6,28.6,33.8,58.2,34.1,58.7c1.7,2.8,3,4.1,5.1,3.5c1.4-0.4,2-1.7,2-4.2V163.3H373v84.1c0,0-33.3-58.2-34.8-60.9c-21.5-36.5-61.5-21.4-61.5,10v50.9c0,0-33.3-58.2-34.8-60.9c-21.5-36.5-61.5-21.4-61.5,10v83.4c0,3-3.5,8.6-6.9,8.6h-31.8C122.1,288.4,106.1,269.6,106.1,249.9z\"\
+        /><path d=\"M401.9,163.3v139.5c0,5.7-3.4,10.5-8.7,12c-1,0.3-1.9,0.4-3.1,0.4c-4,0-8.6-2-12-7.7c-0.2-0.3-13.6-23.5-34.1-58.8c-14.8-25.5-30-51.8-30.3-52.3c-1.6-2.8-3.5-4.1-5.6-3.6c-1.3,0.4-2.5,1.7-2.5,4.2v105.7c0,5.7-3.9,10.5-9.3,12c-4.5,1.2-11.1,0-15.3-7.2c-0.2-0.3-12.8-21.8-31.8-54.6c-15.9-27.5-32.5-55.9-32.8-56.4c-1.7-2.8-3-4.1-5.1-3.5c-1.4,0.4-2,1.7-2,4.2v103.4c0,7.1-8.2,16.8-15.3,16.8h-52.5c-35.2,0-63.9-32.2-63.9-67.4c0-35.2,28.7-67.4,63.9-67.4h29.3v-19.3h-29.3c-46.4,0-84.1,40.2-84.1,86.6c0,46.4,37.7,86.6,84.1,86.6h53c20.1,0,34-14.3,34-36.1v-48c0,0,33.2,58.2,34.8,60.9c21.5,36.5,61.5,21.4,61.5-10v-50.9c0,0,33.3,58.2,34.8,60.9c21.5,36.5,61.5,21.4,61.5-10V163.3H401.9z\"\
+        /></g></g></symbol>\n                </defs>\n            </svg>\n       \
+        \     <header class=\"nav\">\n                <div class=\"nav-row content-container--margin\"\
+        >\n                    <div class=\"nav-logo nav-cell\">\n               \
+        \         <div class=\"logo\">\n                            <a href=\"https://www.cnn.com\"\
+        >\n                                <svg width=\"30px\" height=\"30px\">\n\
+        \                                    <use xmlns:xlink=\"http://www.w3.org/1999/xlink\"\
+        \ xlink:href=\"#cnnlogo\"></use>\n                                </svg>\n\
+        \                            </a>\n                        </div>\n      \
+        \              </div>\n                    <ul class=\"social-share nav-cell\
+        \ nav-share\">\n                        <li class=\"social-share__icon social-share__facebook\"\
+        >\n                            <a href=\"https://www.facebook.com/sharer/sharer.php?u=https://www.cnn.com/tips/\"\
+        \ target=\"_blank\">\n                                <svg class=\"cnn-icon\
+        \ social facebook\" data-icon=\"facebook\" width=\"24\" height=\"24\" aria-hidden=\"\
+        true\" focusable=\"false\" role=\"img\" xmlns=\"https://www.w3.org/2000/svg\"\
+        \ fill-rule=\"evenodd\" clip-rule=\"evenodd\" viewBox=\"0 0 64 64\"><path\
+        \ d=\"M56,5.1H8c-1.6,0-3,1.4-3,3v48.8c0,1.7,1.3,3,3,3h25.9V38.7h-7v-8.3h7v-6.1\
+        \ c0-7.1,4.3-10.9,10.5-10.9c3,0,5.9,0.2,6.7,0.3v7.7h-4.7c-3.4,0-4.1,1.6-4.1,4v5h8.1l-1,8.3h-7v21.2H56c1.6,0,3-1.4,3-3V8.1\
+        \ C59,6.4,57.7,5.1,56,5.1\" /></svg>\n                            </a>\n \
+        \                       </li>\n                        <li class=\"social-share__icon\
+        \ social-share__twitter\">\n                            <a href=\"https://twitter.com/intent/tweet?text=&url=https://www.cnn.com/tips/\"\
+        \ target=\"_blank\">\n                                <svg class=\"cnn-icon\
+        \ social twitter\" data-icon=\"twitter\" width=\"24\" height=\"24\" aria-hidden=\"\
+        true\" focusable=\"false\" role=\"img\" xmlns=\"https://www.w3.org/2000/svg\"\
+        \ fill-rule=\"evenodd\" clip-rule=\"evenodd\" viewBox=\"0 0 64 64\"><path\
+        \ d=\"M60,15.2c-2.1,0.9-4.3,1.5-6.6,1.7c2.4-1.4,4.2-3.6,5.1-6.1c-2.2,1.3-4.7,2.2-7.3,2.7\
+        \ c-2.1-2.2-5.1-3.5-8.4-3.5c-6.3,0-11.5,5-11.5,11.1c0,0.9,0.1,1.7,0.3,2.5C22,23.2,13.6,18.8,7.9,12c-1,1.6-1.6,3.5-1.6,5.6\
+        \ c0,3.9,2,7.3,5.1,9.2c-1.9-0.1-3.7-0.6-5.2-1.4v0.1c0,5.4,4,9.9,9.2,10.9c-1,0.3-2,0.4-3,0.4c-0.7,0-1.5-0.1-2.2-0.2\
+        \ c1.5,4.4,5.7,7.6,10.7,7.7c-3.9,3-8.9,4.8-14.3,4.8c-0.9,0-1.8-0.1-2.7-0.2c5.1,3.2,11.1,5,17.6,5c21.1,0,32.7-16.9,32.7-31.6\
+        \ c0-0.5,0-1,0-1.4C56.5,19.4,58.5,17.4,60,15.2\" /></svg>\n              \
+        \              </a>\n                        </li>\n                     \
+        \   <li class=\"social-share__icon social-share__native\">\n             \
+        \               <span style=\"cursor:pointer;\">\n                       \
+        \         <svg class=\"cnn-icon social share-os\" data-icon=\"share-os\" width=\"\
+        24\" height=\"24\" aria-hidden=\"true\" focusable=\"false\" role=\"img\" xmlns=\"\
+        https://www.w3.org/2000/svg\" fill-rule=\"evenodd\" clip-rule=\"evenodd\"\
+        \ viewBox=\"0 0 64 64\"><path d=\"M50,34.00005 C50,32.89605 50.896,32.00005\
+        \ 52,32.00005 C53.104,32.00005 54,32.89605 54,34.00005 L54,58.00005 C54,59.10405\
+        \ 53.104,60.00005 52,60.00005 L12,60.00005 C10.896,60.00005 10,59.10405 10,58.00005\
+        \ L10,34.00005 C10,32.89605 10.896,32.00005 12,32.00005 C13.104,32.00005 14,32.89605\
+        \ 14,34.00005 L14,56.00005 L50,56.00005 L50,34.00005 Z M47.3867,18.38875 C47.8987,18.89475\
+        \ 48.1437,19.64575 47.9117,20.32275 C47.3677,21.91675 45.5277,22.20975 44.5067,21.20175\
+        \ L33.9997,10.99975 L33.9997,43.99975 C33.9997,44.99975 32.9997,45.99975 31.9997,45.99975\
+        \ C30.9997,45.99975 29.9997,44.99575 29.9997,43.99975 L29.9997,10.99975 L19.4417,21.20175\
+        \ C18.5717,22.06075 17.1077,21.97575 16.3557,20.94575 C15.7657,20.13675 15.9397,19.00175\
+        \ 16.6537,18.29775 L30.3267,4.79775 C30.3267,4.79675 30.3267,4.79675 30.3277,4.79675\
+        \ L30.5417,4.58575 C31.3327,3.80475 32.6157,3.80475 33.4067,4.58575 L33.6197,4.79675\
+        \ C33.6197,4.79675 33.6207,4.79675 33.6207,4.79775 L47.3867,18.38875 Z\" id=\"\
+        path-1\" /></svg>\n                            </span>\n                 \
+        \       </li>\n                    </ul>\n                </div>\n       \
+        \     </header>\n            <main>\n                <article class=\"main-container\"\
+        >\n                    <header class=\"\">\n                        <figure\
+        \ class=\"cp-media cp-image\">\n                            <picture class=\"\
+        u-full-width\">\n                                <img src=\"/tips/media/assets/images/story-top.jpg\"\
+        \ alt=\"A man wearing a trench coat and fedora holds up a red envelope.\"\
+        \ class=\"u-full-width u-height-auto\">\n                            </picture>\n\
+        \                            <figcaption class=\"caption\">\n            \
+        \                    <span class=\"caption__credit\">Max Pepper/CNN</span>\n\
+        \                            </figcaption>\n                        </figure>\n\
+        \                        <h1 class=\"hed\">Send a tip to CNN</h1>\n      \
+        \                  <h2 class=\"dek\">How to share confidential story tips<br/>and\
+        \ material with our journalists</h2>\n                        <div class=\"\
+        cp-byline\">\n                            <div>\n                        \
+        \        <p class=\"cp-byline__published\">\n                            \
+        \        Published Dec. 2, 2019 at 12:00 p.m. ET</p>\n                   \
+        \             <p class=\"cp-byline__updated\">Updated March 18, 2022 at 9:00\
+        \ a.m. ET\n                                </p>\n                        \
+        \    </div>\n                        </div>\n                    </header>\n\
+        \                    <section>\n                        <p id=\"1\" data-element-id=\"\
+        1\" class=\"cp-text\">Do you have a tip or sensitive material to share with\
+        \ CNN? We offer several ways to reach our journalists.</p>\n             \
+        \           <p id=\"2\" data-element-id=\"2\" class=\"cp-text\">We regularly\
+        \ review submissions, but because we receive a large number, we cannot respond\
+        \ to or investigate every tip.</p>\n                        <h2 id=\"3\" data-element-id=\"\
+        3\" class=\"cp-header cp-header--title\">Anatomy of a good tip</h2>\n    \
+        \                    <p id=\"4\" data-element-id=\"4\" class=\"cp-text\">Tips\
+        \ should be newsworthy, meaning they concern systemic problems of timely and\
+        \ broad public interest. The most compelling tips are those that can be corroborated\
+        \ with documentation or evidence.</p>\n                        <p id=\"5\"\
+        \ data-element-id=\"5\" class=\"cp-text\">These channels are not for press\
+        \ releases. To share feedback about something you saw on CNN or CNN.com, use\
+        \ <a href=\"https://www.cnn.com/feedback\" target=\"_blank\" rel=\"noopener\
+        \ nofollow noreferrer\">our feedback form</a>.</p>\n                     \
+        \   <h2 id=\"6\" data-element-id=\"6\" class=\"cp-header cp-header--title\"\
+        >Before reaching out</h2>\n                        <p id=\"7\" data-element-id=\"\
+        7\" class=\"cp-text\">Remember that no method is completely secure and what\
+        \ measures you should take depend on how much anonymity you need. Before using\
+        \ any of these apps or tools, consider taking a few extra security precautions,\
+        \ including: considering whether the network you use can be used to identify\
+        \ you or your activity; using a secure <a href=\"https://www.torproject.org/\"\
+        \ target=\"_blank\" rel=\"noopener nofollow noreferrer\">web browser</a> or\
+        \ <a href=\"https://tails.boum.org/\" target=\"_blank\" rel=\"noopener nofollow\
+        \ noreferrer\">operating system</a>; disabling features that back data up\
+        \ to cloud services; and avoiding using accounts or devices linked to your\
+        \ name, email or phone number.</p>\n                        <p id=\"8\" data-element-id=\"\
+        8\" class=\"cp-text\">The <a href=\"https://freedom.press/training/\" target=\"\
+        _blank\" rel=\"noopener nofollow noreferrer\">Freedom of the Press Foundation</a>\
+        \ (FPF) offers more detailed guides aimed at maintaining privacy and anonymity.</p>\n\
+        \                        <h2 id=\"9\" data-element-id=\"9\" class=\"cp-header\
+        \ cp-header--title\"><i class=\"cnn-icon social email\"></i> Email</h2>\n\
+        \                        <p id=\"10\" data-element-id=\"10\" class=\"cp-text\"\
+        >Regular email is convenient but not secure. Do not use it if your information\
+        \ is sensitive or if you are concerned about someone knowing that you are\
+        \ a source.</p>\n                        <p id=\"11\" data-element-id=\"11\"\
+        \ class=\"cp-text\">For more sensitive tips, you can send email encrypted\
+        \ with Pretty Good Privacy (PGP). Be aware that while the content of PGP-encrypted\
+        \ emails is secure, metadata \u2014 such as information about the sender or\
+        \ recipient, time stamps and the subject \u2014 is not. Keep in mind that\
+        \ many email providers retain your messages unless you direct otherwise.</p>\n\
+        \                        <p id=\"12\" data-element-id=\"12\" class=\"cp-text\"\
+        >Several browser extensions, such as <a href=\"https://www.mailvelope.com/\"\
+        \ target=\"_blank\" rel=\"noopener nofollow noreferrer\">Mailvelope</a>, <a\
+        \ href=\"https://enigmail.net/index.php/\" target=\"_blank\" rel=\"noopener\
+        \ nofollow noreferrer\">Enigmail</a> and <a href=\"https://flowcrypt.com/\"\
+        \ target=\"_blank\" rel=\"noopener nofollow noreferrer\">FlowCrypt</a>, make\
+        \ it easy to use PGP with existing email providers, such as Gmail. You can\
+        \ also use <a href=\"https://protonmail.com/\" target=\"_blank\" rel=\"noopener\
+        \ nofollow noreferrer\">ProtonMail</a>, an email provider that supports PGP.</p>\n\
+        \                        <p id=\"13\" data-element-id=\"13\" class=\"cp-text\"\
+        >For additional anonymity, set up a dedicated email address to communicate\
+        \ with us.</p>\n                        <p id=\"14\" data-element-id=\"14\"\
+        \ class=\"cp-text\"><strong>Email address:</strong> <a href=\"mailto:tips@cnn.com\"\
+        \ target=\"_blank\" rel=\"noopener nofollow noreferrer\">tips@cnn.com</a></p>\n\
+        \                        <p id=\"15\" data-element-id=\"15\" class=\"cp-text\"\
+        ><strong>ProtonMail address:</strong> <a href=\"mailto:cnn.tips@protonmail.com\"\
+        \ target=\"_blank\" rel=\"noopener nofollow noreferrer\">cnn.tips@protonmail.com</a></p>\n\
+        \                        <p id=\"16\" data-element-id=\"16\" class=\"cp-text\"\
+        ><strong>Public key:</strong> <a href=\"https://api.protonmail.ch/pks/lookup?op=get&search=cnn.tips@protonmail.com\"\
+        \ target=\"_blank\" rel=\"noopener nofollow noreferrer\">B4BC 1138 6DD7 BB01\
+        \ 801A 2594 0486 46F7 1E7B 788C</a></p>\n                        <p id=\"\
+        17\" data-element-id=\"17\" class=\"cp-text\"><a href=\"https://protonmail.com/signup\"\
+        \ target=\"_blank\" rel=\"noopener nofollow noreferrer\" class=\"button button-filled\"\
+        >Get ProtonMail</a> <a href=\"https://protonmail.com/security-details\" target=\"\
+        _blank\" rel=\"noopener nofollow noreferrer\" class=\"button button-outlined\"\
+        >Learn more</a> <a href=\"https://freedom.press/training/protonmail-pro/\"\
+        \ target=\"_blank\" rel=\"noopener nofollow noreferrer\" class=\"button button-outlined\"\
+        >FPF guide</a></p>\n                        <!-- <h2 id=\"18\" data-element-id=\"\
+        18\" class=\"cp-header cp-header--title\"><i class=\"cnn-icon signal\"></i>\
+        \ Signal</h2>\n                        <p id=\"19\" data-element-id=\"19\"\
+        \ class=\"cp-text\"><a href=\"https://signal.org\" target=\"_blank\" rel=\"\
+        noopener nofollow noreferrer\">Signal</a> is a free app that allows users\
+        \ to make and send encrypted calls and self-destructing text messages, images\
+        \ and videos. The Signal Protocol is end-to-end encrypted, which means only\
+        \ the sender and recipient can access the conversations. Signal does save\
+        \ some information about you, including your phone number, when you signed\
+        \ up and when you were last active, but stores no metadata about your communications.\
+        \ By default, Signal saves your messages on your device unless you configure\
+        \ them to self-destruct.</p>\n                        <p id=\"20\" data-element-id=\"\
+        20\" class=\"cp-text\">For additional anonymity, consider setting up a dedicated\
+        \ phone number to use with Signal. You can do this through several services,\
+        \ such as <a href=\"https://voice.google.com/\" target=\"_blank\" rel=\"noopener\
+        \ nofollow noreferrer\">Google Voice</a>, <a href=\"https://www.skype.com/en/skype-number/\"\
+        \ target=\"_blank\" rel=\"noopener nofollow noreferrer\">Skype</a> or <a href=\"\
+        https://twilio.com\" target=\"_blank\" rel=\"noopener nofollow noreferrer\"\
+        >Twilio</a>, or you can purchase a prepaid SIM card.</p>\n               \
+        \         <p id=\"21\" data-element-id=\"21\" class=\"cp-text\"><strong>Number:</strong>\
+        \ <a href=\"sgnl://signal.me/#p/+16463976705\" target=\"_blank\" rel=\"noopener\
+        \ nofollow noreferrer\">+1 (646) 397-6705</a></p>\n                      \
+        \  <p id=\"22\" data-element-id=\"22\" class=\"cp-text\"><a href=\"https://signal.org/install\"\
+        \ target=\"_blank\" rel=\"noopener nofollow noreferrer\" class=\"button button-filled\"\
+        >Get Signal</a> <a href=\"https://support.signal.org/hc/en-us/sections/360001614191-Security-FAQ\"\
+        \ target=\"_blank\" rel=\"noopener nofollow noreferrer\" class=\"button button-outlined\"\
+        >Learn more</a> <a href=\"https://freedom.press/training/locking-down-signal/\"\
+        \ target=\"_blank\" rel=\"noopener nofollow noreferrer\" class=\"button button-outlined\"\
+        >FPF guide</a></p>\n                        <h2 id=\"23\" data-element-id=\"\
+        23\" class=\"cp-header cp-header--title\"><i class=\"cnn-icon social whatsapp\"\
+        ></i> WhatsApp</h2>\n                        <p id=\"24\" data-element-id=\"\
+        24\" class=\"cp-text\"><a href=\"https://whatsapp.com\" target=\"_blank\"\
+        \ rel=\"noopener nofollow noreferrer\">WhatsApp</a> is a free app that secures\
+        \ phone calls and text messages using end-to-end encryption and allows you\
+        \ to delete messages even after they\u2019ve been read. The app is <a href=\"\
+        https://money.cnn.com/2014/02/19/technology/social/facebook-whatsapp/\" target=\"\
+        _blank\" rel=\"noopener nofollow noreferrer\">owned by Meta</a>, which also\
+        \ owns Facebook and Instagram, and retains a significant amount of metadata\
+        \ about conversations. However, WhatsApp claims neither it, nor third parties,\
+        \ can see users\u2019 private conversations.</p>\n                       \
+        \ <p id=\"25\" data-element-id=\"25\" class=\"cp-text\">For additional anonymity,\
+        \ consider setting up a dedicated phone number to use with WhatsApp. You can\
+        \ do this through several services, such as <a href=\"https://voice.google.com/\"\
+        \ target=\"_blank\" rel=\"noopener nofollow noreferrer\">Google Voice</a>,\
+        \ <a href=\"https://www.skype.com/en/skype-number/\" target=\"_blank\" rel=\"\
+        noopener nofollow noreferrer\">Skype</a> or <a href=\"https://twilio.com\"\
+        \ target=\"_blank\" rel=\"noopener nofollow noreferrer\">Twilio</a>, or you\
+        \ can purchase a prepaid SIM card.</p>\n                        <p id=\"26\"\
+        \ data-element-id=\"26\" class=\"cp-text\"><strong>Number:</strong> <a href=\"\
+        https://wa.me/16463976705\" target=\"_blank\" rel=\"noopener nofollow noreferrer\"\
+        >+1 (646) 397-6705</a></p>\n                        <p id=\"27\" data-element-id=\"\
+        27\" class=\"cp-text\"><a href=\"https://www.whatsapp.com/download\" target=\"\
+        _blank\" rel=\"noopener nofollow noreferrer\" class=\"button button-filled\"\
+        >Get WhatsApp</a> <a href=\"https://www.whatsapp.com/security\" target=\"\
+        _blank\" rel=\"noopener nofollow noreferrer\" class=\"button button-outlined\"\
+        >Learn more</a> <a href=\"https://freedom.press/training/upgrading-whatsapp-security/\"\
+        \ target=\"_blank\" rel=\"noopener nofollow noreferrer\" class=\"button button-outlined\"\
+        >FPF guide</a></p> -->\n                        <h2 id=\"33\" data-element-id=\"\
+        33\" class=\"cp-header cp-header--title\"><i class=\"cnn-icon location\"></i>\
+        \ Postal mail</h2>\n                        <p id=\"34\" data-element-id=\"\
+        34\" class=\"cp-text\">Traditional first-class mail is still among the safest\
+        \ ways to communicate securely.</p>\n                        <p id=\"35\"\
+        \ data-element-id=\"35\" class=\"cp-text\">When sending tips through postal\
+        \ mail, don\u2019t include a return address on the letter\u2019s face. (If\
+        \ you\u2019d like us to be able to contact you, include your contact information\
+        \ inside the letter.) Make sure any writing on the letter\u2019s face is typed,\
+        \ not handwritten, and send your letter from a sidewalk mailbox and not your\
+        \ home, workplace or a post office.</p>\n                        <p id=\"\
+        36\" data-element-id=\"36\" class=\"cp-text\">Send mail to:</p>\n        \
+        \                <blockquote id=\"37\" data-element-id=\"37\" class=\"cp-media\
+        \ cp-blockquote\"><address>Tips<br>\u2105 CNN Investigates<br>30 Hudson Yards,\
+        \ Fl 21<br>New York, NY 10001<br>United States of America</address></blockquote></blockquote>\n\
+        \                    </section>\n                </article>\n            \n\
+        \                <footer id=\"page-footer\" class=\"page-footer sc-fzoydu\
+        \ gZRuNw page-footer\">\n                    <div class=\"sc-AxmLO fsUIiy\"\
+        >\n                        <div class=\"sc-AxheI jLyvlV\">\n             \
+        \               <div class=\"sc-Axmtr dYDhPj\">\n                        \
+        \        <div class=\"sc-Axmtr sc-fzpkqZ iSuUst\">\n                     \
+        \               <div size=\"40\" class=\"sc-Axmtr sc-fzoyTs heYAcf\">\n  \
+        \                                      <a href=\"/\" aria-label=\"CNN\" data-analytics=\"\
+        footer\" color=\"#0C0C0C\" mode=\"light\" class=\"sc-fzoXzr sc-fzpjYC gUnSfk\"\
+        >\n                                            <svg class=\"cnn-badge-icon\"\
+        \ width=\"40\" height=\"40\" viewBox=\"0 0 240 240\" fill=\"#CC0000\"\n  \
+        \                                              xmlns=\"https://www.w3.org/2000/svg\"\
+        \ aria-hidden=\"true\">\n                                                <rect\
+        \ x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" fill=\"#fff\"></rect>\n \
+        \                                               <path d=\"M.31-.07v240h240V-.07ZM86.54,135.29V92.51c0-16.1,20.81-23.83,31.82-5.12.8,1.35,18.14,31.22,18.14,31.22V92.51c0-16.1,20.8-23.83,31.81-5.12.8,1.35,18.14,31.22,18.14,31.22V76.79h10.38V147a2.11,2.11,0,0,1-1.51,2.14c-1.1.3-2.26-.38-3.11-1.82-.17-.28-9-15.46-17.48-30.13L159.17,90.4c-2.18-3.7-5.43-4.35-7.74-3.72a6.23,6.23,0,0,0-4.55,6.13V147a2.12,2.12,0,0,1-1.51,2.14c-1.11.3-2.27-.38-3.11-1.82-.15-.25-8.34-14.36-16.25-28-10.08-17.38-16.7-28.78-16.8-28.95-2.18-3.71-5.44-4.35-7.77-3.72a6.24,6.24,0,0,0-4.56,6.13v53.05a2.9,2.9,0,0,1-2.72,2.71H67.23a28.64,28.64,0,0,1,0-57.28h14v10.36H67.35a18.28,18.28,0,1,0,0,36.56H83.68A2.84,2.84,0,0,0,86.54,135.29Zm124.77,12.05c0,16.1-20.81,23.83-31.82,5.13-.79-1.35-18.14-31.23-18.14-31.23v26.1c0,16.1-20.8,23.83-31.81,5.13-.8-1.35-18.14-31.23-18.14-31.23v24.61c0,11.17-6.63,17.22-17,17.22H67.25a43.14,43.14,0,0,1,0-86.28h14V87.15h-14a32.78,32.78,0,1,0,0,65.56H94.16a7,7,0,0,0,6.86-6.85V92.81a2.1,2.1,0,0,1,1.51-2.13c1.1-.3,2.26.38,3.11,1.82l16.79,28.93c9.76,16.83,16.17,27.88,16.25,28,2.19,3.7,5.45,4.35,7.78,3.71A6.22,6.22,0,0,0,151,147V92.82a2.11,2.11,0,0,1,1.49-2.14c1.09-.3,2.24.38,3.08,1.82l15.56,26.81,17.49,30.15c1.71,2.9,4.09,3.93,6.16,3.93a6,6,0,0,0,1.61-.22A6.23,6.23,0,0,0,201,147V76.79h10.34Z\"\
+        \ transform=\"translate(-0.31 0.07)\"></path>\n                          \
+        \                  </svg>\n                                        </a>\n\
+        \                                    </div>\n                            \
+        \    </div>\n                                <div class=\"sc-Axmtr sc-fzoYHE\
+        \ hIwgCg\">\n                                    <div data-test=\"social-follow-bar\"\
+        \ class=\"sc-Axmtr sc-fzomME glCpWV\"><span font-weight=\"bold\"\n       \
+        \                                     data-test=\"follow-text\" font-size=\"\
+        12\" letter-spacing=\"1.5\" class=\"sc-fzoLsD cYCcKV\">Follow\n          \
+        \                                  CNN </span>\n                         \
+        \               <div mode=\"dark\" class=\"sc-AxjAm sc-fzqMAW kHpzoj\"></div>\n\
+        \                                        <ul class=\"sc-AxjAm hiNUxI\">\n\
+        \                                            <li class=\"sc-AxjAm bThiiM\"\
+        >\n                                                <a href=\"https://www.facebook.com/cnn\"\
+        \n                                                    target=\"_blank noreferrer\"\
+        \ rel=\"noopener\" data-icon=\"facebook\" aria-label=\"Facebook\"\n      \
+        \                                              name=\"Facebook\" mode=\"dark\"\
+        \ color=\"#0C0C0C\"\n                                                    class=\"\
+        sc-fzoXzr sc-fzpjYC sc-fzqAbL iQmyJJ\"><svg class=\"facebook-icon\" width=\"\
+        64\" height=\"64\" viewBox=\"0 0 64 64\" fill=\"\" xmlns=\"https://www.w3.org/2000/svg\"\
+        \ aria-hidden=\"true\">\n                                                \
+        \        <path d=\"M56,5.1H8c-1.6,0-3,1.4-3,3v48.8c0,1.7,1.3,3,3,3h25.9V38.7h-7v-8.3h7v-6.1\
+        \ c0-7.1,4.3-10.9,10.5-10.9c3,0,5.9,0.2,6.7,0.3v7.7h-4.7c-3.4,0-4.1,1.6-4.1,4v5h8.1l-1,8.3h-7v21.2H56c1.6,0,3-1.4,3-3V8.1\
+        \ C59,6.4,57.7,5.1,56,5.1\"></path>\n                                    \
+        \                </svg>\n                                                </a>\n\
+        \                                            </li>\n                     \
+        \                       <li class=\"sc-AxjAm bThiiM\">\n                 \
+        \                               <a href=\"https://twitter.com/cnn\"\n    \
+        \                                                target=\"_blank noreferrer\"\
+        \n                                                    rel=\"noopener\" data-icon=\"\
+        twitter\" aria-label=\"Twitter\" name=\"Twitter\" mode=\"dark\"\n        \
+        \                                            color=\"#0C0C0C\" class=\"sc-fzoXzr\
+        \ sc-fzpjYC sc-fzqAbL iQmyJJ\"><svg\n                                    \
+        \                    class=\"twitter-icon\" width=\"64\" height=\"64\" viewBox=\"\
+        0 0 64 64\" fill=\"\"\n                                                  \
+        \      xmlns=\"https://www.w3.org/2000/svg\" aria-hidden=\"true\">\n     \
+        \                                                   <path d=\"M60,15.2c-2.1,0.9-4.3,1.5-6.6,1.7c2.4-1.4,4.2-3.6,5.1-6.1c-2.2,1.3-4.7,2.2-7.3,2.7\
+        \ c-2.1-2.2-5.1-3.5-8.4-3.5c-6.3,0-11.5,5-11.5,11.1c0,0.9,0.1,1.7,0.3,2.5C22,23.2,13.6,18.8,7.9,12c-1,1.6-1.6,3.5-1.6,5.6\
+        \ c0,3.9,2,7.3,5.1,9.2c-1.9-0.1-3.7-0.6-5.2-1.4v0.1c0,5.4,4,9.9,9.2,10.9c-1,0.3-2,0.4-3,0.4c-0.7,0-1.5-0.1-2.2-0.2\
+        \ c1.5,4.4,5.7,7.6,10.7,7.7c-3.9,3-8.9,4.8-14.3,4.8c-0.9,0-1.8-0.1-2.7-0.2c5.1,3.2,11.1,5,17.6,5c21.1,0,32.7-16.9,32.7-31.6\
+        \ c0-0.5,0-1,0-1.4C56.5,19.4,58.5,17.4,60,15.2\"></path>\n               \
+        \                                     </svg>\n                           \
+        \                     </a>\n                                            </li>\n\
+        \                                            <li class=\"sc-AxjAm bThiiM\"\
+        >\n                                                <a href=\"https://instagram.com/cnn\"\
+        \ target=\"_blank noreferrer\"\n                                         \
+        \           rel=\"noopener\" data-icon=\"instagram\" aria-label=\"Instagram\"\
+        \ name=\"Instagram\"\n                                                   \
+        \ mode=\"dark\" color=\"#0C0C0C\" class=\"sc-fzoXzr sc-fzpjYC sc-fzqAbL iQmyJJ\"\
+        ><svg\n                                                        class=\"instagram-icon\"\
+        \ width=\"64\" height=\"64\" viewBox=\"0 0 64 64\" fill=\"\"\n           \
+        \                                             xmlns=\"https://www.w3.org/2000/svg\"\
+        \ aria-hidden=\"true\">\n                                                \
+        \        <path d=\"M47,13.2c-1.9,0-3.5,1.6-3.5,3.6s1.6,3.6,3.5,3.6s3.5-1.6,3.5-3.6S49,13.2,47,13.2\
+        \ L47,13.2z M31.9,23c-5.1,0-9.3,4.3-9.3,9.5s4.2,9.5,9.3,9.5s9.3-4.3,9.3-9.5S37,23,31.9,23L31.9,23z\
+        \ M31.9,46.7 c-7.7,0-14-6.4-14-14.2s6.3-14.2,14-14.2s14,6.4,14,14.2S39.6,46.7,31.9,46.7L31.9,46.7z\
+        \ M15.7,8.8c-3.9,0-7,3.2-7,7.1v33.2 c0,3.9,3.1,7.1,7,7.1h32.7c3.9,0,7-3.2,7-7.1V15.9c0-3.9-3.1-7.1-7-7.1C48.4,8.8,15.7,8.8,15.7,8.8z\
+        \ M48.3,60.9H15.7 C9.2,60.9,4,55.6,4,49.1V15.9C4,9.4,9.2,4.1,15.7,4.1h32.7C54.8,4.1,60,9.4,60,15.9v33.2C60,55.6,54.8,60.9,48.3,60.9L48.3,60.9z\"\
+        ></path>\n                                                    </svg>\n   \
+        \                                             </a>\n                     \
+        \                       </li>\n                                        </ul>\n\
+        \                                    </div>\n                            \
+        \    </div>\n                            </div>\n                        </div>\n\
+        \                    </div>\n                    <div class=\"sc-AxmLO fsUIiy\"\
+        >\n                        <div class=\"sc-AxheI jLyvlV\">\n             \
+        \               <div class=\"sc-AxjAm sc-fzoaKM cEPWi\">\n               \
+        \                 <hr mode=\"dark\" class=\"sc-fzoJMP pBLpg\">\n         \
+        \                   </div>\n                            <div class=\"sc-AxjAm\
+        \ dXPCCY\">\n                                <nav mode=\"dark\" data-role=\"\
+        nav-links\" class=\"sc-fzolEj isffxt\">\n                                \
+        \    <ul mode=\"dark\" type=\"condensed\" class=\"sc-fzqBkg gEYcfx\">\n  \
+        \                                      <li mode=\"dark\" type=\"condensed\"\
+        \ data-section=\"terms of use\" class=\"sc-fzqPZZ gjbhLh\"><a\n          \
+        \                                  mode=\"dark\" type=\"condensed\" name=\"\
+        terms-of-use\" href=\"/terms\" data-analytics=\"footer\"\n               \
+        \                             title=\"visit the Terms of Use section\" class=\"\
+        sc-fznWOq sc-fzoxKX gEUysD\">Terms of\n                                  \
+        \          Use</a>\n                                        </li>\n      \
+        \                                  <li mode=\"dark\" type=\"condensed\" data-section=\"\
+        privacy policy\" class=\"sc-fzqPZZ gjbhLh\"><a\n                         \
+        \                   mode=\"dark\" type=\"condensed\" name=\"privacy-policy\"\
+        \ href=\"/privacy\"\n                                            data-analytics=\"\
+        footer\" title=\"visit the Privacy Policy section\"\n                    \
+        \                        class=\"sc-fznWOq sc-fzoxKX gEUysD\">Privacy Policy</a>\n\
+        \                                        </li>\n                         \
+        \               <li mode=\"dark\" type=\"condensed\" data-section=\"accessibility\
+        \ &amp; cc\" class=\"sc-fzqPZZ gjbhLh\"><a mode=\"dark\" type=\"condensed\"\
+        \ name=\"accessibility-cc\" href=\"/accessibility\"\n                    \
+        \                        data-analytics=\"footer\" title=\"visit the Accessibility\
+        \ &amp; CC section\"\n                                            class=\"\
+        sc-fznWOq sc-fzoxKX gEUysD\">Accessibility &amp; CC</a>\n                \
+        \                        </li>\n                                        <li\
+        \ mode=\"dark\" type=\"condensed\" data-section=\"adchoices\" class=\"sc-fzqPZZ\
+        \ gjbhLh\"><a\n                                            mode=\"dark\" type=\"\
+        condensed\" name=\"adchoices\" href=\"https://preferences-mgr.truste.com/?pid=turnermedia01&aid=turnermedia01&type=turner_pop&pid=turnermedia01&aid=turnermedia01\"\
+        \ data-analytics=\"footer\"\n                                            title=\"\
+        visit the AdChoices section\" class=\"sc-fznWOq sc-fzoxKX gEUysD\">AdChoices</a>\n\
+        \                                        </li>\n                         \
+        \               <li mode=\"dark\" type=\"condensed\" data-section=\"about\
+        \ us\" class=\"sc-fzqPZZ gjbhLh\"><a mode=\"dark\"\n                     \
+        \                       type=\"condensed\" name=\"about-us\" href=\"/about\"\
+        \ data-analytics=\"footer\"\n                                            title=\"\
+        visit the About us section\" class=\"sc-fznWOq sc-fzoxKX gEUysD\">About Us</a>\n\
+        \                                        </li>\n                         \
+        \               <li mode=\"dark\" type=\"condensed\" data-section=\"cnn store\"\
+        \ class=\"sc-fzqPZZ gjbhLh\"><a\n                                        \
+        \    mode=\"dark\" type=\"condensed\" name=\"cnn-store\" href=\"//store.cnn.com\"\
+        \n                                            data-analytics=\"footer\" title=\"\
+        visit the CNN Store section\"\n                                          \
+        \  class=\"sc-fznWOq sc-fzoxKX gEUysD\">CNN Store</a>\n                  \
+        \                      </li>\n                                        <li\
+        \ mode=\"dark\" type=\"condensed\" data-section=\"newsletters\" class=\"sc-fzqPZZ\
+        \ gjbhLh\"><a\n                                            mode=\"dark\" type=\"\
+        condensed\" name=\"newsletters\" href=\"/newsletters\"\n                 \
+        \                           data-analytics=\"footer\" title=\"visit the Newsletters\
+        \ section\"\n                                            class=\"sc-fznWOq\
+        \ sc-fzoxKX gEUysD\">Newsletters</a>\n                                   \
+        \     </li>\n                                        <li mode=\"dark\" type=\"\
+        condensed\" data-section=\"transcripts\" class=\"sc-fzqPZZ gjbhLh\"><a\n \
+        \                                           mode=\"dark\" type=\"condensed\"\
+        \ name=\"transcripts\" href=\"/transcripts\"\n                           \
+        \                 data-analytics=\"footer\" title=\"visit the Transcripts\
+        \ section\"\n                                            class=\"sc-fznWOq\
+        \ sc-fzoxKX gEUysD\">Transcripts</a>\n                                   \
+        \     </li>\n                                        <li mode=\"dark\" type=\"\
+        condensed\" data-section=\"license footage\" class=\"sc-fzqPZZ gjbhLh\"><a\n\
+        \                                            mode=\"dark\" type=\"condensed\"\
+        \ name=\"license-footage\" href=\"/collection\"\n                        \
+        \                    data-analytics=\"footer\" title=\"visit the License Footage\
+        \ section\"\n                                            class=\"sc-fznWOq\
+        \ sc-fzoxKX gEUysD\">License Footage</a>\n                               \
+        \         </li>\n                                        <li mode=\"dark\"\
+        \ type=\"condensed\" data-section=\"cnn newsource\" class=\"sc-fzqPZZ gjbhLh\"\
+        ><a\n                                            mode=\"dark\" type=\"condensed\"\
+        \ name=\"cnn-newsource\" href=\"http://cnnnewsource.com\"\n              \
+        \                              data-analytics=\"footer\" title=\"visit the\
+        \ CNN Newsource section\"\n                                            class=\"\
+        sc-fznWOq sc-fzoxKX gEUysD\">CNN Newsource</a>\n                         \
+        \               </li>\n                                        <li mode=\"\
+        dark\" type=\"condensed\" data-section=\"sitemap\" class=\"sc-fzqPZZ gjbhLh\"\
+        ><a\n                                            mode=\"dark\" type=\"condensed\"\
+        \ name=\"sitemap\" href=\"/sitemap.html\"\n                              \
+        \              data-analytics=\"footer\" title=\"visit the Sitemap section\"\
+        \n                                            class=\"sc-fznWOq sc-fzoxKX\
+        \ gEUysD\">Sitemap</a>\n                                        </li>\n  \
+        \                                  </ul>\n                               \
+        \ </nav>\n                            </div>\n                           \
+        \ <div mode=\"dark\" data-component=\"copyright\" class=\"sc-AxjAm sc-fznxKY\
+        \ eTNDtk\">\n                                <span data-area=\"copyright-CNN\"\
+        \ class=\"sc-fzoLsD sc-fzoXWK jyRQkq\">\xA9 2022 Cable News Network.</span>\
+        \ <a data-analytics=\"footer_warnermedia-company\" href=\"https://www.warnermediagroup.com/\"\
+        \ mode=\"dark\" title=\"WarnerMedia.\" color=\"#0C0C0C\" class=\"sc-fzoXzr\
+        \ sc-fzpjYC sc-fzpmMD eGoott\">A <span style=\"font-family: 'ATT Aleck Sans',\
+        \ Helvetica, Arial, sans-serif;\"><b style=\"font-weight: 600 !important;\"\
+        >Warner</b>Media</span> Company.</a><span class=\"sc-fzoLsD sc-fzoXWK jyRQkq\"\
+        >All Rights Reserved.</span><span class=\"sc-fzoLsD sc-fzoXWK sc-fznMAR fzlawF\"\
+        >CNN Sans \u2122 &amp; \xA9 2016 Cable News Network.</span>\n            \
+        \                </div>\n                        </div>\n                \
+        \    </div>\n                </footer>\n            </main>\n        </div>\n\
+        \    </body>\n</html>\n"
+    headers:
+      Accept-Ranges:
+      - bytes
+      Age:
+      - '86333'
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '9839'
+      Content-Type:
+      - text/html
+      Date:
+      - Mon, 04 May 2026 22:08:44 GMT
+      ETag:
+      - '"245dbe3154a3a2d092976a1421b64443"'
+      Last-Modified:
+      - Tue, 23 Sep 2025 20:57:02 GMT
+      Vary:
+      - Accept-Encoding,Origin,Accept-Language
+      Via:
+      - 1.1 varnish, 1.1 varnish, 1.1 varnish
+      X-Cache:
+      - HIT, MISS, MISS
+      X-Cache-Hits:
+      - 224, 0, 0
+      X-Served-By:
+      - cache-chi-kigq8000100-CHI, cache-ewr-kewr1740047-EWR, cache-ewr-kewr1740092-EWR
+      X-Timer:
+      - S1777932525.774625,VS0,VE31
+      alt-svc:
+      - h3=":443";ma=86400,h3-29=":443";ma=86400,h3-27=":443";ma=86400
+      cache-control:
+      - max-age=0, no-cache, no-store, must-revalidate
+      content-security-policy:
+      - default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src
+        'self'; font-src 'self';
+      expires:
+      - '-1'
+      permissions-policy:
+      - camera=(), display-capture=(), geolocation=(), microphone=(), payment=(),
+        usb=(), storage-access=()
+      pragma:
+      - no-cache
+      referrer-policy:
+      - no-referrer
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-frame-options:
+      - DENY
+      x-permitted-cross-domain-policies:
+      - master-only
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
 version: 1
