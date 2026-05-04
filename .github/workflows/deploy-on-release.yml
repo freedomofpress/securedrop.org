@@ -17,7 +17,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Create, Approve, and Merge Pull Request
+      - name: Create Pull Request
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           RELEASE_NAME: ${{ github.event.release.name }}
@@ -27,5 +27,4 @@ jobs:
           # Use release name if available, otherwise use tag
           TITLE="Deploy ${RELEASE_NAME:-$RELEASE_TAG}"
 
-          # Create the pull request
           gh pr create --base prod --head develop --title "$TITLE" --body "$RELEASE_BODY"
