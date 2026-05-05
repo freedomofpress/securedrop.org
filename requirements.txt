@@ -271,9 +271,9 @@ django-filter==23.5 \
     --hash=sha256:67583aa43b91fe8c49f74a832d95f4d8442be628fd4c6d65e9f811f5153a4e5c \
     --hash=sha256:99122a201d83860aef4fe77758b69dda913e874cc5e0eaa50a86b0b18d708400
     # via wagtail
-django-modelcluster==6.4.1 \
-    --hash=sha256:ccc190cd9e22c24900ea2410bff64d444d48f43f0f4aedeed0f6cd94e2536698 \
-    --hash=sha256:e736fcee925f83b63218dbf9c869ab50618b0f5e98869a5aa497f7a5331aa263
+django-modelcluster==6.5 \
+    --hash=sha256:459cbf0fb3bbc8c15ea9a2a062abc0d1ef935a38e04aa8ac3cb241c826bbc6dd \
+    --hash=sha256:469b380a294027d5211d0e5d5746e0381f445b058d2229977a58fe0f1c58a596
     # via
     #   -r requirements.in
     #   wagtail
@@ -932,9 +932,9 @@ urllib3==2.7.0 \
     # via
     #   django-anymail
     #   requests
-wagtail==7.4rc1 \
-    --hash=sha256:2353e71e8fc89ed70130d405c11c1c6f71b1910f5de1c3e64fe7bfd64e71d325 \
-    --hash=sha256:d96b72ad6cbc7b8e367858681449cfade132fc0f2f14ddb82cdd0f777707eea7
+wagtail==7.4 \
+    --hash=sha256:24a4d55e6bed22ccce4aae1b3f7e22a46605c4bc4dc9894d5a415cde418840c6 \
+    --hash=sha256:9570c51d61ee524cc5558a84df40e2ccc03f7c50c6dad343644a45d037096d13
     # via
     #   -r requirements.in
     #   wagtail-autocomplete
