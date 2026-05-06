@@ -13,7 +13,7 @@ feedparser
 gunicorn>=20.1.0
 lxml>=6.1.0
 pillow>=12.2.0
-psycopg[c]
+psycopg[binary]
 pygments>=2.20.0
 python-json-logger
 requests>=2.33.1
