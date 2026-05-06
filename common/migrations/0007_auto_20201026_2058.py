@@ -4,20 +4,19 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('common', '0006_remove_footersettings_securedrop_onion_address'),
+        ("common", "0006_remove_footersettings_securedrop_onion_address"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='footersettings',
-            name='mastodon_url',
-            field=models.URLField(blank=True, help_text='Link to Mastodon profile'),
+            model_name="footersettings",
+            name="mastodon_url",
+            field=models.URLField(blank=True, help_text="Link to Mastodon profile"),
         ),
         migrations.AddField(
-            model_name='footersettings',
-            name='twitter_url',
-            field=models.URLField(blank=True, help_text='Link to Twitter profile'),
+            model_name="footersettings",
+            name="twitter_url",
+            field=models.URLField(blank=True, help_text="Link to Twitter profile"),
         ),
     ]

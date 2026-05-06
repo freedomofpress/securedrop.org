@@ -13,69 +13,456 @@ import wagtailmetadata.models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('common', '0002_auto_20180423_1812'),
-        ('menus', '0001_initial'),
-        ('wagtailcore', '0040_page_draft_title'),
+        ("common", "0002_auto_20180423_1812"),
+        ("menus", "0001_initial"),
+        ("wagtailcore", "0040_page_draft_title"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='FAQPage',
+            name="FAQPage",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('subtitle', models.CharField(blank=True, max_length=255, null=True)),
-                ('body', wagtail.fields.StreamField((('text', wagtail.blocks.RichTextBlock()), ('image', wagtail.blocks.StructBlock((('image', wagtail.images.blocks.ImageChooserBlock()), ('alignment', wagtail.blocks.ChoiceBlock(choices=[('left', 'Left'), ('right', 'Right'), ('center', 'Center')]))))), ('raw_html', wagtail.blocks.RawHTMLBlock()), ('blockquote', wagtail.blocks.StructBlock((('text', wagtail.blocks.RichTextBlock()), ('source_text', wagtail.blocks.RichTextBlock(required=False)), ('source_url', wagtail.blocks.URLBlock(help_text='Source text will link to this url.', required=False))))), ('list', wagtail.blocks.ListBlock(wagtail.blocks.CharBlock(label='List Item'), template='common/blocks/list_block_columns.html')), ('video', wagtail.blocks.StructBlock((('video', wagtail.embeds.blocks.EmbedBlock()), ('alignment', wagtail.blocks.ChoiceBlock(choices=[('left', 'Left'), ('right', 'Right'), ('center', 'Center')]))))), ('heading_1', wagtail.blocks.StructBlock((('content', wagtail.blocks.CharBlock()),))), ('heading_2', wagtail.blocks.StructBlock((('content', wagtail.blocks.CharBlock()),))), ('heading_3', wagtail.blocks.StructBlock((('content', wagtail.blocks.CharBlock()),)))), blank=True, null=True)),
-                ('search_image', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='common.CustomImage')),
-                ('sidebar_menu', models.ForeignKey(blank=True, help_text="If left empty, page will use parent's sidebar menu", null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='menus.Menu')),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.Page",
+                    ),
+                ),
+                ("subtitle", models.CharField(blank=True, max_length=255, null=True)),
+                (
+                    "body",
+                    wagtail.fields.StreamField(
+                        (
+                            ("text", wagtail.blocks.RichTextBlock()),
+                            (
+                                "image",
+                                wagtail.blocks.StructBlock(
+                                    (
+                                        (
+                                            "image",
+                                            wagtail.images.blocks.ImageChooserBlock(),
+                                        ),
+                                        (
+                                            "alignment",
+                                            wagtail.blocks.ChoiceBlock(
+                                                choices=[
+                                                    ("left", "Left"),
+                                                    ("right", "Right"),
+                                                    ("center", "Center"),
+                                                ]
+                                            ),
+                                        ),
+                                    )
+                                ),
+                            ),
+                            ("raw_html", wagtail.blocks.RawHTMLBlock()),
+                            (
+                                "blockquote",
+                                wagtail.blocks.StructBlock(
+                                    (
+                                        ("text", wagtail.blocks.RichTextBlock()),
+                                        (
+                                            "source_text",
+                                            wagtail.blocks.RichTextBlock(
+                                                required=False
+                                            ),
+                                        ),
+                                        (
+                                            "source_url",
+                                            wagtail.blocks.URLBlock(
+                                                help_text="Source text will link to this url.",
+                                                required=False,
+                                            ),
+                                        ),
+                                    )
+                                ),
+                            ),
+                            (
+                                "list",
+                                wagtail.blocks.ListBlock(
+                                    wagtail.blocks.CharBlock(label="List Item"),
+                                    template="common/blocks/list_block_columns.html",
+                                ),
+                            ),
+                            (
+                                "video",
+                                wagtail.blocks.StructBlock(
+                                    (
+                                        ("video", wagtail.embeds.blocks.EmbedBlock()),
+                                        (
+                                            "alignment",
+                                            wagtail.blocks.ChoiceBlock(
+                                                choices=[
+                                                    ("left", "Left"),
+                                                    ("right", "Right"),
+                                                    ("center", "Center"),
+                                                ]
+                                            ),
+                                        ),
+                                    )
+                                ),
+                            ),
+                            (
+                                "heading_1",
+                                wagtail.blocks.StructBlock(
+                                    (("content", wagtail.blocks.CharBlock()),)
+                                ),
+                            ),
+                            (
+                                "heading_2",
+                                wagtail.blocks.StructBlock(
+                                    (("content", wagtail.blocks.CharBlock()),)
+                                ),
+                            ),
+                            (
+                                "heading_3",
+                                wagtail.blocks.StructBlock(
+                                    (("content", wagtail.blocks.CharBlock()),)
+                                ),
+                            ),
+                        ),
+                        blank=True,
+                        null=True,
+                    ),
+                ),
+                (
+                    "search_image",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="common.CustomImage",
+                    ),
+                ),
+                (
+                    "sidebar_menu",
+                    models.ForeignKey(
+                        blank=True,
+                        help_text="If left empty, page will use parent's sidebar menu",
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="menus.Menu",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=(wagtailmetadata.models.MetadataMixin, 'wagtailcore.page', models.Model),
+            bases=(
+                wagtailmetadata.models.MetadataMixin,
+                "wagtailcore.page",
+                models.Model,
+            ),
         ),
         migrations.CreateModel(
-            name='FaqQuestion',
+            name="FaqQuestion",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('sort_order', models.IntegerField(blank=True, editable=False, null=True)),
-                ('question', models.CharField(max_length=255)),
-                ('answer', wagtail.fields.RichTextField()),
-                ('page', modelcluster.fields.ParentalKey(on_delete=django.db.models.deletion.CASCADE, related_name='questions', to='simple.FAQPage')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "sort_order",
+                    models.IntegerField(blank=True, editable=False, null=True),
+                ),
+                ("question", models.CharField(max_length=255)),
+                ("answer", wagtail.fields.RichTextField()),
+                (
+                    "page",
+                    modelcluster.fields.ParentalKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="questions",
+                        to="simple.FAQPage",
+                    ),
+                ),
             ],
             options={
-                'ordering': ['sort_order'],
-                'abstract': False,
+                "ordering": ["sort_order"],
+                "abstract": False,
             },
         ),
         migrations.CreateModel(
-            name='SimplePage',
+            name="SimplePage",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('subtitle', models.CharField(blank=True, max_length=255, null=True)),
-                ('body', wagtail.fields.StreamField((('text', wagtail.blocks.RichTextBlock()), ('image', wagtail.blocks.StructBlock((('image', wagtail.images.blocks.ImageChooserBlock()), ('alignment', wagtail.blocks.ChoiceBlock(choices=[('left', 'Left'), ('right', 'Right'), ('center', 'Center')]))))), ('raw_html', wagtail.blocks.RawHTMLBlock()), ('blockquote', wagtail.blocks.StructBlock((('text', wagtail.blocks.RichTextBlock()), ('source_text', wagtail.blocks.RichTextBlock(required=False)), ('source_url', wagtail.blocks.URLBlock(help_text='Source text will link to this url.', required=False))))), ('list', wagtail.blocks.ListBlock(wagtail.blocks.CharBlock(label='List Item'), template='common/blocks/list_block_columns.html')), ('video', wagtail.blocks.StructBlock((('video', wagtail.embeds.blocks.EmbedBlock()), ('alignment', wagtail.blocks.ChoiceBlock(choices=[('left', 'Left'), ('right', 'Right'), ('center', 'Center')]))))), ('heading_1', wagtail.blocks.StructBlock((('content', wagtail.blocks.CharBlock()),))), ('heading_2', wagtail.blocks.StructBlock((('content', wagtail.blocks.CharBlock()),))), ('heading_3', wagtail.blocks.StructBlock((('content', wagtail.blocks.CharBlock()),)))))),
-                ('search_image', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='common.CustomImage')),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.Page",
+                    ),
+                ),
+                ("subtitle", models.CharField(blank=True, max_length=255, null=True)),
+                (
+                    "body",
+                    wagtail.fields.StreamField(
+                        (
+                            ("text", wagtail.blocks.RichTextBlock()),
+                            (
+                                "image",
+                                wagtail.blocks.StructBlock(
+                                    (
+                                        (
+                                            "image",
+                                            wagtail.images.blocks.ImageChooserBlock(),
+                                        ),
+                                        (
+                                            "alignment",
+                                            wagtail.blocks.ChoiceBlock(
+                                                choices=[
+                                                    ("left", "Left"),
+                                                    ("right", "Right"),
+                                                    ("center", "Center"),
+                                                ]
+                                            ),
+                                        ),
+                                    )
+                                ),
+                            ),
+                            ("raw_html", wagtail.blocks.RawHTMLBlock()),
+                            (
+                                "blockquote",
+                                wagtail.blocks.StructBlock(
+                                    (
+                                        ("text", wagtail.blocks.RichTextBlock()),
+                                        (
+                                            "source_text",
+                                            wagtail.blocks.RichTextBlock(
+                                                required=False
+                                            ),
+                                        ),
+                                        (
+                                            "source_url",
+                                            wagtail.blocks.URLBlock(
+                                                help_text="Source text will link to this url.",
+                                                required=False,
+                                            ),
+                                        ),
+                                    )
+                                ),
+                            ),
+                            (
+                                "list",
+                                wagtail.blocks.ListBlock(
+                                    wagtail.blocks.CharBlock(label="List Item"),
+                                    template="common/blocks/list_block_columns.html",
+                                ),
+                            ),
+                            (
+                                "video",
+                                wagtail.blocks.StructBlock(
+                                    (
+                                        ("video", wagtail.embeds.blocks.EmbedBlock()),
+                                        (
+                                            "alignment",
+                                            wagtail.blocks.ChoiceBlock(
+                                                choices=[
+                                                    ("left", "Left"),
+                                                    ("right", "Right"),
+                                                    ("center", "Center"),
+                                                ]
+                                            ),
+                                        ),
+                                    )
+                                ),
+                            ),
+                            (
+                                "heading_1",
+                                wagtail.blocks.StructBlock(
+                                    (("content", wagtail.blocks.CharBlock()),)
+                                ),
+                            ),
+                            (
+                                "heading_2",
+                                wagtail.blocks.StructBlock(
+                                    (("content", wagtail.blocks.CharBlock()),)
+                                ),
+                            ),
+                            (
+                                "heading_3",
+                                wagtail.blocks.StructBlock(
+                                    (("content", wagtail.blocks.CharBlock()),)
+                                ),
+                            ),
+                        )
+                    ),
+                ),
+                (
+                    "search_image",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="common.CustomImage",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=(wagtailmetadata.models.MetadataMixin, 'wagtailcore.page', models.Model),
+            bases=(
+                wagtailmetadata.models.MetadataMixin,
+                "wagtailcore.page",
+                models.Model,
+            ),
         ),
         migrations.CreateModel(
-            name='SimplePageWithMenuSidebar',
+            name="SimplePageWithMenuSidebar",
             fields=[
-                ('page_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
-                ('subtitle', models.CharField(blank=True, max_length=255, null=True)),
-                ('body', wagtail.fields.StreamField((('text', wagtail.blocks.RichTextBlock()), ('image', wagtail.blocks.StructBlock((('image', wagtail.images.blocks.ImageChooserBlock()), ('alignment', wagtail.blocks.ChoiceBlock(choices=[('left', 'Left'), ('right', 'Right'), ('center', 'Center')]))))), ('raw_html', wagtail.blocks.RawHTMLBlock()), ('blockquote', wagtail.blocks.StructBlock((('text', wagtail.blocks.RichTextBlock()), ('source_text', wagtail.blocks.RichTextBlock(required=False)), ('source_url', wagtail.blocks.URLBlock(help_text='Source text will link to this url.', required=False))))), ('list', wagtail.blocks.ListBlock(wagtail.blocks.CharBlock(label='List Item'), template='common/blocks/list_block_columns.html')), ('video', wagtail.blocks.StructBlock((('video', wagtail.embeds.blocks.EmbedBlock()), ('alignment', wagtail.blocks.ChoiceBlock(choices=[('left', 'Left'), ('right', 'Right'), ('center', 'Center')]))))), ('heading_1', wagtail.blocks.StructBlock((('content', wagtail.blocks.CharBlock()),))), ('heading_2', wagtail.blocks.StructBlock((('content', wagtail.blocks.CharBlock()),))), ('heading_3', wagtail.blocks.StructBlock((('content', wagtail.blocks.CharBlock()),)))))),
-                ('search_image', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='common.CustomImage')),
-                ('sidebar_menu', models.ForeignKey(blank=True, help_text="If left empty, page will use parent's sidebar menu", null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='menus.Menu')),
+                (
+                    "page_ptr",
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to="wagtailcore.Page",
+                    ),
+                ),
+                ("subtitle", models.CharField(blank=True, max_length=255, null=True)),
+                (
+                    "body",
+                    wagtail.fields.StreamField(
+                        (
+                            ("text", wagtail.blocks.RichTextBlock()),
+                            (
+                                "image",
+                                wagtail.blocks.StructBlock(
+                                    (
+                                        (
+                                            "image",
+                                            wagtail.images.blocks.ImageChooserBlock(),
+                                        ),
+                                        (
+                                            "alignment",
+                                            wagtail.blocks.ChoiceBlock(
+                                                choices=[
+                                                    ("left", "Left"),
+                                                    ("right", "Right"),
+                                                    ("center", "Center"),
+                                                ]
+                                            ),
+                                        ),
+                                    )
+                                ),
+                            ),
+                            ("raw_html", wagtail.blocks.RawHTMLBlock()),
+                            (
+                                "blockquote",
+                                wagtail.blocks.StructBlock(
+                                    (
+                                        ("text", wagtail.blocks.RichTextBlock()),
+                                        (
+                                            "source_text",
+                                            wagtail.blocks.RichTextBlock(
+                                                required=False
+                                            ),
+                                        ),
+                                        (
+                                            "source_url",
+                                            wagtail.blocks.URLBlock(
+                                                help_text="Source text will link to this url.",
+                                                required=False,
+                                            ),
+                                        ),
+                                    )
+                                ),
+                            ),
+                            (
+                                "list",
+                                wagtail.blocks.ListBlock(
+                                    wagtail.blocks.CharBlock(label="List Item"),
+                                    template="common/blocks/list_block_columns.html",
+                                ),
+                            ),
+                            (
+                                "video",
+                                wagtail.blocks.StructBlock(
+                                    (
+                                        ("video", wagtail.embeds.blocks.EmbedBlock()),
+                                        (
+                                            "alignment",
+                                            wagtail.blocks.ChoiceBlock(
+                                                choices=[
+                                                    ("left", "Left"),
+                                                    ("right", "Right"),
+                                                    ("center", "Center"),
+                                                ]
+                                            ),
+                                        ),
+                                    )
+                                ),
+                            ),
+                            (
+                                "heading_1",
+                                wagtail.blocks.StructBlock(
+                                    (("content", wagtail.blocks.CharBlock()),)
+                                ),
+                            ),
+                            (
+                                "heading_2",
+                                wagtail.blocks.StructBlock(
+                                    (("content", wagtail.blocks.CharBlock()),)
+                                ),
+                            ),
+                            (
+                                "heading_3",
+                                wagtail.blocks.StructBlock(
+                                    (("content", wagtail.blocks.CharBlock()),)
+                                ),
+                            ),
+                        )
+                    ),
+                ),
+                (
+                    "search_image",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="common.CustomImage",
+                    ),
+                ),
+                (
+                    "sidebar_menu",
+                    models.ForeignKey(
+                        blank=True,
+                        help_text="If left empty, page will use parent's sidebar menu",
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="+",
+                        to="menus.Menu",
+                    ),
+                ),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
-            bases=(wagtailmetadata.models.MetadataMixin, 'wagtailcore.page', models.Model),
+            bases=(
+                wagtailmetadata.models.MetadataMixin,
+                "wagtailcore.page",
+                models.Model,
+            ),
         ),
     ]

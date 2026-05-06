@@ -5,25 +5,25 @@ from django.http import Http404
 import structlog
 
 
-logger = structlog.get_logger('request_log')
+logger = structlog.get_logger("request_log")
 
 
 class RequestLogMiddleware(object):
     def __init__(self, get_response):
         self.get_response = get_response
         # One-time configuration and initialization.
-        self.request_keys = ('method', 'path_info', 'scheme', 'user')
+        self.request_keys = ("method", "path_info", "scheme", "user")
         self.request_meta_keys = (
-            'REMOTE_ADDR',
-            'HTTP_USER_AGENT',
-            'HTTP_REFERER',
-            'HTTP_HOST',
-            'HTTP_X_FORWARDED_FOR',
-            'HTTP_X_REAL_IP',
-            'HTTP_X_SCHEME',
-            'QUERY_STRING',
+            "REMOTE_ADDR",
+            "HTTP_USER_AGENT",
+            "HTTP_REFERER",
+            "HTTP_HOST",
+            "HTTP_X_FORWARDED_FOR",
+            "HTTP_X_REAL_IP",
+            "HTTP_X_SCHEME",
+            "QUERY_STRING",
         )
-        self.response_keys = ('charset', 'reason_phrase', 'status_code')
+        self.response_keys = ("charset", "reason_phrase", "status_code")
 
     def process_exception(self, request, exception):
         if not isinstance(exception, Http404):
@@ -36,7 +36,7 @@ class RequestLogMiddleware(object):
 
         request_id = str(uuid.uuid4())
 
-        request_dict = {key: getattr(request, key, '') for key in self.request_keys}
+        request_dict = {key: getattr(request, key, "") for key in self.request_keys}
         request_dict["user"] = str(request_dict["user"])
         request_dict["meta"] = {
             key: request.META.get(key, "") for key in self.request_meta_keys
@@ -53,8 +53,8 @@ class RequestLogMiddleware(object):
 
         structlog.contextvars.bind_contextvars(duration_ms=duration)
 
-        response_dict = {key: getattr(response, key, '') for key in self.response_keys}
-        logger.info('request_finished', response=response_dict)
+        response_dict = {key: getattr(response, key, "") for key in self.response_keys}
+        logger.info("request_finished", response=response_dict)
 
         # Code to be executed for each request/response after
         # the view is called.

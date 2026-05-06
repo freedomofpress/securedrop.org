@@ -54,11 +54,11 @@ pip-update:
 	docker build --build-arg="PIP_COMPILE_ARGS=--upgrade-package=$(PACKAGE)" --target=requirements-artifacts -f ./devops/docker/DevDjangoDockerfile --output type=local,dest=$(DIR) .
 
 .PHONY: lint
-lint: flake8
+lint: ruff
 
-.PHONY: flake8
-flake8: ## Runs flake8 linting in Python3 container.
-	@docker compose run --rm -T django /bin/bash -c "flake8"
+.PHONY: ruff
+ruff: ## Runs ruff linting in Python3 container.
+	@docker compose run --rm -T django /bin/bash -c "pip install -q ruff && ~/.local/bin/ruff check"
 
 .PHONY: bandit
 bandit: ## Runs bandit static code analysis in Python3 container.

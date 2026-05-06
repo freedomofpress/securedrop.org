@@ -5,15 +5,26 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('directory', '0022_scanresult_http2'),
+        ("directory", "0022_scanresult_http2"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='directoryentry',
-            name='onion_name',
-            field=models.CharField(blank=True, help_text='Enter the human-readable onion name in the format <name>.securedrop.tor.onion', max_length=255, null=True, validators=[django.core.validators.RegexValidator(message='Enter a valid onion name. The onion name should be in the format <name>.securedrop.tor.onion', regex='\\.securedrop\\.tor\\.onion$')], verbose_name='SecureDrop onion name'),
+            model_name="directoryentry",
+            name="onion_name",
+            field=models.CharField(
+                blank=True,
+                help_text="Enter the human-readable onion name in the format <name>.securedrop.tor.onion",
+                max_length=255,
+                null=True,
+                validators=[
+                    django.core.validators.RegexValidator(
+                        message="Enter a valid onion name. The onion name should be in the format <name>.securedrop.tor.onion",
+                        regex="\\.securedrop\\.tor\\.onion$",
+                    )
+                ],
+                verbose_name="SecureDrop onion name",
+            ),
         ),
     ]

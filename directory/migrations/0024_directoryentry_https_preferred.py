@@ -4,15 +4,18 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('directory', '0023_directoryentry_onion_name'),
+        ("directory", "0023_directoryentry_onion_name"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='directoryentry',
-            name='https_preferred',
-            field=models.BooleanField(default=False, help_text='Check this box if the onion_address URL should preferrably be shown with https://', verbose_name='HTTPS Preferred?'),
+            model_name="directoryentry",
+            name="https_preferred",
+            field=models.BooleanField(
+                default=False,
+                help_text="Check this box if the onion_address URL should preferrably be shown with https://",
+                verbose_name="HTTPS Preferred?",
+            ),
         ),
     ]

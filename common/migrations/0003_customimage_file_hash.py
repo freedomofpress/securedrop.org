@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('common', '0002_auto_20180423_1812'),
+        ("common", "0002_auto_20180423_1812"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='customimage',
-            name='file_hash',
+            model_name="customimage",
+            name="file_hash",
             field=models.CharField(blank=True, editable=False, max_length=40),
         ),
     ]

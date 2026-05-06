@@ -11,7 +11,7 @@ from blog.tests.factories import CategoryPageFactory
 from directory.tests.factories import DirectoryEntryFactory
 
 
-@patch('home.signals.purge_page_from_cache')
+@patch("home.signals.purge_page_from_cache")
 class FrontendCacheTestCase(TestCase):
     def setUp(self):
         self.home_page = HomePageFactory()
@@ -25,7 +25,7 @@ class FrontendCacheTestCase(TestCase):
     def test_cache_purged_for_blog_post(self, purge_mock):
         "Homepage cache should be purged when a new blog post is added"
         blog_page = BlogPage(
-            title='Yet another blog page',
+            title="Yet another blog page",
             category=self.cat_page,
             publication_datetime=datetime(2016, 1, 1, 0, 0, 0, tzinfo=timezone.utc),
         )
@@ -38,6 +38,4 @@ class FrontendCacheTestCase(TestCase):
         # DirectoryEntry saving logic causes it to be saved twice, triggering
         # the purge twice (this is not necessarily desireable, but it is
         # mostly harmless)
-        purge_mock.assert_has_calls([
-            call(self.home_page), call(self.home_page)
-        ])
+        purge_mock.assert_has_calls([call(self.home_page), call(self.home_page)])

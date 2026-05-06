@@ -4,11 +4,9 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('directory', '0020_directoryentry_organization_url'),
-        ('directory', '0020_auto_20200820_1531'),
+        ("directory", "0020_directoryentry_organization_url"),
+        ("directory", "0020_auto_20200820_1531"),
     ]
 
-    operations = [
-    ]
+    operations = []

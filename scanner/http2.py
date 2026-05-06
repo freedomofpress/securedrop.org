@@ -18,7 +18,7 @@ def check_http2(domain_name):
         port = 443
 
         ctx = ssl.create_default_context()
-        ctx.set_alpn_protocols(['h2', 'spdy/3', 'http/1.1'])
+        ctx.set_alpn_protocols(["h2", "spdy/3", "http/1.1"])
 
         conn = ctx.wrap_socket(
             socket.socket(socket.AF_INET, socket.SOCK_STREAM), server_hostname=host
@@ -27,9 +27,9 @@ def check_http2(domain_name):
 
         selected_protocol = conn.selected_alpn_protocol()
 
-        if selected_protocol == 'h2':
-            return {'http2': True}
+        if selected_protocol == "h2":
+            return {"http2": True}
         else:
-            return {'http2': False}
+            return {"http2": False}
     except Exception:
-        return {'http2': False}
+        return {"http2": False}

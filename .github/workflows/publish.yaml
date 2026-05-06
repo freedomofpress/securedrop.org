@@ -23,7 +23,7 @@ jobs:
     with:
       context: '.'
       containerfile: devops/docker/ProdDjangoDockerfile
-      build-args: USERID=12345
+      build-args: USERID=1000
       requires-deep-history: true
       registry: ghcr.io/freedomofpress/securedrop-org
       add-branch-tags: true

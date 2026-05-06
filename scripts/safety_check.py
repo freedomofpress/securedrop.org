@@ -20,18 +20,18 @@ def check_full_report(ids_to_ignore=[]):
 
     """
     success = True
-    command = ['safety', 'check', '--full-report']
+    command = ["safety", "check", "--full-report"]
     for ignored_id in ids_to_ignore:
-        command.extend(['-i', ignored_id])
-    for filename in glob.glob('**/*requirements.txt', recursive=True):
-        print('Checking {}'.format(filename))
-        result = subprocess.run(command + ['-r', filename])
+        command.extend(["-i", ignored_id])
+    for filename in glob.glob("**/*requirements.txt", recursive=True):
+        print("Checking {}".format(filename))
+        result = subprocess.run(command + ["-r", filename])
         if result.returncode != 0:
             success = False
     return 0 if success else 1
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     resources_path = (
         pathlib.Path(__file__).parent.parent
         / CENTRALIZATION_REPO_NAME
@@ -42,9 +42,7 @@ if __name__ == '__main__':
     project = json.loads(resources_path.read_text())
 
     try:
-        sys.exit(
-            check_full_report(project['variables']['SAFETY_IGNORE_IDS'])
-        )
+        sys.exit(check_full_report(project["variables"]["SAFETY_IGNORE_IDS"]))
     except Exception:
         sys.stderr.write(traceback.format_exc())
         sys.exit(1)

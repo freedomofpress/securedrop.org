@@ -6,15 +6,14 @@ from forms.models import FormPage
 
 
 class EmailPageTestCase(TestCase):
-
     @classmethod
     def setUpTestData(kls):
         site = Site.objects.get()
         kls.form_page = FormPage(
-            title='Form',
-            from_address='sender@example.com',
-            to_address='receiver@example.com',
-            slug='form',
+            title="Form",
+            from_address="sender@example.com",
+            to_address="receiver@example.com",
+            slug="form",
         )
         site.root_page.add_child(instance=kls.form_page)
 
@@ -25,5 +24,7 @@ class EmailPageTestCase(TestCase):
 
         See forms.utils.send_mail for details
         """
-        self.client.post(self.form_page.get_url())  # Posting to a form page triggers an email
-        self.assertNotIn('Auto-Submitted', mail.outbox[0].extra_headers)
+        self.client.post(
+            self.form_page.get_url()
+        )  # Posting to a form page triggers an email
+        self.assertNotIn("Auto-Submitted", mail.outbox[0].extra_headers)

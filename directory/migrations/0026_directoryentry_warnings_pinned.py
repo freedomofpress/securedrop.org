@@ -5,15 +5,32 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('directory', '0025_auto_20220124_1505'),
+        ("directory", "0025_auto_20220124_1505"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='directoryentry',
-            name='warnings_pinned',
-            field=directory.models.entry.ChoiceArrayField(base_field=models.CharField(choices=[('no_cdn', 'Use of CDN'), ('no_third_party_assets', 'Use of analytics or third party assets'), ('subdomain', 'Subdomain'), ('referrer_policy_set_to_no_referrer', 'Referer Policy'), ('safe_onion_address', 'Links to Onion Addresses')], max_length=500), blank=True, default=list, help_text='Landing page warnings that will be always be shown to someone viewing this entry, even if not reflected in the scan results. Select multiples with shift or control click.', size=None),
+            model_name="directoryentry",
+            name="warnings_pinned",
+            field=directory.models.entry.ChoiceArrayField(
+                base_field=models.CharField(
+                    choices=[
+                        ("no_cdn", "Use of CDN"),
+                        (
+                            "no_third_party_assets",
+                            "Use of analytics or third party assets",
+                        ),
+                        ("subdomain", "Subdomain"),
+                        ("referrer_policy_set_to_no_referrer", "Referer Policy"),
+                        ("safe_onion_address", "Links to Onion Addresses"),
+                    ],
+                    max_length=500,
+                ),
+                blank=True,
+                default=list,
+                help_text="Landing page warnings that will be always be shown to someone viewing this entry, even if not reflected in the scan results. Select multiples with shift or control click.",
+                size=None,
+            ),
         ),
     ]

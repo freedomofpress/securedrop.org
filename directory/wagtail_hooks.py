@@ -10,26 +10,27 @@ from .views import ManualScanView
 
 class ScanResultAdmin(ModelViewSet):
     """SnippetViewSet for viewing/searching ScanResults."""
+
     model = ScanResult
     add_to_admin_menu = True
     copy_view_enabled = False
-    icon = 'folder-open-inverse'
+    icon = "folder-open-inverse"
     menu_order = 500
     form_fields = []
     list_display = (
-        'securedrop',
-        'landing_page_url',
-        'result_last_seen',
-        BooleanColumn('live'),
-        'grade'
+        "securedrop",
+        "landing_page_url",
+        "result_last_seen",
+        BooleanColumn("live"),
+        "grade",
     )
     list_filter = (
-        'result_last_seen',
-        'grade',
-        'live',
-        'securedrop',
+        "result_last_seen",
+        "grade",
+        "live",
+        "securedrop",
     )
-    search_fields = ('landing_page_url', 'securedrop__title')
+    search_fields = ("landing_page_url", "securedrop__title")
     inspect_view_enabled = True
 
     def get_common_view_kwargs(self, **kwargs):
@@ -50,26 +51,20 @@ class ScanResultAdmin(ModelViewSet):
 scanresult_viewset = ScanResultAdmin()
 
 
-@hooks.register('register_admin_viewset')
+@hooks.register("register_admin_viewset")
 def register_scanresult_viewset():
     return scanresult_viewset
 
 
-@hooks.register('register_admin_urls')
+@hooks.register("register_admin_urls")
 def manual_scan_url():
-    return [
-        path(
-            'manual_scan/',
-            ManualScanView.as_view(),
-            name='manual_scan'
-        )
-    ]
+    return [path("manual_scan/", ManualScanView.as_view(), name="manual_scan")]
 
 
-@hooks.register('register_admin_menu_item')
+@hooks.register("register_admin_menu_item")
 def register_manual_scan_item():
     return MenuItem(
-        'Perform a scan',
-        reverse('manual_scan'),
-        classname='icon icon-plus',
+        "Perform a scan",
+        reverse("manual_scan"),
+        classname="icon icon-plus",
     )

@@ -12,26 +12,26 @@ from django.db import transaction
 
 
 class Command(BaseCommand):
-    help = 'Creates the main nav menu'
+    help = "Creates the main nav menu"
 
     def add_arguments(self, parser):
         parser.add_argument(
-            '--delete',
-            action='store_true',
-            dest='delete',
+            "--delete",
+            action="store_true",
+            dest="delete",
             default=False,
-            help='Delete nav menu before creating new data.',
+            help="Delete nav menu before creating new data.",
         )
 
     @transaction.atomic
     def handle(self, *args, **options):
-        if options['delete']:
-            Menu.objects.filter(slug='main').delete()
+        if options["delete"]:
+            Menu.objects.filter(slug="main").delete()
 
-        if not Menu.objects.filter(slug='main').exists():
-            main = Menu.objects.create(name='Main Menu', slug='main')
+        if not Menu.objects.filter(slug="main").exists():
+            main = Menu.objects.create(name="Main Menu", slug="main")
 
-            home_page = HomePage.objects.get(slug='home')
+            home_page = HomePage.objects.get(slug="home")
 
             if BlogIndexPage.objects.first():
                 blog_index_page = BlogIndexPage.objects.first()
@@ -48,35 +48,31 @@ class Command(BaseCommand):
             else:
                 marketing = MarketingPageFactory(parent=home_page, title="Features")
 
-            MenuItem.objects.bulk_create([
-                MenuItem(
-                    text='Overview',
-                    link_page=marketing,
-                    menu=main,
-                    sort_order=1
-                ),
-                MenuItem(
-                    text='News',
-                    link_page=blog_index_page,
-                    menu=main,
-                    sort_order=2
-                ),
-                MenuItem(
-                    text='Instance Directory',
-                    link_page=directory,
-                    menu=main,
-                    sort_order=3
-                ),
-                MenuItem(
-                    text='Contribute',
-                    link_url='#',
-                    menu=main,
-                    sort_order=4,
-                ),
-                MenuItem(
-                    text='Support',
-                    link_url='#',
-                    menu=main,
-                    sort_order=5,
-                ),
-            ])
+            MenuItem.objects.bulk_create(
+                [
+                    MenuItem(
+                        text="Overview", link_page=marketing, menu=main, sort_order=1
+                    ),
+                    MenuItem(
+                        text="News", link_page=blog_index_page, menu=main, sort_order=2
+                    ),
+                    MenuItem(
+                        text="Instance Directory",
+                        link_page=directory,
+                        menu=main,
+                        sort_order=3,
+                    ),
+                    MenuItem(
+                        text="Contribute",
+                        link_url="#",
+                        menu=main,
+                        sort_order=4,
+                    ),
+                    MenuItem(
+                        text="Support",
+                        link_url="#",
+                        menu=main,
+                        sort_order=5,
+                    ),
+                ]
+            )

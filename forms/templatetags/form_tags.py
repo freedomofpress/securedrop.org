@@ -10,7 +10,7 @@ register = template.Library()
 
 
 @register.simple_tag(takes_context=True)
-def field_extras(context: 'Context', form_field: 'Field'):
+def field_extras(context: "Context", form_field: "Field"):
     """
     Get FormField model instance for a Field
 
@@ -21,15 +21,15 @@ def field_extras(context: 'Context', form_field: 'Field'):
     try:
         field_obj = filter(
             lambda mfield: form_field.name == mfield.clean_name,
-            context['page'].form_fields.all()
+            context["page"].form_fields.all(),
         ).__next__()
     except StopIteration:
-        raise ValueError('Form field {} not found in form'.format(form_field.name))
+        raise ValueError("Form field {} not found in form".format(form_field.name))
     return field_obj
 
 
 @register.simple_tag
-def widget_type(field: 'Field') -> str:
+def widget_type(field: "Field") -> str:
     """
     Accepts a form field subclass and return a string value appropriate for a
     CSS class.

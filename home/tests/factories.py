@@ -20,11 +20,11 @@ class HomePageFactory(PageFactory):
     class Meta:
         model = HomePage
 
-    title = 'SecureDrop'
-    slug = 'home'
-    description_header = Faker('sentence', nb_words=4)
-    description = Faker('text')
-    features_header = 'What SecureDrop Does'
+    title = "SecureDrop"
+    slug = "home"
+    description_header = Faker("sentence", nb_words=4)
+    description = Faker("text")
+    features_header = "What SecureDrop Does"
 
 
 class HomePageInstancesFactory(DjangoModelFactory):
@@ -39,6 +39,7 @@ class HomePageInstancesFactory(DjangoModelFactory):
 class HomepageFeatureFactory(DjangoModelFactory):
     class Meta:
         model = HomepageFeature
+
     sort_order = Sequence(int)
     page = SubFactory(HomePageFactory)
     feature = None

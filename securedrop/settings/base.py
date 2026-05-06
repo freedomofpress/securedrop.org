@@ -19,6 +19,7 @@ import os
 
 import sys
 import logging
+
 logger = logging.getLogger(__name__)
 
 PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -33,64 +34,60 @@ DEBUG = False
 # Application definition
 
 INSTALLED_APPS = [
-    'blog',
-    'cloudflare',
-    'common',
-    'home',
-    'marketing',
-    'menus',
-    'scanner',
-    'search',
-    'simple',
-    'forms',
-    'github',
-    'directory',
-
-    'wagtail.contrib.settings',
-    'wagtail.contrib.routable_page',
-    'wagtail.contrib.forms',
-    'wagtail.contrib.redirects',
-    'wagtail.embeds',
-    'wagtail.sites',
-    'wagtail.users',
-    'wagtail.snippets',
-    'wagtail.documents',
-    'wagtail.images',
-    'wagtail.search',
-    'wagtail.admin',
+    "blog",
+    "cloudflare",
+    "common",
+    "home",
+    "marketing",
+    "menus",
+    "scanner",
+    "search",
+    "simple",
+    "forms",
+    "github",
+    "directory",
+    "wagtail.contrib.settings",
+    "wagtail.contrib.routable_page",
+    "wagtail.contrib.forms",
+    "wagtail.contrib.redirects",
+    "wagtail.embeds",
+    "wagtail.sites",
+    "wagtail.users",
+    "wagtail.snippets",
+    "wagtail.documents",
+    "wagtail.images",
+    "wagtail.search",
+    "wagtail.admin",
     # See https://docs.wagtail.io/en/stable/reference/contrib/legacy_richtext.html#legacy-richtext
-    'wagtail.contrib.legacy.richtext',
-    'wagtail',
-
-    'wagtailmetadata',
-    'wagtailautocomplete',
-    'webpack_loader',
-    'taggit',
-    'rest_framework',
-    'wagtailmedia',
-    'wagtail_honeypot',
-
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.sites',
-    'django.contrib.staticfiles',
-    'django.contrib.postgres',
-    'django.contrib.sitemaps',
-
-    'build',
+    "wagtail.contrib.legacy.richtext",
+    "wagtail",
+    "wagtailmetadata",
+    "wagtailautocomplete",
+    "webpack_loader",
+    "taggit",
+    "rest_framework",
+    "wagtailmedia",
+    "wagtail_honeypot",
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.sites",
+    "django.contrib.staticfiles",
+    "django.contrib.postgres",
+    "django.contrib.sitemaps",
+    "build",
 ]
 
 MIDDLEWARE = [
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django.middleware.security.SecurityMiddleware",
 ]
 
 STORAGES = {
@@ -103,20 +100,21 @@ STORAGES = {
 }
 
 # Must be directly after SecurityMiddleware
-if os.environ.get('DJANGO_WHITENOISE'):
-    MIDDLEWARE.append('whitenoise.middleware.WhiteNoiseMiddleware')
+if os.environ.get("DJANGO_WHITENOISE"):
+    MIDDLEWARE.append("whitenoise.middleware.WhiteNoiseMiddleware")
     STORAGES["staticfiles"] = {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     }
 
-MIDDLEWARE.extend([
-    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+MIDDLEWARE.extend(
+    [
+        "wagtail.contrib.redirects.middleware.RedirectMiddleware",
+        # Middleware for content security policy
+        "csp.middleware.CSPMiddleware",
+    ]
+)
 
-    # Middleware for content security policy
-    'csp.middleware.CSPMiddleware',
-])
-
-if os.getenv('ENABLE_DEBUG_TOOLBAR'):
+if os.getenv("ENABLE_DEBUG_TOOLBAR"):
     ENABLE_DEBUG_TOOLBAR = True
 else:
     ENABLE_DEBUG_TOOLBAR = False
@@ -133,63 +131,63 @@ SECURE_CONTENT_TYPE_NOSNIFF = True
 
 
 # Make the deployment's onion service name available to templates
-ONION_HOSTNAME = os.environ.get('DJANGO_ONION_HOSTNAME')
+ONION_HOSTNAME = os.environ.get("DJANGO_ONION_HOSTNAME")
 
 
-ROOT_URLCONF = 'securedrop.urls'
+ROOT_URLCONF = "securedrop.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            os.path.join(PROJECT_DIR, 'templates'),
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [
+            os.path.join(PROJECT_DIR, "templates"),
         ],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'django_settings_export.settings_export',
-                'wagtail.contrib.settings.context_processors.settings',
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.debug",
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+                "django_settings_export.settings_export",
+                "wagtail.contrib.settings.context_processors.settings",
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'securedrop.wsgi.application'
+WSGI_APPLICATION = "securedrop.wsgi.application"
 
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-if 'DJANGO_DB_HOST' in os.environ:
+if "DJANGO_DB_HOST" in os.environ:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ['DJANGO_DB_NAME'],
-            'USER': os.environ['DJANGO_DB_USER'],
-            'PASSWORD': os.environ['DJANGO_DB_PASSWORD'],
-            'HOST': os.environ['DJANGO_DB_HOST'],
-            'PORT': os.environ['DJANGO_DB_PORT'],
-            'CONN_MAX_AGE': os.environ.get('DJANGO_DB_MAX_AGE', 600)
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.environ["DJANGO_DB_NAME"],
+            "USER": os.environ["DJANGO_DB_USER"],
+            "PASSWORD": os.environ["DJANGO_DB_PASSWORD"],
+            "HOST": os.environ["DJANGO_DB_HOST"],
+            "PORT": os.environ["DJANGO_DB_PORT"],
+            "CONN_MAX_AGE": os.environ.get("DJANGO_DB_MAX_AGE", 600),
         }
     }
 else:
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'sdo-build.sqlite3'),
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": os.path.join(BASE_DIR, "sdo-build.sqlite3"),
         }
     }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
@@ -201,26 +199,26 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATICFILES_FINDERS = [
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
 STATICFILES_DIRS = [
-    os.path.join(PROJECT_DIR, 'static'),
+    os.path.join(PROJECT_DIR, "static"),
 ]
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_URL = "/static/"
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"
 
 
 # Search Backend
 
 WAGTAILSEARCH_BACKENDS = {
-    'default': {
-        'BACKEND': 'wagtail.search.backends.database',
+    "default": {
+        "BACKEND": "wagtail.search.backends.database",
     },
 }
 
@@ -229,29 +227,33 @@ WAGTAIL_GRAVATAR_PROVIDER_URL = None
 
 WAGTAIL_SITE_NAME = "securedrop"
 
-WAGTAILIMAGES_IMAGE_MODEL = 'common.CustomImage'
+WAGTAILIMAGES_IMAGE_MODEL = "common.CustomImage"
 WAGTAILIMAGES_EXTENSIONS = ["avif", "gif", "jpg", "jpeg", "png", "webp", "svg"]
 # The size needs to be set to an integer in units of bytes, e.g. 1 MB should be set to 1 * 1024 * 1024
-WAGTAILIMAGES_MAX_UPLOAD_SIZE = int(os.environ.get('WAGTAILIMAGES_MAX_UPLOAD_SIZE', 10 * 1024 * 1024))
+WAGTAILIMAGES_MAX_UPLOAD_SIZE = int(
+    os.environ.get("WAGTAILIMAGES_MAX_UPLOAD_SIZE", 10 * 1024 * 1024)
+)
 
 # The size needs to be set in pixels, e.g. 128 megapixels should be set to 128000000
-WAGTAILIMAGES_MAX_IMAGE_PIXELS = int(os.environ.get('WAGTAILIMAGES_MAX_IMAGE_PIXELS', 128000000))
+WAGTAILIMAGES_MAX_IMAGE_PIXELS = int(
+    os.environ.get("WAGTAILIMAGES_MAX_IMAGE_PIXELS", 128000000)
+)
 
-DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 WAGTAILADMIN_COMMENTS_ENABLED = False
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-WAGTAILADMIN_BASE_URL = 'https://securedrop.org'
+WAGTAILADMIN_BASE_URL = "https://securedrop.org"
 
 # Django-webpack configuration
 WEBPACK_LOADER = {
-    'DEFAULT': {
-        'CACHE': not DEBUG,
-        'BUNDLE_DIR_NAME': 'bundles/',  # must end with slash
-        'POLL_INTERVAL': 0.1,
-        'TIMEOUT': None,
-        'IGNORE': [r'.+\.hot-update.js', r'.+\.map']
+    "DEFAULT": {
+        "CACHE": not DEBUG,
+        "BUNDLE_DIR_NAME": "bundles/",  # must end with slash
+        "POLL_INTERVAL": 0.1,
+        "TIMEOUT": None,
+        "IGNORE": [r".+\.hot-update.js", r".+\.map"],
     }
 }
 
@@ -260,10 +262,10 @@ ANALYTICS_ENABLED = False
 
 # Export analytics settings for use in site templates
 SETTINGS_EXPORT = [
-    'ANALYTICS_ENABLED',
+    "ANALYTICS_ENABLED",
 ]
 # Prevent template variable name collision with wagtail settings
-SETTINGS_EXPORT_VARIABLE_NAME = 'django_settings'
+SETTINGS_EXPORT_VARIABLE_NAME = "django_settings"
 
 # django-taggit
 TAGGIT_CASE_INSENSITIVE = True
@@ -271,16 +273,15 @@ TAGGIT_CASE_INSENSITIVE = True
 
 # GitHub Webhook Settings
 
-GITHUB_HOOK_SECRET_KEY = os.environ.get(
-    'GITHUB_HOOK_SECRET_KEY',
-    'default'
-).encode('utf-8')
+GITHUB_HOOK_SECRET_KEY = os.environ.get("GITHUB_HOOK_SECRET_KEY", "default").encode(
+    "utf-8"
+)
 
 SITE_ID = 1
 LOGIN_REDIRECT_URL = "/"
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
 ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
 ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
@@ -298,8 +299,9 @@ SOCIALACCOUNT_EMAIL_REQUIRED = True
 # #11 needed for wagtail admin
 
 # Report URI must be a string, not a tuple.
-CSP_REPORT_URI = os.environ.get('DJANGO_CSP_REPORT_URI',
-                                'https://freedomofpress.report-uri.com/r/d/csp/enforce')
+CSP_REPORT_URI = os.environ.get(
+    "DJANGO_CSP_REPORT_URI", "https://freedomofpress.report-uri.com/r/d/csp/enforce"
+)
 
 CONTENT_SECURITY_POLICY = {
     "EXCLUDE_URL_PREFIXES": ["/admin"],
@@ -322,20 +324,30 @@ CONTENT_SECURITY_POLICY = {
             "'sha256-ZdHxw9eWtnxUb3mk6tBS+gIiVUPE3pGM470keHPDFlE='",
             "'sha256-RjGXttEfn3lP8F5dx3vtPdu6djlmub1vrGRYYEoYmk0='",
         ],
-    }
+    },
 }
 
 # This will be used to evaluate Google Storage media support in staging
 if os.environ.get("DJANGO_CSP_IMG_HOSTS"):
-    CONTENT_SECURITY_POLICY["DIRECTIVES"]["img-src"].extend(os.environ["DJANGO_CSP_IMG_HOSTS"].split())
-    CONTENT_SECURITY_POLICY["DIRECTIVES"]["media-src"].extend(os.environ["DJANGO_CSP_IMG_HOSTS"].split())
+    CONTENT_SECURITY_POLICY["DIRECTIVES"]["img-src"].extend(
+        os.environ["DJANGO_CSP_IMG_HOSTS"].split()
+    )
+    CONTENT_SECURITY_POLICY["DIRECTIVES"]["media-src"].extend(
+        os.environ["DJANGO_CSP_IMG_HOSTS"].split()
+    )
 
 # There are also PDF <embeds> in some news posts, so rather than adding to
 # default-src, set an explicit object-source
 if os.environ.get("DJANGO_CSP_OBJ_HOSTS"):
-    CONTENT_SECURITY_POLICY["DIRECTIVES"]["object-src"].extend(os.environ["DJANGO_CSP_OBJ_HOSTS"].split())
-    CONTENT_SECURITY_POLICY["DIRECTIVES"]["frame-src"].extend(os.environ["DJANGO_CSP_OBJ_HOSTS"].split())
-    CONTENT_SECURITY_POLICY["DIRECTIVES"]["connect-src"].extend(os.environ["DJANGO_CSP_OBJ_HOSTS"].split())
+    CONTENT_SECURITY_POLICY["DIRECTIVES"]["object-src"].extend(
+        os.environ["DJANGO_CSP_OBJ_HOSTS"].split()
+    )
+    CONTENT_SECURITY_POLICY["DIRECTIVES"]["frame-src"].extend(
+        os.environ["DJANGO_CSP_OBJ_HOSTS"].split()
+    )
+    CONTENT_SECURITY_POLICY["DIRECTIVES"]["connect-src"].extend(
+        os.environ["DJANGO_CSP_OBJ_HOSTS"].split()
+    )
 
 # Logging
 #

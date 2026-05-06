@@ -12,16 +12,16 @@ from home.tests.factories import HomePageInstancesFactory, InstancesButtonFactor
 
 
 class Command(BaseCommand):
-    help = 'Creates directory of securedrop instances for development'
+    help = "Creates directory of securedrop instances for development"
 
     def add_arguments(self, parser):
-        parser.add_argument('number_of_instances', type=int)
+        parser.add_argument("number_of_instances", type=int)
 
     @transaction.atomic
     def handle(self, *args, **options):
-        number_of_instances = options['number_of_instances']
+        number_of_instances = options["number_of_instances"]
 
-        home_page = HomePage.objects.get(slug='home')
+        home_page = HomePage.objects.get(slug="home")
         directory = DirectoryPage.objects.first()
         if not directory:
             directory = DirectoryPageFactory(parent=home_page, title="Directory")
@@ -30,7 +30,7 @@ class Command(BaseCommand):
         InstancesButtonFactory(
             page=home_page,
             link=directory,
-            text='See all SecureDrop instances in the directory',
+            text="See all SecureDrop instances in the directory",
         )
         for i in range(number_of_instances):
             instance = DirectoryEntryFactory(with_images=True, parent=directory)

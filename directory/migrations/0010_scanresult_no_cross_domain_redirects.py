@@ -6,15 +6,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('directory', '0009_scanresult_redirect_target'),
+        ("directory", "0009_scanresult_redirect_target"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='scanresult',
-            name='no_cross_domain_redirects',
+            model_name="scanresult",
+            name="no_cross_domain_redirects",
             field=models.NullBooleanField(),
         ),
     ]

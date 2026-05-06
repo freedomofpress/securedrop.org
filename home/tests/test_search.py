@@ -6,10 +6,10 @@ from home.tests.factories import HomePageFactory
 
 class TestHomepage(TestCase):
     def setUp(self):
-        self.title = 'Awesome'
-        self.description = 'Cool'
-        self.features_header = 'Features'
-        self.instances_header = 'Instances'
+        self.title = "Awesome"
+        self.description = "Cool"
+        self.features_header = "Features"
+        self.instances_header = "Instances"
         self.home = HomePageFactory(
             title=self.title,
             description=RichText(self.description),

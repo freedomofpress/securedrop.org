@@ -67,7 +67,7 @@ jobs:
           - check-migrations
           - bandit
           - dev-tests
-          - flake8
+          - ruff
     steps:
       - name: Install Docker
         uses: docker/setup-docker-action@v5

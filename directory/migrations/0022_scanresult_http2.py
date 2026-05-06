@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('directory', '0021_merge_20200903_1933'),
+        ("directory", "0021_merge_20200903_1933"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='scanresult',
-            name='http2',
+            model_name="scanresult",
+            name="http2",
             field=models.BooleanField(default=False),
         ),
     ]

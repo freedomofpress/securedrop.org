@@ -6,17 +6,19 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
-    replaces = [('directory', '0006_scanresult_no_referrer_policy_set'), ('directory', '0007_auto_20180828_2158')]
+    replaces = [
+        ("directory", "0006_scanresult_no_referrer_policy_set"),
+        ("directory", "0007_auto_20180828_2158"),
+    ]
 
     dependencies = [
-        ('directory', '0005_directoryentry_delisted'),
+        ("directory", "0005_directoryentry_delisted"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='scanresult',
-            name='referrer_policy_set_to_no_referrer',
+            model_name="scanresult",
+            name="referrer_policy_set_to_no_referrer",
             field=models.NullBooleanField(),
         ),
     ]

@@ -11,10 +11,10 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
-            'securedrops',
-            nargs='*',
+            "securedrops",
+            nargs="*",
             type=str,
-            default='',
+            default="",
             help=(
                 "Specify one or more domain names of securedrop landing pages "
                 " to scan. Specify the domain name with the 'https://' or "
@@ -24,24 +24,23 @@ class Command(BaseCommand):
         )
 
     def handle(self, *args, **options):
-        if options['securedrops']:
-            requested_domains = [url_to_domain(x) for x in options['securedrops']]
-            securedrop_pages = DirectoryEntry.objects.with_domain_annotation()\
-                .filter(domain__in=requested_domains)
+        if options["securedrops"]:
+            requested_domains = [url_to_domain(x) for x in options["securedrops"]]
+            securedrop_pages = DirectoryEntry.objects.with_domain_annotation().filter(
+                domain__in=requested_domains
+            )
 
             # Check that all the domains provided to the command are in the
             # database. If they are not, raise an error.
-            retrieved_domains = list(
-                securedrop_pages.values_list('domain', flat=True)
-            )
+            retrieved_domains = list(securedrop_pages.values_list("domain", flat=True))
             for requested_domain in requested_domains:
                 if requested_domain not in retrieved_domains:
                     msg = "Landing page '{}' does not exist".format(
-                        'https://{}'.format(requested_domain)
+                        "https://{}".format(requested_domain)
                     )
                     raise CommandError(msg)
         else:
             securedrop_pages = DirectoryEntry.objects.all()
 
         bulk_scan(securedrop_pages)
-        self.stdout.write('Scanning complete! Results added to database.')
+        self.stdout.write("Scanning complete! Results added to database.")

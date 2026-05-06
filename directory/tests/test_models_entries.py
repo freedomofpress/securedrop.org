@@ -9,9 +9,9 @@ from directory.tests.factories import DirectoryEntryFactory, ScanResultFactory
 class DirectoryEntryTest(TestCase):
     def test_securedrop_can_save_expected_urls(self):
         securedrop = DirectoryEntryFactory(
-            landing_page_url='https://www.something.org',
-            onion_address='https://notreal.onion',
-            onion_name='http://notreal.securedrop.tor.onion',
+            landing_page_url="https://www.something.org",
+            onion_address="https://notreal.onion",
+            onion_name="http://notreal.securedrop.tor.onion",
         )
         securedrop.save()
         self.assertIn(securedrop, DirectoryEntry.objects.all())
@@ -19,17 +19,17 @@ class DirectoryEntryTest(TestCase):
     def test_securedrop_cannot_save_invalid_url(self):
         with self.assertRaises(ValidationError):
             DirectoryEntryFactory(
-                landing_page_url='something',
+                landing_page_url="something",
             )
 
     def test_securedrop_cannot_save_invalid_onion_address(self):
         with self.assertRaises(ValidationError):
             DirectoryEntryFactory(
-                onion_address='https://notreal.com',
+                onion_address="https://notreal.com",
             )
 
     def test_https_preferred_onion_address(self):
-        onion_address = 'notreal.onion'
+        onion_address = "notreal.onion"
         securedrop = DirectoryEntryFactory(
             onion_address=onion_address,
             https_preferred=False,
@@ -45,17 +45,17 @@ class DirectoryEntryTest(TestCase):
     def test_securedrop_cannot_save_invalid_onion_name(self):
         with self.assertRaises(ValidationError):
             DirectoryEntryFactory(
-                onion_name='https://notreal.com',
+                onion_name="https://notreal.com",
             )
 
     def test_securedrop_cannot_save_empty_urls(self):
         with self.assertRaises(ValidationError):
             DirectoryEntryFactory(
-                landing_page_url='',
+                landing_page_url="",
             )
 
     def test_duplicate_landing_pages_are_invalid(self):
-        landing_page_url = 'https://www.freedom.press'
+        landing_page_url = "https://www.freedom.press"
 
         DirectoryEntryFactory(
             landing_page_url=landing_page_url,
@@ -67,15 +67,21 @@ class DirectoryEntryTest(TestCase):
 
     def test_securedrop_string_representation(self):
         securedrop1 = DirectoryEntryFactory(
-            title='Freedom of the Press Foundation',
+            title="Freedom of the Press Foundation",
         )
         self.assertIn(securedrop1.title, securedrop1.__str__())
 
     def test_returns_latest_live_result(self):
         sd = DirectoryEntryFactory()
-        ScanResultFactory(live=False, securedrop=sd, landing_page_url=sd.landing_page_url).save()
-        ScanResultFactory(live=False, securedrop=sd, landing_page_url=sd.landing_page_url).save()
-        r3 = ScanResultFactory(live=True, securedrop=sd, landing_page_url=sd.landing_page_url)
+        ScanResultFactory(
+            live=False, securedrop=sd, landing_page_url=sd.landing_page_url
+        ).save()
+        ScanResultFactory(
+            live=False, securedrop=sd, landing_page_url=sd.landing_page_url
+        ).save()
+        r3 = ScanResultFactory(
+            live=True, securedrop=sd, landing_page_url=sd.landing_page_url
+        )
         r3.save()
 
         sd = DirectoryEntry.objects.get(pk=sd.pk)
@@ -83,7 +89,7 @@ class DirectoryEntryTest(TestCase):
         self.assertEqual(r3, sd.get_live_result())
 
     def test_save_associates_results(self):
-        landing_page_url = 'https://www.something.org'
+        landing_page_url = "https://www.something.org"
         result = ScanResult(
             live=True,
             hsts=True,
@@ -95,7 +101,7 @@ class DirectoryEntryTest(TestCase):
 
         securedrop = DirectoryEntryFactory(
             landing_page_url=landing_page_url,
-            onion_address='https://notreal.onion',
+            onion_address="https://notreal.onion",
         )
         securedrop.save()
         result.refresh_from_db()
@@ -109,15 +115,23 @@ class ScanResultTest(TestCase):
 
     def test_instance_on_subdomain_gets_moderate_warning(self):
         result = ScanResultFactory(no_failures=True, subdomain=True)
-        self.assertEqual(self.securedrop.get_warnings(result)[0].level, WarningLevel.MODERATE)
+        self.assertEqual(
+            self.securedrop.get_warnings(result)[0].level, WarningLevel.MODERATE
+        )
 
     def test_instance_with_incorrect_referrer_policy_gets_moderate_warning(self):
-        result = ScanResultFactory(no_failures=True, referrer_policy_set_to_no_referrer=False)
-        self.assertEqual(self.securedrop.get_warnings(result)[0].level, WarningLevel.MODERATE)
+        result = ScanResultFactory(
+            no_failures=True, referrer_policy_set_to_no_referrer=False
+        )
+        self.assertEqual(
+            self.securedrop.get_warnings(result)[0].level, WarningLevel.MODERATE
+        )
 
     def test_instance_with_unsafe_onion_addresses_gets_moderate_warning(self):
         result = ScanResultFactory(no_failures=True, safe_onion_address=False)
-        self.assertEqual(self.securedrop.get_warnings(result)[0].level, WarningLevel.MODERATE)
+        self.assertEqual(
+            self.securedrop.get_warnings(result)[0].level, WarningLevel.MODERATE
+        )
 
     def test_instance_with_third_party_cookies_gets_no_warning(self):
         result = ScanResultFactory(no_failures=True, no_cookies=False)
@@ -125,7 +139,9 @@ class ScanResultTest(TestCase):
 
     def test_instance_with_analytics_gets_severe_warning(self):
         result = ScanResultFactory(no_failures=True, no_analytics=False)
-        self.assertEqual(self.securedrop.get_warnings(result)[0].level, WarningLevel.SEVERE)
+        self.assertEqual(
+            self.securedrop.get_warnings(result)[0].level, WarningLevel.SEVERE
+        )
 
     def test_instance_with_cdn_gets_no_warning(self):
         result = ScanResultFactory(no_failures=True, no_cdn=False)
@@ -134,85 +150,110 @@ class ScanResultTest(TestCase):
 
     def test_instance_with_cross_domain_assets_gets_severe_warning(self):
         result = ScanResultFactory(no_failures=True, no_cross_domain_assets=False)
-        self.assertEqual(self.securedrop.get_warnings(result)[0].level, WarningLevel.SEVERE)
+        self.assertEqual(
+            self.securedrop.get_warnings(result)[0].level, WarningLevel.SEVERE
+        )
 
     def test_grade_computed_on_save(self):
-        result = ScanResult(live=True, hsts=True, hsts_max_age=True,
-                            securedrop=self.securedrop)
-        self.assertEqual(result.grade, '?')
+        result = ScanResult(
+            live=True, hsts=True, hsts_max_age=True, securedrop=self.securedrop
+        )
+        self.assertEqual(result.grade, "?")
         result.save()
-        self.assertEqual(result.grade, 'A')
+        self.assertEqual(result.grade, "A")
 
     def test_an_instance_using_cookies_gets_an_F(self):
         result = ScanResult(live=True, no_cookies=False, securedrop=self.securedrop)
         result.save()
-        self.assertEqual(result.grade, 'F')
+        self.assertEqual(result.grade, "F")
 
     def test_an_instance_using_a_cdn_gets_a_D(self):
         result = ScanResult(live=True, no_cdn=False, securedrop=self.securedrop)
         result.save()
-        self.assertEqual(result.grade, 'D')
+        self.assertEqual(result.grade, "D")
 
     def test_an_instance_using_a_subdomain_gets_a_D(self):
         result = ScanResult(live=True, subdomain=True, securedrop=self.securedrop)
         result.save()
-        self.assertEqual(result.grade, 'D')
+        self.assertEqual(result.grade, "D")
 
     def test_an_instance_showing_server_software_in_headers_gets_a_D(self):
-        result = ScanResult(live=True, no_server_info=False,
-                            securedrop=self.securedrop)
+        result = ScanResult(live=True, no_server_info=False, securedrop=self.securedrop)
         result.save()
-        self.assertEqual(result.grade, 'D')
+        self.assertEqual(result.grade, "D")
 
     def test_an_instance_showing_server_version_in_headers_gets_a_D(self):
-        result = ScanResult(live=True, no_server_version=False,
-                            securedrop=self.securedrop)
+        result = ScanResult(
+            live=True, no_server_version=False, securedrop=self.securedrop
+        )
         result.save()
-        self.assertEqual(result.grade, 'D')
+        self.assertEqual(result.grade, "D")
 
     def test_an_instance_with_expires_not_set_gets_a_C(self):
-        result = ScanResult(live=True, expires_set=False,
-                            securedrop=self.securedrop)
+        result = ScanResult(live=True, expires_set=False, securedrop=self.securedrop)
         result.save()
-        self.assertEqual(result.grade, 'C')
+        self.assertEqual(result.grade, "C")
 
     def test_an_instance_with_cache_control_nostore_not_set_gets_a_B(self):
-        result = ScanResult(live=True, cache_control_nostore_set=False,
-                            hsts_max_age=True, securedrop=self.securedrop)
+        result = ScanResult(
+            live=True,
+            cache_control_nostore_set=False,
+            hsts_max_age=True,
+            securedrop=self.securedrop,
+        )
         result.save()
-        self.assertEqual(result.grade, 'B')
+        self.assertEqual(result.grade, "B")
 
     def test_a_down_instance_gets_a_null_grade(self):
         result = ScanResult(live=False, securedrop=self.securedrop)
         result.save()
-        self.assertEqual(result.grade, '?')
+        self.assertEqual(result.grade, "?")
 
     def test_securedrop_can_get_most_recent_scan(self):
-        result1 = ScanResult(live=True, hsts=True, hsts_max_age=True,
-                             securedrop=self.securedrop, landing_page_url=self.securedrop.landing_page_url)
+        result1 = ScanResult(
+            live=True,
+            hsts=True,
+            hsts_max_age=True,
+            securedrop=self.securedrop,
+            landing_page_url=self.securedrop.landing_page_url,
+        )
         result1.save()
-        result2 = ScanResult(live=True, hsts=False, hsts_max_age=True,
-                             securedrop=self.securedrop, landing_page_url=self.securedrop.landing_page_url)
+        result2 = ScanResult(
+            live=True,
+            hsts=False,
+            hsts_max_age=True,
+            securedrop=self.securedrop,
+            landing_page_url=self.securedrop.landing_page_url,
+        )
         result2.save()
         securedrop = DirectoryEntry.objects.get(id=self.securedrop.pk)
         most_recent = securedrop.results.latest()
-        self.assertEqual(most_recent.grade, 'C')
+        self.assertEqual(most_recent.grade, "C")
 
     def test_result_string_representation(self):
-        result1 = ScanResult(live=True, hsts=True, hsts_max_age=True,
-                             securedrop=self.securedrop, landing_page_url=self.securedrop.landing_page_url)
+        result1 = ScanResult(
+            live=True,
+            hsts=True,
+            hsts_max_age=True,
+            securedrop=self.securedrop,
+            landing_page_url=self.securedrop.landing_page_url,
+        )
         self.assertIn(result1.landing_page_url, result1.__str__())
 
     def test_is_equal_to_compares_only_scan_attributes__same_result(self):
         """Test is_equal_to does not compare pk, _state, etc."""
-        result1 = ScanResult(live=True, hsts=True, hsts_max_age=True,
-                             securedrop=self.securedrop)
-        result2 = ScanResult(live=True, hsts=True, hsts_max_age=True,
-                             securedrop=self.securedrop)
+        result1 = ScanResult(
+            live=True, hsts=True, hsts_max_age=True, securedrop=self.securedrop
+        )
+        result2 = ScanResult(
+            live=True, hsts=True, hsts_max_age=True, securedrop=self.securedrop
+        )
         self.assertTrue(result1.is_equal_to(result2))
 
     def test_is_equal_to_compares_only_scan_attributes__new_result(self):
-        result1 = ScanResult(live=True, hsts=True, hsts_max_age=True, securedrop=self.securedrop)
+        result1 = ScanResult(
+            live=True, hsts=True, hsts_max_age=True, securedrop=self.securedrop
+        )
         result2 = ScanResult(live=False, securedrop=self.securedrop)
         self.assertFalse(result1.is_equal_to(result2))
 
@@ -230,54 +271,45 @@ class ScanResultTest(TestCase):
 
 class SecuredropQuerySetTestCase(TestCase):
     def test_domain_annotation(self):
-        DirectoryEntryFactory.create(
-            landing_page_url="https://securedrop.org/subpath"
-        )
+        DirectoryEntryFactory.create(landing_page_url="https://securedrop.org/subpath")
         securedrop_page_qs = DirectoryEntry.objects.with_domain_annotation()
 
         self.assertEqual(
-            securedrop_page_qs.values_list('domain', flat=True)[0],
-            'securedrop.org'
+            securedrop_page_qs.values_list("domain", flat=True)[0], "securedrop.org"
         )
 
     def test_listed(self):
         """
         QuerySet method `listed` should return only listed DirectoryEntries
         """
-        DirectoryEntryFactory.create(delisted='other')
-        DirectoryEntryFactory.create(delisted='other')
+        DirectoryEntryFactory.create(delisted="other")
+        DirectoryEntryFactory.create(delisted="other")
         l1 = DirectoryEntryFactory.create()
         l2 = DirectoryEntryFactory.create()
-        self.assertCountEqual(
-            DirectoryEntry.objects.listed(),
-            [l1, l2]
-        )
+        self.assertCountEqual(DirectoryEntry.objects.listed(), [l1, l2])
 
     def test_delisted(self):
         """
         QuerySet method `delisted` should return only delisted DirectoryEntries
         """
-        d1 = DirectoryEntryFactory.create(delisted='other')
-        d2 = DirectoryEntryFactory.create(delisted='other')
+        d1 = DirectoryEntryFactory.create(delisted="other")
+        d2 = DirectoryEntryFactory.create(delisted="other")
         DirectoryEntryFactory.create()
         DirectoryEntryFactory.create()
-        self.assertCountEqual(
-            DirectoryEntry.objects.delisted(),
-            [d1, d2]
-        )
+        self.assertCountEqual(DirectoryEntry.objects.delisted(), [d1, d2])
 
 
 class DirectoryEntrySearchTest(TestCase):
     def setUp(self):
-        self.title = 'Awesome'
-        self.landing_page_url = 'https://landing.com'
-        self.onion_address = 'something.onion'
-        self.description = 'Amaze'
+        self.title = "Awesome"
+        self.landing_page_url = "https://landing.com"
+        self.onion_address = "something.onion"
+        self.description = "Amaze"
         self.sd = DirectoryEntryFactory(
             title=self.title,
             landing_page_url=self.landing_page_url,
             onion_address=self.onion_address,
-            organization_description=self.description
+            organization_description=self.description,
         )
         self.search_content = self.sd.get_search_content()
 

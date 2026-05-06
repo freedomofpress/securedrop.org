@@ -13,23 +13,21 @@ from github.models import Release
 
 
 class HomePage(MetadataPageMixin, Page):
-    description_header = models.CharField(max_length=255, default="Share and accept documents securely.")
+    description_header = models.CharField(
+        max_length=255, default="Share and accept documents securely."
+    )
     # Disables headers and image/video embeds
     description = RichTextField(
-        features=['bold', 'italic', 'ol', 'ul', 'hr', 'link', 'document-link'],
+        features=["bold", "italic", "ol", "ul", "hr", "link", "document-link"],
         blank=True,
-        null=True
+        null=True,
     )
-    features_header = models.CharField(
-        max_length=255,
-        default="What SecureDrop Does"
-    )
+    features_header = models.CharField(max_length=255, default="What SecureDrop Does")
     instances_header = models.CharField(
-        max_length=255,
-        default="Share Documents Securely With These Organizations"
+        max_length=255, default="Share Documents Securely With These Organizations"
     )
     instances_button = models.ForeignKey(
-        'home.InstancesButton',
+        "home.InstancesButton",
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
@@ -37,47 +35,48 @@ class HomePage(MetadataPageMixin, Page):
     instance_link_default_text = models.CharField(
         max_length=255,
         default="View in the directory",
-        help_text="Text displayed linking to each instance's page in the directory."
+        help_text="Text displayed linking to each instance's page in the directory.",
     )
 
-    search_fields_pgsql = ['title', 'description', 'features_header', 'instances_header']
+    search_fields_pgsql = [
+        "title",
+        "description",
+        "features_header",
+        "instances_header",
+    ]
 
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
-                FieldPanel('description_header'),
-                FieldPanel('description'),
+                FieldPanel("description_header"),
+                FieldPanel("description"),
                 InlinePanel(
-                    'description_buttons',
+                    "description_buttons",
                     label="Links",
                     max_num=2,
-                )
+                ),
             ],
             "Description",
-            classname="collapsible"
+            classname="collapsible",
         ),
         MultiFieldPanel(
             [
-                FieldPanel('features_header'),
-                InlinePanel(
-                    'features',
-                    label="Highlighted Features",
-                    max_num=6
-                ),
-                InlinePanel('features_button', label="Features Button", max_num=1)
+                FieldPanel("features_header"),
+                InlinePanel("features", label="Highlighted Features", max_num=6),
+                InlinePanel("features_button", label="Features Button", max_num=1),
             ],
             "Features",
-            classname="collapsible"
+            classname="collapsible",
         ),
         MultiFieldPanel(
             [
-                FieldPanel('instances_header'),
-                InlinePanel('instances', label="Instances", max_num=6),
-                InlinePanel('instance_button', label="Button", max_num=1),
-                FieldPanel('instance_link_default_text')
+                FieldPanel("instances_header"),
+                InlinePanel("instances", label="Instances", max_num=6),
+                InlinePanel("instance_button", label="Button", max_num=1),
+                FieldPanel("instance_link_default_text"),
             ],
             "Highlighted Instances",
-            classname="collapsible"
+            classname="collapsible",
         ),
     ]
 
@@ -93,68 +92,55 @@ class HomePage(MetadataPageMixin, Page):
         return search_elements
 
     def get_latest_blog(self):
-        return BlogPage.objects.live().order_by('-publication_datetime').first()
+        return BlogPage.objects.live().order_by("-publication_datetime").first()
 
     def get_current_release(self):
-        return Release.objects.order_by('-date').first()
+        return Release.objects.order_by("-date").first()
 
     def docs_url(self):
         return READTHEDOCS_BASE
 
 
 class DescriptionButtons(Orderable, Button):
-    page = ParentalKey('home.HomePage', related_name='description_buttons')
+    page = ParentalKey("home.HomePage", related_name="description_buttons")
 
-    panels = [
-        FieldPanel('text'),
-        FieldPanel('link')
-    ]
+    panels = [FieldPanel("text"), FieldPanel("link")]
 
 
 class InstancesButton(Button):
-    page = ParentalKey('home.HomePage', related_name='instance_button')
+    page = ParentalKey("home.HomePage", related_name="instance_button")
 
-    panels = [
-        FieldPanel('text'),
-        FieldPanel('link')
-    ]
+    panels = [FieldPanel("text"), FieldPanel("link")]
 
 
 class FeaturesButton(Button):
-    page = ParentalKey('home.HomePage', related_name='features_button')
+    page = ParentalKey("home.HomePage", related_name="features_button")
 
-    panels = [
-        FieldPanel('text'),
-        FieldPanel('link')
-    ]
+    panels = [FieldPanel("text"), FieldPanel("link")]
 
 
 class HomepageFeature(Orderable):
-    page = ParentalKey('home.HomePage', related_name='features')
+    page = ParentalKey("home.HomePage", related_name="features")
     feature = models.ForeignKey(
-        'marketing.FeaturePage',
-        on_delete=models.CASCADE,
-        related_name='+'
+        "marketing.FeaturePage", on_delete=models.CASCADE, related_name="+"
     )
 
-    panels = [
-        FieldPanel('feature')
-    ]
+    panels = [FieldPanel("feature")]
 
     class Meta:
-        unique_together = (('page', 'feature'),)
+        unique_together = (("page", "feature"),)
 
 
 class HomePageInstances(Orderable):
-    page = ParentalKey('home.HomePage', related_name='instances')
+    page = ParentalKey("home.HomePage", related_name="instances")
     instance = models.ForeignKey(
-        'directory.DirectoryEntry',
+        "directory.DirectoryEntry",
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
-        related_name='+'
+        related_name="+",
     )
 
     panels = [
-        FieldPanel('instance'),
+        FieldPanel("instance"),
     ]

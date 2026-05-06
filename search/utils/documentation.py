@@ -7,19 +7,19 @@ from search.models import SearchDocument
 from search.utils.search_elements import SearchElements
 
 
-READTHEDOCS_BASE = 'https://docs.securedrop.org/en/stable/'
+READTHEDOCS_BASE = "https://docs.securedrop.org/en/stable/"
 
 
 def fetch_indexable_pages():
     """Fetch documentation root and extract a list of URLs to scrape"""
-    url = urljoin(READTHEDOCS_BASE, 'index.html')
+    url = urljoin(READTHEDOCS_BASE, "index.html")
     page = requests.get(url, timeout=10)
-    soup = BeautifulSoup(page.content, 'html.parser')
+    soup = BeautifulSoup(page.content, "html.parser")
 
     # Select the main nav bar and extract links from it
     nav = soup.select('div[aria-label="Navigation menu"]')[0]
-    links = nav.find_all('a', href=True)
-    return [urljoin(READTHEDOCS_BASE, link.get('href')) for link in links] + [url]
+    links = nav.find_all("a", href=True)
+    return [urljoin(READTHEDOCS_BASE, link.get("href")) for link in links] + [url]
 
 
 def scrape_documentation_page(url):
@@ -29,14 +29,14 @@ def scrape_documentation_page(url):
 
 def index_documentation_page(url, page):
     """Parse a documentation page and update a search document for it"""
-    soup = BeautifulSoup(page.content, 'html.parser')
+    soup = BeautifulSoup(page.content, "html.parser")
 
     search_elements = SearchElements()
 
     try:
-        search_elements.append(''.join(soup.select('div[role=main]')[0].strings))
+        search_elements.append("".join(soup.select("div[role=main]")[0].strings))
     except IndexError:
-        search_elements.append('')
+        search_elements.append("")
     if soup.title:
         title = soup.title.string
         search_elements.append(title)
@@ -45,12 +45,12 @@ def index_documentation_page(url, page):
 
     result = SearchDocument.objects.update_or_create(
         {
-            'title': title,
-            'url': url,
-            'search_content': search_elements.as_string(),
-            'search_vector': search_elements.as_search_vector(),
-            'data': {},
-            'result_type': 'D',
+            "title": title,
+            "url": url,
+            "search_content": search_elements.as_string(),
+            "search_vector": search_elements.as_search_vector(),
+            "data": {},
+            "result_type": "D",
         },
         key=url,
     )

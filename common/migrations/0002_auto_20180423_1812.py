@@ -10,65 +10,112 @@ import wagtail.models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-        ('common', '0001_initial'),
+        ("common", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('taggit', '0002_auto_20150616_2121'),
-        ('menus', '0001_initial'),
-        ('wagtailcore', '0040_page_draft_title'),
+        ("taggit", "0002_auto_20150616_2121"),
+        ("menus", "0001_initial"),
+        ("wagtailcore", "0040_page_draft_title"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='footersettings',
-            name='main_menu',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='menus.Menu'),
+            model_name="footersettings",
+            name="main_menu",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="menus.Menu",
+            ),
         ),
         migrations.AddField(
-            model_name='footersettings',
-            name='site',
-            field=models.OneToOneField(editable=False, on_delete=django.db.models.deletion.CASCADE, to='wagtailcore.Site'),
+            model_name="footersettings",
+            name="site",
+            field=models.OneToOneField(
+                editable=False,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="wagtailcore.Site",
+            ),
         ),
         migrations.AddField(
-            model_name='footersettings',
-            name='support_menu',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='menus.Menu'),
+            model_name="footersettings",
+            name="support_menu",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="menus.Menu",
+            ),
         ),
         migrations.AddField(
-            model_name='customrendition',
-            name='image',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='renditions', to='common.CustomImage'),
+            model_name="customrendition",
+            name="image",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="renditions",
+                to="common.CustomImage",
+            ),
         ),
         migrations.AddField(
-            model_name='customimage',
-            name='collection',
-            field=models.ForeignKey(default=wagtail.models.get_root_collection_id, on_delete=django.db.models.deletion.CASCADE, related_name='+', to='wagtailcore.Collection', verbose_name='collection'),
+            model_name="customimage",
+            name="collection",
+            field=models.ForeignKey(
+                default=wagtail.models.get_root_collection_id,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="+",
+                to="wagtailcore.Collection",
+                verbose_name="collection",
+            ),
         ),
         migrations.AddField(
-            model_name='customimage',
-            name='tags',
-            field=taggit.managers.TaggableManager(blank=True, help_text=None, through='taggit.TaggedItem', to='taggit.Tag', verbose_name='tags'),
+            model_name="customimage",
+            name="tags",
+            field=taggit.managers.TaggableManager(
+                blank=True,
+                help_text=None,
+                through="taggit.TaggedItem",
+                to="taggit.Tag",
+                verbose_name="tags",
+            ),
         ),
         migrations.AddField(
-            model_name='customimage',
-            name='uploaded_by_user',
-            field=models.ForeignKey(blank=True, editable=False, null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL, verbose_name='uploaded by user'),
+            model_name="customimage",
+            name="uploaded_by_user",
+            field=models.ForeignKey(
+                blank=True,
+                editable=False,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="uploaded by user",
+            ),
         ),
         migrations.AddField(
-            model_name='button',
-            name='link',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='wagtailcore.Page'),
+            model_name="button",
+            name="link",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="wagtailcore.Page",
+            ),
         ),
         migrations.AddField(
-            model_name='alertsettings',
-            name='site',
-            field=models.OneToOneField(editable=False, on_delete=django.db.models.deletion.CASCADE, to='wagtailcore.Site'),
+            model_name="alertsettings",
+            name="site",
+            field=models.OneToOneField(
+                editable=False,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="wagtailcore.Site",
+            ),
         ),
         migrations.AlterUniqueTogether(
-            name='customrendition',
-            unique_together=set([('image', 'filter_spec', 'focal_point_key')]),
+            name="customrendition",
+            unique_together=set([("image", "filter_spec", "focal_point_key")]),
         ),
     ]

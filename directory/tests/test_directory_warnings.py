@@ -72,7 +72,7 @@ class DirectoryPinnedWarningTest(TestCase):
 
     def test_warning_presence(self):
         """warning should be displayed if pinned"""
-        self.entry.warnings_pinned = ['unreachable_landing_page']
+        self.entry.warnings_pinned = ["unreachable_landing_page"]
         self.entry.save()
         response = self.client.get(self.entry.url)
         self.assertContains(
@@ -81,8 +81,8 @@ class DirectoryPinnedWarningTest(TestCase):
         )
 
     def test_pinning_and_ignoring_the_same_warning_is_invalid(self):
-        self.entry.warnings_pinned = ['unreachable_landing_page']
-        self.entry.warnings_ignored = ['unreachable_landing_page']
+        self.entry.warnings_pinned = ["unreachable_landing_page"]
+        self.entry.warnings_ignored = ["unreachable_landing_page"]
         with self.assertRaises(ValidationError):
             self.entry.save()
 
@@ -113,7 +113,7 @@ class DirectoryModerateWarningTest(TestCase):
         )
 
     def test_warning_message_suppressed_if_page_ignores_all_triggered_warnings(self):
-        self.entry.warnings_ignored = ['safe_onion_address']
+        self.entry.warnings_ignored = ["safe_onion_address"]
         self.entry.save()
 
         response = self.client.get(self.entry.url)
@@ -127,19 +127,19 @@ class DirectoryModerateWarningTest(TestCase):
     def test_single_warning_message_suppressed_if_page_ignores_that_warning(self):
         self.result.subdomain = True
         self.result.save()
-        self.entry.warnings_ignored = ['safe_onion_address']
+        self.entry.warnings_ignored = ["safe_onion_address"]
         self.entry.save()
 
         response = self.client.get(self.entry.url)
         self.assertContains(
             response,
-            'is hosted on a subdomain',
+            "is hosted on a subdomain",
             status_code=200,
         )
 
         self.assertNotContains(
             response,
-            'includes a clickable link to a Tor Onion Service',
+            "includes a clickable link to a Tor Onion Service",
             status_code=200,
         )
 
@@ -170,7 +170,7 @@ class DirectorySevereWarningTest(TestCase):
         )
 
     def test_warning_message_suppressed_if_page_ignores_all_triggered_warnings(self):
-        self.entry.warnings_ignored = ['no_third_party_assets']
+        self.entry.warnings_ignored = ["no_third_party_assets"]
         self.entry.save()
         self.entry.refresh_from_db()
         response = self.client.get(self.entry.url)
@@ -203,7 +203,4 @@ class DirectoryUnreachableWarningTest(TestCase):
             "This SecureDrop's landing page appears to be unreachable",
             status_code=200,
         )
-        self.assertContains(
-            response,
-            'images/instance-status/Error.svg'
-        )
+        self.assertContains(response, "images/instance-status/Error.svg")

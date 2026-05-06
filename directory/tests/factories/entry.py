@@ -16,16 +16,19 @@ from directory.tests.factories.taxonomy import (
 
 
 def random_onion_address():
-    return 'https://' + ''.join(
-        random.choice(string.ascii_lowercase + string.digits)
-        for _ in range(16)
-    ) + '.onion'
+    return (
+        "https://"
+        + "".join(
+            random.choice(string.ascii_lowercase + string.digits) for _ in range(16)
+        )
+        + ".onion"
+    )
 
 
 def random_onion_name():
     fake = Faker()
     name = fake.word()
-    return f'https://{name}.securedrop.tor.onion'
+    return f"https://{name}.securedrop.tor.onion"
 
 
 class DirectoryEntryFactory(wagtail_factories.PageFactory):
@@ -35,12 +38,12 @@ class DirectoryEntryFactory(wagtail_factories.PageFactory):
     class Params:
         with_images = factory.Trait(
             organization_logo=factory.Iterator(
-                CustomImage.objects.filter(collection__name='Animals')
+                CustomImage.objects.filter(collection__name="Animals")
             )
         )
 
-    title = factory.Faker('sentence', nb_words=3)
-    landing_page_url = factory.Faker('uri')
+    title = factory.Faker("sentence", nb_words=3)
+    landing_page_url = factory.Faker("uri")
     onion_address = factory.LazyFunction(random_onion_address)
     onion_name = factory.LazyFunction(random_onion_name)
 
@@ -48,7 +51,7 @@ class DirectoryEntryFactory(wagtail_factories.PageFactory):
     def languages(self, create, count):
         if count is None:
             count = 2
-        make_language = getattr(LanguageFactory, 'create' if create else 'build')
+        make_language = getattr(LanguageFactory, "create" if create else "build")
         languages = []
         for i in range(count):
             lang = make_language()
@@ -56,13 +59,13 @@ class DirectoryEntryFactory(wagtail_factories.PageFactory):
             lang.languages.add(self)
             languages.append(lang)
         if not create:
-            self._prefetched_objects_cache = {'languages': languages}
+            self._prefetched_objects_cache = {"languages": languages}
 
     @factory.post_generation
     def countries(self, create, count):
         if count is None:
             count = 2
-        make_country = getattr(CountryFactory, 'create' if create else 'build')
+        make_country = getattr(CountryFactory, "create" if create else "build")
         countries = []
         for i in range(count):
             country = make_country()
@@ -70,13 +73,13 @@ class DirectoryEntryFactory(wagtail_factories.PageFactory):
             country.countries.add(self)
             countries.append(country)
         if not create:
-            self._prefetched_objects_cache = {'countries': countries}
+            self._prefetched_objects_cache = {"countries": countries}
 
     @factory.post_generation
     def topics(self, create, count):
         if count is None:
             count = 2
-        make_topic = getattr(TopicFactory, 'create' if create else 'build')
+        make_topic = getattr(TopicFactory, "create" if create else "build")
         topics = []
         for i in range(count):
             topic = make_topic()
@@ -84,7 +87,7 @@ class DirectoryEntryFactory(wagtail_factories.PageFactory):
             topic.topics.add(self)
             topics.append(topic)
         if not create:
-            self._prefetched_objects_cache = {'topics': topics}
+            self._prefetched_objects_cache = {"topics": topics}
 
 
 class ScanResultFactory(factory.django.DjangoModelFactory):

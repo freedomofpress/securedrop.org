@@ -6,11 +6,9 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('directory', '0013_auto_20181119_2255'),
-        ('directory', '0013_auto_20181121_2145'),
+        ("directory", "0013_auto_20181119_2255"),
+        ("directory", "0013_auto_20181121_2145"),
     ]
 
-    operations = [
-    ]
+    operations = []

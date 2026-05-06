@@ -20,22 +20,22 @@ class AbstractBaseItem(ClusterableModel):
     order_priority = models.IntegerField(
         default=0,
         help_text=(
-            'Default ordering will be by title. Use this field if certain '
-            'items should always be at then top or bottom of lists (larger '
-            'number is closer to top)'
-        )
+            "Default ordering will be by title. Use this field if certain "
+            "items should always be at then top or bottom of lists (larger "
+            "number is closer to top)"
+        ),
     )
 
     panels = [
-        FieldPanel('title'),
-        FieldPanel('order_priority'),
+        FieldPanel("title"),
+        FieldPanel("order_priority"),
     ]
 
     class Meta:
         abstract = True
-        ordering = ['-order_priority', 'title']
+        ordering = ["-order_priority", "title"]
         indexes = [
-            models.Index(fields=['-order_priority', 'title']),
+            models.Index(fields=["-order_priority", "title"]),
         ]
 
     def __str__(self):
@@ -52,7 +52,7 @@ class Country(AbstractBaseItem):
     pass
 
     class Meta(AbstractBaseItem.Meta):
-        verbose_name_plural = 'Countries'
+        verbose_name_plural = "Countries"
 
 
 @register_snippet

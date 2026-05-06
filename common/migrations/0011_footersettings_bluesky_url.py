@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('common', '0010_customimage_description'),
+        ("common", "0010_customimage_description"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='footersettings',
-            name='bluesky_url',
-            field=models.URLField(blank=True, help_text='Link to Bluesky profile'),
+            model_name="footersettings",
+            name="bluesky_url",
+            field=models.URLField(blank=True, help_text="Link to Bluesky profile"),
         ),
     ]

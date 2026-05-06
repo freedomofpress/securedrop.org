@@ -7,20 +7,33 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('directory', '0015_directoryentry_permitted_domains_for_assets'),
+        ("directory", "0015_directoryentry_permitted_domains_for_assets"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='directoryentry',
-            name='search_image',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='common.CustomImage', verbose_name='Search image'),
+            model_name="directoryentry",
+            name="search_image",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="common.CustomImage",
+                verbose_name="Search image",
+            ),
         ),
         migrations.AlterField(
-            model_name='directorypage',
-            name='search_image',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='+', to='common.CustomImage', verbose_name='Search image'),
+            model_name="directorypage",
+            name="search_image",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="+",
+                to="common.CustomImage",
+                verbose_name="Search image",
+            ),
         ),
     ]
