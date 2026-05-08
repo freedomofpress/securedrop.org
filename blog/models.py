@@ -29,7 +29,7 @@ from github.models import Release
 
 class BlogPage(MetadataPageMixin, Page):
     publication_datetime = models.DateTimeField(
-        help_text="Past or future date of publication"
+        null=True, help_text="Past or future date of publication"
     )
 
     body = StreamField(
@@ -83,6 +83,7 @@ class BlogPage(MetadataPageMixin, Page):
         "wagtailcore.Page",
         on_delete=models.PROTECT,
         related_name="+",
+        null=True,
     )
 
     release = models.OneToOneField(
