@@ -1,5 +1,5 @@
-# sha256 as of 2026-06-18
-FROM node:22-alpine@sha256:21f403ab171f2dc89bad4dd69d7721bfd15f084ccb46cdd225f31f2bc59b5c9a AS node-assets
+# sha256 as of 2026-05-11
+FROM node:26.1.0-trixie@sha256:f6f9fae352b319e817eec5efc7721b3f06bc53104f2f800d0f778f3915835804
 
 # Install npm, making output less verbose
 ENV NPM_CONFIG_LOGLEVEL warn
