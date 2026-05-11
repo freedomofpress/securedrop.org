@@ -9,7 +9,7 @@ ENV NPM_CONFIG_LOGLEVEL=warn
 RUN npm install -g npm@${NPM_VER}
 
 RUN apt update && \
-    apt install -y --no-install-recommends python3 make g++ passwd \
+    apt install -y --no-install-recommends python3 make g++ \
     && rm -rf /var/lib/apt/lists/*
 
 RUN getent passwd "${USERID}" || useradd --create-home --no-log-init --uid "${USERID}" sdo_node
