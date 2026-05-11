@@ -4,11 +4,10 @@ FROM node:26.1.0-trixie@sha256:f6f9fae352b319e817eec5efc7721b3f06bc53104f2f800d0
 # Install npm, making output less verbose
 ENV NPM_CONFIG_LOGLEVEL warn
 
-RUN apk add --no-cache paxctl python3 make g++
-RUN paxctl -cm /usr/local/bin/node
+RUN apt install python3 make g++
 
 ARG USERID
-RUN getent passwd "${USERID?USERID must be supplied}" || adduser -D -g "" -u "${USERID}" sdo_node
+RUN getent passwd "${USERID?USERID must be supplied}" || adduser --disabled-password -u "${USERID}" sdo_node
 USER ${USERID}
 
 CMD npm install && touch .node_complete && npm run start
