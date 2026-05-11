@@ -44,7 +44,7 @@ ENV TLDEXTRACT_CACHE="/tmp/python-tldextract"
 RUN pip install --no-deps --require-hashes -r /requirements.txt
 
 ARG USERID
-RUN getent passwd "${USERID?USERID must be supplied}" || adduser --uid "${USERID}" --disabled-password --gecos "" gcorn
+RUN getent passwd "${USERID?USERID must be supplied}" || useradd --create-home --no-log-init --uid "${USERID}" --user-group  gcorn
 
 RUN  mkdir /django-logs /deploy /tmp/python-tldextract && \
     chown -R "${USERID}" /django-logs /deploy /tmp/python-tldextract
