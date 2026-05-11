@@ -4,10 +4,13 @@ FROM node:26.1.0-trixie@sha256:f6f9fae352b319e817eec5efc7721b3f06bc53104f2f800d0
 # Install npm, making output less verbose
 ARG NPM_VER=11.14.1
 ENV NPM_CONFIG_LOGLEVEL=warn
-RUN npm install npm@${NPM_VER} --location=global
+RUN npm install -g npm@${NPM_VER}
+
 
 # Oddly, node-sass requires both python and make to build bindings
-RUN apt-install python3 make g++
+RUN apt update && \
+    apt install -y --no-install-recommends python3 make g++ passwd \
+    && rm -rf /var/lib/apt/lists/*
 
 # Install gulp globally so it can be used during builds
 RUN npm install --global gulp-cli
