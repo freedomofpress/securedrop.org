@@ -45,7 +45,8 @@ COPY devops/docker/django-start.sh /usr/local/bin
 RUN  chmod +x /usr/local/bin/django-start.sh
 
 ARG USERID
-RUN getent passwd "${USERID?USERID must be supplied}" || adduser --uid "${USERID}" --disabled-password --gecos "" gcorn
+RUN getent passwd "${USERID?USERID must be supplied}" || \
+    useradd --create-home --no-log-init --uid "${USERID}" --user-group  gcorn
 
 COPY --from=node-assets /src-files/ /django/
 # Unfortunately the chown flag in COPY is not
