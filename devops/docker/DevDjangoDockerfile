@@ -2,9 +2,8 @@
 FROM python:3.14.6-slim-trixie@sha256:44dd04494ee8f3b538294360e7c4b3acb87c8268e4d0a4828a6500b1eff50061 AS python-base
 
 RUN apt-get update && \
-    apt-get install -y \
-       gcc \
-    libpq-dev
+    apt-get install -y --no-install-recommends gcc libpq-dev && \
+    rm -rf /var/lib/apt/lists/*
 
 FROM python-base AS builder
 ARG PIP_COMPILE_ARGS
@@ -22,7 +21,7 @@ COPY --from=builder dev-requirements.txt ./
 COPY --from=builder requirements.txt ./
 
 FROM python-base
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends  \
     curl \
     build-essential \
     git \
@@ -33,7 +32,7 @@ RUN apt-get update && apt-get install -y \
     libz-dev \
     netcat-traditional \
     python3-dev \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/*
 
 COPY devops/docker/django-start.sh /usr/local/bin
 RUN  chmod +x /usr/local/bin/django-start.sh
@@ -47,9 +46,9 @@ ARG USERID
 RUN getent passwd "${USERID?USERID must be supplied}" || useradd --create-home --no-log-init --uid "${USERID}" --user-group  gcorn
 
 RUN  mkdir /django-logs /deploy /tmp/python-tldextract && \
-    chown -R "${USERID}" /django-logs /deploy /tmp/python-tldextract
+     chown -R "${USERID}:${USERID}" /django-logs /deploy /tmp/python-tldextract
 
 EXPOSE 8000
 USER ${USERID}
 RUN tldextract --update
-CMD django-start.sh
+CMD [ "django-start.sh" ]
