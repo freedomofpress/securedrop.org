@@ -25,6 +25,6 @@ wagtail-autocomplete>=0.12.0
 wagtail-factories>=4.1.0
 wagtail-honeypot
 wagtail-metadata>=5.0.0
-wagtail>=6.3.8,<6.4
+wagtail>=7.4,<8.0
 wagtailmedia>=0.14.5
 whitenoise
