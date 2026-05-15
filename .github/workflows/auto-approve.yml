@@ -1,0 +1,17 @@
+name: Auto approve
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+jobs:
+  auto-approve:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    if: github.event.pull_request.user.login == 'dependabot[bot]'
+    steps:
+      - uses: hmarr/auto-approve-action@8f929096a962e83ccdfa8afcf855f39f12d4dac7
