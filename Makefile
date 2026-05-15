@@ -68,11 +68,6 @@ bandit: ## Runs bandit static code analysis in Python3 container.
 clean: ## clean out local developer assets
 	@rm -rvf ./node_modules
 
-.PHONY: safety
-safety: ## Runs `safety check` to check python dependencies for vulnerabilities
-# Upgrade safety to ensure we are using the latest version.
-	pip install --upgrade safety && ./scripts/safety_check.py
-
 .PHONY: prod-push
 prod-push: ## Publishes prod container image to registry
 	docker tag $(SD_IMAGE):latest $(SD_IMAGE):$(GIT_REV)-$(GIT_BR)
