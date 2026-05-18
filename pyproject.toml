@@ -25,3 +25,8 @@ section-order = [
 [tool.ruff.lint.isort.sections]
 "django" = ["django"]
 "wagtail" = ["wagtail"]
+
+[tool.pre-commit-update.yaml]
+mapping = 2
+sequence = 4
+offset = 2
