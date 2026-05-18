@@ -5,15 +5,17 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('forms', '0006_formpage_honeypot'),
+        ("forms", "0006_formpage_honeypot"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='formpage',
-            name='honeypot',
-            field=models.BooleanField(default=wagtail_honeypot.models.get_honeypot_default, verbose_name='Honeypot enabled'),
+            model_name="formpage",
+            name="honeypot",
+            field=models.BooleanField(
+                default=wagtail_honeypot.models.get_honeypot_default,
+                verbose_name="Honeypot enabled",
+            ),
         ),
     ]
