@@ -5,21 +5,27 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('blog', '0009_update_streamfields_to_use_json_type'),
-        ('wagtailcore', '0097_baselogentry_uuid_action_timestamp_indexes'),
+        ("blog", "0009_update_streamfields_to_use_json_type"),
+        ("wagtailcore", "0097_baselogentry_uuid_action_timestamp_indexes"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='blogpage',
-            name='category',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, related_name='+', to='wagtailcore.page'),
+            model_name="blogpage",
+            name="category",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.PROTECT,
+                related_name="+",
+                to="wagtailcore.page",
+            ),
         ),
         migrations.AlterField(
-            model_name='blogpage',
-            name='publication_datetime',
-            field=models.DateTimeField(help_text='Past or future date of publication', null=True),
+            model_name="blogpage",
+            name="publication_datetime",
+            field=models.DateTimeField(
+                help_text="Past or future date of publication", null=True
+            ),
         ),
     ]
