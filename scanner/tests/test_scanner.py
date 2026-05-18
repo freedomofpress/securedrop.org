@@ -1,19 +1,20 @@
 import os
 import re
+from datetime import datetime, timedelta, timezone
 from unittest import mock
-from datetime import datetime, timezone, timedelta
 
 from django.test import TestCase
+
 import vcr
 
+from directory.models import DirectoryEntry, ScanResult
+from directory.tests.factories import DirectoryEntryFactory
 from scanner import scanner
 from scanner.assets import Asset
 from scanner.tests.utils import (
     NON_EXISTENT_URL,
     requests_get_mock,
 )
-from directory.models import DirectoryEntry, ScanResult
-from directory.tests.factories import DirectoryEntryFactory
 
 
 VCR_DIR = os.path.join(os.path.dirname(__file__), "scans_vcr")
