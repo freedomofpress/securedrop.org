@@ -1,4 +1,3 @@
----
 repos:
   - repo: https://gitlab.com/vojko.pribudic.foss/pre-commit-update
     rev: v0.9.0
@@ -31,7 +30,7 @@ repos:
       - id: check-yaml
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.15.12
+    rev: v0.15.13
     hooks:
       - id: ruff-check
         args: [--fix]
