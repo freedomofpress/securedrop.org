@@ -1,19 +1,20 @@
 import os
 import re
+from datetime import datetime, timedelta, timezone
 from unittest import mock
-from datetime import datetime, timezone, timedelta
 
 from django.test import TestCase
+
 import vcr
 
+from directory.models import DirectoryEntry, ScanResult
+from directory.tests.factories import DirectoryEntryFactory
 from scanner import scanner
 from scanner.assets import Asset
 from scanner.tests.utils import (
     NON_EXISTENT_URL,
     requests_get_mock,
 )
-from directory.models import DirectoryEntry, ScanResult
-from directory.tests.factories import DirectoryEntryFactory
 
 
 VCR_DIR = os.path.join(os.path.dirname(__file__), "scans_vcr")
@@ -352,24 +353,24 @@ class ScannerTest(TestCase):
     @mod_vcr.use_cassette(os.path.join(VCR_DIR, "bulk-scan-error-handling.yaml"))
     def test_bulk_scan_error_handling(self):
         sd1 = DirectoryEntryFactory.create(
-            title="SecureDrop",
+            title="1st Directory Entry (2600.com)",
             landing_page_url="https://www.2600.com/securedrop",
             onion_address="notreal.onion",
         )
         sd2 = DirectoryEntryFactory.create(
-            title="Freedom of the Press Foundation",
+            title="2nd Directory Entry (forbes.com)",
             landing_page_url="https://www.forbes.com/fdc/securedrop.html",
             onion_address="notreal-2.onion",
         )
         sd3 = DirectoryEntryFactory.create(
-            title="Freedom of the Press Foundation",
+            title="3rd Directory Entry (cnn.com)",
             landing_page_url="https://www.cnn.com/tips/",
             onion_address="notreal-3.onion",
         )
         self.assertFalse(DirectoryEntry.objects.get(pk=sd2.pk).results.exists())
         with mock.patch("scanner.scanner.extract_assets") as extract_assets:
             extract_assets.side_effect = [[], TypeError, []]
-            scanner.bulk_scan(DirectoryEntry.objects.all())
+            scanner.bulk_scan(DirectoryEntry.objects.order_by("title"))
 
         self.assertTrue(DirectoryEntry.objects.get(pk=sd1.pk).results.all()[0].live)
         self.assertFalse(DirectoryEntry.objects.get(pk=sd2.pk).results.exists())
