@@ -932,9 +932,9 @@ urllib3==2.7.0 \
     # via
     #   django-anymail
     #   requests
-wagtail==7.4 \
-    --hash=sha256:24a4d55e6bed22ccce4aae1b3f7e22a46605c4bc4dc9894d5a415cde418840c6 \
-    --hash=sha256:9570c51d61ee524cc5558a84df40e2ccc03f7c50c6dad343644a45d037096d13
+wagtail==7.4.1 \
+    --hash=sha256:a42dc18b0fb818649c0d704ea50a2dea06d1b75614abdf837e90766263645c76 \
+    --hash=sha256:c7232cbe16afa5842c236e069b2baead3b3e87e9dc90a7493330b54b69e18b83
     # via
     #   -r requirements.in
     #   wagtail-autocomplete
