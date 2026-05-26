@@ -54,3 +54,6 @@ results.txt
 
 # IDE
 .idea
+
+# macOS
+.DS_Store
