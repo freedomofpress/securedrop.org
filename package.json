@@ -11,6 +11,9 @@
     "sass-lint": "sass-lint -v"
   },
   "author": "Harris Lapiroff <harris@littleweaverweb.com>",
+  "browserslist": [
+    "baseline widely available"
+  ],
   "devDependencies": {
     "@babel/core": "^7.18.10",
     "@babel/polyfill": "^7.4.3",
