@@ -70,7 +70,7 @@ jobs:
           - ruff
     steps:
       - name: Install Docker
-        uses: docker/setup-docker-action@v5
+        uses: docker/setup-docker-action@v5.1.0
         with:
           version: ${{ env.VERSION_DOCKER }}
 
@@ -155,7 +155,7 @@ jobs:
       - build-prod
     steps:
       - name: Install Docker
-        uses: docker/setup-docker-action@v5
+        uses: docker/setup-docker-action@v5.1.0
         with:
           version: ${{ env.VERSION_DOCKER }}
 
