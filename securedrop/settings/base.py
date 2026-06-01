@@ -78,6 +78,7 @@ INSTALLED_APPS = [
     "django.contrib.postgres",
     "django.contrib.sitemaps",
     "build",
+    "django_migrations_ruff_formatter.apps.RuffFormatter",
 ]
 
 MIDDLEWARE = [
