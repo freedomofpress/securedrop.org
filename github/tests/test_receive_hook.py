@@ -1,13 +1,13 @@
-from datetime import datetime, timezone
-from unittest import mock
-import os
-
-from django.test import TestCase, Client, override_settings
-from django.urls import reverse
 import hashlib
 import hmac
+import os
+from datetime import datetime, timezone
+from unittest import mock
 
-from github.models import Release
+from django.test import Client, TestCase, override_settings
+from django.urls import reverse
+
+from github.models import Product, Release
 
 
 class TestReceiveHook(TestCase):
@@ -57,6 +57,11 @@ class TestReceiveHook(TestCase):
 
     def setUp(self):
         self.client = Client()
+        self.product = Product.objects.create(
+            name="Hook Test",
+            slug="hook-test",
+            repo_full_name="notfreedomofpress/hook-test",
+        )
 
     @override_settings(GITHUB_HOOK_SECRET_KEY=b"test")
     def test_successful_release(self):
@@ -70,6 +75,21 @@ class TestReceiveHook(TestCase):
         self.assertEqual(
             release.date, datetime(2017, 8, 8, 21, 38, 21, tzinfo=timezone.utc)
         )
+        self.assertEqual(release.product, self.product)
+
+    @override_settings(GITHUB_HOOK_SECRET_KEY=b"test")
+    def test_unknown_repository_ignored(self):
+        """
+        A release from a repository with no matching Product should be dropped
+        and not create a Release.
+        """
+        self.product.delete()
+        self._post_hook(
+            json_file_name="valid_release_hook.json",
+            secret=b"test",
+            payload_digest_func=lambda payload: payload,
+        )
+        self.assertEqual(Release.objects.count(), 0)
 
     @mock.patch("github.views.logger")
     @override_settings(GITHUB_HOOK_SECRET_KEY=b"test")
