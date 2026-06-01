@@ -2,6 +2,7 @@ bleach>=4.1.0
 cryptography>=46.0.7
 django-anymail[mailgun]>=1.4
 django-csp>=3.7
+django-migrations-ruff-formatter
 django-modelcluster>=6.2.1
 django-settings-export
 django-storages[google]>=1.14.6
