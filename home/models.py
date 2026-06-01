@@ -94,12 +94,7 @@ class HomePage(MetadataPageMixin, Page):
         return BlogPage.objects.live().order_by("-publication_datetime").first()
 
     def get_latest_releases(self):
-        return (
-            Release.objects.filter(product__show_releases=True)
-            .order_by("product_id", "-date")
-            .distinct("product_id")
-            .select_related("product")
-        )
+        return Release.objects.latest_per_visible_product()
 
 
 class DescriptionButtons(Orderable, Button):

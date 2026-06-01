@@ -269,12 +269,7 @@ class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
         return CategoryPage.objects.child_of(self).live()
 
     def get_latest_releases(self):
-        return (
-            Release.objects.filter(product__show_releases=True)
-            .order_by("product_id", "-date")
-            .distinct("product_id")
-            .select_related("product")
-        )
+        return Release.objects.latest_per_visible_product()
 
     def get_cached_paths(self):
         yield self.url

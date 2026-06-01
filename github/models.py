@@ -34,6 +34,16 @@ class Product(models.Model):
         return self.name
 
 
+class ReleaseQuerySet(models.QuerySet):
+    def latest_per_visible_product(self):
+        return (
+            self.filter(product__show_releases=True)
+            .order_by("product_id", "-date")
+            .distinct("product_id")
+            .select_related("product")
+        )
+
+
 @register_snippet
 class Release(models.Model):
     product = models.ForeignKey(
@@ -48,6 +58,8 @@ class Release(models.Model):
         null=False,
     )
     date = models.DateTimeField(blank=False, null=False)
+
+    objects = ReleaseQuerySet.as_manager()
 
     panels = [
         FieldPanel("product"),
