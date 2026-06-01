@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
             name="product",
             field=models.ForeignKey(
                 null=True,
-                on_delete=models.deletion.CASCADE,
+                on_delete=models.deletion.SET_NULL,
                 related_name="releases",
                 to="github.product",
             ),

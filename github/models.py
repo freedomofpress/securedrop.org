@@ -48,7 +48,8 @@ class ReleaseQuerySet(models.QuerySet):
 class Release(models.Model):
     product = models.ForeignKey(
         Product,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
+        null=True,
         related_name="releases",
     )
     url = models.URLField(blank=False, null=False)
@@ -70,7 +71,7 @@ class Release(models.Model):
 
     def __str__(self):
         return "{} {} released at {} ({})".format(
-            self.product,
+            self.product if self.product else "(orphaned)",
             self.tag_name,
             self.date,
             self.url,
