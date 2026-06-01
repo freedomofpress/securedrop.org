@@ -7,7 +7,6 @@ from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel
 
 from common.models import MetadataPageMixin, Button
 from search.utils import get_search_content_by_fields
-from search.utils.documentation import READTHEDOCS_BASE
 from blog.models import BlogPage
 from github.models import Release
 
@@ -94,11 +93,13 @@ class HomePage(MetadataPageMixin, Page):
     def get_latest_blog(self):
         return BlogPage.objects.live().order_by("-publication_datetime").first()
 
-    def get_current_release(self):
-        return Release.objects.order_by("-date").first()
-
-    def docs_url(self):
-        return READTHEDOCS_BASE
+    def get_latest_releases(self):
+        return (
+            Release.objects.filter(product__show_releases=True)
+            .order_by("product_id", "-date")
+            .distinct("product_id")
+            .select_related("product")
+        )
 
 
 class DescriptionButtons(Orderable, Button):

@@ -8,7 +8,7 @@ import hashlib
 import hmac
 import structlog
 
-from github.models import Release
+from github.models import Product, Release
 
 from .event_codes import EventCode
 
@@ -35,18 +35,36 @@ def validate_sha1_signature(request, secret):
     return hmac.compare_digest(mac.hexdigest(), signature)
 
 
-def handle_release_hook(release):
-    if "rc" in release["tag_name"]:
+def handle_release_hook(body):
+    release_data = body["release"]
+    if "rc" in release_data["tag_name"]:
         logger.info(
             "Github release event received, but ignored because release {} is "
-            "release candidate".format(release["tag_name"])
+            "release candidate".format(release_data["tag_name"])
+        )
+        return False
+    try:
+        repo_full_name = body["repository"]["full_name"]
+    except KeyError:
+        logger.exception(
+            "GitHub release event received but missing repository information",
+        )
+        return False
+    try:
+        product = Product.objects.get(repo_full_name=repo_full_name)
+    except Product.DoesNotExist:
+        logger.warn(
+            "Github release event received for unknown repository",
+            repo_full_name=repo_full_name,
+            event_code=EventCode.UnknownRepository,
         )
         return False
     try:
         release = Release(
-            tag_name=release["tag_name"],
-            url=release["html_url"],
-            date=release["published_at"],
+            product=product,
+            tag_name=release_data["tag_name"],
+            url=release_data["html_url"],
+            date=release_data["published_at"],
         )
         release.full_clean()
         release.save()
@@ -114,7 +132,7 @@ def receive_hook(request):
 
     release = body.get("release", False)
     if release:
-        obj = handle_release_hook(release)
+        obj = handle_release_hook(body)
         if obj:
             logger.info(
                 "Successfully created release %s",

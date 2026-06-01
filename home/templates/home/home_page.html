@@ -51,30 +51,39 @@
 				{% include "common/_hexagons_background_updates.svg" with class="hexagons-background__svg hexagons-background__svg--updates" %}
 			</div>
 			<div class="updates__content">
-				<div class="updates__item">
+				<section class="updates__section">
 					<h2 class="updates__header">{% trans "Latest News" %}</h2>
-					<a href="{% pageurl self.get_latest_blog %}" class="updates__link">{{ self.get_latest_blog }}</a>
-				</div>
-				{% with current_release=page.get_current_release %}
-					{% if current_release %}
-						<div class="updates__item">
-							<h2 class="updates__header">{% trans "Latest Release" %}</h2>
-							<h3 class="updates__tag">
-								<a href="{{ current_release.url }}" class="updates__link" title="SecureDrop {{ current_release.tag_name }} on GitHub">
-									SecureDrop {{ current_release.tag_name }}
-								</a>
-							</h3>
-							<div class="updates__date">{{ current_release.date|date:"E j, Y"}}</div>
-							<p>
-								<a href="{{ current_release.url }}" class="updates__link--secondary" aria-label="{% trans 'Github link for SecureDrop' %} {{ current_release.tag_name }}">GitHub</a>
-								{% if current_release.blog_page %}
-									| <a href="{% pageurl current_release.blog_page %}" class="updates__link--secondary" aria-label="{% trans 'Release notes for SecureDrop' %} {{ current_release.tag_name }}">{% trans "Release notes" %}</a>
-								{% endif %}
-								| <a href="{{ page.docs_url }}" class="updates__link--secondary" aria-label="{% trans 'Documentation about SecureDrop' %} {{ current_release.tag_name }}">Documentation</a>
-							</p>
-						</div>
+					<article class="updates__item">
+						<a href="{% pageurl self.get_latest_blog %}" class="updates__link">{{ self.get_latest_blog }}</a>
+					</article>
+				</section>
+				{% with latest_releases=page.get_latest_releases %}
+					{% if latest_releases %}
+						<section class="updates__section">
+							<h2 class="updates__header">{% trans "Latest Releases" %}</h2>
+							{% for release in latest_releases %}
+								<article class="updates__item">
+									<h3 class="updates__tag">
+										<a href="{{ release.url }}" class="updates__link" title="{{ release.product.name }} {{ release.tag_name }} on GitHub">
+											{{ release.product.name }} {{ release.tag_name }}
+										</a>
+									</h3>
+									<time class="updates__date" datetime="{{ release.date|date:'c' }}"">{{ release.date|date:"E j, Y"}}</time>
+									<ul class="updates__links">
+										{% if release.blog_page %}
+											<li>
+												<a href="{% pageurl release.blog_page %}" class="updates__link--secondary" aria-label="{% blocktrans with product=release.product.name tag=release.tag_name %}Release notes for {{ product }} {{ tag }}{% endblocktrans %}">{% trans "Release notes" %}</a>
+											</li>
+										{% endif %}
+										<li>
+											<a href="{{ release.url }}" class="updates__link--secondary" aria-label="{% blocktrans with product=release.product.name tag=release.tag_name %}Github link for {{ product }} {{ tag }}{% endblocktrans %}">GitHub</a>
+										</li>
+									</ul>
+								</article>
+							{% endfor %}
+						</section>
 					{% endif %}
-				{% endwith%}
+				{% endwith %}
 			</div>
 		</div>
 
