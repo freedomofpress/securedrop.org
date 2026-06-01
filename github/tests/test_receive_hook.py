@@ -60,7 +60,7 @@ class TestReceiveHook(TestCase):
         self.product = Product.objects.create(
             name="Hook Test",
             slug="hook-test",
-            repo_full_name="notfreedomofpress/hook-test",
+            repo_full_name="emilyhorsman/hook-test",
         )
 
     @override_settings(GITHUB_HOOK_SECRET_KEY=b"test")
