@@ -60,7 +60,7 @@
 				{% with latest_releases=page.get_latest_releases %}
 					{% if latest_releases %}
 						<section class="updates__section">
-							<h2 class="updates__header">{% trans "Latest Releases" %}</h2>
+							<h2 class="updates__header">{% blocktrans count counter=latest_releases|length %}Latest Release{% plural %}Latest Releases{% endblocktrans %}</h2>
 							{% for release in latest_releases %}
 								<article class="updates__item">
 									<h3 class="updates__tag">
