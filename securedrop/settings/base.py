@@ -246,6 +246,10 @@ WAGTAILADMIN_COMMENTS_ENABLED = False
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
 WAGTAILADMIN_BASE_URL = "https://securedrop.org"
 
+# Wagtail autosave interval in ms. Sets how often to wait after the last attempt
+# to autosave before autosaving again. Wagtail default is 500.
+WAGTAIL_AUTOSAVE_INTERVAL = int(os.environ.get("WAGTAIL_AUTOSAVE_INTERVAL", 500))
+
 # Django-webpack configuration
 WEBPACK_LOADER = {
     "DEFAULT": {
