@@ -27,7 +27,7 @@
 	{% for release in page.get_latest_releases %}
 		<article>
 			<h4 class="release-preview__tag">{{ release.product.name }} {{ release.tag_name }}</h4>
-			<time class="updates__date" datetime="{{ release.date|date:'c' }}"">{{ release.date|date:"E j, Y"}}</time>
+			<time datetime="{{ release.date|date:'c' }}">{{ release.date|date:"E j, Y"}}</time>
 			<ul class="release-preview__links">
 				{% if release.blog_page %}
 					<li>
