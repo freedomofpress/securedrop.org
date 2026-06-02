@@ -16,22 +16,22 @@ from .event_codes import EventCode
 logger = structlog.get_logger()
 
 
-def validate_sha1_signature(request, secret):
-    # X-Hub-Signature is the "HMAC hex digest of the payload, using the hook's
-    # secret as the key."
-    digest = request.headers.get("x-hub-signature", None)
+def validate_sha256_signature(request, secret):
+    # X-Hub-Signature-256 is the "HMAC hex digest of the payload, using the
+    # hook's secret as the key."
+    digest = request.headers.get("x-hub-signature-256", None)
     if not digest or digest.count("=") != 1:
         return False
     digestmod, signature = digest.split("=")
-    if digestmod != "sha1":
-        logger.warn(
-            "SHA1 signature validation failed due to signature of type other than sha1",
+    if digestmod != "sha256":
+        logger.warning(
+            "Signature validation failed due to signature of type other than sha256",
             github_digest=digest,
-            event_code=EventCode.SignatureNotSha1,
+            event_code=EventCode.SignatureNotSha256,
         )
         return False
 
-    mac = hmac.new(secret, msg=request.body, digestmod=hashlib.sha1)
+    mac = hmac.new(secret, msg=request.body, digestmod=hashlib.sha256)
     return hmac.compare_digest(mac.hexdigest(), signature)
 
 
@@ -94,7 +94,7 @@ def receive_hook(request):
         )
         return HttpResponse(status=204)
 
-    if not validate_sha1_signature(request, settings.GITHUB_HOOK_SECRET_KEY):
+    if not validate_sha256_signature(request, settings.GITHUB_HOOK_SECRET_KEY):
         logger.warn(
             "GitHub hook received event with an invalid signature.",
             event_code=EventCode.InvalidSignature,

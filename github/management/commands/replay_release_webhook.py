@@ -86,7 +86,7 @@ class Command(BaseCommand):
             ).strftime("%Y-%m-%dT%H:%M:%SZ")
 
         body = json.dumps(payload).encode("utf-8")
-        signature = hmac.new(secret, msg=body, digestmod=hashlib.sha1).hexdigest()
+        signature = hmac.new(secret, msg=body, digestmod=hashlib.sha256).hexdigest()
 
         req = urllib_request.Request(
             options["url"],
@@ -94,7 +94,7 @@ class Command(BaseCommand):
             headers={
                 "Content-Type": "application/json",
                 "X-GitHub-Event": "release",
-                "X-Hub-Signature": "sha1={}".format(signature),
+                "X-Hub-Signature-256": "sha256={}".format(signature),
             },
             method="POST",
         )
