@@ -28,7 +28,7 @@ class TestReceiveHook(TestCase):
             github_event (str): The X-GitHub-Event header, defaults to
                 "release".
 
-            signature (str): The X-Hub-Signature header, defaults to the
+            signature (str): The X-Hub-Signature-256 header, defaults to the
                 correct composition of digestmod and digest.
         """
         json_path = os.path.join(
@@ -40,7 +40,7 @@ class TestReceiveHook(TestCase):
             mac = hmac.new(
                 secret,
                 msg=payload_digest_func(payload).encode("utf-8"),
-                digestmod=hashlib.sha1,
+                digestmod=hashlib.sha256,
             )
 
         return self.client.post(
@@ -49,8 +49,8 @@ class TestReceiveHook(TestCase):
             content_type="application/json",
             headers={
                 "x-github-event": kwargs.get("github_event", "release"),
-                "x-hub-signature": kwargs.get(
-                    "signature", "sha1={}".format(mac.hexdigest())
+                "x-hub-signature-256": kwargs.get(
+                    "signature", "sha256={}".format(mac.hexdigest())
                 ),
             },
         )
