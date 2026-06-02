@@ -34,10 +34,15 @@ class Product(models.Model):
 
 class ReleaseQuerySet(models.QuerySet):
     def latest_per_visible_product(self):
-        return (
+        latest_ids = (
             self.filter(product__show_releases=True)
             .order_by("product_id", "-date")
             .distinct("product_id")
+            .values("pk")
+        )
+        return (
+            self.filter(pk__in=latest_ids)
+            .order_by("product__sort_order", "product__name")
             .select_related("product")
         )
 
