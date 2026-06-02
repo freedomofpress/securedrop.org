@@ -7,7 +7,6 @@ from wagtail.snippets.models import register_snippet
 @register_snippet
 class Product(models.Model):
     name = models.CharField(max_length=255)
-    slug = models.SlugField(unique=True)
     repo_full_name = models.CharField(
         max_length=255,
         unique=True,
@@ -21,7 +20,6 @@ class Product(models.Model):
 
     panels = [
         FieldPanel("name"),
-        FieldPanel("slug"),
         FieldPanel("repo_full_name"),
         FieldPanel("show_releases"),
         FieldPanel("sort_order"),

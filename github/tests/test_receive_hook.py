@@ -59,7 +59,6 @@ class TestReceiveHook(TestCase):
         self.client = Client()
         self.product = Product.objects.create(
             name="Hook Test",
-            slug="hook-test",
             repo_full_name="emilyhorsman/hook-test",
         )
 

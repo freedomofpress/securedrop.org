@@ -17,7 +17,6 @@ class ProductFactory(DjangoModelFactory):
         django_get_or_create = ("repo_full_name",)
 
     name = Sequence(lambda n: "Product {}".format(n))
-    slug = Sequence(lambda n: "product-{}".format(n))
     repo_full_name = Sequence(lambda n: "freedomofpress/product-{}".format(n))
 
 

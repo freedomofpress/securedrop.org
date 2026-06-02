@@ -50,12 +50,10 @@ class Command(BaseCommand):
         products = [
             ProductFactory(
                 name="SecureDrop",
-                slug="securedrop",
                 repo_full_name="freedomofpress/securedrop",
             ),
             ProductFactory(
                 name="SecureDrop Workstation",
-                slug="securedrop-workstation",
                 repo_full_name="freedomofpress/securedrop-workstation",
             ),
         ]

@@ -3,7 +3,6 @@ from django.db import migrations, models
 
 SECUREDROP_REPO = "freedomofpress/securedrop"
 SECUREDROP_NAME = "SecureDrop"
-SECUREDROP_SLUG = "securedrop"
 
 
 def backfill_product(apps, schema_editor):
@@ -17,7 +16,6 @@ def backfill_product(apps, schema_editor):
         repo_full_name=SECUREDROP_REPO,
         defaults={
             "name": SECUREDROP_NAME,
-            "slug": SECUREDROP_SLUG,
         },
     )
     Release.objects.filter(product__isnull=True).update(product=product)

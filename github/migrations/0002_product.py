@@ -20,7 +20,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("name", models.CharField(max_length=255)),
-                ("slug", models.SlugField(unique=True)),
                 (
                     "repo_full_name",
                     models.CharField(
