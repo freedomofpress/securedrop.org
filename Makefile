@@ -58,7 +58,7 @@ lint: ruff
 
 .PHONY: ruff
 ruff: ## Runs ruff linting in Python3 container.
-	@docker compose run --rm -T django /bin/bash -c "pip install -q ruff && ~/.local/bin/ruff check && ~/.local/bin/ruff format --check"
+	@docker compose run --rm -T django /bin/bash -c "pip install -q ruff && ruff check && ruff format --check"
 
 .PHONY: bandit
 bandit: ## Runs bandit static code analysis in Python3 container.
