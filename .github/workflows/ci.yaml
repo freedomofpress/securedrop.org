@@ -6,6 +6,7 @@ on:
     types: ['opened', 'synchronize']
   push:
     branches: ['prod', 'develop']
+  merge_group:
 
 env:
   COMPOSE_FILE_DEV: docker-compose.yaml
