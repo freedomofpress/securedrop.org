@@ -363,9 +363,9 @@ google-cloud-core==2.3.2 \
     --hash=sha256:8417acf6466be2fa85123441696c4badda48db314c607cf1e5d543fa8bdc22fe \
     --hash=sha256:b9529ee7047fd8d4bf4a2182de619154240df17fbe60ead399078c1ae152af9a
     # via google-cloud-storage
-google-cloud-storage==2.10.0 \
-    --hash=sha256:934b31ead5f3994e5360f9ff5750982c5b6b11604dc072bc452c25965e076dc7 \
-    --hash=sha256:9433cf28801671de1c80434238fb1e7e4a1ba3087470e90f70c928ea77c2b9d7
+google-cloud-storage==2.19.0 \
+    --hash=sha256:aeb971b5c29cf8ab98445082cbfe7b161a1f48ed275822f59ed3f1524ea54fba \
+    --hash=sha256:cd05e9e7191ba6cb68934d8eb76054d9be4562aa89dbc4236feee4d7d51342b2
     # via django-storages
 google-crc32c==1.5.0 \
     --hash=sha256:024894d9d3cfbc5943f8f230e23950cd4906b2fe004c72e29b209420a1e6b05a \
@@ -436,10 +436,12 @@ google-crc32c==1.5.0 \
     --hash=sha256:f583edb943cf2e09c60441b910d6a20b4d9d626c75a36c8fcac01a6c96c01183 \
     --hash=sha256:fd8536e902db7e365f49e7d9029283403974ccf29b13fc7028b97e2295b33556 \
     --hash=sha256:fe70e325aa68fa4b5edf7d1a4b6f691eb04bbccac0ace68e34820d283b5f80d4
-    # via google-resumable-media
-google-resumable-media==2.4.1 \
-    --hash=sha256:15b8a2e75df42dc6502d1306db0bce2647ba6013f9cd03b6e17368c0886ee90a \
-    --hash=sha256:831e86fd78d302c1a034730a0c6e5369dd11d37bad73fa69ca8998460d5bae8d
+    # via
+    #   google-cloud-storage
+    #   google-resumable-media
+google-resumable-media==2.9.0 \
+    --hash=sha256:c8901e88e389af8bed64d9696c74d8bad961865eb2236e13e0bfca9bb0a65ca3 \
+    --hash=sha256:f7cfb224846a9dd444d125115dfbe8ef02a2b893e78f087762fe716a255a734b
     # via google-cloud-storage
 googleapis-common-protos==1.72.0 \
     --hash=sha256:4299c5a82d5ae1a9702ada957347726b167f9f8d1fc352477702a1e851ff4038 \
@@ -918,7 +920,6 @@ typing-extensions==4.15.0 \
     #   beautifulsoup4
     #   django-stubs-ext
     #   django-tasks
-    #   psycopg
 unittest-xml-reporting==3.2.0 \
     --hash=sha256:edd8d3170b40c3a81b8cf910f46c6a304ae2847ec01036d02e9c0f9b85762d28 \
     --hash=sha256:f3d7402e5b3ac72a5ee3149278339db1a8f932ee405f48bcb9c681372f2717d5
