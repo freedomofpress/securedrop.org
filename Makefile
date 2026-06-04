@@ -9,6 +9,13 @@ REMOTE_IMAGE := quay.io/freedomofpress/securedrop.org
 # Required for docker build --output
 export DOCKER_BUILDKIT = 1
 
+.PHONY: lint
+lint: ruff
+
+.PHONY: ruff
+ruff: ## Runs ruff linting in Python3 container.
+	@docker compose run --rm -T django /bin/bash -c "pip install -q ruff && ~/.local/bin/ruff check && ~/.local/bin/ruff format --check"
+
 .PHONY: dev-init
 dev-init: ## Initialize docker environment for developer workflow
 	echo UID=$(UID) > .env
@@ -51,13 +58,6 @@ compile-pip-dependencies:
 .PHONY: pip-update
 pip-update:
 	docker build --build-arg="PIP_COMPILE_ARGS=--upgrade-package=$(PACKAGE)" --target=requirements-artifacts -f ./devops/docker/DevDjangoDockerfile --output type=local,dest=$(DIR) .
-
-.PHONY: lint
-lint: ruff
-
-.PHONY: ruff
-ruff: ## Runs ruff linting in Python3 container.
-	@docker compose run --rm -T django /bin/bash -c "pip install -q ruff && ~/.local/bin/ruff check && ~/.local/bin/ruff format --check"
 
 .PHONY: bandit
 bandit: ## Runs bandit static code analysis in Python3 container.
