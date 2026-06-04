@@ -1,8 +1,8 @@
 .DEFAULT_GOAL := help
 DIR := ${CURDIR}
 WHOAMI := ${USER}
+UID := $(shell id -u)
 RAND_PORT := ${RAND_PORT}
-HOST_UID := $(shell id -u)
 GIT_REV := $(shell git rev-parse HEAD | cut -c1-10)
 GIT_BR := $(shell git rev-parse --abbrev-ref HEAD)
 REMOTE_IMAGE := quay.io/freedomofpress/securedrop.org
@@ -12,7 +12,7 @@ export DOCKER_BUILDKIT = 1
 
 .PHONY: dev-init
 dev-init: ## Initialize docker environment for developer workflow
-	echo UID=$(HOST_UID) > .env
+	echo UID=$(UID) > .env
 
 .PHONY: check-migrations
 check-migrations: ## Check for ungenerated migrations
