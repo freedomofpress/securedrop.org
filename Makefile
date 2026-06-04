@@ -1,6 +1,5 @@
 .DEFAULT_GOAL := help
 DIR := ${CURDIR}
-WHOAMI := ${USER}
 UID := $(shell id -u)
 RAND_PORT := ${RAND_PORT}
 GIT_REV := $(shell git rev-parse HEAD | cut -c1-10)
