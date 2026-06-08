@@ -1,12 +1,12 @@
 SecureDrop.org
 ==============
 
-.. |prodCI| image:: https://github.com/freedomofpress/securedrop.org/actions/workflows/ci.yaml/badge.svg?branch=prod&event=push
-    :target: https://github.com/freedomofpress/securedrop.org/actions/workflows/ci.yaml?query=branch%3Aprod
+.. |prodCI| image:: https://github.com/freedomofpress/securedrop.org/actions/workflows/check.yaml/badge.svg?branch=prod&event=push
+    :target: https://github.com/freedomofpress/securedrop.org/actions/workflows/check.yaml?query=branch%3Aprod
     :alt: Production CI
 
-.. |developCI| image:: https://github.com/freedomofpress/securedrop.org/actions/workflows/ci.yaml/badge.svg?branch=develop&event=push
-    :target: https://github.com/freedomofpress/securedrop.org/actions/workflows/ci.yaml?query=branch%3Adevelop
+.. |developCI| image:: https://github.com/freedomofpress/securedrop.org/actions/workflows/check.yaml/badge.svg?branch=develop&event=push
+    :target: https://github.com/freedomofpress/securedrop.org/actions/workflows/check.yaml?query=branch%3Adevelop
     :alt: Develop CI
 
 +---------------------------+
