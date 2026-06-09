@@ -12,13 +12,14 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 
 from __future__ import absolute_import, unicode_literals
 
-from csp.constants import SELF, UNSAFE_EVAL, UNSAFE_HASHES
+import logging
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-
 import sys
-import logging
+
+from csp.constants import SELF, UNSAFE_EVAL, UNSAFE_HASHES
+
 
 logger = logging.getLogger(__name__)
 
@@ -238,6 +239,9 @@ WAGTAILIMAGES_MAX_UPLOAD_SIZE = int(
 WAGTAILIMAGES_MAX_IMAGE_PIXELS = int(
     os.environ.get("WAGTAILIMAGES_MAX_IMAGE_PIXELS", 128000000)
 )
+
+# Resize OG / Twitter / meta tag images to 1200x630
+WAGTAILMETADATA_IMAGE_FILTER = "fill-1200x630"
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 WAGTAILADMIN_COMMENTS_ENABLED = False
