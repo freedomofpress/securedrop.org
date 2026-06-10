@@ -1,1044 +1,1041 @@
 interactions:
-  - request:
-      body: null
-      headers:
-        Accept:
-          - '*/*'
-        Accept-Encoding:
-          - gzip, deflate, zstd
-        Connection:
-          - keep-alive
-        User-Agent:
-          - SecureDrop Landing Page Scanner 0.1.0
-      method: GET
-      uri: https://www.2600.com/securedrop
-    response:
-      body:
-        string: '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate, zstd
+      Connection:
+      - keep-alive
+      User-Agent:
+      - SecureDrop Landing Page Scanner 0.1.0
+    method: GET
+    uri: https://www.2600.com/securedrop
+  response:
+    body:
+      string: '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
 
-          <html><head>
+        <html><head>
 
-          <title>301 Moved Permanently</title>
+        <title>301 Moved Permanently</title>
 
-          </head><body>
+        </head><body>
 
-          <h1>Moved Permanently</h1>
+        <h1>Moved Permanently</h1>
 
-          <p>The document has moved <a href="https://www.2600.com/securedrop/">here</a>.</p>
+        <p>The document has moved <a href="https://www.2600.com/securedrop/">here</a>.</p>
 
-          </body></html>
+        </body></html>
 
-          '
-      headers:
-        Connection:
-          - close
-        Content-Length:
-          - '240'
-        Content-Type:
-          - text/html; charset=iso-8859-1
-        Date:
-          - Mon, 04 May 2026 22:08:43 GMT
-        Location:
-          - https://www.2600.com/securedrop/
-        Server:
-          - Apache
-        X-Frame-Options:
-          - DENY
-      status:
-        code: 301
-        message: Moved Permanently
-  - request:
-      body: null
-      headers:
-        Accept:
-          - '*/*'
-        Accept-Encoding:
-          - gzip, deflate, zstd
-        Connection:
-          - keep-alive
-        User-Agent:
-          - SecureDrop Landing Page Scanner 0.1.0
-      method: GET
-      uri: https://www.2600.com/securedrop/
-    response:
-      body:
-        string:
-          "<!doctype html>\n\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\"\
-          >\n\n  <title>2600 - SecureDrop</title>\n\n  <link rel=\"stylesheet\" href=\"\
-          styles.css\">\n\n  <script src=\"scripts.js\"></script>\n\n</head>\n\n<body>\n\
-          <div class=\"button link\" id=\"link-to-2600\">\n    <a href=\"https://www.2600.com\"\
-          >2600</a>\n</div>\n<div class=\"main-content securedrop-info\" id=\"securedrop-generic-info\"\
-          >\n    <h2>What is SecureDrop?</h2>\n\n    <p>SecureDrop is an anonymity tool\
-          \ for journalists and whistleblowers. As a source, you can use our SecureDrop\
-          \ installation to anonymously submit documents to our organization. Our journalists\
-          \ use SecureDrop to receive source materials and securely communicate with\
-          \ anonymous contacts.</p>\n\n    <h2>What should I know before submitting\
-          \ material through SecureDrop?</h2>\n\n    <p>To protect your anonymity when\
-          \ using SecureDrop, it is essential that you do not use a network or device\
-          \ that can easily be traced back to your real identity. Instead, use public\
-          \ wifi networks and devices you control.\n    </p>\n    <ul>\n        <li>Do\
-          \ NOT access SecureDrop on your employer's network.</li>\n        <li>Do NOT\
-          \ access SecureDrop using your employer's hardware.</li>\n        <li>Do NOT\
-          \ access SecureDrop on your home network.</li>\n        <li>DO access SecureDrop\
-          \ on a network not associated with you, like the wifi at a library or cafe.</li>\n\
-          \    </ul>\n\n    <h2>Got it. How can I submit files and messages through\
-          \ SecureDrop?</h2>\n\n    <p>Once you are connected to a public network at\
-          \ a cafe or library, download and install the Tor Browser.</p>\n\n    <p>Launch\
-          \ the Tor Browser. Visit our organization's unique SecureDrop URL at 2600.securedrop.tor.onion.\
-          \ (The direct link is cy6wj77vryhcyh6go576hxycjz4wxlo4s5vevdinkw3armwzty5jozyd.onion.)\
-          \ Follow the instructions you find on our source page to send us materials\
-          \ and messages.</p>\n\n    <p>When you make your first submission, you will\
-          \ receive a unique codename. Memorize it. If you write it down, be sure to\
-          \ destroy the copy as soon as you've committed it to memory. Use your codename\
-          \ to sign back in to our source page, check for responses from our journalists,\
-          \ and upload additional materials.</p>\n\n    <h2>As a source, what else should\
-          \ I know?</h2>\n\n    <p>No tool can absolutely guarantee your security or\
-          \ anonymity. The best way to protect your privacy and anonymity as a source\
-          \ is to adhere to best practices.</p>\n\n    <p>You can use a separate computer\
-          \ you've designated specifically to handle the submission process. Or, you\
-          \ can use an alternate operating system like Tails, which boots from a USB\
-          \ stick and erases your activity at the end of every session.</p>\n\n    <p>A\
-          \ file contains valuable metadata about its source - when it was created and\
-          \ downloaded, what machine was involved, the machine's owner, etc. You can\
-          \ scrub metadata from some files prior to submission using the Metadata Anonymization\
-          \ Toolkit featured in Tails.</p>\n\n    <p>Your online behavior can be extremely\
-          \ revealing. Regularly monitoring our publication's social media or website\
-          \ can potentially flag you as a source. Take great care to think about what\
-          \ your online behavior might reveal, and consider using Tor Browser to mitigate\
-          \ such monitoring.</p>\n\n    <p>2600: The Hacker Quarterly retains strict\
-          \ access control over our SecureDrop equipment. The staff within our organization\
-          \ will be the only beings with access to SecureDrop submissions. We control\
-          \ the server that stores your submissions, so no other entities have direct\
-          \ access to the metadata or content of what you send us. In addition 2600.com\
-          \ does not actively log user traffic, IPs, or other personally identifiable\
-          \ data and thereby does not retain such information for any purpose ever.</p>\n\
-          \n    <p>Do not discuss leaking or whistleblowing, even with trusted contacts.</p>\n\
-          </div>\n</body>\n</html>\n"
-      headers:
-        Accept-Ranges:
-          - bytes
-        Cache-Control:
-          - max-age=0, no-cache, no-store, must-revalidate
-        Connection:
-          - close
-        Content-Encoding:
-          - gzip
-        Content-Length:
-          - '1743'
-        Content-Security-Policy:
-          - default-src 'self'
-        Content-Type:
-          - text/html
-        Date:
-          - Mon, 04 May 2026 22:08:44 GMT
-        ETag:
-          - '"ed1-5c371fd0d07af-gzip"'
-        Expires:
-          - '-1'
-        Last-Modified:
-          - Sat, 29 May 2021 06:20:27 GMT
-        Referrer-Policy:
-          - no-referrer
-        Server:
-          - Apache
-        Strict-Transport-Security:
-          - max-age=16070400;
-        Vary:
-          - Accept-Encoding
-        X-Content-Type-Options:
-          - nosniff
-        X-Download-Options:
-          - noopen
-        X-Frame-Options:
-          - DENY
-        X-Permitted-Cross-Domain-Policies:
-          - master-only
-        X-XSS-Protection:
-          - 1; mode=block
-        orig_req_proto:
-          - https
-      status:
-        code: 200
-        message: OK
-  - request:
-      body: null
-      headers:
-        Accept:
-          - '*/*'
-        Accept-Encoding:
-          - gzip, deflate, zstd
-        Connection:
-          - keep-alive
-        User-Agent:
-          - SecureDrop Landing Page Scanner 0.1.0
-      method: GET
-      uri: https://www.forbes.com/fdc/securedrop.html
-    response:
-      body:
-        string:
-          "\n<html>\n    <meta name=\"viewport\" content=\"width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no\"\
-          >\n    <title itemprop=\"headline\">How To Use Forbes SecureDrop </title>\n\
-          \    <meta name=\"description\" itemprop=\"description\" content=\"SecureDrop\
-          \ is an open-source whistleblower submission system that media organizations\
-          \ like Forbes can use to securely accept documents from and communicate with\
-          \ anonymous sources.\">\n    <meta name=\"keywords\" itemprop=\"keywords\"\
-          \ content=\"whistleblower, anonymous tips, Forbes\">\n    \n    <meta property=\"\
-          og:site_name\" content=\"Forbes\">\n    <meta property=\"og:url\" content=\"\
-          https://www.forbes.com/fdc/securedrop.html\">\n    <meta property=\"og:image\"\
-          \ content=\"https://i.forbesimg.com/media/assets/forbes_1200x1200.jpg\">\n\
-          \    <meta property=\"og:description\" content=\"SecureDrop is an open-source\
-          \ whistleblower submission system that media organizations like Forbes can\
-          \ use to securely accept documents from and communicate with anonymous sources.\"\
-          \ ng-attr-content=\"{{meta.description}}\">\n    <meta property=\"og:updated_time\"\
-          \ content=\"\">\n    <meta property=\"article:publisher\" content=\"https://www.facebook.com/forbes\"\
-          >\n    <meta property=\"article:author\" content=\"\">\n    <meta property=\"\
-          fb:app_id\" content=\"123694841080850\">\n    <meta name=\"twitter:card\"\
-          \ content=\"summary_large_image\">\n    <meta name=\"twitter:site\" content=\"\
-          @forbes\">\n    <meta name=\"twitter:title\" content=\"How To Use Forbes SecureDrop\
-          \ \">\n    <meta name=\"twitter:description\" content=\"SecureDrop is an open-source\
-          \ whistleblower submission system that media organizations like Forbes can\
-          \ use to securely accept documents from and communicate with anonymous sources.\"\
-          \ ng-attr-content=\"{{meta.description}}\">\n    <meta name=\"twitter:image\"\
-          \ itemprop=\"image\" content=\"https://i.forbesimg.com/media/assets/forbes_1200x1200.jpg\"\
-          >\n    <meta property=\"og:type\" content=\"website\">\n    <meta name=\"\
-          news_keywords\" itemprop=\"keywords\" content=\"whistleblower,anonymous tips,Forbes\"\
-          >\n    <link rel=\"shortcut icon\" href=\"//i.forbesimg.com/favicon.ico\"\
-          >\n    <link rel=\"apple-touch-icon\" href=\"//i.forbesimg.com/media/assets/appicons/forbes-app-icon_57x57.png\"\
-          >\n    <link rel=\"apple-touch-icon\" sizes=\"72x72\" href=\"//i.forbesimg.com/media/assets/appicons/forbes-app-icon_72x72.png\"\
-          >\n    <link rel=\"apple-touch-icon\" sizes=\"114x114\" href=\"//i.forbesimg.com/media/assets/appicons/forbes-app-icon_114x114.png\"\
-          >\n    <link rel=\"apple-touch-icon\" sizes=\"144x144\" href=\"//i.forbesimg.com/media/assets/appicons/forbes-app-icon_144x144.png\"\
-          >\n    <link rel=\"canonical\" itemprop=\"url\" href=\"https://www.forbes.com/fdc/securedrop.html\"\
-          \ ng-href=\"https://www.forbes.com/securedrop/\">\n    <style type=\"text/css\"\
-          >\n        a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1;min-height:100%}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}button{border:0;outline:0;padding:0;background:0\
-          \ 0;cursor:pointer}a{text-decoration:none;-webkit-tap-highlight-color:transparent}h1,h2,h3,h4,h5,h6,ol,p,ul{-webkit-margin-before:0;-webkit-margin-after:0;-webkit-padding-start:0}img{max-width:100%}sup{vertical-align:super;font-size:70%}em,i{font-style:italic}b,strong{font-weight:700}.ng-cloak,.x-ng-cloak,[data-ng-cloak],[ng-cloak],[ng\\\
-          :cloak],[x-ng-cloak]{display:none!important}*,:after,:before{-ms-box-sizing:border-box;-o-box-sizing:border-box}\n\
-          \n        @font-face {\n            font-family: \"Noto Sans\";\n        \
-          \    src: url(\"https://i.forbesimg.com/assets/fonts/noto-sans/notosans-regular-webfont.eot\"\
-          );\n            src: url(\"https://i.forbesimg.com/assets/fonts/noto-sans/notosans-regular-webfont.eot?#iefix\"\
-          ) format(\"embedded-opentype\"),\n                url(\"https://i.forbesimg.com/assets/fonts/noto-sans/notosans-regular-webfont.woff2\"\
-          ) format(\"woff2\"),\n                url(\"https://i.forbesimg.com/assets/fonts/noto-sans/notosans-regular-webfont.woff\"\
-          ) format(\"woff\"),\n                url(\"https://i.forbesimg.com/assets/fonts/noto-sans/notosans-regular-webfont.ttf\"\
-          ) format(\"truetype\"),\n                url(\"https://i.forbesimg.com/assets/fonts/noto-sans/notosans-regular-webfont.svg#noto_sansregular\"\
-          ) format(\"svg\");\n            font-weight: 400;\n            font-style:\
-          \ normal;\n        }\n        .sd {\n            font: .95em/1.5em \"Noto\
-          \ Sans\", Helvetica, sans serif;\n            width: 95%;\n            margin:\
-          \ 5rem auto;\n            max-width: 1200px;\n        }\n        .sd a {\n\
-          \            text-decoration: underline;\n            color: #003891;\n  \
-          \      }\n        .hed-sd, .hed-sub-sd {\n            font-size: 1.7em;\n\
-          \            line-height: 1.1em;\n            font-weight: bold;\n       \
-          \     margin: 0 0 30px; \n        }\n        .hed-sub-sd {\n            font-size:\
-          \ 1.2em;\n            margin: 20px 0; \n        }\n        .sd ol {\n    \
-          \        list-style-type: decimal;\n            margin: 15px 25px;\n     \
-          \   }\n        .sd ol li {\n            margin: 10px 0;\n        }\n     \
-          \       header {\n                height: 3em;\n                line-height:\
-          \ 3em;\n                background: rgba(0,0,0,.8);\n                padding:\
-          \ 0;\n                position: fixed;\n                width: 100%;\n   \
-          \             top: 0;\n                left: 0;\n            }\n         \
-          \   header .row-inner, footer .row-inner {\n                width: 90%;\n\
-          \                margin: 0 auto;\n            }\n            header a {\n\
-          \                color: #fff;\n            }\n\n            header .icon-forbes-logo\
-          \ {\n            /* margin-left: 2em;*/\n            }\n\n            .logo\
-          \ {\n                padding-top: 10px;\n                display: inline-block;\n\
-          \            }\n\n            .icon-forbes-logo:before {\n               \
-          \ line-height: inherit;\n            }\n\n            footer {\n         \
-          \       background: #ebebeb;\n                border-top: 4px solid #b3b3b3;\n\
-          \                border-bottom: 5px solid #6b6b6b;\n                width:\
-          \ 100%;\n                position: bottom;\n                bottom: 0;\n \
-          \               line-height: 1.1em;\n            }\n\n            footer .row-inner\
-          \ {\n                height: 120px;\n                max-width: 1300px;\n\
-          \                margin: 0 auto;\n            }\n\n            .footer-logo\
-          \ {\n                margin-top: 20px;\n            }\n\n            .footer-logo\
-          \ .copy {\n                display: block;\n                font: 10px Helvetica;\n\
-          \                color: #b3b3b3;\n                padding: 0 0 10px;\n   \
-          \         }\n\n            .footer-logo .icon-forbes-logo {\n            \
-          \    color: #939393;\n                font-size: 38px;\n            }\n\n\
-          \            .footer-links {    \n                width: 100%;\n         \
-          \       padding-left: 0;\n            }\n\n            .footer-links li {\n\
-          \                margin-right: 10px;\n                font: 12px Helvetica;\n\
-          \                list-style-type: none;\n                display: inline-block;\n\
-          \            }\n\n            .footer-links li:last-child {\n            \
-          \    margin-right: 0;\n            }\n\n            .footer-links li:not(:last-child)\
-          \ a:after {\n                content: \"|\";\n                color: #b3b3b3;\n\
-          \                margin-left: 10px;\n            }\n\n            .footer-links\
-          \ a {\n                color: #b3b3b3;\n            }\n\n            .footer-links\
-          \ a:hover {\n                color: #000;\n                text-decoration:\
-          \ underline;\n            }\n            @media screen and (max-width: 768px)\
-          \ {\n                .sd {\n                    margin-top: 4em;\n       \
-          \         }\n                .hed-sd, .hed-sub-sd {\n                    font-size:\
-          \ 1.3em;\n                    line-height: 1.4em;\n                }\n   \
-          \             .hed-sub-sd {\n                    font-size: 1.2em;\n     \
-          \               margin: 20px 0; \n                }   \n            footer\
-          \ {\n                position: relative;\n                bottom: 0;\n   \
-          \         }\n        }\n    </style>\n    <body>\n    <!-- Header -->\n  \
-          \  <header>\n        <div class=\"row-inner\">\n            <!-- Header Logo\
-          \ -->\n            <a href=\"//www.forbes.com/\" class=\"logo\" target=\"\
-          _self\">\n                <img src=\"https://i.forbesimg.com/media/logos/forbes-static.png\"\
-          >\n            </a>\n        </div>\n    </header>\n    \n    <div class=\"\
-          sd\">\n    <h1 class=\"hed-sd\">How To Send Forbes Documents Using SecureDrop</h1>\n\
-          \    <ol>\n        <li>Download and install the Tor browser from <a href=\"\
-          https://www.torproject.org\" target=\"_blank\">https://www.torproject.org</a>.\
-          \ The Tor browser allows access to our SecureDrop page, which operates as\
-          \ a Tor \"hidden service.\"</li>\n        <li>Open the Tor browser and wait\
-          \ for the page that says a connection has been established, then copy and\
-          \ paste the following into the address bar: \n<b>http://forbes.securedrop.tor.onion</b>\n\
-          or\n<b>http://6zonlfhh7aqtfwoyvdlad3nxn6ljecx2k6tyyy3spt43nn54q6lvncid.onion</b></li>\n\
-          \        <li>Follow the instructions to send us information. Users will be\
-          \ given a codename that can be used to log back in and check for responses\
-          \ from Forbes reporters.</li>\n    </ol>\n    \n    <b>For added security,\
-          \ consider using the Tails operating system instead of the Tor Browser.</b>\n\
-          \    \n    </div>\n    \n    <footer>\n        <div class=\"row-inner\">\n\
-          \            <div class=\"footer-logo\">\n                <span class=\"copy\"\
-          >&copy; 2017 Forbes Media LLC. All Rights Reserved.</span>\n            </div>\n\
-          \            <div class=\"footer-links-wrapper\">\n                <ul class=\"\
-          footer-links\">\n                    <li class=\"desk\"><a href=\"https://preferences-mgr.truste.com/?pid=forbes01\"\
-          \ target=\"_blank\">AdChoices</a></li>\n                    <li><a href=\"\
-          //www.forbes.com/fdc/privacy.html\" target=\"_self\">Privacy Statement</a></li>\n\
-          \                    <li><a href=\"//www.forbes.com/terms\" target=\"_self\"\
-          >Terms and Conditions</a></li>\n                    <li><a href=\"//www.forbes.com/fdc/contact.html\"\
-          \ target=\"_self\">Contact Us</a></li>\n                    <li><a href=\"\
-          mailto://feedback@forbes.com\">Send Us Feedback</a></li>\n               \
-          \     <li><a href=\"//www.forbes.com/sites/careers-at-forbes/\" target=\"\
-          _self\">Jobs At Forbes</a></li>\n                    <li><a href=\"http://forbesreprints.magreprints.com/\"\
-          \ target=\"_blank\">Reprints & Permissions</a></li>\n                    <li><a\
-          \ href=\"//www.forbes.com/sites/forbespr/\" target=\"_self\">Forbes Press\
-          \ Room</a></li>\n                    <li><a href=\"http://www.forbesmedia.com/\"\
-          \ target=\"_blank\">Advertise</a></li>\n                </ul>\n          \
-          \  </div>\n        </div>\n    </footer>\n    </body>\n    </html>\n"
-      headers:
-        Accept-Ranges:
-          - bytes
-        Access-Control-Allow-Credentials:
-          - 'true'
-        Age:
-          - '0'
-        Cache-Control:
-          - max-age=0, no-cache, no-store, must-revalidate
-        Connection:
-          - keep-alive
-        Content-Length:
-          - '3372'
-        Content-Security-Policy:
-          - default-src 'none'; img-src https://i.forbesimg.com; style-src 'unsafe-inline'
-        Date:
-          - Mon, 04 May 2026 22:08:44 GMT
-        Permissions-Policy:
-          - unload=()
-        Pragma:
-          - no-cache
-        Referrer-policy:
-          - no-referrer
-        Strict-Transport-Security:
-          - max-age=31536000; includeSubDomains; preload
-        Vary:
-          - x-malcolm, X-is-EU, X-is-CN, X-is-US-DPA, X-is-OPT-IN-JURISDICTION, X-is-STRICT-US-DPA,
-            X-is-US, X-Device, x-backend, canary, X-Is-Ad-Light, is-vwo-enabled
-        Via:
-          - 1.1 varnish
-        X-Cache:
-          - MISS
-        X-Cache-Hits:
-          - '0'
-        X-City-Code:
-          - brooklyn
-        X-Content-Type-Options:
-          - nosniff
-        X-Country-Code:
-          - US
-        X-Download-Options:
-          - noopen
-        X-Fastly-Backend:
-          - 24YyrkkiTBhSwXWzJgvwW6--F_GCP_NGINX
-        X-Fastly-X-is-CN:
-          - 'false'
-        X-Fastly-X-is-OPT-IN-JURISDICTION:
-          - 'false'
-        X-Fastly-X-is-STRICT-US-DPA:
-          - 'false'
-        X-Fastly-X-is-US:
-          - 'true'
-        X-Fastly-X-is-US-DPA:
-          - 'false'
-        X-FastlyTTL:
-          - '31536000.000'
-        X-Frame-Options:
-          - DENY
-        X-Permitted-Cross-Domain-Policies:
-          - master-only
-        X-Postal-Code:
-          - '11231'
-        X-Region:
-          - NY
-        X-Served-By:
-          - cache-nyc-kteb1890039-NYC
-        X-Timer:
-          - S1777932524.470501,VS0,VE180
-        X-XSS-Protection:
-          - 1; mode=block
-        alt-svc:
-          - h3=":443";ma=86400,h3-29=":443";ma=86400,h3-27=":443";ma=86400
-        content-encoding:
-          - gzip
-        content-type:
-          - text/html
-        etag:
-          - W/"6911f585-2ad8"
-        last-modified:
-          - Mon, 10 Nov 2025 14:24:05 GMT
-        server:
-          - istio-envoy
-        state:
-          - MISS-CLUSTER
-        x-device:
-          - pc
-        x-envoy-upstream-service-time:
-          - '170'
-        x-fastly-server-hint:
-          - cacheable
-      status:
-        code: 200
-        message: OK
-  - request:
-      body: null
-      headers:
-        Accept:
-          - '*/*'
-        Accept-Encoding:
-          - gzip, deflate, zstd
-        Connection:
-          - keep-alive
-        User-Agent:
-          - SecureDrop Landing Page Scanner 0.1.0
-      method: GET
-      uri: https://www.cnn.com/tips/
-    response:
-      body:
-        string:
-          "\n<!doctype html>\n<html>\n    <head>\n        <!--\n        \n   \
-          \     \n                 ,%%%%%%%%%%%%(   %%%%%%%%%          (%%%%%%%%   \
-          \      %%%% ,%%%(\n              .%%%%%%%%%%%%%%%(  %%%%%%%%%%%/       %%%%%%#%%%%%\
-          \       %%%% ,%%%(\n            *%%%%%%   *%%%%%%%( .%%%% %% *%%%%      %%%%\
-          \ #%  %%%%      %%%% ,%%%(\n           %%%%%. /%%%%%%%%%%%( .%%%% %%%  %%%%\
-          \     %%%% %%%  %%%%     %%%% ,%%%(\n          %%%%% *%%%%%%(....... .%%%%\
-          \ %%%%  %%%%    %%%% %%%%  %%%%    %%%% ,%%%(\n         %%%%( %%%%%      \
-          \      .%%%% %%%%%. %%%%.  %%%% %%%%%/ %%%%*  %%%% ,%%%(\n         %%%% (%%%%\
-          \             .%%%% %%%%%%, %%%%. %%%% %%%%%%% #%%%# %%%% ,%%%(\n        .%%%#\
-          \ %%%%              .%%%% %%%%%%%( %%%%(%%%% %%%%%%%% *%%%%%%%% ,%%%(\n  \
-          \      .%%%% %%%%              .%%%% %%%%*%%%% *%%%%%%% %%%%.%%%% .%%%%%%%\
-          \ ,%%%(\n         %%%% *%%%%             .%%%% %%%%  %%%%  %%%%%% %%%%  %%%%\
-          \  %%%%%% ,%%%(\n         #%%%% #%%%%,           .%%%% %%%%   %%%%  %%%%%\
-          \ %%%%   %%%%  %%%%% ,%%%(\n          %%%%%  %%%%%%%%#######%%%%% %%%%   \
-          \ %%%%  %%%% %%%%    %%%%/ %%%% ,%%%(\n           %%%%%#  %%%%%%%%%%%%%%%%%%\
-          \ %%%%     %%%%. %%% %%%%     #%%%% %%% ,%%%(\n             %%%%%%(    ............\
-          \  %%%%      #%%%# */ %%%%      /%%%% .( (%%%(\n               %%%%%%%%%%%%%%%%%%%%%%%%%%(\
-          \       ,%%%%%%%%%%%        %%%%%%%%%%% \n                  #%%%%%%%%%%%%%%%%%%%%%\
-          \           %%%%%%%%/          /%%%%%%%#  \n        \n        \n        -->\n\
-          \        \n        <title>CNN news tips</title>\n        \n        <meta charset=\"\
-          utf-8\">\n        <meta name=\"robots\" content=\"index, follow\">\n     \
-          \   <meta name=\"googlebot\" content=\"noarchive\">\n        <meta name=\"\
-          title\" content=\"CNN news tips\">\n        <meta name=\"description\" content=\"\
-          Do you have a tip or sensitive material to share with CNN? Here\u2019s how\
-          \ to share confidential story tips and material with our journalists.\">\n\
-          \        <meta name=\"keywords\" content=\"tips, whistleblowers, leaks, journalism,\
-          \ CNN, WhatsApp, Signal, Pretty Good Privacy, PGP, encryption, encrypted email,\
-          \ ProtonMail, privacy, anonymity, security, cybersecurity\">\n        <meta\
-          \ name=\"source\" content=\"CNN\">\n        <meta name=\"section\" content=\"\
-          us\">\n        <meta name=\"subsection\" content=\"\">\n        <meta name=\"\
-          application-name\" content=\"CNN\">\n        <meta name=\"viewport\" content=\"\
-          width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no,\
-          \ shrink-to-fit=no\">\n        <meta name=\"format-detection\" content=\"\
-          telephone=no\">\n        \n        <!-- OpenGraph -->\n        <meta property=\"\
-          og:url\" content=\"https://www.cnn.com/tips/\">\n        <meta property=\"\
-          og:type\" content=\"article\">\n        <meta property=\"og:site_name\" content=\"\
-          CNN\">\n        <meta property=\"og:locale\" content=\"en_US\">\n        <meta\
-          \ property=\"og:title\" content=\"Send a tip to CNN\">\n        <meta property=\"\
-          og:description\" content=\"Do you have a tip or sensitive material to share\
-          \ with CNN? Here\u2019s how to share confidential story tips and material\
-          \ with our journalists.\">\n        <meta property=\"og:image\" content=\"\
-          https://www.cnn.com/tips/media/assets/images/cnn-investigates-tips-card.jpg\"\
-          >\n        <meta property=\"og:image:alt\" content=\"A man wearing a trench\
-          \ coat and fedora holds up a red envelope.\">\n        \n        <!-- Facebook\
-          \ -->\n        <meta property=\"fb:admins\" content=\"690014395\">\n     \
-          \   <meta property=\"fb:app_id\" content=\"80401312489\">\n        \n    \
-          \    <!-- Twitter  -->\n        <meta name=\"twitter:site\" content=\"@CNN\"\
-          >\n        <meta name=\"twitter:site:id\" content=\"759251\">\n        <meta\
-          \ name=\"twitter:creator\" content=\"@CNN\">\n        <meta name=\"twitter:card\"\
-          \ content=\"summary_large_image\">\n        <meta name=\"twitter:image\" content=\"\
-          https://www.cnn.com/tips/media/assets/images/cnn-investigates-tips-card.jpg\"\
-          >\n        <meta name=\"twitter:image:alt\" content=\"A man wearing a trench\
-          \ coat and fedora holds up a red envelope.\">\n        \n        <link rel=\"\
-          canonical\" href=\"https://www.cnn.com/tips/\">\n        <link rel=\"shortcut\
-          \ icon\" href=\"/tips/media/assets/favicon.ico\">\n        <link rel=\"apple-touch-icon\"\
-          \ href=\"/tips/media/assets/images/apple-touch-icon.png\">\n        \n   \
-          \     <link rel=\"stylesheet\" type=\"text/css\" href=\"/tips/css/cnn-tips.css?e9ddf66320bf4aef39a1\"\
-          >\n        \n        <script type=\"application/ld+json\">\n        {\n  \
-          \          \"@context\": \"https://schema.org\", \n            \"@type\":\
-          \ \"NewsArticle\",\n            \"headline\": \"Send a tip to CNN\",\n   \
-          \         \"image\": [\n                \"https://media.cnn.com/api/v1/images/stellar/prod/cnn-investigates-tips-card.jpg?q=h_900,w_1600,x_0,y_0\"\
-          ,\n                \"https://media.cnn.com/api/v1/images/stellar/prod/cnn-investigates-tips-card.jpg?q=h_300,w_400,x_0,y_0\"\
-          ,\n                \"https://media.cnn.com/api/v1/images/stellar/prod/cnn-investigates-tips-card.jpg?q=h_100,w_100,x_0,y_0\"\
-          \n            ],\n            \"keywords\": \"tips, whistleblowers, leaks,\
-          \ journalism, CNN, WhatsApp, Signal, Pretty Good Privacy, PGP, encryption,\
-          \ encrypted email, ProtonMail, privacy, anonymity, security, cybersecurity\"\
-          , \n            \"wordcount\": 683,\n            \"publisher\": {\n      \
-          \          \"@type\": \"Organization\",\n                \"name\": \"CNN\"\
-          ,\n                \"logo\": {\n                    \"@type\": \"ImageObject\"\
-          ,\n                    \"url\": \"https://www.cnn.com/media/sites/cnn/cnn.svg\"\
-          ,\n                    \"width\": 103,\n                    \"height\": 60\n\
-          \                }\n            },\n            \"author\": {\n          \
-          \      \"@type\": \"Organization\",\n                \"name\": \"CNN\",\n\
-          \                \"logo\": {\n                    \"@type\": \"ImageObject\"\
-          ,\n                    \"url\": \"https://www.cnn.com/media/sites/cnn/cnn.svg\"\
-          ,\n                    \"width\": 103,\n                    \"height\": 60\n\
-          \                }\n            },\n            \"url\": \"https://www.cnn.com/tips/\"\
-          ,\n            \"mainEntityOfPage\": {\n                \"@type\": \"WebPage\"\
-          ,\n                \"@id\": \"https://www.cnn.com/tips/\"\n            },\n\
-          \            \"datePublished\": \"2019-12-02\",\n            \"dateCreated\"\
-          : \"2019-12-02\",\n            \"dateModified\": \"2024-02-13\",\n       \
-          \     \"description\": \"How to share confidential story tips and material\
-          \ with CNN\u2019s journalists.\",\n            \"articleBody\": Do you have\
-          \ a tip or sensitive material to share with CNN? We offer several ways to\
-          \ reach our journalists. We regularly review submissions, but because we receive\
-          \ a large number, we cannot respond to or investigate every tip. Anatomy of\
-          \ a good tip Tips should be newsworthy, meaning they concern systemic problems\
-          \ of timely and broad public interest. The most compelling tips are those\
-          \ that can be corroborated with documentation or evidence. These channels\
-          \ are not for press releases. To share feedback about something you saw on\
-          \ CNN or CNN.com, use our feedback form. Before reaching out Remember that\
-          \ no method is completely secure and what measures you should take depend\
-          \ on how much anonymity you need. Before using any of these apps or tools,\
-          \ consider taking a few extra security precautions, including: considering\
-          \ whether the network you use can be used to identify you or your activity;\
-          \ using a secure web browser or operating system; disabling features that\
-          \ back data up to cloud services; and avoiding using accounts or devices linked\
-          \ to your name, email or phone number. The Freedom of the Press Foundation\
-          \ (FPF) offers more detailed guides aimed at maintaining privacy and anonymity.\
-          \  Email Regular email is convenient but not secure. Do not use it if your\
-          \ information is sensitive or if you are concerned about someone knowing that\
-          \ you are a source. For more sensitive tips, you can send email encrypted\
-          \ with Pretty Good Privacy (PGP). Be aware that while the content of PGP-encrypted\
-          \ emails is secure, metadata \u2014 such as information about the sender or\
-          \ recipient, time stamps and the subject \u2014 is not. Keep in mind that\
-          \ many email providers retain your messages unless you direct otherwise. Several\
-          \ browser extensions, such as Mailvelope, Enigmail and FlowCrypt, make it\
-          \ easy to use PGP with existing email providers, such as Gmail. You can also\
-          \ use ProtonMail, an email provider that supports PGP. For additional anonymity,\
-          \ set up a dedicated email address to communicate with us. Email address:\
-          \ tips@cnn.com ProtonMail address: cnn.tips@protonmail.com Public key: B4BC\
-          \ 1138 6DD7 BB01 801A 2594 0486 46F7 1E7B 788C Get ProtonMail Learn more FPF\
-          \ guide  Signal Signal is a free app that allows users to make and send encrypted\
-          \ calls and self-destructing text messages, images and videos. The Signal\
-          \ Protocol is end-to-end encrypted, which means only the sender and recipient\
-          \ can access the conversations. Signal does save some information about you,\
-          \ including your phone number, when you signed up and when you were last active,\
-          \ but stores no metadata about your communications. By default, Signal saves\
-          \ your messages on your device unless you configure them to self-destruct.\
-          \ For additional anonymity, consider setting up a dedicated phone number to\
-          \ use with Signal. You can do this through several services, such as Google\
-          \ Voice, Skype or Twilio, or you can purchase a prepaid SIM card. Number:\
-          \ +1 (646) 397-6705 Get Signal Learn more FPF guide  WhatsApp WhatsApp is\
-          \ a free app that secures phone calls and text messages using end-to-end encryption\
-          \ and allows you to delete messages even after they\u2019ve been read. The\
-          \ app is owned by Meta, which also owns Facebook and Instagram, and retains\
-          \ a significant amount of metadata about conversations. However, WhatsApp\
-          \ claims neither it, nor third parties, can see users\u2019 private conversations.\
-          \ For additional anonymity, consider setting up a dedicated phone number to\
-          \ use with WhatsApp. You can do this through several services, such as Google\
-          \ Voice, Skype or Twilio, or you can purchase a prepaid SIM card. Number:\
-          \ +1 (646) 397-6705 Get WhatsApp Learn more FPF guide  Postal mail Traditional\
-          \ first-class mail is still among the safest ways to communicate securely.\
-          \ When sending tips through postal mail, don\u2019t include a return address\
-          \ on the letter\u2019s face. (If you\u2019d like us to be able to contact\
-          \ you, include your contact information inside the letter.) Make sure any\
-          \ writing on the letter\u2019s face is typed, not handwritten, and send your\
-          \ letter from a sidewalk mailbox and not your home, workplace or a post office.\
-          \ Send mail to: Tips\u2105 CNN Investigates, 30 Hudson Yards, Fl 21, New York,\
-          \ NY 10001, United States of America\n        }\n        </script>\n    </head>\n\
-          \    <body id=\"body\">\n        <div id=\"app\">\n\n            <svg xmlns=\"\
-          http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"\
-          \ style=\"position:absolute;width:0;height:0;visibility:hidden; display:none;\
-          \ pointer-events: none;\">\n                <defs>\n                    <symbol\
-          \ id=\"twitterShare\" viewBox=\"0 0 64 64\" width=\"24px\" height=\"24px\"\
-          ><path d=\"M60,15.2c-2.1,0.9-4.3,1.5-6.6,1.7c2.4-1.4,4.2-3.6,5.1-6.1c-2.2,1.3-4.7,2.2-7.3,2.7\
-          \ c-2.1-2.2-5.1-3.5-8.4-3.5c-6.3,0-11.5,5-11.5,11.1c0,0.9,0.1,1.7,0.3,2.5C22,23.2,13.6,18.8,7.9,12c-1,1.6-1.6,3.5-1.6,5.6\
-          \ c0,3.9,2,7.3,5.1,9.2c-1.9-0.1-3.7-0.6-5.2-1.4v0.1c0,5.4,4,9.9,9.2,10.9c-1,0.3-2,0.4-3,0.4c-0.7,0-1.5-0.1-2.2-0.2\
-          \ c1.5,4.4,5.7,7.6,10.7,7.7c-3.9,3-8.9,4.8-14.3,4.8c-0.9,0-1.8-0.1-2.7-0.2c5.1,3.2,11.1,5,17.6,5c21.1,0,32.7-16.9,32.7-31.6\
-          \ c0-0.5,0-1,0-1.4C56.5,19.4,58.5,17.4,60,15.2\"></path></symbol>\n      \
-          \              <symbol id=\"fbShare\" viewBox=\"0 0 64 64\" width=\"24px\"\
-          \ height=\"24px\"><path d=\"M56,5.1H8c-1.6,0-3,1.4-3,3v48.8c0,1.7,1.3,3,3,3h25.9V38.7h-7v-8.3h7v-6.1\
-          \ c0-7.1,4.3-10.9,10.5-10.9c3,0,5.9,0.2,6.7,0.3v7.7h-4.7c-3.4,0-4.1,1.6-4.1,4v5h8.1l-1,8.3h-7v21.2H56c1.6,0,3-1.4,3-3V8.1\
-          \ C59,6.4,57.7,5.1,56,5.1\"></path></symbol>\n                    <symbol\
-          \ id=\"nativeShare\"  viewBox=\"0 0 64 64\" width=\"24px\" height=\"24px\"\
-          ><path d=\"M50,34.00005 C50,32.89605 50.896,32.00005 52,32.00005 C53.104,32.00005\
-          \ 54,32.89605 54,34.00005 L54,58.00005 C54,59.10405 53.104,60.00005 52,60.00005\
-          \ L12,60.00005 C10.896,60.00005 10,59.10405 10,58.00005 L10,34.00005 C10,32.89605\
-          \ 10.896,32.00005 12,32.00005 C13.104,32.00005 14,32.89605 14,34.00005 L14,56.00005\
-          \ L50,56.00005 L50,34.00005 Z M47.3867,18.38875 C47.8987,18.89475 48.1437,19.64575\
-          \ 47.9117,20.32275 C47.3677,21.91675 45.5277,22.20975 44.5067,21.20175 L33.9997,10.99975\
-          \ L33.9997,43.99975 C33.9997,44.99975 32.9997,45.99975 31.9997,45.99975 C30.9997,45.99975\
-          \ 29.9997,44.99575 29.9997,43.99975 L29.9997,10.99975 L19.4417,21.20175 C18.5717,22.06075\
-          \ 17.1077,21.97575 16.3557,20.94575 C15.7657,20.13675 15.9397,19.00175 16.6537,18.29775\
-          \ L30.3267,4.79775 C30.3267,4.79675 30.3267,4.79675 30.3277,4.79675 L30.5417,4.58575\
-          \ C31.3327,3.80475 32.6157,3.80475 33.4067,4.58575 L33.6197,4.79675 C33.6197,4.79675\
-          \ 33.6207,4.79675 33.6207,4.79775 L47.3867,18.38875 Z\"></path></symbol>\n\
-          \                    <symbol id=\"scroll-arrow\" viewBox=\"0 0 21 44\" preserveAspectRatio=\"\
-          xMidYMid meet\"><g fill=\"none\" fill-rule=\"evenodd\"><path d=\"M10.333.432v40.995\"\
-          \ stroke=\"#FFF\" stroke-width=\"2.88\"/><path fill=\"#FFF\" d=\"M21 32.746L19.12\
-          \ 31l-8.621 9.242L1.88 31 0 32.746 10.499 44z\"/></g></symbol>\n         \
-          \           <symbol id=\"scrollIcon\" viewBox=\"0 0 33 33\" preserveAspectRatio=\"\
-          xMidYMid meet\"><path d=\"M8.116 0C5.379 0-.306 1.495.013 9.19.225 14.32 5.72\
-          \ 22.257 16.5 33 27.279 22.257 32.775 14.32 32.987 9.19 33.306 1.495 27.621\
-          \ 0 24.884 0c-2.736 0-5.447 1.296-8.384 5.487C13.563 1.296 10.852 0 8.116\
-          \ 0z\" fill=\"#FFF\" fill-rule=\"evenodd\"/></symbol>\n                  \
-          \  <symbol id=\"loader\" viewBox=\"20 20 100 100\"> <defs> <linearGradient\
-          \ x1=\"50%\" y1=\"0%\" x2=\"50%\" y2=\"100%\" id=\"loader_linearGradient-1\"\
-          > <stop stop-color=\"#FFFFFF\" offset=\"0%\"></stop> <stop stop-color=\"#262626\"\
-          \ offset=\"100%\"></stop> </linearGradient> </defs> <g stroke=\"none\" stroke-width=\"\
-          1\" fill=\"none\" fill-rule=\"evenodd\" transform=\"translate(22.000000, 22.000000)\"\
-          > <circle stroke=\"url(#loader_linearGradient-1)\" stroke-width=\"3\" cx=\"\
-          48\" cy=\"48\" r=\"48\"></circle> </g> </symbol>\n                    <symbol\
-          \ id=\"cnnlogo\" viewBox=\"0 0 500 500\" preserveAspectRatio=\"xMidYMid meet\"\
-          ><g><rect x=\"0.3\" fill=\"#cc0000 \" width=\"500\" height=\"500\"/><g><path\
-          \ d=\"M106.1,249.9c0-19.7,16-38.5,35.6-38.5h29.1v-19.3h-29.3c-30.8,0-55.8,27-55.8,57.8c0,30.8,25,57.8,55.8,57.8H194c2.9,0,5.7-4.8,5.7-7.2V197.1c0-5.7,3.4-10.5,8.7-12c4.5-1.2,10.8,0,15.1,7.2c0.2,0.3,13,22.6,32.7,56.4c15.4,26.6,31.4,54.1,31.6,54.6c1.6,2.8,3.5,4.1,5.6,3.5c1.4-0.4,2.5-1.7,2.5-4.2V197.1c0-5.7,4-10.5,9.3-12c4.5-1.2,11,0,15.3,7.2c0.2,0.3,11.7,20,30.5,52.3c16.6,28.6,33.8,58.2,34.1,58.7c1.7,2.8,3,4.1,5.1,3.5c1.4-0.4,2-1.7,2-4.2V163.3H373v84.1c0,0-33.3-58.2-34.8-60.9c-21.5-36.5-61.5-21.4-61.5,10v50.9c0,0-33.3-58.2-34.8-60.9c-21.5-36.5-61.5-21.4-61.5,10v83.4c0,3-3.5,8.6-6.9,8.6h-31.8C122.1,288.4,106.1,269.6,106.1,249.9z\"\
-          /><path d=\"M401.9,163.3v139.5c0,5.7-3.4,10.5-8.7,12c-1,0.3-1.9,0.4-3.1,0.4c-4,0-8.6-2-12-7.7c-0.2-0.3-13.6-23.5-34.1-58.8c-14.8-25.5-30-51.8-30.3-52.3c-1.6-2.8-3.5-4.1-5.6-3.6c-1.3,0.4-2.5,1.7-2.5,4.2v105.7c0,5.7-3.9,10.5-9.3,12c-4.5,1.2-11.1,0-15.3-7.2c-0.2-0.3-12.8-21.8-31.8-54.6c-15.9-27.5-32.5-55.9-32.8-56.4c-1.7-2.8-3-4.1-5.1-3.5c-1.4,0.4-2,1.7-2,4.2v103.4c0,7.1-8.2,16.8-15.3,16.8h-52.5c-35.2,0-63.9-32.2-63.9-67.4c0-35.2,28.7-67.4,63.9-67.4h29.3v-19.3h-29.3c-46.4,0-84.1,40.2-84.1,86.6c0,46.4,37.7,86.6,84.1,86.6h53c20.1,0,34-14.3,34-36.1v-48c0,0,33.2,58.2,34.8,60.9c21.5,36.5,61.5,21.4,61.5-10v-50.9c0,0,33.3,58.2,34.8,60.9c21.5,36.5,61.5,21.4,61.5-10V163.3H401.9z\"\
-          /></g></g></symbol>\n                </defs>\n            </svg>\n       \
-          \     <header class=\"nav\">\n                <div class=\"nav-row content-container--margin\"\
-          >\n                    <div class=\"nav-logo nav-cell\">\n               \
-          \         <div class=\"logo\">\n                            <a href=\"https://www.cnn.com\"\
-          >\n                                <svg width=\"30px\" height=\"30px\">\n\
-          \                                    <use xmlns:xlink=\"http://www.w3.org/1999/xlink\"\
-          \ xlink:href=\"#cnnlogo\"></use>\n                                </svg>\n\
-          \                            </a>\n                        </div>\n      \
-          \              </div>\n                    <ul class=\"social-share nav-cell\
-          \ nav-share\">\n                        <li class=\"social-share__icon social-share__facebook\"\
-          >\n                            <a href=\"https://www.facebook.com/sharer/sharer.php?u=https://www.cnn.com/tips/\"\
-          \ target=\"_blank\">\n                                <svg class=\"cnn-icon\
-          \ social facebook\" data-icon=\"facebook\" width=\"24\" height=\"24\" aria-hidden=\"\
-          true\" focusable=\"false\" role=\"img\" xmlns=\"https://www.w3.org/2000/svg\"\
-          \ fill-rule=\"evenodd\" clip-rule=\"evenodd\" viewBox=\"0 0 64 64\"><path\
-          \ d=\"M56,5.1H8c-1.6,0-3,1.4-3,3v48.8c0,1.7,1.3,3,3,3h25.9V38.7h-7v-8.3h7v-6.1\
-          \ c0-7.1,4.3-10.9,10.5-10.9c3,0,5.9,0.2,6.7,0.3v7.7h-4.7c-3.4,0-4.1,1.6-4.1,4v5h8.1l-1,8.3h-7v21.2H56c1.6,0,3-1.4,3-3V8.1\
-          \ C59,6.4,57.7,5.1,56,5.1\" /></svg>\n                            </a>\n \
-          \                       </li>\n                        <li class=\"social-share__icon\
-          \ social-share__twitter\">\n                            <a href=\"https://twitter.com/intent/tweet?text=&url=https://www.cnn.com/tips/\"\
-          \ target=\"_blank\">\n                                <svg class=\"cnn-icon\
-          \ social twitter\" data-icon=\"twitter\" width=\"24\" height=\"24\" aria-hidden=\"\
-          true\" focusable=\"false\" role=\"img\" xmlns=\"https://www.w3.org/2000/svg\"\
-          \ fill-rule=\"evenodd\" clip-rule=\"evenodd\" viewBox=\"0 0 64 64\"><path\
-          \ d=\"M60,15.2c-2.1,0.9-4.3,1.5-6.6,1.7c2.4-1.4,4.2-3.6,5.1-6.1c-2.2,1.3-4.7,2.2-7.3,2.7\
-          \ c-2.1-2.2-5.1-3.5-8.4-3.5c-6.3,0-11.5,5-11.5,11.1c0,0.9,0.1,1.7,0.3,2.5C22,23.2,13.6,18.8,7.9,12c-1,1.6-1.6,3.5-1.6,5.6\
-          \ c0,3.9,2,7.3,5.1,9.2c-1.9-0.1-3.7-0.6-5.2-1.4v0.1c0,5.4,4,9.9,9.2,10.9c-1,0.3-2,0.4-3,0.4c-0.7,0-1.5-0.1-2.2-0.2\
-          \ c1.5,4.4,5.7,7.6,10.7,7.7c-3.9,3-8.9,4.8-14.3,4.8c-0.9,0-1.8-0.1-2.7-0.2c5.1,3.2,11.1,5,17.6,5c21.1,0,32.7-16.9,32.7-31.6\
-          \ c0-0.5,0-1,0-1.4C56.5,19.4,58.5,17.4,60,15.2\" /></svg>\n              \
-          \              </a>\n                        </li>\n                     \
-          \   <li class=\"social-share__icon social-share__native\">\n             \
-          \               <span style=\"cursor:pointer;\">\n                       \
-          \         <svg class=\"cnn-icon social share-os\" data-icon=\"share-os\" width=\"\
-          24\" height=\"24\" aria-hidden=\"true\" focusable=\"false\" role=\"img\" xmlns=\"\
-          https://www.w3.org/2000/svg\" fill-rule=\"evenodd\" clip-rule=\"evenodd\"\
-          \ viewBox=\"0 0 64 64\"><path d=\"M50,34.00005 C50,32.89605 50.896,32.00005\
-          \ 52,32.00005 C53.104,32.00005 54,32.89605 54,34.00005 L54,58.00005 C54,59.10405\
-          \ 53.104,60.00005 52,60.00005 L12,60.00005 C10.896,60.00005 10,59.10405 10,58.00005\
-          \ L10,34.00005 C10,32.89605 10.896,32.00005 12,32.00005 C13.104,32.00005 14,32.89605\
-          \ 14,34.00005 L14,56.00005 L50,56.00005 L50,34.00005 Z M47.3867,18.38875 C47.8987,18.89475\
-          \ 48.1437,19.64575 47.9117,20.32275 C47.3677,21.91675 45.5277,22.20975 44.5067,21.20175\
-          \ L33.9997,10.99975 L33.9997,43.99975 C33.9997,44.99975 32.9997,45.99975 31.9997,45.99975\
-          \ C30.9997,45.99975 29.9997,44.99575 29.9997,43.99975 L29.9997,10.99975 L19.4417,21.20175\
-          \ C18.5717,22.06075 17.1077,21.97575 16.3557,20.94575 C15.7657,20.13675 15.9397,19.00175\
-          \ 16.6537,18.29775 L30.3267,4.79775 C30.3267,4.79675 30.3267,4.79675 30.3277,4.79675\
-          \ L30.5417,4.58575 C31.3327,3.80475 32.6157,3.80475 33.4067,4.58575 L33.6197,4.79675\
-          \ C33.6197,4.79675 33.6207,4.79675 33.6207,4.79775 L47.3867,18.38875 Z\" id=\"\
-          path-1\" /></svg>\n                            </span>\n                 \
-          \       </li>\n                    </ul>\n                </div>\n       \
-          \     </header>\n            <main>\n                <article class=\"main-container\"\
-          >\n                    <header class=\"\">\n                        <figure\
-          \ class=\"cp-media cp-image\">\n                            <picture class=\"\
-          u-full-width\">\n                                <img src=\"/tips/media/assets/images/story-top.jpg\"\
-          \ alt=\"A man wearing a trench coat and fedora holds up a red envelope.\"\
-          \ class=\"u-full-width u-height-auto\">\n                            </picture>\n\
-          \                            <figcaption class=\"caption\">\n            \
-          \                    <span class=\"caption__credit\">Max Pepper/CNN</span>\n\
-          \                            </figcaption>\n                        </figure>\n\
-          \                        <h1 class=\"hed\">Send a tip to CNN</h1>\n      \
-          \                  <h2 class=\"dek\">How to share confidential story tips<br/>and\
-          \ material with our journalists</h2>\n                        <div class=\"\
-          cp-byline\">\n                            <div>\n                        \
-          \        <p class=\"cp-byline__published\">\n                            \
-          \        Published Dec. 2, 2019 at 12:00 p.m. ET</p>\n                   \
-          \             <p class=\"cp-byline__updated\">Updated March 18, 2022 at 9:00\
-          \ a.m. ET\n                                </p>\n                        \
-          \    </div>\n                        </div>\n                    </header>\n\
-          \                    <section>\n                        <p id=\"1\" data-element-id=\"\
-          1\" class=\"cp-text\">Do you have a tip or sensitive material to share with\
-          \ CNN? We offer several ways to reach our journalists.</p>\n             \
-          \           <p id=\"2\" data-element-id=\"2\" class=\"cp-text\">We regularly\
-          \ review submissions, but because we receive a large number, we cannot respond\
-          \ to or investigate every tip.</p>\n                        <h2 id=\"3\" data-element-id=\"\
-          3\" class=\"cp-header cp-header--title\">Anatomy of a good tip</h2>\n    \
-          \                    <p id=\"4\" data-element-id=\"4\" class=\"cp-text\">Tips\
-          \ should be newsworthy, meaning they concern systemic problems of timely and\
-          \ broad public interest. The most compelling tips are those that can be corroborated\
-          \ with documentation or evidence.</p>\n                        <p id=\"5\"\
-          \ data-element-id=\"5\" class=\"cp-text\">These channels are not for press\
-          \ releases. To share feedback about something you saw on CNN or CNN.com, use\
-          \ <a href=\"https://www.cnn.com/feedback\" target=\"_blank\" rel=\"noopener\
-          \ nofollow noreferrer\">our feedback form</a>.</p>\n                     \
-          \   <h2 id=\"6\" data-element-id=\"6\" class=\"cp-header cp-header--title\"\
-          >Before reaching out</h2>\n                        <p id=\"7\" data-element-id=\"\
-          7\" class=\"cp-text\">Remember that no method is completely secure and what\
-          \ measures you should take depend on how much anonymity you need. Before using\
-          \ any of these apps or tools, consider taking a few extra security precautions,\
-          \ including: considering whether the network you use can be used to identify\
-          \ you or your activity; using a secure <a href=\"https://www.torproject.org/\"\
-          \ target=\"_blank\" rel=\"noopener nofollow noreferrer\">web browser</a> or\
-          \ <a href=\"https://tails.boum.org/\" target=\"_blank\" rel=\"noopener nofollow\
-          \ noreferrer\">operating system</a>; disabling features that back data up\
-          \ to cloud services; and avoiding using accounts or devices linked to your\
-          \ name, email or phone number.</p>\n                        <p id=\"8\" data-element-id=\"\
-          8\" class=\"cp-text\">The <a href=\"https://freedom.press/training/\" target=\"\
-          _blank\" rel=\"noopener nofollow noreferrer\">Freedom of the Press Foundation</a>\
-          \ (FPF) offers more detailed guides aimed at maintaining privacy and anonymity.</p>\n\
-          \                        <h2 id=\"9\" data-element-id=\"9\" class=\"cp-header\
-          \ cp-header--title\"><i class=\"cnn-icon social email\"></i> Email</h2>\n\
-          \                        <p id=\"10\" data-element-id=\"10\" class=\"cp-text\"\
-          >Regular email is convenient but not secure. Do not use it if your information\
-          \ is sensitive or if you are concerned about someone knowing that you are\
-          \ a source.</p>\n                        <p id=\"11\" data-element-id=\"11\"\
-          \ class=\"cp-text\">For more sensitive tips, you can send email encrypted\
-          \ with Pretty Good Privacy (PGP). Be aware that while the content of PGP-encrypted\
-          \ emails is secure, metadata \u2014 such as information about the sender or\
-          \ recipient, time stamps and the subject \u2014 is not. Keep in mind that\
-          \ many email providers retain your messages unless you direct otherwise.</p>\n\
-          \                        <p id=\"12\" data-element-id=\"12\" class=\"cp-text\"\
-          >Several browser extensions, such as <a href=\"https://www.mailvelope.com/\"\
-          \ target=\"_blank\" rel=\"noopener nofollow noreferrer\">Mailvelope</a>, <a\
-          \ href=\"https://enigmail.net/index.php/\" target=\"_blank\" rel=\"noopener\
-          \ nofollow noreferrer\">Enigmail</a> and <a href=\"https://flowcrypt.com/\"\
-          \ target=\"_blank\" rel=\"noopener nofollow noreferrer\">FlowCrypt</a>, make\
-          \ it easy to use PGP with existing email providers, such as Gmail. You can\
-          \ also use <a href=\"https://protonmail.com/\" target=\"_blank\" rel=\"noopener\
-          \ nofollow noreferrer\">ProtonMail</a>, an email provider that supports PGP.</p>\n\
-          \                        <p id=\"13\" data-element-id=\"13\" class=\"cp-text\"\
-          >For additional anonymity, set up a dedicated email address to communicate\
-          \ with us.</p>\n                        <p id=\"14\" data-element-id=\"14\"\
-          \ class=\"cp-text\"><strong>Email address:</strong> <a href=\"mailto:tips@cnn.com\"\
-          \ target=\"_blank\" rel=\"noopener nofollow noreferrer\">tips@cnn.com</a></p>\n\
-          \                        <p id=\"15\" data-element-id=\"15\" class=\"cp-text\"\
-          ><strong>ProtonMail address:</strong> <a href=\"mailto:cnn.tips@protonmail.com\"\
-          \ target=\"_blank\" rel=\"noopener nofollow noreferrer\">cnn.tips@protonmail.com</a></p>\n\
-          \                        <p id=\"16\" data-element-id=\"16\" class=\"cp-text\"\
-          ><strong>Public key:</strong> <a href=\"https://api.protonmail.ch/pks/lookup?op=get&search=cnn.tips@protonmail.com\"\
-          \ target=\"_blank\" rel=\"noopener nofollow noreferrer\">B4BC 1138 6DD7 BB01\
-          \ 801A 2594 0486 46F7 1E7B 788C</a></p>\n                        <p id=\"\
-          17\" data-element-id=\"17\" class=\"cp-text\"><a href=\"https://protonmail.com/signup\"\
-          \ target=\"_blank\" rel=\"noopener nofollow noreferrer\" class=\"button button-filled\"\
-          >Get ProtonMail</a> <a href=\"https://protonmail.com/security-details\" target=\"\
-          _blank\" rel=\"noopener nofollow noreferrer\" class=\"button button-outlined\"\
-          >Learn more</a> <a href=\"https://freedom.press/training/protonmail-pro/\"\
-          \ target=\"_blank\" rel=\"noopener nofollow noreferrer\" class=\"button button-outlined\"\
-          >FPF guide</a></p>\n                        <!-- <h2 id=\"18\" data-element-id=\"\
-          18\" class=\"cp-header cp-header--title\"><i class=\"cnn-icon signal\"></i>\
-          \ Signal</h2>\n                        <p id=\"19\" data-element-id=\"19\"\
-          \ class=\"cp-text\"><a href=\"https://signal.org\" target=\"_blank\" rel=\"\
-          noopener nofollow noreferrer\">Signal</a> is a free app that allows users\
-          \ to make and send encrypted calls and self-destructing text messages, images\
-          \ and videos. The Signal Protocol is end-to-end encrypted, which means only\
-          \ the sender and recipient can access the conversations. Signal does save\
-          \ some information about you, including your phone number, when you signed\
-          \ up and when you were last active, but stores no metadata about your communications.\
-          \ By default, Signal saves your messages on your device unless you configure\
-          \ them to self-destruct.</p>\n                        <p id=\"20\" data-element-id=\"\
-          20\" class=\"cp-text\">For additional anonymity, consider setting up a dedicated\
-          \ phone number to use with Signal. You can do this through several services,\
-          \ such as <a href=\"https://voice.google.com/\" target=\"_blank\" rel=\"noopener\
-          \ nofollow noreferrer\">Google Voice</a>, <a href=\"https://www.skype.com/en/skype-number/\"\
-          \ target=\"_blank\" rel=\"noopener nofollow noreferrer\">Skype</a> or <a href=\"\
-          https://twilio.com\" target=\"_blank\" rel=\"noopener nofollow noreferrer\"\
-          >Twilio</a>, or you can purchase a prepaid SIM card.</p>\n               \
-          \         <p id=\"21\" data-element-id=\"21\" class=\"cp-text\"><strong>Number:</strong>\
-          \ <a href=\"sgnl://signal.me/#p/+16463976705\" target=\"_blank\" rel=\"noopener\
-          \ nofollow noreferrer\">+1 (646) 397-6705</a></p>\n                      \
-          \  <p id=\"22\" data-element-id=\"22\" class=\"cp-text\"><a href=\"https://signal.org/install\"\
-          \ target=\"_blank\" rel=\"noopener nofollow noreferrer\" class=\"button button-filled\"\
-          >Get Signal</a> <a href=\"https://support.signal.org/hc/en-us/sections/360001614191-Security-FAQ\"\
-          \ target=\"_blank\" rel=\"noopener nofollow noreferrer\" class=\"button button-outlined\"\
-          >Learn more</a> <a href=\"https://freedom.press/training/locking-down-signal/\"\
-          \ target=\"_blank\" rel=\"noopener nofollow noreferrer\" class=\"button button-outlined\"\
-          >FPF guide</a></p>\n                        <h2 id=\"23\" data-element-id=\"\
-          23\" class=\"cp-header cp-header--title\"><i class=\"cnn-icon social whatsapp\"\
-          ></i> WhatsApp</h2>\n                        <p id=\"24\" data-element-id=\"\
-          24\" class=\"cp-text\"><a href=\"https://whatsapp.com\" target=\"_blank\"\
-          \ rel=\"noopener nofollow noreferrer\">WhatsApp</a> is a free app that secures\
-          \ phone calls and text messages using end-to-end encryption and allows you\
-          \ to delete messages even after they\u2019ve been read. The app is <a href=\"\
-          https://money.cnn.com/2014/02/19/technology/social/facebook-whatsapp/\" target=\"\
-          _blank\" rel=\"noopener nofollow noreferrer\">owned by Meta</a>, which also\
-          \ owns Facebook and Instagram, and retains a significant amount of metadata\
-          \ about conversations. However, WhatsApp claims neither it, nor third parties,\
-          \ can see users\u2019 private conversations.</p>\n                       \
-          \ <p id=\"25\" data-element-id=\"25\" class=\"cp-text\">For additional anonymity,\
-          \ consider setting up a dedicated phone number to use with WhatsApp. You can\
-          \ do this through several services, such as <a href=\"https://voice.google.com/\"\
-          \ target=\"_blank\" rel=\"noopener nofollow noreferrer\">Google Voice</a>,\
-          \ <a href=\"https://www.skype.com/en/skype-number/\" target=\"_blank\" rel=\"\
-          noopener nofollow noreferrer\">Skype</a> or <a href=\"https://twilio.com\"\
-          \ target=\"_blank\" rel=\"noopener nofollow noreferrer\">Twilio</a>, or you\
-          \ can purchase a prepaid SIM card.</p>\n                        <p id=\"26\"\
-          \ data-element-id=\"26\" class=\"cp-text\"><strong>Number:</strong> <a href=\"\
-          https://wa.me/16463976705\" target=\"_blank\" rel=\"noopener nofollow noreferrer\"\
-          >+1 (646) 397-6705</a></p>\n                        <p id=\"27\" data-element-id=\"\
-          27\" class=\"cp-text\"><a href=\"https://www.whatsapp.com/download\" target=\"\
-          _blank\" rel=\"noopener nofollow noreferrer\" class=\"button button-filled\"\
-          >Get WhatsApp</a> <a href=\"https://www.whatsapp.com/security\" target=\"\
-          _blank\" rel=\"noopener nofollow noreferrer\" class=\"button button-outlined\"\
-          >Learn more</a> <a href=\"https://freedom.press/training/upgrading-whatsapp-security/\"\
-          \ target=\"_blank\" rel=\"noopener nofollow noreferrer\" class=\"button button-outlined\"\
-          >FPF guide</a></p> -->\n                        <h2 id=\"33\" data-element-id=\"\
-          33\" class=\"cp-header cp-header--title\"><i class=\"cnn-icon location\"></i>\
-          \ Postal mail</h2>\n                        <p id=\"34\" data-element-id=\"\
-          34\" class=\"cp-text\">Traditional first-class mail is still among the safest\
-          \ ways to communicate securely.</p>\n                        <p id=\"35\"\
-          \ data-element-id=\"35\" class=\"cp-text\">When sending tips through postal\
-          \ mail, don\u2019t include a return address on the letter\u2019s face. (If\
-          \ you\u2019d like us to be able to contact you, include your contact information\
-          \ inside the letter.) Make sure any writing on the letter\u2019s face is typed,\
-          \ not handwritten, and send your letter from a sidewalk mailbox and not your\
-          \ home, workplace or a post office.</p>\n                        <p id=\"\
-          36\" data-element-id=\"36\" class=\"cp-text\">Send mail to:</p>\n        \
-          \                <blockquote id=\"37\" data-element-id=\"37\" class=\"cp-media\
-          \ cp-blockquote\"><address>Tips<br>\u2105 CNN Investigates<br>30 Hudson Yards,\
-          \ Fl 21<br>New York, NY 10001<br>United States of America</address></blockquote></blockquote>\n\
-          \                    </section>\n                </article>\n            \n\
-          \                <footer id=\"page-footer\" class=\"page-footer sc-fzoydu\
-          \ gZRuNw page-footer\">\n                    <div class=\"sc-AxmLO fsUIiy\"\
-          >\n                        <div class=\"sc-AxheI jLyvlV\">\n             \
-          \               <div class=\"sc-Axmtr dYDhPj\">\n                        \
-          \        <div class=\"sc-Axmtr sc-fzpkqZ iSuUst\">\n                     \
-          \               <div size=\"40\" class=\"sc-Axmtr sc-fzoyTs heYAcf\">\n  \
-          \                                      <a href=\"/\" aria-label=\"CNN\" data-analytics=\"\
-          footer\" color=\"#0C0C0C\" mode=\"light\" class=\"sc-fzoXzr sc-fzpjYC gUnSfk\"\
-          >\n                                            <svg class=\"cnn-badge-icon\"\
-          \ width=\"40\" height=\"40\" viewBox=\"0 0 240 240\" fill=\"#CC0000\"\n  \
-          \                                              xmlns=\"https://www.w3.org/2000/svg\"\
-          \ aria-hidden=\"true\">\n                                                <rect\
-          \ x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" fill=\"#fff\"></rect>\n \
-          \                                               <path d=\"M.31-.07v240h240V-.07ZM86.54,135.29V92.51c0-16.1,20.81-23.83,31.82-5.12.8,1.35,18.14,31.22,18.14,31.22V92.51c0-16.1,20.8-23.83,31.81-5.12.8,1.35,18.14,31.22,18.14,31.22V76.79h10.38V147a2.11,2.11,0,0,1-1.51,2.14c-1.1.3-2.26-.38-3.11-1.82-.17-.28-9-15.46-17.48-30.13L159.17,90.4c-2.18-3.7-5.43-4.35-7.74-3.72a6.23,6.23,0,0,0-4.55,6.13V147a2.12,2.12,0,0,1-1.51,2.14c-1.11.3-2.27-.38-3.11-1.82-.15-.25-8.34-14.36-16.25-28-10.08-17.38-16.7-28.78-16.8-28.95-2.18-3.71-5.44-4.35-7.77-3.72a6.24,6.24,0,0,0-4.56,6.13v53.05a2.9,2.9,0,0,1-2.72,2.71H67.23a28.64,28.64,0,0,1,0-57.28h14v10.36H67.35a18.28,18.28,0,1,0,0,36.56H83.68A2.84,2.84,0,0,0,86.54,135.29Zm124.77,12.05c0,16.1-20.81,23.83-31.82,5.13-.79-1.35-18.14-31.23-18.14-31.23v26.1c0,16.1-20.8,23.83-31.81,5.13-.8-1.35-18.14-31.23-18.14-31.23v24.61c0,11.17-6.63,17.22-17,17.22H67.25a43.14,43.14,0,0,1,0-86.28h14V87.15h-14a32.78,32.78,0,1,0,0,65.56H94.16a7,7,0,0,0,6.86-6.85V92.81a2.1,2.1,0,0,1,1.51-2.13c1.1-.3,2.26.38,3.11,1.82l16.79,28.93c9.76,16.83,16.17,27.88,16.25,28,2.19,3.7,5.45,4.35,7.78,3.71A6.22,6.22,0,0,0,151,147V92.82a2.11,2.11,0,0,1,1.49-2.14c1.09-.3,2.24.38,3.08,1.82l15.56,26.81,17.49,30.15c1.71,2.9,4.09,3.93,6.16,3.93a6,6,0,0,0,1.61-.22A6.23,6.23,0,0,0,201,147V76.79h10.34Z\"\
-          \ transform=\"translate(-0.31 0.07)\"></path>\n                          \
-          \                  </svg>\n                                        </a>\n\
-          \                                    </div>\n                            \
-          \    </div>\n                                <div class=\"sc-Axmtr sc-fzoYHE\
-          \ hIwgCg\">\n                                    <div data-test=\"social-follow-bar\"\
-          \ class=\"sc-Axmtr sc-fzomME glCpWV\"><span font-weight=\"bold\"\n       \
-          \                                     data-test=\"follow-text\" font-size=\"\
-          12\" letter-spacing=\"1.5\" class=\"sc-fzoLsD cYCcKV\">Follow\n          \
-          \                                  CNN </span>\n                         \
-          \               <div mode=\"dark\" class=\"sc-AxjAm sc-fzqMAW kHpzoj\"></div>\n\
-          \                                        <ul class=\"sc-AxjAm hiNUxI\">\n\
-          \                                            <li class=\"sc-AxjAm bThiiM\"\
-          >\n                                                <a href=\"https://www.facebook.com/cnn\"\
-          \n                                                    target=\"_blank noreferrer\"\
-          \ rel=\"noopener\" data-icon=\"facebook\" aria-label=\"Facebook\"\n      \
-          \                                              name=\"Facebook\" mode=\"dark\"\
-          \ color=\"#0C0C0C\"\n                                                    class=\"\
-          sc-fzoXzr sc-fzpjYC sc-fzqAbL iQmyJJ\"><svg class=\"facebook-icon\" width=\"\
-          64\" height=\"64\" viewBox=\"0 0 64 64\" fill=\"\" xmlns=\"https://www.w3.org/2000/svg\"\
-          \ aria-hidden=\"true\">\n                                                \
-          \        <path d=\"M56,5.1H8c-1.6,0-3,1.4-3,3v48.8c0,1.7,1.3,3,3,3h25.9V38.7h-7v-8.3h7v-6.1\
-          \ c0-7.1,4.3-10.9,10.5-10.9c3,0,5.9,0.2,6.7,0.3v7.7h-4.7c-3.4,0-4.1,1.6-4.1,4v5h8.1l-1,8.3h-7v21.2H56c1.6,0,3-1.4,3-3V8.1\
-          \ C59,6.4,57.7,5.1,56,5.1\"></path>\n                                    \
-          \                </svg>\n                                                </a>\n\
-          \                                            </li>\n                     \
-          \                       <li class=\"sc-AxjAm bThiiM\">\n                 \
-          \                               <a href=\"https://twitter.com/cnn\"\n    \
-          \                                                target=\"_blank noreferrer\"\
-          \n                                                    rel=\"noopener\" data-icon=\"\
-          twitter\" aria-label=\"Twitter\" name=\"Twitter\" mode=\"dark\"\n        \
-          \                                            color=\"#0C0C0C\" class=\"sc-fzoXzr\
-          \ sc-fzpjYC sc-fzqAbL iQmyJJ\"><svg\n                                    \
-          \                    class=\"twitter-icon\" width=\"64\" height=\"64\" viewBox=\"\
-          0 0 64 64\" fill=\"\"\n                                                  \
-          \      xmlns=\"https://www.w3.org/2000/svg\" aria-hidden=\"true\">\n     \
-          \                                                   <path d=\"M60,15.2c-2.1,0.9-4.3,1.5-6.6,1.7c2.4-1.4,4.2-3.6,5.1-6.1c-2.2,1.3-4.7,2.2-7.3,2.7\
-          \ c-2.1-2.2-5.1-3.5-8.4-3.5c-6.3,0-11.5,5-11.5,11.1c0,0.9,0.1,1.7,0.3,2.5C22,23.2,13.6,18.8,7.9,12c-1,1.6-1.6,3.5-1.6,5.6\
-          \ c0,3.9,2,7.3,5.1,9.2c-1.9-0.1-3.7-0.6-5.2-1.4v0.1c0,5.4,4,9.9,9.2,10.9c-1,0.3-2,0.4-3,0.4c-0.7,0-1.5-0.1-2.2-0.2\
-          \ c1.5,4.4,5.7,7.6,10.7,7.7c-3.9,3-8.9,4.8-14.3,4.8c-0.9,0-1.8-0.1-2.7-0.2c5.1,3.2,11.1,5,17.6,5c21.1,0,32.7-16.9,32.7-31.6\
-          \ c0-0.5,0-1,0-1.4C56.5,19.4,58.5,17.4,60,15.2\"></path>\n               \
-          \                                     </svg>\n                           \
-          \                     </a>\n                                            </li>\n\
-          \                                            <li class=\"sc-AxjAm bThiiM\"\
-          >\n                                                <a href=\"https://instagram.com/cnn\"\
-          \ target=\"_blank noreferrer\"\n                                         \
-          \           rel=\"noopener\" data-icon=\"instagram\" aria-label=\"Instagram\"\
-          \ name=\"Instagram\"\n                                                   \
-          \ mode=\"dark\" color=\"#0C0C0C\" class=\"sc-fzoXzr sc-fzpjYC sc-fzqAbL iQmyJJ\"\
-          ><svg\n                                                        class=\"instagram-icon\"\
-          \ width=\"64\" height=\"64\" viewBox=\"0 0 64 64\" fill=\"\"\n           \
-          \                                             xmlns=\"https://www.w3.org/2000/svg\"\
-          \ aria-hidden=\"true\">\n                                                \
-          \        <path d=\"M47,13.2c-1.9,0-3.5,1.6-3.5,3.6s1.6,3.6,3.5,3.6s3.5-1.6,3.5-3.6S49,13.2,47,13.2\
-          \ L47,13.2z M31.9,23c-5.1,0-9.3,4.3-9.3,9.5s4.2,9.5,9.3,9.5s9.3-4.3,9.3-9.5S37,23,31.9,23L31.9,23z\
-          \ M31.9,46.7 c-7.7,0-14-6.4-14-14.2s6.3-14.2,14-14.2s14,6.4,14,14.2S39.6,46.7,31.9,46.7L31.9,46.7z\
-          \ M15.7,8.8c-3.9,0-7,3.2-7,7.1v33.2 c0,3.9,3.1,7.1,7,7.1h32.7c3.9,0,7-3.2,7-7.1V15.9c0-3.9-3.1-7.1-7-7.1C48.4,8.8,15.7,8.8,15.7,8.8z\
-          \ M48.3,60.9H15.7 C9.2,60.9,4,55.6,4,49.1V15.9C4,9.4,9.2,4.1,15.7,4.1h32.7C54.8,4.1,60,9.4,60,15.9v33.2C60,55.6,54.8,60.9,48.3,60.9L48.3,60.9z\"\
-          ></path>\n                                                    </svg>\n   \
-          \                                             </a>\n                     \
-          \                       </li>\n                                        </ul>\n\
-          \                                    </div>\n                            \
-          \    </div>\n                            </div>\n                        </div>\n\
-          \                    </div>\n                    <div class=\"sc-AxmLO fsUIiy\"\
-          >\n                        <div class=\"sc-AxheI jLyvlV\">\n             \
-          \               <div class=\"sc-AxjAm sc-fzoaKM cEPWi\">\n               \
-          \                 <hr mode=\"dark\" class=\"sc-fzoJMP pBLpg\">\n         \
-          \                   </div>\n                            <div class=\"sc-AxjAm\
-          \ dXPCCY\">\n                                <nav mode=\"dark\" data-role=\"\
-          nav-links\" class=\"sc-fzolEj isffxt\">\n                                \
-          \    <ul mode=\"dark\" type=\"condensed\" class=\"sc-fzqBkg gEYcfx\">\n  \
-          \                                      <li mode=\"dark\" type=\"condensed\"\
-          \ data-section=\"terms of use\" class=\"sc-fzqPZZ gjbhLh\"><a\n          \
-          \                                  mode=\"dark\" type=\"condensed\" name=\"\
-          terms-of-use\" href=\"/terms\" data-analytics=\"footer\"\n               \
-          \                             title=\"visit the Terms of Use section\" class=\"\
-          sc-fznWOq sc-fzoxKX gEUysD\">Terms of\n                                  \
-          \          Use</a>\n                                        </li>\n      \
-          \                                  <li mode=\"dark\" type=\"condensed\" data-section=\"\
-          privacy policy\" class=\"sc-fzqPZZ gjbhLh\"><a\n                         \
-          \                   mode=\"dark\" type=\"condensed\" name=\"privacy-policy\"\
-          \ href=\"/privacy\"\n                                            data-analytics=\"\
-          footer\" title=\"visit the Privacy Policy section\"\n                    \
-          \                        class=\"sc-fznWOq sc-fzoxKX gEUysD\">Privacy Policy</a>\n\
-          \                                        </li>\n                         \
-          \               <li mode=\"dark\" type=\"condensed\" data-section=\"accessibility\
-          \ &amp; cc\" class=\"sc-fzqPZZ gjbhLh\"><a mode=\"dark\" type=\"condensed\"\
-          \ name=\"accessibility-cc\" href=\"/accessibility\"\n                    \
-          \                        data-analytics=\"footer\" title=\"visit the Accessibility\
-          \ &amp; CC section\"\n                                            class=\"\
-          sc-fznWOq sc-fzoxKX gEUysD\">Accessibility &amp; CC</a>\n                \
-          \                        </li>\n                                        <li\
-          \ mode=\"dark\" type=\"condensed\" data-section=\"adchoices\" class=\"sc-fzqPZZ\
-          \ gjbhLh\"><a\n                                            mode=\"dark\" type=\"\
-          condensed\" name=\"adchoices\" href=\"https://preferences-mgr.truste.com/?pid=turnermedia01&aid=turnermedia01&type=turner_pop&pid=turnermedia01&aid=turnermedia01\"\
-          \ data-analytics=\"footer\"\n                                            title=\"\
-          visit the AdChoices section\" class=\"sc-fznWOq sc-fzoxKX gEUysD\">AdChoices</a>\n\
-          \                                        </li>\n                         \
-          \               <li mode=\"dark\" type=\"condensed\" data-section=\"about\
-          \ us\" class=\"sc-fzqPZZ gjbhLh\"><a mode=\"dark\"\n                     \
-          \                       type=\"condensed\" name=\"about-us\" href=\"/about\"\
-          \ data-analytics=\"footer\"\n                                            title=\"\
-          visit the About us section\" class=\"sc-fznWOq sc-fzoxKX gEUysD\">About Us</a>\n\
-          \                                        </li>\n                         \
-          \               <li mode=\"dark\" type=\"condensed\" data-section=\"cnn store\"\
-          \ class=\"sc-fzqPZZ gjbhLh\"><a\n                                        \
-          \    mode=\"dark\" type=\"condensed\" name=\"cnn-store\" href=\"//store.cnn.com\"\
-          \n                                            data-analytics=\"footer\" title=\"\
-          visit the CNN Store section\"\n                                          \
-          \  class=\"sc-fznWOq sc-fzoxKX gEUysD\">CNN Store</a>\n                  \
-          \                      </li>\n                                        <li\
-          \ mode=\"dark\" type=\"condensed\" data-section=\"newsletters\" class=\"sc-fzqPZZ\
-          \ gjbhLh\"><a\n                                            mode=\"dark\" type=\"\
-          condensed\" name=\"newsletters\" href=\"/newsletters\"\n                 \
-          \                           data-analytics=\"footer\" title=\"visit the Newsletters\
-          \ section\"\n                                            class=\"sc-fznWOq\
-          \ sc-fzoxKX gEUysD\">Newsletters</a>\n                                   \
-          \     </li>\n                                        <li mode=\"dark\" type=\"\
-          condensed\" data-section=\"transcripts\" class=\"sc-fzqPZZ gjbhLh\"><a\n \
-          \                                           mode=\"dark\" type=\"condensed\"\
-          \ name=\"transcripts\" href=\"/transcripts\"\n                           \
-          \                 data-analytics=\"footer\" title=\"visit the Transcripts\
-          \ section\"\n                                            class=\"sc-fznWOq\
-          \ sc-fzoxKX gEUysD\">Transcripts</a>\n                                   \
-          \     </li>\n                                        <li mode=\"dark\" type=\"\
-          condensed\" data-section=\"license footage\" class=\"sc-fzqPZZ gjbhLh\"><a\n\
-          \                                            mode=\"dark\" type=\"condensed\"\
-          \ name=\"license-footage\" href=\"/collection\"\n                        \
-          \                    data-analytics=\"footer\" title=\"visit the License Footage\
-          \ section\"\n                                            class=\"sc-fznWOq\
-          \ sc-fzoxKX gEUysD\">License Footage</a>\n                               \
-          \         </li>\n                                        <li mode=\"dark\"\
-          \ type=\"condensed\" data-section=\"cnn newsource\" class=\"sc-fzqPZZ gjbhLh\"\
-          ><a\n                                            mode=\"dark\" type=\"condensed\"\
-          \ name=\"cnn-newsource\" href=\"http://cnnnewsource.com\"\n              \
-          \                              data-analytics=\"footer\" title=\"visit the\
-          \ CNN Newsource section\"\n                                            class=\"\
-          sc-fznWOq sc-fzoxKX gEUysD\">CNN Newsource</a>\n                         \
-          \               </li>\n                                        <li mode=\"\
-          dark\" type=\"condensed\" data-section=\"sitemap\" class=\"sc-fzqPZZ gjbhLh\"\
-          ><a\n                                            mode=\"dark\" type=\"condensed\"\
-          \ name=\"sitemap\" href=\"/sitemap.html\"\n                              \
-          \              data-analytics=\"footer\" title=\"visit the Sitemap section\"\
-          \n                                            class=\"sc-fznWOq sc-fzoxKX\
-          \ gEUysD\">Sitemap</a>\n                                        </li>\n  \
-          \                                  </ul>\n                               \
-          \ </nav>\n                            </div>\n                           \
-          \ <div mode=\"dark\" data-component=\"copyright\" class=\"sc-AxjAm sc-fznxKY\
-          \ eTNDtk\">\n                                <span data-area=\"copyright-CNN\"\
-          \ class=\"sc-fzoLsD sc-fzoXWK jyRQkq\">\xA9 2022 Cable News Network.</span>\
-          \ <a data-analytics=\"footer_warnermedia-company\" href=\"https://www.warnermediagroup.com/\"\
-          \ mode=\"dark\" title=\"WarnerMedia.\" color=\"#0C0C0C\" class=\"sc-fzoXzr\
-          \ sc-fzpjYC sc-fzpmMD eGoott\">A <span style=\"font-family: 'ATT Aleck Sans',\
-          \ Helvetica, Arial, sans-serif;\"><b style=\"font-weight: 600 !important;\"\
-          >Warner</b>Media</span> Company.</a><span class=\"sc-fzoLsD sc-fzoXWK jyRQkq\"\
-          >All Rights Reserved.</span><span class=\"sc-fzoLsD sc-fzoXWK sc-fznMAR fzlawF\"\
-          >CNN Sans \u2122 &amp; \xA9 2016 Cable News Network.</span>\n            \
-          \                </div>\n                        </div>\n                \
-          \    </div>\n                </footer>\n            </main>\n        </div>\n\
-          \    </body>\n</html>\n"
-      headers:
-        Accept-Ranges:
-          - bytes
-        Age:
-          - '86333'
-        Connection:
-          - keep-alive
-        Content-Encoding:
-          - gzip
-        Content-Length:
-          - '9839'
-        Content-Type:
-          - text/html
-        Date:
-          - Mon, 04 May 2026 22:08:44 GMT
-        ETag:
-          - '"245dbe3154a3a2d092976a1421b64443"'
-        Last-Modified:
-          - Tue, 23 Sep 2025 20:57:02 GMT
-        Vary:
-          - Accept-Encoding,Origin,Accept-Language
-        Via:
-          - 1.1 varnish, 1.1 varnish, 1.1 varnish
-        X-Cache:
-          - HIT, MISS, MISS
-        X-Cache-Hits:
-          - 224, 0, 0
-        X-Served-By:
-          - cache-chi-kigq8000100-CHI, cache-ewr-kewr1740047-EWR, cache-ewr-kewr1740092-EWR
-        X-Timer:
-          - S1777932525.774625,VS0,VE31
-        alt-svc:
-          - h3=":443";ma=86400,h3-29=":443";ma=86400,h3-27=":443";ma=86400
-        cache-control:
-          - max-age=0, no-cache, no-store, must-revalidate
-        content-security-policy:
-          - default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src
-            'self'; font-src 'self';
-        expires:
-          - '-1'
-        permissions-policy:
-          - camera=(), display-capture=(), geolocation=(), microphone=(), payment=(),
-            usb=(), storage-access=()
-        pragma:
-          - no-cache
-        referrer-policy:
-          - no-referrer
-        x-content-type-options:
-          - nosniff
-        x-download-options:
-          - noopen
-        x-frame-options:
-          - DENY
-        x-permitted-cross-domain-policies:
-          - master-only
-        x-xss-protection:
-          - 1; mode=block
-      status:
-        code: 200
-        message: OK
+        '
+    headers:
+      Connection:
+      - close
+      Content-Length:
+      - '240'
+      Content-Type:
+      - text/html; charset=iso-8859-1
+      Date:
+      - Mon, 18 May 2026 18:03:45 GMT
+      Location:
+      - https://www.2600.com/securedrop/
+      Server:
+      - Apache
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 301
+      message: Moved Permanently
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate, zstd
+      Connection:
+      - keep-alive
+      User-Agent:
+      - SecureDrop Landing Page Scanner 0.1.0
+    method: GET
+    uri: https://www.2600.com/securedrop/
+  response:
+    body:
+      string: "<!doctype html>\n\n<html lang=\"en\">\n<head>\n  <meta charset=\"utf-8\"\
+        >\n\n  <title>2600 - SecureDrop</title>\n\n  <link rel=\"stylesheet\" href=\"\
+        styles.css\">\n\n  <script src=\"scripts.js\"></script>\n\n</head>\n\n<body>\n\
+        <div class=\"button link\" id=\"link-to-2600\">\n    <a href=\"https://www.2600.com\"\
+        >2600</a>\n</div>\n<div class=\"main-content securedrop-info\" id=\"securedrop-generic-info\"\
+        >\n    <h2>What is SecureDrop?</h2>\n\n    <p>SecureDrop is an anonymity tool\
+        \ for journalists and whistleblowers. As a source, you can use our SecureDrop\
+        \ installation to anonymously submit documents to our organization. Our journalists\
+        \ use SecureDrop to receive source materials and securely communicate with\
+        \ anonymous contacts.</p>\n\n    <h2>What should I know before submitting\
+        \ material through SecureDrop?</h2>\n\n    <p>To protect your anonymity when\
+        \ using SecureDrop, it is essential that you do not use a network or device\
+        \ that can easily be traced back to your real identity. Instead, use public\
+        \ wifi networks and devices you control.\n    </p>\n    <ul>\n        <li>Do\
+        \ NOT access SecureDrop on your employer's network.</li>\n        <li>Do NOT\
+        \ access SecureDrop using your employer's hardware.</li>\n        <li>Do NOT\
+        \ access SecureDrop on your home network.</li>\n        <li>DO access SecureDrop\
+        \ on a network not associated with you, like the wifi at a library or cafe.</li>\n\
+        \    </ul>\n\n    <h2>Got it. How can I submit files and messages through\
+        \ SecureDrop?</h2>\n\n    <p>Once you are connected to a public network at\
+        \ a cafe or library, download and install the Tor Browser.</p>\n\n    <p>Launch\
+        \ the Tor Browser. Visit our organization's unique SecureDrop URL at 2600.securedrop.tor.onion.\
+        \ (The direct link is cy6wj77vryhcyh6go576hxycjz4wxlo4s5vevdinkw3armwzty5jozyd.onion.)\
+        \ Follow the instructions you find on our source page to send us materials\
+        \ and messages.</p>\n\n    <p>When you make your first submission, you will\
+        \ receive a unique codename. Memorize it. If you write it down, be sure to\
+        \ destroy the copy as soon as you've committed it to memory. Use your codename\
+        \ to sign back in to our source page, check for responses from our journalists,\
+        \ and upload additional materials.</p>\n\n    <h2>As a source, what else should\
+        \ I know?</h2>\n\n    <p>No tool can absolutely guarantee your security or\
+        \ anonymity. The best way to protect your privacy and anonymity as a source\
+        \ is to adhere to best practices.</p>\n\n    <p>You can use a separate computer\
+        \ you've designated specifically to handle the submission process. Or, you\
+        \ can use an alternate operating system like Tails, which boots from a USB\
+        \ stick and erases your activity at the end of every session.</p>\n\n    <p>A\
+        \ file contains valuable metadata about its source - when it was created and\
+        \ downloaded, what machine was involved, the machine's owner, etc. You can\
+        \ scrub metadata from some files prior to submission using the Metadata Anonymization\
+        \ Toolkit featured in Tails.</p>\n\n    <p>Your online behavior can be extremely\
+        \ revealing. Regularly monitoring our publication's social media or website\
+        \ can potentially flag you as a source. Take great care to think about what\
+        \ your online behavior might reveal, and consider using Tor Browser to mitigate\
+        \ such monitoring.</p>\n\n    <p>2600: The Hacker Quarterly retains strict\
+        \ access control over our SecureDrop equipment. The staff within our organization\
+        \ will be the only beings with access to SecureDrop submissions. We control\
+        \ the server that stores your submissions, so no other entities have direct\
+        \ access to the metadata or content of what you send us. In addition 2600.com\
+        \ does not actively log user traffic, IPs, or other personally identifiable\
+        \ data and thereby does not retain such information for any purpose ever.</p>\n\
+        \n    <p>Do not discuss leaking or whistleblowing, even with trusted contacts.</p>\n\
+        </div>\n</body>\n</html>\n"
+    headers:
+      Accept-Ranges:
+      - bytes
+      Cache-Control:
+      - max-age=0, no-cache, no-store, must-revalidate
+      Connection:
+      - close
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '1743'
+      Content-Security-Policy:
+      - default-src 'self'
+      Content-Type:
+      - text/html
+      Date:
+      - Mon, 18 May 2026 18:03:45 GMT
+      ETag:
+      - '"ed1-5c371fd0d07af-gzip"'
+      Expires:
+      - '-1'
+      Last-Modified:
+      - Sat, 29 May 2021 06:20:27 GMT
+      Referrer-Policy:
+      - no-referrer
+      Server:
+      - Apache
+      Strict-Transport-Security:
+      - max-age=16070400;
+      Vary:
+      - Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - master-only
+      X-XSS-Protection:
+      - 1; mode=block
+      orig_req_proto:
+      - https
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate, zstd
+      Connection:
+      - keep-alive
+      User-Agent:
+      - SecureDrop Landing Page Scanner 0.1.0
+    method: GET
+    uri: https://www.forbes.com/fdc/securedrop.html
+  response:
+    body:
+      string: "\n<html>\n    <meta name=\"viewport\" content=\"width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no\"\
+        >\n    <title itemprop=\"headline\">How To Use Forbes SecureDrop </title>\n\
+        \    <meta name=\"description\" itemprop=\"description\" content=\"SecureDrop\
+        \ is an open-source whistleblower submission system that media organizations\
+        \ like Forbes can use to securely accept documents from and communicate with\
+        \ anonymous sources.\">\n    <meta name=\"keywords\" itemprop=\"keywords\"\
+        \ content=\"whistleblower, anonymous tips, Forbes\">\n    \n    <meta property=\"\
+        og:site_name\" content=\"Forbes\">\n    <meta property=\"og:url\" content=\"\
+        https://www.forbes.com/fdc/securedrop.html\">\n    <meta property=\"og:image\"\
+        \ content=\"https://i.forbesimg.com/media/assets/forbes_1200x1200.jpg\">\n\
+        \    <meta property=\"og:description\" content=\"SecureDrop is an open-source\
+        \ whistleblower submission system that media organizations like Forbes can\
+        \ use to securely accept documents from and communicate with anonymous sources.\"\
+        \ ng-attr-content=\"{{meta.description}}\">\n    <meta property=\"og:updated_time\"\
+        \ content=\"\">\n    <meta property=\"article:publisher\" content=\"https://www.facebook.com/forbes\"\
+        >\n    <meta property=\"article:author\" content=\"\">\n    <meta property=\"\
+        fb:app_id\" content=\"123694841080850\">\n    <meta name=\"twitter:card\"\
+        \ content=\"summary_large_image\">\n    <meta name=\"twitter:site\" content=\"\
+        @forbes\">\n    <meta name=\"twitter:title\" content=\"How To Use Forbes SecureDrop\
+        \ \">\n    <meta name=\"twitter:description\" content=\"SecureDrop is an open-source\
+        \ whistleblower submission system that media organizations like Forbes can\
+        \ use to securely accept documents from and communicate with anonymous sources.\"\
+        \ ng-attr-content=\"{{meta.description}}\">\n    <meta name=\"twitter:image\"\
+        \ itemprop=\"image\" content=\"https://i.forbesimg.com/media/assets/forbes_1200x1200.jpg\"\
+        >\n    <meta property=\"og:type\" content=\"website\">\n    <meta name=\"\
+        news_keywords\" itemprop=\"keywords\" content=\"whistleblower,anonymous tips,Forbes\"\
+        >\n    <link rel=\"shortcut icon\" href=\"//i.forbesimg.com/favicon.ico\"\
+        >\n    <link rel=\"apple-touch-icon\" href=\"//i.forbesimg.com/media/assets/appicons/forbes-app-icon_57x57.png\"\
+        >\n    <link rel=\"apple-touch-icon\" sizes=\"72x72\" href=\"//i.forbesimg.com/media/assets/appicons/forbes-app-icon_72x72.png\"\
+        >\n    <link rel=\"apple-touch-icon\" sizes=\"114x114\" href=\"//i.forbesimg.com/media/assets/appicons/forbes-app-icon_114x114.png\"\
+        >\n    <link rel=\"apple-touch-icon\" sizes=\"144x144\" href=\"//i.forbesimg.com/media/assets/appicons/forbes-app-icon_144x144.png\"\
+        >\n    <link rel=\"canonical\" itemprop=\"url\" href=\"https://www.forbes.com/fdc/securedrop.html\"\
+        \ ng-href=\"https://www.forbes.com/securedrop/\">\n    <style type=\"text/css\"\
+        >\n        a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font:inherit;vertical-align:baseline}article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}body{line-height:1;min-height:100%}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:'';content:none}table{border-collapse:collapse;border-spacing:0}button{border:0;outline:0;padding:0;background:0\
+        \ 0;cursor:pointer}a{text-decoration:none;-webkit-tap-highlight-color:transparent}h1,h2,h3,h4,h5,h6,ol,p,ul{-webkit-margin-before:0;-webkit-margin-after:0;-webkit-padding-start:0}img{max-width:100%}sup{vertical-align:super;font-size:70%}em,i{font-style:italic}b,strong{font-weight:700}.ng-cloak,.x-ng-cloak,[data-ng-cloak],[ng-cloak],[ng\\\
+        :cloak],[x-ng-cloak]{display:none!important}*,:after,:before{-ms-box-sizing:border-box;-o-box-sizing:border-box}\n\
+        \n        @font-face {\n            font-family: \"Noto Sans\";\n        \
+        \    src: url(\"https://i.forbesimg.com/assets/fonts/noto-sans/notosans-regular-webfont.eot\"\
+        );\n            src: url(\"https://i.forbesimg.com/assets/fonts/noto-sans/notosans-regular-webfont.eot?#iefix\"\
+        ) format(\"embedded-opentype\"),\n                url(\"https://i.forbesimg.com/assets/fonts/noto-sans/notosans-regular-webfont.woff2\"\
+        ) format(\"woff2\"),\n                url(\"https://i.forbesimg.com/assets/fonts/noto-sans/notosans-regular-webfont.woff\"\
+        ) format(\"woff\"),\n                url(\"https://i.forbesimg.com/assets/fonts/noto-sans/notosans-regular-webfont.ttf\"\
+        ) format(\"truetype\"),\n                url(\"https://i.forbesimg.com/assets/fonts/noto-sans/notosans-regular-webfont.svg#noto_sansregular\"\
+        ) format(\"svg\");\n            font-weight: 400;\n            font-style:\
+        \ normal;\n        }\n        .sd {\n            font: .95em/1.5em \"Noto\
+        \ Sans\", Helvetica, sans serif;\n            width: 95%;\n            margin:\
+        \ 5rem auto;\n            max-width: 1200px;\n        }\n        .sd a {\n\
+        \            text-decoration: underline;\n            color: #003891;\n  \
+        \      }\n        .hed-sd, .hed-sub-sd {\n            font-size: 1.7em;\n\
+        \            line-height: 1.1em;\n            font-weight: bold;\n       \
+        \     margin: 0 0 30px; \n        }\n        .hed-sub-sd {\n            font-size:\
+        \ 1.2em;\n            margin: 20px 0; \n        }\n        .sd ol {\n    \
+        \        list-style-type: decimal;\n            margin: 15px 25px;\n     \
+        \   }\n        .sd ol li {\n            margin: 10px 0;\n        }\n     \
+        \       header {\n                height: 3em;\n                line-height:\
+        \ 3em;\n                background: rgba(0,0,0,.8);\n                padding:\
+        \ 0;\n                position: fixed;\n                width: 100%;\n   \
+        \             top: 0;\n                left: 0;\n            }\n         \
+        \   header .row-inner, footer .row-inner {\n                width: 90%;\n\
+        \                margin: 0 auto;\n            }\n            header a {\n\
+        \                color: #fff;\n            }\n\n            header .icon-forbes-logo\
+        \ {\n            /* margin-left: 2em;*/\n            }\n\n            .logo\
+        \ {\n                padding-top: 10px;\n                display: inline-block;\n\
+        \            }\n\n            .icon-forbes-logo:before {\n               \
+        \ line-height: inherit;\n            }\n\n            footer {\n         \
+        \       background: #ebebeb;\n                border-top: 4px solid #b3b3b3;\n\
+        \                border-bottom: 5px solid #6b6b6b;\n                width:\
+        \ 100%;\n                position: bottom;\n                bottom: 0;\n \
+        \               line-height: 1.1em;\n            }\n\n            footer .row-inner\
+        \ {\n                height: 120px;\n                max-width: 1300px;\n\
+        \                margin: 0 auto;\n            }\n\n            .footer-logo\
+        \ {\n                margin-top: 20px;\n            }\n\n            .footer-logo\
+        \ .copy {\n                display: block;\n                font: 10px Helvetica;\n\
+        \                color: #b3b3b3;\n                padding: 0 0 10px;\n   \
+        \         }\n\n            .footer-logo .icon-forbes-logo {\n            \
+        \    color: #939393;\n                font-size: 38px;\n            }\n\n\
+        \            .footer-links {    \n                width: 100%;\n         \
+        \       padding-left: 0;\n            }\n\n            .footer-links li {\n\
+        \                margin-right: 10px;\n                font: 12px Helvetica;\n\
+        \                list-style-type: none;\n                display: inline-block;\n\
+        \            }\n\n            .footer-links li:last-child {\n            \
+        \    margin-right: 0;\n            }\n\n            .footer-links li:not(:last-child)\
+        \ a:after {\n                content: \"|\";\n                color: #b3b3b3;\n\
+        \                margin-left: 10px;\n            }\n\n            .footer-links\
+        \ a {\n                color: #b3b3b3;\n            }\n\n            .footer-links\
+        \ a:hover {\n                color: #000;\n                text-decoration:\
+        \ underline;\n            }\n            @media screen and (max-width: 768px)\
+        \ {\n                .sd {\n                    margin-top: 4em;\n       \
+        \         }\n                .hed-sd, .hed-sub-sd {\n                    font-size:\
+        \ 1.3em;\n                    line-height: 1.4em;\n                }\n   \
+        \             .hed-sub-sd {\n                    font-size: 1.2em;\n     \
+        \               margin: 20px 0; \n                }   \n            footer\
+        \ {\n                position: relative;\n                bottom: 0;\n   \
+        \         }\n        }\n    </style>\n    <body>\n    <!-- Header -->\n  \
+        \  <header>\n        <div class=\"row-inner\">\n            <!-- Header Logo\
+        \ -->\n            <a href=\"//www.forbes.com/\" class=\"logo\" target=\"\
+        _self\">\n                <img src=\"https://i.forbesimg.com/media/logos/forbes-static.png\"\
+        >\n            </a>\n        </div>\n    </header>\n    \n    <div class=\"\
+        sd\">\n    <h1 class=\"hed-sd\">How To Send Forbes Documents Using SecureDrop</h1>\n\
+        \    <ol>\n        <li>Download and install the Tor browser from <a href=\"\
+        https://www.torproject.org\" target=\"_blank\">https://www.torproject.org</a>.\
+        \ The Tor browser allows access to our SecureDrop page, which operates as\
+        \ a Tor \"hidden service.\"</li>\n        <li>Open the Tor browser and wait\
+        \ for the page that says a connection has been established, then copy and\
+        \ paste the following into the address bar: \n<b>http://forbes.securedrop.tor.onion</b>\n\
+        or\n<b>http://6zonlfhh7aqtfwoyvdlad3nxn6ljecx2k6tyyy3spt43nn54q6lvncid.onion</b></li>\n\
+        \        <li>Follow the instructions to send us information. Users will be\
+        \ given a codename that can be used to log back in and check for responses\
+        \ from Forbes reporters.</li>\n    </ol>\n    \n    <b>For added security,\
+        \ consider using the Tails operating system instead of the Tor Browser.</b>\n\
+        \    \n    </div>\n    \n    <footer>\n        <div class=\"row-inner\">\n\
+        \            <div class=\"footer-logo\">\n                <span class=\"copy\"\
+        >&copy; 2017 Forbes Media LLC. All Rights Reserved.</span>\n            </div>\n\
+        \            <div class=\"footer-links-wrapper\">\n                <ul class=\"\
+        footer-links\">\n                    <li class=\"desk\"><a href=\"https://preferences-mgr.truste.com/?pid=forbes01\"\
+        \ target=\"_blank\">AdChoices</a></li>\n                    <li><a href=\"\
+        //www.forbes.com/fdc/privacy.html\" target=\"_self\">Privacy Statement</a></li>\n\
+        \                    <li><a href=\"//www.forbes.com/terms\" target=\"_self\"\
+        >Terms and Conditions</a></li>\n                    <li><a href=\"//www.forbes.com/fdc/contact.html\"\
+        \ target=\"_self\">Contact Us</a></li>\n                    <li><a href=\"\
+        mailto://feedback@forbes.com\">Send Us Feedback</a></li>\n               \
+        \     <li><a href=\"//www.forbes.com/sites/careers-at-forbes/\" target=\"\
+        _self\">Jobs At Forbes</a></li>\n                    <li><a href=\"http://forbesreprints.magreprints.com/\"\
+        \ target=\"_blank\">Reprints & Permissions</a></li>\n                    <li><a\
+        \ href=\"//www.forbes.com/sites/forbespr/\" target=\"_self\">Forbes Press\
+        \ Room</a></li>\n                    <li><a href=\"http://www.forbesmedia.com/\"\
+        \ target=\"_blank\">Advertise</a></li>\n                </ul>\n          \
+        \  </div>\n        </div>\n    </footer>\n    </body>\n    </html>\n"
+    headers:
+      Accept-Ranges:
+      - bytes
+      Access-Control-Allow-Credentials:
+      - 'true'
+      Age:
+      - '1194901'
+      Cache-Control:
+      - max-age=0, no-cache, no-store, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '3372'
+      Content-Security-Policy:
+      - default-src 'none'; img-src https://i.forbesimg.com; style-src 'unsafe-inline'
+      Date:
+      - Mon, 18 May 2026 18:03:45 GMT
+      Permissions-Policy:
+      - unload=()
+      Pragma:
+      - no-cache
+      Referrer-policy:
+      - no-referrer
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Vary:
+      - x-malcolm, X-is-EU, X-is-CN, X-is-US-DPA, X-is-OPT-IN-JURISDICTION, X-is-STRICT-US-DPA,
+        X-is-US, X-Device, x-backend, canary, X-Is-Ad-Light, is-vwo-enabled
+      Via:
+      - 1.1 varnish
+      X-Cache:
+      - HIT
+      X-Cache-Hits:
+      - '0'
+      X-City-Code:
+      - brooklyn
+      X-Content-Type-Options:
+      - nosniff
+      X-Country-Code:
+      - US
+      X-Download-Options:
+      - noopen
+      X-Fastly-Backend:
+      - 24YyrkkiTBhSwXWzJgvwW6--F_GCP_NGINX
+      X-Fastly-X-is-CN:
+      - 'false'
+      X-Fastly-X-is-OPT-IN-JURISDICTION:
+      - 'false'
+      X-Fastly-X-is-STRICT-US-DPA:
+      - 'false'
+      X-Fastly-X-is-US:
+      - 'true'
+      X-Fastly-X-is-US-DPA:
+      - 'false'
+      X-FastlyTTL:
+      - '31536000.000'
+      X-Frame-Options:
+      - DENY
+      X-Permitted-Cross-Domain-Policies:
+      - master-only
+      X-Postal-Code:
+      - '11231'
+      X-Region:
+      - NY
+      X-Served-By:
+      - cache-nyc-kteb1890084-NYC
+      X-Timer:
+      - S1779127426.794845,VS0,VE1
+      X-XSS-Protection:
+      - 1; mode=block
+      alt-svc:
+      - h3=":443";ma=86400,h3-29=":443";ma=86400,h3-27=":443";ma=86400
+      content-encoding:
+      - gzip
+      content-type:
+      - text/html
+      etag:
+      - W/"6911f585-2ad8"
+      last-modified:
+      - Mon, 10 Nov 2025 14:24:05 GMT
+      server:
+      - istio-envoy
+      state:
+      - HIT-CLUSTER
+      x-device:
+      - pc
+      x-envoy-upstream-service-time:
+      - '170'
+      x-fastly-server-hint:
+      - cacheable
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate, zstd
+      Connection:
+      - keep-alive
+      User-Agent:
+      - SecureDrop Landing Page Scanner 0.1.0
+    method: GET
+    uri: https://www.cnn.com/tips/
+  response:
+    body:
+      string: "\n<!doctype html>\n<html>\n    <head>\n        <!--\n        \n   \
+        \     \n                 ,%%%%%%%%%%%%(   %%%%%%%%%          (%%%%%%%%   \
+        \      %%%% ,%%%(\n              .%%%%%%%%%%%%%%%(  %%%%%%%%%%%/       %%%%%%#%%%%%\
+        \       %%%% ,%%%(\n            *%%%%%%   *%%%%%%%( .%%%% %% *%%%%      %%%%\
+        \ #%  %%%%      %%%% ,%%%(\n           %%%%%. /%%%%%%%%%%%( .%%%% %%%  %%%%\
+        \     %%%% %%%  %%%%     %%%% ,%%%(\n          %%%%% *%%%%%%(....... .%%%%\
+        \ %%%%  %%%%    %%%% %%%%  %%%%    %%%% ,%%%(\n         %%%%( %%%%%      \
+        \      .%%%% %%%%%. %%%%.  %%%% %%%%%/ %%%%*  %%%% ,%%%(\n         %%%% (%%%%\
+        \             .%%%% %%%%%%, %%%%. %%%% %%%%%%% #%%%# %%%% ,%%%(\n        .%%%#\
+        \ %%%%              .%%%% %%%%%%%( %%%%(%%%% %%%%%%%% *%%%%%%%% ,%%%(\n  \
+        \      .%%%% %%%%              .%%%% %%%%*%%%% *%%%%%%% %%%%.%%%% .%%%%%%%\
+        \ ,%%%(\n         %%%% *%%%%             .%%%% %%%%  %%%%  %%%%%% %%%%  %%%%\
+        \  %%%%%% ,%%%(\n         #%%%% #%%%%,           .%%%% %%%%   %%%%  %%%%%\
+        \ %%%%   %%%%  %%%%% ,%%%(\n          %%%%%  %%%%%%%%#######%%%%% %%%%   \
+        \ %%%%  %%%% %%%%    %%%%/ %%%% ,%%%(\n           %%%%%#  %%%%%%%%%%%%%%%%%%\
+        \ %%%%     %%%%. %%% %%%%     #%%%% %%% ,%%%(\n             %%%%%%(    ............\
+        \  %%%%      #%%%# */ %%%%      /%%%% .( (%%%(\n               %%%%%%%%%%%%%%%%%%%%%%%%%%(\
+        \       ,%%%%%%%%%%%        %%%%%%%%%%% \n                  #%%%%%%%%%%%%%%%%%%%%%\
+        \           %%%%%%%%/          /%%%%%%%#  \n        \n        \n        -->\n\
+        \        \n        <title>CNN news tips</title>\n        \n        <meta charset=\"\
+        utf-8\">\n        <meta name=\"robots\" content=\"index, follow\">\n     \
+        \   <meta name=\"googlebot\" content=\"noarchive\">\n        <meta name=\"\
+        title\" content=\"CNN news tips\">\n        <meta name=\"description\" content=\"\
+        Do you have a tip or sensitive material to share with CNN? Here\u2019s how\
+        \ to share confidential story tips and material with our journalists.\">\n\
+        \        <meta name=\"keywords\" content=\"tips, whistleblowers, leaks, journalism,\
+        \ CNN, WhatsApp, Signal, Pretty Good Privacy, PGP, encryption, encrypted email,\
+        \ ProtonMail, privacy, anonymity, security, cybersecurity\">\n        <meta\
+        \ name=\"source\" content=\"CNN\">\n        <meta name=\"section\" content=\"\
+        us\">\n        <meta name=\"subsection\" content=\"\">\n        <meta name=\"\
+        application-name\" content=\"CNN\">\n        <meta name=\"viewport\" content=\"\
+        width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no,\
+        \ shrink-to-fit=no\">\n        <meta name=\"format-detection\" content=\"\
+        telephone=no\">\n        \n        <!-- OpenGraph -->\n        <meta property=\"\
+        og:url\" content=\"https://www.cnn.com/tips/\">\n        <meta property=\"\
+        og:type\" content=\"article\">\n        <meta property=\"og:site_name\" content=\"\
+        CNN\">\n        <meta property=\"og:locale\" content=\"en_US\">\n        <meta\
+        \ property=\"og:title\" content=\"Send a tip to CNN\">\n        <meta property=\"\
+        og:description\" content=\"Do you have a tip or sensitive material to share\
+        \ with CNN? Here\u2019s how to share confidential story tips and material\
+        \ with our journalists.\">\n        <meta property=\"og:image\" content=\"\
+        https://www.cnn.com/tips/media/assets/images/cnn-investigates-tips-card.jpg\"\
+        >\n        <meta property=\"og:image:alt\" content=\"A man wearing a trench\
+        \ coat and fedora holds up a red envelope.\">\n        \n        <!-- Facebook\
+        \ -->\n        <meta property=\"fb:admins\" content=\"690014395\">\n     \
+        \   <meta property=\"fb:app_id\" content=\"80401312489\">\n        \n    \
+        \    <!-- Twitter  -->\n        <meta name=\"twitter:site\" content=\"@CNN\"\
+        >\n        <meta name=\"twitter:site:id\" content=\"759251\">\n        <meta\
+        \ name=\"twitter:creator\" content=\"@CNN\">\n        <meta name=\"twitter:card\"\
+        \ content=\"summary_large_image\">\n        <meta name=\"twitter:image\" content=\"\
+        https://www.cnn.com/tips/media/assets/images/cnn-investigates-tips-card.jpg\"\
+        >\n        <meta name=\"twitter:image:alt\" content=\"A man wearing a trench\
+        \ coat and fedora holds up a red envelope.\">\n        \n        <link rel=\"\
+        canonical\" href=\"https://www.cnn.com/tips/\">\n        <link rel=\"shortcut\
+        \ icon\" href=\"/tips/media/assets/favicon.ico\">\n        <link rel=\"apple-touch-icon\"\
+        \ href=\"/tips/media/assets/images/apple-touch-icon.png\">\n        \n   \
+        \     <link rel=\"stylesheet\" type=\"text/css\" href=\"/tips/css/cnn-tips.css?e9ddf66320bf4aef39a1\"\
+        >\n        \n        <script type=\"application/ld+json\">\n        {\n  \
+        \          \"@context\": \"https://schema.org\", \n            \"@type\":\
+        \ \"NewsArticle\",\n            \"headline\": \"Send a tip to CNN\",\n   \
+        \         \"image\": [\n                \"https://media.cnn.com/api/v1/images/stellar/prod/cnn-investigates-tips-card.jpg?q=h_900,w_1600,x_0,y_0\"\
+        ,\n                \"https://media.cnn.com/api/v1/images/stellar/prod/cnn-investigates-tips-card.jpg?q=h_300,w_400,x_0,y_0\"\
+        ,\n                \"https://media.cnn.com/api/v1/images/stellar/prod/cnn-investigates-tips-card.jpg?q=h_100,w_100,x_0,y_0\"\
+        \n            ],\n            \"keywords\": \"tips, whistleblowers, leaks,\
+        \ journalism, CNN, WhatsApp, Signal, Pretty Good Privacy, PGP, encryption,\
+        \ encrypted email, ProtonMail, privacy, anonymity, security, cybersecurity\"\
+        , \n            \"wordcount\": 683,\n            \"publisher\": {\n      \
+        \          \"@type\": \"Organization\",\n                \"name\": \"CNN\"\
+        ,\n                \"logo\": {\n                    \"@type\": \"ImageObject\"\
+        ,\n                    \"url\": \"https://www.cnn.com/media/sites/cnn/cnn.svg\"\
+        ,\n                    \"width\": 103,\n                    \"height\": 60\n\
+        \                }\n            },\n            \"author\": {\n          \
+        \      \"@type\": \"Organization\",\n                \"name\": \"CNN\",\n\
+        \                \"logo\": {\n                    \"@type\": \"ImageObject\"\
+        ,\n                    \"url\": \"https://www.cnn.com/media/sites/cnn/cnn.svg\"\
+        ,\n                    \"width\": 103,\n                    \"height\": 60\n\
+        \                }\n            },\n            \"url\": \"https://www.cnn.com/tips/\"\
+        ,\n            \"mainEntityOfPage\": {\n                \"@type\": \"WebPage\"\
+        ,\n                \"@id\": \"https://www.cnn.com/tips/\"\n            },\n\
+        \            \"datePublished\": \"2019-12-02\",\n            \"dateCreated\"\
+        : \"2019-12-02\",\n            \"dateModified\": \"2024-02-13\",\n       \
+        \     \"description\": \"How to share confidential story tips and material\
+        \ with CNN\u2019s journalists.\",\n            \"articleBody\": Do you have\
+        \ a tip or sensitive material to share with CNN? We offer several ways to\
+        \ reach our journalists. We regularly review submissions, but because we receive\
+        \ a large number, we cannot respond to or investigate every tip. Anatomy of\
+        \ a good tip Tips should be newsworthy, meaning they concern systemic problems\
+        \ of timely and broad public interest. The most compelling tips are those\
+        \ that can be corroborated with documentation or evidence. These channels\
+        \ are not for press releases. To share feedback about something you saw on\
+        \ CNN or CNN.com, use our feedback form. Before reaching out Remember that\
+        \ no method is completely secure and what measures you should take depend\
+        \ on how much anonymity you need. Before using any of these apps or tools,\
+        \ consider taking a few extra security precautions, including: considering\
+        \ whether the network you use can be used to identify you or your activity;\
+        \ using a secure web browser or operating system; disabling features that\
+        \ back data up to cloud services; and avoiding using accounts or devices linked\
+        \ to your name, email or phone number. The Freedom of the Press Foundation\
+        \ (FPF) offers more detailed guides aimed at maintaining privacy and anonymity.\
+        \  Email Regular email is convenient but not secure. Do not use it if your\
+        \ information is sensitive or if you are concerned about someone knowing that\
+        \ you are a source. For more sensitive tips, you can send email encrypted\
+        \ with Pretty Good Privacy (PGP). Be aware that while the content of PGP-encrypted\
+        \ emails is secure, metadata \u2014 such as information about the sender or\
+        \ recipient, time stamps and the subject \u2014 is not. Keep in mind that\
+        \ many email providers retain your messages unless you direct otherwise. Several\
+        \ browser extensions, such as Mailvelope, Enigmail and FlowCrypt, make it\
+        \ easy to use PGP with existing email providers, such as Gmail. You can also\
+        \ use ProtonMail, an email provider that supports PGP. For additional anonymity,\
+        \ set up a dedicated email address to communicate with us. Email address:\
+        \ tips@cnn.com ProtonMail address: cnn.tips@protonmail.com Public key: B4BC\
+        \ 1138 6DD7 BB01 801A 2594 0486 46F7 1E7B 788C Get ProtonMail Learn more FPF\
+        \ guide  Signal Signal is a free app that allows users to make and send encrypted\
+        \ calls and self-destructing text messages, images and videos. The Signal\
+        \ Protocol is end-to-end encrypted, which means only the sender and recipient\
+        \ can access the conversations. Signal does save some information about you,\
+        \ including your phone number, when you signed up and when you were last active,\
+        \ but stores no metadata about your communications. By default, Signal saves\
+        \ your messages on your device unless you configure them to self-destruct.\
+        \ For additional anonymity, consider setting up a dedicated phone number to\
+        \ use with Signal. You can do this through several services, such as Google\
+        \ Voice, Skype or Twilio, or you can purchase a prepaid SIM card. Number:\
+        \ +1 (646) 397-6705 Get Signal Learn more FPF guide  WhatsApp WhatsApp is\
+        \ a free app that secures phone calls and text messages using end-to-end encryption\
+        \ and allows you to delete messages even after they\u2019ve been read. The\
+        \ app is owned by Meta, which also owns Facebook and Instagram, and retains\
+        \ a significant amount of metadata about conversations. However, WhatsApp\
+        \ claims neither it, nor third parties, can see users\u2019 private conversations.\
+        \ For additional anonymity, consider setting up a dedicated phone number to\
+        \ use with WhatsApp. You can do this through several services, such as Google\
+        \ Voice, Skype or Twilio, or you can purchase a prepaid SIM card. Number:\
+        \ +1 (646) 397-6705 Get WhatsApp Learn more FPF guide  Postal mail Traditional\
+        \ first-class mail is still among the safest ways to communicate securely.\
+        \ When sending tips through postal mail, don\u2019t include a return address\
+        \ on the letter\u2019s face. (If you\u2019d like us to be able to contact\
+        \ you, include your contact information inside the letter.) Make sure any\
+        \ writing on the letter\u2019s face is typed, not handwritten, and send your\
+        \ letter from a sidewalk mailbox and not your home, workplace or a post office.\
+        \ Send mail to: Tips\u2105 CNN Investigates, 30 Hudson Yards, Fl 21, New York,\
+        \ NY 10001, United States of America\n        }\n        </script>\n    </head>\n\
+        \    <body id=\"body\">\n        <div id=\"app\">\n\n            <svg xmlns=\"\
+        http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"\
+        \ style=\"position:absolute;width:0;height:0;visibility:hidden; display:none;\
+        \ pointer-events: none;\">\n                <defs>\n                    <symbol\
+        \ id=\"twitterShare\" viewBox=\"0 0 64 64\" width=\"24px\" height=\"24px\"\
+        ><path d=\"M60,15.2c-2.1,0.9-4.3,1.5-6.6,1.7c2.4-1.4,4.2-3.6,5.1-6.1c-2.2,1.3-4.7,2.2-7.3,2.7\
+        \ c-2.1-2.2-5.1-3.5-8.4-3.5c-6.3,0-11.5,5-11.5,11.1c0,0.9,0.1,1.7,0.3,2.5C22,23.2,13.6,18.8,7.9,12c-1,1.6-1.6,3.5-1.6,5.6\
+        \ c0,3.9,2,7.3,5.1,9.2c-1.9-0.1-3.7-0.6-5.2-1.4v0.1c0,5.4,4,9.9,9.2,10.9c-1,0.3-2,0.4-3,0.4c-0.7,0-1.5-0.1-2.2-0.2\
+        \ c1.5,4.4,5.7,7.6,10.7,7.7c-3.9,3-8.9,4.8-14.3,4.8c-0.9,0-1.8-0.1-2.7-0.2c5.1,3.2,11.1,5,17.6,5c21.1,0,32.7-16.9,32.7-31.6\
+        \ c0-0.5,0-1,0-1.4C56.5,19.4,58.5,17.4,60,15.2\"></path></symbol>\n      \
+        \              <symbol id=\"fbShare\" viewBox=\"0 0 64 64\" width=\"24px\"\
+        \ height=\"24px\"><path d=\"M56,5.1H8c-1.6,0-3,1.4-3,3v48.8c0,1.7,1.3,3,3,3h25.9V38.7h-7v-8.3h7v-6.1\
+        \ c0-7.1,4.3-10.9,10.5-10.9c3,0,5.9,0.2,6.7,0.3v7.7h-4.7c-3.4,0-4.1,1.6-4.1,4v5h8.1l-1,8.3h-7v21.2H56c1.6,0,3-1.4,3-3V8.1\
+        \ C59,6.4,57.7,5.1,56,5.1\"></path></symbol>\n                    <symbol\
+        \ id=\"nativeShare\"  viewBox=\"0 0 64 64\" width=\"24px\" height=\"24px\"\
+        ><path d=\"M50,34.00005 C50,32.89605 50.896,32.00005 52,32.00005 C53.104,32.00005\
+        \ 54,32.89605 54,34.00005 L54,58.00005 C54,59.10405 53.104,60.00005 52,60.00005\
+        \ L12,60.00005 C10.896,60.00005 10,59.10405 10,58.00005 L10,34.00005 C10,32.89605\
+        \ 10.896,32.00005 12,32.00005 C13.104,32.00005 14,32.89605 14,34.00005 L14,56.00005\
+        \ L50,56.00005 L50,34.00005 Z M47.3867,18.38875 C47.8987,18.89475 48.1437,19.64575\
+        \ 47.9117,20.32275 C47.3677,21.91675 45.5277,22.20975 44.5067,21.20175 L33.9997,10.99975\
+        \ L33.9997,43.99975 C33.9997,44.99975 32.9997,45.99975 31.9997,45.99975 C30.9997,45.99975\
+        \ 29.9997,44.99575 29.9997,43.99975 L29.9997,10.99975 L19.4417,21.20175 C18.5717,22.06075\
+        \ 17.1077,21.97575 16.3557,20.94575 C15.7657,20.13675 15.9397,19.00175 16.6537,18.29775\
+        \ L30.3267,4.79775 C30.3267,4.79675 30.3267,4.79675 30.3277,4.79675 L30.5417,4.58575\
+        \ C31.3327,3.80475 32.6157,3.80475 33.4067,4.58575 L33.6197,4.79675 C33.6197,4.79675\
+        \ 33.6207,4.79675 33.6207,4.79775 L47.3867,18.38875 Z\"></path></symbol>\n\
+        \                    <symbol id=\"scroll-arrow\" viewBox=\"0 0 21 44\" preserveAspectRatio=\"\
+        xMidYMid meet\"><g fill=\"none\" fill-rule=\"evenodd\"><path d=\"M10.333.432v40.995\"\
+        \ stroke=\"#FFF\" stroke-width=\"2.88\"/><path fill=\"#FFF\" d=\"M21 32.746L19.12\
+        \ 31l-8.621 9.242L1.88 31 0 32.746 10.499 44z\"/></g></symbol>\n         \
+        \           <symbol id=\"scrollIcon\" viewBox=\"0 0 33 33\" preserveAspectRatio=\"\
+        xMidYMid meet\"><path d=\"M8.116 0C5.379 0-.306 1.495.013 9.19.225 14.32 5.72\
+        \ 22.257 16.5 33 27.279 22.257 32.775 14.32 32.987 9.19 33.306 1.495 27.621\
+        \ 0 24.884 0c-2.736 0-5.447 1.296-8.384 5.487C13.563 1.296 10.852 0 8.116\
+        \ 0z\" fill=\"#FFF\" fill-rule=\"evenodd\"/></symbol>\n                  \
+        \  <symbol id=\"loader\" viewBox=\"20 20 100 100\"> <defs> <linearGradient\
+        \ x1=\"50%\" y1=\"0%\" x2=\"50%\" y2=\"100%\" id=\"loader_linearGradient-1\"\
+        > <stop stop-color=\"#FFFFFF\" offset=\"0%\"></stop> <stop stop-color=\"#262626\"\
+        \ offset=\"100%\"></stop> </linearGradient> </defs> <g stroke=\"none\" stroke-width=\"\
+        1\" fill=\"none\" fill-rule=\"evenodd\" transform=\"translate(22.000000, 22.000000)\"\
+        > <circle stroke=\"url(#loader_linearGradient-1)\" stroke-width=\"3\" cx=\"\
+        48\" cy=\"48\" r=\"48\"></circle> </g> </symbol>\n                    <symbol\
+        \ id=\"cnnlogo\" viewBox=\"0 0 500 500\" preserveAspectRatio=\"xMidYMid meet\"\
+        ><g><rect x=\"0.3\" fill=\"#cc0000 \" width=\"500\" height=\"500\"/><g><path\
+        \ d=\"M106.1,249.9c0-19.7,16-38.5,35.6-38.5h29.1v-19.3h-29.3c-30.8,0-55.8,27-55.8,57.8c0,30.8,25,57.8,55.8,57.8H194c2.9,0,5.7-4.8,5.7-7.2V197.1c0-5.7,3.4-10.5,8.7-12c4.5-1.2,10.8,0,15.1,7.2c0.2,0.3,13,22.6,32.7,56.4c15.4,26.6,31.4,54.1,31.6,54.6c1.6,2.8,3.5,4.1,5.6,3.5c1.4-0.4,2.5-1.7,2.5-4.2V197.1c0-5.7,4-10.5,9.3-12c4.5-1.2,11,0,15.3,7.2c0.2,0.3,11.7,20,30.5,52.3c16.6,28.6,33.8,58.2,34.1,58.7c1.7,2.8,3,4.1,5.1,3.5c1.4-0.4,2-1.7,2-4.2V163.3H373v84.1c0,0-33.3-58.2-34.8-60.9c-21.5-36.5-61.5-21.4-61.5,10v50.9c0,0-33.3-58.2-34.8-60.9c-21.5-36.5-61.5-21.4-61.5,10v83.4c0,3-3.5,8.6-6.9,8.6h-31.8C122.1,288.4,106.1,269.6,106.1,249.9z\"\
+        /><path d=\"M401.9,163.3v139.5c0,5.7-3.4,10.5-8.7,12c-1,0.3-1.9,0.4-3.1,0.4c-4,0-8.6-2-12-7.7c-0.2-0.3-13.6-23.5-34.1-58.8c-14.8-25.5-30-51.8-30.3-52.3c-1.6-2.8-3.5-4.1-5.6-3.6c-1.3,0.4-2.5,1.7-2.5,4.2v105.7c0,5.7-3.9,10.5-9.3,12c-4.5,1.2-11.1,0-15.3-7.2c-0.2-0.3-12.8-21.8-31.8-54.6c-15.9-27.5-32.5-55.9-32.8-56.4c-1.7-2.8-3-4.1-5.1-3.5c-1.4,0.4-2,1.7-2,4.2v103.4c0,7.1-8.2,16.8-15.3,16.8h-52.5c-35.2,0-63.9-32.2-63.9-67.4c0-35.2,28.7-67.4,63.9-67.4h29.3v-19.3h-29.3c-46.4,0-84.1,40.2-84.1,86.6c0,46.4,37.7,86.6,84.1,86.6h53c20.1,0,34-14.3,34-36.1v-48c0,0,33.2,58.2,34.8,60.9c21.5,36.5,61.5,21.4,61.5-10v-50.9c0,0,33.3,58.2,34.8,60.9c21.5,36.5,61.5,21.4,61.5-10V163.3H401.9z\"\
+        /></g></g></symbol>\n                </defs>\n            </svg>\n       \
+        \     <header class=\"nav\">\n                <div class=\"nav-row content-container--margin\"\
+        >\n                    <div class=\"nav-logo nav-cell\">\n               \
+        \         <div class=\"logo\">\n                            <a href=\"https://www.cnn.com\"\
+        >\n                                <svg width=\"30px\" height=\"30px\">\n\
+        \                                    <use xmlns:xlink=\"http://www.w3.org/1999/xlink\"\
+        \ xlink:href=\"#cnnlogo\"></use>\n                                </svg>\n\
+        \                            </a>\n                        </div>\n      \
+        \              </div>\n                    <ul class=\"social-share nav-cell\
+        \ nav-share\">\n                        <li class=\"social-share__icon social-share__facebook\"\
+        >\n                            <a href=\"https://www.facebook.com/sharer/sharer.php?u=https://www.cnn.com/tips/\"\
+        \ target=\"_blank\">\n                                <svg class=\"cnn-icon\
+        \ social facebook\" data-icon=\"facebook\" width=\"24\" height=\"24\" aria-hidden=\"\
+        true\" focusable=\"false\" role=\"img\" xmlns=\"https://www.w3.org/2000/svg\"\
+        \ fill-rule=\"evenodd\" clip-rule=\"evenodd\" viewBox=\"0 0 64 64\"><path\
+        \ d=\"M56,5.1H8c-1.6,0-3,1.4-3,3v48.8c0,1.7,1.3,3,3,3h25.9V38.7h-7v-8.3h7v-6.1\
+        \ c0-7.1,4.3-10.9,10.5-10.9c3,0,5.9,0.2,6.7,0.3v7.7h-4.7c-3.4,0-4.1,1.6-4.1,4v5h8.1l-1,8.3h-7v21.2H56c1.6,0,3-1.4,3-3V8.1\
+        \ C59,6.4,57.7,5.1,56,5.1\" /></svg>\n                            </a>\n \
+        \                       </li>\n                        <li class=\"social-share__icon\
+        \ social-share__twitter\">\n                            <a href=\"https://twitter.com/intent/tweet?text=&url=https://www.cnn.com/tips/\"\
+        \ target=\"_blank\">\n                                <svg class=\"cnn-icon\
+        \ social twitter\" data-icon=\"twitter\" width=\"24\" height=\"24\" aria-hidden=\"\
+        true\" focusable=\"false\" role=\"img\" xmlns=\"https://www.w3.org/2000/svg\"\
+        \ fill-rule=\"evenodd\" clip-rule=\"evenodd\" viewBox=\"0 0 64 64\"><path\
+        \ d=\"M60,15.2c-2.1,0.9-4.3,1.5-6.6,1.7c2.4-1.4,4.2-3.6,5.1-6.1c-2.2,1.3-4.7,2.2-7.3,2.7\
+        \ c-2.1-2.2-5.1-3.5-8.4-3.5c-6.3,0-11.5,5-11.5,11.1c0,0.9,0.1,1.7,0.3,2.5C22,23.2,13.6,18.8,7.9,12c-1,1.6-1.6,3.5-1.6,5.6\
+        \ c0,3.9,2,7.3,5.1,9.2c-1.9-0.1-3.7-0.6-5.2-1.4v0.1c0,5.4,4,9.9,9.2,10.9c-1,0.3-2,0.4-3,0.4c-0.7,0-1.5-0.1-2.2-0.2\
+        \ c1.5,4.4,5.7,7.6,10.7,7.7c-3.9,3-8.9,4.8-14.3,4.8c-0.9,0-1.8-0.1-2.7-0.2c5.1,3.2,11.1,5,17.6,5c21.1,0,32.7-16.9,32.7-31.6\
+        \ c0-0.5,0-1,0-1.4C56.5,19.4,58.5,17.4,60,15.2\" /></svg>\n              \
+        \              </a>\n                        </li>\n                     \
+        \   <li class=\"social-share__icon social-share__native\">\n             \
+        \               <span style=\"cursor:pointer;\">\n                       \
+        \         <svg class=\"cnn-icon social share-os\" data-icon=\"share-os\" width=\"\
+        24\" height=\"24\" aria-hidden=\"true\" focusable=\"false\" role=\"img\" xmlns=\"\
+        https://www.w3.org/2000/svg\" fill-rule=\"evenodd\" clip-rule=\"evenodd\"\
+        \ viewBox=\"0 0 64 64\"><path d=\"M50,34.00005 C50,32.89605 50.896,32.00005\
+        \ 52,32.00005 C53.104,32.00005 54,32.89605 54,34.00005 L54,58.00005 C54,59.10405\
+        \ 53.104,60.00005 52,60.00005 L12,60.00005 C10.896,60.00005 10,59.10405 10,58.00005\
+        \ L10,34.00005 C10,32.89605 10.896,32.00005 12,32.00005 C13.104,32.00005 14,32.89605\
+        \ 14,34.00005 L14,56.00005 L50,56.00005 L50,34.00005 Z M47.3867,18.38875 C47.8987,18.89475\
+        \ 48.1437,19.64575 47.9117,20.32275 C47.3677,21.91675 45.5277,22.20975 44.5067,21.20175\
+        \ L33.9997,10.99975 L33.9997,43.99975 C33.9997,44.99975 32.9997,45.99975 31.9997,45.99975\
+        \ C30.9997,45.99975 29.9997,44.99575 29.9997,43.99975 L29.9997,10.99975 L19.4417,21.20175\
+        \ C18.5717,22.06075 17.1077,21.97575 16.3557,20.94575 C15.7657,20.13675 15.9397,19.00175\
+        \ 16.6537,18.29775 L30.3267,4.79775 C30.3267,4.79675 30.3267,4.79675 30.3277,4.79675\
+        \ L30.5417,4.58575 C31.3327,3.80475 32.6157,3.80475 33.4067,4.58575 L33.6197,4.79675\
+        \ C33.6197,4.79675 33.6207,4.79675 33.6207,4.79775 L47.3867,18.38875 Z\" id=\"\
+        path-1\" /></svg>\n                            </span>\n                 \
+        \       </li>\n                    </ul>\n                </div>\n       \
+        \     </header>\n            <main>\n                <article class=\"main-container\"\
+        >\n                    <header class=\"\">\n                        <figure\
+        \ class=\"cp-media cp-image\">\n                            <picture class=\"\
+        u-full-width\">\n                                <img src=\"/tips/media/assets/images/story-top.jpg\"\
+        \ alt=\"A man wearing a trench coat and fedora holds up a red envelope.\"\
+        \ class=\"u-full-width u-height-auto\">\n                            </picture>\n\
+        \                            <figcaption class=\"caption\">\n            \
+        \                    <span class=\"caption__credit\">Max Pepper/CNN</span>\n\
+        \                            </figcaption>\n                        </figure>\n\
+        \                        <h1 class=\"hed\">Send a tip to CNN</h1>\n      \
+        \                  <h2 class=\"dek\">How to share confidential story tips<br/>and\
+        \ material with our journalists</h2>\n                        <div class=\"\
+        cp-byline\">\n                            <div>\n                        \
+        \        <p class=\"cp-byline__published\">\n                            \
+        \        Published Dec. 2, 2019 at 12:00 p.m. ET</p>\n                   \
+        \             <p class=\"cp-byline__updated\">Updated March 18, 2022 at 9:00\
+        \ a.m. ET\n                                </p>\n                        \
+        \    </div>\n                        </div>\n                    </header>\n\
+        \                    <section>\n                        <p id=\"1\" data-element-id=\"\
+        1\" class=\"cp-text\">Do you have a tip or sensitive material to share with\
+        \ CNN? We offer several ways to reach our journalists.</p>\n             \
+        \           <p id=\"2\" data-element-id=\"2\" class=\"cp-text\">We regularly\
+        \ review submissions, but because we receive a large number, we cannot respond\
+        \ to or investigate every tip.</p>\n                        <h2 id=\"3\" data-element-id=\"\
+        3\" class=\"cp-header cp-header--title\">Anatomy of a good tip</h2>\n    \
+        \                    <p id=\"4\" data-element-id=\"4\" class=\"cp-text\">Tips\
+        \ should be newsworthy, meaning they concern systemic problems of timely and\
+        \ broad public interest. The most compelling tips are those that can be corroborated\
+        \ with documentation or evidence.</p>\n                        <p id=\"5\"\
+        \ data-element-id=\"5\" class=\"cp-text\">These channels are not for press\
+        \ releases. To share feedback about something you saw on CNN or CNN.com, use\
+        \ <a href=\"https://www.cnn.com/feedback\" target=\"_blank\" rel=\"noopener\
+        \ nofollow noreferrer\">our feedback form</a>.</p>\n                     \
+        \   <h2 id=\"6\" data-element-id=\"6\" class=\"cp-header cp-header--title\"\
+        >Before reaching out</h2>\n                        <p id=\"7\" data-element-id=\"\
+        7\" class=\"cp-text\">Remember that no method is completely secure and what\
+        \ measures you should take depend on how much anonymity you need. Before using\
+        \ any of these apps or tools, consider taking a few extra security precautions,\
+        \ including: considering whether the network you use can be used to identify\
+        \ you or your activity; using a secure <a href=\"https://www.torproject.org/\"\
+        \ target=\"_blank\" rel=\"noopener nofollow noreferrer\">web browser</a> or\
+        \ <a href=\"https://tails.boum.org/\" target=\"_blank\" rel=\"noopener nofollow\
+        \ noreferrer\">operating system</a>; disabling features that back data up\
+        \ to cloud services; and avoiding using accounts or devices linked to your\
+        \ name, email or phone number.</p>\n                        <p id=\"8\" data-element-id=\"\
+        8\" class=\"cp-text\">The <a href=\"https://freedom.press/training/\" target=\"\
+        _blank\" rel=\"noopener nofollow noreferrer\">Freedom of the Press Foundation</a>\
+        \ (FPF) offers more detailed guides aimed at maintaining privacy and anonymity.</p>\n\
+        \                        <h2 id=\"9\" data-element-id=\"9\" class=\"cp-header\
+        \ cp-header--title\"><i class=\"cnn-icon social email\"></i> Email</h2>\n\
+        \                        <p id=\"10\" data-element-id=\"10\" class=\"cp-text\"\
+        >Regular email is convenient but not secure. Do not use it if your information\
+        \ is sensitive or if you are concerned about someone knowing that you are\
+        \ a source.</p>\n                        <p id=\"11\" data-element-id=\"11\"\
+        \ class=\"cp-text\">For more sensitive tips, you can send email encrypted\
+        \ with Pretty Good Privacy (PGP). Be aware that while the content of PGP-encrypted\
+        \ emails is secure, metadata \u2014 such as information about the sender or\
+        \ recipient, time stamps and the subject \u2014 is not. Keep in mind that\
+        \ many email providers retain your messages unless you direct otherwise.</p>\n\
+        \                        <p id=\"12\" data-element-id=\"12\" class=\"cp-text\"\
+        >Several browser extensions, such as <a href=\"https://www.mailvelope.com/\"\
+        \ target=\"_blank\" rel=\"noopener nofollow noreferrer\">Mailvelope</a>, <a\
+        \ href=\"https://enigmail.net/index.php/\" target=\"_blank\" rel=\"noopener\
+        \ nofollow noreferrer\">Enigmail</a> and <a href=\"https://flowcrypt.com/\"\
+        \ target=\"_blank\" rel=\"noopener nofollow noreferrer\">FlowCrypt</a>, make\
+        \ it easy to use PGP with existing email providers, such as Gmail. You can\
+        \ also use <a href=\"https://protonmail.com/\" target=\"_blank\" rel=\"noopener\
+        \ nofollow noreferrer\">ProtonMail</a>, an email provider that supports PGP.</p>\n\
+        \                        <p id=\"13\" data-element-id=\"13\" class=\"cp-text\"\
+        >For additional anonymity, set up a dedicated email address to communicate\
+        \ with us.</p>\n                        <p id=\"14\" data-element-id=\"14\"\
+        \ class=\"cp-text\"><strong>Email address:</strong> <a href=\"mailto:tips@cnn.com\"\
+        \ target=\"_blank\" rel=\"noopener nofollow noreferrer\">tips@cnn.com</a></p>\n\
+        \                        <p id=\"15\" data-element-id=\"15\" class=\"cp-text\"\
+        ><strong>ProtonMail address:</strong> <a href=\"mailto:cnn.tips@protonmail.com\"\
+        \ target=\"_blank\" rel=\"noopener nofollow noreferrer\">cnn.tips@protonmail.com</a></p>\n\
+        \                        <p id=\"16\" data-element-id=\"16\" class=\"cp-text\"\
+        ><strong>Public key:</strong> <a href=\"https://api.protonmail.ch/pks/lookup?op=get&search=cnn.tips@protonmail.com\"\
+        \ target=\"_blank\" rel=\"noopener nofollow noreferrer\">B4BC 1138 6DD7 BB01\
+        \ 801A 2594 0486 46F7 1E7B 788C</a></p>\n                        <p id=\"\
+        17\" data-element-id=\"17\" class=\"cp-text\"><a href=\"https://protonmail.com/signup\"\
+        \ target=\"_blank\" rel=\"noopener nofollow noreferrer\" class=\"button button-filled\"\
+        >Get ProtonMail</a> <a href=\"https://protonmail.com/security-details\" target=\"\
+        _blank\" rel=\"noopener nofollow noreferrer\" class=\"button button-outlined\"\
+        >Learn more</a> <a href=\"https://freedom.press/training/protonmail-pro/\"\
+        \ target=\"_blank\" rel=\"noopener nofollow noreferrer\" class=\"button button-outlined\"\
+        >FPF guide</a></p>\n                        <!-- <h2 id=\"18\" data-element-id=\"\
+        18\" class=\"cp-header cp-header--title\"><i class=\"cnn-icon signal\"></i>\
+        \ Signal</h2>\n                        <p id=\"19\" data-element-id=\"19\"\
+        \ class=\"cp-text\"><a href=\"https://signal.org\" target=\"_blank\" rel=\"\
+        noopener nofollow noreferrer\">Signal</a> is a free app that allows users\
+        \ to make and send encrypted calls and self-destructing text messages, images\
+        \ and videos. The Signal Protocol is end-to-end encrypted, which means only\
+        \ the sender and recipient can access the conversations. Signal does save\
+        \ some information about you, including your phone number, when you signed\
+        \ up and when you were last active, but stores no metadata about your communications.\
+        \ By default, Signal saves your messages on your device unless you configure\
+        \ them to self-destruct.</p>\n                        <p id=\"20\" data-element-id=\"\
+        20\" class=\"cp-text\">For additional anonymity, consider setting up a dedicated\
+        \ phone number to use with Signal. You can do this through several services,\
+        \ such as <a href=\"https://voice.google.com/\" target=\"_blank\" rel=\"noopener\
+        \ nofollow noreferrer\">Google Voice</a>, <a href=\"https://www.skype.com/en/skype-number/\"\
+        \ target=\"_blank\" rel=\"noopener nofollow noreferrer\">Skype</a> or <a href=\"\
+        https://twilio.com\" target=\"_blank\" rel=\"noopener nofollow noreferrer\"\
+        >Twilio</a>, or you can purchase a prepaid SIM card.</p>\n               \
+        \         <p id=\"21\" data-element-id=\"21\" class=\"cp-text\"><strong>Number:</strong>\
+        \ <a href=\"sgnl://signal.me/#p/+16463976705\" target=\"_blank\" rel=\"noopener\
+        \ nofollow noreferrer\">+1 (646) 397-6705</a></p>\n                      \
+        \  <p id=\"22\" data-element-id=\"22\" class=\"cp-text\"><a href=\"https://signal.org/install\"\
+        \ target=\"_blank\" rel=\"noopener nofollow noreferrer\" class=\"button button-filled\"\
+        >Get Signal</a> <a href=\"https://support.signal.org/hc/en-us/sections/360001614191-Security-FAQ\"\
+        \ target=\"_blank\" rel=\"noopener nofollow noreferrer\" class=\"button button-outlined\"\
+        >Learn more</a> <a href=\"https://freedom.press/training/locking-down-signal/\"\
+        \ target=\"_blank\" rel=\"noopener nofollow noreferrer\" class=\"button button-outlined\"\
+        >FPF guide</a></p>\n                        <h2 id=\"23\" data-element-id=\"\
+        23\" class=\"cp-header cp-header--title\"><i class=\"cnn-icon social whatsapp\"\
+        ></i> WhatsApp</h2>\n                        <p id=\"24\" data-element-id=\"\
+        24\" class=\"cp-text\"><a href=\"https://whatsapp.com\" target=\"_blank\"\
+        \ rel=\"noopener nofollow noreferrer\">WhatsApp</a> is a free app that secures\
+        \ phone calls and text messages using end-to-end encryption and allows you\
+        \ to delete messages even after they\u2019ve been read. The app is <a href=\"\
+        https://money.cnn.com/2014/02/19/technology/social/facebook-whatsapp/\" target=\"\
+        _blank\" rel=\"noopener nofollow noreferrer\">owned by Meta</a>, which also\
+        \ owns Facebook and Instagram, and retains a significant amount of metadata\
+        \ about conversations. However, WhatsApp claims neither it, nor third parties,\
+        \ can see users\u2019 private conversations.</p>\n                       \
+        \ <p id=\"25\" data-element-id=\"25\" class=\"cp-text\">For additional anonymity,\
+        \ consider setting up a dedicated phone number to use with WhatsApp. You can\
+        \ do this through several services, such as <a href=\"https://voice.google.com/\"\
+        \ target=\"_blank\" rel=\"noopener nofollow noreferrer\">Google Voice</a>,\
+        \ <a href=\"https://www.skype.com/en/skype-number/\" target=\"_blank\" rel=\"\
+        noopener nofollow noreferrer\">Skype</a> or <a href=\"https://twilio.com\"\
+        \ target=\"_blank\" rel=\"noopener nofollow noreferrer\">Twilio</a>, or you\
+        \ can purchase a prepaid SIM card.</p>\n                        <p id=\"26\"\
+        \ data-element-id=\"26\" class=\"cp-text\"><strong>Number:</strong> <a href=\"\
+        https://wa.me/16463976705\" target=\"_blank\" rel=\"noopener nofollow noreferrer\"\
+        >+1 (646) 397-6705</a></p>\n                        <p id=\"27\" data-element-id=\"\
+        27\" class=\"cp-text\"><a href=\"https://www.whatsapp.com/download\" target=\"\
+        _blank\" rel=\"noopener nofollow noreferrer\" class=\"button button-filled\"\
+        >Get WhatsApp</a> <a href=\"https://www.whatsapp.com/security\" target=\"\
+        _blank\" rel=\"noopener nofollow noreferrer\" class=\"button button-outlined\"\
+        >Learn more</a> <a href=\"https://freedom.press/training/upgrading-whatsapp-security/\"\
+        \ target=\"_blank\" rel=\"noopener nofollow noreferrer\" class=\"button button-outlined\"\
+        >FPF guide</a></p> -->\n                        <h2 id=\"33\" data-element-id=\"\
+        33\" class=\"cp-header cp-header--title\"><i class=\"cnn-icon location\"></i>\
+        \ Postal mail</h2>\n                        <p id=\"34\" data-element-id=\"\
+        34\" class=\"cp-text\">Traditional first-class mail is still among the safest\
+        \ ways to communicate securely.</p>\n                        <p id=\"35\"\
+        \ data-element-id=\"35\" class=\"cp-text\">When sending tips through postal\
+        \ mail, don\u2019t include a return address on the letter\u2019s face. (If\
+        \ you\u2019d like us to be able to contact you, include your contact information\
+        \ inside the letter.) Make sure any writing on the letter\u2019s face is typed,\
+        \ not handwritten, and send your letter from a sidewalk mailbox and not your\
+        \ home, workplace or a post office.</p>\n                        <p id=\"\
+        36\" data-element-id=\"36\" class=\"cp-text\">Send mail to:</p>\n        \
+        \                <blockquote id=\"37\" data-element-id=\"37\" class=\"cp-media\
+        \ cp-blockquote\"><address>Tips<br>\u2105 CNN Investigates<br>30 Hudson Yards,\
+        \ Fl 21<br>New York, NY 10001<br>United States of America</address></blockquote></blockquote>\n\
+        \                    </section>\n                </article>\n            \n\
+        \                <footer id=\"page-footer\" class=\"page-footer sc-fzoydu\
+        \ gZRuNw page-footer\">\n                    <div class=\"sc-AxmLO fsUIiy\"\
+        >\n                        <div class=\"sc-AxheI jLyvlV\">\n             \
+        \               <div class=\"sc-Axmtr dYDhPj\">\n                        \
+        \        <div class=\"sc-Axmtr sc-fzpkqZ iSuUst\">\n                     \
+        \               <div size=\"40\" class=\"sc-Axmtr sc-fzoyTs heYAcf\">\n  \
+        \                                      <a href=\"/\" aria-label=\"CNN\" data-analytics=\"\
+        footer\" color=\"#0C0C0C\" mode=\"light\" class=\"sc-fzoXzr sc-fzpjYC gUnSfk\"\
+        >\n                                            <svg class=\"cnn-badge-icon\"\
+        \ width=\"40\" height=\"40\" viewBox=\"0 0 240 240\" fill=\"#CC0000\"\n  \
+        \                                              xmlns=\"https://www.w3.org/2000/svg\"\
+        \ aria-hidden=\"true\">\n                                                <rect\
+        \ x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" fill=\"#fff\"></rect>\n \
+        \                                               <path d=\"M.31-.07v240h240V-.07ZM86.54,135.29V92.51c0-16.1,20.81-23.83,31.82-5.12.8,1.35,18.14,31.22,18.14,31.22V92.51c0-16.1,20.8-23.83,31.81-5.12.8,1.35,18.14,31.22,18.14,31.22V76.79h10.38V147a2.11,2.11,0,0,1-1.51,2.14c-1.1.3-2.26-.38-3.11-1.82-.17-.28-9-15.46-17.48-30.13L159.17,90.4c-2.18-3.7-5.43-4.35-7.74-3.72a6.23,6.23,0,0,0-4.55,6.13V147a2.12,2.12,0,0,1-1.51,2.14c-1.11.3-2.27-.38-3.11-1.82-.15-.25-8.34-14.36-16.25-28-10.08-17.38-16.7-28.78-16.8-28.95-2.18-3.71-5.44-4.35-7.77-3.72a6.24,6.24,0,0,0-4.56,6.13v53.05a2.9,2.9,0,0,1-2.72,2.71H67.23a28.64,28.64,0,0,1,0-57.28h14v10.36H67.35a18.28,18.28,0,1,0,0,36.56H83.68A2.84,2.84,0,0,0,86.54,135.29Zm124.77,12.05c0,16.1-20.81,23.83-31.82,5.13-.79-1.35-18.14-31.23-18.14-31.23v26.1c0,16.1-20.8,23.83-31.81,5.13-.8-1.35-18.14-31.23-18.14-31.23v24.61c0,11.17-6.63,17.22-17,17.22H67.25a43.14,43.14,0,0,1,0-86.28h14V87.15h-14a32.78,32.78,0,1,0,0,65.56H94.16a7,7,0,0,0,6.86-6.85V92.81a2.1,2.1,0,0,1,1.51-2.13c1.1-.3,2.26.38,3.11,1.82l16.79,28.93c9.76,16.83,16.17,27.88,16.25,28,2.19,3.7,5.45,4.35,7.78,3.71A6.22,6.22,0,0,0,151,147V92.82a2.11,2.11,0,0,1,1.49-2.14c1.09-.3,2.24.38,3.08,1.82l15.56,26.81,17.49,30.15c1.71,2.9,4.09,3.93,6.16,3.93a6,6,0,0,0,1.61-.22A6.23,6.23,0,0,0,201,147V76.79h10.34Z\"\
+        \ transform=\"translate(-0.31 0.07)\"></path>\n                          \
+        \                  </svg>\n                                        </a>\n\
+        \                                    </div>\n                            \
+        \    </div>\n                                <div class=\"sc-Axmtr sc-fzoYHE\
+        \ hIwgCg\">\n                                    <div data-test=\"social-follow-bar\"\
+        \ class=\"sc-Axmtr sc-fzomME glCpWV\"><span font-weight=\"bold\"\n       \
+        \                                     data-test=\"follow-text\" font-size=\"\
+        12\" letter-spacing=\"1.5\" class=\"sc-fzoLsD cYCcKV\">Follow\n          \
+        \                                  CNN </span>\n                         \
+        \               <div mode=\"dark\" class=\"sc-AxjAm sc-fzqMAW kHpzoj\"></div>\n\
+        \                                        <ul class=\"sc-AxjAm hiNUxI\">\n\
+        \                                            <li class=\"sc-AxjAm bThiiM\"\
+        >\n                                                <a href=\"https://www.facebook.com/cnn\"\
+        \n                                                    target=\"_blank noreferrer\"\
+        \ rel=\"noopener\" data-icon=\"facebook\" aria-label=\"Facebook\"\n      \
+        \                                              name=\"Facebook\" mode=\"dark\"\
+        \ color=\"#0C0C0C\"\n                                                    class=\"\
+        sc-fzoXzr sc-fzpjYC sc-fzqAbL iQmyJJ\"><svg class=\"facebook-icon\" width=\"\
+        64\" height=\"64\" viewBox=\"0 0 64 64\" fill=\"\" xmlns=\"https://www.w3.org/2000/svg\"\
+        \ aria-hidden=\"true\">\n                                                \
+        \        <path d=\"M56,5.1H8c-1.6,0-3,1.4-3,3v48.8c0,1.7,1.3,3,3,3h25.9V38.7h-7v-8.3h7v-6.1\
+        \ c0-7.1,4.3-10.9,10.5-10.9c3,0,5.9,0.2,6.7,0.3v7.7h-4.7c-3.4,0-4.1,1.6-4.1,4v5h8.1l-1,8.3h-7v21.2H56c1.6,0,3-1.4,3-3V8.1\
+        \ C59,6.4,57.7,5.1,56,5.1\"></path>\n                                    \
+        \                </svg>\n                                                </a>\n\
+        \                                            </li>\n                     \
+        \                       <li class=\"sc-AxjAm bThiiM\">\n                 \
+        \                               <a href=\"https://twitter.com/cnn\"\n    \
+        \                                                target=\"_blank noreferrer\"\
+        \n                                                    rel=\"noopener\" data-icon=\"\
+        twitter\" aria-label=\"Twitter\" name=\"Twitter\" mode=\"dark\"\n        \
+        \                                            color=\"#0C0C0C\" class=\"sc-fzoXzr\
+        \ sc-fzpjYC sc-fzqAbL iQmyJJ\"><svg\n                                    \
+        \                    class=\"twitter-icon\" width=\"64\" height=\"64\" viewBox=\"\
+        0 0 64 64\" fill=\"\"\n                                                  \
+        \      xmlns=\"https://www.w3.org/2000/svg\" aria-hidden=\"true\">\n     \
+        \                                                   <path d=\"M60,15.2c-2.1,0.9-4.3,1.5-6.6,1.7c2.4-1.4,4.2-3.6,5.1-6.1c-2.2,1.3-4.7,2.2-7.3,2.7\
+        \ c-2.1-2.2-5.1-3.5-8.4-3.5c-6.3,0-11.5,5-11.5,11.1c0,0.9,0.1,1.7,0.3,2.5C22,23.2,13.6,18.8,7.9,12c-1,1.6-1.6,3.5-1.6,5.6\
+        \ c0,3.9,2,7.3,5.1,9.2c-1.9-0.1-3.7-0.6-5.2-1.4v0.1c0,5.4,4,9.9,9.2,10.9c-1,0.3-2,0.4-3,0.4c-0.7,0-1.5-0.1-2.2-0.2\
+        \ c1.5,4.4,5.7,7.6,10.7,7.7c-3.9,3-8.9,4.8-14.3,4.8c-0.9,0-1.8-0.1-2.7-0.2c5.1,3.2,11.1,5,17.6,5c21.1,0,32.7-16.9,32.7-31.6\
+        \ c0-0.5,0-1,0-1.4C56.5,19.4,58.5,17.4,60,15.2\"></path>\n               \
+        \                                     </svg>\n                           \
+        \                     </a>\n                                            </li>\n\
+        \                                            <li class=\"sc-AxjAm bThiiM\"\
+        >\n                                                <a href=\"https://instagram.com/cnn\"\
+        \ target=\"_blank noreferrer\"\n                                         \
+        \           rel=\"noopener\" data-icon=\"instagram\" aria-label=\"Instagram\"\
+        \ name=\"Instagram\"\n                                                   \
+        \ mode=\"dark\" color=\"#0C0C0C\" class=\"sc-fzoXzr sc-fzpjYC sc-fzqAbL iQmyJJ\"\
+        ><svg\n                                                        class=\"instagram-icon\"\
+        \ width=\"64\" height=\"64\" viewBox=\"0 0 64 64\" fill=\"\"\n           \
+        \                                             xmlns=\"https://www.w3.org/2000/svg\"\
+        \ aria-hidden=\"true\">\n                                                \
+        \        <path d=\"M47,13.2c-1.9,0-3.5,1.6-3.5,3.6s1.6,3.6,3.5,3.6s3.5-1.6,3.5-3.6S49,13.2,47,13.2\
+        \ L47,13.2z M31.9,23c-5.1,0-9.3,4.3-9.3,9.5s4.2,9.5,9.3,9.5s9.3-4.3,9.3-9.5S37,23,31.9,23L31.9,23z\
+        \ M31.9,46.7 c-7.7,0-14-6.4-14-14.2s6.3-14.2,14-14.2s14,6.4,14,14.2S39.6,46.7,31.9,46.7L31.9,46.7z\
+        \ M15.7,8.8c-3.9,0-7,3.2-7,7.1v33.2 c0,3.9,3.1,7.1,7,7.1h32.7c3.9,0,7-3.2,7-7.1V15.9c0-3.9-3.1-7.1-7-7.1C48.4,8.8,15.7,8.8,15.7,8.8z\
+        \ M48.3,60.9H15.7 C9.2,60.9,4,55.6,4,49.1V15.9C4,9.4,9.2,4.1,15.7,4.1h32.7C54.8,4.1,60,9.4,60,15.9v33.2C60,55.6,54.8,60.9,48.3,60.9L48.3,60.9z\"\
+        ></path>\n                                                    </svg>\n   \
+        \                                             </a>\n                     \
+        \                       </li>\n                                        </ul>\n\
+        \                                    </div>\n                            \
+        \    </div>\n                            </div>\n                        </div>\n\
+        \                    </div>\n                    <div class=\"sc-AxmLO fsUIiy\"\
+        >\n                        <div class=\"sc-AxheI jLyvlV\">\n             \
+        \               <div class=\"sc-AxjAm sc-fzoaKM cEPWi\">\n               \
+        \                 <hr mode=\"dark\" class=\"sc-fzoJMP pBLpg\">\n         \
+        \                   </div>\n                            <div class=\"sc-AxjAm\
+        \ dXPCCY\">\n                                <nav mode=\"dark\" data-role=\"\
+        nav-links\" class=\"sc-fzolEj isffxt\">\n                                \
+        \    <ul mode=\"dark\" type=\"condensed\" class=\"sc-fzqBkg gEYcfx\">\n  \
+        \                                      <li mode=\"dark\" type=\"condensed\"\
+        \ data-section=\"terms of use\" class=\"sc-fzqPZZ gjbhLh\"><a\n          \
+        \                                  mode=\"dark\" type=\"condensed\" name=\"\
+        terms-of-use\" href=\"/terms\" data-analytics=\"footer\"\n               \
+        \                             title=\"visit the Terms of Use section\" class=\"\
+        sc-fznWOq sc-fzoxKX gEUysD\">Terms of\n                                  \
+        \          Use</a>\n                                        </li>\n      \
+        \                                  <li mode=\"dark\" type=\"condensed\" data-section=\"\
+        privacy policy\" class=\"sc-fzqPZZ gjbhLh\"><a\n                         \
+        \                   mode=\"dark\" type=\"condensed\" name=\"privacy-policy\"\
+        \ href=\"/privacy\"\n                                            data-analytics=\"\
+        footer\" title=\"visit the Privacy Policy section\"\n                    \
+        \                        class=\"sc-fznWOq sc-fzoxKX gEUysD\">Privacy Policy</a>\n\
+        \                                        </li>\n                         \
+        \               <li mode=\"dark\" type=\"condensed\" data-section=\"accessibility\
+        \ &amp; cc\" class=\"sc-fzqPZZ gjbhLh\"><a mode=\"dark\" type=\"condensed\"\
+        \ name=\"accessibility-cc\" href=\"/accessibility\"\n                    \
+        \                        data-analytics=\"footer\" title=\"visit the Accessibility\
+        \ &amp; CC section\"\n                                            class=\"\
+        sc-fznWOq sc-fzoxKX gEUysD\">Accessibility &amp; CC</a>\n                \
+        \                        </li>\n                                        <li\
+        \ mode=\"dark\" type=\"condensed\" data-section=\"adchoices\" class=\"sc-fzqPZZ\
+        \ gjbhLh\"><a\n                                            mode=\"dark\" type=\"\
+        condensed\" name=\"adchoices\" href=\"https://preferences-mgr.truste.com/?pid=turnermedia01&aid=turnermedia01&type=turner_pop&pid=turnermedia01&aid=turnermedia01\"\
+        \ data-analytics=\"footer\"\n                                            title=\"\
+        visit the AdChoices section\" class=\"sc-fznWOq sc-fzoxKX gEUysD\">AdChoices</a>\n\
+        \                                        </li>\n                         \
+        \               <li mode=\"dark\" type=\"condensed\" data-section=\"about\
+        \ us\" class=\"sc-fzqPZZ gjbhLh\"><a mode=\"dark\"\n                     \
+        \                       type=\"condensed\" name=\"about-us\" href=\"/about\"\
+        \ data-analytics=\"footer\"\n                                            title=\"\
+        visit the About us section\" class=\"sc-fznWOq sc-fzoxKX gEUysD\">About Us</a>\n\
+        \                                        </li>\n                         \
+        \               <li mode=\"dark\" type=\"condensed\" data-section=\"cnn store\"\
+        \ class=\"sc-fzqPZZ gjbhLh\"><a\n                                        \
+        \    mode=\"dark\" type=\"condensed\" name=\"cnn-store\" href=\"//store.cnn.com\"\
+        \n                                            data-analytics=\"footer\" title=\"\
+        visit the CNN Store section\"\n                                          \
+        \  class=\"sc-fznWOq sc-fzoxKX gEUysD\">CNN Store</a>\n                  \
+        \                      </li>\n                                        <li\
+        \ mode=\"dark\" type=\"condensed\" data-section=\"newsletters\" class=\"sc-fzqPZZ\
+        \ gjbhLh\"><a\n                                            mode=\"dark\" type=\"\
+        condensed\" name=\"newsletters\" href=\"/newsletters\"\n                 \
+        \                           data-analytics=\"footer\" title=\"visit the Newsletters\
+        \ section\"\n                                            class=\"sc-fznWOq\
+        \ sc-fzoxKX gEUysD\">Newsletters</a>\n                                   \
+        \     </li>\n                                        <li mode=\"dark\" type=\"\
+        condensed\" data-section=\"transcripts\" class=\"sc-fzqPZZ gjbhLh\"><a\n \
+        \                                           mode=\"dark\" type=\"condensed\"\
+        \ name=\"transcripts\" href=\"/transcripts\"\n                           \
+        \                 data-analytics=\"footer\" title=\"visit the Transcripts\
+        \ section\"\n                                            class=\"sc-fznWOq\
+        \ sc-fzoxKX gEUysD\">Transcripts</a>\n                                   \
+        \     </li>\n                                        <li mode=\"dark\" type=\"\
+        condensed\" data-section=\"license footage\" class=\"sc-fzqPZZ gjbhLh\"><a\n\
+        \                                            mode=\"dark\" type=\"condensed\"\
+        \ name=\"license-footage\" href=\"/collection\"\n                        \
+        \                    data-analytics=\"footer\" title=\"visit the License Footage\
+        \ section\"\n                                            class=\"sc-fznWOq\
+        \ sc-fzoxKX gEUysD\">License Footage</a>\n                               \
+        \         </li>\n                                        <li mode=\"dark\"\
+        \ type=\"condensed\" data-section=\"cnn newsource\" class=\"sc-fzqPZZ gjbhLh\"\
+        ><a\n                                            mode=\"dark\" type=\"condensed\"\
+        \ name=\"cnn-newsource\" href=\"http://cnnnewsource.com\"\n              \
+        \                              data-analytics=\"footer\" title=\"visit the\
+        \ CNN Newsource section\"\n                                            class=\"\
+        sc-fznWOq sc-fzoxKX gEUysD\">CNN Newsource</a>\n                         \
+        \               </li>\n                                        <li mode=\"\
+        dark\" type=\"condensed\" data-section=\"sitemap\" class=\"sc-fzqPZZ gjbhLh\"\
+        ><a\n                                            mode=\"dark\" type=\"condensed\"\
+        \ name=\"sitemap\" href=\"/sitemap.html\"\n                              \
+        \              data-analytics=\"footer\" title=\"visit the Sitemap section\"\
+        \n                                            class=\"sc-fznWOq sc-fzoxKX\
+        \ gEUysD\">Sitemap</a>\n                                        </li>\n  \
+        \                                  </ul>\n                               \
+        \ </nav>\n                            </div>\n                           \
+        \ <div mode=\"dark\" data-component=\"copyright\" class=\"sc-AxjAm sc-fznxKY\
+        \ eTNDtk\">\n                                <span data-area=\"copyright-CNN\"\
+        \ class=\"sc-fzoLsD sc-fzoXWK jyRQkq\">\xA9 2022 Cable News Network.</span>\
+        \ <a data-analytics=\"footer_warnermedia-company\" href=\"https://www.warnermediagroup.com/\"\
+        \ mode=\"dark\" title=\"WarnerMedia.\" color=\"#0C0C0C\" class=\"sc-fzoXzr\
+        \ sc-fzpjYC sc-fzpmMD eGoott\">A <span style=\"font-family: 'ATT Aleck Sans',\
+        \ Helvetica, Arial, sans-serif;\"><b style=\"font-weight: 600 !important;\"\
+        >Warner</b>Media</span> Company.</a><span class=\"sc-fzoLsD sc-fzoXWK jyRQkq\"\
+        >All Rights Reserved.</span><span class=\"sc-fzoLsD sc-fzoXWK sc-fznMAR fzlawF\"\
+        >CNN Sans \u2122 &amp; \xA9 2016 Cable News Network.</span>\n            \
+        \                </div>\n                        </div>\n                \
+        \    </div>\n                </footer>\n            </main>\n        </div>\n\
+        \    </body>\n</html>\n"
+    headers:
+      Accept-Ranges:
+      - bytes
+      Age:
+      - '45363'
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '9839'
+      Content-Type:
+      - text/html
+      Date:
+      - Mon, 18 May 2026 18:03:45 GMT
+      ETag:
+      - '"245dbe3154a3a2d092976a1421b64443"'
+      Last-Modified:
+      - Tue, 23 Sep 2025 20:57:02 GMT
+      Vary:
+      - Accept-Encoding,Origin,Accept-Language
+      Via:
+      - 1.1 varnish, 1.1 varnish, 1.1 varnish
+      X-Cache:
+      - HIT, HIT, MISS
+      X-Cache-Hits:
+      - 350, 0, 0
+      X-Served-By:
+      - cache-chi-kigq8000100-CHI, cache-nyc-kteb1890042-NYC, cache-nyc-kteb1890078-NYC
+      X-Timer:
+      - S1779127426.907233,VS0,VE11
+      alt-svc:
+      - h3=":443";ma=86400,h3-29=":443";ma=86400,h3-27=":443";ma=86400
+      cache-control:
+      - max-age=0, no-cache, no-store, must-revalidate
+      content-security-policy:
+      - default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src
+        'self'; font-src 'self';
+      expires:
+      - '-1'
+      permissions-policy:
+      - camera=(), display-capture=(), geolocation=(), microphone=(), payment=(),
+        usb=(), storage-access=()
+      pragma:
+      - no-cache
+      referrer-policy:
+      - no-referrer
+      x-content-type-options:
+      - nosniff
+      x-download-options:
+      - noopen
+      x-frame-options:
+      - DENY
+      x-permitted-cross-domain-policies:
+      - master-only
+      x-xss-protection:
+      - 1; mode=block
+    status:
+      code: 200
+      message: OK
 version: 1
