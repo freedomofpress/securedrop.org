@@ -234,6 +234,7 @@ jobs:
       - name: Delete dev image
         if: ${{ needs.build-dev.result == 'success' && always() }}
         uses: freedomofpress/actionslib/act/delete-artifact@main
+        continue-on-error: true
         with:
           artifact: ${{ needs.build-dev.outputs.artifact-name }}
           error-if-absent: 'false'
@@ -242,6 +243,7 @@ jobs:
       - name: Delete node image
         if: ${{ needs.build-node.result == 'success' && always() }}
         uses: freedomofpress/actionslib/act/delete-artifact@main
+        continue-on-error: true
         with:
           artifact: ${{ needs.build-node.outputs.artifact-name }}
           error-if-absent: 'false'
@@ -250,6 +252,7 @@ jobs:
       - name: Delete prod image
         if: ${{ needs.build-prod.result == 'success' && always() }}
         uses: freedomofpress/actionslib/act/delete-artifact@main
+        continue-on-error: true
         with:
           artifact: ${{ needs.build-prod.outputs.artifact-name }}
           error-if-absent: 'false'
