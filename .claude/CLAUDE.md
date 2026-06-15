@@ -8,11 +8,11 @@
 
 ## Key Paths
 
-- Django project settings: `securedrop/settings/` (base, dev, production, testing, local)
-- Django apps: `blog/`, `bundles/`, `common/`, `core/`, `home/`, `menus/`, `resources/`, `search/`, `actioncenter/`, `crm/`, `gpg/`, `rate_limiting/`
-- Templates: `templates/`
-- Static source files: `core/static/` (js, css, fonts, icons, images, logo)
-- Compiled bundles output: `core/static/js/bundles/`
+- Django project settings: `securedrop/settings/` (base, dev, production, production-ci, production-debug; default is `securedrop.settings.dev`)
+- Django apps: `blog/`, `cloudflare/`, `common/`, `directory/`, `forms/`, `github/`, `home/`, `marketing/`, `menus/`, `scanner/`, `search/`, `simple/`, `build/`
+- Templates: `securedrop/templates/` (project-level) plus per-app `<app>/templates/` directories
+- Frontend source files: `client/` (`common/`, `tor/`, `autocomplete/`)
+- Compiled bundles output: `build/static/bundles/`
 - DevOps/Docker: `devops/`
 - Requirements: `requirements.txt`, `dev-requirements.txt` (compiled from `.in` files via pip-compile)
 
@@ -43,9 +43,9 @@
 - SCSS is extracted to separate CSS files via MiniCssExtractPlugin
 - `webpack-bundle-tracker` writes `webpack-stats.json` for Django integration
 - `npm run start` = dev, `npm run build` = production
-- Path alias `~` maps to `core/static/js/` for imports
+- Path alias `~` maps to `client/common/js/` for imports
 
 ## Testing
 
-- Django tests: `./manage.py test --settings=securedrop.settings.dev-testing`
-- Coverage reporting included in `make dev-tests`
+- Run the suite with `make dev-tests` (runs `coverage run ... ./manage.py test --noinput` inside the django container, then reports coverage with a 70% floor)
+- To run a subset directly: `docker compose exec django ./manage.py test <app or path> --noinput`
