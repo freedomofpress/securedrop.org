@@ -6,7 +6,7 @@ django-modelcluster>=6.2.1
 django-settings-export
 django-storages[google]>=1.14.6
 django-webpack-loader
-Django>=5.2.13,<6.0
+Django>=6.0.6,<7.0
 djangorestframework
 factory_boy
 feedparser

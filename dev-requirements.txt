@@ -327,9 +327,9 @@ defusedxml==0.7.1 \
     # via
     #   -r requirements.txt
     #   willow
-django==5.2.15 \
-    --hash=sha256:0eb4a9bb1853a35b0286dbc6d916bd352c8c2687195a7f2d6f80cefd840e4970 \
-    --hash=sha256:5154a9bf84ac01dde011e367f355c07dbb329532e06810dcf3ef2af269e236e7
+django==6.0.6 \
+    --hash=sha256:25148b1194c47c2e685e5f5e9c5d59c78b075dfd282cb9618861ba6c1708f4d2 \
+    --hash=sha256:ad03916ba59523d781ae5c3f631960c23d69a9d9c43cecda52fc23b47e953713
     # via
     #   -r requirements.txt
     #   django-anymail
