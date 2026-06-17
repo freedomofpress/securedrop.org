@@ -29,3 +29,12 @@ updates:
     commit-message:
       prefix: 'build'
       include: 'scope'
+    ignore:
+      - dependency-name: 'django'
+        update-types:
+          - 'version-update:semver-major'
+          - 'version-update:semver-minor'
+      - dependency-name: 'wagtail'
+        update-types:
+          - 'version-update:semver-major'
+          - 'version-update:semver-minor'
