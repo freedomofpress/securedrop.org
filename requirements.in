@@ -1,5 +1,5 @@
 bleach>=4.1.0
-cryptography>=46.0.7
+cryptography>=48.0.1
 django-anymail[mailgun]>=1.4
 django-csp>=3.7
 django-modelcluster>=6.2.1
