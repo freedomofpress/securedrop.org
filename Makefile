@@ -1,18 +1,24 @@
 .DEFAULT_GOAL := help
 DIR := ${CURDIR}
-WHOAMI := ${USER}
+UID := $(shell id -u)
 RAND_PORT := ${RAND_PORT}
-HOST_UID := $(shell id -u)
 GIT_REV := $(shell git rev-parse HEAD | cut -c1-10)
 GIT_BR := $(shell git rev-parse --abbrev-ref HEAD)
-SD_IMAGE := quay.io/freedomofpress/securedrop.org
+REMOTE_IMAGE := quay.io/freedomofpress/securedrop.org
 
 # Required for docker build --output
 export DOCKER_BUILDKIT = 1
 
+.PHONY: lint
+lint: ruff
+
+.PHONY: ruff
+ruff: ## Runs ruff linting in Python3 container.
+	@docker compose run --rm -T django /bin/bash -c "pip install -q ruff && ~/.local/bin/ruff check && ~/.local/bin/ruff format --check"
+
 .PHONY: dev-init
 dev-init: ## Initialize docker environment for developer workflow
-	echo UID=$(HOST_UID) > .env
+	echo UID=$(UID) > .env
 
 .PHONY: check-migrations
 check-migrations: ## Check for ungenerated migrations
@@ -53,13 +59,6 @@ compile-pip-dependencies:
 pip-update:
 	docker build --build-arg="PIP_COMPILE_ARGS=--upgrade-package=$(PACKAGE)" --target=requirements-artifacts -f ./devops/docker/DevDjangoDockerfile --output type=local,dest=$(DIR) .
 
-.PHONY: lint
-lint: ruff
-
-.PHONY: ruff
-ruff: ## Runs ruff linting in Python3 container.
-	@docker compose run --rm -T django /bin/bash -c "pip install -q ruff && ~/.local/bin/ruff check && ~/.local/bin/ruff format --check"
-
 .PHONY: bandit
 bandit: ## Runs bandit static code analysis in Python3 container.
 	@docker compose run --rm django ./scripts/bandit
@@ -70,9 +69,9 @@ clean: ## clean out local developer assets
 
 .PHONY: prod-push
 prod-push: ## Publishes prod container image to registry
-	docker tag $(SD_IMAGE):latest $(SD_IMAGE):$(GIT_REV)-$(GIT_BR)
-	docker push $(SD_IMAGE):latest
-	docker push $(SD_IMAGE):$(GIT_REV)-$(GIT_BR)
+	docker tag $(REMOTE_IMAGE):latest $(REMOTE_IMAGE):$(GIT_REV)-$(GIT_BR)
+	docker push $(REMOTE_IMAGE):latest
+	docker push $(REMOTE_IMAGE):$(GIT_REV)-$(GIT_BR)
 
 # Explaination of the below shell command should it ever break.
 # 1. Set the field separator to ": ##" and any make targets that might appear between : and ##

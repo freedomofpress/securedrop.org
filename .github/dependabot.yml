@@ -23,9 +23,18 @@ updates:
       day: 'sunday'
     cooldown:
       default-days: 7
-    open-pull-requests-limit: 0
+    open-pull-requests-limit: 10
     allow:
       - dependency-type: 'all'
     commit-message:
       prefix: 'build'
       include: 'scope'
+    ignore:
+      - dependency-name: 'django'
+        update-types:
+          - 'version-update:semver-major'
+          - 'version-update:semver-minor'
+      - dependency-name: 'wagtail'
+        update-types:
+          - 'version-update:semver-major'
+          - 'version-update:semver-minor'
