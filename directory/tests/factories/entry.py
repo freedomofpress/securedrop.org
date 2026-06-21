@@ -1,6 +1,6 @@
 import random
 import string
-from datetime import datetime
+from datetime import datetime, timezone
 
 import factory
 import wagtail_factories
@@ -91,7 +91,7 @@ class ScanResultFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = ScanResult
 
-    result_last_seen = factory.LazyFunction(datetime.utcnow)
+    result_last_seen = factory.LazyFunction(lambda: datetime.now(timezone.utc))
     live = False
 
     class Params:
