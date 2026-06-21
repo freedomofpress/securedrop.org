@@ -421,9 +421,9 @@ djangorestframework==3.17.1 \
     # via
     #   -r requirements.txt
     #   wagtail
-draftjs-exporter==2.1.7 \
-    --hash=sha256:5839cbc29d7bce2fb99837a404ca40c3a07313f2a20e2700de7ad6aa9a9a18fb \
-    --hash=sha256:d415a9964690a2cddb66a31ef32dd46c277e9b80434b94e39e3043188ed83e33
+draftjs-exporter==5.2.0 \
+    --hash=sha256:4d665f8c75fd173d2c99326405300e8defcf4961b9b2f16ff117486489c6760b \
+    --hash=sha256:f5255510a9c1de60807c1ba4be9666fb44ba263841b63329c8ce70d66146764c
     # via
     #   -r requirements.txt
     #   wagtail
