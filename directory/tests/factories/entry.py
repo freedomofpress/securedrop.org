@@ -1,16 +1,16 @@
 import random
 import string
-from datetime import datetime
 
 import factory
 import wagtail_factories
-
+from django.utils import timezone
 from faker import Faker
+
 from common.models import CustomImage
 from directory.models import DirectoryEntry, ScanResult
 from directory.tests.factories.taxonomy import (
-    LanguageFactory,
     CountryFactory,
+    LanguageFactory,
     TopicFactory,
 )
 
@@ -94,7 +94,7 @@ class ScanResultFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = ScanResult
 
-    result_last_seen = factory.LazyFunction(datetime.utcnow)
+    result_last_seen = factory.LazyFunction(timezone.now)
     live = False
 
     class Params:

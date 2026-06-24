@@ -5,6 +5,7 @@ from unittest.mock import patch, call
 from django.test import TestCase
 
 from home.tests.factories import HomePageFactory
+from github.factories import ProductFactory
 from github.models import Release
 from blog.models import BlogPage
 from blog.tests.factories import CategoryPageFactory
@@ -19,7 +20,11 @@ class FrontendCacheTestCase(TestCase):
 
     def test_cache_purged_for_release(self, purge_mock):
         "Homepage cache should be purged when a new release is added"
-        Release.objects.create(date=datetime(2016, 1, 1, 0, 0, 0, tzinfo=timezone.utc))
+        product = ProductFactory()
+        Release.objects.create(
+            product=product,
+            date=datetime(2016, 1, 1, 0, 0, 0, tzinfo=timezone.utc),
+        )
         purge_mock.assert_called_once_with(self.home_page)
 
     def test_cache_purged_for_blog_post(self, purge_mock):

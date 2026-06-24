@@ -267,9 +267,9 @@ django-csp==4.0 \
     --hash=sha256:b27010bb702eb20a3dad329178df2b61a2b82d338b70fbdc13c3a3bd28712833 \
     --hash=sha256:d5a0a05463a6b75a4f1fc1828c58c89af8db9364d09fc6e12f122b4d7f3d00dc
     # via -r requirements.in
-django-filter==23.5 \
-    --hash=sha256:67583aa43b91fe8c49f74a832d95f4d8442be628fd4c6d65e9f811f5153a4e5c \
-    --hash=sha256:99122a201d83860aef4fe77758b69dda913e874cc5e0eaa50a86b0b18d708400
+django-filter==25.2 \
+    --hash=sha256:760e984a931f4468d096f5541787efb8998c61217b73006163bf2f9523fe8f23 \
+    --hash=sha256:9c0f8609057309bba611062fe1b720b4a873652541192d232dd28970383633e3
     # via wagtail
 django-modelcluster==6.5 \
     --hash=sha256:459cbf0fb3bbc8c15ea9a2a062abc0d1ef935a38e04aa8ac3cb241c826bbc6dd \
@@ -338,9 +338,9 @@ feedparser==6.0.12 \
     --hash=sha256:64f76ce90ae3e8ef5d1ede0f8d3b50ce26bcce71dd8ae5e82b1cd2d4a5f94228 \
     --hash=sha256:6bbff10f5a52662c00a2e3f86a38928c37c48f77b3c511aedcd51de933549324
     # via -r requirements.in
-filelock==3.20.3 \
-    --hash=sha256:18c57ee915c7ec61cff0ecf7f0f869936c7c30191bb0cf406f1341778d0834e1 \
-    --hash=sha256:4b0dda527ee31078689fc205ec4f1c1bf7d56cf88b6dc9426c4f230e46c2dce1
+filelock==3.29.1 \
+    --hash=sha256:85199dfd706869641b72b2e8955d5416a4b2b7dc4b0e8e6d97b4cc1299a6983b \
+    --hash=sha256:d97e6b1b9757569626c58caa07dc4beb1613f4a2938b1e8cc81afca398906c9e
     # via tldextract
 filetype==1.2.0 \
     --hash=sha256:66b56cd6474bf41d8c54660347d37afcc3f7d1970648de365c102ef77548aadb \
@@ -443,9 +443,9 @@ google-resumable-media==2.9.0 \
     --hash=sha256:c8901e88e389af8bed64d9696c74d8bad961865eb2236e13e0bfca9bb0a65ca3 \
     --hash=sha256:f7cfb224846a9dd444d125115dfbe8ef02a2b893e78f087762fe716a255a734b
     # via google-cloud-storage
-googleapis-common-protos==1.72.0 \
-    --hash=sha256:4299c5a82d5ae1a9702ada957347726b167f9f8d1fc352477702a1e851ff4038 \
-    --hash=sha256:e55a601c1b32b52d7a3e65f43563e2aa61bcd737998ee672ac9b951cd49319f5
+googleapis-common-protos==1.75.0 \
+    --hash=sha256:53a062ff3c32552fbd62c11fe23768b78e4ddf0494d5e5fd97d3f4689c75fbbd \
+    --hash=sha256:961ed60399c457ceb0ee8f285a84c870aabc9c6a832b9d37bb281b5bebde43ed
     # via google-api-core
 gunicorn==23.0.0 \
     --hash=sha256:ec400d38950de4dfd418cff8328b2c8faed0edb0d517d3394e457c317908ca4d \
@@ -882,15 +882,15 @@ requests-file==1.5.1 \
 sgmllib3k==1.0.0 \
     --hash=sha256:7868fb1c8bfa764c1ac563d3cf369c381d1325d36124933a726f29fcdaa812e9
     # via feedparser
-six==1.16.0 \
-    --hash=sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926 \
-    --hash=sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254
+six==1.17.0 \
+    --hash=sha256:4721f391ed90541fddacab5acf947aa0d3dc7d27b2e1e8eda2be8970586c3274 \
+    --hash=sha256:ff70335d468e7eb6ec65b95b99d3a2836546063f63acc5171de367e834932a81
     # via
     #   python-dateutil
     #   requests-file
-soupsieve==2.4 \
-    --hash=sha256:49e5368c2cda80ee7e84da9dbe3e110b70a4575f196efb74e51b94549d921955 \
-    --hash=sha256:e28dba9ca6c7c00173e34e4ba57448f0688bb681b7c5e8bf4971daafc093d69a
+soupsieve==2.8.4 \
+    --hash=sha256:e121fd02e975c695e4e9e8774a5ee35d74714b59307868dcc5319ad2d9e3328e \
+    --hash=sha256:e7e6b0769c8f51ed59acab6e994b00621096cfb1c640a7509295987388fbaf65
     # via beautifulsoup4
 sqlparse==0.5.4 \
     --hash=sha256:4396a7d3cf1cd679c1be976cf3dc6e0a51d0111e87787e7a8d780e7d5a998f9e \
@@ -908,9 +908,9 @@ tinycss2==1.2.1 \
     --hash=sha256:2b80a96d41e7c3914b8cda8bc7f705a4d9c49275616e886103dd839dfc847847 \
     --hash=sha256:8cff3a8f066c2ec677c06dbc7b45619804a6938478d9d73c284b29d14ecb0627
     # via -r requirements.in
-tldextract==5.3.0 \
-    --hash=sha256:b3d2b70a1594a0ecfa6967d57251527d58e00bb5a91a74387baa0d87a0678609 \
-    --hash=sha256:f70f31d10b55c83993f55e91ecb7c5d84532a8972f22ec578ecfbe5ea2292db2
+tldextract==5.3.1 \
+    --hash=sha256:6bfe36d518de569c572062b788e16a659ccaceffc486d243af0484e8ecf432d9 \
+    --hash=sha256:a72756ca170b2510315076383ea2993478f7da6f897eef1f4a5400735d5057fb
     # via -r requirements.in
 typing-extensions==4.15.0 \
     --hash=sha256:0cea48d173cc12fa28ecabc3b837ea3cf6f38c6d1136f85cbaaf598984861466 \
@@ -943,9 +943,9 @@ wagtail-autocomplete==0.12.0 \
     --hash=sha256:17be82c7e2ab2714b01a2a3edbf29f56ba37ad72f2bebcded560c5ead9b482df \
     --hash=sha256:d1cd315475e8c776c85a75ba5eb76ceb2eb680c18334e7e9424040d7faa9b538
     # via -r requirements.in
-wagtail-factories==4.4.0 \
-    --hash=sha256:be0abb96d36bf0e3c733d7520fc1944441a379ab06d93af447fc4e71b67e2a01 \
-    --hash=sha256:c77c13d438a2e999a9220ff1829f060116013aa519a81944577353f460ba8cba
+wagtail-factories==4.5.0 \
+    --hash=sha256:4ad0e9f396fca7f7d349a8752c49f68e18deeffee9c857897b849ff08c6c33a6 \
+    --hash=sha256:d981ceaaf7715b2325f9debb1be1ffc07e338ae8957e9527f4f9175fcdff2c56
     # via -r requirements.in
 wagtail-honeypot==1.3.0 \
     --hash=sha256:8816978b15bd77d2868e94fb3e64ea5339711260413e544f7bcdd9ff3fb565c4 \

@@ -3,15 +3,15 @@ import random
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import BaseCommand
 from django.db import transaction
+from github.factories import ProductFactory, ReleaseFactory
+from home.models import HomePage
 
 from blog.models import BlogIndexPage, CategoryPage
 from blog.tests.factories import (
-    BlogPageFactory,
     BlogIndexPageFactory,
+    BlogPageFactory,
     CategoryPageFactory,
 )
-from github.factories import ReleaseFactory
-from home.models import HomePage
 
 
 class Command(BaseCommand):
@@ -47,15 +47,36 @@ class Command(BaseCommand):
 
             categories.append(category_page)
 
+        products = [
+            ProductFactory(
+                name="SecureDrop",
+                repo_full_name="freedomofpress/securedrop",
+            ),
+            ProductFactory(
+                name="SecureDrop Workstation",
+                repo_full_name="freedomofpress/securedrop-workstation",
+            ),
+        ]
+        release_announcement = next(
+            c for c in categories if c.title == "Release Announcement"
+        )
+
         for x in range(number_of_posts):
-            category = random.choice(categories)
+            # Ensure each product snippet has a release on initial generation
+            if x < len(products):
+                category = release_announcement
+                forced_product = products[x]
+            else:
+                category = random.choice(categories)
+                forced_product = None
 
             blog_page = BlogPageFactory(
                 parent=blog_index_page,
                 category=category,
             )
             if category.title == "Release Announcement":
-                release = ReleaseFactory()
+                product = forced_product or random.choice(products)
+                release = ReleaseFactory(product=product)
                 blog_page.release = release
 
             blog_page.save()
