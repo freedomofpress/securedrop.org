@@ -18,6 +18,7 @@ EventCode = enum.IntEnum(
         "UnsupportedAction",
         "ReleaseAttributeMissing",
         "UnknownRepository",
+        "SignatureNotSha256",
     ],
     # This start value is designed to be unique for the "github" app.
     # Other apps should use a different start value that does not
