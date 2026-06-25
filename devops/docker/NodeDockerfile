@@ -2,11 +2,6 @@
 FROM node:26.1.0-trixie@sha256:f6f9fae352b319e817eec5efc7721b3f06bc53104f2f800d0f778f3915835804
 
 ARG USERID
-ARG NPM_VER=11.14.1
-
-ENV NPM_CONFIG_LOGLEVEL=warn
-
-RUN npm install -g npm@${NPM_VER}
 
 RUN getent passwd "${USERID}" || useradd --create-home --no-log-init --uid "${USERID}" sdo_node
 
