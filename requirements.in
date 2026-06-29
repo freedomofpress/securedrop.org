@@ -11,7 +11,7 @@ djangorestframework
 factory_boy
 feedparser
 gunicorn>=20.1.0
-lxml>=6.1.0
+lxml>=6.1.1
 pillow>=12.2.0
 psycopg[binary]
 pygments>=2.20.0
