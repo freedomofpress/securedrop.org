@@ -50,7 +50,7 @@ $(python3 --version)
 
 #### PYTHON DEPS ####
 
-$(pip freeze)
+$(poetry show --no-ansi --no-truncate)
 
 #### SYS INFO ####
 
