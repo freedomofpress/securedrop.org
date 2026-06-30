@@ -4,3 +4,39 @@ media/
 molecule
 **/*.pyc
 .versioninfo
+
+# Python build and virtual environments
+.venv/
+venv/
+ENV/
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local Poetry / Package manager caches
+.poetry/
+.pypirc
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Node / Frontend local artifacts
+node_modules/
+.npm/
+npm-debug.log*
+
+# Git and OS metadata
+.git
+.gitignore
+.gitattributes
+.DS_Store
+Thumbs.db
+
+# Project-specific temporary run directories
+/django-media/
+/django-static/
+/django-logs/
+/deploy/
