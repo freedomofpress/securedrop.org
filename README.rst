@@ -64,8 +64,9 @@ To start the website running in your local environment, run these commands:
     # In a separate shell:
     make dev-createdevdata  # one-time command
 
-    # install pre-commit and set up hooks
-    pip install pre-commit
+    # install poetry, pre-commit and set up pre-commit hooks
+    # you can also use pipx to install poetry and pre-commit
+    brew install poetry pre-commit
     pre-commit install
 
 Visit ``http://localhost:8000/`` to see the site.
@@ -157,34 +158,16 @@ Dependency Management
 Adding new requirements
 +++++++++++++++++++++++
 
-New requirements should be added to ``*requirements.in`` files, for use with ``pip-compile``.
-There are two Python requirements files:
-
-* ``requirements.in`` production application dependencies
-* ``dev-requirements.in`` local testing and CI requirements
-
-Add the desired dependency to the appropriate ``.in`` file, then run:
+New requirements should be added to ``pyproject.toml``  by using ``poetry``.
 
 .. code:: bash
 
-    make compile-pip-dependencies
+    poetry add <package_name>
 
-All requirements files will be regenerated based on compatible versions. Multiple ``.in``
-files can be merged into a single ``.txt`` file, for use with ``pip``. The Makefile
-target handles the merging of multiple files.
+or
 
-This process is the same if a requirement needs to be changed (i.e. its version number restricted) or removed.  Make the appropriate change in the correct ``requirements.in`` file, then run the above command to compile the dependencies.
+    poetry add <package_name> --group dev
 
-Upgrading existing requirements
-+++++++++++++++++++++++++++++++
-
-There are separate commands to upgrade a package without changing the ``requirements.in`` files.  The command
-
-.. code:: bash
-
-    make pip-update PACKAGE=package-name
-
-will update the package named ``package-name`` to the latest version allowed by the constraints in ``requirements.in`` and compile a new ``dev-requirements.txt`` and ``requirements.txt`` based on that version.
 
 Advanced Actions Against the Database
 -------------------------------------
