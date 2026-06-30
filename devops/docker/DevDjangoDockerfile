@@ -5,21 +5,19 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends gcc libpq-dev && \
     rm -rf /var/lib/apt/lists/*
 
+# Stage 2: Poetry Builder (Replaces pip-tools & pip-compile stages)
 FROM python-base AS builder
-ARG PIP_COMPILE_ARGS
-RUN pip install -U pip pip-tools wheel
-COPY dev-requirements.in requirements.in dev-requirements.txt requirements.txt ./
-COPY devops/docker/pip-compile.sh /usr/local/bin
-# Pass given pip compile arguments through to the pip compile script
-RUN pip-compile.sh $PIP_COMPILE_ARGS
+ENV POETRY_NO_INTERACTION=1 \
+    POETRY_VIRTUALENVS_IN_PROJECT=1 \
+    POETRY_VIRTUALENVS_CREATE=1
+WORKDIR /src
+RUN pip install --no-cache-dir poetry
+# Copy your main Poetry configuration files
+COPY pyproject.toml poetry.lock ./
+# Install ALL dependencies (including dev groups) but skip local code injection
+RUN poetry install --no-root
 
-# This build target extracts the requirements.txt files from the
-# previous stage and is intented to be used with
-# `docker build --output=...` or the make command `compile-pip-dependencies`
-FROM scratch AS requirements-artifacts
-COPY --from=builder dev-requirements.txt ./
-COPY --from=builder requirements.txt ./
-
+# Stage 3: Final Development Image
 FROM python-base
 RUN apt-get update && apt-get install -y --no-install-recommends  \
     curl \
@@ -35,20 +33,28 @@ RUN apt-get update && apt-get install -y --no-install-recommends  \
     && rm -rf /var/lib/apt/lists/*
 
 COPY devops/docker/django-start.sh /usr/local/bin
-RUN  chmod +x /usr/local/bin/django-start.sh
+RUN chmod +x /usr/local/bin/django-start.sh
 
-COPY --from=builder dev-requirements.txt /requirements.txt
-
+WORKDIR /django
 ENV TLDEXTRACT_CACHE="/tmp/python-tldextract"
-RUN pip install --no-deps --require-hashes -r /requirements.txt
+
+# --- POETRY INTEGRATION ---
+# Copy the compiled virtual environment containing development packages
+COPY --from=builder /src/.venv /django/.venv
+# Ensure the virtual environment's executables take precedence
+ENV PATH="/django/.venv/bin:$PATH"
 
 ARG USERID
 RUN getent passwd "${USERID?USERID must be supplied}" || useradd --create-home --no-log-init --uid "${USERID}" --user-group  gcorn
 
-RUN  mkdir /django-logs /deploy /tmp/python-tldextract && \
-     chown -R "${USERID}:${USERID}" /django-logs /deploy /tmp/python-tldextract
+# Grant gcorn ownership of the copied virtual environment for local changes/debugging
+RUN chown -R gcorn: /django/.venv
+
+RUN mkdir /django-logs /deploy /tmp/python-tldextract && \
+    chown -R "${USERID}" /django-logs /deploy /tmp/python-tldextract
 
 EXPOSE 8000
 USER ${USERID}
+
 RUN tldextract --update
 CMD [ "django-start.sh" ]
