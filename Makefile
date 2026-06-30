@@ -51,14 +51,6 @@ dev-save-db: ## Save a snapshot of the database for the current git branch
 dev-restore-db: ## Restore the most recent database snapshot for the current git branch
 	./devops/scripts/restoredb.sh
 
-.PHONY: compile-pip-dependencies
-compile-pip-dependencies:
-	docker build --target=requirements-artifacts -f ./devops/docker/DevDjangoDockerfile --output type=local,dest=$(DIR) .
-
-.PHONY: pip-update
-pip-update:
-	docker build --build-arg="PIP_COMPILE_ARGS=--upgrade-package=$(PACKAGE)" --target=requirements-artifacts -f ./devops/docker/DevDjangoDockerfile --output type=local,dest=$(DIR) .
-
 .PHONY: bandit
 bandit: ## Runs bandit static code analysis in Python3 container.
 	@docker compose run --rm django ./scripts/bandit
