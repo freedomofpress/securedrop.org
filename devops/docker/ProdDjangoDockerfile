@@ -95,7 +95,14 @@ USER ${USERID}
 # Update cache file for tldextract python package
 RUN tldextract --update
 
-# Run version info script as gcorn user (required as the repo directories are owned by this user)
+# Inject host Git info as build args so version-file.sh can use them as fallbacks
+ARG GIT_COMMIT_SHA
+ARG GIT_BRANCH
+ARG GIT_TAG
+ENV GIT_COMMIT_SHA=${GIT_COMMIT_SHA} \
+    GIT_BRANCH=${GIT_BRANCH} \
+    GIT_TAG=${GIT_TAG}
+
 RUN /django/devops/scripts/version-file.sh
 
 # since no django env is specified, runs in dev; disable DEBUG
