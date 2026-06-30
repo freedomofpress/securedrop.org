@@ -30,7 +30,7 @@ RUN apt-get update && apt-get install -y \
 
 
 COPY devops/docker/django-start.sh /usr/local/bin
-RUN  chmod +x /usr/local/bin/django-start.sh
+RUN chmod +x /usr/local/bin/django-start.sh
 
 ARG USERID
 RUN getent passwd "${USERID?USERID must be supplied}" || \
@@ -48,7 +48,7 @@ RUN pip install --no-deps --require-hashes -r /django/requirements.txt
 
 # Really not used in production. Needed for mapped named volume
 # permission handling https://github.com/docker/compose/issues/3270
-RUN  mkdir /django-media /django-static /django-logs && \
+RUN mkdir /django-media /django-static /django-logs && \
     chown -R gcorn: /django-media && \
     chown -R gcorn: /django-static && \
     chown -R gcorn: /django-logs
