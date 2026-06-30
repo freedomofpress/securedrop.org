@@ -11,6 +11,7 @@ __pycache__
 node_modules
 npm-debug.log
 webpack-stats.json
+
 # Ignore build files
 /build/static/bundles
 .manage_cmds_ran/
@@ -23,6 +24,9 @@ devops/.vagrant
 .molecule
 .cache
 *.retry
+
+# poetry
+.venv
 
 # Functional tests
 geckodriver.log
