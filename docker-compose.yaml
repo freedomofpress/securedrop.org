@@ -87,6 +87,8 @@ services:
     userns_mode: keep-id
     volumes:
       - ./:/django:z
+      # FIX: Protects and mounts the image's built .venv so host files don't override it
+      - /django/.venv
     ports:
       - '127.0.0.1:8000:8000'
     healthcheck:
