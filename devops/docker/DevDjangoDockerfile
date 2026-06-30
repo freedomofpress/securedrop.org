@@ -5,7 +5,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends gcc libpq-dev && \
     rm -rf /var/lib/apt/lists/*
 
-# Stage 2: Poetry Builder (Replaces pip-tools & pip-compile stages)
+# Stage 2: Poetry Builder
 FROM python-base AS builder
 ENV POETRY_NO_INTERACTION=1 \
     POETRY_VIRTUALENVS_IN_PROJECT=1 \
