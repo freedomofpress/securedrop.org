@@ -10,9 +10,9 @@ RUN cd /src-files && ( npm install && npm run build )
 LABEL MAINTAINER="Freedom of the Press Foundation"
 LABEL APP="securedrop.org"
 
-# Stage 2: Poetry Builder (New stage to build dependencies securely)
+# Stage 2: Poetry Builder (Renamed alias to python-builder)
 # sha256 for python:3.14.6-slim-trixie on linux/amd64 as of 2026-06-17
-FROM python:3.14.6-slim-trixie@sha256:44dd04494ee8f3b538294360e7c4b3acb87c8268e4d0a4828a6500b1eff50061 AS python-base
+FROM python:3.14.6-slim-trixie@sha256:44dd04494ee8f3b538294360e7c4b3acb87c8268e4d0a4828a6500b1eff50061 AS python-builder
 RUN apt-get update && apt-get install -y \
     gcc \
     build-essential \
@@ -66,8 +66,8 @@ WORKDIR /django
 ENV TLDEXTRACT_CACHE="/tmp/python-tldextract"
 
 # --- POETRY INTEGRATION ---
-# Copy the compiled, hash-verified virtual environment from stage 2
-COPY --from=python-base /django/.venv /django/.venv
+# FIXED: Copying from python-builder instead of python-base
+COPY --from=python-builder /django/.venv /django/.venv
 # Ensure the virtual environment's executables are preferred over system Python
 ENV PATH="/django/.venv/bin:$PATH"
 # Ensure directories inside the virtual environment belong to the gcorn user
