@@ -68,6 +68,7 @@ To start the website running in your local environment, run these commands:
     # you can also use pipx to install poetry and pre-commit
     brew install poetry pre-commit
     pre-commit install
+    poetry install
 
 Visit ``http://localhost:8000/`` to see the site.
 
