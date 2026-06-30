@@ -14,7 +14,7 @@
 - Frontend source files: `client/` (`common/`, `tor/`, `autocomplete/`)
 - Compiled bundles output: `build/static/bundles/`
 - DevOps/Docker: `devops/`
-- Requirements: `requirements.txt`, `dev-requirements.txt` (compiled from `.in` files via pip-compile)
+- Requirements: `poetry.lock` (compiled from `pyproject.toml` files via poetry lock)
 
 ## Tech Stack
 
