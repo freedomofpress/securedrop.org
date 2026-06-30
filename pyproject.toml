@@ -76,6 +76,9 @@ mapping = 2
 sequence = 4
 offset = 2
 
+[tool.bandit]
+exclude_dirs = [".venv", "/venv", "node_modules", "devops"]
+
 [dependency-groups]
 dev = [
     "bandit (>=1.7.7)",
