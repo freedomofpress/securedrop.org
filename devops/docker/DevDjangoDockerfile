@@ -44,6 +44,7 @@ COPY --from=builder /src/.venv /django/.venv
 # Ensure the virtual environment's executables take precedence
 ENV PATH="/django/.venv/bin:$PATH"
 
+# FIX: Define the user BEFORE manipulating ownership
 ARG USERID
 RUN getent passwd "${USERID?USERID must be supplied}" || useradd --create-home --no-log-init --uid "${USERID}" --user-group  gcorn
 
@@ -51,7 +52,7 @@ RUN getent passwd "${USERID?USERID must be supplied}" || useradd --create-home -
 RUN chown -R gcorn: /django/.venv
 
 RUN mkdir /django-logs /deploy /tmp/python-tldextract && \
-    chown -R "${USERID}" /django-logs /deploy /tmp/python-tldextract
+    chown -R gcorn: /django-logs /deploy /tmp/python-tldextract
 
 EXPOSE 8000
 USER ${USERID}
