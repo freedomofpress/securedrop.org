@@ -10,7 +10,10 @@ FROM python-base AS builder
 ENV POETRY_NO_INTERACTION=1 \
     POETRY_VIRTUALENVS_IN_PROJECT=1 \
     POETRY_VIRTUALENVS_CREATE=1
-WORKDIR /src
+
+# MATCHING WORKDIR: Keep this the same as the final stage
+WORKDIR /django
+
 RUN pip install --no-cache-dir poetry
 # Copy your main Poetry configuration files
 COPY pyproject.toml poetry.lock ./
@@ -39,9 +42,8 @@ WORKDIR /django
 ENV TLDEXTRACT_CACHE="/tmp/python-tldextract"
 
 # --- POETRY INTEGRATION ---
-# Copy the compiled virtual environment containing development packages
-COPY --from=builder /src/.venv /django/.venv
-# Ensure the virtual environment's executables take precedence
+# MATCHING PATH COPY: Copying /django/.venv to /django/.venv preserves shebang paths
+COPY --from=builder /django/.venv /django/.venv
 ENV PATH="/django/.venv/bin:$PATH"
 
 # FIX: Define the user BEFORE manipulating ownership
