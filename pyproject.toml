@@ -1,6 +1,47 @@
 [project]
 name = "securedrop.org"
+version = "0.1.0"
+license = "AGPL-3.0-or-later"
 requires-python = ">=3.14"
+dependencies = [
+    "bleach (>=6.4.0)",
+    "cryptography (>=48.0.1)",
+    "django-anymail[mailgun] (>=1.4)",
+    "django-csp (>=3.7)",
+    "django-modelcluster (>=6.2.1)",
+    "django-settings-export (>=1.2.1,<2.0.0)",
+    "django-storages[google] (>=1.14.6)",
+    "django-webpack-loader (>=3.2.4,<4.0.0)",
+    "django (>=5.2.13,<6.0)",
+    "djangorestframework (>=3.17.1,<4.0.0)",
+    "factory-boy (>=3.3.3,<4.0.0)",
+    "feedparser (>=6.0.12,<7.0.0)",
+    "gunicorn (>=20.1.0)",
+    "lxml (>=6.1.1)",
+    "pillow (>=12.2.0)",
+    "psycopg[binary] (>=3.3.4,<4.0.0)",
+    "pygments (>=2.20.0)",
+    "python-json-logger (>=4.1.0,<5.0.0)",
+    "requests (>=2.33.1)",
+    "structlog (>=26.1.0,<27.0.0)",
+    "tinycss2 (>=1.5.1,<2.0.0)",
+    "tldextract (>=5.3.1,<6.0.0)",
+    "unittest-xml-reporting (>=4.0.0,<5.0.0)",
+    "wagtail-autocomplete (>=0.12.0)",
+    "wagtail-factories (>=4.5.0)",
+    "wagtail-honeypot (>=1.3.0,<2.0.0)",
+    "wagtail-metadata (>=5.0.0)",
+    "wagtail (>=7.4,<8.0)",
+    "wagtailmedia (>=0.14.5)",
+    "whitenoise (>=6.12.0,<7.0.0)"
+]
+
+[tool.poetry]
+packages = [{include = "securedrop"}]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
 
 [tool.ruff]
 exclude = [
@@ -33,3 +74,13 @@ section-order = [
 mapping = 2
 sequence = 4
 offset = 2
+
+[dependency-groups]
+dev = [
+    "bandit (>=1.7.7)",
+    "colorama (<1)",
+    "coverage (>=7.14.3,<8.0.0)",
+    "django-debug-toolbar (>=1.11.1)",
+    "ipdb (>=0.13.9)",
+    "vcrpy (>=8.2.1,<9.0.0)"
+]
