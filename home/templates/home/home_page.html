@@ -35,7 +35,7 @@
 			{% endif %}
 
 			{% for button in page.description_buttons.all %}
-				<a href="{% pageurl button.link %}" class="hero__button">
+				<a href="{% if button.link %}{% pageurl button.link %}{% endif %}" class="hero__button">
 					{{ button.text }}
 					{% include "common/chevron-right.svg" with class="hero__button-icon" %}
 				</a>
@@ -54,7 +54,7 @@
 				<section class="updates__section">
 					<h2 class="updates__header">{% trans "Latest News" %}</h2>
 					<article class="updates__item">
-						<a href="{% pageurl self.get_latest_blog %}" class="updates__link">{{ self.get_latest_blog }}</a>
+						<a href="{% if self.get_latest_blog %}{% pageurl self.get_latest_blog %}{% endif %}" class="updates__link">{{ self.get_latest_blog }}</a>
 					</article>
 				</section>
 				{% with latest_releases=page.get_latest_releases %}
@@ -107,7 +107,7 @@
 					</div>
 				{% endwith %}
 				{% for button in page.instance_button.all %}
-					<a href="{% pageurl button.link %}" class="instances__button">
+					<a href="{% if button.link %}{% pageurl button.link %}{% endif %}" class="instances__button">
 						{{ button.text }}
 						{% include "common/chevron-right.svg" with class="instances__button-icon" %}
 					</a>
@@ -121,7 +121,7 @@
 			{% endif %}
 			{% include "marketing/_features_list.html" with features=page.features.all %}
 			{% for button in page.features_button.all %}
-				<a href="{% pageurl button.link %}" class="features__button">
+				<a href="{% if button.link %}{% pageurl button.link %}{% endif %}" class="features__button">
 					{{ button.text }}
 					{% include "common/chevron-right.svg" with class="features__button-icon" %}
 				</a>

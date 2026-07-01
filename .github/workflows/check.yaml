@@ -76,7 +76,7 @@ jobs:
           version: ${{ env.VERSION_DOCKER }}
 
       - name: Checkout
-        uses: actions/checkout@v6.0.3
+        uses: actions/checkout@v7.0.0
         with:
           persist-credentials: true
 
@@ -161,7 +161,7 @@ jobs:
           version: ${{ env.VERSION_DOCKER }}
 
       - name: Checkout
-        uses: actions/checkout@v6.0.3
+        uses: actions/checkout@v7.0.0
         with:
           persist-credentials: true
 
