@@ -59,7 +59,7 @@ $(python3 --version)
 
 #### PYTHON DEPS ####
 
-$(poetry show --no-ansi --no-truncate)
+$(/django/.venv/bin/python -m pip freeze)
 
 #### SYS INFO ####
 
