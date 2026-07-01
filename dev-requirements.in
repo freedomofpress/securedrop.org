@@ -2,6 +2,6 @@
 bandit>=1.7.7
 colorama<1
 coverage
-django-debug-toolbar>=1.11.1
+django-debug-toolbar>=7.0.0
 ipdb>=0.13.9
 vcrpy
