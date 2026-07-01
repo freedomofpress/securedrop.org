@@ -1,3 +1,4 @@
+# Stage 1: Build node assets
 # sha256 for python:3.14.6-slim-trixie on linux/amd64 as of 2026-06-17
 FROM python:3.14.6-slim-trixie@sha256:44dd04494ee8f3b538294360e7c4b3acb87c8268e4d0a4828a6500b1eff50061 AS python-base
 
