@@ -209,7 +209,7 @@ Mimic production environment
 +++++++++++++++++++++++++++++++++++
 
 You can mimic a production environment where django is deployed with gunicorn,
-a reverse nginx proxy, and debug mode off using the `ci-docker-compose.yaml` file.
+a reverse nginx proxy, and debug mode off using the `prod-docker-compose.yaml` file.
 Note that build time for this container takes much longer than the developer environment:
 
 .. code:: bash
