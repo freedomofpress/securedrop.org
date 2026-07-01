@@ -66,7 +66,6 @@ WORKDIR /django
 ENV TLDEXTRACT_CACHE="/tmp/python-tldextract"
 
 # --- POETRY INTEGRATION ---
-# FIXED: Copying from python-builder instead of python-base
 COPY --from=python-builder /django/.venv /django/.venv
 # Ensure the virtual environment's executables are preferred over system Python
 ENV PATH="/django/.venv/bin:$PATH"
