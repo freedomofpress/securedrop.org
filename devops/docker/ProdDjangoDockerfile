@@ -10,7 +10,7 @@ RUN cd /src-files && ( npm install && npm run build )
 LABEL MAINTAINER="Freedom of the Press Foundation"
 LABEL APP="securedrop.org"
 
-# Stage 2: Poetry Builder (Renamed alias to python-builder)
+# Stage 2: Poetry Builder
 # sha256 for python:3.14.6-slim-trixie on linux/amd64 as of 2026-06-17
 FROM python:3.14.6-slim-trixie@sha256:44dd04494ee8f3b538294360e7c4b3acb87c8268e4d0a4828a6500b1eff50061 AS python-builder
 RUN apt-get update && apt-get install -y \
