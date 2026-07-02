@@ -36,10 +36,6 @@ urlpatterns = [
     path("health/ok/", common_views.health_ok),
     path("health/version/", common_views.health_version),
     path("sitemap.xml", sitemap, name="sitemap"),
-    path(
-        "robots.txt",
-        TemplateView.as_view(template_name="robots.txt", content_type="text/plain"),
-    ),
     path("search/", search_views.search, name="search"),
     path("github/", include("github.urls")),
     path("api/", RedirectView.as_view(url="/api/v1/")),
