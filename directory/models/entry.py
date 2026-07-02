@@ -167,7 +167,7 @@ class DirectoryEntry(MetadataPageMixin, Page):
     )
 
     organization_description = models.CharField(
-        max_length=95,
+        max_length=255,
         blank=True,
         null=True,
         help_text="A micro description of your organization that will be displayed in the directory.",
