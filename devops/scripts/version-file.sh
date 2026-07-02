@@ -2,10 +2,10 @@
 #
 # Write deployment version information to a file on disk
 
-set -e
+set -Eeuo pipefail
 
 handle_error() {
-    echo "Error: line $1, exit code $2"
+    echo "Error: line $1, exit code $2" >&2
     exit 1
 }
 
@@ -30,6 +30,7 @@ if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
             branch_desc="on branch: ${branch}"
             ref_desc="not tagged, $(git describe 2>/dev/null || echo 'unknown description')";;
     esac
+
     git_history="$(git log -5 --oneline)"
 else
     # Fallbacks for when .git folder is missing (e.g., Production Docker builds)
@@ -41,6 +42,10 @@ fi
 
 # Trim commit to short hash if provided via environment variable
 commit="${commit:0:7}"
+
+python_version="$(python3 --version)"
+python_deps="$(/django/.venv/bin/python -m pip freeze)"
+sys_info="$(cat /etc/*-release)"
 
 echo "$commit" >"$short_version_out"
 
@@ -55,13 +60,13 @@ ${git_history}
 
 #### PYTHON INFO ####
 
-$(python3 --version)
+${python_version}
 
 #### PYTHON DEPS ####
 
-$(/django/.venv/bin/python -m pip freeze)
+${python_deps}
 
 #### SYS INFO ####
 
-$(cat /etc/*-release)
+${sys_info}
 EOF
