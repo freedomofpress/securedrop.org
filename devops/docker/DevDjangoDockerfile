@@ -15,12 +15,12 @@ ENV POETRY_NO_INTERACTION=1 \
 # MATCHING WORKDIR: Keep this the same as the final stage
 WORKDIR /django
 
-COPY bootstrap-poetry.txt ./
+COPY bootstrap-poetry-requirements.txt ./
 RUN python3 -m venv ~/.local/share/poetry && \
   ~/.local/share/poetry/bin/python -m pip install \
     --only-binary=:all: \
     --require-hashes \
-    -r bootstrap-poetry.txt && \
+    -r bootstrap-poetry-requirements.txt && \
   ln -sf ~/.local/share/poetry/bin/poetry /usr/local/bin/poetry
 
 # Copy your main Poetry configuration files

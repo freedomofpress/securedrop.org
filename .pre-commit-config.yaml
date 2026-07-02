@@ -32,12 +32,12 @@ repos:
         args:
           - export
           - --format=requirements.txt
-          - --output=bootstrap-poetry.txt
+          - --output=bootstrap-poetry-requirements.txt
           - --only=poetry
           - --no-ansi
           - --no-interaction
         language: system
-        files: ^(poetry\.lock|bootstrap-poetry\.txt)$
+        files: ^(poetry\.lock|bootstrap-poetry-requirements\.txt)$
         pass_filenames: false
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
