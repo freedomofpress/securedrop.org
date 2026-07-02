@@ -24,6 +24,22 @@ repos:
       - id: check-toml
       - id: check-yaml
 
+  - repo: local
+    hooks:
+      - id: sync-poetry-bootstrap
+        name: Update Poetry bootstrap config from lockfile
+        entry: poetry
+        args:
+          - export
+          - --format=requirements.txt
+          - --output=bootstrap-poetry.txt
+          - --only=poetry
+          - --no-ansi
+          - --no-interaction
+        language: system
+        #files: ^(poetry\.lock|bootstrap-poetry\.txt)$
+        pass_filenames: false
+
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.15.22
     hooks:
