@@ -107,11 +107,7 @@ RUN tldextract --update
 ARG GIT_COMMIT_SHA
 ARG GIT_BRANCH
 ARG GIT_TAG
-ENV GIT_COMMIT_SHA=${GIT_COMMIT_SHA} \
-    GIT_BRANCH=${GIT_BRANCH} \
-    GIT_TAG=${GIT_TAG}
-
-RUN /django/devops/scripts/version-file.sh
+RUN GIT_COMMIT=${GIT_COMMIT_SHA} GIT_BRANCH=${GIT_BRANCH} GIT_TAG=${GIT_TAG} /django/devops/scripts/version-file.sh
 
 # since no django env is specified, runs in dev; disable DEBUG
 RUN env DJANGO_WHITENOISE=1 DJANGO_DISABLE_DEBUG=1 ./manage.py collectstatic -c --noinput
