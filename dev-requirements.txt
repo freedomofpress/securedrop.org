@@ -1321,9 +1321,9 @@ typing-extensions==4.15.0 \
     #   beautifulsoup4
     #   django-stubs-ext
     #   django-tasks
-unittest-xml-reporting==3.2.0 \
-    --hash=sha256:edd8d3170b40c3a81b8cf910f46c6a304ae2847ec01036d02e9c0f9b85762d28 \
-    --hash=sha256:f3d7402e5b3ac72a5ee3149278339db1a8f932ee405f48bcb9c681372f2717d5
+unittest-xml-reporting==4.0.0 \
+    --hash=sha256:bfa1ed65e9e6f33c161d04470d89050458cfb65a5a5d0358834ef7ce037d9136 \
+    --hash=sha256:e3e24bac8ea27c454d8be1d718851b2c5c8f712d75281920b6af81bdfef2f9bc
     # via -r requirements.txt
 urllib3==2.7.0 \
     --hash=sha256:231e0ec3b63ceb14667c67be60f2f2c40a518cb38b03af60abc813da26505f4c \
