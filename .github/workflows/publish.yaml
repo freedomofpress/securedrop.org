@@ -5,8 +5,8 @@ on:
   push:
     branches:
       - develop
-      - staging
       - prod
+      - experimental
 
 permissions:
   contents: read
