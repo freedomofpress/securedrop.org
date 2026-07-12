@@ -653,9 +653,9 @@ google-crc32c==1.8.0 \
     #   -r requirements.txt
     #   google-cloud-storage
     #   google-resumable-media
-google-resumable-media==2.9.0 \
-    --hash=sha256:c8901e88e389af8bed64d9696c74d8bad961865eb2236e13e0bfca9bb0a65ca3 \
-    --hash=sha256:f7cfb224846a9dd444d125115dfbe8ef02a2b893e78f087762fe716a255a734b
+google-resumable-media==2.10.0 \
+    --hash=sha256:88152884bee37b2bf36a0ab81ad8c7fd12212c9803dd981d77c1b35b02d34e7c \
+    --hash=sha256:e324bc9d0fdae4c52a08ae90456edc4e71ece858399e1217ac0eb3a51d6bc6ee
     # via
     #   -r requirements.txt
     #   google-cloud-storage
