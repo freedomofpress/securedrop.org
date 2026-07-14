@@ -510,9 +510,9 @@ idna==3.18 \
     #   django-anymail
     #   requests
     #   tldextract
-laces==0.1.1 \
-    --hash=sha256:ae2c575b9aaa46154e5518c61c9f86f5a9478f753a51e9c5547c7d275d361242 \
-    --hash=sha256:e45159c46f6adca33010d34e9af869e57201b70675c6dc088e919b16c89456a4
+laces==0.1.2 \
+    --hash=sha256:3218e09c1889ae5cf3fc7a82f5bb63ec0c7879889b6a9760bfc42323c694b84d \
+    --hash=sha256:980cdaf9a31e883a2b8198132e2388931a4eb8814f5bfa5d8bba13ff9f657b7c
     # via wagtail
 lxml==6.1.1 \
     --hash=sha256:05a82eb6e1530a64f26225b55cbd178113bd0b5af1c2b625f25e5296742c26d2 \
