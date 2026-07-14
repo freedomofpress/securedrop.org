@@ -1375,9 +1375,9 @@ urllib3==2.7.0 \
     #   -r requirements.txt
     #   django-anymail
     #   requests
-vcrpy==8.2.1 \
-    --hash=sha256:7ce58c9e2792b246f79d6f4b3e9660676cc6f853be17e1547305b4437ab1ff85 \
-    --hash=sha256:d73a6e4eb6dae8148e659764b7a00e68cc51ba29ba9e6a85e1f0790ad96b97df
+vcrpy==8.3.0 \
+    --hash=sha256:46d64e77e8d95e5c76c7d9a94ff05d8b38b2ae4e1d4869eb0235024b6fcb5212 \
+    --hash=sha256:bd66e6143746778157f00e2a922527a8d96b2fdc350be8988a45a29c843815b9
     # via -r dev-requirements.in
 wagtail==7.4.2 \
     --hash=sha256:6e261b50693abfbe2b738717bedc5bd0915e2e08efb9400102f4098c0c03aaab \
