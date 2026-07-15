@@ -1,5 +1,5 @@
-# sha256 as of 2026-06-26
-FROM node:26.4.0-trixie@sha256:b46a10d964ad15136ebdf9012142131481caa0697d7a4d4eafe4bbabd818f876 AS node-assets
+# sha256 as of 2026-07-15
+FROM node:26.5.0-trixie@sha256:0473e7dc433a1310f436edee02aa79737ec78a4b345433ab0963d4a256f9ad85 AS node-assets
 
 # Install gulp globally so it can be used during builds
 RUN npm install --global gulp-cli
