@@ -1,6 +1,6 @@
 bleach>=6.4.0
 cryptography>=48.0.1
-django-anymail[mailgun]>=1.4
+django-anymail[mailgun]>=15.0
 django-csp>=3.7
 django-modelcluster>=6.2.1
 django-settings-export
