@@ -1,16 +1,11 @@
-# sha256 as of 2026-06-18
-FROM node:22-alpine@sha256:21f403ab171f2dc89bad4dd69d7721bfd15f084ccb46cdd225f31f2bc59b5c9a AS node-assets
-
-# Oddly, node-sass requires both python and make to build bindings
-RUN apk add --no-cache paxctl python3 make g++
-RUN paxctl -cm /usr/local/bin/node
+# sha256 as of 2026-07-15
+FROM node:26.5.0-trixie@sha256:0473e7dc433a1310f436edee02aa79737ec78a4b345433ab0963d4a256f9ad85 AS node-assets
 
 # Install gulp globally so it can be used during builds
 RUN npm install --global gulp-cli
 
 COPY ./ /src-files
 RUN cd /src-files && ( npm install && npm run build )
-
 
 LABEL MAINTAINER="Freedom of the Press Foundation"
 LABEL APP="securedrop.org"
@@ -38,7 +33,8 @@ COPY devops/docker/django-start.sh /usr/local/bin
 RUN  chmod +x /usr/local/bin/django-start.sh
 
 ARG USERID
-RUN getent passwd "${USERID?USERID must be supplied}" || adduser --uid "${USERID}" --disabled-password --gecos "" gcorn
+RUN getent passwd "${USERID?USERID must be supplied}" || \
+    useradd --create-home --no-log-init --uid "${USERID}" --user-group  gcorn
 
 COPY --from=node-assets /src-files/ /django/
 # Unfortunately the chown flag in COPY is not
