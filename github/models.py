@@ -65,6 +65,9 @@ class Release(models.Model):
 
     objects = ReleaseQuerySet.as_manager()
 
+    class Meta:
+        ordering = ["-date"]
+
     panels = [
         FieldPanel("product"),
         FieldPanel("url"),
