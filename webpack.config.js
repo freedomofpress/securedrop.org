@@ -100,7 +100,7 @@ var common = {
 		}),
 		new BundleTracker({
 			path: target,
-			filename: './webpack-stats.json'
+			filename: 'webpack-stats.json'
 		})
 	]
 };
