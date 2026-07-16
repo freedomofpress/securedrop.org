@@ -12,7 +12,7 @@ factory_boy
 feedparser
 gunicorn>=26.0.0
 lxml>=6.1.1
-pillow>=12.2.0
+pillow>=12.3.0
 psycopg[binary]
 pygments>=2.20.0
 python-json-logger
