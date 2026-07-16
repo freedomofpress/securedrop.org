@@ -360,9 +360,9 @@ django-treebeard==5.3.0 \
     --hash=sha256:8606cefd3a65689e99d2a493e5af8a8ece450b96915c949b5c72f6f302cfbe19 \
     --hash=sha256:ae9e570fa74b4c882bc08def1f0c97d27f163b6285a19f3383027d074882e9f4
     # via wagtail
-django-webpack-loader==3.2.3 \
-    --hash=sha256:81092499af8e0c9b3a0bad21324aca6e2ad786133b19248dae213eb9661a17f7 \
-    --hash=sha256:d070bfe8ea5bd6ed48810a8d247204bb7f672573bdb6a7b589f6b75998a45993
+django-webpack-loader==3.2.4 \
+    --hash=sha256:0a253113ea6b150403cd2de802e732872c1d5e3185f0ad4a7fac673c00ae5af2 \
+    --hash=sha256:a9d345746ae4d0700b9a86a7f0683ab8282c56a3a32736070f27ad658a9bfcb2
     # via -r requirements.in
 djangorestframework==3.17.1 \
     --hash=sha256:a6def5f447fe78ff853bff1d47a3c59bf38f5434b031780b351b0c73a62db1a5 \
