@@ -117,16 +117,22 @@ $list-bottom-padding: 2rem
 		width: 100%
 
 .footer-main__social-icon
-	margin-right: 1rem
-
 	img
-		width: 2rem
+		height: 2rem
+		width: auto
 
 .footer-main__social-media
 	display: flex
 
+	a
+		margin-right: 1rem
+		opacity: 0.6
+		transition: opacity 100ms ease-in-out
+		&:hover, &:focus-visible
+			opacity: 1
+
 	+media-breakpoint-down(extra-small)
-		padding-bottom: $list-bottom-padding/2
+		padding: $list-bottom-padding/2 0
 		justify-content: center
 
 .footer-main__content
