@@ -52,7 +52,7 @@ services:
     working_dir: /django
     user: ${UID:?err}
     healthcheck:
-      test: jq '.status' webpack-stats.json |grep -q -e compiling -e error -e done
+      test: jq '.status' build/static/bundles/webpack-stats.json |grep -q -e compiling -e error -e done
       interval: 10s
       start_period: 1m30s
     userns_mode: keep-id
