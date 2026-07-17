@@ -29,6 +29,10 @@ services:
       - ./:/django:z
     working_dir: /django
     user: ${UID:?err}
+    healthcheck:
+      test: jq '.status' webpack-stats.json |grep -q -e compiling -e error -e done
+      interval: 10s
+      start_period: 1m30s
     userns_mode: keep-id
     networks:
       - app
@@ -43,8 +47,10 @@ services:
         USERID: ${UID:?err}
     image: localhost/securedroporg-django
     depends_on:
-      - node
-      - postgresql
+      postgresql:
+        condition: service_healthy
+      node:
+        condition: service_healthy
     environment:
       DJANGO_DB_PASSWORD: securedroppassword
       DJANGO_DB_USER: securedrop
@@ -61,6 +67,13 @@ services:
       - ./:/django:z
     ports:
       - '127.0.0.1:8000:8000'
+    healthcheck:
+      test:
+        ['CMD', 'curl', '--fail', 'http://localhost:8000/health/ok/?monitor']
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 45s
     networks:
       app:
         aliases:

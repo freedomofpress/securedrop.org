@@ -11,6 +11,22 @@ services:
       POSTGRES_USER: securedrop
       POSTGRES_DB: securedropdb
     user: postgres
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'pg_isready',
+          '-q',
+          '-h',
+          'localhost',
+          '-U',
+          'freedompress',
+          '--dbname',
+          'freedompressdb',
+        ]
+      timeout: 45s
+      interval: 10s
+      retries: 10
     networks:
       app:
         aliases:
@@ -24,7 +40,8 @@ services:
         USERID: 12345
     image: quay.io/freedomofpress/securedroporg
     depends_on:
-      - postgresql
+      postgresql:
+        condition: service_healthy
     working_dir: /django
     volumes:
       - ${HOST_STATIC_DIR:-sdorg-django-media}:/django-media
@@ -46,12 +63,18 @@ services:
       DJANGO_MEDIA_ROOT: /django-media
       DEPLOY_ENV: prod
       DJANGO_WHITENOISE: 'True'
-    ports:
-      - '8000:8000'
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:8000/health/ok/']
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 45s
     networks:
       app:
         aliases:
           - app
+    ports:
+      - '8000:8000'
 
 volumes:
   sdorg-django-static:
