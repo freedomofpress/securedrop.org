@@ -1,6 +1,12 @@
 ---
 networks:
   app:
+
+x-variables:
+  db-name: &db-name securedropdb
+  db-username: &db-username securedrop
+  db-password: &db-password securedroppassword
+
 services:
   postgresql:
     image: postgres:14
@@ -9,10 +15,26 @@ services:
     volumes:
       - ./:/django:ro
     environment:
-      POSTGRES_PASSWORD: securedroppassword
-      POSTGRES_USER: securedrop
-      POSTGRES_DB: securedropdb
+      POSTGRES_PASSWORD: *db-password
+      POSTGRES_USER: *db-username
+      POSTGRES_DB: *db-name
     user: postgres
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'pg_isready',
+          '-q',
+          '-h',
+          'localhost',
+          '-U',
+          *db-username,
+          '--dbname',
+          *db-name,
+        ]
+      timeout: 45s
+      interval: 10s
+      retries: 10
     networks:
       app:
         aliases:
