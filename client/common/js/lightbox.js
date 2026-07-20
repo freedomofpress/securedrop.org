@@ -62,7 +62,7 @@ class Lightbox {
 		this.elements.overlay.addEventListener('click', this.close)
 		this.elements.container.addEventListener('click', this.close)
 
-		await new Promise((resolve, reject) => {
+		await new Promise((resolve) => {
 			this.elements.image.onload = resolve
 		})
 

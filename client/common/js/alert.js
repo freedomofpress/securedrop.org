@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
 	const alert = document.getElementById('js-site-alert')
-	const mainNav = document.getElementById('js-main-nav')
 
 	try{
 		const closeButton = document.getElementById('js-site-alert-button')
@@ -14,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		})
 	} catch(e) {
 		if(!(e instanceof TypeError)) {
-			throw new Error(e)
+			throw e
 		}
 	}
 })

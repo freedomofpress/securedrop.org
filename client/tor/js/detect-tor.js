@@ -17,7 +17,7 @@ const is_tor_resource_loaded = async () => new Promise(resolve => {
 			resolve(false)
 		}
 		document.head.removeChild(css)
-	} catch(e) {
+	} catch {
 		resolve(false)
 	}
 })

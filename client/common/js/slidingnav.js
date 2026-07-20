@@ -34,7 +34,7 @@ class SlidingNav {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-	 // If js is running, adjust nav menus
+	// If js is running, adjust nav menus
 	const navMenu = document.getElementById('js-nav-menu')
 	const navButton = document.getElementById('js-nav-button')
 	navMenu.classList.add('js-nav-menu-hidden')
@@ -45,5 +45,5 @@ document.addEventListener('DOMContentLoaded', () => {
 	const navElement = document.getElementsByClassName('js-sliding-nav')[0]
 	const triggerElement = navButton
 	const overlayElement = document.getElementsByClassName('js-sliding-nav-overlay')[0]
-	const slidingNav = new SlidingNav(navElement, triggerElement, overlayElement)
+	new SlidingNav(navElement, triggerElement, overlayElement)
 })
