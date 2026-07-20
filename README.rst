@@ -68,6 +68,10 @@ To start the website running in your local environment, run these commands:
     pip install pre-commit
     pre-commit install
 
+    # required on the host (not just in Docker) for the ESLint/Stylelint
+    # pre-commit hooks to resolve their shared configs correctly
+    npm install
+
 Visit ``http://localhost:8000/`` to see the site.
 
 The URL of the admin area is ``http://localhost:8000/admin/`` for the Wagtail admin.  Running the dev data creation command will create login credentials of username "test" and password "test".
