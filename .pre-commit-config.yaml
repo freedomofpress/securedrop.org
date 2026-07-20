@@ -57,5 +57,4 @@ repos:
         files: ^client/.*\.scss$
         additional_dependencies:
           - stylelint@17.14.1
-          - stylelint-config-standard-scss@17.0.0
           - postcss-scss@4.0.9
