@@ -7,7 +7,9 @@
     "build": "vite build",
     "start": "vite build --watch",
     "js-lint": "eslint client",
-    "style-lint": "stylelint 'client/**/*.scss'"
+    "style-lint": "stylelint 'client/**/*.scss'",
+    "format": "prettier --write 'client/**/*.js'",
+    "format-check": "prettier --check 'client/**/*.js'"
   },
   "author": "Harris Lapiroff <harris@littleweaverweb.com>",
   "browserslist": [
@@ -15,12 +17,13 @@
   ],
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@stylistic/eslint-plugin": "^5.10.0",
     "autoprefixer": "^10.5.2",
     "eslint": "^10.7.0",
+    "eslint-config-prettier": "^10.1.8",
     "globals": "^17.7.0",
     "postcss": "^8.5.17",
     "postcss-scss": "^4.0.9",
+    "prettier": "^3.9.5",
     "sass": "^1.101.0",
     "stylelint": "^17.14.1",
     "stylelint-config-standard-scss": "^17.0.0",

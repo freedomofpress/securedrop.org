@@ -10,7 +10,7 @@ REMOTE_IMAGE := quay.io/freedomofpress/securedrop.org
 export DOCKER_BUILDKIT = 1
 
 .PHONY: lint
-lint: ruff js-lint style-lint
+lint: ruff js-lint style-lint format-check
 
 .PHONY: ruff
 ruff: ## Runs ruff linting in Python3 container.
@@ -23,6 +23,10 @@ js-lint: ## Runs ESLint against client JS in the node container.
 .PHONY: style-lint
 style-lint: ## Runs stylelint against client Sass in the node container.
 	docker compose exec -T node npm run style-lint
+
+.PHONY: format-check
+format-check: ## Checks client JS formatting with Prettier in the node container.
+	docker compose exec -T node npm run format-check
 
 .PHONY: dev-init
 dev-init: ## Initialize docker environment for developer workflow

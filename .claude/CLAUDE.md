@@ -20,7 +20,7 @@
 
 - Python 3.14, Django 5.2+, Wagtail 7.4+
 - PostgreSQL 14
-- Vite (frontend), ESLint + Stylelint (frontend linting)
+- Vite (frontend), ESLint + Stylelint (frontend linting), Prettier (JS formatting)
 - Ruff (primary linter)
 
 ## Development
@@ -45,6 +45,7 @@
 - `npm run start` = `vite build --watch` (rebuilds on change, no live dev server/HMR), `npm run build` = production
 - Path alias `~` maps to `client/common/js/` for imports
 - `npm run js-lint` / `npm run style-lint` run ESLint (flat config, `eslint.config.js`) / Stylelint (`stylelint.config.js`)
+- `npm run format` / `npm run format-check` run Prettier (`prettier.config.js`) against client JS; `eslint-config-prettier` disables any ESLint stylistic rules that would conflict with it
 
 ## Testing
 
