@@ -3,7 +3,7 @@
 ## Project Overview
 
 - Django/Wagtail CMS website for SecureDrop
-- Python backend, Node.js/Webpack frontend asset bundling
+- Python backend, Node.js/Vite frontend asset bundling
 - Docker-based development environment
 
 ## Key Paths
@@ -11,7 +11,7 @@
 - Django project settings: `securedrop/settings/` (base, dev, production, production-ci, production-debug; default is `securedrop.settings.dev`)
 - Django apps: `blog/`, `cloudflare/`, `common/`, `directory/`, `forms/`, `github/`, `home/`, `marketing/`, `menus/`, `scanner/`, `search/`, `simple/`, `build/`
 - Templates: `securedrop/templates/` (project-level) plus per-app `<app>/templates/` directories
-- Frontend source files: `client/` (`common/`, `tor/`, `autocomplete/`)
+- Frontend source files: `client/` (`common/`, `tor/`)
 - Compiled bundles output: `build/static/bundles/`
 - DevOps/Docker: `devops/`
 - Requirements: `requirements.txt`, `dev-requirements.txt` (compiled from `.in` files via pip-compile)
@@ -20,7 +20,7 @@
 
 - Python 3.14, Django 5.2+, Wagtail 7.4+
 - PostgreSQL 14
-- Webpack (frontend)
+- Vite (frontend), ESLint + Stylelint (frontend linting)
 - Ruff (primary linter)
 
 ## Development
@@ -35,15 +35,16 @@
 
 ## Static Files / Frontend Build
 
-- Source JS/SCSS lives in `client/common/js/` and `client/common/sass/`
-- Webpack compiles and bundles assets
-- Each output bundle requires a separate entry point in `webpack.config.js`
-- Current entry points: `common`, `tor`
+- Source JS/Sass lives in `client/common/js/` and `client/common/sass/`
+- Vite compiles and bundles assets
+- Each output bundle requires a separate entry in `vite.config.js`'s `build.rollupOptions.input`
+- Current entry points: `common` (`client/common/js/common.js`), `tor` (`client/tor/js/torEntry.js`)
 - Output goes to `build/static/bundles/`; prod files get content hashes
-- SCSS is extracted to separate CSS files via MiniCssExtractPlugin
-- `webpack-bundle-tracker` writes `webpack-stats.json` for Django integration
-- `npm run start` = dev, `npm run build` = production
+- CSS is extracted automatically for any entry that imports a `.scss`/`.css` file
+- `django-vite` reads Vite's `manifest.json` for Django integration (see `DJANGO_VITE` setting)
+- `npm run start` = `vite build --watch` (rebuilds on change, no live dev server/HMR), `npm run build` = production
 - Path alias `~` maps to `client/common/js/` for imports
+- `npm run js-lint` / `npm run style-lint` run ESLint (flat config, `eslint.config.js`) / Stylelint (`stylelint.config.js`)
 
 ## Testing
 

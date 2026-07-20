@@ -1,5 +1,5 @@
 {% load static wagtailmetadata_tags wagtailsettings_tags common_tags %}
-{% load render_bundle from webpack_loader %}
+{% load django_vite %}
 
 <!DOCTYPE html>
 <!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"><![endif]-->
@@ -17,7 +17,7 @@
 			<link rel="icon" type="image/png" href="{% static 'favicon/favicon.png' %}">
 
 			{% block css %}
-			{% render_bundle 'common' 'css' %}
+			{% vite_asset 'client/common/js/common.js' %}
 			{% endblock %}
 
 			{% block meta %}
@@ -58,7 +58,6 @@
 	</body>
 
 	{% block js %}
-		{% render_bundle 'common' 'js' %}
 	{% endblock %}
 
 </html>

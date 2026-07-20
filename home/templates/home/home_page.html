@@ -1,6 +1,6 @@
 {% extends "layout/_layout_one_column.html" %}
 {% load wagtailcore_tags wagtailimages_tags static i18n %}
-{% load render_bundle from webpack_loader %}
+{% load django_vite %}
 {% load i18n %}
 
 {% block tor_warning %}
@@ -132,5 +132,5 @@
 
 {% block js %}
 	{{ block.super }}
-	{% render_bundle 'tor' 'js' %}
+	{% vite_asset 'client/tor/js/torEntry.js' %}
 {% endblock %}

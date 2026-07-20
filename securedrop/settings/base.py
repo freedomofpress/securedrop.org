@@ -64,7 +64,7 @@ INSTALLED_APPS = [
     "wagtail",
     "wagtailmetadata",
     "wagtailautocomplete",
-    "webpack_loader",
+    "django_vite",
     "taggit",
     "rest_framework",
     "wagtailmedia",
@@ -255,15 +255,12 @@ WAGTAILADMIN_BASE_URL = "https://securedrop.org"
 # to autosave before autosaving again. Wagtail default is 500.
 WAGTAIL_AUTOSAVE_INTERVAL = int(os.environ.get("WAGTAIL_AUTOSAVE_INTERVAL", 500))
 
-# Django-webpack configuration
-WEBPACK_LOADER = {
-    "DEFAULT": {
-        "CACHE": not DEBUG,
-        "BUNDLE_DIR_NAME": "bundles/",  # must end with slash
-        "STATS_FILE": os.path.join(BASE_DIR, "build/static/bundles/webpack-stats.json"),
-        "POLL_INTERVAL": 0.1,
-        "TIMEOUT": None,
-        "IGNORE": [r".+\.hot-update.js", r".+\.map"],
+# Django-vite configuration
+DJANGO_VITE = {
+    "default": {
+        "dev_mode": False,
+        "static_url_prefix": "bundles/",  # must end with slash
+        "manifest_path": os.path.join(BASE_DIR, "build/static/bundles/manifest.json"),
     }
 }
 

@@ -75,7 +75,7 @@ The URL of the admin area is ``http://localhost:8000/admin/`` for the Wagtail ad
 Getting Started: The Unabridged Edition
 ---------------------------------------
 
-The development environment uses Docker Compose to run the application server, database, and webpack compilation processes.
+The development environment uses Docker Compose to run the application server, database, and Vite compilation processes.
 
 Before development you *must* run this one-time command.
 

@@ -1,7 +1,7 @@
 {% extends "layout/_layout_sidebar.html" %}
 
 {% load wagtailcore_tags querydict_update static i18n %}
-{% load render_bundle from webpack_loader %}
+{% load django_vite %}
 
 {% block header_classes %}
     header--slate
@@ -103,5 +103,5 @@
 
 {% block js %}
 	{{ block.super }}
-	{% render_bundle 'tor' 'js' %}
+	{% vite_asset 'client/tor/js/torEntry.js' %}
 {% endblock %}
