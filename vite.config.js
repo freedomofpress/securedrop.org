@@ -1,17 +1,34 @@
 const path = require('path')
 const { defineConfig } = require('vite')
 
+// Value used only to build the Sass $static-url variable below, which
+// must match where the common app's static/ directory actually lives on
+// disk relative to the project root (see publicDir/renderBuiltUrl below).
 const STATIC_URL = process.env.STATIC_URL || '/common/static/'
 
 module.exports = defineConfig({
-	// Must match Django's STATIC_URL + DJANGO_VITE's static_url_prefix: Vite
-	// resolves any CSS url() starting with "/" (e.g. the $static-url-prefixed
-	// font/image references below) against the project root and re-emits them
-	// as hashed assets here, so this is where those URLs need to resolve.
-	base: '/static/bundles/',
+	// Vite resolves any CSS url() starting with "/" (e.g. the
+	// $static-url-prefixed font/image references below) against the
+	// project root. Treating the whole project root as Vite's publicDir -
+	// without letting Vite copy it wholesale into outDir - makes Vite
+	// recognize those as already-published files and leave them alone,
+	// instead of re-emitting duplicate hashed copies into
+	// build/static/bundles/. renderBuiltUrl then rewrites the disk-relative
+	// path Vite resolved them by into the URL Django actually serves them
+	// at (STATIC_URL, with no "common" prefix, since AppDirectoriesFinder
+	// serves an app's static/ directory contents directly under STATIC_URL).
+	publicDir: path.resolve(__dirname),
+	experimental: {
+		renderBuiltUrl(filename, { type }) {
+			if (type === 'public' && filename.startsWith('common/static/')) {
+				return '/static/' + filename.slice('common/static/'.length)
+			}
+		},
+	},
 	build: {
 		outDir: path.resolve(__dirname, 'build/static/bundles'),
 		emptyOutDir: true,
+		copyPublicDir: false,
 		manifest: 'manifest.json',
 		rollupOptions: {
 			input: {
