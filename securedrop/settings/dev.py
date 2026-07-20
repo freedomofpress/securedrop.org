@@ -39,6 +39,13 @@ structlog.configure(
     cache_logger_on_first_use=cache_logger,
 )
 
+
+def silence_monitoring(record):
+    if "GET /health/ok/?monitor" in record.getMessage():
+        return False
+    return True
+
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
@@ -46,7 +53,7 @@ LOGGING = {
         "normal": {
             "class": "logging.StreamHandler",
             "formatter": "plain_console",
-            "filters": ["require_debug_true"],
+            "filters": ["silence_monitoring", "require_debug_true"],
         },
         "null": {"class": "logging.NullHandler"},
     },
@@ -58,6 +65,10 @@ LOGGING = {
         },
     },
     "filters": {
+        "silence_monitoring": {
+            "()": "django.utils.log.CallbackFilter",
+            "callback": silence_monitoring,
+        },
         "require_debug_true": {
             "()": "django.utils.log.RequireDebugTrue",
         },

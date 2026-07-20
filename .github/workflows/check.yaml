@@ -109,16 +109,7 @@ jobs:
         run: make dev-init
 
       - name: Start
-        run: |
-          docker compose --file="$COMPOSE_FILE_DEV" up --wait --pull=missing --no-build
-
-          # Check for failed services and error if any are found
-          sleep 5
-          if [[ $(docker compose --file="$COMPOSE_FILE_DEV" ps --status='[restarting, dead, exited]' --format=json) ]]; then
-            echo "ERROR: One or more services failed to start"
-            docker compose ps
-            exit 1
-          fi
+        run: docker compose --file="$COMPOSE_FILE_DEV" up --wait --wait-timeout=180 --detach --pull=missing --no-build
 
       - name: Make target ${{ matrix.target }}
         run: make ${{ matrix.target }}
@@ -181,21 +172,7 @@ jobs:
           docker image tag "$IMAGE_URL" quay.io/freedomofpress/securedroporg
 
       - name: Start
-        run: |
-          docker compose --file="$COMPOSE_FILE_PROD" up --wait --pull=missing --no-build
-
-          # Check for failed services and error if any are found
-          sleep 5
-          if [[ $(docker compose --file="$COMPOSE_FILE_PROD" ps --status='[restarting, dead, exited]' --format=json) ]]; then
-            echo "ERROR: One or more services failed to start"
-            docker compose ps
-            exit 1
-          fi
-
-      - name: Verify django
-        run: |
-          docker run --pull=missing --rm --network=securedroporg_app "docker.io/curlimages/curl:$VERSION_CURL" \
-          --ipv4 --retry 24 --retry-delay 5 --retry-all-errors http://django:8000/health/ok/
+        run: docker compose --file="$COMPOSE_FILE_PROD" up --wait --wait-timeout=180 --detach --pull=missing --no-build
 
       - name: Verify database
         run: |
