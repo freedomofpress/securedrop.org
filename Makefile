@@ -10,7 +10,7 @@ REMOTE_IMAGE := quay.io/freedomofpress/securedrop.org
 export DOCKER_BUILDKIT = 1
 
 .PHONY: lint
-lint: ruff js-lint style-lint format-check
+lint: ruff js-lint style-lint format-check check-precommit-versions
 
 .PHONY: ruff
 ruff: ## Runs ruff linting in Python3 container.
@@ -27,6 +27,10 @@ style-lint: ## Runs stylelint against client Sass in the node container.
 .PHONY: format-check
 format-check: ## Checks client JS formatting with Prettier in the node container.
 	docker compose exec -T node npm run format-check
+
+.PHONY: check-precommit-versions
+check-precommit-versions: ## Checks .pre-commit-config.yaml pins match package.json.
+	docker compose exec -T django python3 devops/scripts/check-precommit-versions.py
 
 .PHONY: dev-init
 dev-init: ## Initialize docker environment for developer workflow
