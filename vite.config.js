@@ -1,30 +1,23 @@
 const path = require('path')
 const { defineConfig } = require('vite')
 
-// Value used only to build the Sass $static-url variable below, which
-// must match where the common app's static/ directory actually lives on
-// disk relative to the project root (see publicDir/renderBuiltUrl below).
-const STATIC_URL = process.env.STATIC_URL || '/common/static/'
+// Must match Django's real STATIC_URL. The common app's static/ files are
+// served directly under STATIC_URL with no per-app prefix
+// (AppDirectoriesFinder), so this is "/static/", not "/common/static/".
+const STATIC_URL = process.env.STATIC_URL || '/static/'
 
 module.exports = defineConfig({
 	// Vite resolves any CSS url() starting with "/" (e.g. the
-	// $static-url-prefixed font/image references below) against the
-	// project root. Treating the whole project root as Vite's publicDir -
-	// without letting Vite copy it wholesale into outDir - makes Vite
-	// recognize those as already-published files and leave them alone,
-	// instead of re-emitting duplicate hashed copies into
-	// build/static/bundles/. renderBuiltUrl then rewrites the disk-relative
-	// path Vite resolved them by into the URL Django actually serves them
-	// at (STATIC_URL, with no "common" prefix, since AppDirectoriesFinder
-	// serves an app's static/ directory contents directly under STATIC_URL).
-	publicDir: path.resolve(__dirname),
-	experimental: {
-		renderBuiltUrl(filename, { type }) {
-			if (type === 'public' && filename.startsWith('common/static/')) {
-				return '/static/' + filename.slice('common/static/'.length)
-			}
-		},
-	},
+	// $static-url-prefixed font/image references below) against publicDir.
+	// Pointing publicDir at the common app (the app whose static/
+	// directory those files actually live in), rather than letting Vite's
+	// own asset pipeline own them, makes Vite recognize them as
+	// already-published files at their real served URL and leave them
+	// alone, instead of re-emitting duplicate hashed copies into
+	// build/static/bundles/. copyPublicDir is off so Vite doesn't also
+	// bulk-copy the rest of the common app (models, templates, etc.) into
+	// the build output.
+	publicDir: path.resolve(__dirname, 'common'),
 	build: {
 		outDir: path.resolve(__dirname, 'build/static/bundles'),
 		emptyOutDir: true,
