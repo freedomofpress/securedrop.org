@@ -69,6 +69,8 @@ jobs:
           - bandit
           - dev-tests
           - ruff
+          - js-lint
+          - style-lint
     steps:
       - name: Install Docker
         uses: docker/setup-docker-action@v5.3.0
