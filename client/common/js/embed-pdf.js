@@ -1,4 +1,4 @@
-import PDFObject from 'pdfobject';
+import PDFObject from 'pdfobject'
 
 function embedPdf(el) {
 	var options = {

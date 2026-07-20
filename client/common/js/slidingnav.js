@@ -38,12 +38,14 @@ document.addEventListener('DOMContentLoaded', () => {
 	const navMenu = document.getElementById('js-nav-menu')
 	const navButton = document.getElementById('js-nav-button')
 	navMenu.classList.add('js-nav-menu-hidden')
-	navMenu.setAttribute('aria-hidden', "true")
+	navMenu.setAttribute('aria-hidden', 'true')
 	navButton.classList.remove('js-nav-menu-hidden')
-	navButton.setAttribute('aria-hidden', "false")
+	navButton.setAttribute('aria-hidden', 'false')
 	// We're assuming there's only one sliding nav to be instantiated
 	const navElement = document.getElementsByClassName('js-sliding-nav')[0]
 	const triggerElement = navButton
-	const overlayElement = document.getElementsByClassName('js-sliding-nav-overlay')[0]
+	const overlayElement = document.getElementsByClassName(
+		'js-sliding-nav-overlay',
+	)[0]
 	new SlidingNav(navElement, triggerElement, overlayElement)
 })

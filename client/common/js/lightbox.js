@@ -106,29 +106,33 @@ class Lightbox {
 		 * natural aspect ratio of the image to automatically determine the height. We use the
 		 * calculated image height to center the image.
 		 */
-		const imageAspectRatio = this.elements.image.height / this.elements.image.width
+		const imageAspectRatio =
+			this.elements.image.height / this.elements.image.width
 		const imageMaxHeight = Math.min(
 			this.elements.image.naturalHeight,
 			// Leave 140px for caption
-			window.innerHeight - 140 - this.options.lightboxPadding * 2 - this.options.lightboxMargin * 2
+			window.innerHeight -
+				140 -
+				this.options.lightboxPadding * 2 -
+				this.options.lightboxMargin * 2,
 		)
 		const imageWidth = Math.min(
 			this.elements.image.naturalWidth,
 			imageMaxHeight / imageAspectRatio,
-			window.innerWidth - this.options.lightboxPadding * 2 - this.options.lightboxMargin * 2
+			window.innerWidth -
+				this.options.lightboxPadding * 2 -
+				this.options.lightboxMargin * 2,
 		)
 		const imageHeight = imageWidth * imageAspectRatio
 		this.elements.container.style.width = imageWidth + 'px'
 		// Center
-		this.elements.container.style.top = ((
-			window.innerHeight
-			- imageHeight
-			- 140 // Leave 140px for caption
-		) / 2 + window.scrollY) + 'px'
-		this.elements.container.style.left = ((
-			window.innerWidth
-			- imageWidth
-		) / 2) + 'px'
+		this.elements.container.style.top =
+			(window.innerHeight - imageHeight - 140) / // Leave 140px for caption
+				2 +
+			window.scrollY +
+			'px'
+		this.elements.container.style.left =
+			(window.innerWidth - imageWidth) / 2 + 'px'
 
 		this._currentlyOpening = false
 	}
@@ -158,9 +162,8 @@ class Lightbox {
 	}
 }
 
-
 // Autodetect API
 document.addEventListener('DOMContentLoaded', () => {
 	const lightboxLinks = Array.from(document.querySelectorAll('.js-lightbox'))
-	lightboxLinks.forEach(link => new Lightbox(link))
+	lightboxLinks.forEach((link) => new Lightbox(link))
 })

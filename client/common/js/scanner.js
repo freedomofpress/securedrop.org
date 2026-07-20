@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 	const submit = document.getElementById('js-submit-button')
-	if(submit) {
-		submit.addEventListener('click', ()=> {
+	if (submit) {
+		submit.addEventListener('click', () => {
 			const form = document.getElementById('js-scanner-form')
 			const spinner = document.getElementById('js-spinner')
 			form.classList.add('basic-form--hidden')
