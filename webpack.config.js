@@ -29,7 +29,6 @@ var common = {
 	resolve: {
 		alias: {
 			'~': __dirname + '/client/common/js',
-			WagtailAutocomplete: path.resolve(__dirname, 'client/autocomplete/js/components'),
 			tor: __dirname + '/client/tor/js'
 		},
 		extensions: ['.js', '.jsx'],
@@ -57,7 +56,6 @@ var common = {
 				],
 				include: [
 					path.join(__dirname, '/client/common/js'),
-					path.join(__dirname, '/client/autocomplete/js'),
 					path.join(__dirname, '/client/tor/js'),
 				],
 			},

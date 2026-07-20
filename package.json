@@ -3,12 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "description": "",
-  "main": "webpack.config.js",
   "scripts": {
     "build": "webpack --mode production",
     "start": "webpack watch --mode development --devtool eval-source-map",
-    "js-lint": "eslint app/**/*.jsx",
-    "sass-lint": "sass-lint -v"
+    "js-lint": "eslint app/**/*.jsx"
   },
   "author": "Harris Lapiroff <harris@littleweaverweb.com>",
   "browserslist": [
@@ -16,7 +14,6 @@
   ],
   "devDependencies": {
     "@babel/core": "^8.0.1",
-    "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^8.0.2",
     "@babel/preset-react": "^8.0.1",
     "autoprefixer": "^10.5.2",
@@ -34,10 +31,7 @@
     "webpack-merge": "^6.0.1"
   },
   "dependencies": {
-    "babel-polyfill": "^6.26.0",
-    "classlist-polyfill": "^1.2.0",
     "hamburgers": "^1.2.1",
-    "pdfobject": "^2.3.1",
-    "prop-types": "^15.5.10"
+    "pdfobject": "^2.3.1"
   }
 }
