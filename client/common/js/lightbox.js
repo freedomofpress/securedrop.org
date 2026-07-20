@@ -1,4 +1,4 @@
-import './lightbox.sass'
+import './lightbox.scss'
 
 class Lightbox {
 	constructor(link) {

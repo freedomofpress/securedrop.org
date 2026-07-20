@@ -33,13 +33,13 @@ module.exports = defineConfig({
 	},
 	css: {
 		preprocessorOptions: {
-			sass: {
+			scss: {
 				api: 'modern',
 				loadPaths: [
 					path.resolve(__dirname, 'node_modules/'),
 					path.resolve(__dirname, 'common/static/fonts/'),
 				],
-				additionalData: `$static-url: "${STATIC_URL}"\n`,
+				additionalData: `$static-url: "${STATIC_URL}";\n`,
 			},
 		},
 	},

@@ -1,4 +1,4 @@
-import '../sass/common.sass'
+import '../sass/common.scss'
 import '~/slidingnav'
 import '~/alert'
 import '~/scanner'
