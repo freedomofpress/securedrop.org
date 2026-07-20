@@ -1,0 +1,20 @@
+.blockquote {
+	@include p-remove-first-and-last-margin;
+
+	color: $gray50--text;
+
+	@include media-breakpoint-down(extra-small) {
+		margin-left: 2rem;
+		margin-right: 0;
+	}
+
+
+	&__citation {
+		@include p-remove-first-and-last-margin;
+		@include link--no-underline;
+
+		display: block;
+		font-style: normal;
+		margin-top: 0.5em;
+	}
+}

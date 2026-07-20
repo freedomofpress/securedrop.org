@@ -1,0 +1,7 @@
+.thanks {
+	max-width: $text-max-width;
+}
+
+.thanks__chevron {
+	@include text-chevron--left;
+}

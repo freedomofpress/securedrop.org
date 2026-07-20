@@ -1,0 +1,49 @@
+.header {
+	position: relative;
+	color: white;
+
+	@include sd-gradient($blue-bright1, $blue-bright2);
+}
+
+.header--subheader {
+	padding-top: 0;
+}
+
+.header__title {
+	@include layout-x;
+
+	position: relative;
+	z-index: $z-hexagons__background;
+	padding-top: $header-padding;
+	padding-bottom: $header-padding;
+
+	@include media-breakpoint-down(extra-small) {
+		text-align: center;
+	}
+}
+
+.header__title-text {
+	margin-bottom: 0;
+	font-size: $site-title-font-size;
+}
+
+.header--slate {
+	@include sd-gradient($slate1, $slate2);
+}
+
+.header--blue-bright {
+	@include sd-gradient($blue-bright1, $blue-bright2);
+}
+
+.header--blue-bold {
+	@include sd-gradient($blue-bold1, $blue-bold2);
+}
+
+.header--purple {
+	@include sd-gradient($purple1, $purple2);
+}
+
+.header--transparent {
+	background: transparent;
+	color: $black;
+}

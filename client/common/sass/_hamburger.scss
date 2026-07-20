@@ -1,0 +1,57 @@
+.hamburger {
+	position: relative;
+	padding-bottom: 11px;
+	float: right;
+	z-index: $z-hamburger;
+	margin-bottom: -3.5em;
+
+	&:hover {
+		// overrides native hamburger style
+		opacity: 1;
+
+		// this is not BEM but..
+		.hamburger-inner {
+			background-color: $nav-hover-color;
+
+			&::before,
+			&::after {
+				background-color: $nav-hover-color;
+			}
+		}
+	}
+
+	@include media-breakpoint-up(small) {
+		display: none;
+	}
+}
+
+.hamburger-inner {
+	background-color: $white;
+	border-radius: 0;
+
+	&::before,
+	&::after {
+		background-color: $white;
+		border-radius: 0;
+	}
+
+	@include media-breakpoint-up(small) {
+		display: none;
+	}
+}
+
+.hamburger.is-active {
+	.hamburger-inner,
+	.hamburger-inner::before,
+	.hamburger-inner::after {
+		background-color: $white;
+	}
+
+	@include hover {
+		.hamburger-inner,
+		.hamburger-inner::before,
+		.hamburger-inner::after {
+			background-color: $nav-hover-color;
+		}
+	}
+}

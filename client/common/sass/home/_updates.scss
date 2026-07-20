@@ -1,0 +1,77 @@
+$hero-overlap: 5.2rem;
+
+.updates {
+	padding-top: $hero-overlap;
+
+	// ensures that the hero overlaps (with hexagons)
+	margin-top: -$hero-overlap;
+	position: relative;
+	z-index: $z-hexagons__background--updates;
+}
+
+.updates__content {
+	@include layout-x;
+	@include layout-y--no-tiny-breakpoint;
+
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	flex-wrap: wrap;
+	position: relative;
+	z-index: $z-hexagons__content--updates;
+	color: $gray80--text;
+	background-color: $gray10;
+}
+
+.updates__section {
+	border-left: $border-left;
+	padding: 0.5rem 1rem;
+	flex-basis: 25rem;
+	margin-bottom: 2rem;
+
+	.updates__item:not(:last-child) {
+		margin-bottom: 1.5rem;
+	}
+
+	@include p-remove-first-and-last-margin;
+}
+
+.updates__item {
+	@include p-remove-first-and-last-margin;
+}
+
+.updates__header {
+	@include uppercase;
+
+	font-size: 1rem;
+	margin-bottom: 0.5rem;
+}
+
+.updates__tag {
+	font-weight: $sans-bold;
+	margin-bottom: 0;
+	font-size: $h4;
+}
+
+.updates__links {
+	list-style: none;
+	margin: 0.375rem 0;
+	padding: 0;
+
+	li {
+		display: inline-block;
+		@include list--comma(" |");
+	}
+}
+
+.updates__link {
+	@include link--underline-on-hover;
+
+	font-weight: $sans-bold;
+}
+
+.updates__link--secondary {
+	@include link--no-underline($gray50--text, $brand-primary);
+
+	font-weight: $sans-regular;
+}

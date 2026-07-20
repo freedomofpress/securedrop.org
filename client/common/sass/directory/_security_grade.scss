@@ -1,0 +1,30 @@
+$security-font-size: 2rem;
+
+.security_grade__text {
+	font-size: $security-font-size;
+	display: inline-block;
+	line-height: 1;
+}
+
+.security_grade__grade {
+	color: $white;
+	width: 3rem;
+	font-size: $security-font-size;
+	font-weight: $sans-bold;
+	margin-left: 0.5rem;
+	text-align: center;
+	border-radius: 0.5rem;
+	display: inline-block;
+}
+
+@each $name, $color in $grade-colors {
+	.security_grade__grade--#{$name} {
+		background-color: $color;
+	}
+}
+
+@each $name, $color in $text-colors {
+	.security_grade__grade--#{$name} {
+		color: $color;
+	}
+}

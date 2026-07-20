@@ -1,0 +1,5 @@
+.js-nav-menu-hidden {
+	@include media-breakpoint-down(extra-small) {
+		display: none;
+	}
+}

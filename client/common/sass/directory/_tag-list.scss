@@ -1,0 +1,17 @@
+.tag-list {
+	@include list--unstyled;
+
+	color: $gray50;
+	margin-top: 0.5rem;
+	font-weight: $sans-light;
+}
+
+.tag-list__item {
+	@include list--comma;
+
+	display: inline-block;
+}
+
+.tag-list__link {
+	@include link--no-underline($gray80--text);
+}

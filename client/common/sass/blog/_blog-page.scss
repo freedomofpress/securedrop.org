@@ -1,0 +1,30 @@
+.blog-page {
+	max-width: 40em;
+	margin: 0 auto;
+	line-height: 1.5;
+}
+
+.blog-page__date {
+	text-align: center;
+	color: $gray50--text;
+}
+
+.blog-page__body {
+	padding-top: 3rem;
+
+	@include media-breakpoint-down(extra-small) {
+		padding-top: 2rem;
+	}
+}
+
+.blog-page__return-button {
+	@include button-small;
+	@include button-solid--gray;
+
+	text-decoration: none;
+	margin-top: $layout-padding;
+}
+
+.blog-page__chevron-left {
+	@include text-chevron--left;
+}

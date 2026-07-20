@@ -1,0 +1,43 @@
+.category-list {
+	@include list--unstyled;
+
+	// should be 1/2 of the margin left on the release
+	padding-left: 0.5rem;
+}
+
+.category-list__hexagon-wrapper {
+	flex-shrink: 0;
+}
+
+.category-list__hexagon {
+	position: relative;
+	width: 1rem;
+	height: auto;
+	top: 3px;
+}
+
+.category-list__item {
+	display: flex;
+	align-items: flex-start;
+	padding-bottom: 0.5rem;
+}
+
+.category-list__text {
+	padding-left: 0.5rem;
+}
+
+.catgory-list__text--current-category {
+	font-weight: $sans-bold;
+}
+
+.category-list__link {
+	@include link--unstyled;
+
+	transition-duration: 0.1s;
+	transition-timing-function: linear;
+	transition-property: opacity;
+
+	@include hover {
+		opacity: 0.75;
+	}
+}
