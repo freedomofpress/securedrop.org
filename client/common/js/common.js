@@ -1,6 +1,3 @@
-import 'classlist-polyfill'
-import 'babel-polyfill'
-
 import '../sass/common.sass'
 import '~/slidingnav'
 import '~/alert'
