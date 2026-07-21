@@ -15,7 +15,6 @@ lxml>=6.1.1
 pillow>=12.3.0
 psycopg[binary]
 pygments>=2.20.0
-python-json-logger
 requests>=2.34.2
 structlog
 tinycss2
