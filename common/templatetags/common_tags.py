@@ -1,4 +1,4 @@
-import bleach
+import nh3
 from django import template
 from django.urls import reverse
 from django.utils.html import mark_safe
@@ -20,10 +20,16 @@ def richtext_inline(value):
     "Returns HTML-formatted rich text stripped of block level elements"
     text = richtext(value)
     return mark_safe(
-        bleach.clean(
+        nh3.clean(
             text,
-            strip=True,
             tags={"a", "abbr", "acronym", "b", "code", "em", "i", "strong", "span"},
+            # Matches bleach's old default ALLOWED_ATTRIBUTES, which nh3's
+            # own defaults don't (e.g. nh3 drops title from abbr/acronym).
+            attributes={
+                "a": {"href", "title"},
+                "abbr": {"title"},
+                "acronym": {"title"},
+            },
         )
     )
 
