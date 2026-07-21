@@ -12,9 +12,6 @@
     "format-check": "prettier --check 'client/**/*.js'"
   },
   "author": "Harris Lapiroff <harris@littleweaverweb.com>",
-  "browserslist": [
-    "baseline widely available"
-  ],
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "eslint": "^10.7.0",
