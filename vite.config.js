@@ -22,10 +22,7 @@ module.exports = defineConfig({
 		outDir: path.resolve(__dirname, 'build/static/bundles'),
 		emptyOutDir: true,
 		copyPublicDir: false,
-		// Explicit rather than relying on Vite's own default (which
-		// currently matches anyway) - this is the transpile target, not a
-		// polyfill/prefix policy: replaces the old browserslist config,
-		// which only autoprefixer (now removed) ever read.
+		// Vite defaults to baseline-widely-available, but making it explicit.
 		target: 'baseline-widely-available',
 		manifest: 'manifest.json',
 		rollupOptions: {
