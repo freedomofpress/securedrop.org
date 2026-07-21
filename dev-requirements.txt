@@ -424,9 +424,9 @@ django-debug-toolbar==7.0.0 \
     --hash=sha256:656161388ce48384276342eeb16d532113ec670816fa1546cc3753730aa51b3d \
     --hash=sha256:ef7494c5b459c149e87cc2da88d86e944064945e86bd7b2d879093586b5fefbf
     # via -r dev-requirements.in
-django-filter==25.2 \
-    --hash=sha256:760e984a931f4468d096f5541787efb8998c61217b73006163bf2f9523fe8f23 \
-    --hash=sha256:9c0f8609057309bba611062fe1b720b4a873652541192d232dd28970383633e3
+django-filter==26.1 \
+    --hash=sha256:66ea04031b068c77c86e1ac26ced7a3f8f13ce797f5795751707e3deefc58054 \
+    --hash=sha256:7d98ef2899218e6242619b532cb1b95af14e09dfcf74844aecb550ad27b59ff2
     # via
     #   -r requirements.txt
     #   wagtail
