@@ -17,33 +17,44 @@ full_version_out="${DJANGO_FULL_VERSION_FILE:-/deploy/version-full.txt}"
 # Check if we are inside a valid git repository
 if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
     branch="$(git rev-parse --abbrev-ref HEAD)"
-    commit="$(git rev-parse --short HEAD)"
+    commit="$(git rev-parse --verify HEAD)"
 
     case "$branch" in
         prod)
             branch_desc="on branch: ${branch}"
-            ref_desc="release tag: $(git describe HEAD^2 2>/dev/null || echo 'unknown tag')";;
+            ref_desc="release tag: $(git describe HEAD^2)";;
         HEAD)
             branch_desc="no branch, detached HEAD"
-            ref_desc="not tagged, $(git describe 2>/dev/null || echo 'unknown description')";;
+            ref_desc="not tagged, $(git describe --always --dirty)";;
         *)
             branch_desc="on branch: ${branch}"
-            ref_desc="not tagged, $(git describe 2>/dev/null || echo 'unknown description')";;
+            ref_desc="not tagged, $(git describe --always --dirty)";;
     esac
 
     git_history="$(git log -5 --oneline)"
 else
-    # Fallbacks for when .git folder is missing (e.g., Production Docker builds)
-    branch_desc="branch: ${GIT_BRANCH:-unknown (built without .git)}"
-    commit="${GIT_COMMIT_SHA:-unknown}"
-    ref_desc="tag/release: ${GIT_TAG:-unknown}"
-    git_history="Git history unavailable in this build environment."
+    # Production images exclude .git, so all three values are mandatory inputs.
+    : "${GIT_BRANCH:?GIT_BRANCH must be set when .git is unavailable}"
+    : "${GIT_COMMIT_SHA:?GIT_COMMIT_SHA must be set when .git is unavailable}"
+    : "${GIT_TAG:?GIT_TAG must be set when .git is unavailable}"
+    branch_desc="branch: ${GIT_BRANCH}"
+    commit="${GIT_COMMIT_SHA}"
+    ref_desc="tag/release: ${GIT_TAG}"
+    git_history="Git history was not embedded; metadata was supplied by build arguments."
+fi
+
+if [[ ! "$commit" =~ ^[0-9a-fA-F]{7,40}$ ]]; then
+    echo "Invalid Git commit SHA: ${commit}" >&2
+    exit 1
 fi
 
 # Trim commit to short hash if provided via environment variable
 commit="${commit:0:7}"
 
+# PATH selects the environment used by the application. PYTHON_BIN can override
+# that without coupling this script to a particular virtualenv layout.
 python_bin="${PYTHON_BIN:-python3}"
+command -v "$python_bin" >/dev/null
 python_version="$("$python_bin" --version 2>&1)"
 python_deps="$("$python_bin" -m pip freeze)"
 sys_info="$(cat /etc/*-release)"
