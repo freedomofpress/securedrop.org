@@ -6,13 +6,10 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends gcc libpq-dev && \
     rm -rf /var/lib/apt/lists/*
 
-# Stage 2: Poetry Builder
-FROM python-base AS builder
-ENV POETRY_NO_INTERACTION=1 \
-    POETRY_VIRTUALENVS_IN_PROJECT=1 \
-    POETRY_VIRTUALENVS_CREATE=1
+# Stage 2: Export the Poetry lock and assemble a wheelhouse
+FROM python-base AS dependency-builder
+ENV POETRY_NO_INTERACTION=1
 
-# MATCHING WORKDIR: Keep this the same as the final stage
 WORKDIR /django
 
 COPY bootstrap-poetry-requirements.txt ./
@@ -23,10 +20,26 @@ RUN python3 -m venv ~/.local/share/poetry && \
     -r bootstrap-poetry-requirements.txt && \
   ln -sf ~/.local/share/poetry/bin/poetry /usr/local/bin/poetry
 
-# Copy your main Poetry configuration files
 COPY pyproject.toml poetry.lock ./
-# Install ALL dependencies (including dev groups) but skip local code injection
-RUN poetry install --no-root
+# Match `poetry install --no-root`: include all non-optional dependency groups.
+# BuildKit transfers only wheels and the hashed export to the final stage.
+RUN poetry export \
+      --format=requirements.txt \
+      --output=/tmp/requirements.txt \
+      --all-groups && \
+    python3 -m pip wheel \
+      --no-cache-dir \
+      --require-hashes \
+      --no-deps \
+      --wheel-dir=/wheels \
+      -r /tmp/requirements.txt && \
+    find /wheels -maxdepth 1 -type f -name '*.whl' -print | \
+      LC_ALL=C sort | \
+      while IFS= read -r wheel; do \
+        printf '%s --hash=sha256:%s\n' \
+          "$wheel" \
+          "$(sha256sum "$wheel" | cut -d' ' -f1)"; \
+      done > /tmp/wheel-requirements.txt
 
 # Stage 3: Final Development Image
 FROM python-base
@@ -47,19 +60,28 @@ COPY devops/docker/django-start.sh /usr/local/bin
 RUN chmod +x /usr/local/bin/django-start.sh
 
 WORKDIR /django
-ENV TLDEXTRACT_CACHE="/tmp/python-tldextract"
+ENV TLDEXTRACT_CACHE="/tmp/python-tldextract" \
+    VIRTUAL_ENV="/opt/venv" \
+    PATH="/opt/venv/bin:$PATH"
 
-# --- POETRY INTEGRATION ---
-# MATCHING PATH COPY: Copying /django/.venv to /django/.venv preserves shebang paths
-COPY --from=builder /django/.venv /django/.venv
-ENV PATH="/django/.venv/bin:$PATH"
+# Create the environment in the filesystem where it will run. Installing from
+# the wheelhouse avoids copying a non-portable virtualenv or build artifacts.
+COPY --from=dependency-builder /wheels /wheels
+COPY --from=dependency-builder /tmp/wheel-requirements.txt /tmp/wheel-requirements.txt
+RUN python3 -m venv "${VIRTUAL_ENV}" && \
+    "${VIRTUAL_ENV}/bin/python" -m pip install \
+        --no-cache-dir \
+        --no-index \
+        --only-binary=:all: \
+        --require-hashes \
+        --no-deps \
+        -r /tmp/wheel-requirements.txt && \
+    "${VIRTUAL_ENV}/bin/python" -m pip check && \
+    rm -rf /wheels /tmp/wheel-requirements.txt
 
-# FIX: Define the user BEFORE manipulating ownership
+# Define the user BEFORE manipulating ownership
 ARG USERID
 RUN getent passwd "${USERID?USERID must be supplied}" || useradd --create-home --no-log-init --uid "${USERID}" --user-group  gcorn
-
-# Grant gcorn ownership of the copied virtual environment for local changes/debugging
-RUN chown -R gcorn: /django/.venv
 
 RUN mkdir /django-logs /deploy /tmp/python-tldextract && \
     chown -R gcorn: /django-logs /deploy /tmp/python-tldextract

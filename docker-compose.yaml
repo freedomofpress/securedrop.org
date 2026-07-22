@@ -87,7 +87,6 @@ services:
     userns_mode: keep-id
     volumes:
       - ./:/django:z
-      - /django/.venv
     ports:
       - '127.0.0.1:8000:8000'
     healthcheck:

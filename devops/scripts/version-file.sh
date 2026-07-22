@@ -43,8 +43,9 @@ fi
 # Trim commit to short hash if provided via environment variable
 commit="${commit:0:7}"
 
-python_version="$(python3 --version)"
-python_deps="$(/django/.venv/bin/python -m pip freeze)"
+python_bin="${PYTHON_BIN:-python3}"
+python_version="$("$python_bin" --version 2>&1)"
+python_deps="$("$python_bin" -m pip freeze)"
 sys_info="$(cat /etc/*-release)"
 
 echo "$commit" >"$short_version_out"
