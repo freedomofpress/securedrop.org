@@ -445,9 +445,9 @@ django-storages[google]==1.14.6 \
     --hash=sha256:11b7b6200e1cb5ffcd9962bd3673a39c7d6a6109e8096f0e03d46fab3d3aabd9 \
     --hash=sha256:7a25ce8f4214f69ac9c7ce87e2603887f7ae99326c316bc8d2d75375e09341c9
     # via -r requirements.txt
-django-stubs-ext==6.0.6 \
-    --hash=sha256:5470c970f61a3ccf5aae7633feef1a097f944f417b955da200c9ac26ecd9134b \
-    --hash=sha256:e6f09884e48d7c5b250a373dfa22aa3e83bb91b8babbd8d05187f6b92247f232
+django-stubs-ext==6.0.7 \
+    --hash=sha256:53a9c7c5a7c7e718cc6308cfce1e7470f2cac0b9d38dbcd60fbfa82704f1d592 \
+    --hash=sha256:c3172c5126614fd2a44d0196b313b44c21f717cb09477ba52b447d41f4ce613e
     # via
     #   -r requirements.txt
     #   django-tasks
