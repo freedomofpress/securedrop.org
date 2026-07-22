@@ -502,9 +502,9 @@ factory-boy==3.3.3 \
     # via
     #   -r requirements.txt
     #   wagtail-factories
-faker==40.23.0 \
-    --hash=sha256:775922453e54afa42eaf60eac478fa3a969357f224d09a8022b93e3ad88f18ae \
-    --hash=sha256:f135e563f1f95f19346bb680bc2e43570bc43b7893e566023746f51f32c69dfc
+faker==40.31.0 \
+    --hash=sha256:af163a937aec99dca5abaeb94dd5008c51c26c6e9af1a26c8db4b3c4e7ca4403 \
+    --hash=sha256:bedc97c292a48a6a1bbe471a9076d7395a196421ede1cedde99d5719f6b91027
     # via
     #   -r requirements.txt
     #   factory-boy
