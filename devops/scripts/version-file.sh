@@ -33,13 +33,18 @@ if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
 
     git_history="$(git log -5 --oneline)"
 else
-    # Production images exclude .git, so all three values are mandatory inputs.
+    # Production images exclude .git, so the source branch and commit must be
+    # supplied by the build. A missing tag is a valid, known state for branch
+    # and pull-request builds rather than unknown provenance.
     : "${GIT_BRANCH:?GIT_BRANCH must be set when .git is unavailable}"
     : "${GIT_COMMIT_SHA:?GIT_COMMIT_SHA must be set when .git is unavailable}"
-    : "${GIT_TAG:?GIT_TAG must be set when .git is unavailable}"
-    branch_desc="branch: ${GIT_BRANCH}"
+    branch_desc="on branch: ${GIT_BRANCH}"
     commit="${GIT_COMMIT_SHA}"
-    ref_desc="tag/release: ${GIT_TAG}"
+    if [[ -n "${GIT_TAG:-}" ]]; then
+        ref_desc="release tag: ${GIT_TAG}"
+    else
+        ref_desc="not tagged"
+    fi
     git_history="Git history was not embedded; metadata was supplied by build arguments."
 fi
 

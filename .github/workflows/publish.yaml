@@ -23,7 +23,10 @@ jobs:
     with:
       context: '.'
       containerfile: devops/docker/ProdDjangoDockerfile
-      build-args: USERID=1000
+      build-args: |
+        USERID=1000
+        GIT_COMMIT_SHA=${{ github.sha }}
+        GIT_BRANCH=${{ github.ref_name }}
       requires-deep-history: true
       registry: ghcr.io/freedomofpress/securedrop-org
       add-branch-tags: true

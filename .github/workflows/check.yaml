@@ -52,7 +52,10 @@ jobs:
     with:
       context: '.'
       containerfile: devops/docker/ProdDjangoDockerfile
-      build-args: USERID=12345
+      build-args: |
+        USERID=12345
+        GIT_COMMIT_SHA=${{ github.sha }}
+        GIT_BRANCH=${{ github.head_ref || github.ref_name }}
       registry: localhost/securedroporg
       requires-deep-history: true
 
