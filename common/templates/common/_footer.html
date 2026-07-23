@@ -41,14 +41,6 @@
 				{% trans "White cube with keyhole (Securedrop logo)" as logo_alt_text %}
 				{% include "common/_svg.html" with class="footer-main__logo" svg="images/logo_transparent-footer-HappyKeyhole2.svg" img="images/logo_transparent-HappyKeyhole-1x.png" alt=logo_alt_text %}
 				<div class="footer-main__content">
-
-					<!--
-						It hurts me to make this change a little but wagtail legacy richtext always adds a div.
-						If we remove legacy richtext at some point also, there will be a p tag. What we technically
-						want is if we want only a link always in footer and no other usecase for richtext, then
-						just provide an option to add the link, instead of providing an entire richtext. That way,
-						we can move back to using h2. Right now this is the most valid solution, though not semantic :(
-					-->
 					<div role="heading" aria-level="1" id="aria-footer-nav" class='footer-main__title'>{{ footer.title|richtext }}</div>
 					<div class="footer-main__text-wrapper">
 						<nav class="footer-main__nav" aria-labelledby="aria-footer-nav">
@@ -66,11 +58,9 @@
 								<div class="footer-main__social-media">
 									{% if footer.mastodon_url %}
 										<a href="{{ footer.mastodon_url }}" rel="me noopener nofollow" target="_blank">{% include "common/_svg.html" with class="footer-main__social-icon" svg="images/mastodon.svg" img="images/mastodon.png" alt="Mastodon Profile" %}</a>
-										<!-- Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) -->
 									{% endif %}
 									{% if footer.twitter_url %}
-										<a href="{{ footer.twitter_url }}" rel="noopener nofollow" target="_blank">{% include "common/_svg.html" with class="footer-main__social-icon" svg="images/twitter.svg" img="images/twitter.png" alt="Twitter Profile" %}</a>
-										<!-- Font Awesome Free 5.15.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) -->
+										<a href="{{ footer.twitter_url }}" rel="noopener nofollow" target="_blank">{% include "common/_svg.html" with class="footer-main__social-icon" svg="images/x.svg" img="images/x.png" alt="X Profile" %}</a>
 									{% endif %}
 									{% if footer.bluesky_url %}
 										<a href="{{ footer.bluesky_url }}" rel="noopener nofollow" target="_blank">{% include "common/_svg.html" with class="footer-main__social-icon" svg="images/bluesky.svg" img="images/bluesky.png" alt="Bluesky Profile" %}</a>

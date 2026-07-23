@@ -1,6 +1,12 @@
 ---
 networks:
   app:
+
+x-variables:
+  db-name: &db-name securedropdb
+  db-username: &db-username securedrop
+  db-password: &db-password securedroppassword
+
 services:
   postgresql:
     image: postgres:14
@@ -9,10 +15,26 @@ services:
     volumes:
       - ./:/django:ro
     environment:
-      POSTGRES_PASSWORD: securedroppassword
-      POSTGRES_USER: securedrop
-      POSTGRES_DB: securedropdb
+      POSTGRES_PASSWORD: *db-password
+      POSTGRES_USER: *db-username
+      POSTGRES_DB: *db-name
     user: postgres
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'pg_isready',
+          '-q',
+          '-h',
+          'localhost',
+          '-U',
+          *db-username,
+          '--dbname',
+          *db-name,
+        ]
+      timeout: 45s
+      interval: 10s
+      retries: 10
     networks:
       app:
         aliases:
@@ -29,6 +51,10 @@ services:
       - ./:/django:z
     working_dir: /django
     user: ${UID:?err}
+    healthcheck:
+      test: jq '.status' build/static/bundles/webpack-stats.json |grep -q -e compiling -e error -e done
+      interval: 10s
+      start_period: 1m30s
     userns_mode: keep-id
     networks:
       - app
@@ -43,8 +69,10 @@ services:
         USERID: ${UID:?err}
     image: localhost/securedroporg-django
     depends_on:
-      - node
-      - postgresql
+      postgresql:
+        condition: service_healthy
+      node:
+        condition: service_healthy
     environment:
       DJANGO_DB_PASSWORD: securedroppassword
       DJANGO_DB_USER: securedrop
@@ -61,6 +89,13 @@ services:
       - ./:/django:z
     ports:
       - '127.0.0.1:8000:8000'
+    healthcheck:
+      test:
+        ['CMD', 'curl', '--fail', 'http://localhost:8000/health/ok/?monitor']
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 45s
     networks:
       app:
         aliases:

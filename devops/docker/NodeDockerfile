@@ -3,6 +3,10 @@ FROM node:26.5.0-trixie@sha256:0473e7dc433a1310f436edee02aa79737ec78a4b345433ab0
 
 ARG USERID
 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    jq \
+    && rm -rf /var/lib/apt/lists/*
+
 RUN getent passwd "${USERID}" || useradd --create-home --no-log-init --uid "${USERID}" sdo_node
 
 USER ${USERID}
