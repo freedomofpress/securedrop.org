@@ -748,9 +748,9 @@ pillow-heif==1.4.0 \
     --hash=sha256:f75faab30c0b1f20d266e0c8a1a746f7aa56694baf3fd5cc4d86f2f242bb58de \
     --hash=sha256:ffbed970ea96485f96874604d3df298c06e89475dea09c217b8b901cc7ed7d1a
     # via willow
-proto-plus==1.28.0 \
-    --hash=sha256:38e5696342835b08fc116f30a25665b29531cda9d5d5643e9b81fc312385abd9 \
-    --hash=sha256:a630604310899e73c59ec302e5765c058d412b2f090b9c79c8822589f14955b8
+proto-plus==1.28.1 \
+    --hash=sha256:6660f5f1970874bdcfc3088b435188a36a37bd3596668f7d726417c4ae8cfbed \
+    --hash=sha256:832e68e7fe064cf90ab153b6e5eb935b27891bb89aaeb68b115e9b702f6cb168
     # via google-api-core
 protobuf==6.33.6 \
     --hash=sha256:0cd27b587afca21b7cfa59a74dcbd48a50f0a6400cfb59391340ad729d91d326 \
