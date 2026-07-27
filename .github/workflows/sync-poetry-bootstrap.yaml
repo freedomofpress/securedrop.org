@@ -4,7 +4,7 @@ name: Sync Poetry bootstrap requirements
 on:
   push:
     branches:
-      - main
+      - develop
     paths:
       - poetry.lock
   workflow_dispatch:
