@@ -31,7 +31,7 @@ WORKDIR /django
 COPY bootstrap-poetry-requirements.txt ./
 RUN python3 -m venv ~/.local/share/poetry && \
   ~/.local/share/poetry/bin/python -m pip install \
-    --prefer-binary=:all: \
+    --prefer-binary \
     --require-hashes \
     -r bootstrap-poetry-requirements.txt && \
   ln -sf ~/.local/share/poetry/bin/poetry /usr/local/bin/poetry
@@ -99,7 +99,7 @@ RUN python3 -m venv "${VIRTUAL_ENV}" && \
     "${VIRTUAL_ENV}/bin/python" -m pip install \
         --no-cache-dir \
         --no-index \
-        --prefer-binary=:all: \
+        --prefer-binary \
         --require-hashes \
         --no-deps \
         -r /tmp/wheel-requirements.txt && \
