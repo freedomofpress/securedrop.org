@@ -1,0 +1,73 @@
+---
+name: Sync Poetry bootstrap requirements
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - poetry.lock
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: sync-poetry-bootstrap-requirements
+  cancel-in-progress: true
+
+jobs:
+  export:
+    name: Export bootstrap requirements
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.14"
+
+      - name: Install Poetry from hash-locked requirements
+        shell: bash
+        run: |
+          python -m venv "${RUNNER_TEMP}/poetry-bootstrap"
+
+          "${RUNNER_TEMP}/poetry-bootstrap/bin/python" -m pip install \
+            --require-hashes \
+            --only-binary=:all: \
+            --no-deps \
+            --requirement bootstrap-poetry-requirements.txt
+
+          echo "${RUNNER_TEMP}/poetry-bootstrap/bin" >> "${GITHUB_PATH}"
+
+      - name: Verify Poetry installation and install export plugin
+        run: |
+          poetry --version
+          poetry self show plugins
+
+      - name: Export bootstrap requirements
+        run: |
+          poetry export \
+            --format=requirements.txt \
+            --output=bootstrap-poetry-requirements.txt \
+            --only=poetry \
+            --no-ansi \
+            --no-interaction
+
+      - name: Create or update pull request
+        uses: peter-evans/create-pull-request@v8
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: main
+          branch: automation/sync-poetry-bootstrap-requirements
+          delete-branch: true
+          add-paths: bootstrap-poetry-requirements.txt
+          commit-message: "build: update Poetry bootstrap requirements"
+          title: "build: update Poetry bootstrap requirements"
+          body: |
+            Regenerates `bootstrap-poetry-requirements.txt` from the current
+            `poetry.lock`. The Docker image build depends on this.
