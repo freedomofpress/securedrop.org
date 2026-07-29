@@ -1231,9 +1231,9 @@ sgmllib3k==1.0.0 \
     # via
     #   -r requirements.txt
     #   feedparser
-soupsieve==2.9 \
-    --hash=sha256:a2b2c76d67df2382d245409fd71e321a571717e58463efa32ace87dcadac2c12 \
-    --hash=sha256:acee8417325c5653e1377dc31eccad59eb82cbc65942afe6174c53b3aaad63fc
+soupsieve==2.9.1 \
+    --hash=sha256:4f4477399246b7a0c720a88ca2454b11cd6bb9ae4c9d170140786e916776c14c \
+    --hash=sha256:c33e6605bbc71dd628b00c632d58ae607c22bade247e52553928f83bbb75b4ba
     # via
     #   -r requirements.txt
     #   beautifulsoup4
