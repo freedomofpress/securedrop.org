@@ -19,7 +19,8 @@ updates:
   - package-ecosystem: 'pip'
     directory: '/'
     schedule:
-      interval: 'quarterly'
+      interval: 'cron'
+      cronjob: '0 0 1 1,4,7,10 *'
     cooldown:
       default-days: 7
     allow:
@@ -40,7 +41,8 @@ updates:
   - package-ecosystem: 'npm'
     directory: '/'
     schedule:
-      interval: 'quarterly'
+      interval: 'cron'
+      cronjob: '0 0 1 1,4,7,10 *'
     cooldown:
       default-days: 7
     allow:
