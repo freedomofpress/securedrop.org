@@ -898,6 +898,10 @@ tldextract==5.3.1 \
     --hash=sha256:6bfe36d518de569c572062b788e16a659ccaceffc486d243af0484e8ecf432d9 \
     --hash=sha256:a72756ca170b2510315076383ea2993478f7da6f897eef1f4a5400735d5057fb
     # via -r requirements.in
+tqdm==4.70.0 \
+    --hash=sha256:55b0b0dbd97462d06ebee91e4dac24ed4d4702be82b24f07e6c1d27e08cea220 \
+    --hash=sha256:7f585706bfddbdebf89daac705b2dfcc16890130727d3197ca62c732b4310953
+    # via wagtail-inventory
 typing-extensions==4.16.0 \
     --hash=sha256:481caa481374e813c1b176ada14e97f1f67a4539ce9cfeb3f350d78d6370c2e8 \
     --hash=sha256:dc983d19a509c94dba722ee6abd33940f7c05a89e243c47e907eb4db6f1a43e5
@@ -923,6 +927,7 @@ wagtail==7.4.2 \
     #   wagtail-autocomplete
     #   wagtail-factories
     #   wagtail-honeypot
+    #   wagtail-inventory
     #   wagtail-metadata
     #   wagtailmedia
 wagtail-autocomplete==0.12.0 \
@@ -936,6 +941,10 @@ wagtail-factories==4.5.0 \
 wagtail-honeypot==1.3.1 \
     --hash=sha256:793f7bf91cdc8cf9b2516c4e6a274f939bfa94ef977fe031cabeef6c5e47cd91 \
     --hash=sha256:e09cbb99ef6e18b98a3c36b06d9c2b7bd357477af4470404146af55d567528ff
+    # via -r requirements.in
+wagtail-inventory==3.4 \
+    --hash=sha256:c2f75eaae683b18fd10450b1e4d397fa2ac13f2b3d09bdac7743a3c1d79b57cf \
+    --hash=sha256:d13043c1ca6444cfe5003606a91e26f20f989223373223893e5693794b6225ea
     # via -r requirements.in
 wagtail-metadata==5.0.0 \
     --hash=sha256:3b9109928bad53306b21b64cf9205d84cbb88fc625bac0a38305bebb9c26e64a \
