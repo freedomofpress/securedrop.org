@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     "taggit",
     "rest_framework",
     "wagtailmedia",
+    "wagtailinventory",
     "wagtail_honeypot",
     "django.contrib.admin",
     "django.contrib.auth",
