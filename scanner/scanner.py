@@ -1,4 +1,5 @@
 import itertools
+import logging
 import operator
 import re
 from datetime import UTC, datetime
@@ -16,6 +17,9 @@ from scanner.utils import HEADERS
 
 if TYPE_CHECKING:
     from directory.models import DirectoryEntryQuerySet
+
+
+logger = logging.getLogger(__name__)
 
 
 def perform_scan(url: str, permitted_domains: list[str]) -> ScanResult:
@@ -95,6 +99,7 @@ def bulk_scan(securedrops: DirectoryEntryQuerySet) -> None:
         try:
             current_result = perform_scan(entry.landing_page_url, permitted_domains)
         except Exception:
+            logger.exception("Failed to scan %s", entry.landing_page_url)
             continue
 
         # This is usually handled by Result.save, but since we're doing a
