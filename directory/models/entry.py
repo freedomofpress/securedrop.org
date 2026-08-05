@@ -391,7 +391,10 @@ def scan_directory_entry_after_edit(request, page):
         try:
             scanner.scan(page, commit=True)
             messages.success(request, f"Scan of '{page.title}' complete.")
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001
+            # Scanning parses arbitrary third-party HTML and can fail in
+            # unpredictable ways; the failure is surfaced to the editor
+            # below rather than crashing the page save.
             messages.error(request, f"Error during scan of '{page.title}': {e!r}")
 
 
