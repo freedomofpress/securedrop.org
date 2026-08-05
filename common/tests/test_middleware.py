@@ -12,6 +12,10 @@ from common.middleware.request_logger import RequestLogMiddleware
 from .utils import capture_logs_with_contextvars
 
 
+class SimulatedApplicationError(Exception):
+    pass
+
+
 class RequestLogTestCase(TestCase):
     @classmethod
     def setUpTestData(cls):
@@ -29,10 +33,10 @@ class RequestLogTestCase(TestCase):
 
     @mock.patch.object(Page, "serve")
     def test_request_log_failed(self, serve):
-        serve.side_effect = Exception("Application Error")
+        serve.side_effect = SimulatedApplicationError("Application Error")
 
         with (
-            self.assertRaises(Exception),
+            self.assertRaises(SimulatedApplicationError),
             capture_logs_with_contextvars() as cap_logs,
             self.modify_settings(
                 MIDDLEWARE={
