@@ -65,7 +65,7 @@ class UpdateDocumentationIndexTestCase(TestCase):
         for url in fetch_indexable_pages():
             self.assertTrue(
                 SearchDocument.objects.filter(url=url).exists(),
-                "Search document with url %r should have been created" % url,
+                f"Search document with url {url!r} should have been created",
             )
             doc = SearchDocument.objects.get(url=url)
             self.assertNotEqual(doc.title, "")

@@ -362,6 +362,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name="orderedfeatures",
-            unique_together=set([("page", "feature")]),
+            unique_together={("page", "feature")},
         ),
     ]

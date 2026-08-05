@@ -14,7 +14,7 @@ class SearchContentException(Exception):
         return self.message
 
     def __repr__(self):
-        return "SearchContentException(%s)" % self
+        return f"SearchContentException({self})"
 
 
 def get_search_content_by_fields(page, fields, get_child_search_content=False):

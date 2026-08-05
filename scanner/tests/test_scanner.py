@@ -224,14 +224,14 @@ class ScannerTest(TestCase):
     def test_request_gets_page_if_protocol_identifier_present(self):
         "request_and_scrape_page should handle a URL with a protocol"
         url = "https://securedrop.org"
-        page, soup = scanner.request_and_scrape_page(url)
+        page, _soup = scanner.request_and_scrape_page(url)
         self.assertIn("List of SecureDrops", str(page.content))
 
     @mod_vcr.use_cassette(os.path.join(VCR_DIR, "scrape-securedrop-dot-org.yaml"))
     def test_request_gets_page_if_protocol_identifier_not_present(self):
         "request_and_scrape_page should handle a URL without a protocol"
         url = "securedrop.org"
-        page, soup = scanner.request_and_scrape_page(url)
+        page, _soup = scanner.request_and_scrape_page(url)
         self.assertIn("List of SecureDrops", str(page.content))
 
     @mod_vcr.use_cassette(os.path.join(VCR_DIR, "full-scan-site-live.yaml"))

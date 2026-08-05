@@ -41,9 +41,7 @@ structlog.configure(
 
 
 def silence_monitoring(record):
-    if "GET /health/ok/?monitor" in record.getMessage():
-        return False
-    return True
+    return "GET /health/ok/?monitor" not in record.getMessage()
 
 
 LOGGING = {

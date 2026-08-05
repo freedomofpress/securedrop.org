@@ -14,10 +14,8 @@ from directory.warnings import WARNINGS
 
 class DirectoryChoicesTest(TestCase):
     def test_all_warnings_can_be_chosen(self):
-        all_warning_names = set(warning.name for warning in WARNINGS)
-        warning_choice_names = set(
-            choice[0] for choice in DirectoryEntry.WARNING_CHOICES
-        )
+        all_warning_names = {warning.name for warning in WARNINGS}
+        warning_choice_names = {choice[0] for choice in DirectoryEntry.WARNING_CHOICES}
 
         self.assertEqual(all_warning_names, warning_choice_names)
 

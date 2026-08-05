@@ -265,10 +265,7 @@ def validate_subdomain(url):
 
 def validate_not_using_cdn(page):
     """Right now this is just checking for Cloudflare"""
-    if "CF-Cache-Status" in page.headers or "CF-RAY" in page.headers:
-        return False
-    else:
-        return True
+    return not ("CF-Cache-Status" in page.headers or "CF-RAY" in page.headers)
 
 
 def validate_not_using_analytics(page):
@@ -307,10 +304,7 @@ def validate_not_using_analytics(page):
 def validate_security_header(page, header, expected_value):
     if header not in page.headers:
         return False
-    elif page.headers[header] == expected_value:
-        return True
-    else:
-        return False
+    return page.headers[header] == expected_value
 
 
 def validate_cache_control_header(page, expected_directive):
@@ -321,26 +315,17 @@ def validate_cache_control_header(page, expected_directive):
 
 
 def validate_no_redirects(page):
-    if page.is_redirect:
-        return False
-    else:
-        return True
+    return not page.is_redirect
 
 
 def validate_200_ok(page):
-    if page.status_code == 200:
-        return True
-    else:
-        return False
+    return page.status_code == 200
 
 
 def validate_encoding(page):
     if page.encoding is None:
         return False
-    if page.encoding.upper() in ("UTF-8", "ISO-8859-1"):
-        return True
-    else:
-        return False
+    return page.encoding.upper() in ("UTF-8", "ISO-8859-1")
 
 
 def validate_server_software(page):
@@ -348,10 +333,7 @@ def validate_server_software(page):
         return True
     else:
         server_header = str.lower(page.headers["Server"])
-    if "nginx" in server_header or "apache" in server_header:
-        return False
-    else:
-        return True
+    return not ("nginx" in server_header or "apache" in server_header)
 
 
 def validate_server_version(page):
@@ -364,20 +346,14 @@ def validate_server_version(page):
 
     if not matches:
         return True
-    elif len(matches.group()) > 1:
-        return False
-    else:
-        return True
+    return not len(matches.group()) > 1
 
 
 def validate_csp(page):
-    if (
+    return not (
         "Content-Security-Policy" not in page.headers
         or "default-src 'self'" not in page.headers["Content-Security-Policy"]
-    ):
-        return False
-    else:
-        return True
+    )
 
 
 def validate_xss_protection(page):
@@ -429,10 +405,7 @@ def validate_expires(page):
 
 
 def validate_cache_control_set(page):
-    if "Cache-Control" in page.headers:
-        return True
-    else:
-        return False
+    return "Cache-Control" in page.headers
 
 
 def validate_cache_must_revalidate(page):
@@ -460,10 +433,7 @@ def validate_no_referrer_policy(page):
 
 
 def validate_no_cookies(page):
-    if len(page.cookies.keys()) > 0:
-        return False
-    else:
-        return True
+    return not len(page.cookies.keys()) > 0
 
 
 def validate_onion_address_not_in_href(page):
