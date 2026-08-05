@@ -31,14 +31,16 @@ class RequestLogTestCase(TestCase):
     def test_request_log_failed(self, serve):
         serve.side_effect = Exception("Application Error")
 
-        with self.assertRaises(Exception):
-            with capture_logs_with_contextvars() as cap_logs:
-                with self.modify_settings(
-                    MIDDLEWARE={
-                        "append": "common.middleware.request_logger.RequestLogMiddleware",
-                    }
-                ):
-                    self.client.get("/")
+        with (
+            self.assertRaises(Exception),
+            capture_logs_with_contextvars() as cap_logs,
+            self.modify_settings(
+                MIDDLEWARE={
+                    "append": "common.middleware.request_logger.RequestLogMiddleware",
+                }
+            ),
+        ):
+            self.client.get("/")
 
         log_entry = cap_logs[0]
         self.assertEqual(log_entry["event"], "request_failed")
