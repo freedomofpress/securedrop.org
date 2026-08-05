@@ -71,7 +71,7 @@ jobs:
         target:
           - check-migrations
           - bandit
-          - dev-tests
+          - test
           - ruff
     steps:
       - name: Install Docker
@@ -109,14 +109,19 @@ jobs:
           docker image tag "$IMAGE_DEV_URL" localhost/securedroporg-django
           docker image tag "$IMAGE_NODE_URL" localhost/securedroporg-node
 
+      - name: Install just
+        uses: taiki-e/install-action@v2
+        with:
+          tool: just
+
       - name: Create env config
-        run: make dev-init
+        run: just dev-init
 
       - name: Start
         run: docker compose --file="$COMPOSE_FILE_DEV" up --wait --wait-timeout=180 --detach --pull=missing --no-build
 
-      - name: Make target ${{ matrix.target }}
-        run: make ${{ matrix.target }}
+      - name: Run target '${{ matrix.target }}'
+        run: just ${{ matrix.target }}
 
       - name: Export logs
         run: |
@@ -136,7 +141,7 @@ jobs:
 
       - name: Save HTML coverage
         uses: actions/upload-artifact@v7
-        if: ${{ matrix.target == 'dev-tests' }}
+        if: ${{ matrix.target == 'test' }}
         with:
           name: test-${{ matrix.target }}-${{ github.run_id }}-htmlcov
           path: htmlcov

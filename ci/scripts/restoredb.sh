@@ -2,21 +2,41 @@
 #
 # Restore a database dump for the current git branch.
 
-BRANCH=`git rev-parse --abbrev-ref HEAD`
-PREFIX="pfi-$BRANCH"
+set -euo pipefail
+
+# Honour the engine chosen by the justfile; fall back to docker standalone.
+COMPOSE="${COMPOSE:-docker compose}"
+
+BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 FOLDER="db-snapshots"
-
-FILE=$(find $FOLDER -iname "$PREFIX*.dump" | sort -r | head -n 1)
-[ -z $FILE ] && echo "no snapshots found for branch $BRANCH" && exit 1
-
 OWNER="postgres"
 DBNAME="securedropdb"
 CONTAINER="postgresql"
 
+# `sdo-` is the current prefix; `pfi-` is matched too so snapshots taken before
+# the rename still restore.
+FILE=""
+for prefix in "sdo-$BRANCH" "pfi-$BRANCH"; do
+    FILE="$(find "$FOLDER" -iname "$prefix*.dump" 2>/dev/null | sort -r | head -n 1)"
+    [ -n "$FILE" ] && break
+done
+if [ -z "$FILE" ]; then
+    echo "no snapshots found for branch $BRANCH" >&2
+    exit 1
+fi
+echo "Restoring from: $FILE"
+
 # Terminate all other connections
-docker-compose exec $CONTAINER psql -o /dev/null -h localhost $OWNER postgres -c "ALTER DATABASE $DBNAME CONNECTION LIMIT 1;"
-docker-compose exec $CONTAINER psql -o /dev/null -h localhost $OWNER postgres -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '$DBNAME';"
-docker-compose exec $CONTAINER dropdb -U $OWNER $DBNAME
-[ $? -ne 0 ] && echo "could not drop database $DBNAME, aborting" && exit 1
-docker-compose exec -i $CONTAINER createdb -U $OWNER --encoding UTF8 --lc-collate=en_US.UTF-8 --lc-ctype=en_US.UTF-8 --template=template0 --owner $OWNER $DBNAME
-docker-compose exec -i $CONTAINER pg_restore -U $OWNER -1 --no-owner --role=$OWNER -n public --dbname=$DBNAME < "${FILE}"
+$COMPOSE exec -T "$CONTAINER" psql -o /dev/null -h localhost "$OWNER" postgres \
+    -c "ALTER DATABASE $DBNAME CONNECTION LIMIT 1;"
+$COMPOSE exec -T "$CONTAINER" psql -o /dev/null -h localhost "$OWNER" postgres \
+    -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '$DBNAME';"
+
+# `set -e` aborts here if the drop fails; the previous explicit `$?` test always
+# read the exit status of the preceding echo, so it never fired.
+$COMPOSE exec -T "$CONTAINER" dropdb -U "$OWNER" "$DBNAME"
+$COMPOSE exec -T "$CONTAINER" createdb -U "$OWNER" --encoding UTF8 \
+    --lc-collate=en_US.UTF-8 --lc-ctype=en_US.UTF-8 --template=template0 \
+    --owner "$OWNER" "$DBNAME"
+$COMPOSE exec -T "$CONTAINER" pg_restore -U "$OWNER" -1 --no-owner \
+    --role="$OWNER" -n public --dbname="$DBNAME" < "$FILE"

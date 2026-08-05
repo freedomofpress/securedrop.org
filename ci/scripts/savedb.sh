@@ -2,15 +2,21 @@
 #
 # Save a database snapshot for the current git branch.
 
-BRANCH=`git rev-parse --abbrev-ref HEAD`
-DATE=`date +%Y-%m-%d-%H-%M-%S`
-DUMPFILE="pfi-$BRANCH.$DATE.dump"
+set -euo pipefail
+
+# Honour the engine chosen by the justfile; fall back to docker standalone.
+COMPOSE="${COMPOSE:-docker compose}"
+
+BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+DATE="$(date +%Y-%m-%d-%H-%M-%S)"
+DUMPFILE="sdo-$BRANCH.$DATE.dump"
 DBNAME="securedropdb"
 FOLDER="db-snapshots"
 OWNER="postgres"
 
-if [ ! -d "$FOLDER" ]; then
-  mkdir $FOLDER
-fi
+mkdir -p "$FOLDER"
 
-docker-compose exec postgresql pg_dump -U $OWNER --format=custom $DBNAME > $FOLDER/$DUMPFILE
+$COMPOSE exec -T postgresql pg_dump -U "$OWNER" --format=custom "$DBNAME" \
+    > "$FOLDER/$DUMPFILE"
+
+echo "Saved snapshot: $FOLDER/$DUMPFILE"
