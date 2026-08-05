@@ -1,3 +1,4 @@
+from django.db import Error as DjangoDBError
 from django.test import TestCase
 
 from wagtail.models import Page
@@ -77,7 +78,7 @@ class WagtailTestCase(TestCase):
         page = self.page
         try:
             delete_wagtail_page(page)
-        except Exception as e:
+        except DjangoDBError as e:
             self.fail(
                 f'delete_wagtail_page raised an exception {type(e).__name__} ("{e.args[0]}")'
             )
