@@ -234,9 +234,9 @@ def summarize_assets(assets: list[Asset]) -> str:
 
     sorted_assets = sorted(assets, key=by_initiator)
 
-    for initiator, assets in itertools.groupby(sorted_assets, by_initiator):
+    for initiator, initiator_assets in itertools.groupby(sorted_assets, by_initiator):
         summary += initiator + "\n"
-        for asset in sorted(assets, key=by_kind):
+        for asset in sorted(initiator_assets, key=by_kind):
             summary += f"  * ({asset.kind}) {asset.resource}\n"
     return summary
 
