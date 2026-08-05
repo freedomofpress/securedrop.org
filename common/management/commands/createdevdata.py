@@ -65,14 +65,12 @@ class Command(BaseCommand):
             )
             image = CustomImage.objects.filter(title="Sample Image").first()
             if not image:
-                image = CustomImage.objects.create(
-                    title="Sample Image",
-                    file=ImageFile(
-                        open("common/static/images/logo_solid_white.png", "rb"),
-                        name="logo",
-                    ),
-                    attribution="createdevdata",
-                )
+                with open("common/static/images/logo_solid_white.png", "rb") as f:
+                    image = CustomImage.objects.create(
+                        title="Sample Image",
+                        file=ImageFile(f, name="logo"),
+                        attribution="createdevdata",
+                    )
             sssettings = SocialSharingSEOSettings.for_site(site)
             sssettings.default_description = "SecureDrop"
             sssettings.default_image = image
