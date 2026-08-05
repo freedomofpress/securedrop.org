@@ -8,10 +8,7 @@ exclude = [
 ]
 
 [tool.ruff.lint]
-ignore = ["E501", "E266"]
-
-[tool.ruff.lint.per-file-ignores]
-"**/migrations/*.py" = ["RUF012"]
+ignore = ["E501", "E266", "RUF012"]
 
 [tool.ruff.lint.isort]
 lines-after-imports = 2
