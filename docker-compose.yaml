@@ -10,8 +10,9 @@ x-variables:
 services:
   postgresql:
     image: postgres:14
+    init: true
     ports:
-      - '5432:5432'
+      - '127.0.0.1:5432:5432'
     volumes:
       - ./:/django:ro
     environment:
@@ -43,10 +44,12 @@ services:
   node:
     build:
       context: .
-      dockerfile: devops/docker/NodeDockerfile
+      dockerfile: ci/containers/Containerfile
+      target: node-dev
       args:
         USERID: ${UID:?err}
     image: localhost/securedroporg-node
+    init: true
     volumes:
       - ./:/django:z
     working_dir: /django
@@ -64,10 +67,12 @@ services:
     tty: true
     build:
       context: .
-      dockerfile: devops/docker/DevDjangoDockerfile
+      dockerfile: ci/containers/Containerfile
+      target: dev
       args:
         USERID: ${UID:?err}
     image: localhost/securedroporg-django
+    init: true
     depends_on:
       postgresql:
         condition: service_healthy

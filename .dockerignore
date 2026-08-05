@@ -1,6 +1,6 @@
 node_modules
 client/build/
 media/
-molecule
+build/static/bundles
 **/*.pyc
 .versioninfo

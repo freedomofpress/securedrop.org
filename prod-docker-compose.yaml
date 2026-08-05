@@ -4,6 +4,7 @@ networks:
 services:
   postgresql:
     image: postgres:14
+    init: true
     ports:
       - '5432'
     environment:
@@ -20,9 +21,9 @@ services:
           '-h',
           'localhost',
           '-U',
-          'freedompress',
+          'securedrop',
           '--dbname',
-          'freedompressdb',
+          'securedropdb',
         ]
       timeout: 45s
       interval: 10s
@@ -33,19 +34,19 @@ services:
           - db
 
   django:
+    init: true
     build:
       context: .
-      dockerfile: devops/docker/ProdDjangoDockerfile
-      args:
-        USERID: 12345
-    image: quay.io/freedomofpress/securedroporg
+      dockerfile: ci/containers/Containerfile
+      target: prod
+    image: ghcr.io/freedomofpress/securedrop-org
     depends_on:
       postgresql:
         condition: service_healthy
     working_dir: /django
     volumes:
-      - ${HOST_STATIC_DIR:-sdorg-django-media}:/django-media
-      - ${HOST_MEDIA_DIR:-sdorg-django-static}:/django-static
+      - ${HOST_MEDIA_DIR:-sdorg-django-media}:/django-media
+      - ${HOST_STATIC_DIR:-sdorg-django-static}:/django-static
     environment:
       DJANGO_ALLOWED_HOSTS: app localhost
       DJANGO_APP_NAME: securedrop
@@ -74,7 +75,7 @@ services:
         aliases:
           - app
     ports:
-      - '8000:8000'
+      - '127.0.0.1:8000:8000'
 
 volumes:
   sdorg-django-static:

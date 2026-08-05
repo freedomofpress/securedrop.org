@@ -22,7 +22,8 @@ jobs:
       packages: write
     with:
       context: '.'
-      containerfile: devops/docker/ProdDjangoDockerfile
+      containerfile: ci/containers/Containerfile
+      target: prod
       build-args: USERID=1000
       requires-deep-history: true
       registry: ghcr.io/freedomofpress/securedrop-org

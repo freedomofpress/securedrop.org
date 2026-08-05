@@ -1,0 +1,192 @@
+# Multi-stage container build for the securedrop.org website.
+#
+# Build targets:
+#
+#   node-dev  dev webpack watcher              (docker-compose.yaml `node` service)
+#   dev       dev Django, code bind-mounted    (docker-compose.yaml `django` service)
+#   prod      prod Django, code + built assets baked in (prod-docker-compose.yaml
+#             and the published ghcr.io/freedomofpress/securedrop-org image)
+#
+# `assets`, `prod-deps` and `version` are internal stages feeding `prod`; they are
+# never targeted directly.
+
+# ---- pinned base image digests ----
+# Global ARGs: usable in FROM lines only, and deliberately not inherited by any
+# stage. Bump the tag/digest here and every stage below follows.
+# sha256 for node:26.5.0-trixie as of 2026-07-15
+ARG NODE_IMAGE=node:26.5.0-trixie@sha256:0473e7dc433a1310f436edee02aa79737ec78a4b345433ab0963d4a256f9ad85
+# sha256 for python:3.14.6-slim-trixie on linux/amd64 as of 2026-06-17
+ARG PYTHON_IMAGE=python:3.14.6-slim-trixie@sha256:44dd04494ee8f3b538294360e7c4b3acb87c8268e4d0a4828a6500b1eff50061
+
+# ---- node runtime base (dev watch service) ----
+FROM ${NODE_IMAGE} AS node-base
+
+# jq backs the `node` service healthcheck, which polls the `status` field of
+# build/static/bundles/webpack-stats.json.
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    jq \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY ci/containers/node-start.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/node-start.sh
+
+# node:*-trixie ships a `node` account at uid 1000, so a developer whose host uid
+# is 1000 collides with it; reuse whichever account holds the uid rather than
+# failing. Only the numeric uid matters here -- nothing references the account
+# name -- so the unconditional useradd used in python-base below would buy nothing.
+ARG USERID
+RUN getent passwd "${USERID?USERID must be supplied}" || \
+    useradd --create-home --no-log-init --uid "${USERID}" sdo_node
+USER ${USERID}
+
+FROM node-base AS node-dev
+# No WORKDIR: compose sets `working_dir: /django` over the bind-mounted checkout,
+# and node-start.sh uses only relative paths.
+CMD [ "node-start.sh" ]
+
+# ---- prod asset build (built once, copied into `prod`) ----
+FROM ${NODE_IMAGE} AS assets
+
+COPY ./ /src-files
+WORKDIR /src-files
+
+# Emptying build/static/bundles first is deliberate. It is gitignored but a
+# developer who has run `npm run start` may still have un-hashed dev bundles and
+# *.hot-update.js files there; webpack does not set `output.clean`, so they would
+# survive alongside the contenthash-named production bundles and then be swept up
+# by collectstatic's manifest storage, whose url() rewriting fails hard on a stale
+# reference. Note the `build/` directory itself must survive: it is an
+# INSTALLED_APP (a namespace package), so removing it breaks Django startup.
+#
+# node_modules and .git are build-time only; stripping them lets `prod` copy this
+# tree wholesale rather than filtering during chown, and keeps the packages and
+# the git history out of the published image. Both still exist in the COPY layer
+# above, but `assets` is a discarded stage that is never pushed -- `prod` only
+# ever sees the result.
+RUN rm -rf build/static/bundles && \
+    npm install && npm run build && \
+    rm -rf node_modules .git
+
+# ---- python base (shared by dev + prod) ----
+FROM ${PYTHON_IMAGE} AS python-base
+
+# The previous Dev and Prod images installed the same set; Dev merely split it
+# across two stages. `gcc` is omitted as redundant -- build-essential depends on
+# it. The -dev headers are retained for any dependency that lacks a cp314 wheel
+# and falls back to an sdist.
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    curl \
+    git \
+    libffi-dev \
+    libpq-dev \
+    libssl-dev \
+    libxml2-dev \
+    libxslt-dev \
+    libz-dev \
+    netcat-traditional \
+    python3-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY ci/containers/django-start.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/django-start.sh
+
+# Created unconditionally, because `prod` addresses this account by name (COPY
+# --chown, chown, USER) -- a conditional useradd would defer the failure to those
+# lines instead of this one. python:*-slim-trixie has nothing between uid 100 and
+# `nobody`, so the uid is free both for the 1000 default and for any host uid dev
+# passes in; a genuine collision fails loudly, right here.
+ARG USERID=1000
+RUN useradd --create-home --no-log-init --uid "${USERID}" --user-group gcorn
+
+# tldextract caches the public suffix list here. The env var and the directory are
+# shared, but the `tldextract --update` that populates the cache is not: tldextract
+# is a pip dependency and nothing is installed yet at this point, so each leaf
+# image refreshes its own cache after its own USER switch. See `dev` and `prod`.
+# Note the k8s deployment overrides TLDEXTRACT_CACHE, so this default serves the
+# dev image and prod-docker-compose.yaml only.
+ENV TLDEXTRACT_CACHE="/tmp/python-tldextract"
+
+# Directories for named-volume permission handling; see
+# https://github.com/docker/compose/issues/3270
+# /django is pre-created and app-owned before any stage sets it as WORKDIR -- the
+# prod build's collectstatic writes ./static into it as an unprivileged user, and
+# production never re-runs collectstatic (its root filesystem is read-only), so
+# that baked output is what actually gets served.
+RUN mkdir -p /django /django-media /django-static /django-logs /deploy "${TLDEXTRACT_CACHE}" && \
+    chown -R gcorn:gcorn /django /django-media /django-static /django-logs /deploy "${TLDEXTRACT_CACHE}"
+
+# Set here rather than only in `prod` so one-shot invocations
+# (`compose run --rm --no-deps django ...`, `docker run`) land in the app root
+# whether or not the caller passes -w.
+WORKDIR /django
+
+EXPOSE 8000
+
+# ---- dev django (code bind-mounted by compose) ----
+FROM python-base AS dev
+
+# The checked-in lockfile, not a freshly recompiled one. dev-requirements.in is
+# `-r requirements.txt` plus dev extras, so this superset covers both. Lockfile
+# drift is caught explicitly by `just pip-check` rather than as a build artefact.
+COPY dev-requirements.txt /requirements.txt
+RUN pip install --no-deps --no-cache-dir --require-hashes -r /requirements.txt
+
+# Re-declared: ARG scope ends with the stage that declares it, so without this
+# `USER ${USERID}` below expands to the empty string and the image runs as root.
+ARG USERID=1000
+USER ${USERID}
+# After the USER switch, so the cache is owned by the account that refreshes it at
+# runtime rather than by root.
+RUN tldextract --update
+CMD [ "django-start.sh" ]
+
+# ---- prod python dependencies ----
+# Kept apart from the app source so editing code does not reinstall the wheel set.
+FROM python-base AS prod-deps
+
+COPY requirements.txt ./
+RUN pip install --no-deps --no-cache-dir --require-hashes -r requirements.txt
+
+# ---- deployment version metadata ----
+# Reports git facts plus the python and OS versions, all of which come from
+# python-base and so match `prod` exactly. Only the two generated text files reach
+# `prod`.
+FROM python-base AS version
+
+# .git is bind-mounted rather than COPYed so it is readable for the length of this
+# one command and never lands in an image layer. Requires BuildKit or buildah;
+# only the long-deprecated DOCKER_BUILDKIT=0 builder would choke.
+# Built in /version rather than /django, which python-base hands to the app user
+# -- git refuses to operate on a repo it does not own.
+WORKDIR /version
+COPY ci/scripts/version-file.sh /usr/local/bin/
+# safe.directory: the mounted .git carries the host checkout's ownership, which
+# need not match the build user. Scoped to this discarded stage.
+RUN --mount=type=bind,source=.git,target=/version/.git,ro \
+    git config --global --add safe.directory /version && \
+    version-file.sh
+
+# ---- prod django (code + built assets baked in) ----
+FROM prod-deps AS prod
+
+# Previously attached to the node asset stage, i.e. to an image that is discarded
+# and never published, so the released image carried no labels at all.
+LABEL org.opencontainers.image.vendor="Freedom of the Press Foundation"
+LABEL org.opencontainers.image.title="securedrop.org"
+
+COPY --from=assets --chown=gcorn:gcorn /src-files/ /django/
+COPY --from=version --chown=gcorn:gcorn /deploy/ /deploy/
+
+RUN mkdir -p /etc/gunicorn && chown -R gcorn: /etc/gunicorn
+COPY ci/containers/gunicorn/gunicorn.py /etc/gunicorn/gunicorn.py
+
+USER gcorn
+# Both run as the app user: tldextract must own its cache to refresh it, and
+# collectstatic writes ./static. No DJANGO_SETTINGS_MODULE is set, so this runs
+# under securedrop.settings.dev with DEBUG forced off; DJANGO_WHITENOISE selects
+# the same manifest static storage production uses, so a broken asset reference
+# fails the build here instead of a request in production.
+RUN tldextract --update && \
+    env DJANGO_WHITENOISE=1 DJANGO_DISABLE_DEBUG=1 ./manage.py collectstatic -c --noinput
+CMD [ "django-start.sh" ]

@@ -4,10 +4,9 @@ UID := $(shell id -u)
 RAND_PORT := ${RAND_PORT}
 GIT_REV := $(shell git rev-parse HEAD | cut -c1-10)
 GIT_BR := $(shell git rev-parse --abbrev-ref HEAD)
-REMOTE_IMAGE := quay.io/freedomofpress/securedrop.org
-
-# Required for docker build --output
-export DOCKER_BUILDKIT = 1
+REMOTE_IMAGE := ghcr.io/freedomofpress/securedrop-org
+PYTHON_BUILDER := python:3.14.6-slim-trixie
+PIP_COMPILE := pip-compile --generate-hashes --no-header --allow-unsafe
 
 .PHONY: lint
 lint: ruff
@@ -45,19 +44,26 @@ dev-import-db: ## Imports a database dump from file named ./import.db
 
 .PHONY: dev-save-db
 dev-save-db: ## Save a snapshot of the database for the current git branch
-	./devops/scripts/savedb.sh
+	./ci/scripts/savedb.sh
 
 .PHONY: dev-restore-db
 dev-restore-db: ## Restore the most recent database snapshot for the current git branch
-	./devops/scripts/restoredb.sh
+	./ci/scripts/restoredb.sh
 
 .PHONY: compile-pip-dependencies
-compile-pip-dependencies:
-	docker build --target=requirements-artifacts -f ./devops/docker/DevDjangoDockerfile --output type=local,dest=$(DIR) .
+compile-pip-dependencies: ## Uses pip-compile to update requirements.txt
+# It is critical that we run pip-compile via the same Python version
+# that we're generating requirements for, otherwise the versions may
+# be resolved differently.
+	docker run --rm -v "$(DIR):/code" -w /code $(PYTHON_BUILDER) \
+		bash -c 'apt-get update && apt-get install -y --no-install-recommends gcc libpq-dev && \
+		pip install pip-tools && \
+		$(PIP_COMPILE) $(PIP_COMPILE_ARGS) --output-file requirements.txt requirements.in && \
+		$(PIP_COMPILE) $(PIP_COMPILE_ARGS) --output-file dev-requirements.txt dev-requirements.in'
 
 .PHONY: pip-update
-pip-update:
-	docker build --build-arg="PIP_COMPILE_ARGS=--upgrade-package=$(PACKAGE)" --target=requirements-artifacts -f ./devops/docker/DevDjangoDockerfile --output type=local,dest=$(DIR) .
+pip-update: ## Uses pip-compile to upgrade a single package, e.g. PACKAGE=django
+	$(MAKE) compile-pip-dependencies PIP_COMPILE_ARGS="--upgrade-package=$(PACKAGE)"
 
 .PHONY: bandit
 bandit: ## Runs bandit static code analysis in Python3 container.

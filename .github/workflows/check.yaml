@@ -32,9 +32,9 @@ jobs:
     uses: freedomofpress/actionslib/.github/workflows/oci-build.yaml@main
     with:
       context: '.'
-      containerfile: devops/docker/DevDjangoDockerfile
+      containerfile: ci/containers/Containerfile
+      target: dev
       build-args: USERID=1001
-      requires-deep-history: true
       registry: localhost/securedroporg-django
 
   build-node:
@@ -42,7 +42,8 @@ jobs:
     uses: freedomofpress/actionslib/.github/workflows/oci-build.yaml@main
     with:
       context: '.'
-      containerfile: devops/docker/NodeDockerfile
+      containerfile: ci/containers/Containerfile
+      target: node-dev
       build-args: USERID=1001
       registry: localhost/securedroporg-node
 
@@ -51,8 +52,11 @@ jobs:
     uses: freedomofpress/actionslib/.github/workflows/oci-build.yaml@main
     with:
       context: '.'
-      containerfile: devops/docker/ProdDjangoDockerfile
-      build-args: USERID=12345
+      containerfile: ci/containers/Containerfile
+      target: prod
+      # No USERID override: the Containerfile defaults to 1000, matching both
+      # publish.yaml and the k8s securityContext, so the image tested here is
+      # the same artifact that gets deployed.
       registry: localhost/securedroporg
       requires-deep-history: true
 
@@ -169,7 +173,8 @@ jobs:
         run: |
           docker image load --input "$LOAD_FILE"
 
-          docker image tag "$IMAGE_URL" quay.io/freedomofpress/securedroporg
+          # This tag needs to match whatever is in the prod compose file
+          docker image tag "$IMAGE_URL" ghcr.io/freedomofpress/securedrop-org
 
       - name: Start
         run: docker compose --file="$COMPOSE_FILE_PROD" up --wait --wait-timeout=180 --detach --pull=missing --no-build

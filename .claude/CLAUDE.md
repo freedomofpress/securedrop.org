@@ -13,7 +13,7 @@
 - Templates: `securedrop/templates/` (project-level) plus per-app `<app>/templates/` directories
 - Frontend source files: `client/` (`common/`, `tor/`, `autocomplete/`)
 - Compiled bundles output: `build/static/bundles/`
-- DevOps/Docker: `devops/`
+- Container builds and CI helper scripts: `ci/` (`ci/containers/Containerfile`, `ci/scripts/`)
 - Requirements: `requirements.txt`, `dev-requirements.txt` (compiled from `.in` files via pip-compile)
 
 ## Tech Stack
