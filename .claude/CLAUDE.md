@@ -8,7 +8,7 @@
 
 ## Key Paths
 
-- Django project settings: `securedrop/settings/` (base, dev, production, production-ci, production-debug; default is `securedrop.settings.dev`)
+- Django project settings: `securedrop/settings/` (base, dev, production, default is `securedrop.settings.dev`)
 - Django apps: `blog/`, `cloudflare/`, `common/`, `directory/`, `forms/`, `github/`, `home/`, `marketing/`, `menus/`, `scanner/`, `search/`, `simple/`, `build/`
 - Templates: `securedrop/templates/` (project-level) plus per-app `<app>/templates/` directories
 - Frontend source files: `client/` (`common/`, `tor/`, `autocomplete/`)
