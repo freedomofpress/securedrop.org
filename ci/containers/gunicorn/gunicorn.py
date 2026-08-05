@@ -8,7 +8,7 @@ user = os.environ.get("DJANGO_GCORN_USER", "gcorn")
 group = os.environ.get("DJANGO_GCORN_GROUP", "gcorn")
 bind = os.environ.get("DJANGO_GCORN_BIND", "0.0.0.0:8000")
 loglevel = os.environ.get("DJANGO_GCORN_LOGLEVEL", "INFO")
-capture_output = os.environ.get("DJANGO_GCORN_CAPOUTPUT", False)
+capture_output = os.environ.get("DJANGO_GCORN_CAPOUTPUT") == "True"
 
 
 def combined_logformat(logger, name, event_dict):
