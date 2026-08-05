@@ -130,7 +130,7 @@ DATABASES = {
         "PASSWORD": os.environ["DJANGO_DB_PASSWORD"],
         "HOST": os.environ["DJANGO_DB_HOST"],
         "PORT": os.environ["DJANGO_DB_PORT"],
-        "CONN_MAX_AGE": os.environ.get("DJANGO_DB_MAX_AGE", 600),
+        "CONN_MAX_AGE": int(os.environ.get("DJANGO_DB_MAX_AGE", "600")),
     }
 }
 

@@ -172,7 +172,7 @@ if "DJANGO_DB_HOST" in os.environ:
             "PASSWORD": os.environ["DJANGO_DB_PASSWORD"],
             "HOST": os.environ["DJANGO_DB_HOST"],
             "PORT": os.environ["DJANGO_DB_PORT"],
-            "CONN_MAX_AGE": os.environ.get("DJANGO_DB_MAX_AGE", 600),
+            "CONN_MAX_AGE": int(os.environ.get("DJANGO_DB_MAX_AGE", "600")),
         }
     }
 else:
@@ -232,12 +232,12 @@ WAGTAILIMAGES_IMAGE_MODEL = "common.CustomImage"
 WAGTAILIMAGES_EXTENSIONS = ["avif", "gif", "jpg", "jpeg", "png", "webp", "svg"]
 # The size needs to be set to an integer in units of bytes, e.g. 1 MB should be set to 1 * 1024 * 1024
 WAGTAILIMAGES_MAX_UPLOAD_SIZE = int(
-    os.environ.get("WAGTAILIMAGES_MAX_UPLOAD_SIZE", 10 * 1024 * 1024)
+    os.environ.get("WAGTAILIMAGES_MAX_UPLOAD_SIZE", "10485760")  # 10 * 1024 * 1024
 )
 
 # The size needs to be set in pixels, e.g. 128 megapixels should be set to 128000000
 WAGTAILIMAGES_MAX_IMAGE_PIXELS = int(
-    os.environ.get("WAGTAILIMAGES_MAX_IMAGE_PIXELS", 128000000)
+    os.environ.get("WAGTAILIMAGES_MAX_IMAGE_PIXELS", "128000000")
 )
 
 # Resize OG / Twitter / meta tag images to 1200x630
@@ -252,7 +252,7 @@ WAGTAILADMIN_BASE_URL = "https://securedrop.org"
 
 # Wagtail autosave interval in ms. Sets how often to wait after the last attempt
 # to autosave before autosaving again. Wagtail default is 500.
-WAGTAIL_AUTOSAVE_INTERVAL = int(os.environ.get("WAGTAIL_AUTOSAVE_INTERVAL", 500))
+WAGTAIL_AUTOSAVE_INTERVAL = int(os.environ.get("WAGTAIL_AUTOSAVE_INTERVAL", "500"))
 
 # Django-webpack configuration
 WEBPACK_LOADER = {
