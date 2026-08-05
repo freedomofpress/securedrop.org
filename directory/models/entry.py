@@ -2,24 +2,25 @@ import re
 
 from django import forms
 from django.conf import settings
+from django.contrib.postgres.fields import ArrayField
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 from django.db import models
-from django.db.models import Func, F, Q, Value
-from modelcluster.fields import ParentalKey, ParentalManyToManyField
-from django.contrib.postgres.fields import ArrayField
+from django.db.models import F, Func, Q, Value
 
-from wagtail.models import Page, PageManager, PageQuerySet
 from wagtail import hooks
+from wagtail.admin import messages
 from wagtail.admin.panels import (
     FieldPanel,
+    HelpPanel,
     InlinePanel,
     MultiFieldPanel,
-    HelpPanel,
 )
-from wagtail.admin import messages
+from wagtail.models import Page, PageManager, PageQuerySet
 
+from modelcluster.fields import ParentalKey, ParentalManyToManyField
 from wagtailautocomplete.edit_handlers import AutocompletePanel
+
 from common.models.mixins import MetadataPageMixin
 from directory.warnings import WARNINGS, TestResult, WarningLevel
 from scanner.utils import url_to_domain
@@ -30,13 +31,13 @@ class DirectoryEntryQuerySet(PageQuerySet):
     def listed_q(self) -> Q:
         return Q(delisted__isnull=True)
 
-    def listed(self) -> "DirectoryEntryQuerySet":
+    def listed(self) -> DirectoryEntryQuerySet:
         """
         Filters the queryset to contain entries that are not marked as delisted
         """
         return self.filter(self.listed_q())
 
-    def delisted(self) -> "DirectoryEntryQuerySet":
+    def delisted(self) -> DirectoryEntryQuerySet:
         """
         Filters the queryset to contain entries that are marked as delisted
         """
@@ -313,7 +314,7 @@ class DirectoryEntry(MetadataPageMixin, Page):
             raise ValidationError("Cannot pin and ignore the same warning.")
 
     def get_context(self, request):
-        context = super(DirectoryEntry, self).get_context(request)
+        context = super().get_context(request)
 
         try:
             result = self.get_live_result()
@@ -376,7 +377,7 @@ class DirectoryEntry(MetadataPageMixin, Page):
     def save(self, *args, **kwargs):
         from directory.models import ScanResult
 
-        super(DirectoryEntry, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
         ScanResult.objects.filter(landing_page_url=self.landing_page_url).update(
             securedrop=self
         )
@@ -389,11 +390,9 @@ def scan_directory_entry_after_edit(request, page):
     if isinstance(page, DirectoryEntry):
         try:
             scanner.scan(page, commit=True)
-            messages.success(request, "Scan of '{}' complete.".format(page.title))
+            messages.success(request, f"Scan of '{page.title}' complete.")
         except Exception as e:
-            messages.error(
-                request, "Error during scan of '{}': {!r}".format(page.title, e)
-            )
+            messages.error(request, f"Error during scan of '{page.title}': {e!r}")
 
 
 class SecuredropOwner(models.Model):
@@ -511,7 +510,7 @@ class ScanResult(models.Model):
         return self_values_to_compare == other_values_to_compare
 
     def __str__(self):
-        return "Scan result for {}".format(self.landing_page_url)
+        return f"Scan result for {self.landing_page_url}"
 
     def compute_grade(self):
         if self.live is False:
@@ -565,4 +564,4 @@ class ScanResult(models.Model):
         self.securedrop = DirectoryEntry.objects.filter(
             landing_page_url=self.landing_page_url
         ).first()
-        super(ScanResult, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)

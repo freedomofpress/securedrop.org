@@ -1,15 +1,14 @@
-from datetime import datetime, timezone
-
-from unittest.mock import patch, call
+from datetime import UTC, datetime
+from unittest.mock import call, patch
 
 from django.test import TestCase
 
-from home.tests.factories import HomePageFactory
-from github.factories import ProductFactory
-from github.models import Release
 from blog.models import BlogPage
 from blog.tests.factories import CategoryPageFactory
 from directory.tests.factories import DirectoryEntryFactory
+from github.factories import ProductFactory
+from github.models import Release
+from home.tests.factories import HomePageFactory
 
 
 @patch("home.signals.purge_page_from_cache")
@@ -23,7 +22,7 @@ class FrontendCacheTestCase(TestCase):
         product = ProductFactory()
         Release.objects.create(
             product=product,
-            date=datetime(2016, 1, 1, 0, 0, 0, tzinfo=timezone.utc),
+            date=datetime(2016, 1, 1, 0, 0, 0, tzinfo=UTC),
         )
         purge_mock.assert_called_once_with(self.home_page)
 
@@ -32,7 +31,7 @@ class FrontendCacheTestCase(TestCase):
         blog_page = BlogPage(
             title="Yet another blog page",
             category=self.cat_page,
-            publication_datetime=datetime(2016, 1, 1, 0, 0, 0, tzinfo=timezone.utc),
+            publication_datetime=datetime(2016, 1, 1, 0, 0, 0, tzinfo=UTC),
         )
         self.cat_page.add_child(instance=blog_page)
         purge_mock.assert_called_once_with(self.home_page)

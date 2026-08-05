@@ -1,17 +1,16 @@
 from django.test import TestCase
 
 from wagtail.models import Page
+from wagtail.rich_text import RichText
 
 from blog.tests.factories import BlogIndexPageFactory
 from home.tests.factories import HomePageFactory
+from search.models import SearchDocument
 from search.utils.wagtail import (
     KEY_FORMAT,
-    index_wagtail_page,
     delete_wagtail_page,
+    index_wagtail_page,
 )
-from wagtail.rich_text import RichText
-
-from search.models import SearchDocument
 
 
 class WagtailTestCase(TestCase):
@@ -80,9 +79,7 @@ class WagtailTestCase(TestCase):
             delete_wagtail_page(page)
         except Exception as e:
             self.fail(
-                'delete_wagtail_page raised an exception {} ("{}")'.format(
-                    type(e).__name__, e.args[0]
-                )
+                f'delete_wagtail_page raised an exception {type(e).__name__} ("{e.args[0]}")'
             )
 
     def test_indexed_page_should_have_correct_content(self):

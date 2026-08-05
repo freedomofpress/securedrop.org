@@ -1,6 +1,7 @@
-from wagtail.models import Page
-from wagtail.blocks.stream_block import StreamValue
 from django.utils.html import strip_tags
+
+from wagtail.blocks.stream_block import StreamValue
+from wagtail.models import Page
 
 from search.utils.search_elements import SearchElements
 
@@ -40,11 +41,7 @@ def get_search_content_by_fields(page, fields, get_child_search_content=False):
                 new_content = content.title
             search_elements.append(new_content)
         else:
-            message = (
-                "You are attempting to search by {} which does not exist on {}".format(
-                    field, type(page)
-                )
-            )
+            message = f"You are attempting to search by {field} which does not exist on {type(page)}"
             raise SearchContentException(message=message)
 
     return search_elements

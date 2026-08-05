@@ -10,8 +10,8 @@ from common.factories import ButtonFactory
 from home.models import (
     FeaturesButton,
     HomePage,
-    HomePageInstances,
     HomepageFeature,
+    HomePageInstances,
     InstancesButton,
 )
 

@@ -1,13 +1,13 @@
-from bs4 import BeautifulSoup
-
 from django.test import TestCase
 
 from wagtail.models import Site
 
+from bs4 import BeautifulSoup
+
 from directory.models import DirectorySettings
 from directory.tests.factories import (
-    DirectoryPageFactory,
     DirectoryEntryFactory,
+    DirectoryPageFactory,
     ScanResultFactory,
 )
 

@@ -1,6 +1,6 @@
-from django.urls import reverse
 from django.db.models import Func, Value
 from django.test import TestCase
+from django.urls import reverse
 
 from search.tests.factories import SearchDocumentFactory
 

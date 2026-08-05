@@ -1,10 +1,11 @@
 from django.test import TestCase
 from django.urls import reverse
+
 from wagtail.models import Site
 
 from directory.tests.factories import (
-    DirectoryPageFactory,
     DirectoryEntryFactory,
+    DirectoryPageFactory,
     ScanResultFactory,
 )
 

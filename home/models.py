@@ -1,14 +1,15 @@
 from django.db import models
+
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.fields import RichTextField
+from wagtail.models import Orderable, Page
+
 from modelcluster.fields import ParentalKey
 
-from wagtail.models import Page, Orderable
-from wagtail.fields import RichTextField
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel
-
-from common.models import MetadataPageMixin, Button
-from search.utils import get_search_content_by_fields
 from blog.models import BlogPage
+from common.models import Button, MetadataPageMixin
 from github.models import Release
+from search.utils import get_search_content_by_fields
 
 
 class HomePage(MetadataPageMixin, Page):

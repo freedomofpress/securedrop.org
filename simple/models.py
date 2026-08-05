@@ -1,23 +1,24 @@
 from django.db import models
+from django.template.defaultfilters import truncatewords
+from django.utils.html import strip_tags
+
+from wagtail import blocks
+from wagtail.admin.panels import FieldPanel, InlinePanel
+from wagtail.fields import RichTextField, StreamField
+from wagtail.models import Orderable, Page
+
 from modelcluster.fields import ParentalKey
 
-from django.utils.html import strip_tags
-from django.template.defaultfilters import truncatewords
-from wagtail.admin.panels import FieldPanel, InlinePanel
-from wagtail import blocks
-from wagtail.models import Page, Orderable
-from wagtail.fields import StreamField, RichTextField
-
-from common.models import MetadataPageMixin
 from common.blocks import (
+    AlignedEmbedBlock,
+    AlignedImageBlock,
     Heading1,
     Heading2,
     Heading3,
-    AlignedImageBlock,
-    AlignedEmbedBlock,
     RichTextBlockQuoteBlock,
     VideoBlock,
 )
+from common.models import MetadataPageMixin
 from search.utils import get_search_content_by_fields
 
 

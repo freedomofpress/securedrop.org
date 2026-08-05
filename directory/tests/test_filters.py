@@ -1,13 +1,14 @@
 from django.test import TestCase
 from django.test.client import RequestFactory
+
 from wagtail.models import Site
 
 from directory.tests.factories import (
+    CountryFactory,
+    DirectoryEntryFactory,
     DirectoryPageFactory,
     LanguageFactory,
-    CountryFactory,
     TopicFactory,
-    DirectoryEntryFactory,
 )
 
 

@@ -1,13 +1,13 @@
-from __future__ import absolute_import, unicode_literals
-
 import os
 import socket
 import struct
 import sys
 
-import structlog
 from django.conf import settings
-from .base import *  # noqa: F403, F401
+
+import structlog
+
+from .base import *
 
 
 timestamper = structlog.processors.TimeStamper(fmt="%Y-%m-%d %H:%M:%S")
@@ -127,7 +127,7 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 
 try:
-    from .local import *  # noqa: F403, F401
+    from .local import *
 except ImportError:
     pass
 
@@ -151,17 +151,17 @@ if settings.DEBUG:
     # Obtain the default gateway from docker, needed for
     # debug toolbar whitelisting
     INTERNAL_IPS = [get_default_gateway_linux()]
-    INSTALLED_APPS.append("debug")  # noqa: F405
+    INSTALLED_APPS.append("debug")
 
-if ENABLE_DEBUG_TOOLBAR:  # noqa: F405
-    INSTALLED_APPS += [  # noqa: F405
+if ENABLE_DEBUG_TOOLBAR:
+    INSTALLED_APPS += [
         "debug_toolbar",
     ]
 
-    MIDDLEWARE += [  # noqa: F405
+    MIDDLEWARE += [
         "debug_toolbar.middleware.DebugToolbarMiddleware",
     ]
 
     DEBUG_TOOLBAR_CONFIG = {
-        "JQUERY_URL": STATIC_URL + "debug/jquery.js",  # noqa: F405
+        "JQUERY_URL": STATIC_URL + "debug/jquery.js",
     }

@@ -4,8 +4,9 @@ from typing import TYPE_CHECKING
 
 from directory.models.entry import ScanResult
 
+
 if TYPE_CHECKING:
-    from directory.models.entry import DirectoryEntryQuerySet  # noqa: F401
+    from directory.models.entry import DirectoryEntryQuerySet
 
 
 #: List of field names on DirectoryEntry that should be included in CSV
@@ -22,7 +23,7 @@ scan_result_fields = list(
 )
 
 
-def scan_csv(entries: "DirectoryEntryQuerySet") -> str:
+def scan_csv(entries: DirectoryEntryQuerySet) -> str:
     """
     Turn a DirectoryEntryQuerySet into a CSV where each row has details from
     an entry's most recent live scan

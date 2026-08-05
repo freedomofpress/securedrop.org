@@ -1,14 +1,15 @@
 from django.core.exceptions import ValidationError
 from django.test import Client, TestCase
+
 from wagtail.models import Site
 
 from directory.models.entry import DirectoryEntry
-from directory.warnings import WARNINGS
 from directory.tests.factories import (
     DirectoryEntryFactory,
     DirectoryPageFactory,
     ScanResultFactory,
 )
+from directory.warnings import WARNINGS
 
 
 class DirectoryChoicesTest(TestCase):

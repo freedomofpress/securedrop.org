@@ -36,7 +36,7 @@ class Command(BaseCommand):
             for requested_domain in requested_domains:
                 if requested_domain not in retrieved_domains:
                     msg = "Landing page '{}' does not exist".format(
-                        "https://{}".format(requested_domain)
+                        f"https://{requested_domain}"
                     )
                     raise CommandError(msg)
         else:

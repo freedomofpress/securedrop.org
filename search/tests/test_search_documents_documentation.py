@@ -1,16 +1,17 @@
-from unittest import mock
 import os
+from unittest import mock
+
+from django.test import TestCase
 
 import vcr
-from django.test import TestCase
 
 from search.models import SearchDocument
 from search.tests.factories import SearchDocumentFactory
 from search.utils.documentation import (
     READTHEDOCS_BASE,
     fetch_indexable_pages,
-    index_documentation_pages,
     index_documentation_page,
+    index_documentation_pages,
 )
 
 

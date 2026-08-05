@@ -28,6 +28,4 @@ class Command(BaseCommand):
     @transaction.atomic
     def handle(self, *args, **options):
         count, _ = MigrationRecorder.Migration.objects.filter(app__in=OUR_APPS).delete()
-        self.stdout.write(
-            "Deleted {} migration records in {} apps".format(count, len(OUR_APPS))
-        )
+        self.stdout.write(f"Deleted {count} migration records in {len(OUR_APPS)} apps")

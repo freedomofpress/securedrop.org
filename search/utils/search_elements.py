@@ -1,8 +1,8 @@
-from django.db.models import Value, TextField
 from django.contrib.postgres.search import SearchVector
+from django.db.models import TextField, Value
 
 
-class SearchElements(object):
+class SearchElements:
     def __init__(self):
         self.text = []
         self.vector = SearchVector(Value("", output_field=TextField()))

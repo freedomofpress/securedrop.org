@@ -1,6 +1,6 @@
 from django.conf import settings
-from django.core.mail.message import EmailMultiAlternatives
 from django.core.mail import get_connection
+from django.core.mail.message import EmailMultiAlternatives
 
 
 def send_mail(subject, message, recipient_list, from_email=None, **kwargs):

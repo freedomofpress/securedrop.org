@@ -1,5 +1,7 @@
 from django import template
+
 from directory.models import ResultGroup
+
 
 register = template.Library()
 

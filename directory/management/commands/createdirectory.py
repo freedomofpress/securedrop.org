@@ -1,10 +1,10 @@
-from django.db import transaction
 from django.core.management.base import BaseCommand
+from django.db import transaction
 
 from directory.models import DirectoryPage
 from directory.tests.factories import (
-    DirectoryPageFactory,
     DirectoryEntryFactory,
+    DirectoryPageFactory,
     ScanResultFactory,
 )
 from home.models import HomePage

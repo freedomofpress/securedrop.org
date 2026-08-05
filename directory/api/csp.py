@@ -2,13 +2,12 @@
 
 from functools import update_wrapper
 
-from csp.constants import SELF, UNSAFE_INLINE
-from csp.decorators import csp_update, csp_replace
-from django.utils.decorators import method_decorator
-from rest_framework.routers import DefaultRouter, APIRootView
-
-from django.utils.decorators import classonlymethod
+from django.utils.decorators import classonlymethod, method_decorator
 from django.views.decorators.csrf import csrf_exempt
+
+from csp.constants import SELF, UNSAFE_INLINE
+from csp.decorators import csp_replace, csp_update
+from rest_framework.routers import APIRootView, DefaultRouter
 
 
 def csp_fixes(view):

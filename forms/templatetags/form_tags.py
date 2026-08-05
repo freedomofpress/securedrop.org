@@ -2,15 +2,16 @@ from typing import TYPE_CHECKING
 
 from django import template
 
+
 if TYPE_CHECKING:
-    from django.forms.fields import Field  # NOQA: F401
-    from django.template.context import Context  # NOQA: F401
+    from django.forms.fields import Field
+    from django.template.context import Context
 
 register = template.Library()
 
 
 @register.simple_tag(takes_context=True)
-def field_extras(context: "Context", form_field: "Field"):
+def field_extras(context: Context, form_field: Field):
     """
     Get FormField model instance for a Field
 
@@ -24,12 +25,12 @@ def field_extras(context: "Context", form_field: "Field"):
             context["page"].form_fields.all(),
         ).__next__()
     except StopIteration:
-        raise ValueError("Form field {} not found in form".format(form_field.name))
+        raise ValueError(f"Form field {form_field.name} not found in form")
     return field_obj
 
 
 @register.simple_tag
-def widget_type(field: "Field") -> str:
+def widget_type(field: Field) -> str:
     """
     Accepts a form field subclass and return a string value appropriate for a
     CSS class.

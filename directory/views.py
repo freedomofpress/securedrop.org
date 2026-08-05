@@ -1,6 +1,6 @@
 from django.http import HttpResponseRedirect
-from django.views.generic.edit import FormView
 from django.urls import reverse
+from django.views.generic.edit import FormView
 
 from scanner.scanner import perform_scan
 

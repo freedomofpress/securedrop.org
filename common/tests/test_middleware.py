@@ -2,11 +2,12 @@ from unittest import mock
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.test import TestCase, RequestFactory
+from django.test import RequestFactory, TestCase
+
 from wagtail.models import Page
 
-from common.middleware.request_logger import RequestLogMiddleware
 from common.middleware.onion_location import OnionLocationHeaderMiddleware
+from common.middleware.request_logger import RequestLogMiddleware
 
 from .utils import capture_logs_with_contextvars
 

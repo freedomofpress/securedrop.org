@@ -1,3 +1,6 @@
+from django.core.management.base import BaseCommand
+from django.db import transaction
+
 from blog.models import BlogIndexPage
 from blog.tests.factories import BlogIndexPageFactory
 from directory.models import DirectoryPage
@@ -6,9 +9,6 @@ from home.models import HomePage
 from marketing.models import MarketingIndexPage
 from marketing.tests.factories import MarketingPageFactory
 from menus.models import Menu, MenuItem
-
-from django.core.management.base import BaseCommand
-from django.db import transaction
 
 
 class Command(BaseCommand):

@@ -33,9 +33,7 @@ class Command(BaseCommand):
         created_results_count = len(created_results)
         updated_results_count = len(updated_results)
 
-        self.stdout.write("- {} SearchDocuments created".format(created_results_count))
+        self.stdout.write(f"- {created_results_count} SearchDocuments created")
         self.stdout.write(
-            "- {} SearchDocuments updated (does not necessarily indicate changes)".format(
-                updated_results_count
-            )
+            f"- {updated_results_count} SearchDocuments updated (does not necessarily indicate changes)"
         )

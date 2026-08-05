@@ -1,7 +1,8 @@
 import contextlib
 
-import structlog
 from wagtail.models import Site
+
+import structlog
 
 from directory.models import DirectorySettings
 
