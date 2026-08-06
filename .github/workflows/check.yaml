@@ -5,7 +5,7 @@ on:
   pull_request:
     types: ['opened', 'synchronize']
   push:
-    branches: ['prod', 'develop']
+    branches: ['develop', 'prod']
   merge_group:
 
 env:
