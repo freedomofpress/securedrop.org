@@ -10,11 +10,9 @@ on:
 
 env:
   CONTAINER_ENGINE: docker
+  VERSION_DOCKER: v29.6.2
   COMPOSE_FILE_DEV: docker-compose.yaml
   COMPOSE_FILE_PROD: prod-docker-compose.yaml
-  # See here for valid options:
-  # https://github.com/docker/setup-docker-action?tab=readme-ov-file#inputs.version
-  VERSION_DOCKER: v29.6.2
 
 permissions:
   contents: read
