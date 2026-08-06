@@ -32,7 +32,7 @@ jobs:
   notify:
     uses: freedomofpress/actionslib/.github/workflows/update-k8s-trigger.yaml@main
     needs:
-    - build
+      - build
     if: ${{ needs.build.result == 'success' }}
     permissions:
       contents: read
@@ -44,4 +44,3 @@ jobs:
     secrets:
       local-token: ${{ secrets.GITHUB_TOKEN }}
       k8s-configs-token: ${{ secrets.K8S_CONFIGS_GITHUB_TOKEN }}
-
