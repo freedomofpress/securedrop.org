@@ -42,13 +42,13 @@ services:
           - db
 
   node:
+    image: localhost/securedroporg-node
     build:
       context: .
       dockerfile: ci/containers/Containerfile
       target: node-dev
       args:
         USERID: ${UID:?err}
-    image: localhost/securedroporg-node
     init: true
     volumes:
       - ./:/django:z
@@ -63,16 +63,16 @@ services:
       - app
 
   django:
+    init: true
     stdin_open: true
     tty: true
+    image: localhost/securedroporg-django
     build:
       context: .
       dockerfile: ci/containers/Containerfile
       target: dev
       args:
         USERID: ${UID:?err}
-    image: localhost/securedroporg-django
-    init: true
     depends_on:
       postgresql:
         condition: service_healthy
