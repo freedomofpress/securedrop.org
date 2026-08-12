@@ -3,7 +3,7 @@ networks:
   app:
 services:
   postgresql:
-    image: postgres:14
+    image: docker.io/library/postgres:14
     init: true
     ports:
       - '5432'

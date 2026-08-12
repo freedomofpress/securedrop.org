@@ -6,7 +6,11 @@
 
 engine := env_var_or_default("CONTAINER_ENGINE", "docker")
 compose := engine + " compose"
-python_builder := "python:3.14.6-slim-trixie"
+# Must stay in step with PYTHON_IMAGE in ci/containers/Containerfile: pip-compile
+# resolves hashes against this interpreter, and the app installs the result. The
+# tag alone is not enough -- Docker Hub rebuilds it in place for patches, so
+# without the digest the two can silently drift apart.
+python_builder := "docker.io/library/python:3.14.6-slim-trixie@sha256:44dd04494ee8f3b538294360e7c4b3acb87c8268e4d0a4828a6500b1eff50061"
 coverage_omit := "'*/migrations/*.py,*/tests/*.py'"
 
 # Show available recipes.

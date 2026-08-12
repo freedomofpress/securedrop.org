@@ -12,11 +12,15 @@
 
 # ---- pinned base image digests ----
 # Global ARGs: usable in FROM lines only, and deliberately not inherited by any
-# stage. Bump the tag/digest here and every stage below follows.
+# stage. Bump the tag/digest here and every stage below follows; PYTHON_IMAGE is
+# also mirrored by the justfile's `python_builder`, which must be bumped with it.
+# Names are fully qualified: an unqualified `node:` or `python:` is resolved
+# against the builder's unqualified-search-registries, which under podman can
+# reach a non-Docker-Hub registry first.
 # sha256 for node:26.5.0-trixie as of 2026-07-15
-ARG NODE_IMAGE=node:26.5.0-trixie@sha256:0473e7dc433a1310f436edee02aa79737ec78a4b345433ab0963d4a256f9ad85
+ARG NODE_IMAGE=docker.io/library/node:26.5.0-trixie@sha256:0473e7dc433a1310f436edee02aa79737ec78a4b345433ab0963d4a256f9ad85
 # sha256 for python:3.14.6-slim-trixie on linux/amd64 as of 2026-06-17
-ARG PYTHON_IMAGE=python:3.14.6-slim-trixie@sha256:44dd04494ee8f3b538294360e7c4b3acb87c8268e4d0a4828a6500b1eff50061
+ARG PYTHON_IMAGE=docker.io/library/python:3.14.6-slim-trixie@sha256:44dd04494ee8f3b538294360e7c4b3acb87c8268e4d0a4828a6500b1eff50061
 
 # ---- node runtime base (dev watch service) ----
 FROM ${NODE_IMAGE} AS node-base
