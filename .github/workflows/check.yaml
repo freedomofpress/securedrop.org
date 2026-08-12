@@ -189,7 +189,7 @@ jobs:
           retention-days: 5
 
   test-prod:
-    name: Test:Prod
+    name: Test:production
     runs-on: ubuntu-latest
     needs:
       - build-prod
