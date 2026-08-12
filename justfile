@@ -11,6 +11,11 @@ compose := engine + " compose"
 # tag alone is not enough -- Docker Hub rebuilds it in place for patches, so
 # without the digest the two can silently drift apart.
 python_builder := "docker.io/library/python:3.14.6-slim-trixie@sha256:44dd04494ee8f3b538294360e7c4b3acb87c8268e4d0a4828a6500b1eff50061"
+
+# pinning a specific, recent version of pip-tools, so that the dev-env
+# reuses the same tooling predictably.
+# TODO: drop use of pip-tools in favor of more modern python package management.
+pip_tools_version := "7.6.1"
 coverage_omit := "'*/migrations/*.py,*/tests/*.py'"
 
 # Show available recipes.
@@ -98,7 +103,7 @@ pip-compile-dev *FLAGS: (_pip-lock "dev-requirements.txt" "dev-requirements.in" 
 _pip-lock outfile infile *FLAGS:
     {{engine}} run --rm -v "{{justfile_directory()}}:/code" -w /code {{python_builder}} \
         bash -c 'apt-get update && apt-get install -y --no-install-recommends gcc libpq-dev && \
-            pip install pip-tools && \
+            pip install pip-tools=={{pip_tools_version}} && \
             pip-compile --generate-hashes --no-header --allow-unsafe {{FLAGS}} \
                 --output-file {{outfile}} {{infile}} && \
             chown "$(stat -c "%u:%g" {{infile}})" {{outfile}}'
