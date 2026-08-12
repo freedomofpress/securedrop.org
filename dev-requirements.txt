@@ -386,9 +386,9 @@ defusedxml==0.7.1 \
     # via
     #   -r requirements.txt
     #   willow
-django==5.2.16 \
-    --hash=sha256:04f354bf9d807a86ad1a8392fe3808d362358a8eafc322848e0e43e59b24371d \
-    --hash=sha256:59ea02020c3136fce14bef0bbece21a10a4febef5eed1c51c22ae468efa22200
+django==5.2.17 \
+    --hash=sha256:9d4d93be539a18ab80d058eb515900e10951e04c537c5a6b394fc49528d3251f \
+    --hash=sha256:f04fb3b36ee119e1af4fa1d397d5fd6cf12700f49321e84d4f4c642c5b1973db
     # via
     #   -r requirements.txt
     #   django-anymail
@@ -514,8 +514,6 @@ feedparser==6.0.13 \
     # via -r requirements.txt
 feedparser-sgmllib==1.0.0 \
     --hash=sha256:d0d5daf29b3f315396d4d5a65b5fe28862d1bc4ea37dec826ccbf1021034a959 \
-    --hash=sha256:d0d5daf29b3f315396d4d5a65b5fe28862d1bc4ea37dec826ccbf1021034a959 \
-    --hash=sha256:f73861ca2f6bb2798b2499fbab62d34bd27fd13379704a38ed616c67eb0a76a6 \
     --hash=sha256:f73861ca2f6bb2798b2499fbab62d34bd27fd13379704a38ed616c67eb0a76a6
     # via
     #   -r requirements.txt
@@ -982,20 +980,12 @@ proto-plus==1.28.2 \
     #   google-api-core
 protobuf==7.35.1 \
     --hash=sha256:11d6b0ec246892d85215b0a13ca6e0233cf5284b68f0ac02646427f4ff88a799 \
-    --hash=sha256:11d6b0ec246892d85215b0a13ca6e0233cf5284b68f0ac02646427f4ff88a799 \
-    --hash=sha256:230a75ddfc2de4806e56696ce9640c1cdfdb6543b7cfce98d42a4c0a0e7bdb87 \
     --hash=sha256:230a75ddfc2de4806e56696ce9640c1cdfdb6543b7cfce98d42a4c0a0e7bdb87 \
     --hash=sha256:24f857477359a85c0c235261b8ba905fd51b2562f4a64ca1df5473f29850cbf6 \
-    --hash=sha256:24f857477359a85c0c235261b8ba905fd51b2562f4a64ca1df5473f29850cbf6 \
-    --hash=sha256:353652e4efd0bca5b5fc2656abf8307ef351f0cf938c9eba09f0e09c20a25c30 \
     --hash=sha256:353652e4efd0bca5b5fc2656abf8307ef351f0cf938c9eba09f0e09c20a25c30 \
     --hash=sha256:4bc97768d8fe4ad6743c8a19403e314511ed9f6d13205b687e52421c023ac1b9 \
-    --hash=sha256:4bc97768d8fe4ad6743c8a19403e314511ed9f6d13205b687e52421c023ac1b9 \
-    --hash=sha256:74758715c53d7158fb76caf4f0cfdacc5329a4b1bb994f865d6cf302d413a1c4 \
     --hash=sha256:74758715c53d7158fb76caf4f0cfdacc5329a4b1bb994f865d6cf302d413a1c4 \
     --hash=sha256:b73f9489a4b8b1c9cb1f8ed951c736392592edb24b9d6819f36d2e10b171d5b4 \
-    --hash=sha256:b73f9489a4b8b1c9cb1f8ed951c736392592edb24b9d6819f36d2e10b171d5b4 \
-    --hash=sha256:ce115a26fe0c39a2c29973d914d327e516a6455464489fe3cd1e51a1b354f81a \
     --hash=sha256:ce115a26fe0c39a2c29973d914d327e516a6455464489fe3cd1e51a1b354f81a
     # via
     #   -r requirements.txt
