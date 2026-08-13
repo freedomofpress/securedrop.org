@@ -44,8 +44,8 @@ build: env-check
     {{compose}} build
 
 # The static checks below run with `--no-deps`: their tooling is baked into the
-# dev image, so they need neither postgres nor the webpack watcher. That keeps
-# them usable without `just dev` running, locally and in CI alike.
+# dev image, so they need neither postgres nor the webpack watcher.
+# That keeps them usable without `just dev` running, locally and in CI alike.
 
 # Check Python lint and formatting with ruff, without writing changes.
 ruff: env-check
