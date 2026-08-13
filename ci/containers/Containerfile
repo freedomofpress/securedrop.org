@@ -132,7 +132,7 @@ FROM python-base AS dev
 
 # The checked-in lockfile, not a freshly recompiled one. dev-requirements.in is
 # `-r requirements.txt` plus dev extras, so this superset covers both. Lockfile
-# drift is caught explicitly by `just pip-check` rather than as a build artefact.
+# drift is caught explicitly by `just pip-check` rather than as a build artifact.
 COPY dev-requirements.txt /requirements.txt
 RUN pip install --no-deps --no-cache-dir --require-hashes -r /requirements.txt
 
