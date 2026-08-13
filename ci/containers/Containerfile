@@ -1,14 +1,13 @@
 # Multi-stage container build for the securedrop.org website.
-#
 # Build targets:
 #
 #   node-dev  dev webpack watcher              (docker-compose.yaml `node` service)
 #   dev       dev Django, code bind-mounted    (docker-compose.yaml `django` service)
-#   prod      prod Django, code + built assets baked in (prod-docker-compose.yaml
-#             and the published ghcr.io/freedomofpress/securedrop-org image)
+#   prod      prod Django, code + built assets baked in (prod-docker-compose.yaml)
+#             and the published ghcr.io/freedomofpress/securedrop-org image
 #
-# `assets`, `prod-deps` and `version` are internal stages feeding `prod`; they are
-# never targeted directly.
+# `assets`, `prod-deps` and `version` are internal build stages feeding `prod`;
+# they are not targeted directly.
 
 # ---- pinned base image digests ----
 # Global ARGs: usable in FROM lines only, and deliberately not inherited by any
@@ -155,16 +154,16 @@ COPY requirements.txt ./
 RUN pip install --no-deps --no-cache-dir --require-hashes -r requirements.txt
 
 # ---- deployment version metadata ----
-# Reports git facts plus the python and OS versions, all of which come from
-# python-base and so match `prod` exactly. Only the two generated text files reach
-# `prod`.
+# The report covers git facts plus the python and OS versions, all of which
+# come from python-base and so match `prod` exactly. Only the two generated
+# text files are copied into `prod`.
 FROM python-base AS version
 
 # .git is bind-mounted rather than COPYed so it is readable for the length of this
 # one command and never lands in an image layer. Requires BuildKit or buildah;
 # only the long-deprecated DOCKER_BUILDKIT=0 builder would choke.
-# Built in /version rather than /django, which python-base hands to the app user
-# -- git refuses to operate on a repo it does not own.
+# Built in /version rather than /django, which python-base hands to the app
+# user -- git refuses to operate on a repo it does not own.
 WORKDIR /version
 COPY ci/scripts/version-file.sh /usr/local/bin/
 # safe.directory: the mounted .git carries the host checkout's ownership, which
