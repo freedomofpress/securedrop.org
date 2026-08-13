@@ -216,20 +216,11 @@ jobs:
           docker compose --file="$COMPOSE_FILE_PROD" exec django \
           /bin/bash -c "./manage.py createdevdata"
 
-      - name: Export logs
+      - name: Collect logs on failure
+        if: ${{ failure() && matrix.stack }}
         run: |
-          mkdir --parents ${{ runner.temp }}/logs
-          docker compose --file="$COMPOSE_FILE_PROD" logs django >${{ runner.temp }}/logs/django.log
-          docker compose --file="$COMPOSE_FILE_PROD" logs postgresql >${{ runner.temp }}/logs/postgresql.log
-
-      - name: Save logs
-        uses: actions/upload-artifact@v7
-        with:
-          name: build-prod-${{ github.run_id }}-logs
-          path: ${{ runner.temp }}/logs
-          if-no-files-found: error
-          overwrite: true
-          retention-days: 5
+          docker compose --file="$COMPOSE_FILE_DEV" logs django
+          docker compose --file="$COMPOSE_FILE_DEV" logs node
 
   cleanup:
     name: Cleanup
