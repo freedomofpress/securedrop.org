@@ -79,14 +79,14 @@ services:
       node:
         condition: service_healthy
     environment:
-      DJANGO_DB_PASSWORD: securedroppassword
-      DJANGO_DB_USER: securedrop
-      DJANGO_DB_NAME: securedropdb
-      DJANGO_DB_PORT: 5432
-      DJANGO_DB_HOST: db
-      DJANGO_XMLTEST_OUTPUT: 'yes'
       DEPLOY_ENV: dev
+      DJANGO_DB_HOST: db
+      DJANGO_DB_NAME: securedropdb
+      DJANGO_DB_PASSWORD: securedroppassword
+      DJANGO_DB_PORT: 5432
+      DJANGO_DB_USER: securedrop
       DJANGO_ONION_HOSTNAME: secrdrop5wyphb5x.onion
+      DJANGO_XMLTEST_OUTPUT: 'yes'
       ENABLE_DEBUG_TOOLBAR:
     working_dir: /django
     userns_mode: keep-id
