@@ -49,6 +49,7 @@ build: env-check
 
 # Check Python lint and formatting with ruff, without writing changes.
 ruff: env-check
+    # TODO: move `ruff` execution to host context; it shouldn't be running in the container
     {{compose}} run --rm -T --no-deps django bash -c "ruff check && ruff format --check"
 
 # Apply ruff's fixes and formatting in place.
