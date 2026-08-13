@@ -10,12 +10,12 @@
 # they are not targeted directly.
 
 # ---- pinned base image digests ----
-# Global ARGs: usable in FROM lines only, and deliberately not inherited by any
-# stage. Bump the tag/digest here and every stage below follows; PYTHON_IMAGE is
-# also mirrored by the justfile's `python_builder`, which must be bumped with it.
-# Names are fully qualified: an unqualified `node:` or `python:` is resolved
-# against the builder's unqualified-search-registries, which under podman can
-# reach a non-Docker-Hub registry first.
+# Bump the tag/digest here; every stage below references these, so this is
+# the only place that needs editing on update -- except PYTHON_IMAGE, which is
+# also mirrored by the justfile's `python_builder` and must be bumped with it.
+# Names are fully qualified: an unqualified `node:` or `python:` resolves against
+# the builder's unqualified-search-registries, which under podman can reach a
+# non-Docker-Hub registry first.
 # sha256 for node:26.5.0-trixie as of 2026-07-15
 ARG NODE_IMAGE=docker.io/library/node:26.5.0-trixie@sha256:0473e7dc433a1310f436edee02aa79737ec78a4b345433ab0963d4a256f9ad85
 # sha256 for python:3.14.6-slim-trixie on linux/amd64 as of 2026-06-17
@@ -53,13 +53,11 @@ FROM ${NODE_IMAGE} AS assets
 COPY ./ /src-files
 WORKDIR /src-files
 
-# Emptying build/static/bundles first is deliberate. It is gitignored but a
-# developer who has run `npm run start` may still have un-hashed dev bundles and
-# *.hot-update.js files there; webpack does not set `output.clean`, so they would
-# survive alongside the contenthash-named production bundles and then be swept up
-# by collectstatic's manifest storage, whose url() rewriting fails hard on a stale
-# reference. Note the `build/` directory itself must survive: it is an
-# INSTALLED_APP (a namespace package), so removing it breaks Django startup.
+# Emptying the bundle output directory first is deliberate. It is gitignored but
+# a developer who has run `npm run start` may still have un-hashed dev bundles
+# there; webpack does not set `output.clean`, so they would survive alongside the
+# contenthash-named production bundles and then be swept up by collectstatic's
+# manifest storage, whose url() rewriting fails hard on a stale reference.
 #
 # node_modules and .git are build-time only; stripping them lets `prod` copy this
 # tree wholesale rather than filtering during chown, and keeps the packages and
