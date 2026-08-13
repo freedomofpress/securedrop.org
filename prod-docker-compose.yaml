@@ -39,6 +39,7 @@ services:
       context: .
       dockerfile: ci/containers/Containerfile
       target: prod
+    args: 'USERID: 1000'
     image: ghcr.io/freedomofpress/securedrop-org
     depends_on:
       postgresql:
