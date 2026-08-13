@@ -82,7 +82,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     curl \
     git \
-    libffi-dev \
     libpq-dev \
     libssl-dev \
     libxml2-dev \
@@ -136,8 +135,11 @@ FROM python-base AS dev
 COPY dev-requirements.txt /requirements.txt
 RUN pip install --no-deps --no-cache-dir --require-hashes -r /requirements.txt
 
-# Re-declared: ARG scope ends with the stage that declares it, so without this
-# `USER ${USERID}` below expands to the empty string and the image runs as root.
+# Re-declared for portability, not because buildah needs it: ARG is documented as
+# going out of scope at the end of the declaring stage, so `USER ${USERID}` below
+# is only guaranteed to resolve where the ARG is in scope. buildah does carry the
+# parent's value through (verified: this target builds to uid 1000 with no
+# --build-arg and no re-declaration), but Docker/BuildKit is not obliged to.
 ARG USERID=1000
 USER ${USERID}
 # After the USER switch, so the cache is owned by the account that refreshes it at

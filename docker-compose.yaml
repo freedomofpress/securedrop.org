@@ -81,10 +81,10 @@ services:
     environment:
       DEPLOY_ENV: dev
       DJANGO_DB_HOST: db
-      DJANGO_DB_NAME: securedropdb
-      DJANGO_DB_PASSWORD: securedroppassword
+      DJANGO_DB_NAME: *db-name
+      DJANGO_DB_PASSWORD: *db-password
       DJANGO_DB_PORT: 5432
-      DJANGO_DB_USER: securedrop
+      DJANGO_DB_USER: *db-username
       DJANGO_ONION_HOSTNAME: secrdrop5wyphb5x.onion
       DJANGO_XMLTEST_OUTPUT: 'yes'
       ENABLE_DEBUG_TOOLBAR:

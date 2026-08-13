@@ -32,8 +32,9 @@ $COMPOSE exec -T "$CONTAINER" psql -o /dev/null -h localhost "$OWNER" postgres \
 $COMPOSE exec -T "$CONTAINER" psql -o /dev/null -h localhost "$OWNER" postgres \
     -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '$DBNAME';"
 
-# `set -e` aborts here if the drop fails; the previous explicit `$?` test always
-# read the exit status of the preceding echo, so it never fired.
+# `set -e` aborts here if the drop fails, replacing the previous explicit
+# `[ $? -ne 0 ] && echo ... && exit 1` guard, which covered only this one command
+# and left every other step unchecked.
 $COMPOSE exec -T "$CONTAINER" dropdb -U "$OWNER" "$DBNAME"
 $COMPOSE exec -T "$CONTAINER" createdb -U "$OWNER" --encoding UTF8 \
     --lc-collate=en_US.UTF-8 --lc-ctype=en_US.UTF-8 --template=template0 \

@@ -53,5 +53,3 @@ node_modules
 # Stale dev bundles from a host `npm run start` would otherwise survive the
 # prod asset build and break collectstatic's manifest rewriting.
 build/static/bundles
-media
-.versioninfo
