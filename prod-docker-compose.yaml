@@ -3,7 +3,8 @@ networks:
   app:
 services:
   postgresql:
-    image: postgres:14
+    image: docker.io/library/postgres:14
+    init: true
     ports:
       - '5432'
     environment:
@@ -20,9 +21,9 @@ services:
           '-h',
           'localhost',
           '-U',
-          'freedompress',
+          'securedrop',
           '--dbname',
-          'freedompressdb',
+          'securedropdb',
         ]
       timeout: 45s
       interval: 10s
@@ -33,36 +34,38 @@ services:
           - db
 
   django:
+    init: true
     build:
       context: .
-      dockerfile: devops/docker/ProdDjangoDockerfile
+      dockerfile: ci/containers/Containerfile
+      target: prod
       args:
-        USERID: 12345
-    image: quay.io/freedomofpress/securedroporg
+        USERID: 1000
+    image: ghcr.io/freedomofpress/securedrop-org
     depends_on:
       postgresql:
         condition: service_healthy
     working_dir: /django
     volumes:
-      - ${HOST_STATIC_DIR:-sdorg-django-media}:/django-media
-      - ${HOST_MEDIA_DIR:-sdorg-django-static}:/django-static
+      - ${HOST_MEDIA_DIR:-sdorg-django-media}:/django-media
+      - ${HOST_STATIC_DIR:-sdorg-django-static}:/django-static
     environment:
+      DEPLOY_ENV: prod
       DJANGO_ALLOWED_HOSTS: app localhost
       DJANGO_APP_NAME: securedrop
       DJANGO_COLLECT_STATIC: 'yes'
-      DJANGO_SETTINGS_MODULE: securedrop.settings.production
+      DJANGO_DB_HOST: db
+      DJANGO_DB_NAME: securedropdb
+      DJANGO_DB_PASSWORD: securedroppassword
+      DJANGO_DB_PORT: 5432
+      DJANGO_DB_USER: securedrop
+      DJANGO_MEDIA_ROOT: /django-media
+      DJANGO_ONION_HOSTNAME: secrdrop5wyphb5x.onion
       # Arbitrary key for this "prod-like" testing setup. Do not use in real life.
       DJANGO_SECRET_KEY: 64a235ef65834d8b42fa2802dd4290cf61c773c3f31332039ec5c48165f744da
-      DJANGO_DB_PASSWORD: securedroppassword
-      DJANGO_DB_USER: securedrop
-      DJANGO_DB_NAME: securedropdb
-      DJANGO_DB_PORT: 5432
-      DJANGO_DB_HOST: db
-      DJANGO_ONION_HOSTNAME: secrdrop5wyphb5x.onion
+      DJANGO_SETTINGS_MODULE: securedrop.settings.production
       DJANGO_STATIC_ROOT: /django-static
-      DJANGO_MEDIA_ROOT: /django-media
-      DEPLOY_ENV: prod
-      DJANGO_WHITENOISE: 'True'
+      DJANGO_WHITENOISE: 'yes'
     healthcheck:
       test: ['CMD', 'curl', '-f', 'http://localhost:8000/health/ok/']
       interval: 10s
@@ -74,7 +77,7 @@ services:
         aliases:
           - app
     ports:
-      - '8000:8000'
+      - '127.0.0.1:8000:8000'
 
 volumes:
   sdorg-django-static:

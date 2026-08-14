@@ -16,13 +16,7 @@ webpack-stats.json
 .manage_cmds_ran/
 logs/
 
-# devops virtualenv
-devops/.venv
-devops/.compile-venv
-devops/.vagrant
-.molecule
 .cache
-*.retry
 
 # Functional tests
 geckodriver.log

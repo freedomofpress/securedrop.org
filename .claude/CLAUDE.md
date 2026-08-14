@@ -13,7 +13,7 @@
 - Templates: `securedrop/templates/` (project-level) plus per-app `<app>/templates/` directories
 - Frontend source files: `client/` (`common/`, `tor/`, `autocomplete/`)
 - Compiled bundles output: `build/static/bundles/`
-- DevOps/Docker: `devops/`
+- Container builds and CI helper scripts: `ci/` (`ci/containers/Containerfile`, `ci/scripts/`)
 - Requirements: `requirements.txt`, `dev-requirements.txt` (compiled from `.in` files via pip-compile)
 
 ## Tech Stack
@@ -25,11 +25,11 @@
 
 ## Development
 
-- `docker compose up` to start services (postgresql, node, django)
-- `make dev-init` for initial setup
+- `just dev` (or `docker compose up`) to start services (postgresql, node, django)
+- `just dev-init` for initial setup
 - Wagtail admin at `/admin` (dev credentials: test/test)
-- `make dev-tests` for Django tests
-- `make lint`, `make bandit` for code quality
+- `just test` for Django tests
+- `just lint`, `just bandit` for code quality
 - Main branch: `develop`
 - **All Django/Python commands must run inside Docker** via `docker compose exec django ...` (e.g., `docker compose exec django python manage.py makemigrations`). The host machine does not have Django or project dependencies installed.
 
@@ -47,5 +47,5 @@
 
 ## Testing
 
-- Run the suite with `make dev-tests` (runs `coverage run ... ./manage.py test --noinput` inside the django container, then reports coverage with a 70% floor)
+- Run the suite with `just test` (runs `coverage run ... ./manage.py test --noinput` inside the django container, then reports coverage with a 70% floor)
 - To run a subset directly: `docker compose exec django ./manage.py test <app or path> --noinput`

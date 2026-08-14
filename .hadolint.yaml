@@ -1,0 +1,7 @@
+ignored:
+  # Base images are already pinned by digest (see ci/containers/Containerfile),
+  # so the apt package set for a given build is already fixed in practice.
+  # Hand-pinning individual package versions on top of that would just break
+  # builds silently whenever Debian trixie rotates a version, for no real
+  # reproducibility gain.
+  - DL3008
