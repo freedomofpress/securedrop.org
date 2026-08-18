@@ -1,9 +1,9 @@
 from django.db import models
 
-from modelcluster.models import ClusterableModel
-
 from wagtail.admin.panels import FieldPanel
 from wagtail.snippets.models import register_snippet
+
+from modelcluster.models import ClusterableModel
 
 
 class AbstractBaseItem(ClusterableModel):
@@ -49,8 +49,6 @@ class Language(AbstractBaseItem):
 
 @register_snippet
 class Country(AbstractBaseItem):
-    pass
-
     class Meta(AbstractBaseItem.Meta):
         verbose_name_plural = "Countries"
 

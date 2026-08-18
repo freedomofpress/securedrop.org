@@ -1,9 +1,9 @@
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
-from directory.warnings import WarningLevel
 from directory.models import DirectoryEntry, ScanResult
 from directory.tests.factories import DirectoryEntryFactory, ScanResultFactory
+from directory.warnings import WarningLevel
 
 
 class DirectoryEntryTest(TestCase):

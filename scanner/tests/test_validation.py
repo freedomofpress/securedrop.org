@@ -1,7 +1,8 @@
-from bs4 import BeautifulSoup
 from unittest import mock
 
 from django.test import TestCase
+
+from bs4 import BeautifulSoup
 
 from scanner import scanner
 

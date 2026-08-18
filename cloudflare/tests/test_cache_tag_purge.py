@@ -1,10 +1,11 @@
-from unittest.mock import patch, Mock
+from unittest.mock import Mock, patch
 
 from django.test import TestCase, override_settings
+
 from requests.exceptions import HTTPError, InvalidURL
 
+from cloudflare.utils import purge_all_from_cache, purge_tags_from_cache
 from common.tests.utils import capture_logs_with_contextvars
-from cloudflare.utils import purge_tags_from_cache, purge_all_from_cache
 
 
 WAGTAILFRONTENDCACHE_SETTINGS = {

@@ -10,8 +10,8 @@ from wagtail_factories import PageFactory
 
 from common.models import CustomImage
 from marketing.models import (
-    MarketingIndexPage,
     FeaturePage,
+    MarketingIndexPage,
     OrderedFeatures,
 )
 

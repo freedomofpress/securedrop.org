@@ -37,12 +37,13 @@ class CommonConfig(AppConfig):
     name = "common"
 
     def ready(self):
-        import common.signals  # noqa: F401
         from wagtail.admin.rich_text.converters.html_to_contentstate import (
-            InlineStyleElementHandler,
             BlockElementHandler,
             InlineEntityElementHandler,
+            InlineStyleElementHandler,
         )
+
+        import common.signals  # noqa: F401
 
         InlineStyleElementHandler.handle_endtag = (
             InlineStyleElementHandler__handle_endtag

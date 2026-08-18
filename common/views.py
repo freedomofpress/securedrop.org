@@ -1,9 +1,10 @@
 import os
 
-from wagtail.documents.views import serve
 from django.http import HttpResponse
 from django.template.response import TemplateResponse
 from django.views.decorators.cache import never_cache
+
+from wagtail.documents.views import serve
 
 
 VERSION_INFO_SHORT_PATH = os.environ.get(
@@ -26,7 +27,7 @@ def read_version_info_file(p):
         with open(p, "r") as f:
             return f.read()
     except FileNotFoundError:
-        return "<file not found at {}>".format(p)
+        return f"<file not found at {p}>"
 
 
 def deploy_info_view(request):

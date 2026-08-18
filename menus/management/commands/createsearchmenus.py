@@ -1,9 +1,9 @@
+from django.core.management.base import BaseCommand
+from django.db import transaction
+
 from home.models import HomePage
 from menus.models import Menu, MenuItem
 from simple.models import SimplePage
-
-from django.core.management.base import BaseCommand
-from django.db import transaction
 
 
 class Command(BaseCommand):

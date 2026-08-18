@@ -1,8 +1,8 @@
 from django.contrib.auth.models import Group
 from django.db import models
 
-from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel, PageChooserPanel
+from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.fields import RichTextField
 
 

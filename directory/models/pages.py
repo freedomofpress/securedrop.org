@@ -9,10 +9,10 @@ from wagtail.fields import RichTextField
 from wagtail.models import Page
 
 from common.models.mixins import MetadataPageMixin
-from common.utils import paginate, DEFAULT_PAGE_KEY
-from search.utils import get_search_content_by_fields
-from directory.models.entry import DirectoryEntry
+from common.utils import DEFAULT_PAGE_KEY, paginate
 from directory.forms import FilterForm
+from directory.models.entry import DirectoryEntry
+from search.utils import get_search_content_by_fields
 
 
 @dataclasses.dataclass
@@ -149,7 +149,7 @@ class DirectoryPage(RoutablePageMixin, MetadataPageMixin, Page):
         return instances
 
     def get_context(self, request):
-        context = super(DirectoryPage, self).get_context(request)
+        context = super().get_context(request)
 
         valid_filters = [
             FilterDefinition(

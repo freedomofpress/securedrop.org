@@ -1,11 +1,10 @@
-from __future__ import absolute_import, unicode_literals
-
 from django.contrib.postgres.search import SearchQuery, SearchRank
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django.db.models import Func, F, TextField
+from django.db.models import F, Func, TextField
 from django.shortcuts import render
 
 from search.models import SearchDocument
+
 from .forms import SearchForm
 
 

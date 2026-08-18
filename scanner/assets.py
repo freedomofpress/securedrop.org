@@ -1,20 +1,18 @@
-from collections import deque, namedtuple
 import re
 import urllib.parse
+from collections import deque, namedtuple
 
 import requests
 import tinycss2
-from typing import List
 from bs4 import BeautifulSoup
 
-from scanner.utils import HEADERS
-from scanner.utils import extract_strings, extract_urls
+from scanner.utils import HEADERS, extract_strings, extract_urls
 
 
 Asset = namedtuple("Asset", ["resource", "kind", "initiator"])
 
 
-def extract_assets(soup: BeautifulSoup, site_url: str) -> List[Asset]:
+def extract_assets(soup: BeautifulSoup, site_url: str) -> list[Asset]:
     assets = []
 
     images = soup.find_all("img")
@@ -56,7 +54,7 @@ def extract_assets(soup: BeautifulSoup, site_url: str) -> List[Asset]:
                 assets.append(
                     Asset(
                         resource=tag.attrs["src"],
-                        kind="{}-src".format(tag_name),
+                        kind=f"{tag_name}-src",
                         initiator=site_url,
                     )
                 )
@@ -140,7 +138,7 @@ def extract_assets(soup: BeautifulSoup, site_url: str) -> List[Asset]:
     return assets
 
 
-def urls_from_css_declarations(css_text: str) -> List[str]:
+def urls_from_css_declarations(css_text: str) -> list[str]:
     """Parse text consisting of one or more CSS declarations and return a
     list of urls found within.  The CSS text given should not include
     any selectors.
@@ -156,7 +154,7 @@ def urls_from_css_declarations(css_text: str) -> List[str]:
     return urls
 
 
-def urls_from_css(css_text: str) -> List[str]:
+def urls_from_css(css_text: str) -> list[str]:
     """Given CSS text, parse it and return all URLs found"""
     urls = []
     nodes = tinycss2.parse_stylesheet(css_text)
@@ -202,7 +200,7 @@ def fetch_asset(asset_url: str, site_url: str) -> str:
     return response.text
 
 
-def parse_srcset(srcset: str) -> List[str]:
+def parse_srcset(srcset: str) -> list[str]:
     """Extract URLs from a srcset attribute"""
     srcset = srcset.strip()
     if not srcset:

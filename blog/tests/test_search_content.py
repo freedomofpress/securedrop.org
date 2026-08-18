@@ -1,4 +1,5 @@
 import json
+
 from django.test import TestCase
 
 from blog.tests.factories import BlogIndexPageFactory, BlogPageFactory

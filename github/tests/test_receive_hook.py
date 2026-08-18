@@ -1,7 +1,7 @@
 import hashlib
 import hmac
 import os
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from unittest import mock
 
 from django.test import Client, TestCase, override_settings
@@ -50,7 +50,7 @@ class TestReceiveHook(TestCase):
             headers={
                 "x-github-event": kwargs.get("github_event", "release"),
                 "x-hub-signature-256": kwargs.get(
-                    "signature", "sha256={}".format(mac.hexdigest())
+                    "signature", f"sha256={mac.hexdigest()}"
                 ),
             },
         )
@@ -71,9 +71,7 @@ class TestReceiveHook(TestCase):
         )
         release = Release.objects.last()
         self.assertEqual(release.tag_name, "v0.1.0")
-        self.assertEqual(
-            release.date, datetime(2017, 8, 8, 21, 38, 21, tzinfo=timezone.utc)
-        )
+        self.assertEqual(release.date, datetime(2017, 8, 8, 21, 38, 21, tzinfo=UTC))
         self.assertEqual(release.product, self.product)
 
     @override_settings(GITHUB_HOOK_SECRET_KEY=b"test")

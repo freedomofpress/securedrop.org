@@ -1,9 +1,8 @@
 from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 
-from github.models import Product, Release
-
 from cloudflare.utils import purge_all_from_cache
+from github.models import Product, Release
 
 
 @receiver([post_save, pre_delete], sender=Release)

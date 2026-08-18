@@ -1,6 +1,6 @@
 import os
 import re
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from unittest import mock
 
 from django.test import TestCase
@@ -23,7 +23,7 @@ VCR_DIR = os.path.join(os.path.dirname(__file__), "scans_vcr")
 def long_lasting_cookies(response):
     """modify a HTTP response to extend cookie lifetime"""
     if "Set-Cookie" in response["headers"]:
-        timestamp = datetime(2032, 10, 31, 13, 14, 15, tzinfo=timezone.utc)
+        timestamp = datetime(2032, 10, 31, 13, 14, 15, tzinfo=UTC)
         updated_expiry = re.sub(
             r"(expires=)([\w, -:]+)",
             r"\1{}".format(timestamp.strftime("%a, %d-%b-%y %H:%M:%S %Z")),
@@ -224,14 +224,14 @@ class ScannerTest(TestCase):
     def test_request_gets_page_if_protocol_identifier_present(self):
         "request_and_scrape_page should handle a URL with a protocol"
         url = "https://securedrop.org"
-        page, soup = scanner.request_and_scrape_page(url)
+        page, _soup = scanner.request_and_scrape_page(url)
         self.assertIn("List of SecureDrops", str(page.content))
 
     @mod_vcr.use_cassette(os.path.join(VCR_DIR, "scrape-securedrop-dot-org.yaml"))
     def test_request_gets_page_if_protocol_identifier_not_present(self):
         "request_and_scrape_page should handle a URL without a protocol"
         url = "securedrop.org"
-        page, soup = scanner.request_and_scrape_page(url)
+        page, _soup = scanner.request_and_scrape_page(url)
         self.assertIn("List of SecureDrops", str(page.content))
 
     @mod_vcr.use_cassette(os.path.join(VCR_DIR, "full-scan-site-live.yaml"))
@@ -332,7 +332,7 @@ class ScannerTest(TestCase):
 
         # Update the last seen time, needed to evade
         # `auto_now_add=True` on this field.
-        old_result.result_last_seen = datetime.now(timezone.utc) - timedelta(days=1)
+        old_result.result_last_seen = datetime.now(UTC) - timedelta(days=1)
         old_result.save()
 
         # Must match old result's fields.
@@ -346,8 +346,7 @@ class ScannerTest(TestCase):
 
         old_result.refresh_from_db()
         self.assertTrue(
-            datetime.now(timezone.utc) - old_result.result_last_seen
-            < timedelta(seconds=10),
+            datetime.now(UTC) - old_result.result_last_seen < timedelta(seconds=10),
         )
 
     @mod_vcr.use_cassette(os.path.join(VCR_DIR, "bulk-scan-error-handling.yaml"))

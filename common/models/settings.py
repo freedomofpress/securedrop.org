@@ -1,8 +1,8 @@
 from django.conf import settings
 from django.db import models
 
-from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from wagtail.contrib.settings.models import BaseSiteSetting, register_setting
 from wagtail.fields import RichTextField
 
 

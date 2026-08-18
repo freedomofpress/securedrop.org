@@ -1,5 +1,6 @@
-from wagtail import hooks
 from django.urls import re_path
+
+from wagtail import hooks
 
 from .views import deploy_info_view
 

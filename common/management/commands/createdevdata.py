@@ -1,16 +1,17 @@
 import os
 
-from wagtail.models import Page, Site
-from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
+from django.core import management
+from django.core.exceptions import ObjectDoesNotExist
+from django.core.files.images import ImageFile
 from django.core.files.storage import FileSystemStorage, default_storage
 from django.core.management import call_command
-from django.core.files.images import ImageFile
 from django.core.management.base import BaseCommand
 from django.db import transaction
-from django.core import management
 
-from common.models import SocialSharingSEOSettings, CustomImage
+from wagtail.models import Page, Site
+
+from common.models import CustomImage, SocialSharingSEOSettings
 from home.models import HomePage
 from home.tests.factories import HomePageFactory
 
@@ -64,14 +65,12 @@ class Command(BaseCommand):
             )
             image = CustomImage.objects.filter(title="Sample Image").first()
             if not image:
-                image = CustomImage.objects.create(
-                    title="Sample Image",
-                    file=ImageFile(
-                        open("common/static/images/logo_solid_white.png", "rb"),
-                        name="logo",
-                    ),
-                    attribution="createdevdata",
-                )
+                with open("common/static/images/logo_solid_white.png", "rb") as f:
+                    image = CustomImage.objects.create(
+                        title="Sample Image",
+                        file=ImageFile(f, name="logo"),
+                        attribution="createdevdata",
+                    )
             sssettings = SocialSharingSEOSettings.for_site(site)
             sssettings.default_description = "SecureDrop"
             sssettings.default_image = image

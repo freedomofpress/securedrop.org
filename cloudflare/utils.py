@@ -1,11 +1,11 @@
-import requests
 import json
+from collections.abc import Iterable
 
-from typing import Iterable
-
-import structlog
-from wagtail.contrib.frontend_cache.utils import get_backends
 from wagtail.contrib.frontend_cache.backends import CloudflareBackend
+from wagtail.contrib.frontend_cache.utils import get_backends
+
+import requests
+import structlog
 
 
 logger = structlog.get_logger("wagtail.frontendcache")
@@ -15,9 +15,9 @@ def _for_every_cloudflare_backend(func: callable) -> callable:
     "Decorator to run a function once for every Cloudflare backend"
 
     def inner(*args, backend_settings=None, backends=None, **kwargs):
-        for backend_name, backend in get_backends(
+        for backend in get_backends(
             backend_settings=backend_settings, backends=backends
-        ).items():
+        ).values():
             if not isinstance(backend, CloudflareBackend):
                 continue
             func(*args, backend=backend, **kwargs)
@@ -25,11 +25,11 @@ def _for_every_cloudflare_backend(func: callable) -> callable:
     return inner
 
 
-def _purge(backend: CloudflareBackend, data={}) -> None:
+def _purge(backend: CloudflareBackend, data=None) -> None:
     "Send a delete request to the Cloudflare API"
-    purge_url = "https://api.cloudflare.com/client/v4/zones/{0}/purge_cache".format(
-        backend.cloudflare_zoneid
-    )
+    if data is None:
+        data = {}
+    purge_url = f"https://api.cloudflare.com/client/v4/zones/{backend.cloudflare_zoneid}/purge_cache"
     string_data = json.dumps(data)
     structlog.contextvars.bind_contextvars(
         cloudflare_request_data=string_data,

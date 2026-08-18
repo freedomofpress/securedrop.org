@@ -1,16 +1,16 @@
+from django.core.exceptions import ObjectDoesNotExist
+from django.core.management.base import BaseCommand
+from django.db import transaction
+
+from wagtail.models import Page, Site
+from wagtail.rich_text import RichText
+
 from blog.models import BlogIndexPage
 from blog.tests.factories import BlogIndexPageFactory
 from common.models import FooterSettings
 from home.models import HomePage
 from menus.models import Menu, MenuItem
 from simple.models import SimplePage
-
-from django.core.management.base import BaseCommand
-from django.db import transaction
-from django.core.exceptions import ObjectDoesNotExist
-
-from wagtail.models import Page, Site
-from wagtail.rich_text import RichText
 
 
 class Command(BaseCommand):

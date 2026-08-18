@@ -1,11 +1,11 @@
 from django.db import models
 
-from modelcluster.models import ClusterableModel
-from modelcluster.fields import ParentalKey
-
 from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
 from wagtail.models import Orderable
 from wagtail.snippets.models import register_snippet
+
+from modelcluster.fields import ParentalKey
+from modelcluster.models import ClusterableModel
 
 
 @register_snippet

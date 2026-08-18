@@ -1,6 +1,6 @@
 from unittest import TestCase
 
-from scanner.utils import url_to_domain, extract_strings, extract_urls
+from scanner.utils import extract_strings, extract_urls, url_to_domain
 
 
 class URLToDomainTestCase(TestCase):

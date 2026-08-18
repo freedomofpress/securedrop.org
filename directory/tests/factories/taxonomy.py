@@ -1,6 +1,6 @@
 import factory
 
-from directory.models import Language, Country, Topic
+from directory.models import Country, Language, Topic
 
 
 class LanguageFactory(factory.django.DjangoModelFactory):

@@ -1,13 +1,13 @@
 from django.utils.safestring import mark_safe
 
-from pygments import highlight
-from pygments.formatters import get_formatter_by_name
-from pygments.lexers import get_lexer_by_name
-
 from wagtail import blocks
 from wagtail.documents.blocks import DocumentChooserBlock
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
+
+from pygments import highlight
+from pygments.formatters import get_formatter_by_name
+from pygments.lexers import get_lexer_by_name
 from wagtailmedia.blocks import AbstractMediaChooserBlock
 
 

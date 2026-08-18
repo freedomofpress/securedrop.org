@@ -1,4 +1,4 @@
-from django.db.models.signals import post_save, post_delete
+from django.db.models.signals import post_delete, post_save
 
 from cloudflare.utils import purge_all_from_cache
 from menus.models import Menu, MenuItem

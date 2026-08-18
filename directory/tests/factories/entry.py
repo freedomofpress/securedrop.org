@@ -1,9 +1,10 @@
 import random
 import string
 
+from django.utils import timezone
+
 import factory
 import wagtail_factories
-from django.utils import timezone
 from faker import Faker
 
 from common.models import CustomImage
