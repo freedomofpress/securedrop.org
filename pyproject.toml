@@ -14,7 +14,7 @@ ignore = ["E501", "E266", "RUF012"]
 
 [tool.ruff.lint.isort]
 lines-after-imports = 2
-known-first-party = ["statistics"]
+known-first-party = ["blog", "cloudflare", "common", "directory", "forms", "github", "home", "marketing", "menus", "scanner", "search", "simple"]
 section-order = [
     # the default, plus our Django and Wagtail sections
     "future",
