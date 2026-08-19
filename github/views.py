@@ -1,11 +1,12 @@
+import hashlib
+import hmac
 import json
 
 from django.conf import settings
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
-import hashlib
-import hmac
+
 import structlog
 
 from github.models import Product, Release
@@ -53,7 +54,7 @@ def handle_release_hook(body):
     try:
         product = Product.objects.get(repo_full_name=repo_full_name)
     except Product.DoesNotExist:
-        logger.warn(
+        logger.warning(
             "Github release event received for unknown repository",
             repo_full_name=repo_full_name,
             event_code=EventCode.UnknownRepository,
@@ -88,14 +89,14 @@ def receive_hook(request):
         github_hook_content=content,
     )
     if not content:
-        logger.warn(
+        logger.warning(
             "GitHub hook received with no POST data",
             event_code=EventCode.PostDataMissing,
         )
         return HttpResponse(status=204)
 
     if not validate_sha256_signature(request, settings.GITHUB_HOOK_SECRET_KEY):
-        logger.warn(
+        logger.warning(
             "GitHub hook received event with an invalid signature.",
             event_code=EventCode.InvalidSignature,
         )
@@ -112,7 +113,7 @@ def receive_hook(request):
         logger.info("Ping received from GitHub hook.")
         return HttpResponse(status=204)
     elif event_type != "release":
-        logger.warn(
+        logger.warning(
             "Received an unsupported GitHub event",
             github_event_type=event_type,
             event_code=EventCode.UnsupportedGithubEvent,
@@ -123,7 +124,7 @@ def receive_hook(request):
     if github_action != "published":
         # Currently the only `action` value for the Release hook should be
         # `published`.
-        logger.warn(
+        logger.warning(
             "GitHub hook received event with an action value other than published.",
             github_action=github_action,
             event_code=EventCode.UnsupportedAction,
@@ -139,7 +140,7 @@ def receive_hook(request):
                 github_release_created=obj.tag_name,
             )
     else:
-        logger.warn(
+        logger.warning(
             "GitHub hook received event without a release attribute.",
             event_code=EventCode.ReleaseAttributeMissing,
         )

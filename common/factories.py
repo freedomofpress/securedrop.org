@@ -3,7 +3,7 @@ from factory import (
     SubFactory,
 )
 from factory.django import DjangoModelFactory
-from wagtail_factories import PageFactory, ImageFactory
+from wagtail_factories import ImageFactory, PageFactory
 
 from common.models import Button, CustomImage
 

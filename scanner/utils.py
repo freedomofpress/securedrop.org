@@ -1,6 +1,5 @@
 import re
 
-from typing import Set, List
 
 WEB_URL_REGEX = re.compile(
     r"""\b((?:https?:\/\/)?(?:[\da-z\.-]+)\.(?:[a-z\.]{2,6})(?:[\/\w\.-?]*)*\/?)"""
@@ -25,10 +24,10 @@ def url_to_domain(url: str) -> str:
     return url
 
 
-def extract_strings(text: str) -> Set[str]:
+def extract_strings(text: str) -> set[str]:
     """Find unique quoted strings in a block of code"""
     return set(re.findall(r'["\'](.*?)["\']', text))
 
 
-def extract_urls(text: str) -> List[str]:
+def extract_urls(text: str) -> list[str]:
     return WEB_URL_REGEX.findall(text)

@@ -1,6 +1,6 @@
+from collections.abc import Callable
 from dataclasses import dataclass
 from enum import Enum
-from collections.abc import Callable
 
 import directory.models.entry
 
@@ -27,7 +27,7 @@ class WarningLevel(Enum):
 @dataclass
 class Warning:
     name: str
-    test: Callable[["directory.models.entry.ScanResult"], TestResult]
+    test: Callable[[directory.models.entry.ScanResult], TestResult]
     level: WarningLevel
     message: str
 

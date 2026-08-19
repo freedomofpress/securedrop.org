@@ -1,19 +1,20 @@
 from django.db import models
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import cache_control
-from modelcluster.fields import ParentalKey
+
 from wagtail.admin.panels import (
     FieldPanel,
     FieldRowPanel,
     InlinePanel,
     MultiFieldPanel,
-    TabbedInterface,
     ObjectList,
+    TabbedInterface,
 )
-from wagtail.models import Page
+from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
 from wagtail.fields import RichTextField
-from wagtail.contrib.forms.models import AbstractFormField, AbstractEmailForm
+from wagtail.models import Page
 
+from modelcluster.fields import ParentalKey
 from wagtail_honeypot.models import HoneypotFormMixin, HoneypotFormSubmissionMixin
 
 from common.models import MetadataPageMixin
@@ -105,7 +106,7 @@ class FormPage(MetadataPageMixin, HoneypotFormMixin, HoneypotFormSubmissionMixin
             value = field.value()
             if isinstance(value, list):
                 value = ", ".join(value)
-            content.append("{}: {}".format(field.label, value))
+            content.append(f"{field.label}: {value}")
         content = "\n".join(content)
         send_mail(
             self.subject,

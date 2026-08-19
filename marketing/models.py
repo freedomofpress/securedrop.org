@@ -1,22 +1,23 @@
 from django.db import models
+
+from wagtail import blocks
+from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.fields import RichTextField, StreamField
+from wagtail.models import Orderable, Page
+
 from modelcluster.fields import ParentalKey
 
-from common.models import MetadataPageMixin
 from common.blocks import (
+    AlignedEmbedBlock,
+    AlignedImageBlock,
     Heading1,
     Heading2,
     Heading3,
-    AlignedImageBlock,
-    AlignedEmbedBlock,
     RichTextBlockQuoteBlock,
     VideoBlock,
 )
+from common.models import MetadataPageMixin
 from search.utils import get_search_content_by_fields
-
-from wagtail.admin.panels import FieldPanel, InlinePanel, MultiFieldPanel
-from wagtail import blocks
-from wagtail.fields import StreamField, RichTextField
-from wagtail.models import Page, Orderable
 
 
 class MarketingIndexPage(MetadataPageMixin, Page):

@@ -1,9 +1,9 @@
-from datetime import timezone, timedelta, datetime
+from datetime import UTC, datetime, timedelta
 
 from factory import (
     Faker,
-    Sequence,
     LazyAttributeSequence,
+    Sequence,
     SubFactory,
 )
 from factory.django import DjangoModelFactory
@@ -16,8 +16,8 @@ class ProductFactory(DjangoModelFactory):
         model = Product
         django_get_or_create = ("repo_full_name",)
 
-    name = Sequence(lambda n: "Product {}".format(n))
-    repo_full_name = Sequence(lambda n: "freedomofpress/product-{}".format(n))
+    name = Sequence(lambda n: f"Product {n}")
+    repo_full_name = Sequence(lambda n: f"freedomofpress/product-{n}")
 
 
 class ReleaseFactory(DjangoModelFactory):
@@ -26,9 +26,5 @@ class ReleaseFactory(DjangoModelFactory):
 
     product = SubFactory(ProductFactory)
     url = Faker("url")
-    tag_name = LazyAttributeSequence(
-        lambda o, n: "{year}.{n}".format(year=o.date.year, n=n)
-    )
-    date = Sequence(
-        lambda n: datetime(2018, 1, 1, tzinfo=timezone.utc) + timedelta(days=n * n)
-    )
+    tag_name = LazyAttributeSequence(lambda o, n: f"{o.date.year}.{n}")
+    date = Sequence(lambda n: datetime(2018, 1, 1, tzinfo=UTC) + timedelta(days=n * n))

@@ -1,30 +1,30 @@
 from django.db import models
-from django.utils.html import strip_tags
 from django.template.defaultfilters import truncatewords
+from django.utils.html import strip_tags
 
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel, PageChooserPanel
 from wagtail import blocks
-from wagtail.fields import StreamField, RichTextField
-from wagtail.models import Page
-from wagtail.images.blocks import ImageChooserBlock
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, PageChooserPanel
 from wagtail.contrib.routable_page.models import RoutablePageMixin, path
+from wagtail.fields import RichTextField, StreamField
+from wagtail.images.blocks import ImageChooserBlock
+from wagtail.models import Page
 
 from blog.feeds import BlogIndexPageFeed
-from common.utils import DEFAULT_PAGE_KEY, paginate
-from search.utils import get_search_content_by_fields
-from common.models import MetadataPageMixin
 from common.blocks import (
+    AlignedEmbedBlock,
+    AlignedImageBlock,
+    CodeBlock,
     Heading1,
     Heading2,
     Heading3,
     InlinePDFBlock,
-    AlignedImageBlock,
-    AlignedEmbedBlock,
     RichTextBlockQuoteBlock,
-    CodeBlock,
     VideoBlock,
 )
+from common.models import MetadataPageMixin
+from common.utils import DEFAULT_PAGE_KEY, paginate
 from github.models import Release
+from search.utils import get_search_content_by_fields
 
 
 class BlogPage(MetadataPageMixin, Page):
@@ -151,7 +151,7 @@ class CategoryPage(MetadataPageMixin, Page):
         )
 
     def get_context(self, request):
-        context = super(CategoryPage, self).get_context(request)
+        context = super().get_context(request)
 
         entry_qs = self.get_posts()
         # Use parent's settings for pagination counts
@@ -246,7 +246,7 @@ class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
         return BlogPage.objects.child_of(self).live().order_by("-publication_datetime")
 
     def get_context(self, request):
-        context = super(BlogIndexPage, self).get_context(request)
+        context = super().get_context(request)
         entry_qs = self.get_posts()
 
         paginator, entries = paginate(
@@ -276,4 +276,4 @@ class BlogIndexPage(RoutablePageMixin, MetadataPageMixin, Page):
         yield self.url + self.reverse_subpage("feed")
         page_count = self.get_posts().count() // self.per_page
         for x in range(1, page_count + 2):
-            yield "{}?page={}".format(self.url, x)
+            yield f"{self.url}?page={x}"

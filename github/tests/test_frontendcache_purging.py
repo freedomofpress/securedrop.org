@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from unittest.mock import patch
 
 from django.test import TestCase
@@ -16,7 +16,7 @@ class FrontendCacheTestCase(TestCase):
         "Creating a new release should purge the entire zone"
         Release.objects.create(
             product=self.product,
-            date=datetime(2018, 4, 25, 0, 0, 0, tzinfo=timezone.utc),
+            date=datetime(2018, 4, 25, 0, 0, 0, tzinfo=UTC),
         )
         self.assertEqual(purge_mock.call_count, 1)
 
@@ -24,7 +24,7 @@ class FrontendCacheTestCase(TestCase):
         "Deleting a release should purge the entire zone"
         release = Release.objects.create(
             product=self.product,
-            date=datetime(2018, 4, 25, 0, 0, 0, tzinfo=timezone.utc),
+            date=datetime(2018, 4, 25, 0, 0, 0, tzinfo=UTC),
         )
 
         with patch("github.signals.purge_all_from_cache") as purge_mock:
@@ -35,7 +35,7 @@ class FrontendCacheTestCase(TestCase):
         "Changing a release should purge the entire zone"
         release = Release.objects.create(
             product=self.product,
-            date=datetime(2018, 4, 25, 0, 0, 0, tzinfo=timezone.utc),
+            date=datetime(2018, 4, 25, 0, 0, 0, tzinfo=UTC),
         )
 
         release.url = "http://notarealwebsite.com"

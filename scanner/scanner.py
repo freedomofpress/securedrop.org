@@ -1,26 +1,28 @@
-from bs4 import BeautifulSoup
-import requests
-import re
 import itertools
+import logging
 import operator
+import re
+from datetime import UTC, datetime
+from typing import TYPE_CHECKING
 
-from typing import TYPE_CHECKING, Tuple, Dict, List
-
+import requests
 import tldextract
+from bs4 import BeautifulSoup
 
-from datetime import datetime, timezone
-
-from directory.models import ScanResult, DirectoryEntry
-from scanner.utils import HEADERS
-from scanner.assets import extract_assets, Asset
+from directory.models import DirectoryEntry, ScanResult
+from scanner.assets import Asset, extract_assets
 from scanner.http2 import check_http2
+from scanner.utils import HEADERS
 
 
 if TYPE_CHECKING:
-    from directory.models import DirectoryEntryQuerySet  # noqa: F401
+    from directory.models import DirectoryEntryQuerySet
 
 
-def perform_scan(url: str, permitted_domains: List[str]) -> ScanResult:
+logger = logging.getLogger(__name__)
+
+
+def perform_scan(url: str, permitted_domains: list[str]) -> ScanResult:
     scan_data = {
         "live": False,
         "landing_page_url": url,
@@ -77,7 +79,7 @@ def scan(entry: DirectoryEntry, commit=False) -> ScanResult:
     return result
 
 
-def bulk_scan(securedrops: "DirectoryEntryQuerySet") -> None:
+def bulk_scan(securedrops: DirectoryEntryQuerySet) -> None:
     """
     This method takes a queryset and scans the securedrop pages. Unlike the
     scan method that takes a single SecureDrop instance, this method requires
@@ -97,6 +99,7 @@ def bulk_scan(securedrops: "DirectoryEntryQuerySet") -> None:
         try:
             current_result = perform_scan(entry.landing_page_url, permitted_domains)
         except Exception:
+            logger.exception("Failed to scan %s", entry.landing_page_url)
             continue
 
         # This is usually handled by Result.save, but since we're doing a
@@ -112,7 +115,7 @@ def bulk_scan(securedrops: "DirectoryEntryQuerySet") -> None:
 
         if prior_result.is_equal_to(current_result):
             # Then let's not waste a row in the database
-            prior_result.result_last_seen = datetime.now(timezone.utc)
+            prior_result.result_last_seen = datetime.now(UTC)
             prior_result.save()
         else:
             # Then let's add this new scan result to the database
@@ -124,7 +127,7 @@ def bulk_scan(securedrops: "DirectoryEntryQuerySet") -> None:
 
 def request_and_scrape_page(
     url: str, allow_redirects: bool = True
-) -> Tuple[requests.models.Response, BeautifulSoup]:
+) -> tuple[requests.models.Response, BeautifulSoup]:
     """Scrape and parse the HTML of a page into a BeautifulSoup"""
 
     # Note: headers include User-Agent which is required for correct
@@ -139,7 +142,7 @@ def request_and_scrape_page(
         soup = BeautifulSoup(page.content, "lxml")
     except requests.exceptions.MissingSchema:
         page = requests.get(
-            "https://{}".format(url),
+            f"https://{url}",
             allow_redirects=allow_redirects,
             headers=HEADERS,
             timeout=10,
@@ -149,7 +152,7 @@ def request_and_scrape_page(
     return page, soup
 
 
-def parse_page_data(page: requests.models.Response) -> Dict[str, bool]:
+def parse_page_data(page: requests.models.Response) -> dict[str, bool]:
     http_response_data = {
         "no_cross_domain_redirects": True,
         "subdomain": validate_subdomain(page.url),
@@ -188,7 +191,7 @@ def parse_page_data(page: requests.models.Response) -> Dict[str, bool]:
     return http_response_data
 
 
-def parse_assets(assets, permitted_domains: List[str]) -> Dict[str, bool]:
+def parse_assets(assets, permitted_domains: list[str]) -> dict[str, bool]:
     summary = ""
     ignored_summary = ""
     no_cross_domain_assets = True
@@ -228,7 +231,7 @@ def parse_assets(assets, permitted_domains: List[str]) -> Dict[str, bool]:
     }
 
 
-def summarize_assets(assets: List[Asset]) -> str:
+def summarize_assets(assets: list[Asset]) -> str:
     summary = ""
 
     by_initiator = operator.attrgetter("initiator")
@@ -236,14 +239,14 @@ def summarize_assets(assets: List[Asset]) -> str:
 
     sorted_assets = sorted(assets, key=by_initiator)
 
-    for initiator, assets in itertools.groupby(sorted_assets, by_initiator):
+    for initiator, initiator_assets in itertools.groupby(sorted_assets, by_initiator):
         summary += initiator + "\n"
-        for asset in sorted(assets, key=by_kind):
-            summary += "  * ({0.kind}) {0.resource}\n".format(asset)
+        for asset in sorted(initiator_assets, key=by_kind):
+            summary += f"  * ({asset.kind}) {asset.resource}\n"
     return summary
 
 
-def parse_soup_data(soup: BeautifulSoup) -> Dict[str, bool]:
+def parse_soup_data(soup: BeautifulSoup) -> dict[str, bool]:
     return {
         "safe_onion_address": validate_onion_address_not_in_href(soup),
     }
@@ -267,10 +270,7 @@ def validate_subdomain(url):
 
 def validate_not_using_cdn(page):
     """Right now this is just checking for Cloudflare"""
-    if "CF-Cache-Status" in page.headers or "CF-RAY" in page.headers:
-        return False
-    else:
-        return True
+    return not ("CF-Cache-Status" in page.headers or "CF-RAY" in page.headers)
 
 
 def validate_not_using_analytics(page):
@@ -309,10 +309,7 @@ def validate_not_using_analytics(page):
 def validate_security_header(page, header, expected_value):
     if header not in page.headers:
         return False
-    elif page.headers[header] == expected_value:
-        return True
-    else:
-        return False
+    return page.headers[header] == expected_value
 
 
 def validate_cache_control_header(page, expected_directive):
@@ -323,26 +320,17 @@ def validate_cache_control_header(page, expected_directive):
 
 
 def validate_no_redirects(page):
-    if page.is_redirect:
-        return False
-    else:
-        return True
+    return not page.is_redirect
 
 
 def validate_200_ok(page):
-    if page.status_code == 200:
-        return True
-    else:
-        return False
+    return page.status_code == 200
 
 
 def validate_encoding(page):
     if page.encoding is None:
         return False
-    if page.encoding.upper() in ("UTF-8", "ISO-8859-1"):
-        return True
-    else:
-        return False
+    return page.encoding.upper() in ("UTF-8", "ISO-8859-1")
 
 
 def validate_server_software(page):
@@ -350,10 +338,7 @@ def validate_server_software(page):
         return True
     else:
         server_header = str.lower(page.headers["Server"])
-    if "nginx" in server_header or "apache" in server_header:
-        return False
-    else:
-        return True
+    return not ("nginx" in server_header or "apache" in server_header)
 
 
 def validate_server_version(page):
@@ -366,19 +351,14 @@ def validate_server_version(page):
 
     if not matches:
         return True
-    elif len(matches.group()) > 1:
-        return False
-    else:
-        return True
+    return not len(matches.group()) > 1
 
 
 def validate_csp(page):
-    if "Content-Security-Policy" not in page.headers:
-        return False
-    elif "default-src 'self'" not in page.headers["Content-Security-Policy"]:
-        return False
-    else:
-        return True
+    return not (
+        "Content-Security-Policy" not in page.headers
+        or "default-src 'self'" not in page.headers["Content-Security-Policy"]
+    )
 
 
 def validate_xss_protection(page):
@@ -430,10 +410,7 @@ def validate_expires(page):
 
 
 def validate_cache_control_set(page):
-    if "Cache-Control" in page.headers:
-        return True
-    else:
-        return False
+    return "Cache-Control" in page.headers
 
 
 def validate_cache_must_revalidate(page):
@@ -461,10 +438,7 @@ def validate_no_referrer_policy(page):
 
 
 def validate_no_cookies(page):
-    if len(page.cookies.keys()) > 0:
-        return False
-    else:
-        return True
+    return not len(page.cookies.keys()) > 0
 
 
 def validate_onion_address_not_in_href(page):

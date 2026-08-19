@@ -35,6 +35,10 @@ esac
 
 echo "$commit" >"$short_version_out"
 
+# No python dependency section: this report is generated in a build stage that
+# has none of the app's dependencies installed, so a "pip freeze" here would
+# describe a bare interpreter. The authoritative pinned set is requirements.txt,
+# shipped in the image and installed with --no-deps --require-hashes.
 cat >"$full_version_out" <<EOF
 #### GIT INFO ####
 
@@ -47,10 +51,6 @@ $(git log -5 --oneline)
 #### PYTHON INFO ####
 
 $(python3 --version)
-
-#### PYTHON DEPS ####
-
-$(pip freeze)
 
 #### SYS INFO ####
 

@@ -9,9 +9,10 @@ x-variables:
 
 services:
   postgresql:
-    image: postgres:14
+    image: docker.io/library/postgres:14
+    init: true
     ports:
-      - '5432:5432'
+      - '127.0.0.1:5432:5432'
     volumes:
       - ./:/django:ro
     environment:
@@ -41,12 +42,14 @@ services:
           - db
 
   node:
+    image: localhost/securedroporg-node
     build:
       context: .
-      dockerfile: devops/docker/NodeDockerfile
+      dockerfile: ci/containers/Containerfile
+      target: node-dev
       args:
         USERID: ${UID:?err}
-    image: localhost/securedroporg-node
+    init: true
     volumes:
       - ./:/django:z
     working_dir: /django
@@ -60,28 +63,30 @@ services:
       - app
 
   django:
+    init: true
     stdin_open: true
     tty: true
+    image: localhost/securedroporg-django
     build:
       context: .
-      dockerfile: devops/docker/DevDjangoDockerfile
+      dockerfile: ci/containers/Containerfile
+      target: dev
       args:
         USERID: ${UID:?err}
-    image: localhost/securedroporg-django
     depends_on:
       postgresql:
         condition: service_healthy
       node:
         condition: service_healthy
     environment:
-      DJANGO_DB_PASSWORD: securedroppassword
-      DJANGO_DB_USER: securedrop
-      DJANGO_DB_NAME: securedropdb
-      DJANGO_DB_PORT: 5432
-      DJANGO_DB_HOST: db
-      DJANGO_XMLTEST_OUTPUT: 'yes'
       DEPLOY_ENV: dev
+      DJANGO_DB_HOST: db
+      DJANGO_DB_NAME: *db-name
+      DJANGO_DB_PASSWORD: *db-password
+      DJANGO_DB_PORT: 5432
+      DJANGO_DB_USER: *db-username
       DJANGO_ONION_HOSTNAME: secrdrop5wyphb5x.onion
+      DJANGO_XMLTEST_OUTPUT: 'yes'
       ENABLE_DEBUG_TOOLBAR:
     working_dir: /django
     userns_mode: keep-id

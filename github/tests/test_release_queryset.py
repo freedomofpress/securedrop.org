@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from django.test import TestCase
 
@@ -19,7 +19,7 @@ class LatestPerVisibleProductTestCase(TestCase):
         return ReleaseFactory(
             product=product,
             tag_name=tag,
-            date=datetime(year, 1, 1, tzinfo=timezone.utc),
+            date=datetime(year, 1, 1, tzinfo=UTC),
         )
 
     def test_returns_only_the_latest_release_per_product(self):

@@ -2,7 +2,7 @@ from django.core.management.base import BaseCommand
 from django.db import transaction
 
 from home.models import HomePage
-from home.tests.factories import HomepageFeatureFactory, FeaturesButtonFactory
+from home.tests.factories import FeaturesButtonFactory, HomepageFeatureFactory
 from marketing.models import MarketingIndexPage
 from marketing.tests.factories import FeaturePageFactory, OrderedFeaturesFactory
 

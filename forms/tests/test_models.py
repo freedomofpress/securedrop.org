@@ -1,5 +1,6 @@
 from django.core import mail
 from django.test import TestCase
+
 from wagtail.models import Site
 
 from forms.models import FormPage

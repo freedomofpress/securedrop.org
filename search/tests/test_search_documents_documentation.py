@@ -1,16 +1,17 @@
-from unittest import mock
 import os
+from unittest import mock
+
+from django.test import TestCase
 
 import vcr
-from django.test import TestCase
 
 from search.models import SearchDocument
 from search.tests.factories import SearchDocumentFactory
 from search.utils.documentation import (
     READTHEDOCS_BASE,
     fetch_indexable_pages,
-    index_documentation_pages,
     index_documentation_page,
+    index_documentation_pages,
 )
 
 
@@ -64,7 +65,7 @@ class UpdateDocumentationIndexTestCase(TestCase):
         for url in fetch_indexable_pages():
             self.assertTrue(
                 SearchDocument.objects.filter(url=url).exists(),
-                "Search document with url %r should have been created" % url,
+                f"Search document with url {url!r} should have been created",
             )
             doc = SearchDocument.objects.get(url=url)
             self.assertNotEqual(doc.title, "")

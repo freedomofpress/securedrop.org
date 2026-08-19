@@ -1,7 +1,10 @@
-import feedparser
 from django.test import Client, TestCase
-from blog.tests.factories import BlogIndexPageFactory, BlogPageFactory
+
 from wagtail.models import Site
+
+import feedparser
+
+from blog.tests.factories import BlogIndexPageFactory, BlogPageFactory
 
 
 class RSSTest(TestCase):
@@ -14,7 +17,7 @@ class RSSTest(TestCase):
         self.blog = BlogPageFactory(parent=self.blog_index)
         BlogPageFactory(parent=self.blog_index)
         self.client = Client()
-        response = self.client.get("{}feed/".format(self.blog_index.url))
+        response = self.client.get(f"{self.blog_index.url}feed/")
         self.parsed = feedparser.parse(response.content)
 
     def test_valid_rss_feed(self):
@@ -22,8 +25,8 @@ class RSSTest(TestCase):
         self.assertEqual(self.parsed.bozo, 0)
 
     def test_feed_has_correct_title(self):
-        expected_title = "{}: {}".format(
-            self.blog_index.get_site().site_name, self.blog_index.title
+        expected_title = (
+            f"{self.blog_index.get_site().site_name}: {self.blog_index.title}"
         )
         feed_title = self.parsed.feed.get("title")
         self.assertEqual(expected_title, feed_title)
@@ -33,9 +36,7 @@ class RSSTest(TestCase):
         self.assertEqual(len(self.parsed.entries), 2)
 
     def test_feed_has_correct_link(self):
-        expected_link = "{}{}".format(
-            self.blog_index.get_site().root_url, self.blog_index.url
-        )
+        expected_link = f"{self.blog_index.get_site().root_url}{self.blog_index.url}"
         self.assertEqual(self.parsed.feed.get("link"), expected_link)
 
     def test_feed_has_correct_description(self):
@@ -49,7 +50,5 @@ class RSSTest(TestCase):
 
     def test_feed_has_correct_item_link(self):
         first_post = self.blog_index.get_posts().first()
-        expected_link = "{}{}".format(
-            self.blog_index.get_site().root_url, first_post.url
-        )
+        expected_link = f"{self.blog_index.get_site().root_url}{first_post.url}"
         self.assertEqual(self.parsed.entries[0].link, expected_link)

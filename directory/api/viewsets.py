@@ -2,8 +2,8 @@ from rest_framework.viewsets import ReadOnlyModelViewSet
 
 from directory.models.entry import DirectoryEntry
 
-from .serializers import DirectoryEntrySerializer
 from .csp import CSPCompatibleViewSetMixin
+from .serializers import DirectoryEntrySerializer
 
 
 class DirectoryEntriesViewSet(CSPCompatibleViewSetMixin, ReadOnlyModelViewSet):

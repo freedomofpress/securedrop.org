@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.core import management
 from django.test import TransactionTestCase
 from django.urls import reverse
+
 from wagtail.models import Page
 
 

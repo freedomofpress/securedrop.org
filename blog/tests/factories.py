@@ -1,9 +1,9 @@
-from datetime import timezone
+from datetime import UTC
 
 import factory
 import wagtail_factories
 
-from blog.models import BlogPage, BlogIndexPage, CategoryPage
+from blog.models import BlogIndexPage, BlogPage, CategoryPage
 
 
 class BlogIndexPageFactory(wagtail_factories.PageFactory):
@@ -26,7 +26,7 @@ class BlogPageFactory(wagtail_factories.PageFactory):
         model = BlogPage
 
     publication_datetime = factory.Faker(
-        "date_time_this_month", after_now=False, before_now=True, tzinfo=timezone.utc
+        "date_time_this_month", after_now=False, before_now=True, tzinfo=UTC
     )
     title = factory.Faker("sentence")
     category = factory.SubFactory(CategoryPageFactory)

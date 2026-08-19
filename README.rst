@@ -43,6 +43,13 @@ The installation instructions below assume you have Docker on your machine.  The
 * `Install Docker Desktop on Ubuntu Linux <https://docs.docker.com/desktop/install/ubuntu/>`_
 * `Install Docker Desktop on other Linux distributions <https://docs.docker.com/desktop/install/linux-install/>`_
 
+`Podman <https://podman.io/docs/installation>`_ works too, provided it has
+"compose" support.  Set ``CONTAINER_ENGINE=podman`` to select it.
+
+You will also need `just <https://github.com/casey/just#installation>`_, which
+runs the project's developer commands.  Run ``just`` on its own at any point to
+list them.
+
 The instructions also assume you have cloned this repository and are in a shell environment in the base directory of the clone.  If this is not the case, run these commands:
 
 .. code:: bash
@@ -58,11 +65,10 @@ To start the website running in your local environment, run these commands:
 
 .. code:: bash
 
-    make dev-init  # one-time command
-    docker compose up  # long-running process to run application server, every time
+    just dev  # long-running process to run application server, every time
 
     # In a separate shell:
-    make dev-createdevdata  # one-time command
+    just createdevdata  # one-time command
 
     # install pre-commit and set up hooks
     pip install pre-commit
@@ -77,16 +83,21 @@ Getting Started: The Unabridged Edition
 
 The development environment uses Docker Compose to run the application server, database, and webpack compilation processes.
 
-Before development you *must* run this one-time command.
+Before development you *must* run this one-time command, which records your
+host UID so the containers build and run as your user.  ``just dev`` does it
+for you, so you only need this if you intend to run ``docker compose`` directly.
 
 .. code:: bash
 
-    make dev-init
+    just dev-init
 
 To start the environment, run the following your first run:
 
 .. code:: bash
 
+    just dev
+
+    # or, equivalently, once dev-init has been run:
     docker compose up
 
 This is how you start the server every time you are working on the project. This will start a long-running process. You can exit this process with ``ctl-c``. You may wish to open a second shell to run one-off commands while the server is running.
@@ -95,7 +106,7 @@ To populate the project with data suitable for development and testing.
 
 .. code:: bash
 
-    make dev-createdevdata
+    just createdevdata
 
 .. important:: Though your database will persist between *most* runs, it is recommended that you consider it ephemeral and do not use it to store data you don't wish to lose.
 
@@ -167,11 +178,11 @@ Add the desired dependency to the appropriate ``.in`` file, then run:
 
 .. code:: bash
 
-    make compile-pip-dependencies
+    just pip-compile
 
 All requirements files will be regenerated based on compatible versions. Multiple ``.in``
-files can be merged into a single ``.txt`` file, for use with ``pip``. The Makefile
-target handles the merging of multiple files.
+files can be merged into a single ``.txt`` file, for use with ``pip``. The just
+recipe handles the merging of multiple files.
 
 This process is the same if a requirement needs to be changed (i.e. its version number restricted) or removed.  Make the appropriate change in the correct ``requirements.in`` file, then run the above command to compile the dependencies.
 
@@ -182,7 +193,7 @@ There are separate commands to upgrade a package without changing the ``requirem
 
 .. code:: bash
 
-    make pip-update PACKAGE=package-name
+    just pip-compile --upgrade-package=package-name
 
 will update the package named ``package-name`` to the latest version allowed by the constraints in ``requirements.in`` and compile a new ``dev-requirements.txt`` and ``requirements.txt`` based on that version.
 
@@ -194,7 +205,7 @@ Database import
 
 Drop a Postgres database dump into the root of the repo and rename it to
 ``import.db``. To import it into a running dev session (ensure ``docker compose up`` has
-already been started) run ``make dev-import-db``. Note that this will not pull in
+already been started) run ``just import-db``. Note that this will not pull in
 images that are referenced from an external site backup.
 
 Connect to PostgreSQL service from host
@@ -229,13 +240,13 @@ therefore helpful to be able to easily restore the database to a
 known-good state when making experimental changes.  There are two
 commands provided to assist in this.
 
-``make dev-save-db``: Saves a snapshot of the current state of the
+``just save-db``: Saves a snapshot of the current state of the
 database to a file in the ``db-snapshots`` folder.  This file is named
 for the currently checked-out git branch.
 
-``make dev-restore-db``: Restores the most recent snapshot for the
+``just restore-db``: Restores the most recent snapshot for the
 currently checked-out git branch.  If none can be found, that is,
-``make dev-save-db`` has never been run for the current branch, this
+``just save-db`` has never been run for the current branch, this
 command will do nothing.  If a saved database is found, all data in
 database will be replaced with that from the file.  Note that this
 command will terminate all connections to the database and delete all
@@ -244,7 +255,7 @@ data there, so care is encouraged.
 Workflow suggestions.  I find it helpful to have one snapshot for each
 active branch I'm working on or reviewing, as well as for master.
 Checking out a new branch and running its migrations should be
-followed by running ``make dev-save-db`` to give you a baseline to
+followed by running ``just save-db`` to give you a baseline to
 return to when needed.
 
 When checking out a new branch after working on another, it can be
@@ -256,8 +267,11 @@ Other Commands
 --------------
 
 In order to ensure that all commands are run in the same environment, we have
-added a ``make lint`` command that runs ``ruff`` in the docker environment,
-rather than on your local env.
+added a ``just lint`` command that runs ``ruff``, ``bandit`` and the migration
+check inside the container, rather than on your local env.  Use ``just ruff-fix``
+to apply ruff's fixes and formatting in place.
+
+Run ``just`` on its own to list every available recipe.
 
 Troubleshooting
 ---------------

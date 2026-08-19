@@ -1,4 +1,5 @@
 from django import template
+
 from menus.models import MenuItem
 
 

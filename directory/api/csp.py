@@ -2,13 +2,12 @@
 
 from functools import update_wrapper
 
-from csp.constants import SELF, UNSAFE_INLINE
-from csp.decorators import csp_update, csp_replace
-from django.utils.decorators import method_decorator
-from rest_framework.routers import DefaultRouter, APIRootView
-
-from django.utils.decorators import classonlymethod
+from django.utils.decorators import classonlymethod, method_decorator
 from django.views.decorators.csrf import csrf_exempt
+
+from csp.constants import SELF, UNSAFE_INLINE
+from csp.decorators import csp_replace, csp_update
+from rest_framework.routers import APIRootView, DefaultRouter
 
 
 def csp_fixes(view):
@@ -77,19 +76,17 @@ class CSPCompatibleViewSetMixin:
         for key in initkwargs:
             if key in cls.http_method_names:
                 raise TypeError(
-                    "You tried to pass in the %s method name as a "
-                    "keyword argument to %s(). Don't do that." % (key, cls.__name__)
+                    f"You tried to pass in the {key} method name as a "
+                    f"keyword argument to {cls.__name__}(). Don't do that."
                 )
             if not hasattr(cls, key):
-                raise TypeError(
-                    "%s() received an invalid keyword %r" % (cls.__name__, key)
-                )
+                raise TypeError(f"{cls.__name__}() received an invalid keyword {key!r}")
 
         # name and suffix are mutually exclusive
         if "name" in initkwargs and "suffix" in initkwargs:
             raise TypeError(
-                "%s() received both `name` and `suffix`, which are "
-                "mutually exclusive arguments." % (cls.__name__)
+                f"{cls.__name__}() received both `name` and `suffix`, which are "
+                "mutually exclusive arguments."
             )
 
         def view(request, *args, **kwargs):

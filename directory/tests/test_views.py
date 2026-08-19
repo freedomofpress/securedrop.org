@@ -1,6 +1,7 @@
 import os
 
 from django.urls import reverse
+
 from wagtail.test.utils import WagtailPageTestCase
 
 from directory.models import ScanResult

@@ -31,5 +31,8 @@ def check_http2(domain_name):
             return {"http2": True}
         else:
             return {"http2": False}
-    except Exception:
+    except OSError:
+        # Covers connection failures (timeouts, refused connections, DNS
+        # errors) and TLS handshake failures (ssl.SSLError is an OSError
+        # subclass) — anything that means we couldn't negotiate ALPN.
         return {"http2": False}

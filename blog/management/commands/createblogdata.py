@@ -3,8 +3,6 @@ import random
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import BaseCommand
 from django.db import transaction
-from github.factories import ProductFactory, ReleaseFactory
-from home.models import HomePage
 
 from blog.models import BlogIndexPage, CategoryPage
 from blog.tests.factories import (
@@ -12,6 +10,8 @@ from blog.tests.factories import (
     BlogPageFactory,
     CategoryPageFactory,
 )
+from github.factories import ProductFactory, ReleaseFactory
+from home.models import HomePage
 
 
 class Command(BaseCommand):

@@ -1,6 +1,8 @@
 from django import template
 from django.urls import reverse
+
 from wagtail.models import Site
+
 
 register = template.Library()
 

@@ -1,4 +1,5 @@
 from django.test import TestCase
+
 from wagtail.rich_text import RichText
 
 from home.tests.factories import HomePageFactory

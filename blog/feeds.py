@@ -12,7 +12,7 @@ class BlogIndexPageFeed(Feed):
 
     def __init__(self, blog_index_page, *args, **kwargs):
         self.blog_index_page = blog_index_page
-        super(BlogIndexPageFeed, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def _get_category(self, obj):
         categories = obj.categories.all().select_related("category")
@@ -22,8 +22,8 @@ class BlogIndexPageFeed(Feed):
         return urljoin(self.blog_index_page.get_site().root_url, path)
 
     def title(self):
-        return "{}: {}".format(
-            self.blog_index_page.get_site().site_name, self.blog_index_page.title
+        return (
+            f"{self.blog_index_page.get_site().site_name}: {self.blog_index_page.title}"
         )
 
     def link(self):

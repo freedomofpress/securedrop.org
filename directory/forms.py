@@ -1,6 +1,6 @@
 from django import forms
 
-from directory.models.taxonomy import Language, Topic, Country
+from directory.models.taxonomy import Country, Language, Topic
 
 
 class ManualScanForm(forms.Form):
