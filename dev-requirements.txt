@@ -1304,9 +1304,9 @@ vcrpy==8.3.0 \
     --hash=sha256:46d64e77e8d95e5c76c7d9a94ff05d8b38b2ae4e1d4869eb0235024b6fcb5212 \
     --hash=sha256:bd66e6143746778157f00e2a922527a8d96b2fdc350be8988a45a29c843815b9
     # via -r dev-requirements.in
-wagtail==7.4.2 \
-    --hash=sha256:6e261b50693abfbe2b738717bedc5bd0915e2e08efb9400102f4098c0c03aaab \
-    --hash=sha256:ae80a6d536a4098f7c9d37e169ba0f14c29c9769b50b6d92546f41e5cad201d8
+wagtail==7.4.3 \
+    --hash=sha256:dafa7d25459724822362db816c37261cc37441dd1ff0e08f47386615d2644171 \
+    --hash=sha256:e359e457ba7838b1c398f7169e34e203cefd75df9062eb8ecadb4be8f1c52912
     # via
     #   -r requirements.txt
     #   wagtail-autocomplete

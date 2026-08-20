@@ -24,6 +24,6 @@ wagtail-factories>=4.5.0
 wagtail-honeypot
 wagtail-inventory
 wagtail-metadata>=5.0.0
-wagtail>=7.4.2,<8.0
+wagtail>=7.4.3,<8.0
 wagtailmedia>=0.14.5
 whitenoise
