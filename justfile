@@ -34,7 +34,7 @@ env-check:
     [ -f .env ] || echo "UID=$(id -u)" > .env
 
 # Run the webapp locally, via containers (--build keeps images in sync with the Containerfile).
-dev: dev-init
+dev: env-check
     {{compose}} up --build
 
 alias compose := dev
