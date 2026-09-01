@@ -5,3 +5,7 @@ ignored:
   # builds silently whenever Debian trixie rotates a version, for no real
   # reproducibility gain.
   - DL3008
+  # We ensure that containers are run in prod with `runAsUser: 1000`,
+  # and also port dev UIDs into the container build, so we're sufficiently
+  # defensive about UIDs within the container.
+  - DL3066
