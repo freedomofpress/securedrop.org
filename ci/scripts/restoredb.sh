@@ -42,5 +42,8 @@ $COMPOSE exec -T "$CONTAINER" dropdb -U "$OWNER" "$DBNAME"
 $COMPOSE exec -T "$CONTAINER" createdb -U "$OWNER" --encoding UTF8 \
     --lc-collate=en_US.UTF-8 --lc-ctype=en_US.UTF-8 --template=template0 \
     --owner "$OWNER" "$DBNAME"
+# No `-n public`: this schema depends on the `hstore` extension, and extensions
+# carry no schema in the dump's TOC, so a schema filter would drop the
+# CREATE EXTENSION the restore then trips over.
 $COMPOSE exec -T "$CONTAINER" pg_restore -U "$OWNER" -1 --no-owner \
-    --role="$OWNER" -n public --dbname="$DBNAME" < "$FILE"
+    --role="$OWNER" --dbname="$DBNAME" < "$FILE"
