@@ -217,10 +217,9 @@ jobs:
           /bin/bash -c "./manage.py createdevdata"
 
       - name: Collect logs on failure
-        if: ${{ failure() && matrix.stack }}
+        if: ${{ failure() }}
         run: |
-          docker compose --file="$COMPOSE_FILE_DEV" logs django
-          docker compose --file="$COMPOSE_FILE_DEV" logs node
+          docker compose --file="$COMPOSE_FILE_PROD" logs django
 
   cleanup:
     name: Cleanup
