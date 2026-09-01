@@ -7,7 +7,8 @@ set -euo pipefail
 # Honour the engine chosen by the justfile; fall back to docker standalone.
 COMPOSE="${COMPOSE:-docker compose}"
 
-BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+# `/` in a branch name would otherwise become a directory in the dump path.
+BRANCH="$(git rev-parse --abbrev-ref HEAD | tr / -)"
 FOLDER="db-snapshots"
 OWNER="postgres"
 DBNAME="securedropdb"
