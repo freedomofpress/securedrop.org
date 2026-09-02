@@ -9,12 +9,12 @@ x-variables:
 
 services:
   postgresql:
-    image: docker.io/library/postgres:14
+    image: docker.io/library/postgres:17
     init: true
     ports:
       - '127.0.0.1:5432:5432'
     volumes:
-      - ./:/django:ro
+      - ./:/django:ro,z
     environment:
       POSTGRES_PASSWORD: *db-password
       POSTGRES_USER: *db-username
