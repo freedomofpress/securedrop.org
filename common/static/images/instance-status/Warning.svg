@@ -1,18 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="128px" height="128px" viewBox="0 0 128 128" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 50.2 (55047) - http://www.bohemiancoding.com/sketch -->
-    <title>Icons/Warning</title>
-    <desc>Created with Sketch.</desc>
-    <defs>
-        <path d="M72.176,37.858 L70.296,79.03 L58.264,79.03 L56.384,37.858 L72.176,37.858 Z M64.28,87.584 C69.074,87.584 72.834,91.438 72.834,96.044 C72.834,100.744 69.074,104.598 64.28,104.598 C59.58,104.598 55.82,100.744 55.82,96.044 C55.82,91.438 59.58,87.584 64.28,87.584 Z M68.7026594,19 L59.2973406,19 L9.38111461,100.503838 L14.3088536,108.549912 L113.691146,108.549912 L118.618885,100.503838 L68.7026594,19 Z M73.1842525,11 L128,100.503838 L118.172739,116.549912 L9.82726058,116.549912 L5.15143483e-14,100.503838 L54.8157475,11 L73.1842525,11 Z" id="path-1"></path>
-    </defs>
-    <g id="Icons/Warning" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <mask id="mask-2" fill="white">
-            <use xlink:href="#path-1"></use>
-        </mask>
-        <use id="Combined-Shape" fill="#000000" fill-rule="nonzero" xlink:href="#path-1"></use>
-        <g id="Fills/Solid/Yellow" mask="url(#mask-2)" fill="#BAA400">
-            <rect id="Rectangle" x="0" y="0" width="128" height="128"></rect>
-        </g>
-    </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="128" height="128" viewBox="0 0 128 128"><title>Icons/Warning</title><defs><path id="a" d="m72.176 37.858-1.88 41.172H58.264l-1.88-41.172zM64.28 87.584c4.794 0 8.554 3.854 8.554 8.46 0 4.7-3.76 8.554-8.554 8.554-4.7 0-8.46-3.854-8.46-8.554 0-4.606 3.76-8.46 8.46-8.46M68.703 19h-9.406L9.381 100.504l4.928 8.046h99.382l4.928-8.046zm4.481-8L128 100.504l-9.827 16.046H9.827L0 100.504 54.816 11z"/></defs><g fill="none" fill-rule="evenodd"><mask id="b" fill="#fff"><use xlink:href="#a"/></mask><use xlink:href="#a" fill="#000" fill-rule="nonzero"/><g fill="#baa400" mask="url(#b)"><path d="M0 0h128v128H0z"/></g></g></svg>
