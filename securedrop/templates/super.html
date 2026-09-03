@@ -6,9 +6,6 @@
 <!doctype html>
 <html lang="{{ LANGUAGE_CODE }}">
 	<head>
-        {% if request.in_preview_panel %}
-            <base target="_blank">
-        {% endif %}
 		{% block head %}
 			<meta charset="utf-8" />
 			<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -45,6 +42,9 @@
 				{% endwith %}
 			{% endblock %}
 		{% endblock %}
+		{% if request.in_preview_panel %}
+			<base target="_blank">
+		{% endif %}
 	</head>
 
 	<body class="{% block body_class %}{% endblock %}">
