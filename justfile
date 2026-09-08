@@ -16,6 +16,11 @@ python_builder := "docker.io/library/python:3.14.6-slim-trixie@sha256:44dd04494e
 # reuses the same tooling predictably.
 # TODO: drop use of pip-tools in favor of more modern python package management.
 pip_tools_version := "7.6.1"
+# Directories of hand-authored PNGs safe for automated optimization.
+png_paths := "common/static/images/instance-status common/static/images"
+# Directories of hand-authored SVGs safe for automated optimization. Excludes
+# common/templates/common (Django template tags embedded in <svg> attributes).
+svg_paths := "common/static/images/instance-status common/static/images"
 coverage_omit := "'*/migrations/*.py,*/tests/*.py'"
 
 # Show available recipes.
@@ -64,8 +69,20 @@ bandit: env-check
 check-migrations: env-check
     {{compose}} run --rm -T --no-deps django bash -c "./manage.py makemigrations --dry-run --check"
 
+# Fail if a PNG under png_paths could be optimized further by oxipng.
+pnglint: env-check
+    {{compose}} run --rm -T --no-deps django \
+        oxipng -r -o 6 --strip safe {{png_paths}}
+    git diff --exit-code -- {{png_paths}}
+
+# Fail if an SVG under svg_paths could be optimized further by svgo.
+svglint: env-check
+    {{compose}} run --rm -T --no-deps node \
+        svgo --config=svgo.config.mjs -r {{svg_paths}}
+    git diff --exit-code -- {{svg_paths}}
+
 # Run all project linters.
-lint: ruff bandit check-migrations
+lint: ruff bandit check-migrations pnglint svglint
 
 # Run the Django test suite with coverage (fails under 70%).
 test:
