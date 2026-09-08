@@ -20,9 +20,9 @@
 ARG NODE_IMAGE=docker.io/library/node:26.5.0-trixie@sha256:0473e7dc433a1310f436edee02aa79737ec78a4b345433ab0963d4a256f9ad85
 # sha256 for python:3.14.6-slim-trixie on linux/amd64 as of 2026-06-17
 ARG PYTHON_IMAGE=docker.io/library/python:3.14.6-slim-trixie@sha256:44dd04494ee8f3b538294360e7c4b3acb87c8268e4d0a4828a6500b1eff50061
-# sha256 for ghcr.io/oxipng/oxipng:v10.0.0 as of 2026-09-08.
+# sha256 for ghcr.io/oxipng/oxipng:v10.2.1 as of 2026-09-08.
 # Must stay in step with the oxipng pre-commit hook's `rev` in .pre-commit-config.yaml.
-ARG OXIPNG_IMAGE=ghcr.io/oxipng/oxipng:v10.0.0@sha256:c762b829f1febeeed0ec59791bed3d089e16bdaf9245e7a62c4974f43e038ce9
+ARG OXIPNG_IMAGE=ghcr.io/oxipng/oxipng:v10.2.1@sha256:5dec3e14566814807780eda0c7732fd77f2ce4fc12878ba71af9b408e97b3eb2
 
 # ---- node runtime base (dev watch service) ----
 FROM ${NODE_IMAGE} AS node-base
