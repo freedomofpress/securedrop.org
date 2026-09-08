@@ -20,6 +20,9 @@
 ARG NODE_IMAGE=docker.io/library/node:26.5.0-trixie@sha256:0473e7dc433a1310f436edee02aa79737ec78a4b345433ab0963d4a256f9ad85
 # sha256 for python:3.14.6-slim-trixie on linux/amd64 as of 2026-06-17
 ARG PYTHON_IMAGE=docker.io/library/python:3.14.6-slim-trixie@sha256:44dd04494ee8f3b538294360e7c4b3acb87c8268e4d0a4828a6500b1eff50061
+# sha256 for ghcr.io/oxipng/oxipng:v10.0.0 as of 2026-09-08.
+# Must stay in step with the oxipng pre-commit hook's `rev` in .pre-commit-config.yaml.
+ARG OXIPNG_IMAGE=ghcr.io/oxipng/oxipng:v10.0.0@sha256:c762b829f1febeeed0ec59791bed3d089e16bdaf9245e7a62c4974f43e038ce9
 
 # ---- node runtime base (dev watch service) ----
 FROM ${NODE_IMAGE} AS node-base
@@ -29,6 +32,21 @@ FROM ${NODE_IMAGE} AS node-base
 RUN apt-get update && apt-get install -y --no-install-recommends \
     jq \
     && rm -rf /var/lib/apt/lists/*
+
+# Installed here from the checked-in lockfile, reproducibly (`npm ci`, not
+# `npm install`), rather than left to node-start.sh's runtime `npm install`
+# like the rest of node_modules: that install lands in /django, which is
+# bind-mounted over at runtime, so it wouldn't survive for a one-shot
+# `compose run --no-deps node ...` (used by `just svglint`, for svgo -- a
+# devDependency; see package.json). Installing outside /django avoids that.
+WORKDIR /opt/node-tools
+COPY package.json package-lock.json ./
+RUN npm ci --no-audit --no-fund --ignore-scripts \
+    && rm -rf /root/.npm
+ENV PATH="/opt/node-tools/node_modules/.bin:${PATH}"
+# Reset back to the base image's default (empty/"/"), so node-dev below still
+# relies on compose's `working_dir: /django` rather than an image default.
+WORKDIR /
 
 COPY ci/containers/node-start.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/node-start.sh
@@ -67,6 +85,12 @@ WORKDIR /src-files
 RUN rm -rf build/static/bundles && \
     npm install && npm run build && \
     rm -rf node_modules .git
+
+# ---- oxipng (dev-only lint tooling; see `just pnglint`) ----
+# Named stage purely so `dev` below can COPY --from it; `--from` can't expand
+# an ARG directly, so this indirection is required even though the stage
+# itself does nothing but pull the image.
+FROM ${OXIPNG_IMAGE} AS oxipng
 
 # ---- python base (shared by dev + prod) ----
 FROM ${PYTHON_IMAGE} AS python-base
@@ -124,6 +148,9 @@ EXPOSE 8000
 
 # ---- dev django (code bind-mounted by compose) ----
 FROM python-base AS dev
+
+# Used by `just pnglint`.
+COPY --from=oxipng /usr/local/bin/oxipng /usr/local/bin/oxipng
 
 # The checked-in lockfile, not a freshly recompiled one. dev-requirements.in is
 # `-r requirements.txt` plus dev extras, so this superset covers both. Lockfile
