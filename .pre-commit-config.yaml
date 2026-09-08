@@ -32,7 +32,7 @@ repos:
       - id: ruff-format
 
   - repo: https://github.com/oxipng/oxipng
-    rev: v10.0.0
+    rev: v10.2.1
     hooks:
       - id: oxipng
         args: ['-o', '6', '--strip', 'safe']
