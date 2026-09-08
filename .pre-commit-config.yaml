@@ -36,8 +36,12 @@ repos:
     hooks:
       - id: oxipng
         args: ['-o', '6', '--strip', 'safe']
+        # Keep in sync with `png_paths` in the justfile
+        files: '^common/static/images/'
 
   - repo: https://github.com/kytta/mirrors-svgo
     rev: v4.1.0
     hooks:
       - id: svgo
+        # Keep in sync with `svg_paths` in the justfile
+        files: '^common/static/images/'
