@@ -30,3 +30,14 @@ repos:
       - id: ruff-check
         args: [--fix]
       - id: ruff-format
+
+  - repo: https://github.com/oxipng/oxipng
+    rev: v10.0.0
+    hooks:
+      - id: oxipng
+        args: ['-o', '6', '--strip', 'safe']
+
+  - repo: https://github.com/kytta/mirrors-svgo
+    rev: v4.1.0
+    hooks:
+      - id: svgo
