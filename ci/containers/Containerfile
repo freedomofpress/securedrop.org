@@ -150,6 +150,8 @@ EXPOSE 8000
 FROM python-base AS dev
 
 # Used by `just pnglint`.
+# The oxiping containerfile is based on Alpine and therefore we
+# can assume static binaries, safe to copy.
 COPY --from=oxipng /usr/local/bin/oxipng /usr/local/bin/oxipng
 
 # The checked-in lockfile, not a freshly recompiled one. dev-requirements.in is
