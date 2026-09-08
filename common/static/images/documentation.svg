@@ -1,1 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" preserveAspectRatio="xMinYMin meet" viewBox="0 0 600 600"><title>documentation</title><path fill="#1d3f64" d="M75 0c-5.25 0-9.75.75-14.25 2.25-29.25 6-52.5 29.25-58.5 58.5C0 65.25 0 69.75 0 75v412.5C0 549.75 50.25 600 112.5 600H525v-75H112.5c-21 0-37.5-16.5-37.5-37.5S91.5 450 112.5 450H525V37.5c0-21-16.5-37.5-37.5-37.5H450v225l-75-75-75 75V0z"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="600" preserveAspectRatio="xMinYMin meet" viewBox="0 0 600 600">
+	<title>documentation</title>
+	<path fill="#1d3f64" d="M75 0c-5.25 0-9.75.75-14.25 2.25-29.25 6-52.5 29.25-58.5 58.5C0 65.25 0 69.75 0 75v412.5C0 549.75 50.25 600 112.5 600H525v-75H112.5c-21 0-37.5-16.5-37.5-37.5S91.5 450 112.5 450H525V37.5c0-21-16.5-37.5-37.5-37.5H450v225l-75-75-75 75V0z"/>
+</svg>

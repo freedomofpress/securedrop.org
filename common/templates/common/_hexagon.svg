@@ -1,1 +1,3 @@
-<svg xmlns="http://www.w3.org/2000/svg" class="{{ class }} {{ class }}--{{category_slug}}" viewBox="0 0 427.02 493.08"><path fill="url(#{{category_slug}})" fill-rule="evenodd" d="M0 123.27v246.54l213.51 123.27 213.51-123.27V123.27L213.51 0z"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" class="{{ class }} {{ class }}--{{category_slug}}" viewBox="0 0 427.02 493.08">
+	<path fill="url(#{{category_slug}})" fill-rule="evenodd" d="M0 123.27v246.54l213.51 123.27 213.51-123.27V123.27L213.51 0z"/>
+</svg>
