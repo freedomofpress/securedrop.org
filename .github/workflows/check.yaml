@@ -102,6 +102,10 @@ jobs:
             stack: false
           - target: ruff
             stack: false
+          - target: pnglint
+            stack: false
+          - target: svglint
+            stack: false
           # The Django suite needs live postgres and the built asset bundles.
           - target: test
             name: dev-tests
