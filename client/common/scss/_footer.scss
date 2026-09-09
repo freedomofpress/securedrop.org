@@ -26,7 +26,6 @@ $list-bottom-padding: 2rem;
 
   @include layout-x;
   @include layout-y--no-tiny-breakpoint;
-
   min-height: 15rem;
 }
 
@@ -39,7 +38,6 @@ $list-bottom-padding: 2rem;
 
 .support__nav-list {
   @include list--unstyled;
-
   display: flex;
   flex-flow: row wrap;
   align-items: flex-start;
@@ -89,7 +87,6 @@ $list-bottom-padding: 2rem;
 
 .footer-links__donate, .footer-links__contribute {
   @include button-large;
-
   width: 10rem;
   max-width: 100%;
 
@@ -100,7 +97,6 @@ $list-bottom-padding: 2rem;
 
 .footer-links__donate {
   @include button-solid($links-background-color, $white, rgba($white, 0.6));
-
   margin-bottom: 2rem;
 
   @include media-breakpoint-only(extra-small) {
@@ -115,7 +111,6 @@ $list-bottom-padding: 2rem;
 
 .footer-main {
   @include sd-gradient($purple1, $purple2);
-
   color: $white;
   position: relative;
 }
@@ -123,7 +118,6 @@ $list-bottom-padding: 2rem;
 .footer-main__wrapper {
   @include layout-x;
   @include layout-y--no-tiny-breakpoint;
-
   display: flex;
   align-items: center;
 
@@ -242,7 +236,6 @@ $list-bottom-padding: 2rem;
 
 .footer-main__nav-list {
   @include list--unstyled;
-
   padding-bottom: $list-bottom-padding / 2;
 
   // as a flex-parent
@@ -283,7 +276,6 @@ $list-bottom-padding: 2rem;
 
 .footer-main__release-key-link {
   @include link--underline-on-hover($white, $white);
-
   display: block;
 }
 

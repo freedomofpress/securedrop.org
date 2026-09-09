@@ -7,7 +7,6 @@
 
 .nav-menu {
   @include layout-x;
-
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -73,7 +72,6 @@ $nav-menu-item-padding: 0.5rem;
 
 .nav-menu__list {
   @include list--unstyled;
-
   display: flex;
   justify-content: flex-end;
   align-items: center;

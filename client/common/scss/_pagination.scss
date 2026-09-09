@@ -1,6 +1,7 @@
 .pagination__link--button {
   @include button-small;
   @include button-solid--gray;
+
   @include media-breakpoint-down(tiny) {
     margin-bottom: 1rem;
   }

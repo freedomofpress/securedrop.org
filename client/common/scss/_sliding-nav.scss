@@ -47,7 +47,6 @@ $sliding-nav-width: 250px;
 
 .sliding-nav__link {
   @include uppercase;
-
   display: block;
   padding: 10px 20px;
   text-decoration: none;

@@ -1,8 +1,7 @@
 .form-page__warning {
   @include sd-gradient($red, darken($red, 15));
-
   color: $white;
-  padding: 1rem 1rem;
+  padding: 1rem;
   margin-bottom: 2rem;
 
   // Break BEM here with descendent selectors because rich text block

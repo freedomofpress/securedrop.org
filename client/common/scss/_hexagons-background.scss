@@ -43,6 +43,10 @@
   }
 }
 
+.hexagons-background__hexagon {
+  fill: $white;
+}
+
 .hexagons-background__svg--updates {
   opacity: 1;
 
@@ -76,10 +80,6 @@
 
 .hexagons-background__svg--instances {
   transform: rotate(-15deg) scale(6);
-}
-
-.hexagons-background__hexagon {
-  fill: $white;
 }
 
 .hexagons-background__hexagon--1 {

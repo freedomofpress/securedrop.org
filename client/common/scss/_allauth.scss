@@ -3,7 +3,6 @@
   .button,
   input[type="submit"] {
     @include button-small;
-
     margin-right: 0.5rem;
   }
 

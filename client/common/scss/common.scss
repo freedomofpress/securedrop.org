@@ -6,7 +6,6 @@
 
 // Vendor NOTE: MUST COME BEFORE BLOCKS
 @import "hamburgers/_sass/hamburgers/hamburgers";
-
 @import "accessibility";
 @import "account";
 @import "allauth";
@@ -50,11 +49,8 @@
 @import "hexagons-background";
 @import "home/hero";
 @import "home/features";
-@import "home/hero";
 @import "home/instances";
 @import "home/updates";
-@import "layout-one-column";
-@import "layout-sidebar";
 @import "marketing/feature-page";
 @import "marketing/features-list";
 @import "marketing/features-sidebar";
@@ -74,7 +70,6 @@
 @import "simple/stream";
 @import "site-wrapper";
 @import "site-alert";
-@import "site-wrapper";
 @import "sliding-nav";
 @import "spinner";
 @import "svg";

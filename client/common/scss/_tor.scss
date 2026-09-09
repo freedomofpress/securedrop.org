@@ -26,6 +26,7 @@
 
   @include sd-gradient($red1, $red2);
   @include p-remove-first-and-last-margin;
+
   @include media-breakpoint-down(extra-small) {
     position: fixed;
     top: 1rem;
@@ -75,6 +76,7 @@
 
   @include link-transition;
   @include link--no-underline($white, $gray50);
+
   @include media-breakpoint-down(extra-small) {
     position: absolute;
     right: 0;

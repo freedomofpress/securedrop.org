@@ -3,7 +3,6 @@ $alert-button-height: 16px;
 
 .site-alert {
   @include sd-gradient($red, darken($red, 15));
-
   color: $white;
   min-height: 2rem;
   padding: 0.5rem 0 0.5rem 1rem;
@@ -26,7 +25,6 @@ $alert-button-height: 16px;
 
   .rich-text {
     @include p-remove-first-and-last-margin;
-
     display: inline;
 
     p:first-child {
@@ -48,7 +46,6 @@ $alert-button-height: 16px;
 
   @include link-transition;
   @include link--no-underline($white, $gray50);
-
   display: flex;
   align-items: center;
   justify-content: center;

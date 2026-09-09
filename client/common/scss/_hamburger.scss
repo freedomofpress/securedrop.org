@@ -1,3 +1,18 @@
+.hamburger-inner {
+  background-color: $white;
+  border-radius: 0;
+
+  &::before,
+  &::after {
+    background-color: $white;
+    border-radius: 0;
+  }
+
+  @include media-breakpoint-up(small) {
+    display: none;
+  }
+}
+
 .hamburger {
   position: relative;
   padding-bottom: 11px;
@@ -13,26 +28,11 @@
     .hamburger-inner {
       background-color: $nav-hover-color;
 
-      &:before,
-      &:after {
+      &::before,
+      &::after {
         background-color: $nav-hover-color;
       }
     }
-  }
-
-  @include media-breakpoint-up(small) {
-    display: none;
-  }
-}
-
-.hamburger-inner {
-  background-color: $white;
-  border-radius: 0;
-
-  &::before,
-  &::after {
-    background-color: $white;
-    border-radius: 0;
   }
 
   @include media-breakpoint-up(small) {
