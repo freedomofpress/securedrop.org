@@ -14,7 +14,7 @@ indent_style = space
 indent_size = 2
 quote_type = single
 
-[*.{html,sass,js,jsx,scss,css,php,svg}]
+[*.{html,js,jsx,scss,css,php,svg}]
 charset = utf-8
 indent_style = tab
 
