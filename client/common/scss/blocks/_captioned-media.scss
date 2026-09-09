@@ -1,0 +1,39 @@
+.aligned-media__wrapper {
+  @include clearfix;
+
+  margin: 1rem 0 1.5rem;
+}
+
+.aligned-media__wrapper--right {
+  float: right;
+  width: 50%;
+  padding-left: 1rem;
+}
+
+.aligned-media__wrapper--left {
+  float: left;
+  width: 50%;
+  padding-right: 1rem;
+}
+
+.aligned-media__wrapper--right,
+.aligned-media__wrapper--left {
+  @include media-breakpoint-down(extra-small) {
+    float: none;
+    width: 100%;
+    padding-right: 1rem;
+    padding-left: 1rem;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
+.aligned-media__wrapper--center {
+  img {
+    display: block;
+    margin: 0 auto;
+  }
+}

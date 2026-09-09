@@ -1,0 +1,99 @@
+// Most buttons will ge two classes:
+// // A base class with a size:
+// 	// +button-small
+// 	// +button-large
+// // A color class
+// 	// Either directly describing the color
+// 		// +button-solid--blue
+// 		// +button-solid--black
+// 		// +button-solid--white
+// 		// +button-outline--white
+// 	// Or taking colors
+// 		// +button-color($color1, $color2)
+// 		// +button-outline($color1, $color2)
+
+// Helper Function
+
+@mixin button-base {
+  border-radius: $button-border-radius;
+  text-decoration: none;
+  text-align: center;
+  display: inline-block;
+
+  @include hover {
+    text-decoration: none;
+  }
+}
+
+@mixin button-transition {
+  transition-duration: 0.1s;
+  transition-timing-function: linear;
+  transition-property: background-color, color, border-color;
+}
+
+// Button Sizes
+
+@mixin button-small {
+  @include button-base;
+  @include button-transition;
+
+  padding: $button-padding-y $button-padding-x;
+}
+
+@mixin button-large {
+  @include button-base;
+  @include button-transition;
+
+  padding: (2 * $button-padding-y) (1.5 * $button-padding-x);
+}
+
+// Solid Buttons
+
+@mixin button-solid($color-text: $white, $color1: $link-color, $color2: $link-hover-color) {
+  @include button-transition;
+
+  color: $color-text;
+  background-color: $color1;
+  border: none;
+
+  @include hover {
+    color: $color-text;
+    background-color: $color2;
+  }
+}
+
+@mixin button-solid--blue {
+  @include button-solid($white, $link-color, $link-hover-color);
+}
+
+@mixin button-solid--black {
+  @include button-solid($white, $gray90, $gray80);
+}
+
+@mixin button-solid--gray {
+  @include button-solid($black, $gray10, $gray20);
+}
+
+@mixin button-solid--white {
+  @include button-solid($black, $white, $gray10);
+}
+
+// Outline Buttons
+
+@mixin button-outline($color1, $color2: $black, $color3: $color1) {
+  @include button-transition;
+
+  color: $color1;
+  border: 1px solid $color1;
+  background: transparent;
+
+  @include hover {
+    background-color: $color3;
+    border-color: transparent;
+    color: $color2;
+  }
+}
+
+@mixin button-outline--white {
+  @include button-outline($white, $link-color);
+}

@@ -1,0 +1,106 @@
+.hero {
+  @include layout-x;
+
+  position: relative;
+  z-index: $z-hexagons__background;
+  padding-top: $nav-height;
+  padding-bottom: $header-padding;
+  height: 35.9rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  @include media-breakpoint-down(extra-small) {
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    height: 49.6rem;
+  }
+}
+
+.hero__logo {
+  width: 16rem;
+  flex-shrink: 0;
+  flex-grow: 0;
+  margin-right: $layout-padding;
+
+  @include media-breakpoint-down(extra-small) {
+    margin-right: 0;
+    margin-bottom: $layout-padding;
+    height: 18.4rem;
+  }
+
+
+  @include media-breakpoint-down(tiny) {
+    margin-bottom: 2rem;
+  }
+}
+
+.hero__logo-svg {
+  height: auto;
+  width: 100%;
+}
+
+.hero__text {
+  flex-grow: 2;
+  max-width: 32rem;
+}
+
+.hero__title {
+  max-width: 90%;
+  margin-bottom: 1.5rem;
+
+  @include media-breakpoint-only(small) {
+    max-height: 3rem;
+  }
+
+
+  @include media-breakpoint-down(tiny) {
+    margin-bottom: 1rem;
+  }
+}
+
+.hero__description-header {
+  @include media-breakpoint-up(large) {
+    font-size: 1.8rem;
+  }
+}
+
+.hero__description {
+  max-width: $text-max-width;
+  font-size: $embiggened-font-size;
+
+  .rich-text {
+    @include p-remove-first-and-last-margin;
+
+    a {
+      @include link--underline-on-hover($white, $gray10--text);
+
+      font-weight: $sans-bold;
+    }
+  }
+
+  @include media-breakpoint-down(extra-small) {
+    display: none;
+  }
+
+
+  @include media-breakpoint-up(large) {
+    font-size: 1.2rem;
+  }
+}
+
+.hero__button {
+  @include button-large;
+  @include button-solid($blue-bright2, $white, $gray10);
+
+  margin-top: 2rem;
+
+  @include media-breakpoint-down(tiny) {
+    margin-top: 0;
+  }
+}
+
+.hero__button-icon {
+  @include text-chevron--right(large);
+}

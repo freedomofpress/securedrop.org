@@ -1,0 +1,6 @@
+.directory-body {
+  font-size: 1.1rem;
+  padding: 1rem 0 3rem;
+
+  @include p-remove-first-and-last-margin;
+}

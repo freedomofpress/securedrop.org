@@ -1,0 +1,35 @@
+.submit-instance {
+  margin-bottom: 3rem;
+}
+
+.submit-instance__title {
+  font-size: 1.3rem;
+  font-weight: $sans-bold;
+}
+
+.submit-instance__buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.submit-instance__button {
+  width: 100%;
+  margin-bottom: 0.5rem;
+
+  @include button-small;
+  @include button-solid--black;
+}
+
+.submit-instance__button--dashboard {
+  @include button-solid--blue;
+}
+
+.submit-instance__button-icon {
+  @include text-chevron--right;
+}
+
+.submit-instance__link {
+  padding-top: 2rem;
+
+  @include link--underline($black, $link-color);
+}

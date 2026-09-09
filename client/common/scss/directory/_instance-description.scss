@@ -1,0 +1,5 @@
+.instance-description {
+  .rich-text {
+    @include p-remove-first-and-last-margin;
+  }
+}

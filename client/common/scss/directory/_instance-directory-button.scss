@@ -1,0 +1,10 @@
+.instance-directory-button {
+  @include button-large;
+  @include button-solid--blue;
+
+  margin-top: 1.5rem;
+}
+
+.instance-directory-button__chevron {
+  @include text-chevron--right;
+}

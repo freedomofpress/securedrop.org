@@ -1,0 +1,4 @@
+@mixin sd-gradient($color1, $color2) {
+  background-color: $color2;
+  background: linear-gradient(to bottom right, $color1, $color2);
+}

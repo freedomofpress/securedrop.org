@@ -1,0 +1,8 @@
+.layout-one-column {
+  @include layout-x;
+  @include layout-y;
+}
+
+.layout-one-column--left {
+  align-items: flex-start;
+}

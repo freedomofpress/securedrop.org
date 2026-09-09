@@ -1,0 +1,6 @@
+.no-scroll {
+  @include media-breakpoint-down(extra-small) {
+    height: 100%;
+    overflow: hidden;
+  }
+}

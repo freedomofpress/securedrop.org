@@ -1,0 +1,15 @@
+.code {
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: $gray5;
+
+  @include media-breakpoint-down(tiny) {
+    margin: 1rem -1rem;
+  }
+
+
+  pre {
+    overflow-x: scroll;
+    margin: 0;
+  }
+}

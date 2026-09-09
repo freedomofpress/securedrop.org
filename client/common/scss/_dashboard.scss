@@ -1,0 +1,18 @@
+.dashboard__management {
+  margin-bottom: 2rem;
+}
+
+.dashboard__list {
+  @include list--unstyled;
+}
+
+.dashboard__link {
+  margin-top: 2rem;
+
+  @include button-small;
+  @include button-solid--gray;
+}
+
+.dashboard__chevron-right {
+  @include text-chevron--right;
+}

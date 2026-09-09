@@ -1,0 +1,27 @@
+@mixin list--unstyled {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+@mixin list--comma($punct: ",") {
+  &::after {
+    content: "#{$punct} ";
+  }
+
+  &:last-child::after {
+    content: "";
+  }
+}
+
+@mixin list--comma-human($punct: ",") {
+  @include list--comma($punct);
+
+  &:nth-last-child(2)::after {
+    content: "#{$punct} and ";
+  }
+
+  &:first-child:nth-last-child(2)::after {
+    content: " and ";
+  }
+}

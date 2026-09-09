@@ -1,0 +1,33 @@
+.features {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include layout-x;
+  @include layout-y--no-tiny-breakpoint;
+}
+
+.features__header {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: $homepage-section-heading-font-size;
+
+  @include media-breakpoint-down(extra-small) {
+    font-size: $homepage-section-heading-font-size--small;
+  }
+}
+
+.features__button {
+  @include button-large;
+  @include button-solid--blue;
+
+  margin-top: 3rem;
+
+  @include media-breakpoint-down(extra-small) {
+    margin-top: 2rem;
+  }
+}
+
+.features__button-icon {
+  @include text-chevron--right(large);
+}

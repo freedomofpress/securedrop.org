@@ -1,0 +1,27 @@
+.pagination__link--button {
+  @include button-small;
+  @include button-solid--gray;
+  @include media-breakpoint-down(tiny) {
+    margin-bottom: 1rem;
+  }
+}
+
+.pagination__link--previous {
+  @include media-breakpoint-up(extra-small) {
+    float: left;
+  }
+}
+
+.pagination__link--next {
+  @include media-breakpoint-up(extra-small) {
+    float: right;
+  }
+}
+
+.pagination__icon--previous {
+  @include text-chevron--left;
+}
+
+.pagination__icon--next {
+  @include text-chevron--right;
+}
