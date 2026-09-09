@@ -1,10 +1,6 @@
 {
   "extends": ["stylelint-config-standard-scss"],
   "customSyntax": "postcss-scss",
-  "ignoreFiles": ["node_modules/**/*"],
-  "files": {
-    "include": ["**/*.scss"]
-  },
   "rules": {
     "value-keyword-case": ["lower", { "ignoreKeywords": ["currentColor"] }],
     "declaration-block-no-redundant-longhand-properties": null,
