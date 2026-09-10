@@ -1,4 +1,5 @@
 @use "sass:math";
+@use "sass:color";
 
 $icon-width: 64px;
 $icon-gutter: 10px;
@@ -19,10 +20,10 @@ $color: #9292A5;
 }
 
 .instance-alert--moderate {
-  color: darken(#BAA400, 10%);
+  color: color.adjust(#BAA400, $lightness: -10%);
 
   a {
-    color: darken(#BAA400, 10%);
+    color: color.adjust(#BAA400, $lightness: -10%);
     font-weight: bold;
   }
 }
@@ -51,7 +52,7 @@ $color: #9292A5;
 }
 
 .instance-alert__title {
-  color: darken($color, 30%);
+  color: color.adjust($color, $lightness: -30%);
   font-size: inherit;
   font-weight: bold;
   margin: 0 0 0.25em 0;

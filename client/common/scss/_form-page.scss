@@ -1,5 +1,7 @@
+@use "sass:color";
+
 .form-page__warning {
-  @include sd-gradient($red, darken($red, 15));
+  @include sd-gradient($red, color.adjust($red, $lightness: -15%));
   color: $white;
   padding: 1rem;
   margin-bottom: 2rem;

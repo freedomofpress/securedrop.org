@@ -1,8 +1,10 @@
+@use "sass:color";
+
 $alert-button-width: 13px;
 $alert-button-height: 16px;
 
 .site-alert {
-  @include sd-gradient($red, darken($red, 15));
+  @include sd-gradient($red, color.adjust($red, $lightness: -15%));
   color: $white;
   min-height: 2rem;
   padding: 0.5rem 0 0.5rem 1rem;

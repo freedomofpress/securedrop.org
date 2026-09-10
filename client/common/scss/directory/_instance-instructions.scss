@@ -1,3 +1,5 @@
+@use "sass:color";
+
 .instance-instructions {
   &__title {
     font-size: 1.5rem;
@@ -87,7 +89,7 @@
     }
 
     &-text--warning, &-url--warning {
-      color: darken(#BAA400, 10%);
+      color: color.adjust(#BAA400, $lightness: -10%);
     }
 
     &--warning {

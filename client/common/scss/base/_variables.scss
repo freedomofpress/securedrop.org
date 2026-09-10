@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // FONT SIZES
 
 $base: 16px;
@@ -38,15 +40,15 @@ $mono-bold: 600;
 $white: #FFF;
 $gray5: #f1f1f5;
 $gray10: #dddde0;
-$gray10--text: darken($gray10, 10);
+$gray10--text: color.adjust($gray10, $lightness: -10%);
 $gray20: #aaaab0;
-$gray20--text: darken($gray20, 5);
+$gray20--text: color.adjust($gray20, $lightness: -5%);
 $gray50: #888890;
-$gray50--text: darken($gray50, 10);
+$gray50--text: color.adjust($gray50, $lightness: -10%);
 $gray80: #444450;
-$gray80--text: darken($gray80, 5);
+$gray80--text: color.adjust($gray80, $lightness: -5%);
 $gray90: #22222f;
-$gray90--text: darken($gray90, 2);
+$gray90--text: color.adjust($gray90, $lightness: -2%);
 $black: #00000b;
 
 $slate: #7683A9;
@@ -63,9 +65,9 @@ $yellow--text: #DD3300;
 // Gradient pairs
 $slate1: $slate;
 $slate2: #293947;
-$blue-bright1: darken(#2B8FFF, 10);
+$blue-bright1: color.adjust(#2B8FFF, $lightness: -10%);
 $blue-bright2: #032843;
-$blue-bold1: adjust-hue(darken($blue, 5), 2);
+$blue-bold1: color.adjust(color.adjust($blue, $lightness: -5%), $hue: 2deg);
 $blue-bold2: $blue-dark;
 $purple1: $purple;
 $purple2: #15277A;
@@ -73,12 +75,12 @@ $red1: $pink;
 $red2: $red;
 
 $brand-primary: $blue;
-$brand-primary--text: darken($brand-primary, 10);
+$brand-primary--text: color.adjust($brand-primary, $lightness: -10%);
 $brand-secondary: $slate;
-$brand-secondary--text: darken($slate, 25);
+$brand-secondary--text: color.adjust($slate, $lightness: -25%);
 
 $link-color: $brand-primary--text;
-$link-hover-color: darken($brand-primary--text, 10);
+$link-hover-color: color.adjust($brand-primary--text, $lightness: -10%);
 
 // LAYOUT
 

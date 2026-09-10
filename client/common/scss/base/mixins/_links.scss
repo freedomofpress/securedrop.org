@@ -1,3 +1,5 @@
+@use "sass:color";
+
 // UTILITIES
 
 @mixin link-transition {
@@ -6,7 +8,7 @@
   transition-property: color, background-color;
 }
 
-@mixin link-color($color: $link-color, $color-hover: #{darken($color, 10)}) {
+@mixin link-color($color: $link-color, $color-hover: #{color.adjust($color, $lightness: -10%)}) {
   color: $color;
   @include hover {
     color: $color-hover;
@@ -27,7 +29,7 @@
   @include decoration(inherit);
 }
 
-@mixin link--underline($color: $link-color, $color-hover: #{darken($color, 10)}) {
+@mixin link--underline($color: $link-color, $color-hover: #{color.adjust($color, $lightness: -10%)}) {
   @include link-transition;
   @include link-color($color, $color-hover);
   @include decoration(underline);
