@@ -33,21 +33,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     jq \
     && rm -rf /var/lib/apt/lists/*
 
-# Installed here from the checked-in lockfile, reproducibly (`npm ci`, not
-# `npm install`), rather than left to node-start.sh's runtime `npm install`
-# like the rest of node_modules: that install lands in /django, which is
-# bind-mounted over at runtime, so it wouldn't survive for a one-shot
-# `compose run --no-deps node ...` (used by `just svglint`, for svgo -- a
-# devDependency; see package.json). Installing outside /django avoids that.
-WORKDIR /opt/node-tools
-COPY package.json package-lock.json ./
-RUN npm ci --no-audit --no-fund --ignore-scripts \
-    && rm -rf /root/.npm
-ENV PATH="/opt/node-tools/node_modules/.bin:${PATH}"
-# Reset back to the base image's default (empty/"/"), so node-dev below still
-# relies on compose's `working_dir: /django` rather than an image default.
-WORKDIR /
-
 COPY ci/containers/node-start.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/node-start.sh
 
