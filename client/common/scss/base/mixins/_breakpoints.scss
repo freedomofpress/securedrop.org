@@ -1,3 +1,5 @@
+@use "../variables";
+
 @use "sass:list";
 @use "sass:map";
 
@@ -11,12 +13,12 @@
 // adapting to different screen sizes, for use in media queries.
 
 $breakpoints-map: (
-	tiny: $breakpoint-tiny,
-	extra-small: $breakpoint-extra-small,
-	small: $breakpoint-small,
-	medium: $breakpoint-medium,
-	large: $breakpoint-large,
-	extra-large: $breakpoint-extra-large
+	tiny: variables.$breakpoint-tiny,
+	extra-small: variables.$breakpoint-extra-small,
+	small: variables.$breakpoint-small,
+	medium: variables.$breakpoint-medium,
+	large: variables.$breakpoint-large,
+	extra-large: variables.$breakpoint-extra-large
 ) !default;
 // @include _assert-ascending($breakpoints-map, "$breakpoints-map");
 // @include _assert-starts-at-zero($breakpoints-map);

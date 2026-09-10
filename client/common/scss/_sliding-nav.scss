@@ -1,20 +1,25 @@
+@use "base/mixins/typography";
+@use "base/mixins/utilities";
+@use "base/variables";
+@use "shade";
+
 $sliding-nav-side: "left";
 $sliding-nav-width: 250px;
 
 .sliding-nav {
   #{$sliding-nav-side}: -$sliding-nav-width;
-  background: $white;
+  background: variables.$white;
   bottom: 0;
-  font-family: $sans-serif;
+  font-family: variables.$sans-serif;
   overflow: auto;
   position: fixed;
   top: 0;
-  transition: $sliding-nav-transition-ms transform ease-out;
+  transition: shade.$sliding-nav-transition-ms transform ease-out;
   padding: 2rem 0;
   width: $sliding-nav-width;
 
   // Places nav above shade
-  z-index: $z-sliding-nav;
+  z-index: variables.$z-sliding-nav;
 
   > :first-child {
     margin-bottom: 20px;
@@ -45,27 +50,27 @@ $sliding-nav-width: 250px;
 }
 
 .sliding-nav__link {
-  @include uppercase;
+  @include typography.uppercase;
   display: block;
   padding: 10px 20px;
   text-decoration: none;
-  color: $gray90--text;
+  color: variables.$gray90--text;
 
-  @include hover {
-    background-color: $gray10;
+  @include utilities.hover {
+    background-color: variables.$gray10;
     text-decoration: none;
-    color: $gray90--text;
+    color: variables.$gray90--text;
   }
 
 
   // Not BEM but we don't h8 our CMS users so we're not making them add two classes.
   &.header__nav-link--highlighted {
-    color: $white;
-    background-color: $link-color;
+    color: variables.$white;
+    background-color: variables.$link-color;
 
-    @include hover {
-      background-color: $link-hover-color;
-      color: $white;
+    @include utilities.hover {
+      background-color: variables.$link-hover-color;
+      color: variables.$white;
     }
   }
 }

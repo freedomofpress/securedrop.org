@@ -1,17 +1,21 @@
-.tag-list {
-  @include list--unstyled;
+@use "../base/mixins/links";
+@use "../base/mixins/lists";
+@use "../base/variables";
 
-  color: $gray50;
+.tag-list {
+  @include lists.list--unstyled;
+
+  color: variables.$gray50;
   margin-top: 0.5rem;
-  font-weight: $sans-light;
+  font-weight: variables.$sans-light;
 }
 
 .tag-list__item {
-  @include list--comma;
+  @include lists.list--comma;
 
   display: inline-block;
 }
 
 .tag-list__link {
-  @include link--no-underline($gray80--text);
+  @include links.link--no-underline(variables.$gray80--text);
 }

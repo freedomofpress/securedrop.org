@@ -1,20 +1,22 @@
+@use "base/mixins/buttons";
+
 .allauth {
   button,
   .button,
   input[type="submit"] {
-    @include button-small;
+    @include buttons.button-small;
     margin-right: 0.5rem;
   }
 
   .primaryAction,
   button[type="submit"],
   input[type="submit"] {
-    @include button-solid--blue;
+    @include buttons.button-solid--blue;
   }
 
   .secondaryAction,
   button[type="submit"].secondaryAction {
-    @include button-solid--gray;
+    @include buttons.button-solid--gray;
   }
 
   fieldset .ctrlHolder {

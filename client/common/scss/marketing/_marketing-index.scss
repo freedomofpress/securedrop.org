@@ -1,3 +1,5 @@
+@use "../base/variables";
+
 .marketing-index__text {
-  font-size: $embiggened-font-size;
+  font-size: variables.$embiggened-font-size;
 }

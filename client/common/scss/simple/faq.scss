@@ -1,22 +1,27 @@
+@use "../base/mixins/buttons";
+@use "../base/mixins/chevrons";
+@use "../base/mixins/utilities";
+@use "../base/variables";
+
 .faq {
-  max-width: $text-max-width;
+  max-width: variables.$text-max-width;
 }
 
 .faq__body {
-  @include p-remove-first-and-last-margin;
+  @include utilities.p-remove-first-and-last-margin;
 
-  padding-bottom: $layout-padding;
+  padding-bottom: variables.$layout-padding;
 }
 
 .faq__question {
-  padding-top: $layout-padding;
+  padding-top: variables.$layout-padding;
 }
 
 .faq__return_to_top {
-  @include button-small;
-  @include button-solid--gray;
+  @include buttons.button-small;
+  @include buttons.button-solid--gray;
 }
 
 .faq__chevron-up {
-  @include text-chevron--up;
+  @include chevrons.text-chevron--up;
 }

@@ -1,8 +1,13 @@
+@use "base/mixins/breakpoints";
+@use "base/mixins/colors";
+@use "base/mixins/layout";
+@use "base/variables";
+
 .header {
   position: relative;
   color: white;
 
-  @include sd-gradient($blue-bright1, $blue-bright2);
+  @include colors.sd-gradient(variables.$blue-bright1, variables.$blue-bright2);
 }
 
 .header--subheader {
@@ -10,39 +15,39 @@
 }
 
 .header__title {
-  @include layout-x;
+  @include layout.layout-x;
   position: relative;
-  z-index: $z-hexagons__background;
-  padding-top: $header-padding;
-  padding-bottom: $header-padding;
+  z-index: variables.$z-hexagons__background;
+  padding-top: variables.$header-padding;
+  padding-bottom: variables.$header-padding;
 
-  @include media-breakpoint-down(extra-small) {
+  @include breakpoints.media-breakpoint-down(extra-small) {
     text-align: center;
   }
 }
 
 .header__title-text {
   margin-bottom: 0;
-  font-size: $site-title-font-size;
+  font-size: variables.$site-title-font-size;
 }
 
 .header--slate {
-  @include sd-gradient($slate1, $slate2);
+  @include colors.sd-gradient(variables.$slate1, variables.$slate2);
 }
 
 .header--blue-bright {
-  @include sd-gradient($blue-bright1, $blue-bright2);
+  @include colors.sd-gradient(variables.$blue-bright1, variables.$blue-bright2);
 }
 
 .header--blue-bold {
-  @include sd-gradient($blue-bold1, $blue-bold2);
+  @include colors.sd-gradient(variables.$blue-bold1, variables.$blue-bold2);
 }
 
 .header--purple {
-  @include sd-gradient($purple1, $purple2);
+  @include colors.sd-gradient(variables.$purple1, variables.$purple2);
 }
 
 .header--transparent {
   background: transparent;
-  color: $black;
+  color: variables.$black;
 }

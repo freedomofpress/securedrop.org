@@ -1,3 +1,6 @@
+@use "../base/mixins/breakpoints";
+@use "../base/variables";
+
 @use "sass:math";
 @use "sass:color";
 
@@ -6,7 +9,7 @@ $icon-gutter: 10px;
 $alert-padding-x: 10px;
 $alert-padding-y: 15px;
 
-$color: #9292A5;
+$instance-alert-color: #9292A5;
 
 .instance-alert {
   padding: $alert-padding-y $alert-padding-x;
@@ -14,7 +17,7 @@ $color: #9292A5;
 }
 
 .instance-alert {
-  @include media-breakpoint-down(extra-small) {
+  @include breakpoints.media-breakpoint-down(extra-small) {
     padding-left: math.div($icon-width, 2) + $icon-gutter;
   }
 }
@@ -29,10 +32,10 @@ $color: #9292A5;
 }
 
 .instance-alert--severe {
-  color: $red;
+  color: variables.$red;
 
   a {
-    color: $red;
+    color: variables.$red;
     font-weight: bold;
   }
 }
@@ -45,14 +48,14 @@ $color: #9292A5;
 }
 
 .instance-alert__icon {
-  @include media-breakpoint-down(extra-small) {
+  @include breakpoints.media-breakpoint-down(extra-small) {
     margin-left: -(math.div($icon-width, 2)) - $icon-gutter;
     width: math.div($icon-width, 2);
   }
 }
 
 .instance-alert__title {
-  color: color.adjust($color, $lightness: -30%);
+  color: color.adjust($instance-alert-color, $lightness: -30%);
   font-size: inherit;
   font-weight: bold;
   margin: 0 0 0.25em 0;

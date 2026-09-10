@@ -1,5 +1,10 @@
+@use "../base/mixins/links";
+@use "../base/mixins/lists";
+@use "../base/mixins/utilities";
+@use "../base/variables";
+
 .category-list {
-  @include list--unstyled;
+  @include lists.list--unstyled;
 
   // should be 1/2 of the margin left on the release
   padding-left: 0.5rem;
@@ -27,17 +32,17 @@
 }
 
 .catgory-list__text--current-category {
-  font-weight: $sans-bold;
+  font-weight: variables.$sans-bold;
 }
 
 .category-list__link {
-  @include link--unstyled;
+  @include links.link--unstyled;
 
   transition-duration: 0.1s;
   transition-timing-function: linear;
   transition-property: opacity;
 
-  @include hover {
+  @include utilities.hover {
     opacity: 0.75;
   }
 }

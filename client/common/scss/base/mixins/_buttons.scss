@@ -1,3 +1,6 @@
+@use "../variables";
+@use "utilities";
+
 // Most buttons will ge two classes:
 // // A base class with a size:
 // 	// +button-small
@@ -15,12 +18,12 @@
 // Helper Function
 
 @mixin button-base {
-  border-radius: $button-border-radius;
+  border-radius: variables.$button-border-radius;
   text-decoration: none;
   text-align: center;
   display: inline-block;
 
-  @include hover {
+  @include utilities.hover {
     text-decoration: none;
   }
 }
@@ -37,57 +40,57 @@
   @include button-base;
   @include button-transition;
 
-  padding: $button-padding-y $button-padding-x;
+  padding: variables.$button-padding-y variables.$button-padding-x;
 }
 
 @mixin button-large {
   @include button-base;
   @include button-transition;
 
-  padding: (2 * $button-padding-y) (1.5 * $button-padding-x);
+  padding: (2 * variables.$button-padding-y) (1.5 * variables.$button-padding-x);
 }
 
 // Solid Buttons
 
-@mixin button-solid($color-text: $white, $color1: $link-color, $color2: $link-hover-color) {
+@mixin button-solid($color-text: variables.$white, $color1: variables.$link-color, $color2: variables.$link-hover-color) {
   @include button-transition;
 
   color: $color-text;
   background-color: $color1;
   border: none;
 
-  @include hover {
+  @include utilities.hover {
     color: $color-text;
     background-color: $color2;
   }
 }
 
 @mixin button-solid--blue {
-  @include button-solid($white, $link-color, $link-hover-color);
+  @include button-solid(variables.$white, variables.$link-color, variables.$link-hover-color);
 }
 
 @mixin button-solid--black {
-  @include button-solid($white, $gray90, $gray80);
+  @include button-solid(variables.$white, variables.$gray90, variables.$gray80);
 }
 
 @mixin button-solid--gray {
-  @include button-solid($black, $gray10, $gray20);
+  @include button-solid(variables.$black, variables.$gray10, variables.$gray20);
 }
 
 @mixin button-solid--white {
-  @include button-solid($black, $white, $gray10);
+  @include button-solid(variables.$black, variables.$white, variables.$gray10);
 }
 
 // Outline Buttons
 
-@mixin button-outline($color1, $color2: $black, $color3: $color1) {
+@mixin button-outline($color1, $color2: variables.$black, $color3: $color1) {
   @include button-transition;
 
   color: $color1;
   border: 1px solid $color1;
   background: transparent;
 
-  @include hover {
+  @include utilities.hover {
     background-color: $color3;
     border-color: transparent;
     color: $color2;
@@ -95,5 +98,5 @@
 }
 
 @mixin button-outline--white {
-  @include button-outline($white, $link-color);
+  @include button-outline(variables.$white, variables.$link-color);
 }

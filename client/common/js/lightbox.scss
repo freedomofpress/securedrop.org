@@ -1,6 +1,6 @@
 @use "sass:math";
-@import '../scss/base/variables';
-@import '../scss/base/mixins/breakpoints';
+@use '../scss/base/variables';
+@use '../scss/base/mixins/breakpoints';
 
 @keyframes shimmer {
   0% {
@@ -69,7 +69,7 @@
     margin-bottom: 0.5em;
   }
 
-  @include media-breakpoint-down(extra-small) {
+  @include breakpoints.media-breakpoint-down(extra-small) {
     font-size: 1rem;
   }
 }

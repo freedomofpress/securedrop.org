@@ -1,9 +1,16 @@
+@use "../base/maps";
+@use "../base/mixins/breakpoints";
+@use "../base/mixins/chevrons";
+@use "../base/mixins/links";
+@use "../base/mixins/utilities";
+@use "../base/variables";
+
 $table-margin: 1rem;
 
 .instance-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 0 (-1 * $table-margin) $layout-padding;
+  margin: 0 (-1 * $table-margin) variables.$layout-padding;
 }
 
 .instance-table__title, .instance-table__icon-column, .instance-table__org, .instance-table__grade-column {
@@ -11,8 +18,8 @@ $table-margin: 1rem;
 }
 
 .instance-table__icon-column {
-  border-top-left-radius: $button-border-radius;
-  border-bottom-left-radius: $button-border-radius;
+  border-top-left-radius: variables.$button-border-radius;
+  border-bottom-left-radius: variables.$button-border-radius;
   padding-right: 0;
   vertical-align: top;
 }
@@ -21,21 +28,21 @@ $table-margin: 1rem;
   width: 6rem;
   max-width: 6rem;
 
-  @include media-breakpoint-down(extra-small) {
+  @include breakpoints.media-breakpoint-down(extra-small) {
     width: 4rem;
   }
 }
 
 .instance-table__grade-column {
-  border-top-right-radius: $button-border-radius;
-  border-bottom-right-radius: $button-border-radius;
+  border-top-right-radius: variables.$button-border-radius;
+  border-bottom-right-radius: variables.$button-border-radius;
 }
 
 .instance-table__title {
   text-transform: uppercase;
-  color: $gray50--text;
+  color: variables.$gray50--text;
   text-align: left;
-  font-weight: $sans-regular;
+  font-weight: variables.$sans-regular;
   margin-bottom: 1rem;
 }
 
@@ -44,7 +51,7 @@ $table-margin: 1rem;
 }
 
 .instance-table__faq-link {
-  @include link--no-underline(inherit, $gray80);
+  @include links.link--no-underline(inherit, variables.$gray80);
 
   height: 1rem;
   vertical-align: -1px;
@@ -60,22 +67,22 @@ $table-margin: 1rem;
   font-size: 2rem;
   line-height: 1;
 
-  @include media-breakpoint-down(tiny) {
-    font-size: $h3;
-    font-weight: $sans-bold;
+  @include breakpoints.media-breakpoint-down(tiny) {
+    font-size: variables.$h3;
+    font-weight: variables.$sans-bold;
     margin-bottom: 0.5rem;
   }
 }
 
 .instance-table__chevron {
-  fill: $black;
+  fill: variables.$black;
 
-  @include text-chevron--right;
+  @include chevrons.text-chevron--right;
 }
 
 .instance-table__org-description {
   .rich-text {
-    @include p-remove-first-and-last-margin;
+    @include utilities.p-remove-first-and-last-margin;
   }
 }
 
@@ -84,27 +91,27 @@ $table-margin: 1rem;
 }
 
 .instance-table__grade {
-  color: $white;
+  color: variables.$white;
   width: 3rem;
   font-size: 2rem;
-  font-weight: $sans-bold;
+  font-weight: variables.$sans-bold;
   text-align: center;
   border-radius: 0.5rem;
   float: right;
 }
 
-@each $name, $color in $grade-colors {
+@each $name, $color in maps.$grade-colors {
   .instance-table__grade--#{$name} {
     background-color: $color;
   }
 }
 
-@each $name, $color in $text-colors {
+@each $name, $color in maps.$text-colors {
   .instance-table__grade--#{$name} {
     color: $color;
   }
 }
 
 .instance-table__link {
-  @include link--no-underline($color-hover: $link-color);
+  @include links.link--no-underline($color-hover: variables.$link-color);
 }

@@ -1,3 +1,6 @@
+@use "base/mixins/breakpoints";
+@use "base/variables";
+
 .hexagons-background {
   position: absolute;
   overflow: hidden;
@@ -20,60 +23,60 @@
 .hexagons-background__svg--hero {
   opacity: 0.3;
 
-  @include media-breakpoint-down(extra-small) {
+  @include breakpoints.media-breakpoint-down(extra-small) {
     left: 50%;
     transform: translate(27.5rem, 15.9rem) scale(8);
     opacity: 0.2;
   }
 
 
-  @include media-breakpoint-only(small) {
+  @include breakpoints.media-breakpoint-only(small) {
     transform: translate(6.5rem, 15.9rem) scale(8);
   }
 
 
-  @include media-breakpoint-only(medium) {
+  @include breakpoints.media-breakpoint-only(medium) {
     transform: translate(9.5rem, 15.9rem) scale(8);
   }
 
 
-  @include media-breakpoint-up(large) {
+  @include breakpoints.media-breakpoint-up(large) {
     left: 50%;
     transform: translate(4rem, 15.9rem) scale(8);
   }
 }
 
 .hexagons-background__hexagon {
-  fill: $white;
+  fill: variables.$white;
 }
 
 .hexagons-background__svg--updates {
   opacity: 1;
 
-  @include media-breakpoint-down(extra-small) {
+  @include breakpoints.media-breakpoint-down(extra-small) {
     left: 50%;
     transform: translate(11.5rem, 245rem) scale(8);
   }
 
 
-  @include media-breakpoint-only(small) {
+  @include breakpoints.media-breakpoint-only(small) {
     transform: translate(14.5rem, 245rem) scale(8);
   }
 
 
-  @include media-breakpoint-only(medium) {
+  @include breakpoints.media-breakpoint-only(medium) {
     transform: translate(17.5rem, 245rem) scale(8);
   }
 
 
-  @include media-breakpoint-up(large) {
+  @include breakpoints.media-breakpoint-up(large) {
     left: 50%;
     transform: translate(12rem, 245rem) scale(8);
   }
 
 
   .hexagons-background__hexagon {
-    fill: $gray10 !important;
+    fill: variables.$gray10 !important;
     opacity: 1 !important;
   }
 }
@@ -84,7 +87,7 @@
 
 .hexagons-background__hexagon--1 {
   opacity: 0.1;
-  fill: $black;
+  fill: variables.$black;
 }
 
 .hexagons-background__hexagon--2 {
@@ -93,7 +96,7 @@
 
 .hexagons-background__hexagon--3 {
   opacity: 0.2;
-  fill: $black;
+  fill: variables.$black;
 }
 
 .hexagons-background__hexagon--4 {
@@ -102,7 +105,7 @@
 
 .hexagons-background__hexagon--5 {
   opacity: 0.3;
-  fill: $black;
+  fill: variables.$black;
 }
 
 .hexagons-background__hexagon--6 {
@@ -111,7 +114,7 @@
 
 .hexagons-background__hexagon--7 {
   opacity: 0.4;
-  fill: $black;
+  fill: variables.$black;
 }
 
 .hexagons-background__hexagon--8 {

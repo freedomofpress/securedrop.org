@@ -1,3 +1,6 @@
+@use "../base/maps";
+@use "../base/variables";
+
 $security-font-size: 2rem;
 
 .security_grade__text {
@@ -7,23 +10,23 @@ $security-font-size: 2rem;
 }
 
 .security_grade__grade {
-  color: $white;
+  color: variables.$white;
   width: 3rem;
   font-size: $security-font-size;
-  font-weight: $sans-bold;
+  font-weight: variables.$sans-bold;
   margin-left: 0.5rem;
   text-align: center;
   border-radius: 0.5rem;
   display: inline-block;
 }
 
-@each $name, $color in $grade-colors {
+@each $name, $color in maps.$grade-colors {
   .security_grade__grade--#{$name} {
     background-color: $color;
   }
 }
 
-@each $name, $color in $text-colors {
+@each $name, $color in maps.$text-colors {
   .security_grade__grade--#{$name} {
     color: $color;
   }

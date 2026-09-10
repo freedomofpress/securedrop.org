@@ -1,8 +1,12 @@
+@use "../base/mixins/links";
+@use "../base/mixins/utilities";
+@use "../base/variables";
+
 $spacer-max: 7px;
 $spacer-success: 3px;
 $spacer-warning: 7px;
 $spacer-fail: 0px;
-$icon-width: 1.5rem;
+$scan-result-icon-width: 1.5rem;
 $text-left-padding: 1rem;
 
 .scan-result {
@@ -14,8 +18,8 @@ $text-left-padding: 1rem;
 }
 
 .scan-result__heading {
-  color: $gray50--text;
-  font-weight: $sans-bold;
+  color: variables.$gray50--text;
+  font-weight: variables.$sans-bold;
   margin: 0;
 }
 
@@ -26,21 +30,21 @@ $text-left-padding: 1rem;
 }
 
 .scan-result__result--success {
-  color: $green;
+  color: variables.$green;
   margin-top: $spacer-max - $spacer-success;
 }
 
 .scan-result__result--warning {
-  color: $yellow;
+  color: variables.$yellow;
   margin-top: $spacer-max - $spacer-warning;
 }
 
 .scan-result__text--warning {
-  color: $gray80--text;
+  color: variables.$gray80--text;
 }
 
 .scan-result__result--fail {
-  color: $red;
+  color: variables.$red;
   margin-top: $spacer-max - $spacer-fail;
 }
 
@@ -49,7 +53,7 @@ $text-left-padding: 1rem;
     margin: 0.5rem 0;
   }
 
-  @include p-remove-first-and-last-margin;
+  @include utilities.p-remove-first-and-last-margin;
 
   pre {
     white-space: pre-wrap;
@@ -64,11 +68,11 @@ $text-left-padding: 1rem;
   }
 
   line-height: 1.2;
-  margin-left: $icon-width + $text-left-padding;
+  margin-left: $scan-result-icon-width + $text-left-padding;
   margin-top: 0.5rem;
   padding: 0.5rem;
-  background-color: $gray5;
-  border-radius: $button-border-radius;
+  background-color: variables.$gray5;
+  border-radius: variables.$button-border-radius;
 }
 
 .scan-result__text {
@@ -77,13 +81,13 @@ $text-left-padding: 1rem;
   padding-left: $text-left-padding;
 
   a {
-    @include link--underline(inherit, $link-hover-color);
+    @include links.link--underline(inherit, variables.$link-hover-color);
   }
 }
 
 .scan-result__x, .scan-result__checkmark, .scan-result__flag {
   height: auto;
-  width: $icon-width;
+  width: $scan-result-icon-width;
   flex-shrink: 0;
 }
 

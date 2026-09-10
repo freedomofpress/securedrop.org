@@ -1,14 +1,18 @@
+@use "base/mixins/breakpoints";
+@use "base/mixins/utilities";
+@use "base/variables";
+
 .hamburger-inner {
-  background-color: $white;
+  background-color: variables.$white;
   border-radius: 0;
 
   &::before,
   &::after {
-    background-color: $white;
+    background-color: variables.$white;
     border-radius: 0;
   }
 
-  @include media-breakpoint-up(small) {
+  @include breakpoints.media-breakpoint-up(small) {
     display: none;
   }
 }
@@ -17,7 +21,7 @@
   position: relative;
   padding-bottom: 11px;
   float: right;
-  z-index: $z-hamburger;
+  z-index: variables.$z-hamburger;
   margin-bottom: -3.5em;
 
   &:hover {
@@ -26,16 +30,16 @@
 
     // this is not BEM but..
     .hamburger-inner {
-      background-color: $nav-hover-color;
+      background-color: variables.$nav-hover-color;
 
       &::before,
       &::after {
-        background-color: $nav-hover-color;
+        background-color: variables.$nav-hover-color;
       }
     }
   }
 
-  @include media-breakpoint-up(small) {
+  @include breakpoints.media-breakpoint-up(small) {
     display: none;
   }
 }
@@ -44,14 +48,14 @@
   .hamburger-inner,
   .hamburger-inner::before,
   .hamburger-inner::after {
-    background-color: $white;
+    background-color: variables.$white;
   }
 
-  @include hover {
+  @include utilities.hover {
     .hamburger-inner,
     .hamburger-inner::before,
     .hamburger-inner::after {
-      background-color: $nav-hover-color;
+      background-color: variables.$nav-hover-color;
     }
   }
 }

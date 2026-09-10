@@ -1,10 +1,13 @@
+@use "../base/mixins/buttons";
+@use "../base/mixins/chevrons";
+
 .instance-directory-button {
-  @include button-large;
-  @include button-solid--blue;
+  @include buttons.button-large;
+  @include buttons.button-solid--blue;
 
   margin-top: 1.5rem;
 }
 
 .instance-directory-button__chevron {
-  @include text-chevron--right;
+  @include chevrons.text-chevron--right;
 }

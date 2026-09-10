@@ -1,18 +1,22 @@
+@use "base/mixins/breakpoints";
+@use "base/mixins/layout";
+@use "base/variables";
+
 .layout-sidebar {
-  @include layout-x;
-  @include layout-y;
+  @include layout.layout-x;
+  @include layout.layout-y;
   display: flex;
 
-  @include media-breakpoint-down(extra-small) {
+  @include breakpoints.media-breakpoint-down(extra-small) {
     flex-direction: column-reverse;
   }
 }
 
 .layout-sidebar__main {
   flex-basis: 75%;
-  padding-right: $layout-padding;
+  padding-right: variables.$layout-padding;
 
-  @include media-breakpoint-down(extra-small) {
+  @include breakpoints.media-breakpoint-down(extra-small) {
     flex-basis: 100%;
     padding-right: 0;
   }
@@ -27,9 +31,9 @@
   flex-basis: 25%;
   align-self: stretch;
 
-  @include media-breakpoint-down(extra-small) {
+  @include breakpoints.media-breakpoint-down(extra-small) {
     flex-basis: 100%;
-    padding-bottom: $layout-padding;
+    padding-bottom: variables.$layout-padding;
   }
 }
 
@@ -38,12 +42,12 @@
 }
 
 .layout-sidebar--directory {
-  @include media-breakpoint-down(extra-small) {
+  @include breakpoints.media-breakpoint-down(extra-small) {
     flex-direction: column;
 
     // Not BEM sorry
     .layout-sidebar__main {
-      padding-bottom: $layout-padding;
+      padding-bottom: variables.$layout-padding;
     }
 
     .layout-sidebar__aside {

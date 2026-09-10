@@ -1,17 +1,22 @@
+@use "../base/mixins/breakpoints";
+@use "../base/mixins/links";
+@use "../base/mixins/utilities";
+@use "../base/variables";
+
 .blockquote {
-  @include p-remove-first-and-last-margin;
+  @include utilities.p-remove-first-and-last-margin;
 
-  color: $gray50--text;
+  color: variables.$gray50--text;
 
-  @include media-breakpoint-down(extra-small) {
+  @include breakpoints.media-breakpoint-down(extra-small) {
     margin-left: 2rem;
     margin-right: 0;
   }
 
 
   &__citation {
-    @include p-remove-first-and-last-margin;
-    @include link--no-underline;
+    @include utilities.p-remove-first-and-last-margin;
+    @include links.link--no-underline;
 
     display: block;
     font-style: normal;

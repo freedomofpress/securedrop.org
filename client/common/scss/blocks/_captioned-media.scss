@@ -1,5 +1,8 @@
+@use "../base/mixins/breakpoints";
+@use "../base/mixins/utilities";
+
 .aligned-media__wrapper {
-  @include clearfix;
+  @include utilities.clearfix;
 
   margin: 1rem 0 1.5rem;
 }
@@ -18,7 +21,7 @@
 
 .aligned-media__wrapper--right,
 .aligned-media__wrapper--left {
-  @include media-breakpoint-down(extra-small) {
+  @include breakpoints.media-breakpoint-down(extra-small) {
     float: none;
     width: 100%;
     padding-right: 1rem;

@@ -1,3 +1,5 @@
+@use "../base/mixins/utilities";
+
 .stream__block {
-  @include p-remove-first-and-last-margin;
+  @include utilities.p-remove-first-and-last-margin;
 }

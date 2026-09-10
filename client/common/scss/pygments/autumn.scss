@@ -1,11 +1,13 @@
+@use "../base/variables";
+
 .syntax {
   .hll {
     background-color: #ffffcc;
   }
 
   .c {
-    color: $gray50--text;
-    font-weight: $mono-light;
+    color: variables.$gray50--text;
+    font-weight: variables.$mono-light;
   }
 
   .err {
@@ -18,8 +20,8 @@
   }
 
   .ch, .cm {
-    color: $gray50--text;
-    font-weight: $mono-light;
+    color: variables.$gray50--text;
+    font-weight: variables.$mono-light;
   }
 
   .cp {
@@ -27,13 +29,13 @@
   }
 
   .cpf, .c1 {
-    color: $gray50--text;
-    font-weight: $mono-light;
+    color: variables.$gray50--text;
+    font-weight: variables.$mono-light;
   }
 
   .cs {
     color: #0000aa;
-    font-weight: $mono-light;
+    font-weight: variables.$mono-light;
   }
 
   .gd {
@@ -41,7 +43,7 @@
   }
 
   .ge {
-    font-weight: $mono-light;
+    font-weight: variables.$mono-light;
   }
 
   .gr {
@@ -50,7 +52,7 @@
 
   .gh {
     color: #000080;
-    font-weight: $mono-bold;
+    font-weight: variables.$mono-bold;
   }
 
   .gi {
@@ -58,20 +60,20 @@
   }
 
   .go {
-    color: $gray80;
+    color: variables.$gray80;
   }
 
   .gp {
-    color: $gray80--text;
+    color: variables.$gray80--text;
   }
 
   .gs {
-    font-weight: $mono-bold;
+    font-weight: variables.$mono-bold;
   }
 
   .gu {
     color: #800080;
-    font-weight: $mono-bold;
+    font-weight: variables.$mono-bold;
   }
 
   .gt {
@@ -112,12 +114,12 @@
   }
 
   .nd {
-    color: $gray80;
+    color: variables.$gray80;
   }
 
   .ni {
     color: #880000;
-    font-weight: $mono-bold;
+    font-weight: variables.$mono-bold;
   }
 
   .nf {
@@ -131,7 +133,7 @@
 
   .nt {
     color: #1e90ff;
-    font-weight: $mono-bold;
+    font-weight: variables.$mono-bold;
   }
 
   .nv {
@@ -143,7 +145,7 @@
   }
 
   .w {
-    color: $gray50--text;
+    color: variables.$gray50--text;
   }
 
   .mb, .mf, .mh, .mi, .mo {

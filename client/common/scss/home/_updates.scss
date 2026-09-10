@@ -1,3 +1,10 @@
+@use "../base/mixins/layout";
+@use "../base/mixins/links";
+@use "../base/mixins/lists";
+@use "../base/mixins/typography";
+@use "../base/mixins/utilities";
+@use "../base/variables";
+
 $hero-overlap: 5.2rem;
 
 .updates {
@@ -6,25 +13,25 @@ $hero-overlap: 5.2rem;
   // ensures that the hero overlaps (with hexagons)
   margin-top: -$hero-overlap;
   position: relative;
-  z-index: $z-hexagons__background--updates;
+  z-index: variables.$z-hexagons__background--updates;
 }
 
 .updates__content {
-  @include layout-x;
-  @include layout-y--no-tiny-breakpoint;
+  @include layout.layout-x;
+  @include layout.layout-y--no-tiny-breakpoint;
 
   display: flex;
   justify-content: center;
   align-items: flex-start;
   flex-wrap: wrap;
   position: relative;
-  z-index: $z-hexagons__content--updates;
-  color: $gray80--text;
-  background-color: $gray10;
+  z-index: variables.$z-hexagons__content--updates;
+  color: variables.$gray80--text;
+  background-color: variables.$gray10;
 }
 
 .updates__section {
-  border-left: $border-left;
+  border-left: variables.$border-left;
   padding: 0.5rem 1rem;
   flex-basis: 25rem;
   margin-bottom: 2rem;
@@ -33,24 +40,24 @@ $hero-overlap: 5.2rem;
     margin-bottom: 1.5rem;
   }
 
-  @include p-remove-first-and-last-margin;
+  @include utilities.p-remove-first-and-last-margin;
 }
 
 .updates__item {
-  @include p-remove-first-and-last-margin;
+  @include utilities.p-remove-first-and-last-margin;
 }
 
 .updates__header {
-  @include uppercase;
+  @include typography.uppercase;
 
   font-size: 1rem;
   margin-bottom: 0.5rem;
 }
 
 .updates__tag {
-  font-weight: $sans-bold;
+  font-weight: variables.$sans-bold;
   margin-bottom: 0;
-  font-size: $h4;
+  font-size: variables.$h4;
 }
 
 .updates__links {
@@ -62,19 +69,19 @@ $hero-overlap: 5.2rem;
     display: inline-block;
 
     & {
-      @include list--comma(" |");
+      @include lists.list--comma(" |");
     }
   }
 }
 
 .updates__link {
-  @include link--underline-on-hover;
+  @include links.link--underline-on-hover;
 
-  font-weight: $sans-bold;
+  font-weight: variables.$sans-bold;
 }
 
 .updates__link--secondary {
-  @include link--no-underline($gray50--text, $brand-primary);
+  @include links.link--no-underline(variables.$gray50--text, variables.$brand-primary);
 
-  font-weight: $sans-regular;
+  font-weight: variables.$sans-regular;
 }

@@ -1,15 +1,17 @@
+@use "variables";
+
 $grade-colors: (
-	A: $green,
-	B: $yellow--grade,
-	C: $yellow--grade,
-	D: $yellow--grade,
-	F: $red,
+	A: variables.$green,
+	B: variables.$yellow--grade,
+	C: variables.$yellow--grade,
+	D: variables.$yellow--grade,
+	F: variables.$red,
 );
 
 $text-colors: (
-	A: $white,
-	B: $gray80--text,
-	C: $gray80--text,
-	D: $gray80--text,
-	F: $white,
+	A: variables.$white,
+	B: variables.$gray80--text,
+	C: variables.$gray80--text,
+	D: variables.$gray80--text,
+	F: variables.$white,
 );

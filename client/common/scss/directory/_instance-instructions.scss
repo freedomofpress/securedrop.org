@@ -1,15 +1,18 @@
+@use "../base/mixins/buttons";
+@use "../base/variables";
+
 @use "sass:color";
 
 .instance-instructions {
   &__title {
     font-size: 1.5rem;
-    font-weight: $sans-bold;
+    font-weight: variables.$sans-bold;
   }
 
   &__onion-address {
     word-break: break-word;
     background-color: #e6e6e6;
-    font-family: $mono;
+    font-family: variables.$mono;
     border-radius: 3px;
     padding: 0 0.25rem;
     display: inline-block;
@@ -17,23 +20,23 @@
   }
 
   &__landing-page-button {
-    @include button-small;
+    @include buttons.button-small;
 
     $root: &;
 
-    border: 1px solid $gray10--text;
+    border: 1px solid variables.$gray10--text;
     text-align: left;
     padding-right: 3rem;
     position: relative;
 
     &-text {
-      font-weight: $sans-bold;
-      color: $gray80--text;
+      font-weight: variables.$sans-bold;
+      color: variables.$gray80--text;
     }
 
     &-url {
-      font-weight: $sans-light;
-      color: $gray50--text;
+      font-weight: variables.$sans-light;
+      color: variables.$gray50--text;
     }
 
     &-chevron {
@@ -41,42 +44,42 @@
       position: absolute;
       top: 1.1rem;
       right: 0.8rem;
-      fill: $gray80;
+      fill: variables.$gray80;
     }
 
     &:hover {
-      background-color: $gray5;
-      border-color: $gray20;
+      background-color: variables.$gray5;
+      border-color: variables.$gray20;
     }
 
     &-text--danger, &-url--danger {
-      color: $red2;
+      color: variables.$red2;
     }
 
     &--danger {
-      @include button-small;
+      @include buttons.button-small;
 
-      border: 1px solid $red2;
+      border: 1px solid variables.$red2;
       text-align: left;
       padding-right: 3rem;
       position: relative;
-      color: $red2;
+      color: variables.$red2;
 
       &:hover {
-        background-color: $red2;
-        color: $white;
+        background-color: variables.$red2;
+        color: variables.$white;
 
         #{$root}-text--danger, #{$root}-url--danger {
-          color: $white;
+          color: variables.$white;
         }
 
         #{$root}-chevron--danger {
-          fill: $white;
+          fill: variables.$white;
         }
       }
 
       &:hover &-text--danger, &:hover &-url--danger {
-        color: $white;
+        color: variables.$white;
       }
     }
 
@@ -85,7 +88,7 @@
       position: absolute;
       top: 1.1rem;
       right: 0.8rem;
-      fill: $red2;
+      fill: variables.$red2;
     }
 
     &-text--warning, &-url--warning {
@@ -93,7 +96,7 @@
     }
 
     &--warning {
-      @include button-small;
+      @include buttons.button-small;
 
       border: 1px solid #BAA400;
       text-align: left;
@@ -103,19 +106,19 @@
 
       &:hover {
         background-color: #BAA400;
-        color: $white;
+        color: variables.$white;
 
         #{$root}-text--warning, #{$root}-url--warning {
-          color: $white;
+          color: variables.$white;
         }
 
         #{$root}-chevron--warning {
-          fill: $white;
+          fill: variables.$white;
         }
       }
 
       &:hover &-text--warning, &:hover &-url--warning {
-        color: $white;
+        color: variables.$white;
       }
     }
 

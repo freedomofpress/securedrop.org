@@ -1,3 +1,6 @@
+@use "mixins/links";
+@use "variables";
+
 * {
   box-sizing: border-box;
 }
@@ -9,21 +12,21 @@
 
 html {
   height: 100%;
-  font-family: $sans-serif;
+  font-family: variables.$sans-serif;
 }
 
 body {
   margin: 0;
   height: 100%;
-  font-size: $base;
-  font-family: $sans-serif;
-  font-weight: $sans-regular;
+  font-size: variables.$base;
+  font-family: variables.$sans-serif;
+  font-weight: variables.$sans-regular;
   line-height: 1.5;
 }
 
 b,
 strong {
-  font-weight: $sans-bold;
+  font-weight: variables.$sans-bold;
 }
 
 i,
@@ -36,14 +39,14 @@ input,
 select,
 textarea {
   font-size: 1rem;
-  font-family: $sans-serif;
+  font-family: variables.$sans-serif;
 }
 
 code,
 kbd,
 pre,
 samp {
-  font-family: $mono;
+  font-family: variables.$mono;
 }
 
 // responsive images are the default
@@ -53,7 +56,7 @@ img {
 }
 
 a {
-  @include link--underline;
+  @include links.link--underline;
 }
 
 h1,
@@ -62,31 +65,31 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: $sans-regular;
+  font-weight: variables.$sans-regular;
   margin-top: 0;
   margin-bottom: 1rem;
 }
 
 h1 {
-  font-size: $h1;
+  font-size: variables.$h1;
 }
 
 h2 {
-  font-size: $h2;
+  font-size: variables.$h2;
 }
 
 h3 {
-  font-size: $h3;
+  font-size: variables.$h3;
 }
 
 h4 {
-  font-size: $h4;
+  font-size: variables.$h4;
 }
 
 h5 {
-  font-size: $h5;
+  font-size: variables.$h5;
 }
 
 h6 {
-  font-size: $h6;
+  font-size: variables.$h6;
 }

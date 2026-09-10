@@ -1,33 +1,39 @@
+@use "../base/mixins/breakpoints";
+@use "../base/mixins/buttons";
+@use "../base/mixins/chevrons";
+@use "../base/mixins/layout";
+@use "../base/variables";
+
 .features {
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  @include layout-x;
-  @include layout-y--no-tiny-breakpoint;
+  @include layout.layout-x;
+  @include layout.layout-y--no-tiny-breakpoint;
 }
 
 .features__header {
   text-align: center;
   margin-bottom: 2rem;
-  font-size: $homepage-section-heading-font-size;
+  font-size: variables.$homepage-section-heading-font-size;
 
-  @include media-breakpoint-down(extra-small) {
-    font-size: $homepage-section-heading-font-size--small;
+  @include breakpoints.media-breakpoint-down(extra-small) {
+    font-size: variables.$homepage-section-heading-font-size--small;
   }
 }
 
 .features__button {
-  @include button-large;
-  @include button-solid--blue;
+  @include buttons.button-large;
+  @include buttons.button-solid--blue;
 
   margin-top: 3rem;
 
-  @include media-breakpoint-down(extra-small) {
+  @include breakpoints.media-breakpoint-down(extra-small) {
     margin-top: 2rem;
   }
 }
 
 .features__button-icon {
-  @include text-chevron--right(large);
+  @include chevrons.text-chevron--right(large);
 }

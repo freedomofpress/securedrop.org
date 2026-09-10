@@ -1,11 +1,15 @@
+@use "base/mixins/colors";
+@use "base/mixins/links";
+@use "base/mixins/utilities";
+@use "base/variables";
 @use "sass:color";
 
 $alert-button-width: 13px;
 $alert-button-height: 16px;
 
 .site-alert {
-  @include sd-gradient($red, color.adjust($red, $lightness: -15%));
-  color: $white;
+  @include colors.sd-gradient(variables.$red, color.adjust(variables.$red, $lightness: -15%));
+  color: variables.$white;
   min-height: 2rem;
   padding: 0.5rem 0 0.5rem 1rem;
   width: 100%;
@@ -19,14 +23,14 @@ $alert-button-height: 16px;
 }
 
 .site-alert__title {
-  font-weight: $sans-bold;
+  font-weight: variables.$sans-bold;
 }
 
 .site-alert__body {
   margin-left: 0.5rem;
 
   .rich-text {
-    @include p-remove-first-and-last-margin;
+    @include utilities.p-remove-first-and-last-margin;
     display: inline;
 
     p:first-child {
@@ -34,7 +38,7 @@ $alert-button-height: 16px;
     }
 
     a {
-      @include link--white-text;
+      @include links.link--white-text;
     }
   }
 }
@@ -46,8 +50,8 @@ $alert-button-height: 16px;
   padding: 0.5rem 1rem;
   align-self: stretch;
 
-  @include link-transition;
-  @include link--no-underline($white, $gray50);
+  @include links.link-transition;
+  @include links.link--no-underline(variables.$white, variables.$gray50);
   display: flex;
   align-items: center;
   justify-content: center;

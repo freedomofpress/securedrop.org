@@ -1,21 +1,25 @@
+@use "../base/mixins/links";
+@use "../base/mixins/lists";
+@use "../base/variables";
+
 $release-preview-spacer: 1rem;
 
 .release-preview {
   margin: 2rem 0 0 $release-preview-spacer;
   padding: 0.25rem 0 0.25rem $release-preview-spacer;
-  border-left: $border-left;
+  border-left: variables.$border-left;
 }
 
 .release-preview__title {
   text-transform: uppercase;
   font-size: 1rem;
-  font-weight: $sans-regular;
+  font-weight: variables.$sans-regular;
   margin: 0;
   line-height: 1.5;
 }
 
 .release-preview__tag {
-  font-weight: $sans-bold;
+  font-weight: variables.$sans-bold;
   margin-bottom: 0;
   padding-top: 1rem;
 }
@@ -29,16 +33,16 @@ $release-preview-spacer: 1rem;
     display: inline-block;
 
     & {
-      @include list--comma(" |");
+      @include lists.list--comma(" |");
     }
   }
 }
 
 .release-preview__link {
-  @include link--no-underline($gray50--text, $brand-primary);
+  @include links.link--no-underline(variables.$gray50--text, variables.$brand-primary);
 
   &::after {
     // sets color of list separator
-    color: $black;
+    color: variables.$black;
   }
 }

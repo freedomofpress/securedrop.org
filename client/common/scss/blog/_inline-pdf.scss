@@ -1,3 +1,5 @@
+@use "../base/mixins/buttons";
+
 .pdfobject-container {
   margin-bottom: 1rem;
   display: block;
@@ -16,8 +18,8 @@
 }
 
 .pdfobject-fallback {
-  @include button-large;
-  @include button-solid--blue;
+  @include buttons.button-large;
+  @include buttons.button-solid--blue;
 
   display: inline-block;
 

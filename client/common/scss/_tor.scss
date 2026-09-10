@@ -1,3 +1,10 @@
+@use "base/mixins/breakpoints";
+@use "base/mixins/colors";
+@use "base/mixins/links";
+@use "base/mixins/utilities";
+@use "base/variables";
+@use "site-alert";
+
 .tor-wrapper--homepage {
   width: 100%;
   position: relative;
@@ -7,9 +14,9 @@
     width: 100%;
     height: 50%;
     top: 0;
-    z-index: $z-hexagons__background--updates;
+    z-index: variables.$z-hexagons__background--updates;
     content: "";
-    background-color: $gray10;
+    background-color: variables.$gray10;
   }
 }
 
@@ -18,16 +25,16 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 0 1rem 1rem;
-  color: $white;
+  color: variables.$white;
 
   & a {
-    @include link--white-text;
+    @include links.link--white-text;
   }
 
-  @include sd-gradient($red1, $red2);
-  @include p-remove-first-and-last-margin;
+  @include colors.sd-gradient(variables.$red1, variables.$red2);
+  @include utilities.p-remove-first-and-last-margin;
 
-  @include media-breakpoint-down(extra-small) {
+  @include breakpoints.media-breakpoint-down(extra-small) {
     position: fixed;
     top: 1rem;
     left: 1rem;
@@ -35,7 +42,7 @@
     bottom: 1rem;
 
     // ensure that warning is above everything, including the mobile menu
-    z-index: $z-tor-popup;
+    z-index: variables.$z-tor-popup;
     padding: 1rem;
     margin: 0;
     display: block;
@@ -45,14 +52,14 @@
 }
 
 // This is an override of .tor-warning
-@include media-breakpoint-up(small) {
+@include breakpoints.media-breakpoint-up(small) {
   .tor-warning--homepage {
     width: 80%;
     margin: 0 auto;
-    margin-bottom: $layout-padding;
-    padding: $layout-padding;
+    margin-bottom: variables.$layout-padding;
+    padding: variables.$layout-padding;
     position: relative;
-    z-index: $z-tor-homepage;
+    z-index: variables.$z-tor-homepage;
   }
 }
 
@@ -63,8 +70,8 @@
 }
 
 .tor-warning__title {
-  @include media-breakpoint-down(extra-small) {
-    padding-right: $rem-in-px + 2 * $alert-button-width;
+  @include breakpoints.media-breakpoint-down(extra-small) {
+    padding-right: variables.$rem-in-px + 2 * site-alert.$alert-button-width;
   }
 }
 
@@ -74,10 +81,10 @@
   margin: 0;
   padding: 1rem;
 
-  @include link-transition;
-  @include link--no-underline($white, $gray50);
+  @include links.link-transition;
+  @include links.link--no-underline(variables.$white, variables.$gray50);
 
-  @include media-breakpoint-down(extra-small) {
+  @include breakpoints.media-breakpoint-down(extra-small) {
     position: absolute;
     right: 0;
     top: 0;
@@ -85,7 +92,7 @@
 
 
   // sorry BEM
-  @include media-breakpoint-up(small) {
+  @include breakpoints.media-breakpoint-up(small) {
     .tor-warning--homepage & {
       display: none;
     }
@@ -93,11 +100,11 @@
 }
 
 .tor-warning__close-x {
-  width: $alert-button-width;
-  height: $alert-button-height;
+  width: site-alert.$alert-button-width;
+  height: site-alert.$alert-button-height;
 
-  @include media-breakpoint-down(extra-small) {
-    width: 2 * $alert-button-width;
-    height: 2 * $alert-button-height;
+  @include breakpoints.media-breakpoint-down(extra-small) {
+    width: 2 * site-alert.$alert-button-width;
+    height: 2 * site-alert.$alert-button-height;
   }
 }

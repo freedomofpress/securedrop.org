@@ -1,5 +1,7 @@
+@use "../base/mixins/utilities";
+
 .instance-description {
   .rich-text {
-    @include p-remove-first-and-last-margin;
+    @include utilities.p-remove-first-and-last-margin;
   }
 }

@@ -1,18 +1,25 @@
+@use "base/mixins/breakpoints";
+@use "base/mixins/layout";
+@use "base/mixins/links";
+@use "base/mixins/lists";
+@use "base/mixins/utilities";
+@use "base/variables";
+
 .main-nav {
-  background: rgba($black, 0.3);
-  color: $white;
+  background: rgba(variables.$black, 0.3);
+  color: variables.$white;
   width: 100%;
-  min-height: $nav-height;
+  min-height: variables.$nav-height;
 }
 
 .nav-menu {
-  @include layout-x;
+  @include layout.layout-x;
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  @include media-breakpoint-down(extra-small) {
+  @include breakpoints.media-breakpoint-down(extra-small) {
     flex-direction: column;
   }
 }
@@ -20,7 +27,7 @@
 .nav-menu--homepage {
   justify-content: flex-end;
 
-  @include media-breakpoint-down(extra-small) {
+  @include breakpoints.media-breakpoint-down(extra-small) {
     flex-direction: row;
   }
 }
@@ -30,12 +37,12 @@
   display: flex;
   align-items: center;
 
-  @include hover {
+  @include utilities.hover {
     opacity: 0.8;
   }
 
 
-  @include media-breakpoint-down(extra-small) {
+  @include breakpoints.media-breakpoint-down(extra-small) {
     padding-top: 1rem;
     height: 3rem;
   }
@@ -50,7 +57,7 @@
   display: flex !important;
 
   * {
-    fill: $white;
+    fill: variables.$white;
   }
 }
 
@@ -71,14 +78,14 @@ $nav-menu-search-width: 1.25rem;
 $nav-menu-item-padding: 0.5rem;
 
 .nav-menu__list {
-  @include list--unstyled;
+  @include lists.list--unstyled;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  min-height: $nav-height;
+  min-height: variables.$nav-height;
   position: relative;
 
-  @include media-breakpoint-down(extra-small) {
+  @include breakpoints.media-breakpoint-down(extra-small) {
     flex-wrap: wrap;
     justify-content: center;
   }
@@ -92,17 +99,17 @@ $nav-menu-item-padding: 0.5rem;
 .nav-menu__item--search {
   padding: 10px 0 3px $nav-menu-item-padding;
 
-  @include media-breakpoint-down(extra-small) {
+  @include breakpoints.media-breakpoint-down(extra-small) {
     padding-left: $nav-menu-item-padding;
   }
 }
 
 .nav-menu__link {
-  @include link--no-underline(inherit, $nav-hover-color);
+  @include links.link--no-underline(inherit, variables.$nav-hover-color);
 
-  @include hover {
+  @include utilities.hover {
     * {
-      fill: $nav-hover-color;
+      fill: variables.$nav-hover-color;
     }
   }
 }

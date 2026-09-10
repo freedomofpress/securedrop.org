@@ -1,10 +1,15 @@
+@use "../base/mixins/buttons";
+@use "../base/mixins/chevrons";
+@use "../base/mixins/links";
+@use "../base/variables";
+
 .submit-instance {
   margin-bottom: 3rem;
 }
 
 .submit-instance__title {
   font-size: 1.3rem;
-  font-weight: $sans-bold;
+  font-weight: variables.$sans-bold;
 }
 
 .submit-instance__buttons {
@@ -16,20 +21,20 @@
   width: 100%;
   margin-bottom: 0.5rem;
 
-  @include button-small;
-  @include button-solid--black;
+  @include buttons.button-small;
+  @include buttons.button-solid--black;
 }
 
 .submit-instance__button--dashboard {
-  @include button-solid--blue;
+  @include buttons.button-solid--blue;
 }
 
 .submit-instance__button-icon {
-  @include text-chevron--right;
+  @include chevrons.text-chevron--right;
 }
 
 .submit-instance__link {
   padding-top: 2rem;
 
-  @include link--underline($black, $link-color);
+  @include links.link--underline(variables.$black, variables.$link-color);
 }

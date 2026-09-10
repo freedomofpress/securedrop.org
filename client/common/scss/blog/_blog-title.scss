@@ -1,3 +1,8 @@
+@use "../base/mixins/breakpoints";
+@use "../base/mixins/links";
+@use "../base/mixins/typography";
+@use "../base/variables";
+
 .blog-title {
   margin: 1.5rem 0;
   text-align: center;
@@ -8,17 +13,17 @@
   height: auto;
   margin-bottom: 2rem;
 
-  @include media-breakpoint-down(extra-small) {
+  @include breakpoints.media-breakpoint-down(extra-small) {
     margin-top: 1rem;
   }
 }
 
 .blog-title__category {
-  @include uppercase;
+  @include typography.uppercase;
 
-  font-size: $h3;
+  font-size: variables.$h3;
 }
 
 .blog-title__category-link {
-  @include link--no-underline($gray50--text);
+  @include links.link--no-underline(variables.$gray50--text);
 }

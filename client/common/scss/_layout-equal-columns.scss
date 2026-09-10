@@ -1,10 +1,14 @@
+@use "base/mixins/breakpoints";
+@use "base/mixins/layout";
+@use "base/variables";
+
 .layout-equal {
   display: flex;
 
-  @include layout-x;
-  @include layout-y;
+  @include layout.layout-x;
+  @include layout.layout-y;
 
-  @include media-breakpoint-down(extra-small) {
+  @include breakpoints.media-breakpoint-down(extra-small) {
     flex-direction: column;
   }
 }
@@ -14,18 +18,18 @@
 }
 
 .layout-equal__one {
-  padding-right: $layout-padding;
+  padding-right: variables.$layout-padding;
 
-  @include media-breakpoint-down(extra-small) {
+  @include breakpoints.media-breakpoint-down(extra-small) {
     padding-right: 0;
-    padding-bottom: $layout-padding;
+    padding-bottom: variables.$layout-padding;
   }
 }
 
 .layout-equal__two {
-  padding-left: $layout-padding;
+  padding-left: variables.$layout-padding;
 
-  @include media-breakpoint-down(extra-small) {
+  @include breakpoints.media-breakpoint-down(extra-small) {
     flex-basis: 100%;
     padding: 0;
   }

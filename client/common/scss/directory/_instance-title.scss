@@ -1,7 +1,12 @@
-.instance-title {
-  @include layout-x;
+@use "../base/mixins/breakpoints";
+@use "../base/mixins/chevrons";
+@use "../base/mixins/layout";
+@use "../base/variables";
 
-  padding-top: $layout-padding;
+.instance-title {
+  @include layout.layout-x;
+
+  padding-top: variables.$layout-padding;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -11,10 +16,10 @@
 
 .instance-title__logo {
   height: auto;
-  margin-bottom: $layout-padding;
+  margin-bottom: variables.$layout-padding;
 
-  @include media-breakpoint-down(extra-small) {
-    margin-bottom: 0.25 * $layout-padding;
+  @include breakpoints.media-breakpoint-down(extra-small) {
+    margin-bottom: 0.25 * variables.$layout-padding;
   }
 }
 
@@ -25,7 +30,7 @@
 }
 
 .instance-title__edit-link {
-  @include text-chevron--right(small);
+  @include chevrons.text-chevron--right(small);
 
   font-size: 1rem;
 }
@@ -37,5 +42,5 @@
 }
 
 .instance-title__chevron {
-  @include text-chevron--right(large);
+  @include chevrons.text-chevron--right(large);
 }
