@@ -1,3 +1,6 @@
+@use "sass:list";
+@use "sass:map";
+
 // This is all from Bootstrap https://github.com/twbs/bootstrap/blob/08b89972c52d55f5e7d2d039570d098a1f51cb7f/scss/mixins/_breakpoints.scss
 // Some names (and breakpoints) have been changed
 
@@ -34,10 +37,10 @@ $breakpoints-map: (
 //		md
 //		>> breakpoint-next(sm, $breakpoint-names: (xs sm md lg xl))
 //		md
-@function breakpoint-next($name, $breakpoints: $breakpoints-map, $breakpoint-names: map-keys($breakpoints)) {
-	$n: index($breakpoint-names, $name);
-	@if $n < length($breakpoint-names) {
-		@return nth($breakpoint-names, $n + 1);
+@function breakpoint-next($name, $breakpoints: $breakpoints-map, $breakpoint-names: map.keys($breakpoints)) {
+	$n: list.index($breakpoint-names, $name);
+	@if $n < list.length($breakpoint-names) {
+		@return list.nth($breakpoint-names, $n + 1);
 	}
 	@return null;
 }
@@ -47,7 +50,7 @@ $breakpoints-map: (
 //		>> breakpoint-min(sm, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))
 //		576px
 @function breakpoint-min($name, $breakpoints: $breakpoints-map) {
-	$min: map-get($breakpoints, $name);
+	$min: map.get($breakpoints, $name);
 	@if $min != 0 {
 		@return $min;
 	}
