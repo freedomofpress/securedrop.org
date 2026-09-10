@@ -1,3 +1,5 @@
+@use "sass:math";
+
 $icon-width: 64px;
 $icon-gutter: 10px;
 $alert-padding-x: 10px;
@@ -12,7 +14,7 @@ $color: #9292A5;
 
 .instance-alert {
   @include media-breakpoint-down(extra-small) {
-    padding-left: $icon-width / 2 + $icon-gutter;
+    padding-left: math.div($icon-width, 2) + $icon-gutter;
   }
 }
 
@@ -43,8 +45,8 @@ $color: #9292A5;
 
 .instance-alert__icon {
   @include media-breakpoint-down(extra-small) {
-    margin-left: -($icon-width / 2) - $icon-gutter;
-    width: $icon-width / 2;
+    margin-left: -(math.div($icon-width, 2)) - $icon-gutter;
+    width: math.div($icon-width, 2);
   }
 }
 

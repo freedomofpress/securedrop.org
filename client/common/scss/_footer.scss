@@ -1,3 +1,5 @@
+@use "sass:math";
+
 $support-background-color: $gray90;
 $links-background-color: $brand-primary--text;
 $list-bottom-padding: 2rem;
@@ -173,7 +175,7 @@ $list-bottom-padding: 2rem;
   }
 
   @include media-breakpoint-down(extra-small) {
-    padding: ($list-bottom-padding / 2) 0;
+    padding: math.div($list-bottom-padding, 2) 0;
     justify-content: center;
   }
 }
@@ -236,7 +238,7 @@ $list-bottom-padding: 2rem;
 
 .footer-main__nav-list {
   @include list--unstyled;
-  padding-bottom: $list-bottom-padding / 2;
+  padding-bottom: math.div($list-bottom-padding, 2);
 
   // as a flex-parent
   display: flex;
