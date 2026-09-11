@@ -7,11 +7,9 @@
 
 .instances {
 	@include layout.layout-y-no-tiny-breakpoint;
-
 	color: variables.$white;
 
 	@include colors.sd-gradient(variables.$slate1, variables.$slate2);
-
 	position: relative;
 }
 
@@ -24,7 +22,6 @@
 
 .instances__content {
 	@include layout.layout-x;
-
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -132,7 +129,6 @@
 .instances__item-link {
 	@include buttons.button-base;
 	@include buttons.button-transition;
-
 	color: rgba(variables.$white, 0.9);
 	border: 1px solid rgba(variables.$white, 0.4);
 	background: transparent;
@@ -143,15 +139,13 @@
 		background-color: rgba(variables.$white, 0.2);
 		border: 1px solid rgba(variables.$white, 0.4);
 	}
-
-	padding: 0.08rem 0.4rem 0 0.4rem;
+	padding: 0.08rem 0.4rem 0;
 	font-size: 0.8rem;
 }
 
 .instances__button {
 	@include buttons.button-large;
 	@include buttons.button-solid-white;
-
 	margin-top: 2rem;
 
 	@include breakpoints.media-breakpoint-down(extra-small) {

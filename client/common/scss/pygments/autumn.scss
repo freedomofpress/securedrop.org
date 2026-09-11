@@ -2,7 +2,7 @@
 
 .syntax {
 	.hll {
-		background-color: #ffffcc;
+		background-color: #ffc;
 	}
 
 	.c {
@@ -11,12 +11,12 @@
 	}
 
 	.err {
-		color: #ff0000;
-		background-color: #ffaaaa;
+		color: #f00;
+		background-color: #faa;
 	}
 
 	.k {
-		color: #0000aa;
+		color: #00a;
 	}
 
 	.ch,
@@ -36,12 +36,12 @@
 	}
 
 	.cs {
-		color: #0000aa;
+		color: #00a;
 		font-weight: variables.$mono-light;
 	}
 
 	.gd {
-		color: #aa0000;
+		color: #a00;
 	}
 
 	.ge {
@@ -49,7 +49,7 @@
 	}
 
 	.gr {
-		color: #aa0000;
+		color: #a00;
 	}
 
 	.gh {
@@ -58,7 +58,7 @@
 	}
 
 	.gi {
-		color: #00aa00;
+		color: #0a0;
 	}
 
 	.go {
@@ -79,7 +79,7 @@
 	}
 
 	.gt {
-		color: #aa0000;
+		color: #a00;
 	}
 
 	.kc,
@@ -87,19 +87,19 @@
 	.kn,
 	.kp,
 	.kr {
-		color: #0000aa;
+		color: #00a;
 	}
 
 	.kt {
-		color: #00aaaa;
+		color: #0aa;
 	}
 
 	.m {
-		color: #009999;
+		color: #099;
 	}
 
 	.s {
-		color: #aa5500;
+		color: #a50;
 	}
 
 	.na {
@@ -107,16 +107,16 @@
 	}
 
 	.nb {
-		color: #00aaaa;
+		color: #0aa;
 	}
 
 	.nc {
-		color: #00aa00;
+		color: #0a0;
 		text-decoration: underline;
 	}
 
 	.no {
-		color: #aa0000;
+		color: #a00;
 	}
 
 	.nd {
@@ -124,16 +124,16 @@
 	}
 
 	.ni {
-		color: #880000;
+		color: #800;
 		font-weight: variables.$mono-bold;
 	}
 
 	.nf {
-		color: #00aa00;
+		color: #0a0;
 	}
 
 	.nn {
-		color: #00aaaa;
+		color: #0aa;
 		text-decoration: underline;
 	}
 
@@ -143,11 +143,11 @@
 	}
 
 	.nv {
-		color: #aa0000;
+		color: #a00;
 	}
 
 	.ow {
-		color: #0000aa;
+		color: #00a;
 	}
 
 	.w {
@@ -159,7 +159,7 @@
 	.mh,
 	.mi,
 	.mo {
-		color: #009999;
+		color: #099;
 	}
 
 	.sb,
@@ -170,93 +170,93 @@
 	.sh,
 	.si,
 	.sx {
-		color: #aa5500;
+		color: #a50;
 	}
 
 	.sr {
-		color: #009999;
+		color: #099;
 	}
 
 	.s1 {
-		color: #aa5500;
+		color: #a50;
 	}
 
 	.ss {
-		color: #0000aa;
+		color: #00a;
 	}
 
 	.bp {
-		color: #00aaaa;
+		color: #0aa;
 	}
 
 	.vc,
 	.vg,
 	.vi {
-		color: #aa0000;
+		color: #a00;
 	}
 
 	.il {
-		color: #009999;
+		color: #099;
 	}
 }
 
-/* Comment */
-/* Error */
-/* Keyword */
-/* Comment.Hashbang */
-/* Comment.Multiline */
-/* Comment.Preproc */
-/* Comment.PreprocFile */
-/* Comment.Single */
-/* Comment.Special */
-/* Generic.Deleted */
-/* Generic.Emph */
-/* Generic.Error */
-/* Generic.Heading */
-/* Generic.Inserted */
-/* Generic.Output */
-/* Generic.Prompt */
-/* Generic.Strong */
-/* Generic.Subheading */
-/* Generic.Traceback */
-/* Keyword.Constant */
-/* Keyword.Declaration */
-/* Keyword.Namespace */
-/* Keyword.Pseudo */
-/* Keyword.Reserved */
-/* Keyword.Type */
-/* Literal.Number */
-/* Literal.String */
-/* Name.Attribute */
-/* Name.Builtin */
-/* Name.Class */
-/* Name.Constant */
-/* Name.Decorator */
-/* Name.Entity */
-/* Name.Function */
-/* Name.Namespace */
-/* Name.Tag */
-/* Name.Variable */
-/* Operator.Word */
-/* Text.Whitespace */
-/* Literal.Number.Bin */
-/* Literal.Number.Float */
-/* Literal.Number.Hex */
-/* Literal.Number.Integer */
-/* Literal.Number.Oct */
-/* Literal.String.Backtick */
-/* Literal.String.Char */
-/* Literal.String.Doc */
-/* Literal.String.Double */
-/* Literal.String.Escape */
-/* Literal.String.Heredoc */
-/* Literal.String.Interpol */
-/* Literal.String.Other */
-/* Literal.String.Regex */
-/* Literal.String.Single */
-/* Literal.String.Symbol */
-/* Name.Builtin.Pseudo */
-/* Name.Variable.Class */
-/* Name.Variable.Global */
-/* Name.Variable.Instance */
-/* Literal.Number.Integer.Long */
+// Comment
+// Error
+// Keyword
+// Comment.Hashbang
+// Comment.Multiline
+// Comment.Preproc
+// Comment.PreprocFile
+// Comment.Single
+// Comment.Special
+// Generic.Deleted
+// Generic.Emph
+// Generic.Error
+// Generic.Heading
+// Generic.Inserted
+// Generic.Output
+// Generic.Prompt
+// Generic.Strong
+// Generic.Subheading
+// Generic.Traceback
+// Keyword.Constant
+// Keyword.Declaration
+// Keyword.Namespace
+// Keyword.Pseudo
+// Keyword.Reserved
+// Keyword.Type
+// Literal.Number
+// Literal.String
+// Name.Attribute
+// Name.Builtin
+// Name.Class
+// Name.Constant
+// Name.Decorator
+// Name.Entity
+// Name.Function
+// Name.Namespace
+// Name.Tag
+// Name.Variable
+// Operator.Word
+// Text.Whitespace
+// Literal.Number.Bin
+// Literal.Number.Float
+// Literal.Number.Hex
+// Literal.Number.Integer
+// Literal.Number.Oct
+// Literal.String.Backtick
+// Literal.String.Char
+// Literal.String.Doc
+// Literal.String.Double
+// Literal.String.Escape
+// Literal.String.Heredoc
+// Literal.String.Interpol
+// Literal.String.Other
+// Literal.String.Regex
+// Literal.String.Single
+// Literal.String.Symbol
+// Name.Builtin.Pseudo
+// Name.Variable.Class
+// Name.Variable.Global
+// Name.Variable.Instance
+// Literal.Number.Integer.Long

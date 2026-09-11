@@ -39,14 +39,12 @@
 @mixin button-small {
 	@include button-base;
 	@include button-transition;
-
 	padding: variables.$button-padding-y variables.$button-padding-x;
 }
 
 @mixin button-large {
 	@include button-base;
 	@include button-transition;
-
 	padding: (2 * variables.$button-padding-y) (1.5 * variables.$button-padding-x);
 }
 
@@ -54,7 +52,6 @@
 
 @mixin button-solid($color-text: variables.$white, $color1: variables.$link-color, $color2: variables.$link-hover-color) {
 	@include button-transition;
-
 	color: $color-text;
 	background-color: $color1;
 	border: none;
@@ -85,7 +82,6 @@
 
 @mixin button-outline($color1, $color2: variables.$black, $color3: $color1) {
 	@include button-transition;
-
 	color: $color1;
 	border: 1px solid $color1;
 	background: transparent;

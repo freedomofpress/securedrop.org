@@ -19,7 +19,6 @@ $hero-overlap: 5.2rem;
 .updates__content {
 	@include layout.layout-x;
 	@include layout.layout-y-no-tiny-breakpoint;
-
 	display: flex;
 	justify-content: center;
 	align-items: flex-start;
@@ -49,7 +48,6 @@ $hero-overlap: 5.2rem;
 
 .updates__header {
 	@include typography.uppercase;
-
 	font-size: 1rem;
 	margin-bottom: 0.5rem;
 }
@@ -68,20 +66,16 @@ $hero-overlap: 5.2rem;
 	li {
 		display: inline-block;
 
-		& {
-			@include lists.list-comma(" |");
-		}
+		@include lists.list-comma(" |");
 	}
 }
 
 .updates__link {
 	@include links.link-underline-on-hover;
-
 	font-weight: variables.$sans-bold;
 }
 
 .updates__link--secondary {
 	@include links.link-no-underline(variables.$gray50-text, variables.$brand-primary);
-
 	font-weight: variables.$sans-regular;
 }

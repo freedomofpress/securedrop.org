@@ -32,9 +32,7 @@ $release-preview-spacer: 1rem;
 	li {
 		display: inline-block;
 
-		& {
-			@include lists.list-comma(" |");
-		}
+		@include lists.list-comma(" |");
 	}
 }
 

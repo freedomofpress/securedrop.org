@@ -12,7 +12,6 @@ $search-bar-height: $search-bar-font-size * $search-bar-line-height;
 
 .search-bar--header {
 	@include layout.layout-x;
-
 	position: relative;
 	padding-top: 2 * variables.$header-padding;
 	padding-bottom: 2 * variables.$header-padding;

@@ -68,7 +68,6 @@ $features-list-item-padding: 1rem;
 
 .features-list__item-text {
 	@include utilities.p-remove-first-and-last-margin;
-
 	margin-left: 1rem;
 
 	@include breakpoints.media-breakpoint-down(tiny) {
@@ -85,7 +84,6 @@ $features-list-item-padding: 1rem;
 
 .features-list__chevron {
 	@include chevrons.chevron-large;
-
 	flex-grow: 0;
 	flex-shrink: 0;
 }

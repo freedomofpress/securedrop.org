@@ -1,5 +1,6 @@
 @use "variables";
 
+/* stylelint-disable value-keyword-case -- keys become "grade--<KEY>" class modifiers, generated in _security_grade.scss and _instance-table.scss */
 $grade-colors: (
 	A: variables.$green,
 	B: variables.$yellow-grade,
@@ -7,7 +8,6 @@ $grade-colors: (
 	D: variables.$yellow-grade,
 	F: variables.$red,
 );
-
 $text-colors: (
 	A: variables.$white,
 	B: variables.$gray80-text,
@@ -15,3 +15,4 @@ $text-colors: (
 	D: variables.$gray80-text,
 	F: variables.$white,
 );
+/* stylelint-enable value-keyword-case */

@@ -9,7 +9,6 @@
 
 .faq__body {
 	@include utilities.p-remove-first-and-last-margin;
-
 	padding-bottom: variables.$layout-padding;
 }
 

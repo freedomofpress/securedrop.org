@@ -5,7 +5,6 @@
 
 .blockquote {
 	@include utilities.p-remove-first-and-last-margin;
-
 	color: variables.$gray50-text;
 
 	@include breakpoints.media-breakpoint-down(extra-small) {
@@ -16,7 +15,6 @@
 	&__citation {
 		@include utilities.p-remove-first-and-last-margin;
 		@include links.link-no-underline;
-
 		display: block;
 		font-style: normal;
 		margin-top: 0.5em;

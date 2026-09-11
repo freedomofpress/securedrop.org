@@ -1,6 +1,5 @@
 @use "../variables";
 @use "utilities";
-
 @use "sass:color";
 
 // UTILITIES
@@ -13,6 +12,7 @@
 
 @mixin link-color($color: variables.$link-color, $color-hover: #{color.adjust($color, $lightness: -10%)}) {
 	color: $color;
+
 	@include utilities.hover {
 		color: $color-hover;
 	}
@@ -20,6 +20,7 @@
 
 @mixin decoration($decoration, $decoration-hover: $decoration) {
 	text-decoration: $decoration;
+
 	@include utilities.hover {
 		text-decoration: $decoration-hover;
 	}

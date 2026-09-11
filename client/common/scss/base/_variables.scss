@@ -5,14 +5,12 @@
 $base: 16px;
 $rem-in-px: $base;
 $text-max-width: 40em;
-
 $h1: 2rem;
 $h2: 1.5rem;
 $h3: 1.2rem;
 $h4: 1rem;
 $h5: 1rem;
 $h6: 1rem;
-
 $site-title-font-size: 2.5rem;
 $homepage-section-heading-font-size: 3rem;
 $homepage-section-heading-font-size-small: 2.5rem;
@@ -20,14 +18,13 @@ $embiggened-font-size: 1.1rem;
 
 // FONT FAMILIES
 
-$sans-serif: "Fira Sans", Calibri, "Gil Sans", sans-serif;
+$sans-serif: "Fira Sans", calibri, "Gil Sans", sans-serif;
 $mono: "Fira Mono", monospace, serif;
 
 // FONT WEIGHTS
 $sans-light: 300;
 $sans-regular: 400;
 $sans-bold: 600;
-
 $mono-light: 300;
 $mono-regular: 400;
 $mono-bold: 600;
@@ -50,7 +47,6 @@ $gray80-text: color.adjust($gray80, $lightness: -5%);
 $gray90: #22222f;
 $gray90-text: color.adjust($gray90, $lightness: -2%);
 $black: #00000b;
-
 $slate: #7683a9;
 $blue: #0579e6;
 $blue-dark: #231484;
@@ -60,7 +56,7 @@ $red: #c71438;
 $yellow: #db8000;
 $green: #438944;
 $yellow-grade: #f5a623;
-$yellow-text: #dd3300;
+$yellow-text: #d30;
 
 // Gradient pairs
 $slate1: $slate;
@@ -73,12 +69,10 @@ $purple1: $purple;
 $purple2: #15277a;
 $red1: $pink;
 $red2: $red;
-
 $brand-primary: $blue;
 $brand-primary-text: color.adjust($brand-primary, $lightness: -10%);
 $brand-secondary: $slate;
 $brand-secondary-text: color.adjust($slate, $lightness: -25%);
-
 $link-color: $brand-primary-text;
 $link-hover-color: color.adjust($brand-primary-text, $lightness: -10%);
 

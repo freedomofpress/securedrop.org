@@ -5,7 +5,6 @@
 
 .instance-title {
   @include layout.layout-x;
-
   padding-top: variables.$layout-padding;
   display: flex;
   flex-direction: column;
@@ -31,7 +30,6 @@
 
 .instance-title__edit-link {
   @include chevrons.text-chevron-right(small);
-
   font-size: 1rem;
 }
 

@@ -8,7 +8,6 @@
 
 .hero {
 	@include layout.layout-x;
-
 	position: relative;
 	z-index: variables.$z-hexagons-background;
 	padding-top: variables.$nav-height;
@@ -81,7 +80,6 @@
 
 		a {
 			@include links.link-underline-on-hover(variables.$white, variables.$gray10-text);
-
 			font-weight: variables.$sans-bold;
 		}
 	}
@@ -98,7 +96,6 @@
 .hero__button {
 	@include buttons.button-large;
 	@include buttons.button-solid(variables.$blue-bright2, variables.$white, variables.$gray10);
-
 	margin-top: 2rem;
 
 	@include breakpoints.media-breakpoint-down(tiny) {

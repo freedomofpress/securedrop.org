@@ -55,7 +55,6 @@ $table-margin: 1rem;
 
 .instance-table__faq-link {
 	@include links.link-no-underline(inherit, variables.$gray80);
-
 	height: 1rem;
 	vertical-align: -1px;
 }

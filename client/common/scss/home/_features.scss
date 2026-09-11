@@ -26,7 +26,6 @@
 .features__button {
   @include buttons.button-large;
   @include buttons.button-solid-blue;
-
   margin-top: 3rem;
 
   @include breakpoints.media-breakpoint-down(extra-small) {

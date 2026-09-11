@@ -67,7 +67,7 @@
 	.rich-text {
 		@include utilities.p-remove-first-and-last-margin;
 
-		&:before {
+		&::before {
 			content: ". . . ";
 		}
 	}

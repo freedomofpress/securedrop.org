@@ -25,7 +25,6 @@
 .blog-page__return-button {
 	@include buttons.button-small;
 	@include buttons.button-solid-gray;
-
 	text-decoration: none;
 	margin-top: variables.$layout-padding;
 }
