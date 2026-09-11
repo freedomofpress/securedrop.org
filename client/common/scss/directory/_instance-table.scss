@@ -8,110 +8,113 @@
 $table-margin: 1rem;
 
 .instance-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 0 (-1 * $table-margin) variables.$layout-padding;
+	width: 100%;
+	border-collapse: collapse;
+	margin: 0 (-1 * $table-margin) variables.$layout-padding;
 }
 
-.instance-table__title, .instance-table__icon-column, .instance-table__org, .instance-table__grade-column {
-  padding: $table-margin;
+.instance-table__title,
+.instance-table__icon-column,
+.instance-table__org,
+.instance-table__grade-column {
+	padding: $table-margin;
 }
 
 .instance-table__icon-column {
-  border-top-left-radius: variables.$button-border-radius;
-  border-bottom-left-radius: variables.$button-border-radius;
-  padding-right: 0;
-  vertical-align: top;
+	border-top-left-radius: variables.$button-border-radius;
+	border-bottom-left-radius: variables.$button-border-radius;
+	padding-right: 0;
+	vertical-align: top;
 }
 
 .instance-table__icon {
-  width: 6rem;
-  max-width: 6rem;
+	width: 6rem;
+	max-width: 6rem;
 
-  @include breakpoints.media-breakpoint-down(extra-small) {
-    width: 4rem;
-  }
+	@include breakpoints.media-breakpoint-down(extra-small) {
+		width: 4rem;
+	}
 }
 
 .instance-table__grade-column {
-  border-top-right-radius: variables.$button-border-radius;
-  border-bottom-right-radius: variables.$button-border-radius;
+	border-top-right-radius: variables.$button-border-radius;
+	border-bottom-right-radius: variables.$button-border-radius;
 }
 
 .instance-table__title {
-  text-transform: uppercase;
-  color: variables.$gray50--text;
-  text-align: left;
-  font-weight: variables.$sans-regular;
-  margin-bottom: 1rem;
+	text-transform: uppercase;
+	color: variables.$gray50--text;
+	text-align: left;
+	font-weight: variables.$sans-regular;
+	margin-bottom: 1rem;
 }
 
 .instance-table__title--security {
-  text-align: right;
+	text-align: right;
 }
 
 .instance-table__faq-link {
-  @include links.link--no-underline(inherit, variables.$gray80);
+	@include links.link--no-underline(inherit, variables.$gray80);
 
-  height: 1rem;
-  vertical-align: -1px;
+	height: 1rem;
+	vertical-align: -1px;
 }
 
 .instance-table__question-circle {
-  height: 1rem;
-  width: auto;
+	height: 1rem;
+	width: auto;
 }
 
 .instance-table__org-name {
-  margin-bottom: 0.3rem;
-  font-size: 2rem;
-  line-height: 1;
+	margin-bottom: 0.3rem;
+	font-size: 2rem;
+	line-height: 1;
 
-  @include breakpoints.media-breakpoint-down(tiny) {
-    font-size: variables.$h3;
-    font-weight: variables.$sans-bold;
-    margin-bottom: 0.5rem;
-  }
+	@include breakpoints.media-breakpoint-down(tiny) {
+		font-size: variables.$h3;
+		font-weight: variables.$sans-bold;
+		margin-bottom: 0.5rem;
+	}
 }
 
 .instance-table__chevron {
-  fill: variables.$black;
+	fill: variables.$black;
 
-  @include chevrons.text-chevron--right;
+	@include chevrons.text-chevron--right;
 }
 
 .instance-table__org-description {
-  .rich-text {
-    @include utilities.p-remove-first-and-last-margin;
-  }
+	.rich-text {
+		@include utilities.p-remove-first-and-last-margin;
+	}
 }
 
 .instance-table__grade-column {
-  text-align: right;
+	text-align: right;
 }
 
 .instance-table__grade {
-  color: variables.$white;
-  width: 3rem;
-  font-size: 2rem;
-  font-weight: variables.$sans-bold;
-  text-align: center;
-  border-radius: 0.5rem;
-  float: right;
+	color: variables.$white;
+	width: 3rem;
+	font-size: 2rem;
+	font-weight: variables.$sans-bold;
+	text-align: center;
+	border-radius: 0.5rem;
+	float: right;
 }
 
 @each $name, $color in maps.$grade-colors {
-  .instance-table__grade--#{$name} {
-    background-color: $color;
-  }
+	.instance-table__grade--#{$name} {
+		background-color: $color;
+	}
 }
 
 @each $name, $color in maps.$text-colors {
-  .instance-table__grade--#{$name} {
-    color: $color;
-  }
+	.instance-table__grade--#{$name} {
+		color: $color;
+	}
 }
 
 .instance-table__link {
-  @include links.link--no-underline($color-hover: variables.$link-color);
+	@include links.link--no-underline($color-hover: variables.$link-color);
 }

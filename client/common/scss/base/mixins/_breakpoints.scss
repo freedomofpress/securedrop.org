@@ -6,7 +6,6 @@
 // This is all from Bootstrap https://github.com/twbs/bootstrap/blob/08b89972c52d55f5e7d2d039570d098a1f51cb7f/scss/mixins/_breakpoints.scss
 // Some names (and breakpoints) have been changed
 
-
 // Grid breakpoints
 //
 // Define the minimum dimensions at which your layout will change,
@@ -18,7 +17,7 @@ $breakpoints-map: (
 	small: variables.$breakpoint-small,
 	medium: variables.$breakpoint-medium,
 	large: variables.$breakpoint-large,
-	extra-large: variables.$breakpoint-extra-large
+	extra-large: variables.$breakpoint-extra-large,
 ) !default;
 // @include _assert-ascending($breakpoints-map, "$breakpoints-map");
 // @include _assert-starts-at-zero($breakpoints-map);
@@ -135,8 +134,8 @@ $breakpoints-map: (
 			@content;
 		}
 	} @else if $max == null {
-		@include media-breakpoint-up($name)
+		@include media-breakpoint-up($name);
 	} @else if $min == null {
-		@include media-breakpoint-down($name)
+		@include media-breakpoint-down($name);
 	}
 }

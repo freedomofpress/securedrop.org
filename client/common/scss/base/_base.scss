@@ -2,61 +2,61 @@
 @use "variables";
 
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 *:after,
 *:before {
-  box-sizing: inherit;
+	box-sizing: inherit;
 }
 
 html {
-  height: 100%;
-  font-family: variables.$sans-serif;
+	height: 100%;
+	font-family: variables.$sans-serif;
 }
 
 body {
-  margin: 0;
-  height: 100%;
-  font-size: variables.$base;
-  font-family: variables.$sans-serif;
-  font-weight: variables.$sans-regular;
-  line-height: 1.5;
+	margin: 0;
+	height: 100%;
+	font-size: variables.$base;
+	font-family: variables.$sans-serif;
+	font-weight: variables.$sans-regular;
+	line-height: 1.5;
 }
 
 b,
 strong {
-  font-weight: variables.$sans-bold;
+	font-weight: variables.$sans-bold;
 }
 
 i,
 em {
-  font-style: italic;
+	font-style: italic;
 }
 
 button,
 input,
 select,
 textarea {
-  font-size: 1rem;
-  font-family: variables.$sans-serif;
+	font-size: 1rem;
+	font-family: variables.$sans-serif;
 }
 
 code,
 kbd,
 pre,
 samp {
-  font-family: variables.$mono;
+	font-family: variables.$mono;
 }
 
 // responsive images are the default
 img {
-  max-width: 100%;
-  height: auto;
+	max-width: 100%;
+	height: auto;
 }
 
 a {
-  @include links.link--underline;
+	@include links.link--underline;
 }
 
 h1,
@@ -65,31 +65,31 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: variables.$sans-regular;
-  margin-top: 0;
-  margin-bottom: 1rem;
+	font-weight: variables.$sans-regular;
+	margin-top: 0;
+	margin-bottom: 1rem;
 }
 
 h1 {
-  font-size: variables.$h1;
+	font-size: variables.$h1;
 }
 
 h2 {
-  font-size: variables.$h2;
+	font-size: variables.$h2;
 }
 
 h3 {
-  font-size: variables.$h3;
+	font-size: variables.$h3;
 }
 
 h4 {
-  font-size: variables.$h4;
+	font-size: variables.$h4;
 }
 
 h5 {
-  font-size: variables.$h5;
+	font-size: variables.$h5;
 }
 
 h6 {
-  font-size: variables.$h6;
+	font-size: variables.$h6;
 }

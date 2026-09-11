@@ -7,108 +7,105 @@
 @use "../base/variables";
 
 .hero {
-  @include layout.layout-x;
+	@include layout.layout-x;
 
-  position: relative;
-  z-index: variables.$z-hexagons__background;
-  padding-top: variables.$nav-height;
-  padding-bottom: variables.$header-padding;
-  height: 35.9rem;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
+	position: relative;
+	z-index: variables.$z-hexagons__background;
+	padding-top: variables.$nav-height;
+	padding-bottom: variables.$header-padding;
+	height: 35.9rem;
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
 
-  @include breakpoints.media-breakpoint-down(extra-small) {
-    text-align: center;
-    flex-direction: column;
-    align-items: center;
-    height: 49.6rem;
-  }
+	@include breakpoints.media-breakpoint-down(extra-small) {
+		text-align: center;
+		flex-direction: column;
+		align-items: center;
+		height: 49.6rem;
+	}
 }
 
 .hero__logo {
-  width: 16rem;
-  flex-shrink: 0;
-  flex-grow: 0;
-  margin-right: variables.$layout-padding;
+	width: 16rem;
+	flex-shrink: 0;
+	flex-grow: 0;
+	margin-right: variables.$layout-padding;
 
-  @include breakpoints.media-breakpoint-down(extra-small) {
-    margin-right: 0;
-    margin-bottom: variables.$layout-padding;
-    height: 18.4rem;
-  }
+	@include breakpoints.media-breakpoint-down(extra-small) {
+		margin-right: 0;
+		margin-bottom: variables.$layout-padding;
+		height: 18.4rem;
+	}
 
-
-  @include breakpoints.media-breakpoint-down(tiny) {
-    margin-bottom: 2rem;
-  }
+	@include breakpoints.media-breakpoint-down(tiny) {
+		margin-bottom: 2rem;
+	}
 }
 
 .hero__logo-svg {
-  height: auto;
-  width: 100%;
+	height: auto;
+	width: 100%;
 }
 
 .hero__text {
-  flex-grow: 2;
-  max-width: 32rem;
+	flex-grow: 2;
+	max-width: 32rem;
 }
 
 .hero__title {
-  max-width: 90%;
-  margin-bottom: 1.5rem;
+	max-width: 90%;
+	margin-bottom: 1.5rem;
 
-  @include breakpoints.media-breakpoint-only(small) {
-    max-height: 3rem;
-  }
+	@include breakpoints.media-breakpoint-only(small) {
+		max-height: 3rem;
+	}
 
-
-  @include breakpoints.media-breakpoint-down(tiny) {
-    margin-bottom: 1rem;
-  }
+	@include breakpoints.media-breakpoint-down(tiny) {
+		margin-bottom: 1rem;
+	}
 }
 
 .hero__description-header {
-  @include breakpoints.media-breakpoint-up(large) {
-    font-size: 1.8rem;
-  }
+	@include breakpoints.media-breakpoint-up(large) {
+		font-size: 1.8rem;
+	}
 }
 
 .hero__description {
-  max-width: variables.$text-max-width;
-  font-size: variables.$embiggened-font-size;
+	max-width: variables.$text-max-width;
+	font-size: variables.$embiggened-font-size;
 
-  .rich-text {
-    @include utilities.p-remove-first-and-last-margin;
+	.rich-text {
+		@include utilities.p-remove-first-and-last-margin;
 
-    a {
-      @include links.link--underline-on-hover(variables.$white, variables.$gray10--text);
+		a {
+			@include links.link--underline-on-hover(variables.$white, variables.$gray10--text);
 
-      font-weight: variables.$sans-bold;
-    }
-  }
+			font-weight: variables.$sans-bold;
+		}
+	}
 
-  @include breakpoints.media-breakpoint-down(extra-small) {
-    display: none;
-  }
+	@include breakpoints.media-breakpoint-down(extra-small) {
+		display: none;
+	}
 
-
-  @include breakpoints.media-breakpoint-up(large) {
-    font-size: 1.2rem;
-  }
+	@include breakpoints.media-breakpoint-up(large) {
+		font-size: 1.2rem;
+	}
 }
 
 .hero__button {
-  @include buttons.button-large;
-  @include buttons.button-solid(variables.$blue-bright2, variables.$white, variables.$gray10);
+	@include buttons.button-large;
+	@include buttons.button-solid(variables.$blue-bright2, variables.$white, variables.$gray10);
 
-  margin-top: 2rem;
+	margin-top: 2rem;
 
-  @include breakpoints.media-breakpoint-down(tiny) {
-    margin-top: 0;
-  }
+	@include breakpoints.media-breakpoint-down(tiny) {
+		margin-top: 0;
+	}
 }
 
 .hero__button-icon {
-  @include chevrons.text-chevron--right(large);
+	@include chevrons.text-chevron--right(large);
 }

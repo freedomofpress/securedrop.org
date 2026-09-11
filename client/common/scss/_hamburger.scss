@@ -3,59 +3,59 @@
 @use "base/variables";
 
 .hamburger-inner {
-  background-color: variables.$white;
-  border-radius: 0;
+	background-color: variables.$white;
+	border-radius: 0;
 
-  &::before,
-  &::after {
-    background-color: variables.$white;
-    border-radius: 0;
-  }
+	&::before,
+	&::after {
+		background-color: variables.$white;
+		border-radius: 0;
+	}
 
-  @include breakpoints.media-breakpoint-up(small) {
-    display: none;
-  }
+	@include breakpoints.media-breakpoint-up(small) {
+		display: none;
+	}
 }
 
 .hamburger {
-  position: relative;
-  padding-bottom: 11px;
-  float: right;
-  z-index: variables.$z-hamburger;
-  margin-bottom: -3.5em;
+	position: relative;
+	padding-bottom: 11px;
+	float: right;
+	z-index: variables.$z-hamburger;
+	margin-bottom: -3.5em;
 
-  &:hover {
-    // overrides native hamburger style
-    opacity: 1;
+	&:hover {
+		// overrides native hamburger style
+		opacity: 1;
 
-    // this is not BEM but..
-    .hamburger-inner {
-      background-color: variables.$nav-hover-color;
+		// this is not BEM but..
+		.hamburger-inner {
+			background-color: variables.$nav-hover-color;
 
-      &::before,
-      &::after {
-        background-color: variables.$nav-hover-color;
-      }
-    }
-  }
+			&::before,
+			&::after {
+				background-color: variables.$nav-hover-color;
+			}
+		}
+	}
 
-  @include breakpoints.media-breakpoint-up(small) {
-    display: none;
-  }
+	@include breakpoints.media-breakpoint-up(small) {
+		display: none;
+	}
 }
 
 .hamburger.is-active {
-  .hamburger-inner,
-  .hamburger-inner::before,
-  .hamburger-inner::after {
-    background-color: variables.$white;
-  }
+	.hamburger-inner,
+	.hamburger-inner::before,
+	.hamburger-inner::after {
+		background-color: variables.$white;
+	}
 
-  @include utilities.hover {
-    .hamburger-inner,
-    .hamburger-inner::before,
-    .hamburger-inner::after {
-      background-color: variables.$nav-hover-color;
-    }
-  }
+	@include utilities.hover {
+		.hamburger-inner,
+		.hamburger-inner::before,
+		.hamburger-inner::after {
+			background-color: variables.$nav-hover-color;
+		}
+	}
 }

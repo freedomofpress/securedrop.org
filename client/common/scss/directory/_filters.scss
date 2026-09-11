@@ -11,97 +11,97 @@ $input-margin: 1rem;
 $filters-margin-bottom: 1rem;
 
 .filter-form {
-  margin-bottom: variables.$layout-padding;
+	margin-bottom: variables.$layout-padding;
 }
 
 .filters {
-  display: flex;
-  justify-content: space-between;
+	display: flex;
+	justify-content: space-between;
 
-  @include breakpoints.media-breakpoint-down(extra-small) {
-    flex-direction: column;
-  }
+	@include breakpoints.media-breakpoint-down(extra-small) {
+		flex-direction: column;
+	}
 }
 
 .filters__wrapper {
-  flex-grow: 1;
-  padding-right: $input-margin;
+	flex-grow: 1;
+	padding-right: $input-margin;
 
-  &:last-child {
-    padding-right: 0;
-  }
+	&:last-child {
+		padding-right: 0;
+	}
 
-  @include breakpoints.media-breakpoint-down(extra-small) {
-    padding-right: 0;
-  }
+	@include breakpoints.media-breakpoint-down(extra-small) {
+		padding-right: 0;
+	}
 }
 
 .filters__wrapper--search {
-  flex-shrink: 0;
+	flex-shrink: 0;
 }
 
 .filters__wrapper--last {
-  @include breakpoints.media-breakpoint-down(extra-small) {
-    display: flex;
+	@include breakpoints.media-breakpoint-down(extra-small) {
+		display: flex;
 
-    &:last-child {
-      padding-left: $input-margin;
-    }
-  }
+		&:last-child {
+			padding-left: $input-margin;
+		}
+	}
 }
 
 .filters__field {
-  border: $input-border;
-  padding-left: 1rem;
-  margin-bottom: $filters-margin-bottom;
-  height: $input-height;
-  width: 100%;
+	border: $input-border;
+	padding-left: 1rem;
+	margin-bottom: $filters-margin-bottom;
+	height: $input-height;
+	width: 100%;
 }
 
 .filters__field--select {
-  appearance: none;
-  border-radius: variables.$button-border-radius;
-  background: transparent;
-  color: variables.$gray50--text;
-  padding: $select-padding ($background-image-width + $select-padding) $select-padding $select-padding;
-  background: transparent url(config.$static-url + "images/chevron-down.svg") no-repeat right $select-padding center;
+	appearance: none;
+	border-radius: variables.$button-border-radius;
+	background: transparent;
+	color: variables.$gray50--text;
+	padding: $select-padding ($background-image-width + $select-padding) $select-padding $select-padding;
+	background: transparent url(config.$static-url + "images/chevron-down.svg") no-repeat right $select-padding center;
 }
 
 .filters__field--search {
-  border-radius: $input-height;
+	border-radius: $input-height;
 
-  &:focus {
-    outline: none;
-    box-shadow: 0px 0px 2px variables.$brand-primary;
-  }
+	&:focus {
+		outline: none;
+		box-shadow: 0px 0px 2px variables.$brand-primary;
+	}
 }
 
 .filters__submit {
-  width: $input-height;
-  height: $input-height;
-  overflow: hidden;
-  border-radius: variables.$button-border-radius;
-  border: none;
-  background-color: variables.$gray80;
-  color: variables.$white;
-  margin-left: $input-margin;
-  margin-bottom: $filters-margin-bottom;
-  padding: 0.5rem;
-  flex-shrink: 0;
+	width: $input-height;
+	height: $input-height;
+	overflow: hidden;
+	border-radius: variables.$button-border-radius;
+	border: none;
+	background-color: variables.$gray80;
+	color: variables.$white;
+	margin-left: $input-margin;
+	margin-bottom: $filters-margin-bottom;
+	padding: 0.5rem;
+	flex-shrink: 0;
 }
 
 .filters__submit--hide-mobile {
-  @include breakpoints.media-breakpoint-down(extra-small) {
-    display: none;
-  }
+	@include breakpoints.media-breakpoint-down(extra-small) {
+		display: none;
+	}
 }
 
 .filters__submit--hide-desktop {
-  @include breakpoints.media-breakpoint-up(small) {
-    display: none;
-  }
+	@include breakpoints.media-breakpoint-up(small) {
+		display: none;
+	}
 }
 
 .filters__clear {
-  text-align: right;
+	text-align: right;
 }

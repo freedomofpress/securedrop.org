@@ -6,160 +6,159 @@
 @use "../base/variables";
 
 .instances {
-  @include layout.layout-y--no-tiny-breakpoint;
+	@include layout.layout-y--no-tiny-breakpoint;
 
-  color: variables.$white;
+	color: variables.$white;
 
-  @include colors.sd-gradient(variables.$slate1, variables.$slate2);
+	@include colors.sd-gradient(variables.$slate1, variables.$slate2);
 
-  position: relative;
+	position: relative;
 }
 
 // This class is added via javascript
 .instances--tor-warning {
-  @include breakpoints.media-breakpoint-up(small) {
-    padding-top: 0;
-  }
+	@include breakpoints.media-breakpoint-up(small) {
+		padding-top: 0;
+	}
 }
 
 .instances__content {
-  @include layout.layout-x;
+	@include layout.layout-x;
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  z-index: variables.$z-hexagons__content;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	position: relative;
+	z-index: variables.$z-hexagons__content;
 }
 
 .instances__header {
-  margin-bottom: 2rem;
-  text-align: center;
-  font-size: variables.$homepage-section-heading-font-size;
+	margin-bottom: 2rem;
+	text-align: center;
+	font-size: variables.$homepage-section-heading-font-size;
 
-  @include breakpoints.media-breakpoint-down(extra-small) {
-    font-size: variables.$homepage-section-heading-font-size--small;
-  }
+	@include breakpoints.media-breakpoint-down(extra-small) {
+		font-size: variables.$homepage-section-heading-font-size--small;
+	}
 }
 
 .instances__items {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 100%;
-  margin: 0 -1rem;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	width: 100%;
+	margin: 0 -1rem;
 
-  @include breakpoints.media-breakpoint-down(extra-small) {
-    display: none;
-  }
+	@include breakpoints.media-breakpoint-down(extra-small) {
+		display: none;
+	}
 }
 
 .instances__items--mobile {
-  display: none;
+	display: none;
 
-  @include breakpoints.media-breakpoint-down(extra-small) {
-    display: flex;
-    flex-direction: column;
-    width: auto;
-    margin: 0 auto;
-  }
+	@include breakpoints.media-breakpoint-down(extra-small) {
+		display: flex;
+		flex-direction: column;
+		width: auto;
+		margin: 0 auto;
+	}
 }
 
 .instances__item {
-  flex-basis: 50%;
-  padding: 0 1rem;
-  margin-bottom: 2rem;
-  display: flex;
-  align-items: flex-start;
-  text-decoration: none;
-  color: inherit;
+	flex-basis: 50%;
+	padding: 0 1rem;
+	margin-bottom: 2rem;
+	display: flex;
+	align-items: flex-start;
+	text-decoration: none;
+	color: inherit;
 
-  @include breakpoints.media-breakpoint-down(extra-small) {
-    flex-basis: 100%;
-    padding: 0;
-  }
+	@include breakpoints.media-breakpoint-down(extra-small) {
+		flex-basis: 100%;
+		padding: 0;
+	}
 
+	@include breakpoints.media-breakpoint-down(tiny) {
+		flex-direction: column;
+		text-align: center;
+		margin-bottom: 3rem;
+	}
 
-  @include breakpoints.media-breakpoint-down(tiny) {
-    flex-direction: column;
-    text-align: center;
-    margin-bottom: 3rem;
-  }
-
-
-  &:hover, &:active, &:focus {
-    text-decoration: none;
-    color: inherit;
-  }
+	&:hover,
+	&:active,
+	&:focus {
+		text-decoration: none;
+		color: inherit;
+	}
 }
 
 .instances__logo {
-  width: 6rem;
-  margin-right: 2rem;
-  flex-shrink: 0;
-  flex-grow: 0;
+	width: 6rem;
+	margin-right: 2rem;
+	flex-shrink: 0;
+	flex-grow: 0;
 
-  // Optically align logos with top of text
-  margin-top: 0.5rem;
+	// Optically align logos with top of text
+	margin-top: 0.5rem;
 
-  @include breakpoints.media-breakpoint-between(extra-small, small) {
-    width: 4rem;
-    margin-right: 1rem;
-  }
+	@include breakpoints.media-breakpoint-between(extra-small, small) {
+		width: 4rem;
+		margin-right: 1rem;
+	}
 
-
-  @include breakpoints.media-breakpoint-down(tiny) {
-    margin-bottom: 1rem;
-    margin-right: 0;
-  }
+	@include breakpoints.media-breakpoint-down(tiny) {
+		margin-bottom: 1rem;
+		margin-right: 0;
+	}
 }
 
 .instances__logo--hexagon {
-  polygon {
-    fill: variables.$white;
-  }
+	polygon {
+		fill: variables.$white;
+	}
 }
 
 .instances__item-header {
-  margin: 0;
-  font-size: 1.5rem;
+	margin: 0;
+	font-size: 1.5rem;
 }
 
 .instances__item-description {
-  font-size: 0.9rem;
-  font-weight: variables.$sans-light;
+	font-size: 0.9rem;
+	font-weight: variables.$sans-light;
 }
 
 .instances__item-link {
-  @include buttons.button-base;
-  @include buttons.button-transition;
+	@include buttons.button-base;
+	@include buttons.button-transition;
 
-  color: rgba(variables.$white, 0.9);
-  border: 1px solid rgba(variables.$white, 0.4);
-  background: transparent;
-  margin-top: 0.5rem;
-  font-weight: variables.$sans-light;
+	color: rgba(variables.$white, 0.9);
+	border: 1px solid rgba(variables.$white, 0.4);
+	background: transparent;
+	margin-top: 0.5rem;
+	font-weight: variables.$sans-light;
 
-  .instances__item:hover & {
-    background-color: rgba(variables.$white, 0.2);
-    border: 1px solid rgba(variables.$white, 0.4);
-  }
+	.instances__item:hover & {
+		background-color: rgba(variables.$white, 0.2);
+		border: 1px solid rgba(variables.$white, 0.4);
+	}
 
-  padding: 0.08rem 0.4rem 0 0.4rem;
-  font-size: 0.8rem;
+	padding: 0.08rem 0.4rem 0 0.4rem;
+	font-size: 0.8rem;
 }
 
 .instances__button {
-  @include buttons.button-large;
-  @include buttons.button-solid--white;
+	@include buttons.button-large;
+	@include buttons.button-solid--white;
 
-  margin-top: 2rem;
+	margin-top: 2rem;
 
-  @include breakpoints.media-breakpoint-down(extra-small) {
-    margin-top: 1rem;
-  }
+	@include breakpoints.media-breakpoint-down(extra-small) {
+		margin-top: 1rem;
+	}
 }
 
 .instances__button-icon {
-  @include chevrons.text-chevron--right(large);
+	@include chevrons.text-chevron--right(large);
 }

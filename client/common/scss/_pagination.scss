@@ -3,30 +3,30 @@
 @use "base/mixins/chevrons";
 
 .pagination__link--button {
-  @include buttons.button-small;
-  @include buttons.button-solid--gray;
+	@include buttons.button-small;
+	@include buttons.button-solid--gray;
 
-  @include breakpoints.media-breakpoint-down(tiny) {
-    margin-bottom: 1rem;
-  }
+	@include breakpoints.media-breakpoint-down(tiny) {
+		margin-bottom: 1rem;
+	}
 }
 
 .pagination__link--previous {
-  @include breakpoints.media-breakpoint-up(extra-small) {
-    float: left;
-  }
+	@include breakpoints.media-breakpoint-up(extra-small) {
+		float: left;
+	}
 }
 
 .pagination__link--next {
-  @include breakpoints.media-breakpoint-up(extra-small) {
-    float: right;
-  }
+	@include breakpoints.media-breakpoint-up(extra-small) {
+		float: right;
+	}
 }
 
 .pagination__icon--previous {
-  @include chevrons.text-chevron--left;
+	@include chevrons.text-chevron--left;
 }
 
 .pagination__icon--next {
-  @include chevrons.text-chevron--right;
+	@include chevrons.text-chevron--right;
 }

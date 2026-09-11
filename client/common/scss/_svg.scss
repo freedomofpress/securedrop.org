@@ -2,15 +2,15 @@
 // depending on the likelihood that the visitor is on Tor Browser
 
 .svg {
-  display: inline-block;
+	display: inline-block;
 }
 
 // If JS is disabled, let's assume they're using Tor Browser on highest
 // security, which breaks svg rendering
 html.no-js .svg__svg {
-  display: none;
+	display: none;
 }
 
 html.js .svg__fallback {
-  display: none;
+	display: none;
 }

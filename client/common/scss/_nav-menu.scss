@@ -6,128 +6,127 @@
 @use "base/variables";
 
 .main-nav {
-  background: rgba(variables.$black, 0.3);
-  color: variables.$white;
-  width: 100%;
-  min-height: variables.$nav-height;
+	background: rgba(variables.$black, 0.3);
+	color: variables.$white;
+	width: 100%;
+	min-height: variables.$nav-height;
 }
 
 .nav-menu {
-  @include layout.layout-x;
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+	@include layout.layout-x;
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 
-  @include breakpoints.media-breakpoint-down(extra-small) {
-    flex-direction: column;
-  }
+	@include breakpoints.media-breakpoint-down(extra-small) {
+		flex-direction: column;
+	}
 }
 
 .nav-menu--homepage {
-  justify-content: flex-end;
+	justify-content: flex-end;
 
-  @include breakpoints.media-breakpoint-down(extra-small) {
-    flex-direction: row;
-  }
+	@include breakpoints.media-breakpoint-down(extra-small) {
+		flex-direction: row;
+	}
 }
 
 .nav-menu__logos {
-  height: 2rem;
-  display: flex;
-  align-items: center;
+	height: 2rem;
+	display: flex;
+	align-items: center;
 
-  @include utilities.hover {
-    opacity: 0.8;
-  }
+	@include utilities.hover {
+		opacity: 0.8;
+	}
 
-
-  @include breakpoints.media-breakpoint-down(extra-small) {
-    padding-top: 1rem;
-    height: 3rem;
-  }
+	@include breakpoints.media-breakpoint-down(extra-small) {
+		padding-top: 1rem;
+		height: 3rem;
+	}
 }
 
 .nav-menu__logo {
-  width: 2.5rem;
-  margin-right: 1rem;
+	width: 2.5rem;
+	margin-right: 1rem;
 
-  // Prevents the objects from receiving pointer events instead of the link.
-  pointer-events: none;
-  display: flex !important;
+	// Prevents the objects from receiving pointer events instead of the link.
+	pointer-events: none;
+	display: flex !important;
 
-  * {
-    fill: variables.$white;
-  }
+	* {
+		fill: variables.$white;
+	}
 }
 
 .nav-menu__wordmark {
-  height: 2rem;
-  width: auto;
+	height: 2rem;
+	width: auto;
 
-  // Prevents the objects from receiving pointer events instead of the link.
-  pointer-events: none;
+	// Prevents the objects from receiving pointer events instead of the link.
+	pointer-events: none;
 
-  img {
-    height: 2rem;
-    width: auto;
-  }
+	img {
+		height: 2rem;
+		width: auto;
+	}
 }
 
 $nav-menu-search-width: 1.25rem;
 $nav-menu-item-padding: 0.5rem;
 
 .nav-menu__list {
-  @include lists.list--unstyled;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  min-height: variables.$nav-height;
-  position: relative;
+	@include lists.list--unstyled;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	min-height: variables.$nav-height;
+	position: relative;
 
-  @include breakpoints.media-breakpoint-down(extra-small) {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
+	@include breakpoints.media-breakpoint-down(extra-small) {
+		flex-wrap: wrap;
+		justify-content: center;
+	}
 }
 
 .nav-menu__item {
-  padding: $nav-menu-item-padding;
-  white-space: nowrap;
+	padding: $nav-menu-item-padding;
+	white-space: nowrap;
 }
 
 .nav-menu__item--search {
-  padding: 10px 0 3px $nav-menu-item-padding;
+	padding: 10px 0 3px $nav-menu-item-padding;
 
-  @include breakpoints.media-breakpoint-down(extra-small) {
-    padding-left: $nav-menu-item-padding;
-  }
+	@include breakpoints.media-breakpoint-down(extra-small) {
+		padding-left: $nav-menu-item-padding;
+	}
 }
 
 .nav-menu__link {
-  @include links.link--no-underline(inherit, variables.$nav-hover-color);
+	@include links.link--no-underline(inherit, variables.$nav-hover-color);
 
-  @include utilities.hover {
-    * {
-      fill: variables.$nav-hover-color;
-    }
-  }
+	@include utilities.hover {
+		* {
+			fill: variables.$nav-hover-color;
+		}
+	}
 }
 
 .nav-menu__search-icon {
-  width: $nav-menu-search-width;
-  height: $nav-menu-search-width;
-  position: relative;
+	width: $nav-menu-search-width;
+	height: $nav-menu-search-width;
+	position: relative;
 
-  // Required to let clicks fall through to the link
-  pointer-events: none;
+	// Required to let clicks fall through to the link
+	pointer-events: none;
 
-  * {
-    fill: white;
-  }
+	* {
+		fill: white;
+	}
 
-  img {
-    width: $nav-menu-search-width;
-    height: auto;
-  }
+	img {
+		width: $nav-menu-search-width;
+		height: auto;
+	}
 }

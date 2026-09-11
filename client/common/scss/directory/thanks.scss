@@ -2,9 +2,9 @@
 @use "../base/variables";
 
 .thanks {
-  max-width: variables.$text-max-width;
+	max-width: variables.$text-max-width;
 }
 
 .thanks__chevron {
-  @include chevrons.text-chevron--left;
+	@include chevrons.text-chevron--left;
 }

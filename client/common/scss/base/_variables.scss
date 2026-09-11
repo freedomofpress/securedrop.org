@@ -37,7 +37,7 @@ $mono-bold: 600;
 // $gray50--text (for text and thin borders) should be slightly darker than
 // $gray50 (for backgrounds and other color fields)
 
-$white: #FFF;
+$white: #fff;
 $gray5: #f1f1f5;
 $gray10: #dddde0;
 $gray10--text: color.adjust($gray10, $lightness: -10%);
@@ -51,26 +51,26 @@ $gray90: #22222f;
 $gray90--text: color.adjust($gray90, $lightness: -2%);
 $black: #00000b;
 
-$slate: #7683A9;
-$blue: #0579E6;
+$slate: #7683a9;
+$blue: #0579e6;
 $blue-dark: #231484;
-$purple: #7D2E85;
-$pink: #E72385;
-$red: #C71438;
+$purple: #7d2e85;
+$pink: #e72385;
+$red: #c71438;
 $yellow: #db8000;
 $green: #438944;
-$yellow--grade: #F5A623;
-$yellow--text: #DD3300;
+$yellow--grade: #f5a623;
+$yellow--text: #dd3300;
 
 // Gradient pairs
 $slate1: $slate;
 $slate2: #293947;
-$blue-bright1: color.adjust(#2B8FFF, $lightness: -10%);
+$blue-bright1: color.adjust(#2b8fff, $lightness: -10%);
 $blue-bright2: #032843;
 $blue-bold1: color.adjust(color.adjust($blue, $lightness: -5%), $hue: 2deg);
 $blue-bold2: $blue-dark;
 $purple1: $purple;
-$purple2: #15277A;
+$purple2: #15277a;
 $red1: $pink;
 $red2: $red;
 

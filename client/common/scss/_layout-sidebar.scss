@@ -3,55 +3,55 @@
 @use "base/variables";
 
 .layout-sidebar {
-  @include layout.layout-x;
-  @include layout.layout-y;
-  display: flex;
+	@include layout.layout-x;
+	@include layout.layout-y;
+	display: flex;
 
-  @include breakpoints.media-breakpoint-down(extra-small) {
-    flex-direction: column-reverse;
-  }
+	@include breakpoints.media-breakpoint-down(extra-small) {
+		flex-direction: column-reverse;
+	}
 }
 
 .layout-sidebar__main {
-  flex-basis: 75%;
-  padding-right: variables.$layout-padding;
+	flex-basis: 75%;
+	padding-right: variables.$layout-padding;
 
-  @include breakpoints.media-breakpoint-down(extra-small) {
-    flex-basis: 100%;
-    padding-right: 0;
-  }
+	@include breakpoints.media-breakpoint-down(extra-small) {
+		flex-basis: 100%;
+		padding-right: 0;
+	}
 }
 
 .layout-sidebar__main--search {
-  flex-basis: 100%;
-  padding-right: 0;
+	flex-basis: 100%;
+	padding-right: 0;
 }
 
 .layout-sidebar__aside {
-  flex-basis: 25%;
-  align-self: stretch;
+	flex-basis: 25%;
+	align-self: stretch;
 
-  @include breakpoints.media-breakpoint-down(extra-small) {
-    flex-basis: 100%;
-    padding-bottom: variables.$layout-padding;
-  }
+	@include breakpoints.media-breakpoint-down(extra-small) {
+		flex-basis: 100%;
+		padding-bottom: variables.$layout-padding;
+	}
 }
 
 .layout-sidebar__aside--hidden {
-  display: none;
+	display: none;
 }
 
 .layout-sidebar--directory {
-  @include breakpoints.media-breakpoint-down(extra-small) {
-    flex-direction: column;
+	@include breakpoints.media-breakpoint-down(extra-small) {
+		flex-direction: column;
 
-    // Not BEM sorry
-    .layout-sidebar__main {
-      padding-bottom: variables.$layout-padding;
-    }
+		// Not BEM sorry
+		.layout-sidebar__main {
+			padding-bottom: variables.$layout-padding;
+		}
 
-    .layout-sidebar__aside {
-      padding-bottom: 0;
-    }
-  }
+		.layout-sidebar__aside {
+			padding-bottom: 0;
+		}
+	}
 }

@@ -8,60 +8,60 @@ $alert-button-width: 13px;
 $alert-button-height: 16px;
 
 .site-alert {
-  @include colors.sd-gradient(variables.$red, color.adjust(variables.$red, $lightness: -15%));
-  color: variables.$white;
-  min-height: 2rem;
-  padding: 0.5rem 0 0.5rem 1rem;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+	@include colors.sd-gradient(variables.$red, color.adjust(variables.$red, $lightness: -15%));
+	color: variables.$white;
+	min-height: 2rem;
+	padding: 0.5rem 0 0.5rem 1rem;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
 
 .site-alert--hidden {
-  display: none;
+	display: none;
 }
 
 .site-alert__title {
-  font-weight: variables.$sans-bold;
+	font-weight: variables.$sans-bold;
 }
 
 .site-alert__body {
-  margin-left: 0.5rem;
+	margin-left: 0.5rem;
 
-  .rich-text {
-    @include utilities.p-remove-first-and-last-margin;
-    display: inline;
+	.rich-text {
+		@include utilities.p-remove-first-and-last-margin;
+		display: inline;
 
-    p:first-child {
-      display: inline;
-    }
+		p:first-child {
+			display: inline;
+		}
 
-    a {
-      @include links.link--white-text;
-    }
-  }
+		a {
+			@include links.link--white-text;
+		}
+	}
 }
 
 .site-alert__close-button {
-  background-color: inherit;
-  border: none;
-  margin: 0;
-  padding: 0.5rem 1rem;
-  align-self: stretch;
+	background-color: inherit;
+	border: none;
+	margin: 0;
+	padding: 0.5rem 1rem;
+	align-self: stretch;
 
-  @include links.link-transition;
-  @include links.link--no-underline(variables.$white, variables.$gray50);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	@include links.link-transition;
+	@include links.link--no-underline(variables.$white, variables.$gray50);
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .site-alert__close-button--hidden {
-  display: none;
+	display: none;
 }
 
 .site-alert__close-x {
-  width: $alert-button-width;
-  height: $alert-button-height;
+	width: $alert-button-width;
+	height: $alert-button-height;
 }

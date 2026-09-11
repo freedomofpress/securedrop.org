@@ -1,8 +1,8 @@
 @use "base/mixins/breakpoints";
 
 .no-scroll {
-  @include breakpoints.media-breakpoint-down(extra-small) {
-    height: 100%;
-    overflow: hidden;
-  }
+	@include breakpoints.media-breakpoint-down(extra-small) {
+		height: 100%;
+		overflow: hidden;
+	}
 }

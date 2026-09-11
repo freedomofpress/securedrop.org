@@ -4,26 +4,26 @@
 @use "../base/variables";
 
 .blog-title {
-  margin: 1.5rem 0;
-  text-align: center;
+	margin: 1.5rem 0;
+	text-align: center;
 }
 
 .blog-title__hexagon {
-  width: 4rem;
-  height: auto;
-  margin-bottom: 2rem;
+	width: 4rem;
+	height: auto;
+	margin-bottom: 2rem;
 
-  @include breakpoints.media-breakpoint-down(extra-small) {
-    margin-top: 1rem;
-  }
+	@include breakpoints.media-breakpoint-down(extra-small) {
+		margin-top: 1rem;
+	}
 }
 
 .blog-title__category {
-  @include typography.uppercase;
+	@include typography.uppercase;
 
-  font-size: variables.$h3;
+	font-size: variables.$h3;
 }
 
 .blog-title__category-link {
-  @include links.link--no-underline(variables.$gray50--text);
+	@include links.link--no-underline(variables.$gray50--text);
 }

@@ -4,28 +4,28 @@
 @use "sass:color";
 
 .form-page__warning {
-  @include colors.sd-gradient(variables.$red, color.adjust(variables.$red, $lightness: -15%));
-  color: variables.$white;
-  padding: 1rem;
-  margin-bottom: 2rem;
+	@include colors.sd-gradient(variables.$red, color.adjust(variables.$red, $lightness: -15%));
+	color: variables.$white;
+	padding: 1rem;
+	margin-bottom: 2rem;
 
-  // Break BEM here with descendent selectors because rich text block
-  // doesn't let us add classes
-  @include utilities.p-remove-first-and-last-margin;
+	// Break BEM here with descendent selectors because rich text block
+	// doesn't let us add classes
+	@include utilities.p-remove-first-and-last-margin;
 
-  a {
-    color: variables.$white;
-    text-decoration: none;
-    font-weight: variables.$sans-bold;
-    border-bottom: 1px solid rgba(variables.$white, 0.6);
-    transition: border 150ms linear;
+	a {
+		color: variables.$white;
+		text-decoration: none;
+		font-weight: variables.$sans-bold;
+		border-bottom: 1px solid rgba(variables.$white, 0.6);
+		transition: border 150ms linear;
 
-    &:hover {
-      border-bottom: 1px solid variables.$white;
-    }
-  }
+		&:hover {
+			border-bottom: 1px solid variables.$white;
+		}
+	}
 }
 
 .form-page__intro {
-  font-size: variables.$embiggened-font-size;
+	font-size: variables.$embiggened-font-size;
 }

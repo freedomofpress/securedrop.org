@@ -1,184 +1,203 @@
 @use "../base/variables";
 
 .syntax {
-  .hll {
-    background-color: #ffffcc;
-  }
+	.hll {
+		background-color: #ffffcc;
+	}
 
-  .c {
-    color: variables.$gray50--text;
-    font-weight: variables.$mono-light;
-  }
+	.c {
+		color: variables.$gray50--text;
+		font-weight: variables.$mono-light;
+	}
 
-  .err {
-    color: #FF0000;
-    background-color: #FFAAAA;
-  }
+	.err {
+		color: #ff0000;
+		background-color: #ffaaaa;
+	}
 
-  .k {
-    color: #0000aa;
-  }
+	.k {
+		color: #0000aa;
+	}
 
-  .ch, .cm {
-    color: variables.$gray50--text;
-    font-weight: variables.$mono-light;
-  }
+	.ch,
+	.cm {
+		color: variables.$gray50--text;
+		font-weight: variables.$mono-light;
+	}
 
-  .cp {
-    color: #4c8317;
-  }
+	.cp {
+		color: #4c8317;
+	}
 
-  .cpf, .c1 {
-    color: variables.$gray50--text;
-    font-weight: variables.$mono-light;
-  }
+	.cpf,
+	.c1 {
+		color: variables.$gray50--text;
+		font-weight: variables.$mono-light;
+	}
 
-  .cs {
-    color: #0000aa;
-    font-weight: variables.$mono-light;
-  }
+	.cs {
+		color: #0000aa;
+		font-weight: variables.$mono-light;
+	}
 
-  .gd {
-    color: #aa0000;
-  }
+	.gd {
+		color: #aa0000;
+	}
 
-  .ge {
-    font-weight: variables.$mono-light;
-  }
+	.ge {
+		font-weight: variables.$mono-light;
+	}
 
-  .gr {
-    color: #aa0000;
-  }
+	.gr {
+		color: #aa0000;
+	}
 
-  .gh {
-    color: #000080;
-    font-weight: variables.$mono-bold;
-  }
+	.gh {
+		color: #000080;
+		font-weight: variables.$mono-bold;
+	}
 
-  .gi {
-    color: #00aa00;
-  }
+	.gi {
+		color: #00aa00;
+	}
 
-  .go {
-    color: variables.$gray80;
-  }
+	.go {
+		color: variables.$gray80;
+	}
 
-  .gp {
-    color: variables.$gray80--text;
-  }
+	.gp {
+		color: variables.$gray80--text;
+	}
 
-  .gs {
-    font-weight: variables.$mono-bold;
-  }
+	.gs {
+		font-weight: variables.$mono-bold;
+	}
 
-  .gu {
-    color: #800080;
-    font-weight: variables.$mono-bold;
-  }
+	.gu {
+		color: #800080;
+		font-weight: variables.$mono-bold;
+	}
 
-  .gt {
-    color: #aa0000;
-  }
+	.gt {
+		color: #aa0000;
+	}
 
-  .kc, .kd, .kn, .kp, .kr {
-    color: #0000aa;
-  }
+	.kc,
+	.kd,
+	.kn,
+	.kp,
+	.kr {
+		color: #0000aa;
+	}
 
-  .kt {
-    color: #00aaaa;
-  }
+	.kt {
+		color: #00aaaa;
+	}
 
-  .m {
-    color: #009999;
-  }
+	.m {
+		color: #009999;
+	}
 
-  .s {
-    color: #aa5500;
-  }
+	.s {
+		color: #aa5500;
+	}
 
-  .na {
-    color: #1e90ff;
-  }
+	.na {
+		color: #1e90ff;
+	}
 
-  .nb {
-    color: #00aaaa;
-  }
+	.nb {
+		color: #00aaaa;
+	}
 
-  .nc {
-    color: #00aa00;
-    text-decoration: underline;
-  }
+	.nc {
+		color: #00aa00;
+		text-decoration: underline;
+	}
 
-  .no {
-    color: #aa0000;
-  }
+	.no {
+		color: #aa0000;
+	}
 
-  .nd {
-    color: variables.$gray80;
-  }
+	.nd {
+		color: variables.$gray80;
+	}
 
-  .ni {
-    color: #880000;
-    font-weight: variables.$mono-bold;
-  }
+	.ni {
+		color: #880000;
+		font-weight: variables.$mono-bold;
+	}
 
-  .nf {
-    color: #00aa00;
-  }
+	.nf {
+		color: #00aa00;
+	}
 
-  .nn {
-    color: #00aaaa;
-    text-decoration: underline;
-  }
+	.nn {
+		color: #00aaaa;
+		text-decoration: underline;
+	}
 
-  .nt {
-    color: #1e90ff;
-    font-weight: variables.$mono-bold;
-  }
+	.nt {
+		color: #1e90ff;
+		font-weight: variables.$mono-bold;
+	}
 
-  .nv {
-    color: #aa0000;
-  }
+	.nv {
+		color: #aa0000;
+	}
 
-  .ow {
-    color: #0000aa;
-  }
+	.ow {
+		color: #0000aa;
+	}
 
-  .w {
-    color: variables.$gray50--text;
-  }
+	.w {
+		color: variables.$gray50--text;
+	}
 
-  .mb, .mf, .mh, .mi, .mo {
-    color: #009999;
-  }
+	.mb,
+	.mf,
+	.mh,
+	.mi,
+	.mo {
+		color: #009999;
+	}
 
-  .sb, .sc, .sd, .s2, .se, .sh, .si, .sx {
-    color: #aa5500;
-  }
+	.sb,
+	.sc,
+	.sd,
+	.s2,
+	.se,
+	.sh,
+	.si,
+	.sx {
+		color: #aa5500;
+	}
 
-  .sr {
-    color: #009999;
-  }
+	.sr {
+		color: #009999;
+	}
 
-  .s1 {
-    color: #aa5500;
-  }
+	.s1 {
+		color: #aa5500;
+	}
 
-  .ss {
-    color: #0000aa;
-  }
+	.ss {
+		color: #0000aa;
+	}
 
-  .bp {
-    color: #00aaaa;
-  }
+	.bp {
+		color: #00aaaa;
+	}
 
-  .vc, .vg, .vi {
-    color: #aa0000;
-  }
+	.vc,
+	.vg,
+	.vi {
+		color: #aa0000;
+	}
 
-  .il {
-    color: #009999;
-  }
+	.il {
+		color: #009999;
+	}
 }
 
 /* Comment */

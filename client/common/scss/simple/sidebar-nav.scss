@@ -1,5 +1,5 @@
 @use "../base/mixins/lists";
 
 .sidebar-nav__list {
-  @include lists.list--unstyled;
+	@include lists.list--unstyled;
 }

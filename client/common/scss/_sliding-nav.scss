@@ -7,70 +7,69 @@ $sliding-nav-side: "left";
 $sliding-nav-width: 250px;
 
 .sliding-nav {
-  #{$sliding-nav-side}: -$sliding-nav-width;
-  background: variables.$white;
-  bottom: 0;
-  font-family: variables.$sans-serif;
-  overflow: auto;
-  position: fixed;
-  top: 0;
-  transition: shade.$sliding-nav-transition-ms transform ease-out;
-  padding: 2rem 0;
-  width: $sliding-nav-width;
+	#{$sliding-nav-side}: -$sliding-nav-width;
+	background: variables.$white;
+	bottom: 0;
+	font-family: variables.$sans-serif;
+	overflow: auto;
+	position: fixed;
+	top: 0;
+	transition: shade.$sliding-nav-transition-ms transform ease-out;
+	padding: 2rem 0;
+	width: $sliding-nav-width;
 
-  // Places nav above shade
-  z-index: variables.$z-sliding-nav;
+	// Places nav above shade
+	z-index: variables.$z-sliding-nav;
 
-  > :first-child {
-    margin-bottom: 20px;
-  }
+	> :first-child {
+		margin-bottom: 20px;
+	}
 }
 
 .sliding-nav--is-active {
-  @if $sliding-nav-side == "right" {
-    transform: translate3d(-$sliding-nav-width, 0, 0);
-  }
+	@if $sliding-nav-side == "right" {
+		transform: translate3d(-$sliding-nav-width, 0, 0);
+	}
 
-  @if $sliding-nav-side == "left" {
-    transform: translate3d($sliding-nav-width, 0, 0);
-  }
+	@if $sliding-nav-side == "left" {
+		transform: translate3d($sliding-nav-width, 0, 0);
+	}
 }
 
 .sliding-nav__logo {
-  width: 4rem;
-  height: auto;
-  margin-left: 1rem;
-  margin-bottom: 2rem;
+	width: 4rem;
+	height: auto;
+	margin-left: 1rem;
+	margin-bottom: 2rem;
 }
 
 .sliding-nav__list {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
 }
 
 .sliding-nav__link {
-  @include typography.uppercase;
-  display: block;
-  padding: 10px 20px;
-  text-decoration: none;
-  color: variables.$gray90--text;
+	@include typography.uppercase;
+	display: block;
+	padding: 10px 20px;
+	text-decoration: none;
+	color: variables.$gray90--text;
 
-  @include utilities.hover {
-    background-color: variables.$gray10;
-    text-decoration: none;
-    color: variables.$gray90--text;
-  }
+	@include utilities.hover {
+		background-color: variables.$gray10;
+		text-decoration: none;
+		color: variables.$gray90--text;
+	}
 
+	// Not BEM but we don't h8 our CMS users so we're not making them add two classes.
+	&.header__nav-link--highlighted {
+		color: variables.$white;
+		background-color: variables.$link-color;
 
-  // Not BEM but we don't h8 our CMS users so we're not making them add two classes.
-  &.header__nav-link--highlighted {
-    color: variables.$white;
-    background-color: variables.$link-color;
-
-    @include utilities.hover {
-      background-color: variables.$link-hover-color;
-      color: variables.$white;
-    }
-  }
+		@include utilities.hover {
+			background-color: variables.$link-hover-color;
+			color: variables.$white;
+		}
+	}
 }

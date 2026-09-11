@@ -1,25 +1,25 @@
 @mixin clearfix {
-  &::after {
-    content: "";
-    display: table;
-    clear: both;
-  }
+	&::after {
+		content: "";
+		display: table;
+		clear: both;
+	}
 }
 
 @mixin hover {
-  &:hover,
-  &:focus,
-  &:active {
-    @content;
-  }
+	&:hover,
+	&:focus,
+	&:active {
+		@content;
+	}
 }
 
 @mixin p-remove-first-and-last-margin {
-  p:first-child {
-    margin-top: 0;
-  }
+	p:first-child {
+		margin-top: 0;
+	}
 
-  p:last-child {
-    margin-bottom: 0;
-  }
+	p:last-child {
+		margin-bottom: 0;
+	}
 }
