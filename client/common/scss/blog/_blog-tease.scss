@@ -44,7 +44,7 @@
 }
 
 .blog-tease__title-link {
-	@include links.link__no-underline(variables.$black);
+	@include links.link-no-underline(variables.$black);
 }
 
 .blog-tease__footer {
@@ -61,11 +61,11 @@
 }
 
 .blog-tease__date {
-	color: variables.$gray50--text;
+	color: variables.$gray50-text;
 }
 
 .blog-tease__chevron {
-	@include chevrons.text-chevron--right;
+	@include chevrons.text-chevron-right;
 }
 
 .blog-tease__link {

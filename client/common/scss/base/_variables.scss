@@ -15,7 +15,7 @@ $h6: 1rem;
 
 $site-title-font-size: 2.5rem;
 $homepage-section-heading-font-size: 3rem;
-$homepage-section-heading-font-size--small: 2.5rem;
+$homepage-section-heading-font-size-small: 2.5rem;
 $embiggened-font-size: 1.1rem;
 
 // FONT FAMILIES
@@ -34,21 +34,21 @@ $mono-bold: 600;
 
 // COLORS
 // When possible, colors should include optically adjusted variations: e.g.,
-// $gray50--text (for text and thin borders) should be slightly darker than
+// $gray50-text (for text and thin borders) should be slightly darker than
 // $gray50 (for backgrounds and other color fields)
 
 $white: #fff;
 $gray5: #f1f1f5;
 $gray10: #dddde0;
-$gray10--text: color.adjust($gray10, $lightness: -10%);
+$gray10-text: color.adjust($gray10, $lightness: -10%);
 $gray20: #aaaab0;
-$gray20--text: color.adjust($gray20, $lightness: -5%);
+$gray20-text: color.adjust($gray20, $lightness: -5%);
 $gray50: #888890;
-$gray50--text: color.adjust($gray50, $lightness: -10%);
+$gray50-text: color.adjust($gray50, $lightness: -10%);
 $gray80: #444450;
-$gray80--text: color.adjust($gray80, $lightness: -5%);
+$gray80-text: color.adjust($gray80, $lightness: -5%);
 $gray90: #22222f;
-$gray90--text: color.adjust($gray90, $lightness: -2%);
+$gray90-text: color.adjust($gray90, $lightness: -2%);
 $black: #00000b;
 
 $slate: #7683a9;
@@ -59,8 +59,8 @@ $pink: #e72385;
 $red: #c71438;
 $yellow: #db8000;
 $green: #438944;
-$yellow--grade: #f5a623;
-$yellow--text: #dd3300;
+$yellow-grade: #f5a623;
+$yellow-text: #dd3300;
 
 // Gradient pairs
 $slate1: $slate;
@@ -75,12 +75,12 @@ $red1: $pink;
 $red2: $red;
 
 $brand-primary: $blue;
-$brand-primary--text: color.adjust($brand-primary, $lightness: -10%);
+$brand-primary-text: color.adjust($brand-primary, $lightness: -10%);
 $brand-secondary: $slate;
-$brand-secondary--text: color.adjust($slate, $lightness: -25%);
+$brand-secondary-text: color.adjust($slate, $lightness: -25%);
 
-$link-color: $brand-primary--text;
-$link-hover-color: color.adjust($brand-primary--text, $lightness: -10%);
+$link-color: $brand-primary-text;
+$link-hover-color: color.adjust($brand-primary-text, $lightness: -10%);
 
 // LAYOUT
 
@@ -88,7 +88,7 @@ $layout-padding: 3rem;
 
 // NAV
 
-$nav-hover-color: $gray20--text;
+$nav-hover-color: $gray20-text;
 $nav-height: 3.5rem;
 $header-padding: 4rem;
 
@@ -116,16 +116,16 @@ $border-left: 2px solid $gray50;
 
 // Shade for sliding nav: -1 and 100
 // places the shade below the body
-$z-shade--inactive: -1;
+$z-shade-inactive: -1;
 
 // places the shade above the body but behind the sliding nav
-$z-shade--active: 100;
+$z-shade-active: 100;
 
 // Page content: 1 – 99
-$z-hexagons__background: 40;
-$z-hexagons__content: 50;
-$z-hexagons__background--updates: 60;
-$z-hexagons__content--updates: 70;
+$z-hexagons-background: 40;
+$z-hexagons-content: 50;
+$z-hexagons-background-updates: 60;
+$z-hexagons-content-updates: 70;
 $z-tor-homepage: 80;
 
 // Sliding nav

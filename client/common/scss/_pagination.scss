@@ -4,7 +4,7 @@
 
 .pagination__link--button {
 	@include buttons.button-small;
-	@include buttons.button-solid--gray;
+	@include buttons.button-solid-gray;
 
 	@include breakpoints.media-breakpoint-down(tiny) {
 		margin-bottom: 1rem;
@@ -24,9 +24,9 @@
 }
 
 .pagination__icon--previous {
-	@include chevrons.text-chevron--left;
+	@include chevrons.text-chevron-left;
 }
 
 .pagination__icon--next {
-	@include chevrons.text-chevron--right;
+	@include chevrons.text-chevron-right;
 }

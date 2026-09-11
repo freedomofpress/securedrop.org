@@ -2,16 +2,16 @@
 
 $grade-colors: (
 	A: variables.$green,
-	B: variables.$yellow--grade,
-	C: variables.$yellow--grade,
-	D: variables.$yellow--grade,
+	B: variables.$yellow-grade,
+	C: variables.$yellow-grade,
+	D: variables.$yellow-grade,
 	F: variables.$red,
 );
 
 $text-colors: (
 	A: variables.$white,
-	B: variables.$gray80--text,
-	C: variables.$gray80--text,
-	D: variables.$gray80--text,
+	B: variables.$gray80-text,
+	C: variables.$gray80-text,
+	D: variables.$gray80-text,
 	F: variables.$white,
 );

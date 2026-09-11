@@ -33,13 +33,13 @@ $release-preview-spacer: 1rem;
 		display: inline-block;
 
 		& {
-			@include lists.list--comma(" |");
+			@include lists.list-comma(" |");
 		}
 	}
 }
 
 .release-preview__link {
-	@include links.link--no-underline(variables.$gray50--text, variables.$brand-primary);
+	@include links.link-no-underline(variables.$gray50-text, variables.$brand-primary);
 
 	&::after {
 		// sets color of list separator

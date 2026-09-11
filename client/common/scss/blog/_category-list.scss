@@ -4,7 +4,7 @@
 @use "../base/variables";
 
 .category-list {
-	@include lists.list--unstyled;
+	@include lists.list-unstyled;
 
 	// should be 1/2 of the margin left on the release
 	padding-left: 0.5rem;
@@ -36,7 +36,7 @@
 }
 
 .category-list__link {
-	@include links.link--unstyled;
+	@include links.link-unstyled;
 
 	transition-duration: 0.1s;
 	transition-timing-function: linear;

@@ -44,7 +44,7 @@
 }
 
 .basic-form__label-help-text {
-	color: variables.$gray50--text;
+	color: variables.$gray50-text;
 }
 
 .basic-form__field {
@@ -75,7 +75,7 @@
 
 .basic-form__image-caption {
 	font-size: 14px;
-	color: variables.$gray50--text;
+	color: variables.$gray50-text;
 
 	> .rich-text > :first-child {
 		margin-top: 0.5rem;
@@ -167,7 +167,7 @@
 .basic-form__field--textarea {
 	& > input,
 	& > textarea {
-		border: 1px solid variables.$gray20--text;
+		border: 1px solid variables.$gray20-text;
 		padding: 0.5em 0.75em;
 		font-size: inherit;
 		border-radius: 4px;
@@ -184,5 +184,5 @@
 
 	@include buttons.button-base;
 	@include buttons.button-transition;
-	@include buttons.button-solid--blue;
+	@include buttons.button-solid-blue;
 }

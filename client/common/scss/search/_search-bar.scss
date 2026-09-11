@@ -16,7 +16,7 @@ $search-bar-height: $search-bar-font-size * $search-bar-line-height;
 	position: relative;
 	padding-top: 2 * variables.$header-padding;
 	padding-bottom: 2 * variables.$header-padding;
-	z-index: variables.$z-hexagons__background;
+	z-index: variables.$z-hexagons-background;
 }
 
 .search-bar--footer {
@@ -69,7 +69,7 @@ $search-bar-height: $search-bar-font-size * $search-bar-line-height;
 	color: variables.$white;
 
 	&::placeholder {
-		color: variables.$gray10--text;
+		color: variables.$gray10-text;
 	}
 }
 

@@ -24,19 +24,19 @@
 
 		$root: &;
 
-		border: 1px solid variables.$gray10--text;
+		border: 1px solid variables.$gray10-text;
 		text-align: left;
 		padding-right: 3rem;
 		position: relative;
 
 		&-text {
 			font-weight: variables.$sans-bold;
-			color: variables.$gray80--text;
+			color: variables.$gray80-text;
 		}
 
 		&-url {
 			font-weight: variables.$sans-light;
-			color: variables.$gray50--text;
+			color: variables.$gray50-text;
 		}
 
 		&-chevron {

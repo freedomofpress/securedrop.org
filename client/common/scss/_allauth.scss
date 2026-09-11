@@ -11,12 +11,12 @@
 	.primaryAction,
 	button[type="submit"],
 	input[type="submit"] {
-		@include buttons.button-solid--blue;
+		@include buttons.button-solid-blue;
 	}
 
 	.secondaryAction,
 	button[type="submit"].secondaryAction {
-		@include buttons.button-solid--gray;
+		@include buttons.button-solid-gray;
 	}
 
 	fieldset .ctrlHolder {

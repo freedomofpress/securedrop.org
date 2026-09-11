@@ -43,7 +43,7 @@ $table-margin: 1rem;
 
 .instance-table__title {
 	text-transform: uppercase;
-	color: variables.$gray50--text;
+	color: variables.$gray50-text;
 	text-align: left;
 	font-weight: variables.$sans-regular;
 	margin-bottom: 1rem;
@@ -54,7 +54,7 @@ $table-margin: 1rem;
 }
 
 .instance-table__faq-link {
-	@include links.link--no-underline(inherit, variables.$gray80);
+	@include links.link-no-underline(inherit, variables.$gray80);
 
 	height: 1rem;
 	vertical-align: -1px;
@@ -80,7 +80,7 @@ $table-margin: 1rem;
 .instance-table__chevron {
 	fill: variables.$black;
 
-	@include chevrons.text-chevron--right;
+	@include chevrons.text-chevron-right;
 }
 
 .instance-table__org-description {
@@ -116,5 +116,5 @@ $table-margin: 1rem;
 }
 
 .instance-table__link {
-	@include links.link--no-underline($color-hover: variables.$link-color);
+	@include links.link-no-underline($color-hover: variables.$link-color);
 }

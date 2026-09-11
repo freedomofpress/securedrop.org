@@ -17,7 +17,7 @@
 .header__title {
 	@include layout.layout-x;
 	position: relative;
-	z-index: variables.$z-hexagons__background;
+	z-index: variables.$z-hexagons-background;
 	padding-top: variables.$header-padding;
 	padding-bottom: variables.$header-padding;
 

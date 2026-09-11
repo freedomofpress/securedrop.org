@@ -65,19 +65,19 @@
 	}
 }
 
-@mixin button-solid--blue {
+@mixin button-solid-blue {
 	@include button-solid(variables.$white, variables.$link-color, variables.$link-hover-color);
 }
 
-@mixin button-solid--black {
+@mixin button-solid-black {
 	@include button-solid(variables.$white, variables.$gray90, variables.$gray80);
 }
 
-@mixin button-solid--gray {
+@mixin button-solid-gray {
 	@include button-solid(variables.$black, variables.$gray10, variables.$gray20);
 }
 
-@mixin button-solid--white {
+@mixin button-solid-white {
 	@include button-solid(variables.$black, variables.$white, variables.$gray10);
 }
 
@@ -97,6 +97,6 @@
 	}
 }
 
-@mixin button-outline--white {
+@mixin button-outline-white {
 	@include button-outline(variables.$white, variables.$link-color);
 }

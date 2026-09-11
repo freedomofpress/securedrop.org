@@ -14,7 +14,7 @@
 		width: 100%;
 		height: 50%;
 		top: 0;
-		z-index: variables.$z-hexagons__background--updates;
+		z-index: variables.$z-hexagons-background-updates;
 		content: "";
 		background-color: variables.$gray10;
 	}
@@ -28,7 +28,7 @@
 	color: variables.$white;
 
 	& a {
-		@include links.link--white-text;
+		@include links.link-white-text;
 	}
 
 	@include colors.sd-gradient(variables.$red1, variables.$red2);
@@ -81,7 +81,7 @@
 	padding: 1rem;
 
 	@include links.link-transition;
-	@include links.link--no-underline(variables.$white, variables.$gray50);
+	@include links.link-no-underline(variables.$white, variables.$gray50);
 
 	@include breakpoints.media-breakpoint-down(extra-small) {
 		position: absolute;

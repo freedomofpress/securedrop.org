@@ -21,20 +21,20 @@
 
 // Mixins to use
 
-@mixin text-chevron--right($size: small) {
+@mixin text-chevron-right($size: small) {
 	@include text-chevron($size);
 
 	margin-left: 0.5em;
 }
 
-@mixin text-chevron--left($size: small) {
+@mixin text-chevron-left($size: small) {
 	@include text-chevron($size);
 
 	margin-right: 0.5em;
 	transform: rotate(180deg);
 }
 
-@mixin text-chevron--up($size: small) {
+@mixin text-chevron-up($size: small) {
 	@include text-chevron($size);
 
 	margin-left: 0.5em;

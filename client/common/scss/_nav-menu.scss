@@ -77,7 +77,7 @@ $nav-menu-search-width: 1.25rem;
 $nav-menu-item-padding: 0.5rem;
 
 .nav-menu__list {
-	@include lists.list--unstyled;
+	@include lists.list-unstyled;
 	display: flex;
 	justify-content: flex-end;
 	align-items: center;
@@ -104,7 +104,7 @@ $nav-menu-item-padding: 0.5rem;
 }
 
 .nav-menu__link {
-	@include links.link--no-underline(inherit, variables.$nav-hover-color);
+	@include links.link-no-underline(inherit, variables.$nav-hover-color);
 
 	@include utilities.hover {
 		* {

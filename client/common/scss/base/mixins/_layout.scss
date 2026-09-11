@@ -43,7 +43,7 @@
 	}
 }
 
-@mixin layout-y--no-tiny-breakpoint {
+@mixin layout-y-no-tiny-breakpoint {
 	padding-top: variables.$layout-padding;
 	padding-bottom: variables.$layout-padding;
 

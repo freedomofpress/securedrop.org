@@ -40,7 +40,7 @@ $features-list-item-padding: 1rem;
 	padding: $features-list-item-padding;
 	margin-bottom: $features-list-item-margin;
 
-	@include links.link--no-underline(inherit, inherit);
+	@include links.link-no-underline(inherit, inherit);
 
 	@include breakpoints.media-breakpoint-down(tiny) {
 		border-radius: 0;

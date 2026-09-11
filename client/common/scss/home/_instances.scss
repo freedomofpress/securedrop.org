@@ -6,7 +6,7 @@
 @use "../base/variables";
 
 .instances {
-	@include layout.layout-y--no-tiny-breakpoint;
+	@include layout.layout-y-no-tiny-breakpoint;
 
 	color: variables.$white;
 
@@ -29,7 +29,7 @@
 	flex-direction: column;
 	align-items: center;
 	position: relative;
-	z-index: variables.$z-hexagons__content;
+	z-index: variables.$z-hexagons-content;
 }
 
 .instances__header {
@@ -38,7 +38,7 @@
 	font-size: variables.$homepage-section-heading-font-size;
 
 	@include breakpoints.media-breakpoint-down(extra-small) {
-		font-size: variables.$homepage-section-heading-font-size--small;
+		font-size: variables.$homepage-section-heading-font-size-small;
 	}
 }
 
@@ -150,7 +150,7 @@
 
 .instances__button {
 	@include buttons.button-large;
-	@include buttons.button-solid--white;
+	@include buttons.button-solid-white;
 
 	margin-top: 2rem;
 
@@ -160,5 +160,5 @@
 }
 
 .instances__button-icon {
-	@include chevrons.text-chevron--right(large);
+	@include chevrons.text-chevron-right(large);
 }

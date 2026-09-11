@@ -18,7 +18,7 @@ $text-left-padding: 1rem;
 }
 
 .scan-result__heading {
-	color: variables.$gray50--text;
+	color: variables.$gray50-text;
 	font-weight: variables.$sans-bold;
 	margin: 0;
 }
@@ -40,7 +40,7 @@ $text-left-padding: 1rem;
 }
 
 .scan-result__text--warning {
-	color: variables.$gray80--text;
+	color: variables.$gray80-text;
 }
 
 .scan-result__result--fail {
@@ -82,7 +82,7 @@ $text-left-padding: 1rem;
 	padding-left: $text-left-padding;
 
 	a {
-		@include links.link--underline(inherit, variables.$link-hover-color);
+		@include links.link-underline(inherit, variables.$link-hover-color);
 	}
 }
 

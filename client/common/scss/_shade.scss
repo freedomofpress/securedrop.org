@@ -12,14 +12,14 @@ $sliding-nav-transition-ms: 250ms;
 	opacity: 0;
 
 	// places it behind the body
-	z-index: variables.$z-shade--inactive;
+	z-index: variables.$z-shade-inactive;
 	transition: $sliding-nav-transition-ms opacity ease-out;
 	pointer-events: none;
 }
 
 .shade--is-active {
 	// places it above the body but behind the sliding nav
-	z-index: variables.$z-shade--active;
+	z-index: variables.$z-shade-active;
 	opacity: 1;
 	pointer-events: auto;
 }

@@ -25,5 +25,5 @@
 }
 
 .blog-title__category-link {
-	@include links.link--no-underline(variables.$gray50--text);
+	@include links.link-no-underline(variables.$gray50-text);
 }

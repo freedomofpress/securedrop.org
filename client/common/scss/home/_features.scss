@@ -10,7 +10,7 @@
   align-items: center;
 
   @include layout.layout-x;
-  @include layout.layout-y--no-tiny-breakpoint;
+  @include layout.layout-y-no-tiny-breakpoint;
 }
 
 .features__header {
@@ -19,13 +19,13 @@
   font-size: variables.$homepage-section-heading-font-size;
 
   @include breakpoints.media-breakpoint-down(extra-small) {
-    font-size: variables.$homepage-section-heading-font-size--small;
+    font-size: variables.$homepage-section-heading-font-size-small;
   }
 }
 
 .features__button {
   @include buttons.button-large;
-  @include buttons.button-solid--blue;
+  @include buttons.button-solid-blue;
 
   margin-top: 3rem;
 
@@ -35,5 +35,5 @@
 }
 
 .features__button-icon {
-  @include chevrons.text-chevron--right(large);
+  @include chevrons.text-chevron-right(large);
 }

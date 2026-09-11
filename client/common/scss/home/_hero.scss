@@ -10,7 +10,7 @@
 	@include layout.layout-x;
 
 	position: relative;
-	z-index: variables.$z-hexagons__background;
+	z-index: variables.$z-hexagons-background;
 	padding-top: variables.$nav-height;
 	padding-bottom: variables.$header-padding;
 	height: 35.9rem;
@@ -80,7 +80,7 @@
 		@include utilities.p-remove-first-and-last-margin;
 
 		a {
-			@include links.link--underline-on-hover(variables.$white, variables.$gray10--text);
+			@include links.link-underline-on-hover(variables.$white, variables.$gray10-text);
 
 			font-weight: variables.$sans-bold;
 		}
@@ -107,5 +107,5 @@
 }
 
 .hero__button-icon {
-	@include chevrons.text-chevron--right(large);
+	@include chevrons.text-chevron-right(large);
 }

@@ -62,7 +62,7 @@ $filters-margin-bottom: 1rem;
 	appearance: none;
 	border-radius: variables.$button-border-radius;
 	background: transparent;
-	color: variables.$gray50--text;
+	color: variables.$gray50-text;
 	padding: $select-padding ($background-image-width + $select-padding) $select-padding $select-padding;
 	background: transparent url(config.$static-url + "images/chevron-down.svg") no-repeat right $select-padding center;
 }

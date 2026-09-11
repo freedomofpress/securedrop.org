@@ -11,7 +11,7 @@
 
 .blog-page__date {
 	text-align: center;
-	color: variables.$gray50--text;
+	color: variables.$gray50-text;
 }
 
 .blog-page__body {
@@ -24,12 +24,12 @@
 
 .blog-page__return-button {
 	@include buttons.button-small;
-	@include buttons.button-solid--gray;
+	@include buttons.button-solid-gray;
 
 	text-decoration: none;
 	margin-top: variables.$layout-padding;
 }
 
 .blog-page__chevron-left {
-	@include chevrons.text-chevron--left;
+	@include chevrons.text-chevron-left;
 }

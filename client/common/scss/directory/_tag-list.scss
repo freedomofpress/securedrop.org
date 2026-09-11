@@ -3,7 +3,7 @@
 @use "../base/variables";
 
 .tag-list {
-	@include lists.list--unstyled;
+	@include lists.list-unstyled;
 
 	color: variables.$gray50;
 	margin-top: 0.5rem;
@@ -11,11 +11,11 @@
 }
 
 .tag-list__item {
-	@include lists.list--comma;
+	@include lists.list-comma;
 
 	display: inline-block;
 }
 
 .tag-list__link {
-	@include links.link--no-underline(variables.$gray80--text);
+	@include links.link-no-underline(variables.$gray80-text);
 }

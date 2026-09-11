@@ -54,12 +54,12 @@ $sliding-nav-width: 250px;
 	display: block;
 	padding: 10px 20px;
 	text-decoration: none;
-	color: variables.$gray90--text;
+	color: variables.$gray90-text;
 
 	@include utilities.hover {
 		background-color: variables.$gray10;
 		text-decoration: none;
-		color: variables.$gray90--text;
+		color: variables.$gray90-text;
 	}
 
 	// Not BEM but we don't h8 our CMS users so we're not making them add two classes.

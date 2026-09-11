@@ -7,16 +7,16 @@
 }
 
 .dashboard__list {
-  @include lists.list--unstyled;
+  @include lists.list-unstyled;
 }
 
 .dashboard__link {
   margin-top: 2rem;
 
   @include buttons.button-small;
-  @include buttons.button-solid--gray;
+  @include buttons.button-solid-gray;
 }
 
 .dashboard__chevron-right {
-  @include chevrons.text-chevron--right;
+  @include chevrons.text-chevron-right;
 }

@@ -30,7 +30,7 @@
 }
 
 .instance-title__edit-link {
-  @include chevrons.text-chevron--right(small);
+  @include chevrons.text-chevron-right(small);
 
   font-size: 1rem;
 }
@@ -42,5 +42,5 @@
 }
 
 .instance-title__chevron {
-  @include chevrons.text-chevron--right(large);
+  @include chevrons.text-chevron-right(large);
 }

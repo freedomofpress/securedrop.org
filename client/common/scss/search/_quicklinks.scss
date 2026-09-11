@@ -35,9 +35,9 @@
 }
 
 .quicklinks__list {
-	@include lists.list--unstyled;
+	@include lists.list-unstyled;
 }
 
 .quicklinks__chevron {
-	@include chevrons.text-chevron--right;
+	@include chevrons.text-chevron-right;
 }
