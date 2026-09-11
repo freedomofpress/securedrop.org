@@ -1,6 +1,5 @@
 @use "../base/mixins/buttons";
 @use "../base/variables";
-
 @use "sass:color";
 
 .instance-instructions {
@@ -10,7 +9,7 @@
 	}
 
 	&__onion-address {
-		word-break: break-word;
+		overflow-wrap: anywhere;
 		background-color: #e6e6e6;
 		font-family: variables.$mono;
 		border-radius: 3px;
@@ -23,7 +22,6 @@
 		@include buttons.button-small;
 
 		$root: &;
-
 		border: 1px solid variables.$gray10-text;
 		text-align: left;
 		padding-right: 3rem;
@@ -59,7 +57,6 @@
 
 		&--danger {
 			@include buttons.button-small;
-
 			border: 1px solid variables.$red2;
 			text-align: left;
 			padding-right: 3rem;
@@ -101,7 +98,6 @@
 
 		&--warning {
 			@include buttons.button-small;
-
 			border: 1px solid #baa400;
 			text-align: left;
 			padding-right: 3rem;
