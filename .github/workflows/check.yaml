@@ -102,6 +102,8 @@ jobs:
             stack: false
           - target: ruff
             stack: false
+          - target: stylelint
+            stack: false
           - target: pnglint
             stack: false
           - target: svglint
