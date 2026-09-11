@@ -8,7 +8,7 @@
     "build": "webpack --mode production",
     "start": "webpack watch --mode development --devtool eval-source-map",
     "js-lint": "eslint app/**/*.jsx",
-    "stylelint": "stylelint client/common/**/*.scss"
+    "stylelint": "stylelint \"client/**/*.scss\""
   },
   "author": "Harris Lapiroff <harris@littleweaverweb.com>",
   "browserslist": [
