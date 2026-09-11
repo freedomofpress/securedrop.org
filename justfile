@@ -16,6 +16,14 @@ python_builder := "docker.io/library/python:3.14.6-slim-trixie@sha256:44dd04494e
 # reuses the same tooling predictably.
 # TODO: drop use of pip-tools in favor of more modern python package management.
 pip_tools_version := "7.6.1"
+# Directories of hand-authored PNGs safe for automated optimization.
+png_paths := "common/static/images/instance-status common/static/images"
+# Directories of hand-authored SVGs safe for automated optimization. Excludes
+# common/templates/common (Django template tags embedded in <svg> attributes).
+svg_paths := "common/static/images/instance-status common/static/images"
+# A binary in the bind-mounted node_modules, put there by the `node-modules`
+# recipe rather than baked into the image.
+svgo := "node_modules/.bin/svgo"
 coverage_omit := "'*/migrations/*.py,*/tests/*.py'"
 
 # Show available recipes.
@@ -32,6 +40,15 @@ dev-init:
 [private]
 env-check:
     [ -f .env ] || echo "UID=$(id -u)" > .env
+
+# node_modules lives in the bind-mounted tree, populated by the `node` service's
+# runtime `npm install` -- so a one-shot `compose run` finds it already there,
+# unless nothing has populated it yet. The guard is deliberately host-side, and
+# skipping the install when the tree is already populated keeps a running
+# `just dev` watcher undisturbed.
+[private]
+node-modules: env-check
+    [ -d node_modules ] || {{compose}} run --rm --no-deps node npm ci
 
 # Run the webapp locally, via containers (--build keeps images in sync with the Containerfile).
 dev: env-check
@@ -64,8 +81,20 @@ bandit: env-check
 check-migrations: env-check
     {{compose}} run --rm -T --no-deps django bash -c "./manage.py makemigrations --dry-run --check"
 
+# Fail if a PNG under png_paths could be optimized further by oxipng.
+pnglint: env-check
+    {{compose}} run --rm -T --no-deps django \
+        oxipng -r -o 6 --strip safe {{png_paths}}
+    git diff --exit-code -- {{png_paths}}
+
+# Fail if an SVG under svg_paths could be optimized further by svgo.
+svglint: node-modules
+    {{compose}} run --rm -T --no-deps node \
+        {{svgo}} --config=svgo.config.mjs -r {{svg_paths}}
+    git diff --exit-code -- {{svg_paths}}
+
 # Run all project linters.
-lint: ruff bandit check-migrations
+lint: ruff bandit check-migrations pnglint svglint
 
 # Run the Django test suite with coverage (fails under 70%).
 test:
