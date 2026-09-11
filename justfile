@@ -34,7 +34,7 @@ env-check:
     [ -f .env ] || echo "UID=$(id -u)" > .env
 
 # Run the webapp locally, via containers (--build keeps images in sync with the Containerfile).
-dev: dev-init
+dev: env-check
     {{compose}} up --build
 
 alias compose := dev
@@ -102,7 +102,7 @@ pip-compile-dev *FLAGS: (_pip-lock "dev-requirements.txt" "dev-requirements.in" 
 # the builder runs as root, so without it a developer is left with root-owned
 # requirements files in their checkout.
 _pip-lock outfile infile *FLAGS:
-    {{engine}} run --rm -v "{{justfile_directory()}}:/code" -w /code {{python_builder}} \
+    {{engine}} run --rm -v "{{justfile_directory()}}:/code:z" -w /code {{python_builder}} \
         bash -c 'apt-get update && apt-get install -y --no-install-recommends gcc libpq-dev && \
             pip install pip-tools=={{pip_tools_version}} && \
             pip-compile --generate-hashes --no-header --allow-unsafe {{FLAGS}} \
