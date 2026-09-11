@@ -1,0 +1,10 @@
+@use "base/mixins/layout";
+
+.layout-one-column {
+	@include layout.layout-x;
+	@include layout.layout-y;
+}
+
+.layout-one-column--left {
+	align-items: flex-start;
+}

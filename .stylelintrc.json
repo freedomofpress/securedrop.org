@@ -1,0 +1,12 @@
+{
+  "extends": ["stylelint-config-standard-scss"],
+  "rules": {
+    "value-keyword-case": ["lower", { "ignoreKeywords": ["currentColor"] }],
+    "declaration-block-no-redundant-longhand-properties": null,
+    "declaration-empty-line-before": "never",
+    "selector-class-pattern": null,
+    "rule-empty-line-before": null,
+    "color-function-notation": "legacy",
+    "alpha-value-notation": "number"
+  }
+}

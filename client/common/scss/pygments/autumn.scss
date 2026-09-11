@@ -1,0 +1,262 @@
+@use "../base/variables";
+
+.syntax {
+	.hll {
+		background-color: #ffc;
+	}
+
+	.c {
+		color: variables.$gray50-text;
+		font-weight: variables.$mono-light;
+	}
+
+	.err {
+		color: #f00;
+		background-color: #faa;
+	}
+
+	.k {
+		color: #00a;
+	}
+
+	.ch,
+	.cm {
+		color: variables.$gray50-text;
+		font-weight: variables.$mono-light;
+	}
+
+	.cp {
+		color: #4c8317;
+	}
+
+	.cpf,
+	.c1 {
+		color: variables.$gray50-text;
+		font-weight: variables.$mono-light;
+	}
+
+	.cs {
+		color: #00a;
+		font-weight: variables.$mono-light;
+	}
+
+	.gd {
+		color: #a00;
+	}
+
+	.ge {
+		font-weight: variables.$mono-light;
+	}
+
+	.gr {
+		color: #a00;
+	}
+
+	.gh {
+		color: #000080;
+		font-weight: variables.$mono-bold;
+	}
+
+	.gi {
+		color: #0a0;
+	}
+
+	.go {
+		color: variables.$gray80;
+	}
+
+	.gp {
+		color: variables.$gray80-text;
+	}
+
+	.gs {
+		font-weight: variables.$mono-bold;
+	}
+
+	.gu {
+		color: #800080;
+		font-weight: variables.$mono-bold;
+	}
+
+	.gt {
+		color: #a00;
+	}
+
+	.kc,
+	.kd,
+	.kn,
+	.kp,
+	.kr {
+		color: #00a;
+	}
+
+	.kt {
+		color: #0aa;
+	}
+
+	.m {
+		color: #099;
+	}
+
+	.s {
+		color: #a50;
+	}
+
+	.na {
+		color: #1e90ff;
+	}
+
+	.nb {
+		color: #0aa;
+	}
+
+	.nc {
+		color: #0a0;
+		text-decoration: underline;
+	}
+
+	.no {
+		color: #a00;
+	}
+
+	.nd {
+		color: variables.$gray80;
+	}
+
+	.ni {
+		color: #800;
+		font-weight: variables.$mono-bold;
+	}
+
+	.nf {
+		color: #0a0;
+	}
+
+	.nn {
+		color: #0aa;
+		text-decoration: underline;
+	}
+
+	.nt {
+		color: #1e90ff;
+		font-weight: variables.$mono-bold;
+	}
+
+	.nv {
+		color: #a00;
+	}
+
+	.ow {
+		color: #00a;
+	}
+
+	.w {
+		color: variables.$gray50-text;
+	}
+
+	.mb,
+	.mf,
+	.mh,
+	.mi,
+	.mo {
+		color: #099;
+	}
+
+	.sb,
+	.sc,
+	.sd,
+	.s2,
+	.se,
+	.sh,
+	.si,
+	.sx {
+		color: #a50;
+	}
+
+	.sr {
+		color: #099;
+	}
+
+	.s1 {
+		color: #a50;
+	}
+
+	.ss {
+		color: #00a;
+	}
+
+	.bp {
+		color: #0aa;
+	}
+
+	.vc,
+	.vg,
+	.vi {
+		color: #a00;
+	}
+
+	.il {
+		color: #099;
+	}
+}
+
+// Comment
+// Error
+// Keyword
+// Comment.Hashbang
+// Comment.Multiline
+// Comment.Preproc
+// Comment.PreprocFile
+// Comment.Single
+// Comment.Special
+// Generic.Deleted
+// Generic.Emph
+// Generic.Error
+// Generic.Heading
+// Generic.Inserted
+// Generic.Output
+// Generic.Prompt
+// Generic.Strong
+// Generic.Subheading
+// Generic.Traceback
+// Keyword.Constant
+// Keyword.Declaration
+// Keyword.Namespace
+// Keyword.Pseudo
+// Keyword.Reserved
+// Keyword.Type
+// Literal.Number
+// Literal.String
+// Name.Attribute
+// Name.Builtin
+// Name.Class
+// Name.Constant
+// Name.Decorator
+// Name.Entity
+// Name.Function
+// Name.Namespace
+// Name.Tag
+// Name.Variable
+// Operator.Word
+// Text.Whitespace
+// Literal.Number.Bin
+// Literal.Number.Float
+// Literal.Number.Hex
+// Literal.Number.Integer
+// Literal.Number.Oct
+// Literal.String.Backtick
+// Literal.String.Char
+// Literal.String.Doc
+// Literal.String.Double
+// Literal.String.Escape
+// Literal.String.Heredoc
+// Literal.String.Interpol
+// Literal.String.Other
+// Literal.String.Regex
+// Literal.String.Single
+// Literal.String.Symbol
+// Name.Builtin.Pseudo
+// Name.Variable.Class
+// Name.Variable.Global
+// Name.Variable.Instance
+// Literal.Number.Integer.Long

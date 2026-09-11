@@ -1,0 +1,18 @@
+@use "../base/mixins/breakpoints";
+@use "../base/variables";
+
+.code {
+  margin: 1rem 0;
+  padding: 1rem;
+  background-color: variables.$gray5;
+
+  @include breakpoints.media-breakpoint-down(tiny) {
+    margin: 1rem -1rem;
+  }
+
+
+  pre {
+    overflow-x: scroll;
+    margin: 0;
+  }
+}

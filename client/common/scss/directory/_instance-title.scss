@@ -1,0 +1,44 @@
+@use "../base/mixins/breakpoints";
+@use "../base/mixins/chevrons";
+@use "../base/mixins/layout";
+@use "../base/variables";
+
+.instance-title {
+  @include layout.layout-x;
+  padding-top: variables.$layout-padding;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.instance-title__logo {
+  height: auto;
+  margin-bottom: variables.$layout-padding;
+
+  @include breakpoints.media-breakpoint-down(extra-small) {
+    margin-bottom: 0.25 * variables.$layout-padding;
+  }
+}
+
+.instance-title__header {
+  font-size: 3rem;
+  margin: 0;
+  padding-bottom: 0.5rem;
+}
+
+.instance-title__edit-link {
+  @include chevrons.text-chevron-right(small);
+  font-size: 1rem;
+}
+
+.instance-title__landing-page {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.instance-title__chevron {
+  @include chevrons.text-chevron-right(large);
+}

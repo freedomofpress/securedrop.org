@@ -17,7 +17,7 @@ quote_type = single
 [*.html]
 max_line_length = 120
 
-[*.{html,sass,js,jsx,scss,css,php,svg}]
+[*.{html,js,jsx,scss,css,php,svg}]
 charset = utf-8
 indent_style = tab
 

@@ -1,0 +1,6 @@
+@use "../base/mixins/utilities";
+
+.security-warning {
+	@include utilities.p-remove-first-and-last-margin;
+	margin-top: 3rem;
+}
