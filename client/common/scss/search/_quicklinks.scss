@@ -1,0 +1,43 @@
+@use "../base/mixins/breakpoints";
+@use "../base/mixins/chevrons";
+@use "../base/mixins/lists";
+@use "../base/variables";
+
+.quicklinks {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+
+	@include breakpoints.media-breakpoint-down(extra-small) {
+		flex-direction: column;
+	}
+}
+
+.quicklinks--sidebar {
+	flex-direction: column;
+	justify-content: flex-start;
+}
+
+.quicklinks__section {
+	&:not(:last-child) {
+		margin-right: 25%;
+
+		@include breakpoints.media-breakpoint-down(extra-small) {
+			margin-right: 0;
+			margin-bottom: variables.$layout-padding;
+		}
+	}
+}
+
+.quicklinks__section--sidebar {
+	margin-right: 0;
+	margin-bottom: variables.$layout-padding;
+}
+
+.quicklinks__list {
+	@include lists.list-unstyled;
+}
+
+.quicklinks__chevron {
+	@include chevrons.text-chevron-right;
+}

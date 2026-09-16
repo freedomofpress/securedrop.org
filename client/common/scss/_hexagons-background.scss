@@ -1,0 +1,123 @@
+@use "base/mixins/breakpoints";
+@use "base/variables";
+
+.hexagons-background {
+	position: absolute;
+	overflow: hidden;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+}
+
+.hexagons-background__svg {
+	position: absolute;
+	opacity: 0.2;
+	transform: translateY(-2rem) scale(3);
+}
+
+.hexagons-background__svg--footer {
+	transform: rotate(90deg) scale(4);
+}
+
+.hexagons-background__svg--hero {
+	opacity: 0.3;
+
+	@include breakpoints.media-breakpoint-down(extra-small) {
+		left: 50%;
+		transform: translate(27.5rem, 15.9rem) scale(8);
+		opacity: 0.2;
+	}
+
+	@include breakpoints.media-breakpoint-only(small) {
+		transform: translate(6.5rem, 15.9rem) scale(8);
+	}
+
+	@include breakpoints.media-breakpoint-only(medium) {
+		transform: translate(9.5rem, 15.9rem) scale(8);
+	}
+
+	@include breakpoints.media-breakpoint-up(large) {
+		left: 50%;
+		transform: translate(4rem, 15.9rem) scale(8);
+	}
+}
+
+.hexagons-background__hexagon {
+	fill: variables.$white;
+}
+
+.hexagons-background__svg--updates {
+	opacity: 1;
+
+	@include breakpoints.media-breakpoint-down(extra-small) {
+		left: 50%;
+		transform: translate(11.5rem, 245rem) scale(8);
+	}
+
+	@include breakpoints.media-breakpoint-only(small) {
+		transform: translate(14.5rem, 245rem) scale(8);
+	}
+
+	@include breakpoints.media-breakpoint-only(medium) {
+		transform: translate(17.5rem, 245rem) scale(8);
+	}
+
+	@include breakpoints.media-breakpoint-up(large) {
+		left: 50%;
+		transform: translate(12rem, 245rem) scale(8);
+	}
+
+	.hexagons-background__hexagon {
+		fill: variables.$gray10 !important;
+		opacity: 1 !important;
+	}
+}
+
+.hexagons-background__svg--instances {
+	transform: rotate(-15deg) scale(6);
+}
+
+.hexagons-background__hexagon--1 {
+	opacity: 0.1;
+	fill: variables.$black;
+}
+
+.hexagons-background__hexagon--2 {
+	opacity: 0.1;
+}
+
+.hexagons-background__hexagon--3 {
+	opacity: 0.2;
+	fill: variables.$black;
+}
+
+.hexagons-background__hexagon--4 {
+	opacity: 0.2;
+}
+
+.hexagons-background__hexagon--5 {
+	opacity: 0.3;
+	fill: variables.$black;
+}
+
+.hexagons-background__hexagon--6 {
+	opacity: 0.3;
+}
+
+.hexagons-background__hexagon--7 {
+	opacity: 0.4;
+	fill: variables.$black;
+}
+
+.hexagons-background__hexagon--8 {
+	opacity: 0.4;
+}
+
+.hexagons-background__hexagon--9 {
+	opacity: 0;
+}
+
+.hexagons-background__hexagon--10 {
+	opacity: 0;
+}

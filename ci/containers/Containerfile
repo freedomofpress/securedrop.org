@@ -71,10 +71,9 @@ RUN rm -rf build/static/bundles && \
 # ---- python base (shared by dev + prod) ----
 FROM ${PYTHON_IMAGE} AS python-base
 
-# The previous Dev and Prod images installed the same set; Dev merely split it
-# across two stages. `gcc` is omitted as redundant -- build-essential depends on
-# it. The -dev headers are retained for any dependency that lacks a cp314 wheel
-# and falls back to an sdist.
+# `gcc` is omitted as redundant -- build-essential depends on it. The -dev
+# headers are retained for any dependency that lacks a cp314 wheel and falls
+# back to an sdist.
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     curl \

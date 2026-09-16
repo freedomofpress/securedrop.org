@@ -72,7 +72,7 @@ jobs:
           persist-credentials: false
 
       - name: Install just
-        uses: taiki-e/install-action@1ed6d7be6168f6c9046541087ff549b6bc581fdf # v2.87.2
+        uses: taiki-e/install-action@84f5ac3124727fb3d284d4d22ee9ab3654fd09a6 # v2.87.7
         with:
           tool: just
 
@@ -143,7 +143,7 @@ jobs:
           docker image tag "$IMAGE_NODE_URL" localhost/securedroporg-node
 
       - name: Install just
-        uses: taiki-e/install-action@1ed6d7be6168f6c9046541087ff549b6bc581fdf # v2.87.2
+        uses: taiki-e/install-action@84f5ac3124727fb3d284d4d22ee9ab3654fd09a6 # v2.87.7
         with:
           tool: just
 
@@ -217,10 +217,9 @@ jobs:
           /bin/bash -c "./manage.py createdevdata"
 
       - name: Collect logs on failure
-        if: ${{ failure() && matrix.stack }}
+        if: ${{ failure() }}
         run: |
-          docker compose --file="$COMPOSE_FILE_DEV" logs django
-          docker compose --file="$COMPOSE_FILE_DEV" logs node
+          docker compose --file="$COMPOSE_FILE_PROD" logs django
 
   cleanup:
     name: Cleanup

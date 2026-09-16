@@ -35,7 +35,7 @@
 
 ## Static Files / Frontend Build
 
-- Source JS/SCSS lives in `client/common/js/` and `client/common/sass/`
+- Source JS/SCSS lives in `client/common/js/` and `client/common/scss/`
 - Webpack compiles and bundles assets
 - Each output bundle requires a separate entry point in `webpack.config.js`
 - Current entry points: `common`, `tor`

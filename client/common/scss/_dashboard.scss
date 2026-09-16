@@ -1,0 +1,22 @@
+@use "base/mixins/buttons";
+@use "base/mixins/chevrons";
+@use "base/mixins/lists";
+
+.dashboard__management {
+  margin-bottom: 2rem;
+}
+
+.dashboard__list {
+  @include lists.list-unstyled;
+}
+
+.dashboard__link {
+  margin-top: 2rem;
+
+  @include buttons.button-small;
+  @include buttons.button-solid-gray;
+}
+
+.dashboard__chevron-right {
+  @include chevrons.text-chevron-right;
+}

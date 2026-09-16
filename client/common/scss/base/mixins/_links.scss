@@ -1,0 +1,60 @@
+@use "../variables";
+@use "utilities";
+@use "sass:color";
+
+// UTILITIES
+
+@mixin link-transition {
+	transition-duration: 0.1s;
+	transition-timing-function: linear;
+	transition-property: color, background-color;
+}
+
+@mixin link-color($color: variables.$link-color, $color-hover: #{color.adjust($color, $lightness: -10%)}) {
+	color: $color;
+
+	@include utilities.hover {
+		color: $color-hover;
+	}
+}
+
+@mixin decoration($decoration, $decoration-hover: $decoration) {
+	text-decoration: $decoration;
+
+	@include utilities.hover {
+		text-decoration: $decoration-hover;
+	}
+}
+
+// STYLES
+
+@mixin link-unstyled {
+	@include link-color(inherit, inherit);
+	@include decoration(inherit);
+}
+
+@mixin link-underline($color: variables.$link-color, $color-hover: #{color.adjust($color, $lightness: -10%)}) {
+	@include link-transition;
+	@include link-color($color, $color-hover);
+	@include decoration(underline);
+}
+
+@mixin link-no-underline($color: inherit, $color-hover: variables.$link-color) {
+	@include link-transition;
+	@include link-color($color, $color-hover);
+	@include decoration(none);
+}
+
+@mixin link-underline-on-hover($color: inherit, $color-hover: variables.$link-color) {
+	@include link-transition;
+	@include link-color($color, $color-hover);
+	@include decoration(none, underline);
+}
+
+@mixin link-white-text {
+	@include link-underline(variables.$white, variables.$gray10-text);
+}
+
+@mixin link-colored-text {
+	@include link-underline(inherit, variables.$gray50-text);
+}

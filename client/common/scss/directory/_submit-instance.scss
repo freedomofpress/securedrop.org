@@ -1,0 +1,40 @@
+@use "../base/mixins/buttons";
+@use "../base/mixins/chevrons";
+@use "../base/mixins/links";
+@use "../base/variables";
+
+.submit-instance {
+	margin-bottom: 3rem;
+}
+
+.submit-instance__title {
+	font-size: 1.3rem;
+	font-weight: variables.$sans-bold;
+}
+
+.submit-instance__buttons {
+	display: flex;
+	flex-direction: column;
+}
+
+.submit-instance__button {
+	width: 100%;
+	margin-bottom: 0.5rem;
+
+	@include buttons.button-small;
+	@include buttons.button-solid-black;
+}
+
+.submit-instance__button--dashboard {
+	@include buttons.button-solid-blue;
+}
+
+.submit-instance__button-icon {
+	@include chevrons.text-chevron-right;
+}
+
+.submit-instance__link {
+	padding-top: 2rem;
+
+	@include links.link-underline(variables.$black, variables.$link-color);
+}

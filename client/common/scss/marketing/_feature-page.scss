@@ -1,0 +1,5 @@
+@use "../base/variables";
+
+.feature-page__text {
+	font-size: variables.$embiggened-font-size;
+}

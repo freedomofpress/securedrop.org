@@ -1,0 +1,8 @@
+@use "../base/mixins/utilities";
+
+.directory-body {
+	font-size: 1.1rem;
+	padding: 1rem 0 3rem;
+
+	@include utilities.p-remove-first-and-last-margin;
+}

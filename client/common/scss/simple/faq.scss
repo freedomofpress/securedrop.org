@@ -1,0 +1,26 @@
+@use "../base/mixins/buttons";
+@use "../base/mixins/chevrons";
+@use "../base/mixins/utilities";
+@use "../base/variables";
+
+.faq {
+	max-width: variables.$text-max-width;
+}
+
+.faq__body {
+	@include utilities.p-remove-first-and-last-margin;
+	padding-bottom: variables.$layout-padding;
+}
+
+.faq__question {
+	padding-top: variables.$layout-padding;
+}
+
+.faq__return_to_top {
+	@include buttons.button-small;
+	@include buttons.button-solid-gray;
+}
+
+.faq__chevron-up {
+	@include chevrons.text-chevron-up;
+}

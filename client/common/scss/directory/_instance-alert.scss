@@ -1,0 +1,67 @@
+@use "../base/mixins/breakpoints";
+@use "../base/variables";
+@use "sass:math";
+@use "sass:color";
+
+$icon-width: 64px;
+$icon-gutter: 10px;
+$alert-padding-x: 10px;
+$alert-padding-y: 15px;
+$instance-alert-color: #9292a5;
+
+.instance-alert {
+	padding: $alert-padding-y $alert-padding-x;
+	border-radius: 4px;
+}
+
+.instance-alert {
+	@include breakpoints.media-breakpoint-down(extra-small) {
+		padding-left: math.div($icon-width, 2) + $icon-gutter;
+	}
+}
+
+.instance-alert--moderate {
+	color: color.adjust(#baa400, $lightness: -10%);
+
+	a {
+		color: color.adjust(#baa400, $lightness: -10%);
+		font-weight: bold;
+	}
+}
+
+.instance-alert--severe {
+	color: variables.$red;
+
+	a {
+		color: variables.$red;
+		font-weight: bold;
+	}
+}
+
+.instance-alert__icon {
+	float: left;
+	margin-left: -$icon-width - $icon-gutter;
+	width: $icon-width;
+	height: auto;
+}
+
+.instance-alert__icon {
+	@include breakpoints.media-breakpoint-down(extra-small) {
+		margin-left: -(math.div($icon-width, 2)) - $icon-gutter;
+		width: math.div($icon-width, 2);
+	}
+}
+
+.instance-alert__title {
+	color: color.adjust($instance-alert-color, $lightness: -30%);
+	font-size: inherit;
+	font-weight: bold;
+	margin: 0 0 0.25em;
+	padding: 0;
+}
+
+.instance-alert__content {
+	p {
+		margin-top: 0;
+	}
+}

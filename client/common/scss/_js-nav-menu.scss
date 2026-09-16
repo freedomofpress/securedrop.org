@@ -1,0 +1,7 @@
+@use "base/mixins/breakpoints";
+
+.js-nav-menu-hidden {
+  @include breakpoints.media-breakpoint-down(extra-small) {
+    display: none;
+  }
+}

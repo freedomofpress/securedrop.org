@@ -1,0 +1,90 @@
+@use "sass:math";
+@use "../scss/base/variables";
+@use "../scss/base/mixins/breakpoints";
+
+@keyframes shimmer {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0.5;
+	}
+}
+
+.lightbox {
+	display: none;
+	opacity: 0;
+	transition: linear 250ms opacity;
+}
+
+.lightbox__overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 501;
+	background-color: rgb(0, 0, 0, 0.8);
+}
+
+.lightbox__container {
+	margin: 0;
+	background-color: #fff;
+	border-radius: 3px;
+	padding: 10px;
+	position: absolute;
+	z-index: 502;
+
+	&::before {
+		$size: 30px;
+		cursor: pointer;
+		display: block;
+		position: absolute;
+		top: -15px;
+		right: -15px;
+		height: 30px;
+		width: 30px;
+		box-shadow:
+			0 0 0 1px rgb(white, 0.5),
+			0 2px 8px rgb(black, 0.5);
+		content: "\00D7";
+		font-size: $size + 2px;
+		line-height: $size;
+		color: #fff;
+		background-color: #000;
+		border-radius: math.div($size, 2);
+		text-align: center;
+	}
+}
+
+.lightbox__image {
+	display: block;
+}
+
+.lightbox__caption {
+	color: #333;
+	padding: 10px 10px 0;
+	.rich-text > :first-child {
+		margin-top: 0;
+	}
+	.rich-text > :last-child {
+		margin-bottom: 0.5em;
+	}
+
+	@include breakpoints.media-breakpoint-down(extra-small) {
+		font-size: 1rem;
+	}
+}
+
+.lightbox--visible {
+	display: block;
+	opacity: 1;
+}
+
+.lightbox-link--loading {
+	animation-name: shimmer;
+	animation-duration: 500ms;
+	animation-timing-function: ease-in;
+	animation-direction: alternate;
+	animation-iteration-count: infinite;
+}

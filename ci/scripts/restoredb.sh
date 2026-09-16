@@ -7,7 +7,8 @@ set -euo pipefail
 # Honour the engine chosen by the justfile; fall back to docker standalone.
 COMPOSE="${COMPOSE:-docker compose}"
 
-BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+# `/` in a branch name would otherwise become a directory in the dump path.
+BRANCH="$(git rev-parse --abbrev-ref HEAD | tr / -)"
 FOLDER="db-snapshots"
 OWNER="postgres"
 DBNAME="securedropdb"
@@ -26,10 +27,12 @@ if [ -z "$FILE" ]; then
 fi
 echo "Restoring from: $FILE"
 
-# Terminate all other connections
-$COMPOSE exec -T "$CONTAINER" psql -o /dev/null -h localhost "$OWNER" postgres \
+# Terminate all other connections. The maintenance commands connect over the
+# container's unix socket, which the postgres image trusts; `$OWNER` is the
+# superuser this compose stack creates.
+$COMPOSE exec -T "$CONTAINER" psql -o /dev/null -U "$OWNER" postgres \
     -c "ALTER DATABASE $DBNAME CONNECTION LIMIT 1;"
-$COMPOSE exec -T "$CONTAINER" psql -o /dev/null -h localhost "$OWNER" postgres \
+$COMPOSE exec -T "$CONTAINER" psql -o /dev/null -U "$OWNER" postgres \
     -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '$DBNAME';"
 
 # `set -e` aborts here if the drop fails, replacing the previous explicit
@@ -39,5 +42,8 @@ $COMPOSE exec -T "$CONTAINER" dropdb -U "$OWNER" "$DBNAME"
 $COMPOSE exec -T "$CONTAINER" createdb -U "$OWNER" --encoding UTF8 \
     --lc-collate=en_US.UTF-8 --lc-ctype=en_US.UTF-8 --template=template0 \
     --owner "$OWNER" "$DBNAME"
+# No `-n public`: this schema depends on the `hstore` extension, and extensions
+# carry no schema in the dump's TOC, so a schema filter would drop the
+# CREATE EXTENSION the restore then trips over.
 $COMPOSE exec -T "$CONTAINER" pg_restore -U "$OWNER" -1 --no-owner \
-    --role="$OWNER" -n public --dbname="$DBNAME" < "$FILE"
+    --role="$OWNER" --dbname="$DBNAME" < "$FILE"
