@@ -1,10 +1,10 @@
-import 'classlist-polyfill'
-import 'babel-polyfill'
+import "classlist-polyfill";
+import "babel-polyfill";
 
-import '../scss/common.scss'
-import '~/slidingnav'
-import '~/alert'
-import '~/scanner'
-import '~/lightbox'
-import '~/embed-pdf'
-import '~/detect-js'
+import "../scss/common.scss";
+import "~/slidingnav";
+import "~/alert";
+import "~/scanner";
+import "~/lightbox";
+import "~/embed-pdf";
+import "~/detect-js";
