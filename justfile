@@ -102,7 +102,7 @@ node-modules: env-check
     [ -d node_modules ] || {{compose}} run --rm --no-deps node npm ci
 
 # Run all project linters.
-lint: ruff bandit check-migrations stylelint pnglint svglint
+lint: ruff bandit check-migrations eslint stylelint pnglint svglint
 
 # Run the Django test suite with coverage (fails under 70%).
 test:
