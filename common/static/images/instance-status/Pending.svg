@@ -1,1 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="128" height="128" viewBox="0 0 128 128"><title>Icons/Pending</title><defs><path id="a" d="m65 0 55.426 32v64L65 128 9.574 96V32zm-1 73a9 9 0 1 0 0-18 9 9 0 0 0 0 18m30 0a9 9 0 1 0 0-18 9 9 0 0 0 0 18m-60 0a9 9 0 1 0 0-18 9 9 0 0 0 0 18"/></defs><g fill="none" fill-rule="evenodd"><mask id="b" fill="#fff"><use xlink:href="#a"/></mask><use xlink:href="#a" fill="#d8d8d8"/><g fill="#9292a5" mask="url(#b)"><path d="M0 0h128v128H0z"/></g></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="128" height="128" viewBox="0 0 128 128">
+	<title>Icons/Pending</title>
+	<defs>
+		<path id="a" d="m65 0 55.426 32v64L65 128 9.574 96V32zm-1 73a9 9 0 1 0 0-18 9 9 0 0 0 0 18m30 0a9 9 0 1 0 0-18 9 9 0 0 0 0 18m-60 0a9 9 0 1 0 0-18 9 9 0 0 0 0 18"/>
+	</defs>
+	<g fill="none" fill-rule="evenodd">
+		<mask id="b" fill="#fff">
+			<use xlink:href="#a"/>
+		</mask>
+		<use xlink:href="#a" fill="#d8d8d8"/>
+		<g fill="#9292a5" mask="url(#b)">
+			<path d="M0 0h128v128H0z"/>
+		</g>
+	</g>
+</svg>

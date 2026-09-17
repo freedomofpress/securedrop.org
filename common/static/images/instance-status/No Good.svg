@@ -1,1 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="128" height="128" viewBox="0 0 128 128"><title>Icons/No Good</title><defs><path id="a" d="M81.62 15.123.47 96.272 0 96V32L55.426 0zm28.202 16.283 1.03.594v64l-55.426 32-26.753-15.445z"/><path id="c" d="M17.485 120.47 9 111.986 112.985 8l8.486 8.485z"/></defs><g fill="none" fill-rule="evenodd"><g transform="translate(10)"><mask id="b" fill="#fff"><use xlink:href="#a"/></mask><use xlink:href="#a" fill="#d8d8d8"/><g fill="#c71438" mask="url(#b)" opacity=".5"><path d="M-10 0h128v128H-10z"/></g></g><mask id="d" fill="#fff"><use xlink:href="#c"/></mask><use xlink:href="#c" fill="#d8d8d8"/><g fill="#c71438" mask="url(#d)"><path d="M0 0h128v128H0z"/></g></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="128" height="128" viewBox="0 0 128 128">
+	<title>Icons/No Good</title>
+	<defs>
+		<path id="a" d="M81.62 15.123.47 96.272 0 96V32L55.426 0zm28.202 16.283 1.03.594v64l-55.426 32-26.753-15.445z"/>
+		<path id="c" d="M17.485 120.47 9 111.986 112.985 8l8.486 8.485z"/>
+	</defs>
+	<g fill="none" fill-rule="evenodd">
+		<g transform="translate(10)">
+			<mask id="b" fill="#fff">
+				<use xlink:href="#a"/>
+			</mask>
+			<use xlink:href="#a" fill="#d8d8d8"/>
+			<g fill="#c71438" mask="url(#b)" opacity=".5">
+				<path d="M-10 0h128v128H-10z"/>
+			</g>
+		</g>
+		<mask id="d" fill="#fff">
+			<use xlink:href="#c"/>
+		</mask>
+		<use xlink:href="#c" fill="#d8d8d8"/>
+		<g fill="#c71438" mask="url(#d)">
+			<path d="M0 0h128v128H0z"/>
+		</g>
+	</g>
+</svg>
