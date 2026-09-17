@@ -93,6 +93,10 @@ svglint: node-modules
         {{svgo}} --config=svgo.config.mjs -r {{svg_paths}}
     git diff --exit-code -- {{svg_paths}}
 
+# Lint JavaScript with eslint.
+eslint: node-modules
+    {{compose}} run --rm --no-deps node npm run js-lint
+
 # Lint SASS with stylelint.
 stylelint: node-modules
     {{compose}} run --rm --no-deps node npm run stylelint
