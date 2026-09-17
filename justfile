@@ -93,8 +93,12 @@ svglint: node-modules
         {{svgo}} --config=svgo.config.mjs -r {{svg_paths}}
     git diff --exit-code -- {{svg_paths}}
 
+# Lint SASS with stylelint.
+stylelint: node-modules
+    {{compose}} run --rm --no-deps node npm run stylelint
+
 # Run all project linters.
-lint: ruff bandit check-migrations pnglint svglint
+lint: ruff bandit check-migrations stylelint pnglint svglint
 
 # Run the Django test suite with coverage (fails under 70%).
 test:

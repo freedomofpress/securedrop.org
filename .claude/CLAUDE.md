@@ -19,8 +19,9 @@
 ## Tech Stack
 
 - Python 3.14, Django 5.2+, Wagtail 7.4+
-- PostgreSQL 14
+- PostgreSQL 17
 - Webpack (frontend)
+- Stylelint (stylelint-config-standard-scss)
 - Ruff (primary linter)
 
 ## Development

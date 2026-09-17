@@ -45,3 +45,12 @@ repos:
       - id: svgo
         # Keep in sync with `svg_paths` in the justfile
         files: '^common/static/images/'
+
+  - repo: https://github.com/thibaudcolas/pre-commit-stylelint
+    rev: v17.15.0
+    hooks:
+      - id: stylelint
+        files: \.scss$
+        additional_dependencies:
+          - stylelint
+          - stylelint-config-standard-scss
