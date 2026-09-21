@@ -57,6 +57,7 @@ jobs:
       # the same artifact that gets deployed.
       registry: localhost/securedroporg
       requires-deep-history: true
+      pre-build-script: ci/scripts/version-file.sh --dump
 
   lint-lockfiles:
     # Standalone, with no `needs`, so it runs alongside the image builds rather

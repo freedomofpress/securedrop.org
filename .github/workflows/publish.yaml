@@ -26,6 +26,7 @@ jobs:
       target: prod
       build-args: USERID=1000
       requires-deep-history: true
+      pre-build-script: ci/scripts/version-file.sh --dump
       registry: ghcr.io/freedomofpress/securedrop-org
       add-branch-tags: true
 

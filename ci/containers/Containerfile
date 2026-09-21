@@ -62,14 +62,12 @@ WORKDIR /src-files
 # contenthash-named production bundles and then be swept up by collectstatic's
 # manifest storage, whose url() rewriting fails hard on a stale reference.
 #
-# node_modules and .git are build-time only; stripping them lets `prod` copy this
-# tree wholesale rather than filtering during chown, and keeps the packages and
-# the git history out of the published image. Both still exist in the COPY layer
-# above, but `assets` is a discarded stage that is never pushed -- `prod` only
-# ever sees the result.
+# node_modules is build-time only; stripping it lets `prod` copy this tree
+# wholesale rather than filtering during chown, and keeps the packages out of
+# the published image. The dumped git facts are for the `version` stage only.
 RUN rm -rf build/static/bundles && \
     npm install && npm run build && \
-    rm -rf node_modules .git
+    rm -rf node_modules ci/version
 
 # ---- oxipng (dev-only lint tooling; see `just pnglint`) ----
 # Named stage purely so `dev` below can COPY --from it; `--from` can't expand
@@ -170,18 +168,10 @@ RUN pip install --no-deps --no-cache-dir --require-hashes -r requirements.txt
 # text files are copied into `prod`.
 FROM python-base AS version
 
-# .git is bind-mounted rather than COPYed so it is readable for the length of this
-# one command and never lands in an image layer. Requires BuildKit or buildah;
-# only the long-deprecated DOCKER_BUILDKIT=0 builder would choke.
-# Built in /version rather than /django, which python-base hands to the app
-# user -- git refuses to operate on a repo it does not own.
-WORKDIR /version
-COPY ci/scripts/version-file.sh /usr/local/bin/
-# safe.directory: the mounted .git carries the host checkout's ownership, which
-# need not match the build user. Scoped to this discarded stage.
-RUN --mount=type=bind,source=.git,target=/version/.git,ro \
-    git config --global --add safe.directory /version && \
-    version-file.sh
+# Git facts come pre-dumped on the host (see version-file.sh). COPY `ci` whole:
+# a COPY of ci/version would fail outright when nothing was dumped.
+COPY ci /ci
+RUN /ci/scripts/version-file.sh --deploy
 
 # ---- prod django (code + built assets baked in) ----
 FROM prod-deps AS prod
