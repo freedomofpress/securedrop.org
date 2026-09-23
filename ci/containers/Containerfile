@@ -5,14 +5,15 @@
 #   dev       dev Django, code bind-mounted    (docker-compose.yaml `django` service)
 #   prod      prod Django, code + built assets baked in (prod-docker-compose.yaml)
 #             and the published ghcr.io/freedomofpress/securedrop-org image
+#   lock      Poetry on the app's interpreter, for `just lock` (never shipped)
 #
 # `assets`, `prod-deps` and `version` are internal build stages feeding `prod`;
 # they are not targeted directly.
 
 # ---- pinned base image digests ----
 # Bump the tag/digest here; every stage below references these, so this is
-# the only place that needs editing on update -- except PYTHON_IMAGE, which is
-# also mirrored by the justfile's `python_builder` and must be bumped with it.
+# the only place that needs editing on update -- except PYTHON_IMAGE, whose minor
+# version pyproject.toml's `requires-python` bounds; the two move together.
 # Names are fully qualified: an unqualified `node:` or `python:` resolves against
 # the builder's unqualified-search-registries, which under podman can reach a
 # non-Docker-Hub registry first.
@@ -139,9 +140,10 @@ FROM python-base AS dev
 # can assume static binaries, safe to copy.
 COPY --from=oxipng /usr/local/bin/oxipng /usr/local/bin/oxipng
 
-# The checked-in lockfile, not a freshly recompiled one. dev-requirements.in is
-# `-r requirements.txt` plus dev extras, so this superset covers both. Lockfile
-# drift is caught explicitly by `just pip-check` rather than as a build artifact.
+# The checked-in lockfile, not a freshly rendered one. `just lock` exports this
+# one from poetry.lock with the dev group included, so the superset covers the
+# app and its tooling both. Drift from pyproject.toml is caught explicitly by
+# `just lock-check` rather than as a build artifact.
 COPY dev-requirements.txt /requirements.txt
 RUN pip install --no-deps --no-cache-dir --require-hashes -r /requirements.txt
 
@@ -206,3 +208,19 @@ USER gcorn
 RUN tldextract --update && \
     env DJANGO_WHITENOISE=1 DJANGO_DISABLE_DEBUG=1 ./manage.py collectstatic -c --noinput
 CMD [ "django-start.sh" ]
+
+# ---- dependency resolution (build target, never shipped) ----
+# `just lock` runs Poetry here rather than on the host, against the interpreter
+# the app runs. Built on python-base so a dependency that ships no cp314 wheel
+# can still have its metadata built, the way prod would build it. Poetry lives in
+# its own venv so its dependencies never share site-packages with what it
+# resolves. It is hash-pinned like everything else: pyproject.toml's `lock`
+# group, rendered by `just lock` -- so Poetry locks its own successor.
+FROM python-base AS lock
+
+COPY lock-requirements.txt /lock-requirements.txt
+RUN python -m venv /opt/poetry && \
+    /opt/poetry/bin/pip install --no-deps --no-cache-dir --disable-pip-version-check \
+        --require-hashes -r /lock-requirements.txt && \
+    ln -s /opt/poetry/bin/poetry /usr/local/bin/poetry
+ENV POETRY_VIRTUALENVS_CREATE=false

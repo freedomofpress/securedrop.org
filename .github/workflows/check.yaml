@@ -60,9 +60,9 @@ jobs:
 
   lint-lockfiles:
     # Standalone, with no `needs`, so it runs alongside the image builds rather
-    # than waiting on them: it uses a throwaway pip-tools container, not the dev
+    # than waiting on them: it uses a throwaway Poetry container, not the dev
     # image. The dev image installs the checked-in dev-requirements.txt, so
-    # nothing else in CI would notice the lockfiles drifting from the .in files.
+    # nothing else in CI would notice the lockfiles drifting from pyproject.toml.
     name: Lint:Lockfiles
     runs-on: ubuntu-latest
     steps:
@@ -76,8 +76,8 @@ jobs:
         with:
           tool: just
 
-      - name: Recompile lockfiles and fail on drift
-        run: just pip-check
+      - name: Verify lockfiles and fail on drift
+        run: just lock-check
 
   test:
     # This job name is also the branch-protection check name, so it is decoupled
