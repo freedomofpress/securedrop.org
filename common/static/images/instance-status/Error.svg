@@ -1,1 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="128" height="128" viewBox="0 0 128 128"><title>Icons/Error</title><defs><path id="a" d="M73.184 11 128 100.504l-9.827 16.046H9.827L0 100.504 54.816 11zm-1.008 26.858H56.384l1.88 41.172h12.032zM64.28 87.584c-4.7 0-8.46 3.854-8.46 8.46 0 4.7 3.76 8.554 8.46 8.554a8.525 8.525 0 0 0 8.554-8.554c0-4.606-3.76-8.46-8.554-8.46"/></defs><g fill="none" fill-rule="evenodd"><mask id="b" fill="#fff"><use xlink:href="#a"/></mask><use xlink:href="#a" fill="#d8d8d8"/><g fill="#c71438" mask="url(#b)"><path d="M0 0h128v128H0z"/></g></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="128" height="128" viewBox="0 0 128 128">
+	<title>Icons/Error</title>
+	<defs>
+		<path id="a" d="M73.184 11 128 100.504l-9.827 16.046H9.827L0 100.504 54.816 11zm-1.008 26.858H56.384l1.88 41.172h12.032zM64.28 87.584c-4.7 0-8.46 3.854-8.46 8.46 0 4.7 3.76 8.554 8.46 8.554a8.525 8.525 0 0 0 8.554-8.554c0-4.606-3.76-8.46-8.554-8.46"/>
+	</defs>
+	<g fill="none" fill-rule="evenodd">
+		<mask id="b" fill="#fff">
+			<use xlink:href="#a"/>
+		</mask>
+		<use xlink:href="#a" fill="#d8d8d8"/>
+		<g fill="#c71438" mask="url(#b)">
+			<path d="M0 0h128v128H0z"/>
+		</g>
+	</g>
+</svg>

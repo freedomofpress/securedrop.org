@@ -25,8 +25,32 @@ repos:
       - id: check-yaml
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.16.6
+    rev: v0.16.7
     hooks:
       - id: ruff-check
         args: [--fix]
       - id: ruff-format
+
+  - repo: https://github.com/oxipng/oxipng
+    rev: v10.2.1
+    hooks:
+      - id: oxipng
+        args: ['-o', '6', '--strip', 'safe']
+        # Keep in sync with `png_paths` in the justfile
+        files: '^common/static/images/'
+
+  - repo: https://github.com/kytta/mirrors-svgo
+    rev: v4.1.0
+    hooks:
+      - id: svgo
+        # Keep in sync with `svg_paths` in the justfile
+        files: '^common/static/images/'
+
+  - repo: https://github.com/thibaudcolas/pre-commit-stylelint
+    rev: v17.15.0
+    hooks:
+      - id: stylelint
+        files: \.scss$
+        additional_dependencies:
+          - stylelint
+          - stylelint-config-standard-scss

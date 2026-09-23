@@ -20,6 +20,9 @@
 ARG NODE_IMAGE=docker.io/library/node:26.5.0-trixie@sha256:0473e7dc433a1310f436edee02aa79737ec78a4b345433ab0963d4a256f9ad85
 # sha256 for python:3.14.6-slim-trixie on linux/amd64 as of 2026-06-17
 ARG PYTHON_IMAGE=docker.io/library/python:3.14.6-slim-trixie@sha256:44dd04494ee8f3b538294360e7c4b3acb87c8268e4d0a4828a6500b1eff50061
+# sha256 for ghcr.io/oxipng/oxipng:v10.2.1 as of 2026-09-08.
+# Must stay in step with the oxipng pre-commit hook's `rev` in .pre-commit-config.yaml.
+ARG OXIPNG_IMAGE=ghcr.io/oxipng/oxipng:v10.2.1@sha256:5dec3e14566814807780eda0c7732fd77f2ce4fc12878ba71af9b408e97b3eb2
 
 # ---- node runtime base (dev watch service) ----
 FROM ${NODE_IMAGE} AS node-base
@@ -67,6 +70,12 @@ WORKDIR /src-files
 RUN rm -rf build/static/bundles && \
     npm install && npm run build && \
     rm -rf node_modules .git
+
+# ---- oxipng (dev-only lint tooling; see `just pnglint`) ----
+# Named stage purely so `dev` below can COPY --from it; `--from` can't expand
+# an ARG directly, so this indirection is required even though the stage
+# itself does nothing but pull the image.
+FROM ${OXIPNG_IMAGE} AS oxipng
 
 # ---- python base (shared by dev + prod) ----
 FROM ${PYTHON_IMAGE} AS python-base
@@ -124,6 +133,11 @@ EXPOSE 8000
 
 # ---- dev django (code bind-mounted by compose) ----
 FROM python-base AS dev
+
+# Used by `just pnglint`.
+# The oxiping containerfile is based on Alpine and therefore we
+# can assume static binaries, safe to copy.
+COPY --from=oxipng /usr/local/bin/oxipng /usr/local/bin/oxipng
 
 # The checked-in lockfile, not a freshly recompiled one. dev-requirements.in is
 # `-r requirements.txt` plus dev extras, so this superset covers both. Lockfile
