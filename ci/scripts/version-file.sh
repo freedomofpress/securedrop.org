@@ -3,9 +3,12 @@
 # Print deployment version information; `--deploy` writes it to /deploy instead.
 #
 # The build context has no .git (and a worktree's .git points outside it), so
-# `--dump` records git facts on the host for a later, git-less run to relay.
+# `--build-args` emits the git facts on the host as build-args for a later,
+# git-less run to relay. GIT_INFO_B64 is base64 because it spans lines.
 
 set -euo pipefail
+# Else a failure inside `$(git_info)` would pass silently.
+shopt -s inherit_errexit
 trap 'echo "Error: line ${LINENO}, exit code $?" >&2; exit 1' ERR
 
 die() {
@@ -16,48 +19,67 @@ die() {
 }
 
 case "${1:-}" in
-    --dump|--deploy) mode="${1#--}";;
+    --build-args|--deploy) mode="${1#--}";;
     "") mode=print;;
-    *)  die "unknown argument: $1" "Usage: $(basename "$0") [--dump|--deploy]";;
+    *)  die "unknown argument: $1" "Usage: $(basename "$0") [--build-args|--deploy]";;
 esac
 
 short_version_out="${DJANGO_SHORT_VERSION_FILE:-/deploy/version-short.txt}"
 full_version_out="${DJANGO_FULL_VERSION_FILE:-/deploy/version-full.txt}"
-# Relative to this script: it runs from /ci/scripts in the build, ./ci/scripts in dev.
-facts_file="$(dirname "$0")/../version/git-facts.sh"
 
-if git rev-parse --git-dir >/dev/null 2>&1; then
+# Render the git section of the report from live git.
+git_info() {
+    local branch branch_desc ref_desc commit log recorded
     branch="$(git rev-parse --abbrev-ref HEAD)"
-    commit="$(git rev-parse --short HEAD)"
     # prod is special, in that we care what tag was merged in, rather that
-    # what the merge commit is. --always lets a tag-less clone degrade to a SHA.
+    # what the merge commit is. --tags because release tags are lightweight;
+    # --always lets a tag-less clone degrade to a SHA.
     case "$branch" in
         prod) branch_desc="on branch: ${branch}"
-              ref_desc="release tag: $(git describe HEAD^2)";;
+              ref_desc="release tag: $(git describe --tags HEAD^2)";;
         HEAD) branch_desc="no branch, detached HEAD"
               ref_desc="not tagged, $(git describe --always)";;
         *)    branch_desc="on branch: ${branch}"
               ref_desc="not tagged, $(git describe --always)";;
     esac
-    recent_log="$(git log -5 --oneline)"
-    # A dump can go stale; date it.
-    recorded_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-elif [ "$mode" = dump ]; then
-    die "--dump needs a git repository, and none was found here"
-elif [ -r "$facts_file" ]; then
-    # shellcheck source=/dev/null
-    . "$facts_file"
-else
-    die "no git repository, and no dumped facts at ${facts_file}" \
-        "Dump them first: ci/scripts/version-file.sh --dump"
-fi
+    commit="$(git rev-parse --short HEAD)"
+    log="$(git log -5 --oneline)"
+    # Build-args can go stale; date them.
+    recorded="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+    cat <<EOF
+#### GIT INFO ####
 
-# %q survives the newlines in recent_log, so the dump round-trips exactly.
-if [ "$mode" = dump ]; then
-    mkdir -p "$(dirname "$facts_file")"
-    for v in commit branch_desc ref_desc recent_log recorded_at; do
-        printf '%s=%q\n' "$v" "${!v}"
-    done >"$facts_file"
+${branch_desc}
+commit: ${commit}
+${ref_desc}
+recorded: ${recorded}
+
+${log}
+EOF
+}
+
+# Set `commit` and `info`, from live git or else from the relayed build-args.
+facts() {
+    if git rev-parse --git-dir >/dev/null 2>&1; then
+        commit="$(git rev-parse --short HEAD)"
+        info="$(git_info)"
+    elif [ "$mode" = build-args ]; then
+        die "--build-args needs a git repository, and none was found here"
+    elif [ -n "${GIT_COMMIT:-}" ] && [ -n "${GIT_INFO_B64:-}" ]; then
+        commit="$GIT_COMMIT"
+        info="$(base64 -d <<<"$GIT_INFO_B64")"
+    else
+        die "no git repository, and no GIT_COMMIT/GIT_INFO_B64 build-args" \
+            "Build via: just build-prod"
+    fi
+}
+
+facts
+
+# tr rather than `base64 -w0`, which macOS lacks.
+if [ "$mode" = build-args ]; then
+    echo "GIT_COMMIT=${commit}"
+    echo "GIT_INFO_B64=$(printf '%s\n' "$info" | base64 | tr -d '\n')"
     exit 0
 fi
 
@@ -71,14 +93,7 @@ fi
 # describe a bare interpreter. The authoritative pinned set is requirements.txt,
 # shipped in the image and installed with --no-deps --require-hashes.
 cat <<EOF
-#### GIT INFO ####
-
-${branch_desc}
-commit: ${commit}
-${ref_desc}
-recorded: ${recorded_at}
-
-${recent_log}
+${info}
 
 #### PYTHON INFO ####
 

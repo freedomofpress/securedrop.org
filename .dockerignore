@@ -41,7 +41,7 @@
 !webpack.config.js
 !postcss.config.js
 
-# permit general build tooling: the version report script and its dumped facts
+# permit general build tooling, e.g. the version report script
 !ci
 
 # re-exclude unwanted artifact cruft, possibly included by the grants above

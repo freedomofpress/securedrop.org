@@ -1,0 +1,37 @@
+---
+name: Git facts
+
+# Emits git facts as build-args, in a job of their own: its runner is discarded,
+# so only this output reaches the image build, never a mutated checkout.
+on:
+  workflow_call:
+    outputs:
+      build-args:
+        description: GIT_COMMIT and GIT_INFO_B64, as key=value lines.
+        value: ${{ jobs.facts.outputs.build-args }}
+
+permissions:
+  contents: read
+
+jobs:
+  facts:
+    name: Facts
+    runs-on: ubuntu-latest
+    # The permitted build-args, named here: any other line the script emits
+    # becomes a step output that nothing reads.
+    outputs:
+      build-args: |
+        GIT_COMMIT=${{ steps.facts.outputs.GIT_COMMIT }}
+        GIT_INFO_B64=${{ steps.facts.outputs.GIT_INFO_B64 }}
+    steps:
+      # Default ref, like oci-build's own checkout, so the facts describe the
+      # commit that gets built.
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Emit build-args
+        id: facts
+        run: ci/scripts/version-file.sh --build-args >>"$GITHUB_OUTPUT"

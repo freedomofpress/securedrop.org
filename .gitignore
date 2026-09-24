@@ -45,7 +45,6 @@ results.txt
 
 # Ignore files created to communicate system deployment info
 .versioninfo
-/ci/version/
 
 # IDE
 .idea

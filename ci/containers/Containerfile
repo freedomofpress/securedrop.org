@@ -64,10 +64,10 @@ WORKDIR /src-files
 #
 # node_modules is build-time only; stripping it lets `prod` copy this tree
 # wholesale rather than filtering during chown, and keeps the packages out of
-# the published image. The dumped git facts are for the `version` stage only.
+# the published image.
 RUN rm -rf build/static/bundles && \
     npm install && npm run build && \
-    rm -rf node_modules ci/version
+    rm -rf node_modules
 
 # ---- oxipng (dev-only lint tooling; see `just pnglint`) ----
 # Named stage purely so `dev` below can COPY --from it; `--from` can't expand
@@ -168,10 +168,12 @@ RUN pip install --no-deps --no-cache-dir --require-hashes -r requirements.txt
 # text files are copied into `prod`.
 FROM python-base AS version
 
-# Git facts come pre-dumped on the host (see version-file.sh). COPY `ci` whole:
-# a COPY of ci/version would fail outright when nothing was dumped.
-COPY ci /ci
-RUN /ci/scripts/version-file.sh --deploy
+# Git facts arrive as build-args from the host (see version-file.sh), scoped to
+# this discarded stage so they neither reach `prod`'s history nor bust its cache.
+ARG GIT_COMMIT
+ARG GIT_INFO_B64
+COPY ci/scripts/version-file.sh /usr/local/bin/
+RUN version-file.sh --deploy
 
 # ---- prod django (code + built assets baked in) ----
 FROM prod-deps AS prod

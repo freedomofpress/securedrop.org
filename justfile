@@ -50,13 +50,8 @@ env-check:
 node-modules: env-check
     [ -d node_modules ] || {{compose}} run --rm --no-deps node npm ci
 
-# Record git facts for the containers, which cannot read .git themselves.
-[private]
-version-facts:
-    ./ci/scripts/version-file.sh --dump
-
 # Run the webapp locally, via containers (--build keeps images in sync with the Containerfile).
-dev: env-check version-facts
+dev: env-check
     {{compose}} up --build
 
 alias compose := dev
@@ -66,8 +61,11 @@ build: env-check
     {{compose}} build
 
 # Build the production image locally (what CI's Build:Prod and publish.yaml ship).
-build-prod: env-check version-facts
-    {{compose}} --file=prod-docker-compose.yaml build
+# Git facts go in as build-args: the build context has no .git. Hex and base64
+# values carry no whitespace, so the unquoted expansion splits cleanly.
+build-prod: env-check
+    args="$(./ci/scripts/version-file.sh --build-args)" && \
+        env $args {{compose}} --file=prod-docker-compose.yaml build
 
 # The static checks below run with `--no-deps`: their tooling is baked into the
 # dev image, so they need neither postgres nor the webpack watcher.
