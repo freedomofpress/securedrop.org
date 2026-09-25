@@ -34,7 +34,7 @@ django_start() {
     # exec so the server is PID 1 and receives SIGTERM directly; without it bash
     # holds PID 1, swallows the signal, and shutdown waits for SIGKILL.
     if [ "${DEPLOY_ENV}" == "dev" ]; then
-        ./ci/scripts/version-file.sh || echo "WARNING: version file creation failed"
+        ./ci/scripts/version-file.sh --deploy || echo "WARNING: version file creation failed"
         exec ./manage.py runserver 0.0.0.0:8000
     else
         exec gunicorn -c /etc/gunicorn/gunicorn.py "${DJANGO_APP_NAME?}.wsgi"

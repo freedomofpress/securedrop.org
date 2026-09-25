@@ -60,6 +60,13 @@ alias compose := dev
 build: env-check
     {{compose}} build
 
+# Build the production image locally (what CI's Build:Prod and publish.yaml ship).
+# Git facts go in as build-args: the build context has no .git. Hex and base64
+# values carry no whitespace, so the unquoted expansion splits cleanly.
+build-prod: env-check
+    args="$(./ci/scripts/version-file.sh --build-args)" && \
+        env $args {{compose}} --file=prod-docker-compose.yaml build
+
 # The static checks below run with `--no-deps`: their tooling is baked into the
 # dev image, so they need neither postgres nor the webpack watcher.
 # That keeps them usable without `just dev` running, locally and in CI alike.
