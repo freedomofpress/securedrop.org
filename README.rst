@@ -1,3 +1,9 @@
+.. note::
+
+   By contributing to this project, you agree to abide by our
+   `Code of Conduct <https://github.com/freedomofpress/.github/blob/main/CODE_OF_CONDUCT.md>`_.
+
+==============
 SecureDrop.org
 ==============
 
@@ -17,66 +23,44 @@ SecureDrop.org
 | ``develop`` | |developCI| |
 +-------------+-------------+
 
-.. note::
-
-   By contributing to this project, you agree to abide by our
-   `Code of Conduct <https://github.com/freedomofpress/.github/blob/main/CODE_OF_CONDUCT.md>`_.
-
-Table of Contents
------------------
-* `Prerequisites`_
-* `Getting Started: The Quick Version`_
-* `Getting Started: The Unabridged Edition`_
-* `Management Commands`_
-* `Dependency Management`_
-* `Advanced Actions Against the Database`_
-* `Other Commands`_
-* `Troubleshooting`_
+Development
+=============
 
 Prerequisites
 -------------
 
-The installation instructions below assume you have Docker on your machine.  The easiest way to achieve this is to install `Docker Desktop <https://www.docker.com/products/docker-desktop/>`_ for your operating system by following the instructions in the appropriate link below:
+The installation instructions below assume you have the following software on your machine:
 
-* `Install Docker Desktop on Mac <https://docs.docker.com/desktop/install/mac-install/>`_
-* `Install Docker Desktop on Fedora Linux <https://docs.docker.com/desktop/install/fedora/>`_
-* `Install Docker Desktop on Ubuntu Linux <https://docs.docker.com/desktop/install/ubuntu/>`_
-* `Install Docker Desktop on other Linux distributions <https://docs.docker.com/desktop/install/linux-install/>`_
+* `docker <https://docs.docker.com/engine/installation/>`_ or `podman <https://podman.io/docs/installation>`_, with "compose" support
+* `just <https://github.com/casey/just>`_
 
-`Podman <https://podman.io/docs/installation>`_ works too, provided it has
-"compose" support.  Set ``CONTAINER_ENGINE=podman`` to select it.
-
-You will also need `just <https://github.com/casey/just#installation>`_, which
-runs the project's developer commands.  Run ``just`` on its own at any point to
-list them.
-
-The instructions also assume you have cloned this repository and are in a shell environment in the base directory of the clone.  If this is not the case, run these commands:
-
-.. code:: bash
-
-    git clone https://github.com/freedomofpress/securedrop.org.git
-    cd securedrop.org
-
-
-Getting Started: The Quick Version
+Local Development instructions
 ----------------------------------
 
-To start the website running in your local environment, run these commands:
+When you want to play with the environment, you will be using
+``docker compose``. Your guide to understand all the nuances of ``docker compose``
+can be found in the `official docs <https://docs.docker.com/compose/reference/>`_. To start the
+environment, run the following your first run:
 
 .. code:: bash
 
-    just dev  # long-running process to run application server, every time
+    # Starts up the environment (records your host UID in .env on the way,
+    # so a bare `docker compose up` works afterwards too)
+    just dev
 
-    # In a separate shell:
-    just createdevdata  # one-time command
+    # Inject development data (also only needs to be run once)
+    just createdevdata
 
     # install pre-commit and set up hooks
     pip install pre-commit
     pre-commit install
 
-Visit ``http://localhost:8000/`` to see the site.
+You should be able to hit the web server interface by running ``just open-browser``:
 
-The URL of the admin area is ``http://localhost:8000/admin/`` for the Wagtail admin.  Running the dev data creation command will create login credentials of username "test" and password "test".
+.. code:: bash
+
+    just open-browser
+
 
 Getting Started: The Unabridged Edition
 ---------------------------------------
@@ -264,6 +248,15 @@ When checking out a new branch after working on another, it can be
 helpful to restore your snapshot from master, so that the migrations
 for the new branch, which were presumably based off of master, will
 have a clean starting point.
+
+Managing CMS Content
+--------------------
+
+You can log in to the Wagtail interface at ``/admin`` with the following credentials:
+
+* username - ``test``
+* password - ``test``
+
 
 Other Commands
 --------------
