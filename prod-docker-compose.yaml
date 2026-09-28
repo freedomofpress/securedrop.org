@@ -41,6 +41,9 @@ services:
       target: prod
       args:
         USERID: 1000
+        # Set by `just build-prod`; a bare build fails in the `version` stage.
+        GIT_COMMIT: ${GIT_COMMIT:-}
+        GIT_INFO_B64: ${GIT_INFO_B64:-}
     image: ghcr.io/freedomofpress/securedrop-org
     depends_on:
       postgresql:

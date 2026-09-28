@@ -88,6 +88,10 @@ services:
       DJANGO_ONION_HOSTNAME: secrdrop5wyphb5x.onion
       DJANGO_XMLTEST_OUTPUT: 'yes'
       ENABLE_DEBUG_TOOLBAR:
+      # Set by `just dev`; version-file.sh prefers live git, which a worktree's
+      # .git (pointing outside the bind-mount) can't supply.
+      GIT_COMMIT: ${GIT_COMMIT:-}
+      GIT_INFO_B64: ${GIT_INFO_B64:-}
     working_dir: /django
     userns_mode: keep-id
     volumes:

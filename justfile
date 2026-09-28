@@ -50,15 +50,30 @@ env-check:
 node-modules: env-check
     [ -d node_modules ] || {{compose}} run --rm --no-deps node npm ci
 
+# Git facts go in as for build-prod, for when the container can't read .git.
+
 # Run the webapp locally, via containers (--build keeps images in sync with the Containerfile).
 dev: env-check
-    {{compose}} up --build
+    args="$(./ci/scripts/version-file.sh --build-args)" && \
+        env $args {{compose}} up --build
 
 alias compose := dev
 
 # Build all containers locally.
 build: env-check
     {{compose}} build
+
+# Git facts go in as build-args: the build context has no .git. Hex and base64
+# values carry no whitespace, so the unquoted expansion splits cleanly.
+
+# Build the production image locally (what CI's Build:Prod and publish.yaml ship).
+build-prod: env-check
+    args="$(./ci/scripts/version-file.sh --build-args)" && \
+        env $args {{compose}} --file=prod-docker-compose.yaml build
+
+# Run the webapp prod-like (gunicorn, DEBUG off), via containers; `dev`'s analog.
+prod: build-prod
+    {{compose}} --file=prod-docker-compose.yaml up
 
 # The static checks below run with `--no-deps`: their tooling is baked into the
 # dev image, so they need neither postgres nor the webpack watcher.

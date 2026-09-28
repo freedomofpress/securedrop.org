@@ -45,8 +45,13 @@ jobs:
       build-args: USERID=1001
       registry: localhost/securedroporg-node
 
+  git-facts:
+    name: Git facts
+    uses: ./.github/workflows/git-facts.yaml
+
   build-prod:
     name: Build:Prod
+    needs: git-facts
     uses: freedomofpress/actionslib/.github/workflows/oci-build.yaml@main
     with:
       context: '.'
@@ -56,7 +61,7 @@ jobs:
       # publish.yaml and the k8s securityContext, so the image tested here is
       # the same artifact that gets deployed.
       registry: localhost/securedroporg
-      requires-deep-history: true
+      build-args: ${{ needs.git-facts.outputs.build-args }}
 
   lint-lockfiles:
     # Standalone, with no `needs`, so it runs alongside the image builds rather
