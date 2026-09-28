@@ -1,7 +1,0 @@
--r requirements.txt
-bandit>=1.7.7
-coverage
-django-debug-toolbar>=7.0.0
-ipdb>=0.13.9
-ruff
-vcrpy

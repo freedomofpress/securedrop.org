@@ -165,37 +165,52 @@ Search Commands
 Dependency Management
 ---------------------
 
+We use `Poetry <https://python-poetry.org/>`_ to manage Python dependencies.
+You don't need to install it locally: the ``just`` targets will run ``poetry``
+within the dev container, to handle maintenance operations.
+Three hash-pinned files are rendered from ``poetry.lock`` and must be committed
+alongside it:
+
+* ``requirements.txt`` production application dependencies
+* ``dev-requirements.txt`` the same, plus local testing and CI tooling
+* ``lock-requirements.txt`` Poetry itself, for the ``just`` recipes' container
+
+These are what the container images install; nothing installs from
+``poetry.lock`` directly.
+
 Adding new requirements
 +++++++++++++++++++++++
 
-New requirements should be added to ``*requirements.in`` files, for use with ``pip-compile``.
-There are two Python requirements files:
-
-* ``requirements.in`` production application dependencies
-* ``dev-requirements.in`` local testing and CI requirements
-
-Add the desired dependency to the appropriate ``.in`` file, then run:
+Edit ``pyproject.toml`` -- ``dependencies`` under ``[project]`` for the
+application, ``dev`` under ``[dependency-groups]`` for tooling -- and then run:
 
 .. code:: bash
 
-    just pip-compile
+    just lock
 
-All requirements files will be regenerated based on compatible versions. Multiple ``.in``
-files can be merged into a single ``.txt`` file, for use with ``pip``. The just
-recipe handles the merging of multiple files.
-
-This process is the same if a requirement needs to be changed (i.e. its version number restricted) or removed.  Make the appropriate change in the correct ``requirements.in`` file, then run the above command to compile the dependencies.
+This is also the route for changing a requirement (i.e. restricting its version
+number) or removing one.
 
 Upgrading existing requirements
 +++++++++++++++++++++++++++++++
 
-There are separate commands to upgrade a package without changing the ``requirements.in`` files.  The command
+``just lock`` leaves an already-locked package alone as long as it still
+satisfies its constraint.  To raise versions without editing ``pyproject.toml``:
 
 .. code:: bash
 
-    just pip-compile --upgrade-package=package-name
+    just lock-upgrade package-name
 
-will update the package named ``package-name`` to the latest version allowed by the constraints in ``requirements.in`` and compile a new ``dev-requirements.txt`` and ``requirements.txt`` based on that version.
+will update the package named ``package-name`` to the latest version allowed by
+the constraints in ``pyproject.toml``, and rewrite the generated files.  Naming
+no package upgrades everything.
+
+``just lock-check`` fails if ``poetry.lock`` no longer matches
+``pyproject.toml``, or if the rendered files no longer match the lock, so
+neither can go stale unnoticed; CI runs it as ``Lint:Lockfiles``.
+
+Dependabot PRs update ``poetry.lock`` but not the rendered files, so they fail
+``Lint:Lockfiles`` on arrival.  Check out the branch, run ``just lock``, and push.
 
 Advanced Actions Against the Database
 -------------------------------------
