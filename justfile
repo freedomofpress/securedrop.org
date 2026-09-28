@@ -50,9 +50,12 @@ env-check:
 node-modules: env-check
     [ -d node_modules ] || {{compose}} run --rm --no-deps node npm ci
 
+# Git facts go in as for build-prod, for when the container can't read .git.
+
 # Run the webapp locally, via containers (--build keeps images in sync with the Containerfile).
 dev: env-check
-    {{compose}} up --build
+    args="$(./ci/scripts/version-file.sh --build-args)" && \
+        env $args {{compose}} up --build
 
 alias compose := dev
 

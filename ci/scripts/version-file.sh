@@ -67,8 +67,8 @@ facts() {
         commit="$GIT_COMMIT"
         info="$(base64 -d <<<"$GIT_INFO_B64")"
     else
-        die "no git repository, and no GIT_COMMIT/GIT_INFO_B64 build-args" \
-            "Build via: just build-prod"
+        die "no git repository, and no GIT_COMMIT/GIT_INFO_B64 given" \
+            "Run via: just dev, or just build-prod"
     fi
 }
 
