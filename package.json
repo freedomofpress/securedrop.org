@@ -7,7 +7,7 @@
 	"scripts": {
 		"build": "webpack --mode production",
 		"start": "webpack watch --mode development --devtool eval-source-map",
-		"js-lint": "eslint client/**/*.js",
+		"js-lint": "eslint .",
 		"stylelint": "stylelint \"client/**/*.scss\""
 	},
 	"author": "Harris Lapiroff <harris@littleweaverweb.com>",
