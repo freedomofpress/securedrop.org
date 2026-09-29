@@ -1,5 +1,4 @@
 var webpack = require("webpack");
-const { merge } = require("webpack-merge");
 var BundleTracker = require("webpack-bundle-tracker");
 var MiniCssExtractPlugin = require("mini-css-extract-plugin");
 var path = require("path");
@@ -103,20 +102,24 @@ var common = {
 };
 
 if (TARGET === "build") {
-	module.exports = merge(common, {
+	module.exports = {
+		...common,
 		output: {
+			...common.output,
 			filename: "[name]-[contenthash].js",
 		},
 		plugins: [
+			...common.plugins,
 			new webpack.DefinePlugin({
 				"process.env": { NODE_ENV: JSON.stringify("production") },
 			}),
 		],
-	});
+	};
 }
 
 if (TARGET === "start") {
-	module.exports = merge(common, {
-		output: { pathinfo: true },
-	});
+	module.exports = {
+		...common,
+		output: { ...common.output, pathinfo: true },
+	};
 }
