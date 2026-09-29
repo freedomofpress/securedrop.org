@@ -3,8 +3,8 @@
 @use "base/base";
 @use "base/maps";
 
-// Vendor NOTE: MUST COME BEFORE BLOCKS
-@use "hamburgers/_sass/hamburgers/hamburgers";
+// NOTE: MUST COME BEFORE BLOCKS
+@use "hamburger-icon";
 @use "accessibility";
 @use "account";
 @use "allauth";
