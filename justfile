@@ -146,6 +146,10 @@ open-browser:
 
 alias browser := open-browser
 
+# Attach to the running Django container's console, e.g. for ipdb.
+attach:
+    {{engine}} attach $({{compose}} ps -q django)
+
 # Recompile prod + dev lockfiles (forward flags, e.g. --upgrade or --upgrade-package=NAME).
 pip-compile *FLAGS: (_pip-lock "requirements.txt" "requirements.in" FLAGS) (_pip-lock "dev-requirements.txt" "dev-requirements.in" FLAGS)
 
