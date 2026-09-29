@@ -138,6 +138,12 @@ save-db:
 restore-db:
     COMPOSE="{{compose}}" ./ci/scripts/restoredb.sh
 
+# Open a browser pointed at the running dev site.
+open-browser:
+    COMPOSE="{{compose}}" ./ci/scripts/browser-open.sh
+
+alias browser := open-browser
+
 # Recompile prod + dev lockfiles (forward flags, e.g. --upgrade or --upgrade-package=NAME).
 pip-compile *FLAGS: (_pip-lock "requirements.txt" "requirements.in" FLAGS) (_pip-lock "dev-requirements.txt" "dev-requirements.in" FLAGS)
 
