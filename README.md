@@ -18,7 +18,7 @@ The installation instructions below assume you have the following
 software on your machine:
 
 - [docker](https://docs.docker.com/engine/installation/) or
-  [podman](https://podman.io/docs/installation), with \"compose\"
+  [podman](https://podman.io/docs/installation), with "compose"
   support
 - [just](https://github.com/casey/just)
 
@@ -50,60 +50,268 @@ You should be able to hit the web server interface by running
 just open-browser
 ```
 
-### Getting Started: The Unabridged Edition
+If have problems starting the application locally, check the
+[Troubleshooting](#troubleshooting) section below.
 
-The development environment uses Docker Compose to run the application
-server, database, and webpack compilation processes.
+## Testing
 
-Before development you _must_ run this one-time command, which records
-your host UID so the containers build and run as your user. `just dev`
-does it for you, so you only need this if you intend to run
-`docker compose` directly.
+### Running the tests
 
-```bash
-just dev-init
-```
-
-To start the environment, run the following your first run:
+To perform a quick spot check to ensure all tests are passing you can
+run:
 
 ```bash
-just dev
-
-# or, equivalently, once dev-init has been run:
-docker compose up
+just test
 ```
 
-This is how you start the server every time you are working on the
-project. This will start a long-running process. You can exit this
-process with `ctl-c`. You may wish to open a second shell to run one-off
-commands while the server is running.
+This runs the Django test suite inside the `django` container with
+coverage, and reports a coverage summary (with a 70% floor) when it
+finishes.
 
-To populate the project with data suitable for development and testing.
+To quickly run Python linting you can use:
 
 ```bash
-just createdevdata
+just lint
 ```
 
-> [!IMPORTANT]
-> Though your database will persist between _most_ runs, it is recommended that you consider it ephemeral and do not use it to store data you don’t wish to lose.
+To run a subset of tests directly:
 
-You should be able to hit the web server interface at
-`http://localhost:8000/`. You can access the Wagtail admin at
-`http://localhost:8000/admin/`.
+```bash
+docker compose exec django ./manage.py test <app_or_path> --noinput
+```
 
-To learn more about Docker Compose, see the [docker compose CLI
-docs](https://docs.docker.com/compose/reference/overview/)
+## Troubleshooting
+
+### Database Reset
+
+To reset your database back to its initial state, run:
+
+```bash
+just reset-db
+```
+
+This removes the postgresql container and re-seeds it by running
+`createdevdata`.
+
+### Docker Containers
+
+Sometimes when dependencies are changed or a Docker image needs to be
+updated for other reasons, the containers will need to be manually
+triggered to rebuild. These commands, listed in order of destructiveness
+can resolve most container issues:
+
+```shell
+docker compose up --build
+```
+
+Adding the `--build` flag tells Docker Compose to detect and update any
+images that require new changes. You can safely add the `--build` flag
+under most circumstances without adverse effects.
+
+```shell
+docker compose up --build --force-recreate
+```
+
+Adding the `--force-recreate` flag tells Docker Compose to recreate all
+containers that are part of the application. Note that this only
+recreates containers from existing images; it does not rebuild the
+images themselves, so it won't help if a cached image layer (e.g. a
+stale `pip install` or `npm install` step) is the problem.
+
+```shell
+docker compose build --no-cache
+```
+
+If the above two commands don't help, the build cache itself may be
+stale. `--no-cache` throws out Docker's build cache and rebuilds every
+image layer from scratch (slow, but thorough). Follow it with
+`docker compose up` to start the freshly built images.
+
+If none of the above fix the issues you're encountering, ensure all
+docker containers are stopped (`Ctrl-C` if containers are running in a
+shell, `docker compose kill` if they are running detached) and run the
+following commands. These commands will remove all images and containers
+and rebuild from scratch. Any data in your database will be wiped.
+
+```shell
+docker compose rm
+docker compose up --build
+```
+
+### Debugging
+
+If you want to use the [PDB](https://docs.python.org/3/library/pdb.html)
+program for debugging, it is possible. First, add this line to an area
+of the code you wish to debug:
+
+```python
+import ipdb
+
+ipdb.set_trace()
+```
+
+Second, attach to the running Django container. This must be done in a
+shell, and it is within this attached shell that you will be able to
+interact with the debugger. Run:
+
+```bash
+just attach
+```
+
+Once you have done this, you can load the page that will run the code
+with your `import ipdb` and the debugger will activate in the shell you
+attached. To detach from the shell without stopping the container press
+`Control+P` followed by `Control+Q`.
+
+#### Django Debug Toolbar
+
+For local development, it is possible to enable the [Django Debug
+Toolbar](https://django-debug-toolbar.readthedocs.io/en/stable/) by
+setting the `ENABLE_DEBUG_TOOLBAR` environment variable when starting
+docker compose:
+
+```bash
+ENABLE_DEBUG_TOOLBAR=1 docker compose up
+```
+
+See the documentation for more information about how to use this tool to
+explore template information or SQL queries. Note that when the toolbar
+is running, performance of the local server may be affected.
+
+### Mimic production environment
+
+You can mimic a production environment where django is deployed with
+gunicorn, a reverse nginx proxy, and debug mode off using the
+`prod-docker-compose.yaml` file. Note that build time for this
+container takes much longer than the developer environment:
+
+Run it via `just prod`, which builds the image first
+(`just build-prod` builds alone):
+
+```bash
+just prod
+```
+
+All subsequent docker compose commands will need that explicit `-f` flag
+pointing to the production-like compose file.
+
+It is not run using live-code refresh, so it's not a great dev
+environment but is good for replicating issues that would come up in
+production.
+
+## Database management
+
+### Connect to PostgreSQL
+
+To connect to the database, use the following credentials:
+
+- username - `securedrop`
+- password - `securedroppassword`
+- dbname - `securedropdb`
+- the host/port can be determined by running
+  `docker compose port postgresql 5432`
+
+### Database import
+
+Drop a Postgres database dump into the root of the repo and rename it to
+`import.db`. To import it into a running dev session (ensure
+`docker compose up` has already been started) run `just import-db`. Note
+that this will not pull in images that are referenced from an external
+site backup.
+
+### Database snapshots
+
+When developing, it is often required to switch branches. These
+different branches can have mutually incompatible changes to the
+database, which can render the application inoperable. It is therefore
+helpful to be able to easily restore the database to a known-good state
+when making experimental changes. There are two commands provided to
+assist in this.
+
+`just save-db`: Saves a snapshot of the current state of the database to
+a file in the `db-snapshots` folder. This file is named for the
+currently checked-out git branch.
+
+`just restore-db`: Restores the most recent snapshot for the currently
+checked-out git branch. If none can be found, that is, `just save-db`
+has never been run for the current branch, this command will do nothing.
+If a saved database is found, all data in database will be replaced with
+that from the file. Note that this command will terminate all
+connections to the database and delete all data there, so care is
+encouraged.
+
+Workflow suggestions. I find it helpful to have one snapshot for each
+active branch I'm working on or reviewing, as well as for master.
+Checking out a new branch and running its migrations should be followed
+by running `just save-db` to give you a baseline to return to when
+needed.
+
+When checking out a new branch after working on another, it can be
+helpful to restore your snapshot from master, so that the migrations for
+the new branch, which were presumably based off of master, will have a
+clean starting point.
+
+## Dependency Management
+
+### Adding new requirements
+
+New requirements should be added to `*requirements.in` files, for use
+with `pip-compile`. There are two Python requirements files:
+
+- `requirements.in` production application dependencies
+- `dev-requirements.in` local testing and CI requirements
+
+Add the desired dependency to the appropriate `.in` file, then run:
+
+```bash
+just pip-compile
+```
+
+All requirements files will be regenerated based on compatible versions.
+Multiple `.in` files can be merged into a single `.txt` file, for use
+with `pip`. The just recipe handles the merging of multiple files.
+
+This process is the same if a requirement needs to be changed (i.e. its
+version number restricted) or removed. Make the appropriate change in
+the correct `requirements.in` file, then run the above command to
+compile the dependencies.
+
+### Upgrading existing requirements
+
+There are separate commands to upgrade a package without changing the
+`requirements.in` files. The command
+
+```bash
+just pip-compile --upgrade-package=package-name
+```
+
+will update the package named `package-name` to the latest version
+allowed by the constraints in `requirements.in` and compile a new
+`dev-requirements.txt` and `requirements.txt` based on that version.
+
+## Managing CMS Content
+
+You can log in to the Wagtail interface at `/admin` with the following
+credentials:
+
+- username - `test`
+- password - `test`
+
+## Other Commands
+
+### just
+
+In order to ensure that all commands are run in the same environment, we have added a `just lint` command that checks Python code (`ruff`), SASS (`stylelint`), SVGs (`svgo`), PNGs (`oxipng`). It also runs `bandit` and the migration check. This is done in the container, rather than on your local env.
+
+Use `just ruff-fix` to apply ruff's fixes and formatting in place.
+
+Run `just` on its own to list every available recipe.
 
 ### Management Commands
 
-In addition to the management commands provided by
-[Django](https://docs.djangoproject.com/en/stable/ref/django-admin/) and
-[Wagtail](http://docs.wagtail.io/en/stable/reference/management_commands.html),
-the project has a set of its own custom management commands. All
-commands listed should be prefaced by
-`docker compose exec django ./manage.py`.
+In addition to the management commands provided by [Django](https://docs.djangoproject.com/en/stable/ref/django-admin/) and [Wagtail](http://docs.wagtail.io/en/stable/reference/management_commands.html), the project has a set of its own custom management commands. All commands listed should be prefaced by `docker compose exec django ./manage.py`.
 
-#### Dev Data Commands
+### Dev Data Commands
 
 These commands are meant to be used once at the beginning of
 development. They can be run individually or all at once using the
@@ -146,7 +354,7 @@ create fake data.
   Creates default search menus. The `delete` flag destroys any
   existing search menus.
 
-#### Scanner Commands
+### Scanner Commands
 
 - `scan [securedrops]`
 
@@ -154,7 +362,7 @@ create fake data.
   space-separated domain names) for security. By default, scans all
   pages in the directory.
 
-#### Search Commands
+### Search Commands
 
 - `update_docs_index [--rebuild]`
 
@@ -181,203 +389,3 @@ create fake data.
   to delete existing entries for Wagtail pages before fetching new
   data, which is useful if out-of-date information or pages are in the
   index.
-
-### Dependency Management
-
-#### Adding new requirements
-
-New requirements should be added to `*requirements.in` files, for use
-with `pip-compile`. There are two Python requirements files:
-
-- `requirements.in` production application dependencies
-- `dev-requirements.in` local testing and CI requirements
-
-Add the desired dependency to the appropriate `.in` file, then run:
-
-```bash
-just pip-compile
-```
-
-All requirements files will be regenerated based on compatible versions.
-Multiple `.in` files can be merged into a single `.txt` file, for use
-with `pip`. The just recipe handles the merging of multiple files.
-
-This process is the same if a requirement needs to be changed (i.e. its
-version number restricted) or removed. Make the appropriate change in
-the correct `requirements.in` file, then run the above command to
-compile the dependencies.
-
-#### Upgrading existing requirements
-
-There are separate commands to upgrade a package without changing the
-`requirements.in` files. The command
-
-```bash
-just pip-compile --upgrade-package=package-name
-```
-
-will update the package named `package-name` to the latest version
-allowed by the constraints in `requirements.in` and compile a new
-`dev-requirements.txt` and `requirements.txt` based on that version.
-
-### Advanced Actions Against the Database
-
-#### Database import
-
-Drop a Postgres database dump into the root of the repo and rename it to
-`import.db`. To import it into a running dev session (ensure
-`docker compose up` has already been started) run `just import-db`. Note
-that this will not pull in images that are referenced from an external
-site backup.
-
-#### Connect to PostgreSQL service from host
-
-The postgresql service is exposed to your host on a port that will be
-displayed to you in the output of `docker compose port postgresql 5432`.
-If you have a GUI database manipulation application you\'d like to
-utilize point it to `localhost` with the correct port, username
-`securedrop`, password `securedroppassword`, dbname `securedropdb`
-
-#### Mimic production environment
-
-You can mimic a production environment where django is deployed with
-gunicorn, a reverse nginx proxy, and debug mode off using the
-`prod-docker-compose.yaml` file. Note that build time for
-this container takes much longer than the developer environment:
-
-Run it via `just prod`, which builds with git facts passed in as build-args
-(`just build-prod` builds alone):
-
-```bash
-just prod
-```
-
-It is not run using live-code refresh, so it’s not a great dev
-environment but is good for replicating issues that would come up in
-production.
-
-#### Database snapshots
-
-When developing, it is often required to switch branches. These
-different branches can have mutually incompatible changes to the
-database, which can render the application inoperable. It is therefore
-helpful to be able to easily restore the database to a known-good state
-when making experimental changes. There are two commands provided to
-assist in this.
-
-`just save-db`: Saves a snapshot of the current state of the database to
-a file in the `db-snapshots` folder. This file is named for the
-currently checked-out git branch.
-
-`just restore-db`: Restores the most recent snapshot for the currently
-checked-out git branch. If none can be found, that is, `just save-db`
-has never been run for the current branch, this command will do nothing.
-If a saved database is found, all data in database will be replaced with
-that from the file. Note that this command will terminate all
-connections to the database and delete all data there, so care is
-encouraged.
-
-Workflow suggestions. I find it helpful to have one snapshot for each
-active branch I\'m working on or reviewing, as well as for master.
-Checking out a new branch and running its migrations should be followed
-by running `just save-db` to give you a baseline to return to when
-needed.
-
-When checking out a new branch after working on another, it can be
-helpful to restore your snapshot from master, so that the migrations for
-the new branch, which were presumably based off of master, will have a
-clean starting point.
-
-### Managing CMS Content
-
-You can log in to the Wagtail interface at `/admin` with the following
-credentials:
-
-- username - `test`
-- password - `test`
-
-### Other Commands
-
-In order to ensure that all commands are run in the same environment, we
-have added a `just lint` command that runs `ruff`, `bandit` and the
-migration check inside the container, rather than on your local env. Use
-`just ruff-fix` to apply ruff\'s fixes and formatting in place.
-
-Run `just` on its own to list every available recipe.
-
-### Troubleshooting
-
-#### Docker Container Woes
-
-Sometimes when dependencies are changed or a Docker image needs to be
-updated for other reasons, the containers will need to be manually
-triggered to rebuild. These commands, listed in order of destructiveness
-can resolve most container issues:
-
-```shell
-docker compose up --build
-```
-
-Adding the `--build` flag tells Docker Compose to detect and update any
-images that require new changes. You can safely add the `--build` flag
-under most circumstances without adverse effects.
-
-```shell
-docker compose up --build --force-recreate
-```
-
-Adding the `--force-recreate` flag tells Docker Compose to recreate all
-containers that are part of the application.
-
-If neither of the above fix the issues you\'re encountering, ensure all
-docker containers are stopped (`ctl-c` if containers are running in a
-shell, `docker compose kill` if they are running detached) and run the
-following commands. These commands will remove all images ad containers
-and rebuild from scratch. Any data in your database will be wiped.
-
-```shell
-docker compose rm
-docker compose up --build
-```
-
-#### Debugging
-
-If you want to use the [PDB](https://docs.python.org/3/library/pdb.html)
-program for debugging, it is possible. First, add this line to an area
-of the code you wish to debug:
-
-```python
-import ipdb
-
-ipdb.set_trace()
-```
-
-Second, attach to the running Django container. This must be done in a
-shell, and it is within this attached shell that you will be able to
-interact with the debugger. The command to attach is
-`docker attach <ID_OF_DJANGO_CONTAINER>`, and on UNIX-type systems, you
-can look up the ID and attach to the container with this single command:
-
-```bash
-docker attach $(docker compose ps -q django)
-```
-
-Once you have done this, you can load the page that will run the code
-with your `import ipdb` and the debugger will activate in the shell you
-attached. To detach from the shell without stopping the container press
-`Control+P` followed by `Control+Q`.
-
-#### Django Debug Toolbar
-
-For local development, it is possible to enable the [Django Debug
-Toolbar](https://django-debug-toolbar.readthedocs.io/en/stable/) by
-setting the `ENABLE_DEBUG_TOOLBAR` environment variable when starting
-docker compose:
-
-```bash
-ENABLE_DEBUG_TOOLBAR=1 docker compose up
-```
-
-See the documentation for more information about how to use this tool to
-explore template information or SQL queries. Note that when the toolbar
-is running, performance of the local server may be affected.
