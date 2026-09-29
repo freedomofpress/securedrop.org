@@ -128,9 +128,14 @@ test:
 createdevdata:
     {{compose}} exec django bash -c "./manage.py createdevdata"
 
+# Wipe the postgresql container and re-seed a fresh database via createdevdata.
+reset-db: env-check && createdevdata
+    {{compose}} rm -f postgresql
+    {{compose}} up --build --wait
+
 # Import a postgres export file located at ./import.db.
 import-db:
-    {{compose}} exec -T postgresql bash -c "sed 's/OWNER TO [a-z]*/OWNER TO postgres/g' /django/import.db | psql securedropdb -U postgres > /dev/null"
+    {{compose}} exec -T postgresql bash -c "sed 's/OWNER TO [a-z]*/OWNER TO securedrop/g' /django/import.db | psql securedropdb -U securedrop > /dev/null"
 
 # Save a snapshot of the database for the current git branch.
 save-db:
