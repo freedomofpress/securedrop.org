@@ -36,13 +36,7 @@ var common = {
 					{
 						loader: "babel-loader",
 						options: {
-							presets: [
-								// Setting `modules` false, prevents babel from trying to use
-								// commonjs imports, which messes up our nice clean ES6 imports
-								// provided directly by Webpack:
-								// https://github.com/webpack/webpack/issues/4961#issuecomment-304938963
-								["@babel/preset-env", { modules: false }],
-							],
+							presets: ["@babel/preset-env"],
 						},
 					},
 				],
