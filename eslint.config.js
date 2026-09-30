@@ -22,15 +22,7 @@ module.exports = [
 			// which is older than this codebase's syntax (e.g. optional chaining).
 			// Override it back to the ESLint default so parsing doesn't regress.
 			ecmaVersion: "latest",
-			globals: {
-				...globals.browser,
-				// webpack injects a `module` binding into each bundled chunk for
-				// its Hot Module Replacement API (module.hot).
-				module: "readonly",
-				// Matomo/Piwik's tracking snippet defines this on `window` before
-				// our bundles run.
-				_paq: "readonly",
-			},
+			globals: globals.browser,
 		},
 
 		settings: {
