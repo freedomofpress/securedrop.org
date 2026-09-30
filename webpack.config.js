@@ -4,7 +4,6 @@ var MiniCssExtractPlugin = require("mini-css-extract-plugin");
 var path = require("path");
 
 var TARGET = process.env.npm_lifecycle_event;
-process.env.BABEL_ENV = TARGET;
 
 var target = __dirname + "/build/static/bundles";
 
@@ -25,7 +24,6 @@ var common = {
 
 	resolve: {
 		extensions: [".js"],
-		modules: ["node_modules"],
 	},
 
 	module: {
@@ -40,10 +38,7 @@ var common = {
 						},
 					},
 				],
-				include: [
-					path.join(__dirname, "/client/common/js"),
-					path.join(__dirname, "/client/tor/js"),
-				],
+				include: [path.join(__dirname, "/client")],
 			},
 			{
 				test: /\.scss$/,
