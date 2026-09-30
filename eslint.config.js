@@ -24,25 +24,5 @@ module.exports = [
 			ecmaVersion: "latest",
 			globals: globals.browser,
 		},
-
-		settings: {
-			"import/resolver": {
-				webpack: {
-					config: {
-						extensions: [".js"],
-					},
-				},
-			},
-		},
-
-		rules: {
-			// webpack.config.js only populates module.exports when run via the
-			// `build`/`start` npm scripts (it branches on npm_lifecycle_event),
-			// so requiring it here (e.g. from eslint-import-resolver-webpack)
-			// yields an empty config and can't actually resolve aliases or
-			// extension-less imports. Leave path resolution unchecked until
-			// that export is restructured.
-			"import/no-unresolved": "off",
-		},
 	},
 ];
