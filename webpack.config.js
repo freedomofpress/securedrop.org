@@ -1,6 +1,5 @@
 var webpack = require("webpack");
 const { merge } = require("webpack-merge");
-var autoprefixer = require("autoprefixer");
 var BundleTracker = require("webpack-bundle-tracker");
 var MiniCssExtractPlugin = require("mini-css-extract-plugin");
 var path = require("path");
