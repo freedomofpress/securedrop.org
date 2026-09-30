@@ -7,7 +7,12 @@ const jsFiles = ["client/**/*.js"];
 
 module.exports = [
 	{
-		ignores: ["coverage/**", "build/**", "debug/static/debug/jquery.js"],
+		ignores: [
+			"debug/static/debug/jquery.js",
+			"coverage/**",
+			"build/**",
+			".venv/**",
+		],
 	},
 
 	{ files: jsFiles, ...js.configs.recommended },
