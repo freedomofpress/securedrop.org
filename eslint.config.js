@@ -5,6 +5,10 @@ const globals = require("globals");
 
 const jsFiles = ["client/**/*.js"];
 
+// Top-level build tooling config files (postcss.config.js, webpack.config.js,
+// etc.), not matched by "*.config.js" for files nested in subdirectories.
+const nodeConfigFiles = ["*.config.js"];
+
 module.exports = [
 	{
 		ignores: [
@@ -30,4 +34,17 @@ module.exports = [
 			globals: globals.browser,
 		},
 	},
+
+	{
+		files: nodeConfigFiles,
+		...js.configs.recommended,
+		languageOptions: {
+			ecmaVersion: "latest",
+			sourceType: "commonjs",
+			globals: {
+				...globals.node,
+			},
+		},
+	},
+	{ files: nodeConfigFiles, ...prettier },
 ];
