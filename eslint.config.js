@@ -7,6 +7,7 @@ module.exports = defineConfig([
 	globalIgnores([
 		"debug/static/debug/jquery.js",
 		"coverage/",
+		"htmlcov/",
 		"build/",
 		".venv/",
 	]),
