@@ -1,6 +1,5 @@
 const js = require("@eslint/js");
 const importPlugin = require("eslint-plugin-import");
-const prettier = require("eslint-config-prettier");
 const globals = require("globals");
 
 const jsFiles = ["client/**/*.js"];
@@ -21,7 +20,6 @@ module.exports = [
 
 	{ files: jsFiles, ...js.configs.recommended },
 	{ files: jsFiles, ...importPlugin.flatConfigs.recommended },
-	{ files: jsFiles, ...prettier },
 
 	{
 		files: jsFiles,
@@ -46,5 +44,4 @@ module.exports = [
 			},
 		},
 	},
-	{ files: nodeConfigFiles, ...prettier },
 ];
