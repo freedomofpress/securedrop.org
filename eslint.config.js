@@ -25,11 +25,17 @@ module.exports = defineConfig([
 
 	{
 		// Build tool configs at the repo root, which run in Node.
-		files: ["*.config.js"],
+		files: ["*.config.{js,mjs}"],
 		extends: [js.configs.recommended],
 		languageOptions: {
-			sourceType: "commonjs",
 			globals: globals.node,
+		},
+	},
+
+	{
+		files: ["*.config.js"],
+		languageOptions: {
+			sourceType: "commonjs",
 		},
 	},
 ]);

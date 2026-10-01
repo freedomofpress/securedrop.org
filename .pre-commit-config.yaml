@@ -59,7 +59,7 @@ repos:
     rev: v9.39.1
     hooks:
       - id: eslint
-        files: \.jsx?$
+        files: \.(jsx?|mjs)$
         additional_dependencies:
           - eslint@9.39.5
           - '@eslint/js@9.39.5'
