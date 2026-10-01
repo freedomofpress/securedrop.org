@@ -1,3 +1,4 @@
+const { defineConfig, globalIgnores } = require("eslint/config");
 const js = require("@eslint/js");
 const importPlugin = require("eslint-plugin-import");
 const globals = require("globals");
@@ -8,21 +9,17 @@ const jsFiles = ["client/**/*.js"];
 // etc.), not matched by "*.config.js" for files nested in subdirectories.
 const nodeConfigFiles = ["*.config.js"];
 
-module.exports = [
-	{
-		ignores: [
-			"debug/static/debug/jquery.js",
-			"coverage/**",
-			"build/**",
-			".venv/**",
-		],
-	},
-
-	{ files: jsFiles, ...js.configs.recommended },
-	{ files: jsFiles, ...importPlugin.flatConfigs.recommended },
+module.exports = defineConfig([
+	globalIgnores([
+		"debug/static/debug/jquery.js",
+		"coverage/**",
+		"build/**",
+		".venv/**",
+	]),
 
 	{
 		files: jsFiles,
+		extends: [js.configs.recommended, importPlugin.flatConfigs.recommended],
 
 		languageOptions: {
 			// eslint-plugin-import's recommended config hardcodes ecmaVersion: 2018,
@@ -35,7 +32,7 @@ module.exports = [
 
 	{
 		files: nodeConfigFiles,
-		...js.configs.recommended,
+		extends: [js.configs.recommended],
 		languageOptions: {
 			ecmaVersion: "latest",
 			sourceType: "commonjs",
@@ -44,4 +41,4 @@ module.exports = [
 			},
 		},
 	},
-];
+]);
