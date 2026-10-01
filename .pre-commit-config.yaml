@@ -71,6 +71,6 @@ repos:
     rev: v3.9.6
     hooks:
       - id: prettier
-        files: \.jsx?$
+        files: \.(jsx?|mjs)$
         additional_dependencies:
           - prettier

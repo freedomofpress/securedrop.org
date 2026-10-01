@@ -3,6 +3,7 @@
 !*/
 !*.js
 !*.jsx
+!*.mjs
 
 debug/static/debug/jquery.js
 .venv/
