@@ -5,3 +5,4 @@
 !*.jsx
 
 debug/static/debug/jquery.js
+.venv/
