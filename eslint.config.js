@@ -3,42 +3,32 @@ const js = require("@eslint/js");
 const importPlugin = require("eslint-plugin-import");
 const globals = require("globals");
 
-const jsFiles = ["client/**/*.js"];
-
-// Top-level build tooling config files (postcss.config.js, webpack.config.js,
-// etc.), not matched by "*.config.js" for files nested in subdirectories.
-const nodeConfigFiles = ["*.config.js"];
-
 module.exports = defineConfig([
 	globalIgnores([
 		"debug/static/debug/jquery.js",
-		"coverage/**",
-		"build/**",
-		".venv/**",
+		"coverage/",
+		"build/",
+		".venv/",
 	]),
 
 	{
-		files: jsFiles,
+		files: ["client/**/*.js"],
 		extends: [js.configs.recommended, importPlugin.flatConfigs.recommended],
-
 		languageOptions: {
-			// eslint-plugin-import's recommended config hardcodes ecmaVersion: 2018,
-			// which is older than this codebase's syntax (e.g. optional chaining).
-			// Override it back to the ESLint default so parsing doesn't regress.
+			// eslint-plugin-import's recommended config sets ecmaVersion: 2018,
+			// which can't parse newer syntax such as optional catch binding.
 			ecmaVersion: "latest",
 			globals: globals.browser,
 		},
 	},
 
 	{
-		files: nodeConfigFiles,
+		// Build tool configs at the repo root, which run in Node.
+		files: ["*.config.js"],
 		extends: [js.configs.recommended],
 		languageOptions: {
-			ecmaVersion: "latest",
 			sourceType: "commonjs",
-			globals: {
-				...globals.node,
-			},
+			globals: globals.node,
 		},
 	},
 ]);
