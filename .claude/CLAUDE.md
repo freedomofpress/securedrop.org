@@ -21,7 +21,7 @@
 - Python 3.14, Django 5.2+, Wagtail 7.4+
 - PostgreSQL 17
 - Webpack (frontend)
-- Stylelint (stylelint-config-standard-scss)
+- ESLint, Prettier, Stylelint (stylelint-config-standard-scss)
 - Ruff (primary linter)
 
 ## Development
@@ -44,7 +44,7 @@
 - SCSS is extracted to separate CSS files via MiniCssExtractPlugin
 - `webpack-bundle-tracker` writes `webpack-stats.json` for Django integration
 - `npm run start` = dev, `npm run build` = production
-- Path alias `~` maps to `client/common/js/` for imports
+- Imports within `client/` use relative `./` paths (no path aliases)
 
 ## Testing
 
