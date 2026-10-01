@@ -24,6 +24,16 @@ module.exports = defineConfig([
 	},
 
 	{
+		// Scripts served directly by Django's static files, not bundled by webpack.
+		files: ["securedrop/static/js/*.js"],
+		extends: [js.configs.recommended],
+		languageOptions: {
+			sourceType: "script",
+			globals: globals.browser,
+		},
+	},
+
+	{
 		// Build tool configs at the repo root, which run in Node.
 		files: ["*.config.{js,mjs}"],
 		extends: [js.configs.recommended],
