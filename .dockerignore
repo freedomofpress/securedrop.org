@@ -39,7 +39,6 @@
 !package.json
 !package-lock.json
 !webpack.config.js
-!postcss.config.js
 
 # permit general build tooling, e.g. the version report script
 !ci

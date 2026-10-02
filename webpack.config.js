@@ -24,20 +24,19 @@ var common = {
 	},
 
 	resolve: {
-		extensions: [".js", ".jsx"],
+		extensions: [".js"],
 		modules: ["node_modules"],
 	},
 
 	module: {
 		rules: [
 			{
-				test: /\.jsx?$/,
+				test: /\.js$/,
 				use: [
 					{
 						loader: "babel-loader",
 						options: {
 							presets: [
-								"@babel/preset-react",
 								// Setting `modules` false, prevents babel from trying to use
 								// commonjs imports, which messes up our nice clean ES6 imports
 								// provided directly by Webpack:
@@ -49,7 +48,6 @@ var common = {
 				],
 				include: [
 					path.join(__dirname, "/client/common/js"),
-					path.join(__dirname, "/client/autocomplete/js"),
 					path.join(__dirname, "/client/tor/js"),
 				],
 			},
@@ -58,7 +56,6 @@ var common = {
 				use: [
 					MiniCssExtractPlugin.loader,
 					"css-loader",
-					"postcss-loader",
 					{
 						loader: "sass-loader",
 						options: {
@@ -76,7 +73,7 @@ var common = {
 			},
 			{
 				test: /\.css$/,
-				use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
+				use: [MiniCssExtractPlugin.loader, "css-loader"],
 			},
 			{
 				test: /\.(png|svg|jpg|gif)$/,

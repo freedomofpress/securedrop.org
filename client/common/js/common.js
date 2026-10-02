@@ -1,6 +1,3 @@
-import "classlist-polyfill";
-import "babel-polyfill";
-
 import "../scss/common.scss";
 import "./slidingnav";
 import "./alert";

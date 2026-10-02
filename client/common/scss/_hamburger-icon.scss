@@ -1,0 +1,135 @@
+@use "sass:math";
+
+// Replaces the `hamburgers` npm package: it's unmaintained (last published
+// 2022), vendors its Sass with the deprecated `@import` syntax, and ships 30
+// button animations when only `.hamburger--collapse` is used, in
+// securedrop/templates/base.html. This keeps just the base button styles
+// and the "collapse" animation.
+
+$hamburger-padding-x: 15px;
+$hamburger-padding-y: 15px;
+$hamburger-layer-width: 40px;
+$hamburger-layer-height: 4px;
+$hamburger-layer-spacing: 6px;
+$hamburger-layer-color: #000;
+$hamburger-layer-border-radius: 4px;
+$hamburger-hover-opacity: 0.7;
+
+.hamburger {
+	padding: $hamburger-padding-y $hamburger-padding-x;
+	display: inline-block;
+	cursor: pointer;
+	transition-property: opacity, filter;
+	transition-duration: 0.15s;
+	transition-timing-function: linear;
+
+	// Normalize (<button>)
+	font: inherit;
+	color: inherit;
+	text-transform: none;
+	background-color: transparent;
+	border: 0;
+	margin: 0;
+	overflow: visible;
+
+	&:hover {
+		opacity: $hamburger-hover-opacity;
+	}
+
+	&.is-active {
+		&:hover {
+			opacity: $hamburger-hover-opacity;
+		}
+
+		.hamburger-inner,
+		.hamburger-inner::before,
+		.hamburger-inner::after {
+			background-color: $hamburger-layer-color;
+		}
+	}
+}
+
+.hamburger-box {
+	width: $hamburger-layer-width;
+	height: $hamburger-layer-height * 3 + $hamburger-layer-spacing * 2;
+	display: inline-block;
+	position: relative;
+}
+
+.hamburger-inner {
+	display: block;
+	top: 50%;
+	margin-top: math.div($hamburger-layer-height, -2);
+
+	&,
+	&::before,
+	&::after {
+		width: $hamburger-layer-width;
+		height: $hamburger-layer-height;
+		background-color: $hamburger-layer-color;
+		border-radius: $hamburger-layer-border-radius;
+		position: absolute;
+		transition-property: transform;
+		transition-duration: 0.15s;
+		transition-timing-function: ease;
+	}
+
+	&::before,
+	&::after {
+		content: "";
+		display: block;
+	}
+
+	&::before {
+		top: ($hamburger-layer-spacing + $hamburger-layer-height) * -1;
+	}
+
+	&::after {
+		bottom: ($hamburger-layer-spacing + $hamburger-layer-height) * -1;
+	}
+}
+
+// "Collapse" animation, the only variant used (see `.hamburger--collapse`
+// in securedrop/templates/base.html)
+.hamburger--collapse {
+	.hamburger-inner {
+		top: auto;
+		bottom: 0;
+		transition-duration: 0.13s;
+		transition-delay: 0.13s;
+		transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+
+		&::after {
+			top: ($hamburger-layer-spacing * 2 + $hamburger-layer-height * 2) * -1;
+			transition: top 0.2s 0.2s cubic-bezier(0.3333, 0.6667, 0.6667, 1),
+				opacity 0.1s linear;
+		}
+
+		&::before {
+			transition: top 0.12s 0.2s cubic-bezier(0.3333, 0.6667, 0.6667, 1),
+				transform 0.13s cubic-bezier(0.55, 0.055, 0.675, 0.19);
+		}
+	}
+
+	&.is-active {
+		.hamburger-inner {
+			transform: translate3d(0, ($hamburger-layer-spacing + $hamburger-layer-height) * -1, 0) rotate(-45deg);
+			transition-delay: 0.22s;
+			transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+
+			&::after {
+				top: 0;
+				opacity: 0;
+				transition: top 0.2s cubic-bezier(0.3333, 0, 0.6667, 0.3333),
+					opacity 0.1s 0.22s linear;
+			}
+
+			&::before {
+				top: 0;
+				transform: rotate(-90deg);
+				transition: top 0.1s 0.16s cubic-bezier(0.3333, 0, 0.6667, 0.3333),
+					transform 0.13s 0.25s cubic-bezier(0.215, 0.61, 0.355, 1);
+			}
+		}
+	}
+}
