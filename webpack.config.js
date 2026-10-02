@@ -1,18 +1,18 @@
-var webpack = require("webpack");
-var BundleTracker = require("webpack-bundle-tracker");
-var MiniCssExtractPlugin = require("mini-css-extract-plugin");
-var path = require("path");
+const webpack = require("webpack");
+const BundleTracker = require("webpack-bundle-tracker");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const path = require("path");
 
-var TARGET = process.env.npm_lifecycle_event;
-process.env.BABEL_ENV = TARGET;
+const isProd = process.env.npm_lifecycle_event === "build";
+const isDev = process.env.npm_lifecycle_event === "start";
 
-var target = __dirname + "/build/static/bundles";
+const target = __dirname + "/build/static/bundles";
 
-var STATIC_URL = process.env.STATIC_URL || "/common/static/";
-var scssData = '@use "base/config" with ($static-url: "' + STATIC_URL + '");';
+const STATIC_URL = process.env.STATIC_URL || "/common/static/";
+const scssData = '@use "base/config" with ($static-url: "' + STATIC_URL + '");';
 console.log("Using STATIC_URL", STATIC_URL);
 
-var common = {
+const common = {
 	entry: {
 		common: __dirname + "/client/common/js/common.js",
 		tor: __dirname + "/client/tor/js/torEntry.js",
@@ -25,31 +25,14 @@ var common = {
 
 	resolve: {
 		extensions: [".js"],
-		modules: ["node_modules"],
 	},
 
 	module: {
 		rules: [
 			{
 				test: /\.js$/,
-				use: [
-					{
-						loader: "babel-loader",
-						options: {
-							presets: [
-								// Setting `modules` false, prevents babel from trying to use
-								// commonjs imports, which messes up our nice clean ES6 imports
-								// provided directly by Webpack:
-								// https://github.com/webpack/webpack/issues/4961#issuecomment-304938963
-								["@babel/preset-env", { modules: false }],
-							],
-						},
-					},
-				],
-				include: [
-					path.join(__dirname, "/client/common/js"),
-					path.join(__dirname, "/client/tor/js"),
-				],
+				loader: "babel-loader",
+				include: [path.join(__dirname, "/client")],
 			},
 			{
 				test: /\.scss$/,
@@ -88,8 +71,8 @@ var common = {
 
 	plugins: [
 		new MiniCssExtractPlugin({
-			filename: TARGET === "build" ? "[name]-[contenthash].css" : "[name].css",
-			chunkFilename: TARGET === "build" ? "[id]-[contenthash].css" : "[id].css",
+			filename: isProd ? "[name]-[contenthash].css" : "[name].css",
+			chunkFilename: isProd ? "[id]-[contenthash].css" : "[id].css",
 		}),
 		new BundleTracker({
 			path: target,
@@ -98,7 +81,7 @@ var common = {
 	],
 };
 
-if (TARGET === "build") {
+if (isProd) {
 	module.exports = {
 		...common,
 		output: {
@@ -114,7 +97,7 @@ if (TARGET === "build") {
 	};
 }
 
-if (TARGET === "start") {
+if (isDev) {
 	module.exports = {
 		...common,
 		output: { ...common.output, pathinfo: true },

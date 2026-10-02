@@ -15,8 +15,8 @@
 		"baseline widely available"
 	],
 	"devDependencies": {
-		"@babel/core": "^8.0.1",
-		"@babel/preset-env": "^8.0.2",
+		"@babel/core": "^8.0.6",
+		"@babel/preset-env": "^8.0.6",
 		"@eslint/js": "^9.39.5",
 		"babel-loader": "^10.1.1",
 		"css-loader": "^7.1.4",
@@ -30,7 +30,7 @@
 		"stylelint": "^17.0.0",
 		"stylelint-config-standard-scss": "^17.0.0",
 		"svgo": "4.1.0",
-		"webpack": "^5.109.2",
+		"webpack": "^5.111.1",
 		"webpack-bundle-tracker": "^3.2.4",
 		"webpack-cli": "^7.2.3"
 	},
