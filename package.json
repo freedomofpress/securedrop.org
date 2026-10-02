@@ -15,8 +15,8 @@
 		"baseline widely available"
 	],
 	"devDependencies": {
-		"@babel/core": "^8.0.1",
-		"@babel/preset-env": "^8.0.2",
+		"@babel/core": "^8.0.6",
+		"@babel/preset-env": "^8.0.6",
 		"@eslint/js": "^9.39.5",
 		"babel-loader": "^10.1.1",
 		"css-loader": "^7.1.4",
