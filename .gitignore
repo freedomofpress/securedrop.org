@@ -51,3 +51,6 @@ results.txt
 
 # macOS
 .DS_Store
+
+# Upstream packages checked out for in-place development
+develop-pkgs/
