@@ -29,9 +29,7 @@
 
 # permit backend packaging tooling
 !manage.py
-!requirements.txt
-!dev-requirements.txt
-!lock-requirements.txt
+!poetry.lock
 !pyproject.toml
 !scripts
 
