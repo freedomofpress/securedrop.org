@@ -8,13 +8,21 @@ const STATIC_URL = process.env.STATIC_URL || "/common/static/";
 const scssData = '@use "base/config" with ($static-url: "' + STATIC_URL + '");';
 console.log("Using STATIC_URL", STATIC_URL);
 
-// Exported as a function so the config is defined whenever it's loaded, not
-// only under `npm run build`/`start`. argv.mode comes from --mode in those
-// scripts; webpack sets process.env.NODE_ENV from it, so no DefinePlugin.
+// Exported as a function so the config is defined whenever it's loaded.
 module.exports = (env, argv) => {
-	const isProd = argv.mode === "production";
+	// The npm scripts pass --config-node-env, which sets NODE_ENV in the Node
+	// process. Use an explicit --mode if given, else NODE_ENV, else webpack's
+	// own default, and set `mode` below so this config and webpack agree.
+	const mode =
+		argv.mode ??
+		(process.env.NODE_ENV === "development" ? "development" : "production");
+	const isProd = mode === "production";
 
+	// In the bundles themselves, webpack replaces process.env.NODE_ENV based on
+	// `mode` (optimization.nodeEnv), so no DefinePlugin is needed.
 	return {
+		mode,
+
 		entry: {
 			common: __dirname + "/client/common/js/common.js",
 			tor: __dirname + "/client/tor/js/torEntry.js",
@@ -23,7 +31,7 @@ module.exports = (env, argv) => {
 		output: {
 			path: target,
 			filename: isProd ? "[name]-[contenthash].js" : "[name].js",
-			pathinfo: !isProd,
+			clean: true,
 		},
 
 		resolve: {
@@ -35,9 +43,6 @@ module.exports = (env, argv) => {
 				{
 					test: /\.js$/,
 					loader: "babel-loader",
-					// webpack's --mode doesn't set NODE_ENV for the Node process, so
-					// Babel would otherwise always use its 'development' env.
-					options: { envName: isProd ? "production" : "development" },
 					include: [path.join(__dirname, "/client")],
 				},
 				{
