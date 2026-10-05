@@ -44,15 +44,17 @@ dev = [
     "ruff",
     "vcrpy",
 ]
-# Poetry itself, hash-pinned for the Containerfile's `lock` stage.
-lock = [
-    "poetry==2.5.1",
-    "poetry-plugin-export==1.10.1",
-]
 
 [tool.poetry]
 # We use pyproject to manage deps, not to organize an installable package.
 package-mode = false
+
+# Poetry itself, hash-pinned for the Containerfile's `poetry` stage. A Poetry
+# group, not [dependency-groups]: Dependabot reports exact pins there as
+# "update_not_possible" and never bumps them (dependabot CLI v1.93.0).
+[tool.poetry.group.bootstrap.dependencies]
+poetry = "2.5.1"
+poetry-plugin-export = "1.10.1"
 
 [tool.ruff]
 exclude = [

@@ -6,10 +6,12 @@
 
 engine := env_var_or_default("CONTAINER_ENGINE", "docker")
 compose := engine + " compose"
-# Locally built from the Containerfile's `lock` stage, which holds both pins the
+# Locally built from the Containerfile's `poetry` stage, which holds both pins the
 # resolver needs -- the app's interpreter and Poetry itself -- so there is no
 # second copy to keep in step.
 lock_image := "localhost/securedroporg-poetry-lock"
+# Poetry's own hash-pinned requirements, rendered from the lock's `bootstrap` group.
+bootstrap_reqs := "ci/containers/bootstrap-requirements.txt"
 
 # Directories of hand-authored PNGs safe for automated optimization.
 png_paths := "common/static/images/instance-status common/static/images"
@@ -150,42 +152,34 @@ alias browser := open-browser
 attach:
     {{engine}} attach $({{compose}} ps -q django)
 
-# Keeps locked versions pyproject.toml still allows; --regenerate starts fresh.
-
 # Re-resolve pyproject.toml into poetry.lock (forward flags, e.g. --regenerate).
 lock *FLAGS: (_poetry "lock" FLAGS)
 
 # Raise locked versions within pyproject's constraints (all of them, if unnamed).
 lock-upgrade *PACKAGES: (_poetry "update" "--lock" PACKAGES)
 
-# Runs Poetry, then always re-renders the requirements files from poetry.lock.
+# Runs Poetry, then always re-renders Poetry's own pins from poetry.lock.
 # Arguments pass via the environment, so shell metacharacters stay inert. The
 # image runs as root; chown hands the output back to the checkout's owner.
 _poetry +ARGS: _lock-image
     {{engine}} run --rm -v "{{justfile_directory()}}:/code:z" -w /code \
         -e LOCK_ARGS={{quote(ARGS)}} {{lock_image}} \
         bash -ec 'poetry $LOCK_ARGS && \
-            poetry export --only=main --output=requirements.txt && \
-            poetry export --with=dev --output=dev-requirements.txt && \
-            poetry export --only=lock --output=lock-requirements.txt && \
-            sed -i "1i # Generated from poetry.lock by just lock -- do not edit." \
-                requirements.txt dev-requirements.txt lock-requirements.txt && \
-            chown "$(stat -c "%u:%g" justfile)" \
-                poetry.lock requirements.txt dev-requirements.txt lock-requirements.txt'
+            poetry export --only=bootstrap --output={{bootstrap_reqs}} && \
+            sed -i "1i # Generated from poetry.lock by just lock -- do not edit." {{bootstrap_reqs}} && \
+            chown "$(stat -c "%u:%g" justfile)" poetry.lock {{bootstrap_reqs}}'
 
 [private]
 _lock-image:
-    {{engine}} build --quiet --target=lock --file=ci/containers/Containerfile --tag={{lock_image}} .
+    {{engine}} build --quiet --target=poetry --file=ci/containers/Containerfile --tag={{lock_image}} .
 
-# Images install the checked-in files, so no ordinary build notices drift.
+# Images install the checked-in lock, so no ordinary build notices drift.
 # `check --lock` verifies the lock's pyproject hash without rewriting it; the
-# re-render plus diff catches stale requirements files. Everything goes to
-# stderr: CI captures the two streams separately, so a long stdout diff would
-# otherwise land after the hint.
+# re-render plus diff catches stale bootstrap pins.
 
 # Fail if the generated files are out of sync with pyproject.toml.
 lock-check: (_poetry "check" "--lock")
-    git diff --exit-code --stat -- poetry.lock requirements.txt dev-requirements.txt lock-requirements.txt >&2 \
+    git diff --exit-code --stat -- poetry.lock {{bootstrap_reqs}} >&2 \
         || { echo 'stale: run `just lock` and commit' >&2; exit 1; }
 
 # Clean out local developer assets.

@@ -256,15 +256,11 @@ clean starting point.
 We use [Poetry](https://python-poetry.org/) to manage Python dependencies.
 You don't need to install it locally: the `just` targets will run `poetry`
 within the dev container, to handle maintenance operations.
-Three hash-pinned files are rendered from `poetry.lock` and must be committed
-alongside it:
-
-- `requirements.txt` production application dependencies
-- `dev-requirements.txt` the same, plus local testing and CI tooling
-- `lock-requirements.txt` Poetry itself, for the `just` recipes' container
-
-These are what the container images install; nothing installs from
-`poetry.lock` directly.
+The container images install `poetry.lock` directly, verifying hashes: the
+prod image takes the application dependencies, the dev image adds the `dev`
+group. Poetry itself is bootstrapped from
+`ci/containers/bootstrap-requirements.txt`, a hash-pinned file rendered from the
+lock's `bootstrap` group; commit it alongside `poetry.lock`.
 
 ### Adding new requirements
 
@@ -288,15 +284,16 @@ just lock-upgrade package-name
 ```
 
 will update the package named `package-name` to the latest version allowed by
-the constraints in `pyproject.toml`, and rewrite the generated files. Naming
-no package upgrades everything.
+the constraints in `pyproject.toml`, and rewrite the bootstrap file. Naming no
+package upgrades everything.
 
 `just lock-check` fails if `poetry.lock` no longer matches
-`pyproject.toml`, or if the rendered files no longer match the lock, so
+`pyproject.toml`, or if the bootstrap file no longer matches the lock, so
 neither can go stale unnoticed; CI runs it as `Lint:Lockfiles`.
 
-Dependabot PRs update `poetry.lock` but not the rendered files, so they fail
-`Lint:Lockfiles` on arrival. Check out the branch, run `just lock`, and push.
+Dependabot PRs update `poetry.lock` but not the bootstrap file, so one
+that bumps Poetry, or a package it depends on, fails `Lint:Lockfiles` on arrival.
+Check out the branch, run `just lock`, and push.
 
 ## Managing CMS Content
 
