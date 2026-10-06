@@ -1,5 +1,4 @@
 const BundleTracker = require("webpack-bundle-tracker");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require("path");
 
 module.exports = {
@@ -25,40 +24,20 @@ module.exports = {
 			},
 			{
 				test: /\.scss$/,
-				use: [
-					MiniCssExtractPlugin.loader,
-					"css-loader",
-					{
-						loader: "sass-loader",
-						options: {
-							sassOptions: {
-								loadPaths: [
-									path.resolve(__dirname, "node_modules"),
-									path.resolve(__dirname, "common/static/fonts"),
-									path.resolve(__dirname, "client/common/scss"),
-								],
-							},
-						},
+				type: "css",
+				loader: "sass-loader",
+				options: {
+					sassOptions: {
+						loadPaths: [
+							path.resolve(__dirname, "node_modules"),
+							path.resolve(__dirname, "common/static/fonts"),
+							path.resolve(__dirname, "client/common/scss"),
+						],
 					},
-				],
-			},
-			{
-				test: /\.css$/,
-				use: [MiniCssExtractPlugin.loader, "css-loader"],
-			},
-			{
-				test: /\.(png|svg|jpg|gif)$/,
-				type: "asset/resource",
-			},
-			{
-				test: /\.(woff|woff2|eot|ttf|otf)$/,
-				type: "asset/resource",
+				},
 			},
 		],
 	},
 
-	plugins: [
-		new MiniCssExtractPlugin({ filename: "[name]-[contenthash].css" }),
-		new BundleTracker({ path: __dirname }),
-	],
+	plugins: [new BundleTracker({ path: __dirname })],
 };
