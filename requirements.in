@@ -27,3 +27,7 @@ wagtail-metadata>=5.0.0
 wagtail>=7.4.3,<8.0
 wagtailmedia>=0.14.5
 whitenoise
+
+# fpf-wagtail-common builds wheel files and attaches them as assets on new releases.
+# See https://github.com/freedomofpress/fpf-wagtail-common/releases
+https://github.com/freedomofpress/fpf-wagtail-common/releases/download/v0.1.0/fpf_wagtail_common-0.1.0-py3-none-any.whl

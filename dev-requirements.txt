@@ -530,6 +530,9 @@ filetype==1.2.0 \
     # via
     #   -r requirements.txt
     #   willow
+fpf-wagtail-common @ https://github.com/freedomofpress/fpf-wagtail-common/releases/download/v0.1.0/fpf_wagtail_common-0.1.0-py3-none-any.whl \
+    --hash=sha256:4431c42da5bf3184f3d842924c3413f9bdf2cd3d8c28421dfd3610d015aa1485
+    # via -r requirements.txt
 google-api-core==2.32.0 \
     --hash=sha256:2b33aad226b19272458c46abfe5c5a38d9531ece0c44502129a1463ce83674ac \
     --hash=sha256:ae1f0d58a6c8869350bf469f8eb3092e7f8c494a942d9525494afb6c162b0904
@@ -1309,6 +1312,7 @@ wagtail==7.4.3 \
     --hash=sha256:e359e457ba7838b1c398f7169e34e203cefd75df9062eb8ecadb4be8f1c52912
     # via
     #   -r requirements.txt
+    #   fpf-wagtail-common
     #   wagtail-autocomplete
     #   wagtail-factories
     #   wagtail-honeypot
