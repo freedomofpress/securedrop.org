@@ -40,7 +40,7 @@
 - Webpack compiles and bundles assets
 - Each output bundle requires a separate entry point in `webpack.config.js`
 - Current entry points: `common`, `tor`
-- Output goes to `build/static/bundles/`; prod files get content hashes
+- Output goes to `build/static/bundles/`; file names get content hashes
 - SCSS is extracted to separate CSS files via MiniCssExtractPlugin
 - `webpack-bundle-tracker` writes `webpack-stats.json` for Django integration
 - `npm run start` = dev, `npm run build` = production
