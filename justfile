@@ -10,7 +10,7 @@ compose := engine + " compose"
 # resolves hashes against this interpreter, and the app installs the result. The
 # tag alone is not enough -- Docker Hub rebuilds it in place for patches, so
 # without the digest the two can silently drift apart.
-python_builder := "docker.io/library/python:3.14.6-slim-trixie@sha256:44dd04494ee8f3b538294360e7c4b3acb87c8268e4d0a4828a6500b1eff50061"
+python_builder := "docker.io/library/python:3.14.8-slim-trixie@sha256:f85c5697265c178cc6887276c55fe16cf3d14ca35c3df6a5eab3b360534a55d2"
 
 # pinning a specific, recent version of pip-tools, so that the dev-env
 # reuses the same tooling predictably.
