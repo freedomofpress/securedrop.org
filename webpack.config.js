@@ -86,7 +86,7 @@ module.exports = (env, argv) => {
 				chunkFilename: isProd ? "[id]-[contenthash].css" : "[id].css",
 			}),
 			new BundleTracker({
-				path: target,
+				path: __dirname,
 				filename: "webpack-stats.json",
 			}),
 		],
