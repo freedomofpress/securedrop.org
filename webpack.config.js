@@ -2,10 +2,6 @@ const BundleTracker = require("webpack-bundle-tracker");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const path = require("path");
 
-const STATIC_URL = process.env.STATIC_URL || "/common/static/";
-const scssData = '@use "base/config" with ($static-url: "' + STATIC_URL + '");';
-console.log("Using STATIC_URL", STATIC_URL);
-
 module.exports = {
 	context: __dirname,
 
@@ -42,7 +38,6 @@ module.exports = {
 									path.resolve(__dirname, "client/common/scss"),
 								],
 							},
-							additionalData: scssData,
 						},
 					},
 				],

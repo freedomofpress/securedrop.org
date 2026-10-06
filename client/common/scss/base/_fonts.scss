@@ -1,7 +1,6 @@
 @use "variables";
-@use "config";
 
-$fonts-dir: config.$static-url + "fonts/";
+$fonts-dir: "/common/static/fonts/";
 
 @font-face {
 	font-family: "Fira Mono";
