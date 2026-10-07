@@ -19,6 +19,8 @@ module.exports = {
 		rules: [
 			{
 				test: /\.js$/,
+				// Babel gets its env from NODE_ENV, which is set by --config-node-env in
+				// the npm scripts.
 				loader: "babel-loader",
 				include: path.resolve(__dirname, "client"),
 			},
