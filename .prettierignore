@@ -1,0 +1,9 @@
+# Prettier only formats JavaScript here, matching the pre-commit hook.
+*
+!*/
+!*.js
+!*.jsx
+!*.mjs
+
+debug/static/debug/jquery.js
+.venv/

@@ -10,7 +10,7 @@ compose := engine + " compose"
 # resolves hashes against this interpreter, and the app installs the result. The
 # tag alone is not enough -- Docker Hub rebuilds it in place for patches, so
 # without the digest the two can silently drift apart.
-python_builder := "docker.io/library/python:3.14.6-slim-trixie@sha256:44dd04494ee8f3b538294360e7c4b3acb87c8268e4d0a4828a6500b1eff50061"
+python_builder := "docker.io/library/python:3.14.8-slim-trixie@sha256:f85c5697265c178cc6887276c55fe16cf3d14ca35c3df6a5eab3b360534a55d2"
 
 # pinning a specific, recent version of pip-tools, so that the dev-env
 # reuses the same tooling predictably.
@@ -49,8 +49,6 @@ env-check:
 [private]
 node-modules: env-check
     [ -d node_modules ] || {{compose}} run --rm --no-deps node npm ci
-
-# Git facts go in as for build-prod, for when the container can't read .git.
 
 # Run the webapp locally, via containers (--build keeps images in sync with the Containerfile).
 dev: env-check
@@ -108,12 +106,16 @@ svglint: node-modules
         {{svgo}} --config=svgo.config.mjs -r {{svg_paths}}
     git diff --exit-code -- {{svg_paths}}
 
+# Lint JavaScript with eslint.
+eslint: node-modules
+    {{compose}} run --rm --no-deps node npm run js-lint
+
 # Lint SASS with stylelint.
 stylelint: node-modules
     {{compose}} run --rm --no-deps node npm run stylelint
 
 # Run all project linters.
-lint: ruff bandit check-migrations stylelint pnglint svglint
+lint: ruff bandit check-migrations eslint stylelint pnglint svglint
 
 # Run the Django test suite with coverage (fails under 70%).
 test:
@@ -126,9 +128,14 @@ test:
 createdevdata:
     {{compose}} exec django bash -c "./manage.py createdevdata"
 
+# Wipe the postgresql container and re-seed a fresh database via createdevdata.
+reset-db: env-check && createdevdata
+    {{compose}} rm -f postgresql
+    {{compose}} up --build --wait
+
 # Import a postgres export file located at ./import.db.
 import-db:
-    {{compose}} exec -T postgresql bash -c "sed 's/OWNER TO [a-z]*/OWNER TO postgres/g' /django/import.db | psql securedropdb -U postgres > /dev/null"
+    {{compose}} exec -T postgresql bash -c "sed 's/OWNER TO [a-z]*/OWNER TO securedrop/g' /django/import.db | psql securedropdb -U securedrop > /dev/null"
 
 # Save a snapshot of the database for the current git branch.
 save-db:
@@ -143,6 +150,10 @@ open-browser:
     COMPOSE="{{compose}}" ./ci/scripts/browser-open.sh
 
 alias browser := open-browser
+
+# Attach to the running Django container's console, e.g. for ipdb.
+attach:
+    {{engine}} attach $({{compose}} ps -q django)
 
 # Recompile prod + dev lockfiles (forward flags, e.g. --upgrade or --upgrade-package=NAME).
 pip-compile *FLAGS: (_pip-lock "requirements.txt" "requirements.in" FLAGS) (_pip-lock "dev-requirements.txt" "dev-requirements.in" FLAGS)
