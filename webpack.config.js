@@ -26,15 +26,6 @@ module.exports = {
 				test: /\.scss$/,
 				type: "css",
 				loader: "sass-loader",
-				options: {
-					sassOptions: {
-						loadPaths: [
-							path.resolve(__dirname, "node_modules"),
-							path.resolve(__dirname, "common/static/fonts"),
-							path.resolve(__dirname, "client/common/scss"),
-						],
-					},
-				},
 			},
 		],
 	},
