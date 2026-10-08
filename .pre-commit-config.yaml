@@ -59,8 +59,7 @@ repos:
     rev: v9.39.1
     hooks:
       - id: eslint
-        files: \.(jsx?|mjs)$
-        types: [file]
+        files: \.m?js$
         additional_dependencies:
           - eslint@9.39.5
           - '@eslint/js@9.39.5'
@@ -71,6 +70,6 @@ repos:
     rev: v3.9.6
     hooks:
       - id: prettier
-        files: \.(jsx?|mjs)$
+        files: \.m?js$
         additional_dependencies:
           - prettier
