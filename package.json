@@ -35,5 +35,6 @@
 	},
 	"dependencies": {
 		"pdfobject": "^2.3.1"
-	}
+	},
+	"prettier": "fpf-wagtail-common/config/prettier.json"
 }
