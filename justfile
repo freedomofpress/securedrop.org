@@ -6,16 +6,13 @@
 
 engine := env_var_or_default("CONTAINER_ENGINE", "docker")
 compose := engine + " compose"
-# Must stay in step with PYTHON_IMAGE in ci/containers/Containerfile: pip-compile
-# resolves hashes against this interpreter, and the app installs the result. The
-# tag alone is not enough -- Docker Hub rebuilds it in place for patches, so
-# without the digest the two can silently drift apart.
-python_builder := "docker.io/library/python:3.14.8-slim-trixie@sha256:f85c5697265c178cc6887276c55fe16cf3d14ca35c3df6a5eab3b360534a55d2"
+# Locally built from the Containerfile's `poetry` stage, which holds both pins the
+# resolver needs -- the app's interpreter and Poetry itself -- so there is no
+# second copy to keep in step.
+lock_image := "localhost/securedroporg-poetry-lock"
+# Poetry's own hash-pinned requirements, rendered from the lock's `bootstrap` group.
+bootstrap_reqs := "ci/containers/bootstrap-requirements.txt"
 
-# pinning a specific, recent version of pip-tools, so that the dev-env
-# reuses the same tooling predictably.
-# TODO: drop use of pip-tools in favor of more modern python package management.
-pip_tools_version := "7.6.1"
 # Directories of hand-authored PNGs safe for automated optimization.
 png_paths := "common/static/images/instance-status common/static/images"
 # Directories of hand-authored SVGs safe for automated optimization. Excludes
@@ -155,31 +152,35 @@ alias browser := open-browser
 attach:
     {{engine}} attach $({{compose}} ps -q django)
 
-# Recompile prod + dev lockfiles (forward flags, e.g. --upgrade or --upgrade-package=NAME).
-pip-compile *FLAGS: (_pip-lock "requirements.txt" "requirements.in" FLAGS) (_pip-lock "dev-requirements.txt" "dev-requirements.in" FLAGS)
+# Re-resolve pyproject.toml into poetry.lock (forward flags, e.g. --regenerate).
+lock *FLAGS: (_poetry "lock" FLAGS)
 
-# Recompile only the dev lockfile (same flags as pip-compile).
-pip-compile-dev *FLAGS: (_pip-lock "dev-requirements.txt" "dev-requirements.in" FLAGS)
+# Raise locked versions within pyproject's constraints (all of them, if unnamed).
+lock-upgrade *PACKAGES: (_poetry "update" "--lock" PACKAGES)
 
-# Recompile one lockfile in a clean builder matching the app's Python, so
-# hashes resolve identically to production.
-# The final chown hands the regenerated lockfile back to whoever owns the input;
-# the builder runs as root, so without it a developer is left with root-owned
-# requirements files in their checkout.
-_pip-lock outfile infile *FLAGS:
-    {{engine}} run --rm -v "{{justfile_directory()}}:/code:z" -w /code {{python_builder}} \
-        bash -c 'apt-get update && apt-get install -y --no-install-recommends gcc libpq-dev && \
-            pip install pip-tools=={{pip_tools_version}} && \
-            pip-compile --generate-hashes --no-header --allow-unsafe {{FLAGS}} \
-                --output-file {{outfile}} {{infile}} && \
-            chown "$(stat -c "%u:%g" {{infile}})" {{outfile}}'
+# Runs Poetry, then always re-renders Poetry's own pins from poetry.lock.
+# Arguments pass via the environment, so shell metacharacters stay inert. The
+# image runs as root; chown hands the output back to the checkout's owner.
+_poetry +ARGS: _lock-image
+    {{engine}} run --rm -v "{{justfile_directory()}}:/code:z" -w /code \
+        -e LOCK_ARGS={{quote(ARGS)}} {{lock_image}} \
+        bash -ec 'poetry $LOCK_ARGS && \
+            poetry export --only=bootstrap --output={{bootstrap_reqs}} && \
+            sed -i "1i # Generated from poetry.lock by just lock -- do not edit." {{bootstrap_reqs}} && \
+            chown "$(stat -c "%u:%g" justfile)" poetry.lock {{bootstrap_reqs}}'
 
-# The dev image installs the checked-in dev-requirements.txt, so nothing in an
-# ordinary build would notice the lockfiles drifting from the .in files.
+[private]
+_lock-image:
+    {{engine}} build --quiet --target=poetry --file=ci/containers/Containerfile --tag={{lock_image}} .
 
-# Fail if the lockfiles are out of sync with the .in files.
-pip-check: pip-compile
-    git diff --exit-code -- requirements.txt dev-requirements.txt
+# Images install the checked-in lock, so no ordinary build notices drift.
+# `check --lock` verifies the lock's pyproject hash without rewriting it; the
+# re-render plus diff catches stale bootstrap pins.
+
+# Fail if the generated files are out of sync with pyproject.toml.
+lock-check: (_poetry "check" "--lock")
+    git diff --exit-code --stat -- poetry.lock {{bootstrap_reqs}} >&2 \
+        || { echo 'stale: run `just lock` and commit' >&2; exit 1; }
 
 # Clean out local developer assets.
 clean:

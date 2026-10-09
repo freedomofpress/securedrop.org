@@ -14,7 +14,7 @@
 - Frontend source files: `client/` (`common/`, `tor/`, `autocomplete/`)
 - Compiled bundles output: `build/static/bundles/`
 - Container builds and CI helper scripts: `ci/` (`ci/containers/Containerfile`, `ci/scripts/`)
-- Requirements: `requirements.txt`, `dev-requirements.txt` (compiled from `.in` files via pip-compile)
+- Requirements: declared in `pyproject.toml`, locked in `poetry.lock`, installed by Poetry in the images; Poetry itself is pinned by `ci/containers/bootstrap-requirements.txt`, rendered by `just lock`
 
 ## Tech Stack
 
