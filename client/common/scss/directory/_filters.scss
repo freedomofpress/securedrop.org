@@ -1,6 +1,5 @@
 @use "../base/mixins/breakpoints";
 @use "../base/variables";
-@use "../base/config";
 
 $background-image-width: 1.5rem;
 $select-padding: 0.5rem;
@@ -62,7 +61,7 @@ $filters-margin-bottom: 1rem;
 	border-radius: variables.$button-border-radius;
 	color: variables.$gray50-text;
 	padding: $select-padding ($background-image-width + $select-padding) $select-padding $select-padding;
-	background: transparent url(config.$static-url + "images/chevron-down.svg") no-repeat right $select-padding center;
+	background: transparent url("/common/static/images/chevron-down.svg") no-repeat right $select-padding center;
 }
 
 .filters__field--search {
