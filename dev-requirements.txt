@@ -499,9 +499,7 @@ cryptography==50.0.2 \
 decorator==5.3.1 \
     --hash=sha256:4cbcdd55a6efadb9dbea26b858f4fb3264567b52d69ca0d25b721b553f60ea82 \
     --hash=sha256:f47fe6fdbd2edd623ecfe36875d37aba411624e2670dd395dddae1358689bb3c
-    # via
-    #   ipdb
-    #   ipython
+    # via ipdb
 defusedxml==0.7.1 \
     --hash=sha256:1bb3032db185915b62d7c6209c5a8792be6a32ab2fedacc84e01b52c51aa3e69 \
     --hash=sha256:a352e7e428770286cc899e2542b6cdaedb2b4953ff269a210103ec58f6198a61
@@ -743,9 +741,9 @@ ipdb==0.13.13 \
     --hash=sha256:45529994741c4ab6d2388bfa5d7b725c2cf7fe9deffabdb8a6113aa5ed449ed4 \
     --hash=sha256:e3ac6018ef05126d442af680aad863006ec19d02290561ac88b8b1c0b0cfc726
     # via -r dev-requirements.in
-ipython==9.15.0 \
-    --hash=sha256:515ad9c3cdf0c932a5a9f6245419e8aba706b7bd03c3e1d3a1c83d9351d6aa6e \
-    --hash=sha256:da2819ce2aa83135257df830660b1176d986c3d2876db24df01974fa955b2756
+ipython==9.17.1 \
+    --hash=sha256:6d1645743cfd1a07eb695d85aa2b5fa66721f8cbae9431d4049f7084bbf06509 \
+    --hash=sha256:8919be8c27f20a6f4423145028063f6637b42a03ce57665bb12015ee1f073529
     # via ipdb
 ipython-pygments-lexers==1.1.1 \
     --hash=sha256:09c0138009e56b6854f9535736f4171d855c8c08a563a0dcd8022f78355c7e81 \
