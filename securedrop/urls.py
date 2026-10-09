@@ -9,23 +9,14 @@ from wagtail.contrib.sitemaps.views import sitemap
 from wagtail.documents import urls as wagtaildocs_urls
 
 from wagtailautocomplete.urls.admin import urlpatterns as autocomplete_admin_urls
-from wagtailautocomplete.views import create, objects, search
 
 import common.views as common_views
 from directory.api import api_router as directory_api_router
 from search import views as search_views
 
 
-autocomplete_public_urls = [
-    path("objects/", objects),
-    path("search/", search),
-    path("create/", create),
-]
-
-
 urlpatterns = [
     path("django-admin/", admin.site.urls),
-    path("autocomplete/", include(autocomplete_public_urls)),
     path("admin/autocomplete/", include(autocomplete_admin_urls)),
     path("admin/", include(wagtailadmin_urls)),
     path("documents/", include(wagtaildocs_urls)),
