@@ -26,6 +26,16 @@ wait_for_postgres() {
     done
 }
 
+# When in dev, install editable any dev packages checked out into develop-pkgs/.
+if [ "${DEPLOY_ENV}" == "dev" ] && [ -d ./develop-pkgs ]; then
+    for d in ./develop-pkgs/*; do
+        # Using --no-deps avoids accidentally unlocking other deps. editable_mode=compat
+        # makes setuptools-based packages install via a plain .pth file; other build
+        # backends ignore it.
+        [ -f "${d}/pyproject.toml" ] && pip install --editable "$d" --no-deps --config-settings editable_mode=compat
+    done
+fi
+
 django_start() {
     ./manage.py migrate
     if [ "${DJANGO_COLLECT_STATIC}" == "yes" ]; then
