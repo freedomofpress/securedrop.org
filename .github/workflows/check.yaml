@@ -12,6 +12,7 @@ env:
   VERSION_DOCKER: v29.6.2
   COMPOSE_FILE_DEV: docker-compose.yaml
   COMPOSE_FILE_PROD: prod-docker-compose.yaml
+  COMPOSE_FILE_E2E: prod-docker-compose.yaml:e2e/compose.e2e.yaml
 
 permissions:
   contents: read
@@ -234,6 +235,80 @@ jobs:
         run: |
           docker compose --file="$COMPOSE_FILE_PROD" logs django
 
+  test-qa:
+    name: Test:qa
+    runs-on: ubuntu-latest
+    needs:
+      - build-prod
+    steps:
+      # The Playwright image is not small, free some space on a GHA runner.
+      - name: Free disk space
+        uses: jlumbroso/free-disk-space@ceedf095f4ec1a097402bc6bd80831f2e1a6fde6 # v2.0.0
+        with:
+          large-packages: false
+          preinstalled-runtimes: true
+
+      - name: Install Docker
+        uses: docker/setup-docker-action@v5.5.0
+        with:
+          version: ${{ env.VERSION_DOCKER }}
+
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Download prod image
+        uses: actions/download-artifact@v8
+        with:
+          name: ${{ needs.build-prod.outputs.artifact-name }}
+          path: ${{ runner.temp }}/images
+
+      - name: Restore prod image
+        env:
+          LOAD_FILE: ${{ runner.temp }}/images/${{ needs.build-prod.outputs.artifact-image }}
+          IMAGE_URL: ${{ needs.build-prod.outputs.image-url }}
+        run: |
+          docker image load --input "$LOAD_FILE"
+
+          # This tag needs to match the e2e overlay compose file
+          docker image tag "$IMAGE_URL" localhost/securedroporg-prod
+
+          # Remove the temp copy to save on space
+          rm -rf "$RUNNER_TEMP/images"
+
+      - name: Install just
+        uses: taiki-e/install-action@e407f7bafb71fd004bc5c2da3032e5470cbb6ef0 # v2.87.24
+        with:
+          tool: just
+
+      - name: Create env config
+        run: just dev-init
+
+      - name: Start
+        env:
+          COMPOSE_FILE: ${{ env.COMPOSE_FILE_E2E }}
+        run: docker compose up --wait --wait-timeout=300 --detach --pull=missing --no-build
+
+      - name: Run target 'qa'
+        run: just qa
+
+      - name: Upload playwright report
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: playwright-report
+          path: |
+            e2e/playwright-report/
+            e2e/test-results/
+          retention-days: 7
+
+      - name: Collect logs on failure
+        if: ${{ failure() }}
+        env:
+          COMPOSE_FILE: ${{ env.COMPOSE_FILE_E2E }}
+        run: docker compose logs django
+
   cleanup:
     name: Cleanup
     runs-on: ubuntu-latest
@@ -243,6 +318,7 @@ jobs:
       - build-prod
       - test
       - test-prod
+      - test-qa
     permissions:
       contents: read
       actions: write

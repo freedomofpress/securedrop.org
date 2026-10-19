@@ -1,0 +1,71 @@
+# Overlay on prod-docker-compose.yaml for the QA stack: the production image
+# and settings (gunicorn, whitenoise, DEBUG off) against a throwaway database
+# seeded by createqadata, plus the playwright test runner.
+#
+#   docker compose --file=prod-docker-compose.yaml --file=e2e/compose.e2e.yaml ...
+#
+# Normally driven by `just qa-up` and `just qa`.
+services:
+  # Recreate the e2e database from scratch on every `up`, so each run starts
+  # from the same seeded state rather than layering seed data on old data.
+  e2e-createdb:
+    image: docker.io/library/postgres:17
+    depends_on:
+      postgresql:
+        condition: service_healthy
+    environment:
+      PGPASSWORD: securedroppassword
+    command: >
+      sh -c "dropdb -h db -U securedrop --if-exists --force securedrop_e2e
+      && createdb -h db -U securedrop securedrop_e2e"
+    networks:
+      - app
+
+  django:
+    image: localhost/securedroporg-prod
+    # Media and static are written fresh on every start; nothing persists.
+    volumes: !reset []
+    # Merges with the inherited dependency on postgresql.
+    depends_on:
+      e2e-createdb:
+        condition: service_completed_successfully
+    environment:
+      DJANGO_DB_NAME: securedrop_e2e
+      DJANGO_SETTINGS_MODULE: securedrop.settings.qa
+      DJANGO_ALLOWED_HOSTS: django localhost app
+      # Provide a bit more concurrency for playwright workers
+      WEB_CONCURRENCY: 4
+    command: >
+      /bin/sh -c "./manage.py migrate --noinput
+      && ./manage.py createqadata
+      && exec django-start.sh"
+
+  playwright:
+    image: localhost/securedroporg-playwright
+    build:
+      context: .
+      dockerfile: ci/containers/Containerfile
+      target: playwright
+      args:
+        USERID: ${UID:?err}
+    # Kept out of `compose up`
+    profiles: ['e2e']
+    init: true
+    networks:
+      - app
+    working_dir: /django
+    # Rootless podman maps container UIDs into a subuid range, which leaves the
+    # bind-mounted ./e2e unwritable; keep-id maps the host user straight through.
+    user: ${UID:?err}
+    userns_mode: keep-id
+    environment:
+      # Not the `app` alias: `.app` is an HSTS-preloaded TLD, and browsers apply
+      # that to the bare hostname too, upgrading http://app:8000 to https.
+      E2E_BASE_URL: http://django:8000
+      CI: ${CI:-}
+      # Playwright needs a writable HOME
+      HOME: /tmp
+    volumes:
+      - ./playwright.config.ts:/django/playwright.config.ts:ro,z
+      - ./e2e:/django/e2e:z
+    command: /django/node_modules/.bin/playwright test

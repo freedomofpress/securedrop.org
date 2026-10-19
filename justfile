@@ -25,6 +25,14 @@ svg_paths := "common/static/images/instance-status common/static/images"
 # recipe rather than baked into the image.
 svgo := "node_modules/.bin/svgo"
 coverage_omit := "'*/migrations/*.py,*/tests/*.py'"
+e2e_compose := compose + " --file=prod-docker-compose.yaml --file=e2e/compose.e2e.yaml"
+# The playwright service sits behind the `e2e` profile, to keep it out of
+# `qa-up`. Naming it on the command line is enough for docker compose, but
+# podman-compose only honours a profile enabled with `--profile`, hence the
+# flag on the `qa` recipe's `run` invocations below.
+playwright := "/django/node_modules/.bin/playwright"
+# Deployed environments targeted for QA testing are subdomains
+qa_domain := "securedrop.org"
 
 # Show available recipes.
 default:
@@ -123,6 +131,71 @@ test:
         coverage run --source='.' ./manage.py test --noinput; \
         coverage html --skip-empty --omit={{coverage_omit}}; \
         coverage report -m --fail-under=70 --skip-empty --omit={{coverage_omit}}"
+
+# Run the QA stack with test data (then `just qa` in another terminal).
+[doc('Run the QA stack locally with deterministic QA data')]
+qa-up: env-check
+    args="$(./ci/scripts/version-file.sh --build-args)" && \
+        env $args {{e2e_compose}} up --build
+
+# ENV defaults to `local` (`just qa-up`) which runs in the same container
+# CI uses so visual baselines are comparable.
+# Any other name is a deployed environment at https://ENV.{{qa_domain}}.
+# Any flags are forwarded to `playwright test`, e.g. `--grep=@smoke`
+[doc('Run the browser test suite (`just qa [ENV] [FLAGS]`)')]
+qa ENV="local" *FLAGS: env-check
+    #!/usr/bin/env bash
+    set -euo pipefail
+    env='{{ENV}}'
+    flags='{{FLAGS}}'
+    # Pass off something that looks flag-like in the ENV parameter as a flag.
+    case "$env" in -*|*/*|*.ts) flags="$env $flags"; env=local ;; esac
+
+    # Run against the local QA stack. Guard that on a running stack, at least.
+    # `exec` is the portable liveness probe: podman-compose's `ps` takes no
+    # --status filter and lists stopped containers besides.
+    if [ "$env" = local ]; then
+        if ! {{e2e_compose}} exec -T django true >/dev/null 2>&1; then
+            echo "just qa: no QA stack running -- start one with \`just qa-up\`" >&2
+            exit 2
+        fi
+        # Naming the service enables its profile under docker compose, but
+        # podman-compose honours a profile only when --profile asks for it.
+        {{e2e_compose}} --profile=e2e run --rm --build --no-deps playwright {{playwright}} test $flags
+        exit
+    fi
+
+    # Run against {{ENV}}.{{qa_domain}} with stored auth session data belonging
+    # to the {{ENV}} (if it exists). Paths are relative to the repo, which is
+    # the container's working directory too.
+    storage=
+    if [ -f "e2e/.auth/$env.json" ]; then storage="e2e/.auth/$env.json"; fi
+    {{e2e_compose}} --profile=e2e run --rm --build --no-deps \
+        --env E2E_ENV="$env" \
+        --env E2E_BASE_URL="https://$env.{{qa_domain}}" \
+        --env E2E_STORAGE_STATE="$storage" \
+        playwright {{playwright}} test $flags
+
+[doc('Record new visual baselines (`just qa-update [ENV] [FLAGS]`)')]
+qa-update ENV="local" *FLAGS: (qa ENV "--update-snapshots " + FLAGS)
+
+# Every ENV can have its own stored authentication (in e2e/.auth/ENV.json,
+# captured with qa-auth), and baseline images for visual tests.
+[doc('Capture a login session for `just qa ENV`')]
+qa-auth ENV:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    mkdir -p e2e/.auth
+    state="e2e/.auth/{{ENV}}.json"
+
+    url="https://{{ENV}}.{{qa_domain}}/admin/"
+
+    # Start from an old session so anything still valid will continue to work
+    if [ -f "$state" ]; then
+        npx playwright open --load-storage="$state" --save-storage="$state" "$url"
+    else
+        npx playwright open --save-storage="$state" "$url"
+    fi
 
 # Inject development data into the postgresql database.
 createdevdata:
