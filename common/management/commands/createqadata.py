@@ -1,3 +1,4 @@
+from django.core.management import call_command
 from django.core.management.base import BaseCommand
 from django.db import transaction
 
@@ -51,6 +52,8 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.stdout.write("Creating QA data... ", "")
         self.stdout.flush()
+
+        call_command("loaddata", "devuser", verbosity=0)
 
         # Generate the page tree
         self.generate_home_page()
