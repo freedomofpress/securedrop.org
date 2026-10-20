@@ -5,6 +5,7 @@ from django.db import transaction
 from wagtail.models import Page, Site
 
 from directory.models import Country, DirectoryEntry, DirectoryPage, Language, Topic
+from directory.tests.factories import ScanResultFactory
 from home.models import HomePage
 from home.tests.factories import HomePageFactory
 
@@ -74,6 +75,11 @@ class Command(BaseCommand):
                 topics=self.get_taxonomy(Topic, "Corruption"),
             )
         )
+        ScanResultFactory(
+            landing_page_url="https://alpha-gazette.example/securedrop",
+            no_failures=True,
+        )
+
         directory.add_child(
             instance=DirectoryEntry(
                 title="Beta Chronicle",
@@ -94,6 +100,18 @@ class Command(BaseCommand):
                 languages=self.get_taxonomy(Language, "English", "German"),
                 countries=self.get_taxonomy(Country, "Germany"),
                 topics=self.get_taxonomy(Topic, "Corruption", "Public health"),
+            )
+        )
+        # A non-ASCII slug
+        directory.add_child(
+            instance=DirectoryEntry(
+                title="Zeitung Überblick",
+                slug="zeitung-überblick",
+                landing_page_url="https://zeitung-uberblick.example/securedrop",
+                onion_address="http://zeitung-uberblick.example.onion",
+                languages=self.get_taxonomy(Language, "German"),
+                countries=self.get_taxonomy(Country, "Germany"),
+                topics=self.get_taxonomy(Topic, "Environment"),
             )
         )
 
