@@ -4,6 +4,8 @@ from django.db import transaction
 
 from wagtail.models import Page, Site
 
+from directory.models import Country, DirectoryEntry, DirectoryPage, Language, Topic
+from home.models import HomePage
 from home.tests.factories import HomePageFactory
 
 
@@ -13,6 +15,9 @@ class Command(BaseCommand):
         "Playwright QA test suite in e2e/ expects. This will tear down "
         "existing content before recreating it."
     )
+
+    def get_home_page(self):
+        return HomePage.objects.get(slug="home")
 
     def generate_home_page(self):
         self.stdout.write("Building home page")
@@ -48,6 +53,52 @@ class Command(BaseCommand):
         )
         return home
 
+    def get_taxonomy(self, model, *titles):
+        return [model.objects.get_or_create(title=title)[0] for title in titles]
+
+    def generate_directory(self):
+        self.stdout.write("Building directory")
+        home_page = self.get_home_page()
+        directory = home_page.add_child(
+            instance=DirectoryPage(title="Directory", slug="directory")
+        )
+
+        directory.add_child(
+            instance=DirectoryEntry(
+                title="Alpha Gazette",
+                slug="alpha-gazette",
+                landing_page_url="https://alpha-gazette.example/securedrop",
+                onion_address="http://alpha-gazette.example.onion",
+                languages=self.get_taxonomy(Language, "English"),
+                countries=self.get_taxonomy(Country, "United States"),
+                topics=self.get_taxonomy(Topic, "Corruption"),
+            )
+        )
+        directory.add_child(
+            instance=DirectoryEntry(
+                title="Beta Chronicle",
+                slug="beta-chronicle",
+                landing_page_url="https://beta-chronicle.example/securedrop",
+                onion_address="http://beta-chronicle.example.onion",
+                languages=self.get_taxonomy(Language, "Portugese"),
+                countries=self.get_taxonomy(Country, "Brazil"),
+                topics=self.get_taxonomy(Topic, "Environment"),
+            )
+        )
+        directory.add_child(
+            instance=DirectoryEntry(
+                title="Gamma Observer",
+                slug="gamma-observer",
+                landing_page_url="https://gamma-observer.example/securedrop",
+                onion_address="http://gamma-observer.example.onion",
+                languages=self.get_taxonomy(Language, "English", "German"),
+                countries=self.get_taxonomy(Country, "Germany"),
+                topics=self.get_taxonomy(Topic, "Corruption", "Public health"),
+            )
+        )
+
+        return directory
+
     @transaction.atomic
     def handle(self, *args, **options):
         self.stdout.write("Creating QA data... ", "")
@@ -57,5 +108,6 @@ class Command(BaseCommand):
 
         # Generate the page tree
         self.generate_home_page()
+        self.generate_directory()
 
         self.stdout.write(self.style.SUCCESS("Done"))
