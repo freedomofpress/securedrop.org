@@ -1,7 +1,7 @@
-{% load i18n %}
+{% load i18n static %}
 <aside class="fpf-banner" aria-label="Freedom of the Press Foundation">
 	<p class="fpf-banner__org">
-		{% include "common/_fpf_mark.svg" with class="fpf-banner__mark" %}
+		<img class="fpf-banner__mark" src="{% static 'images/fpf-logo-mark-white.svg' %}" alt="" width="20" height="15">
 		<span>
 			<span class="fpf-banner__prefix">{% trans "A project of" %}</span>
 			<span class="fpf-banner__name">Freedom of the Press Foundation</span>
