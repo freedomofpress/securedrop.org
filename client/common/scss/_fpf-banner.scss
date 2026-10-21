@@ -1,0 +1,64 @@
+@use "base/mixins/breakpoints";
+@use "base/mixins/links";
+@use "base/mixins/typography";
+@use "base/variables";
+@use "sass:color";
+
+.fpf-banner {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 1rem;
+	padding: 1rem 2.5rem;
+	background-color: variables.$gray90;
+	color: variables.$white;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+	// PFT font stack
+	font-family: "Helvetica Neue", "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	font-size: 0.875rem;
+	font-weight: 500;
+	line-height: 1.2;
+
+	@include breakpoints.media-breakpoint-down(extra-small) {
+		padding: 0.625rem 1rem;
+		font-size: 0.75rem;
+	}
+}
+
+.fpf-banner__org {
+	display: flex;
+	align-items: center;
+	gap: 0.375rem;
+	margin: 0;
+	text-wrap: balance;
+}
+
+.fpf-banner__mark {
+	flex-shrink: 0;
+	width: 1.25rem;
+	height: auto;
+}
+
+.fpf-banner__name {
+	color: variables.$gray10;
+}
+
+.fpf-banner__link {
+	@include typography.uppercase;
+	@include links.link-no-underline(variables.$gray20, variables.$white);
+	flex-shrink: 0;
+	font-family: "Roboto Mono", monospace;
+	font-size: 0.8125rem;
+	white-space: nowrap;
+
+	&:focus-visible {
+		outline: 2px solid variables.$white;
+		outline-offset: 2px;
+	}
+
+	@include breakpoints.media-breakpoint-down(extra-small) {
+		font-size: 0.625rem;
+	}
+}
