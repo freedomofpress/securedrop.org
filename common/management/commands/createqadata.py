@@ -6,6 +6,7 @@ from wagtail.models import Page, Site
 
 from directory.models import Country, DirectoryEntry, DirectoryPage, Language, Topic
 from directory.tests.factories import ScanResultFactory
+from forms.models import FormField, FormPage
 from home.models import HomePage
 from home.tests.factories import HomePageFactory
 
@@ -117,6 +118,48 @@ class Command(BaseCommand):
 
         return directory
 
+    def generate_help_form(self):
+        self.stdout.write("Building help form")
+        home_page = self.get_home_page()
+        return home_page.add_child(
+            instance=FormPage(
+                title="Get help with SecureDrop",
+                slug="help",
+                thank_you_text="<p>Thank you, we've received your request.</p>",
+                to_address="help@example.com",
+                from_address="noreply@example.com",
+                subject="SecureDrop.org help request (QA)",
+                honeypot=True,
+                form_fields=[
+                    FormField(
+                        label="Name of your organization",
+                        field_type="singleline",
+                        required=True,
+                    ),
+                    FormField(
+                        label="Subject of your request",
+                        field_type="multiline",
+                        required=True,
+                    ),
+                    FormField(
+                        label="Location of your organization",
+                        field_type="singleline",
+                        required=False,
+                    ),
+                    FormField(
+                        label="Email address",
+                        field_type="email",
+                        required=True,
+                    ),
+                    FormField(
+                        label="Is there anything else you want to tell us?",
+                        field_type="multiline",
+                        required=False,
+                    ),
+                ],
+            )
+        )
+
     @transaction.atomic
     def handle(self, *args, **options):
         self.stdout.write("Creating QA data... ", "")
@@ -127,5 +170,6 @@ class Command(BaseCommand):
         # Generate the page tree
         self.generate_home_page()
         self.generate_directory()
+        self.generate_help_form()
 
         self.stdout.write(self.style.SUCCESS("Done"))
