@@ -80,6 +80,91 @@ To run a subset of tests directly:
 docker compose exec django ./manage.py test <app_or_path> --noinput
 ```
 
+### QA and visual end-to-end tests
+
+Browser-level tests live in `e2e/` and run with
+[Playwright](https://playwright.dev/).
+
+There are a few kinds of tests, selectable by tag:
+
+- `@smoke`, a quick test to ensure a particular page renders
+- `@functional`, behavioral and other tests that are run as part of our
+  QA process
+- `@visual`, compare screenshots against baseline images to test for
+  visual regressions
+
+One test can have multiple tags.
+
+To run the tests against deterministic data in the production image,
+first bring up the QA stack:
+
+```bash
+# In place of `just dev`
+just qa-up
+```
+
+This runs the production image with production settings -- gunicorn,
+whitenoise and `DEBUG` off -- so there is no autoreload and no asset
+watcher. Re-run `just qa-up` to pick up a change, or use `just dev`
+while iterating.
+
+Then, separately, run the full browser test suite:
+
+```bash
+# Full suite
+just qa
+
+# Or run all tests tagged with "smoke"
+just qa --grep smoke
+
+# Or run a specific test with a specific browser
+just qa --project=chromium tests/smoke/homepage.spec.ts
+```
+
+#### Running QA tests against a deployed environment
+
+Some deployed environments require authentication before we can access
+them. To run tests against a deployed environment, first (if necessary),
+
+```bash
+just qa-auth staging
+```
+
+This will open Playwright in UI mode, access the URL, and save the
+session information it captures to `e2e/.auth/[ENV NAME].json`. This
+requires Playwright to be installed locally:
+
+```bash
+npx playwright install
+```
+
+Then end-to-end tests can be run against that environment:
+
+```bash
+# Just run tests against a subdomain of securedrop.org
+just qa staging
+```
+
+Please note, visual tests have unique baseline images per-environment.
+
+#### Updating visual baselines
+
+When a change is *intended* to alter the rendered page, the visual
+baselines will need updating. `just qa-update` takes the same arguments
+as `just qa`:
+
+```bash
+just qa-update
+
+# Or, for a deployed environment
+just qa-update staging
+```
+
+Screenshots differ between browsers and platforms, so baselines recorded
+locally are only comparable when recorded in the same container CI uses.
+Please ensure baselines for the seed data are updated through
+`just qa-update` and not with Playwright running on the host.
+
 ## Troubleshooting
 
 ### Database Reset
@@ -322,6 +407,13 @@ create fake data.
 
   Runs all of the other `create*` commands and creates fake data. The
   `delete` flag deletes the current homepage and creates a new one.
+
+- `createqadata`
+
+  Builds the small, deterministic site that the Playwright tests in
+  `e2e/` expect, tearing down existing content first. The QA stack
+  (`just qa-up`) runs it automatically; tests that need particular
+  content should add it here rather than depend on `createdevdata`.
 
 - `createblogdata <number_of_posts>`
 

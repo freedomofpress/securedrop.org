@@ -51,3 +51,10 @@ results.txt
 
 # macOS
 .DS_Store
+
+# e2e (Playwright) testing artifacts that don't get committed
+e2e/playwright-report/
+e2e/test-results/
+e2e/blob-report/
+# saved SSO session state for targeting gated environments (live tokens)
+e2e/.auth/
