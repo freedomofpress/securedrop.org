@@ -671,9 +671,9 @@ google-cloud-core==2.8.0 \
     # via
     #   -r requirements.txt
     #   google-cloud-storage
-google-cloud-storage==3.16.0 \
-    --hash=sha256:3f75cf8ad345d68ef33f0c69db8a8b3f34f160b1524e75d73890602b7b8a4d6e \
-    --hash=sha256:59e54ff1f7f8a7253c01f593f79d253728c122a8901b83f68fe7464a4131539f
+google-cloud-storage==3.17.1 \
+    --hash=sha256:287c7919d7bcda710eae6f6b60c756e89140475d9a4daec01b6174e737488ca8 \
+    --hash=sha256:b24df37900f5e0a93518bd7d3a2a7b7b48d8a1e72add8eb57d53a38b8b2b0640
     # via
     #   -r requirements.txt
     #   django-storages
