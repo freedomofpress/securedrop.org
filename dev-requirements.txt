@@ -612,9 +612,9 @@ et-xmlfile==2.0.0 \
     # via
     #   -r requirements.txt
     #   openpyxl
-executing==2.2.1 \
-    --hash=sha256:3632cc370565f6648cc328b32435bd120a1e4ebb20c77e3fdde9a13cd1e533c4 \
-    --hash=sha256:760643d3452b4d777d295bb167ccc74c64a81df23fb5e08eff250c425a4b2017
+executing==2.3.0 \
+    --hash=sha256:15919cb5d667e5cb4e099511971d00d659573fff2dd5c4e6cd8b71636c7858d2 \
+    --hash=sha256:736e859c9f8701f11fcf516856f26f562e04776387824b43a35a1dfe21c84122
     # via stack-data
 factory-boy==3.3.3 \
     --hash=sha256:1c39e3289f7e667c4285433f305f8d506efc2fe9c73aaea4151ebd5cdea394fc \
