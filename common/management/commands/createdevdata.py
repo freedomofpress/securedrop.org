@@ -1,6 +1,5 @@
 import os
 
-from django.contrib.auth.models import User
 from django.core import management
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.images import ImageFile
@@ -85,6 +84,7 @@ class Command(BaseCommand):
         self.stdout.write("Copying media files...")
         local_storage = FileSystemStorage(os.path.join(fixtures_dir, "media"))
         self._copy_files(local_storage, "")
+        call_command("loaddata", "devuser", verbosity=0)
         call_command("loaddata", fixture_file, verbosity=4)
 
         management.call_command("createblogdata", "10")
@@ -94,17 +94,3 @@ class Command(BaseCommand):
         management.call_command("createresultgroups")
         management.call_command("createsearchmenus")
         management.call_command("createmarketing")
-
-        # Create superuser
-        if not User.objects.filter(is_superuser=True).exists():
-            User.objects.create_superuser(
-                "test",
-                "test@securedrop",
-                "test",
-            )
-            self.stdout.write(
-                "Superuser created:\n"
-                "\tname: test\n"
-                "\temail: test@securedrop\n"
-                "\tpassword: test"
-            )
