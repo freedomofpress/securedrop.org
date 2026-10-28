@@ -14,6 +14,7 @@
 - Frontend source files: `client/` (`common/`, `tor/`, `autocomplete/`)
 - Compiled bundles output: `build/static/bundles/`
 - Container builds and CI helper scripts: `ci/` (`ci/containers/Containerfile`, `ci/scripts/`)
+- Playwright end-to-end tests: `e2e/` (configured by `playwright.config.ts`)
 - Requirements: `requirements.txt`, `dev-requirements.txt` (compiled from `.in` files via pip-compile)
 
 ## Tech Stack
@@ -50,3 +51,4 @@
 
 - Run the suite with `just test` (runs `coverage run ... ./manage.py test --noinput` inside the django container, then reports coverage with a 70% floor)
 - To run a subset directly: `docker compose exec django ./manage.py test <app or path> --noinput`
+- Playwright for end-to-end, functional and visual-regression tests in `e2e/`.
