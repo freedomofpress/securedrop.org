@@ -150,10 +150,11 @@ EXPOSE 8000
 
 # ---- Poetry (build target, never shipped) ----
 # Runs `just lock`, and installs poetry.lock, hash-checked, into `dev` and
-# `prod-deps`: they bind-mount this venv for one RUN, so neither Poetry nor its
-# cache lands in their layers. A venv, so the whole toolchain mounts as one
-# directory without mixing into the app's site-packages; with
-# VIRTUALENVS_CREATE=false, packages still go to the base interpreter.
+# `prod-deps`: they bind-mount this venv and the manifests for one RUN, so
+# neither Poetry, its cache, nor the manifests land in their layers. A venv, so
+# the whole toolchain mounts as one directory without mixing into the app's
+# site-packages; with VIRTUALENVS_CREATE=false, packages still go to the base
+# interpreter.
 # `--compile` ships bytecode as pip did, since the read-only rootfs can't cache it.
 # Poetry is pinned by bootstrap-requirements.txt, rendered by `just lock`.
 FROM python-base AS poetry
@@ -175,8 +176,9 @@ COPY --from=oxipng /usr/local/bin/oxipng /usr/local/bin/oxipng
 
 # The checked-in lock, not a fresh resolution: drift from pyproject.toml is
 # caught by `just lock-check` rather than as a build artifact.
-COPY pyproject.toml poetry.lock /deps/
 RUN --mount=type=bind,from=poetry,source=/opt/poetry,target=/opt/poetry \
+    --mount=type=bind,source=pyproject.toml,target=/deps/pyproject.toml \
+    --mount=type=bind,source=poetry.lock,target=/deps/poetry.lock \
     --mount=type=tmpfs,target=/root/.cache \
     POETRY_VIRTUALENVS_CREATE=false \
     /opt/poetry/bin/poetry install --directory=/deps --only=main,dev --compile
@@ -197,8 +199,9 @@ CMD [ "django-start.sh" ]
 # Kept apart from the app source so editing code does not reinstall the wheel set.
 FROM python-base AS prod-deps
 
-COPY pyproject.toml poetry.lock /deps/
 RUN --mount=type=bind,from=poetry,source=/opt/poetry,target=/opt/poetry \
+    --mount=type=bind,source=pyproject.toml,target=/deps/pyproject.toml \
+    --mount=type=bind,source=poetry.lock,target=/deps/poetry.lock \
     --mount=type=tmpfs,target=/root/.cache \
     POETRY_VIRTUALENVS_CREATE=false \
     /opt/poetry/bin/poetry install --directory=/deps --only=main --compile
