@@ -151,7 +151,8 @@ EXPOSE 8000
 # ---- Poetry (build target, never shipped) ----
 # Runs `just lock`, and installs poetry.lock, hash-checked, into `dev` and
 # `prod-deps`: they bind-mount this venv for one RUN, so neither Poetry nor its
-# cache lands in their layers. The venv keeps Poetry's dependencies apart; with
+# cache lands in their layers. A venv, so the whole toolchain mounts as one
+# directory without mixing into the app's site-packages; with
 # VIRTUALENVS_CREATE=false, packages still go to the base interpreter.
 # `--compile` ships bytecode as pip did, since the read-only rootfs can't cache it.
 # Poetry is pinned by bootstrap-requirements.txt, rendered by `just lock`.
