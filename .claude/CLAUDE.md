@@ -15,7 +15,7 @@
 - Compiled bundles output: `build/static/bundles/`
 - Container builds and CI helper scripts: `ci/` (`ci/containers/Containerfile`, `ci/scripts/`)
 - Playwright end-to-end tests: `e2e/` (configured by `playwright.config.ts`)
-- Requirements: `requirements.txt`, `dev-requirements.txt` (compiled from `.in` files via pip-compile)
+- Requirements: declared in `pyproject.toml`, locked in `poetry.lock`, installed by Poetry in the images; Poetry itself is pinned by `ci/containers/bootstrap-requirements.txt`, rendered by `just lock`
 
 ## Tech Stack
 
