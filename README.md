@@ -339,8 +339,10 @@ clean starting point.
 ## Dependency Management
 
 We use [Poetry](https://python-poetry.org/) to manage Python dependencies.
-You don't need to install it locally: the `just` targets will run `poetry`
-within the dev container, to handle maintenance operations.
+You don't need to install it locally: the `just` recipes run a pinned
+`poetry` in a throwaway container built from the Containerfile's `poetry`
+stage. A host install works fine for day-to-day `poetry add` / `poetry remove`;
+follow up with `just lock`, and CI's `just lock-check` catches anything missed.
 The container images install `poetry.lock` directly, verifying hashes: the
 prod image takes the application dependencies, the dev image adds the `dev`
 group. Poetry itself is bootstrapped from
