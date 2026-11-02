@@ -889,20 +889,6 @@ Django = "*"
 testing = ["django-modelcluster"]
 
 [[package]]
-name = "django-settings-export"
-version = "1.2.1"
-description = "This Django app allows you to export certain settings to your templates."
-optional = false
-python-versions = "*"
-groups = ["main"]
-files = [
-    {file = "django-settings-export-1.2.1.tar.gz", hash = "sha256:fceeae49fc597f654c1217415d8e049fc81c930b7154f5d8f28c432db738ff79"},
-]
-
-[package.dependencies]
-django = "*"
-
-[[package]]
 name = "django-storages"
 version = "1.14.6"
 description = "Support for many storage backends in Django"
@@ -3855,4 +3841,4 @@ test = ["pytest"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.14,<3.15"
-content-hash = "252f1b7f2148f873feafd1e37cd89ae33ca16b14be0ed663b9d42405598954f9"
+content-hash = "10f784e98f03a2c78c965e1646d259653a37323e52eee9947e4db79cc67980d3"
