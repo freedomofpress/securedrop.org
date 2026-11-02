@@ -7,7 +7,6 @@ dependencies = [
     "django-anymail[mailgun]>=15.0",
     "django-csp>=3.7",
     "django-modelcluster>=6.2.1",
-    "django-settings-export",
     "django-storages[google]>=1.14.6",
     "django-webpack-loader",
     "Django>=5.2.19,<6.0",
