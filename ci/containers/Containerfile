@@ -97,20 +97,12 @@ FROM ${OXIPNG_IMAGE} AS oxipng
 # ---- python base (shared by dev + prod) ----
 FROM ${PYTHON_IMAGE} AS python-base
 
-# `gcc` is omitted as redundant -- build-essential depends on it. The -dev
-# headers are retained for any dependency that lacks a cp314 wheel and falls
-# back to an sdist.
+# Runtime tools only; wheels-only installs need no compiler or headers. `curl`
+# serves compose healthchecks, `netcat` django-start.sh, `git` version-file.sh.
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
     curl \
     git \
-    libpq-dev \
-    libssl-dev \
-    libxml2-dev \
-    libxslt-dev \
-    libz-dev \
     netcat-traditional \
-    python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 COPY ci/containers/django-start.sh /usr/local/bin/
