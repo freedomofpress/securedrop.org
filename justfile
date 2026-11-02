@@ -256,6 +256,11 @@ lock-check: (_poetry "check" "--lock")
     git diff --exit-code --stat -- poetry.lock {{bootstrap_reqs}} >&2 \
         || { echo 'stale: run `just lock` and commit' >&2; exit 1; }
 
+# Fail if any locked package lacks a Linux wheel for x86_64 or aarch64.
+check-wheels: lock-image
+    {{engine}} run --rm -v "{{justfile_directory()}}:/code:ro,z" -w /code {{lock_image}} \
+        /opt/poetry/bin/python -I ci/scripts/check-wheels.py
+
 # Clean out local developer assets.
 clean:
     rm -rvf ./node_modules
