@@ -156,13 +156,14 @@ EXPOSE 8000
 # site-packages; with VIRTUALENVS_CREATE=false, packages still go to the base
 # interpreter.
 # `--compile` ships bytecode as pip did, since the read-only rootfs can't cache it.
+# Wheels only: an sdist would run unpinned build deps (`just wheel-check`).
 # Poetry is pinned by bootstrap-requirements.txt, rendered by `just lock`.
 FROM python-base AS poetry
 
 COPY ci/containers/bootstrap-requirements.txt /bootstrap-requirements.txt
 RUN python -m venv /opt/poetry && \
     /opt/poetry/bin/pip install --no-deps --no-cache-dir --disable-pip-version-check \
-        --require-hashes -r /bootstrap-requirements.txt && \
+        --only-binary=:all: --require-hashes -r /bootstrap-requirements.txt && \
     ln -s /opt/poetry/bin/poetry /usr/local/bin/poetry
 ENV POETRY_VIRTUALENVS_CREATE=false
 
@@ -180,7 +181,7 @@ RUN --mount=type=bind,from=poetry,source=/opt/poetry,target=/opt/poetry \
     --mount=type=bind,source=pyproject.toml,target=/deps/pyproject.toml \
     --mount=type=bind,source=poetry.lock,target=/deps/poetry.lock \
     --mount=type=tmpfs,target=/root/.cache \
-    POETRY_VIRTUALENVS_CREATE=false \
+    POETRY_VIRTUALENVS_CREATE=false POETRY_INSTALLER_ONLY_BINARY=:all: \
     /opt/poetry/bin/poetry install --directory=/deps --only=main,dev --compile
 
 # Re-declared for portability, not because buildah needs it: ARG is documented as
@@ -203,7 +204,7 @@ RUN --mount=type=bind,from=poetry,source=/opt/poetry,target=/opt/poetry \
     --mount=type=bind,source=pyproject.toml,target=/deps/pyproject.toml \
     --mount=type=bind,source=poetry.lock,target=/deps/poetry.lock \
     --mount=type=tmpfs,target=/root/.cache \
-    POETRY_VIRTUALENVS_CREATE=false \
+    POETRY_VIRTUALENVS_CREATE=false POETRY_INSTALLER_ONLY_BINARY=:all: \
     /opt/poetry/bin/poetry install --directory=/deps --only=main --compile
 
 # ---- deployment version metadata ----
