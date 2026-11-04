@@ -16,3 +16,10 @@ class TooManyRequestsTestCase(TestCase):
     def test_too_many_requests_uses_correct_template(self):
         with self.assertTemplateUsed("429.html"):
             self.response = self.client.get(reverse("too_many_requests"))
+
+
+class FPFBannerTestCase(TestCase):
+    def test_fpf_banner_links_to_freedom_press(self):
+        response = self.client.get(reverse("too_many_requests"))
+        self.assertContains(response, 'class="fpf-banner"')
+        self.assertContains(response, 'href="https://freedom.press/"')
