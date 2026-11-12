@@ -23,3 +23,11 @@ class FPFBannerTestCase(TestCase):
         response = self.client.get(reverse("too_many_requests"))
         self.assertContains(response, 'class="fpf-banner"')
         self.assertContains(response, 'href="https://freedom.press/"')
+
+
+class AnalyticsTestCase(TestCase):
+    def test_tracker_follows_analytics_setting(self):
+        for enabled in (False, True):
+            with self.settings(ANALYTICS_ENABLED=enabled):
+                response = self.client.get(reverse("too_many_requests"))
+                self.assertEqual(b"piwik.js" in response.content, enabled)

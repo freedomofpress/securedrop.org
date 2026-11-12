@@ -88,8 +88,8 @@ fi
 
 # No python dependency section: this report is generated in a build stage that
 # has none of the app's dependencies installed, so a "pip freeze" here would
-# describe a bare interpreter. The authoritative pinned set is requirements.txt,
-# shipped in the image and installed with --no-deps --require-hashes.
+# describe a bare interpreter. The authoritative pinned set is poetry.lock,
+# installed by Poetry with hash verification.
 cat <<EOF
 ${info}
 

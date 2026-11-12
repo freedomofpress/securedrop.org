@@ -51,7 +51,7 @@
 		{% block body %}
 		{% endblock %}
 
-		{% if django_settings.ANALYTICS_ENABLED %}
+		{% if analytics_enabled %}
 			<script type="text/javascript" src="{% static 'js/piwik.js' %}"></script>
 			<noscript><p><img src="https://analytics.freedom.press/piwik.php?idsite=3" alt="" /></p></noscript>
 		{% endif %}
