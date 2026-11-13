@@ -78,7 +78,7 @@ jobs:
           persist-credentials: false
 
       - name: Install just
-        uses: taiki-e/install-action@1e29709c0ec63babbe8f266397a465f29a825f91 # v2.87.31
+        uses: taiki-e/install-action@1919c4a95903d2c33e4a221102edca87309fc14b # v2.89.0
         with:
           tool: just
 
@@ -157,7 +157,7 @@ jobs:
           docker image tag "$IMAGE_NODE_URL" localhost/securedroporg-node
 
       - name: Install just
-        uses: taiki-e/install-action@1e29709c0ec63babbe8f266397a465f29a825f91 # v2.87.31
+        uses: taiki-e/install-action@1919c4a95903d2c33e4a221102edca87309fc14b # v2.89.0
         with:
           tool: just
 
@@ -278,7 +278,7 @@ jobs:
           rm -rf "$RUNNER_TEMP/images"
 
       - name: Install just
-        uses: taiki-e/install-action@1e29709c0ec63babbe8f266397a465f29a825f91 # v2.87.31
+        uses: taiki-e/install-action@1919c4a95903d2c33e4a221102edca87309fc14b # v2.89.0
         with:
           tool: just
 
