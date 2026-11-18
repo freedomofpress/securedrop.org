@@ -1,18 +1,21 @@
 version: 2
-updates:
-  - package-ecosystem: 'github-actions'
-    directory: '/'
+
+multi-ecosystem-groups:
+  ci-infrastructure:
     schedule:
       interval: 'weekly'
       day: 'sunday'
+
+updates:
+  - package-ecosystem: 'github-actions'
+    directory: '/'
+    multi-ecosystem-group: 'ci-infrastructure'
     cooldown:
       default-days: 7
 
   - package-ecosystem: 'pre-commit'
     directory: '/'
-    schedule:
-      interval: 'weekly'
-      day: 'sunday'
+    multi-ecosystem-group: 'ci-infrastructure'
     cooldown:
       default-days: 7
     ignore:
