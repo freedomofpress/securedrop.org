@@ -22,7 +22,7 @@
 - Python 3.14, Django 5.2+, Wagtail 7.4+
 - PostgreSQL 17
 - Webpack (frontend)
-- ESLint, Prettier, Stylelint (stylelint-config-standard-scss)
+- ESLint, Prettier and Stylelint, extending shared configs from fpf-wagtail-common
 - Ruff (primary linter)
 
 ## Development
