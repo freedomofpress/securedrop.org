@@ -10,12 +10,14 @@ updates:
   - package-ecosystem: 'github-actions'
     directory: '/'
     multi-ecosystem-group: 'ci-infrastructure'
+    patterns: ['*']
     cooldown:
       default-days: 7
 
   - package-ecosystem: 'pre-commit'
     directory: '/'
     multi-ecosystem-group: 'ci-infrastructure'
+    patterns: ['*']
     cooldown:
       default-days: 7
     ignore:
