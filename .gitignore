@@ -58,3 +58,6 @@ e2e/test-results/
 e2e/blob-report/
 # saved SSO session state for targeting gated environments (live tokens)
 e2e/.auth/
+
+# Upstream packages checked out for in-place development
+develop-pkgs/

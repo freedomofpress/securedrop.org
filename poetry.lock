@@ -1259,6 +1259,24 @@ packaging = ">=20"
 platformdirs = ">=4.3.6"
 
 [[package]]
+name = "fpf-wagtail-common"
+version = "0.4.0"
+description = "Shared Wagtail extensions for Freedom of the Press Foundation"
+optional = false
+python-versions = ">=3.14"
+groups = ["main"]
+files = [
+    {file = "fpf_wagtail_common-0.4.0-py3-none-any.whl", hash = "sha256:47e7b0203c9b439f4310791575a891c4986f1e407c394e4bef881adac3ba4197"},
+]
+
+[package.dependencies]
+wagtail = ">=7.4,<8"
+
+[package.source]
+type = "url"
+url = "https://github.com/freedomofpress/fpf-wagtail-common/releases/download/v0.4.0/fpf_wagtail_common-0.4.0-py3-none-any.whl"
+
+[[package]]
 name = "google-api-core"
 version = "2.44.0"
 description = "Google API client core library"
@@ -3893,4 +3911,4 @@ test = ["pytest"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.14,<3.15"
-content-hash = "154725ddd50fbeb2376eb97473906a32fd10f0b09a097156195c9e7d4f95538d"
+content-hash = "1137780f9ef680f963e77e246fa73114479d4b26c79422a72b737ff3df776b05"
